@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Ng2BootstrapModule } from 'ng2-bootstrap';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -49,7 +49,7 @@ type StoreType = {
     FormsModule,
     HttpModule,
     RouterModule.forRoot(ROUTES, { useHash: true }),
-    NgbModule.forRoot()
+    Ng2BootstrapModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,

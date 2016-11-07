@@ -11,10 +11,40 @@
   <div class="row">
     <div class="col-lg-12 text-center">
       <div>
-        For hot module reloading run
-        <pre>npm run start:hmr</pre>
+        <pre class="card card-block card-header">Selected date is: <em *ngIf="dt">{{ getDate() | date:'fullDate'}}</em></pre>
+        <h4>Inline</h4>
+        <div style="display:inline-block; min-height:290px;">
+          <datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="true"></datepicker>
+        </div>
+
+        <hr />
+        <button type="button" class="btn btn-sm btn-info" (click)="today()">Today</button>
+        <button type="button" class="btn btn-sm btn-default btn-secondary" (click)="d20090824();">2009-08-24</button>
+        <button type="button" class="btn btn-sm btn-danger" (click)="clear()">Clear</button>
+        <button type="button" class="btn btn-sm btn-default btn-secondary" (click)="toggleMin()" tooltip="After today restriction">Min date</button>
       </div>
     </div>
+
+    <hr>
+
+    <button class="btn btn-primary" (click)="lgModal.show()">Large modal</button>
+
+    <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            <h4 class="modal-title">Large modal</h4>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <hr>
@@ -30,8 +60,8 @@
 
         <button md-raised-button color="primary">Submit Value</button>
       </form>
-      <div class="col-lg-6"> 
-         <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>
+      <div class="col-lg-6">
+        <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>
       </div>
       <!--
         <input type="text" [value]="localState.value" (input)="localState.value = $event.target.value" autofocus>
@@ -43,65 +73,8 @@
       <pre>this.localState = {{ localState | json }}</pre>
     </div>
   </div>
-  
+
   <hr>
-
-  <div class="row">
-    <div class="col-lg-6 text-center">
-      <template ngbModalContainer #content let-c="close" let-d="dismiss">
-        <div class="modal-header">
-          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-          <h4 class="modal-title">Modal title</h4>
-        </div>
-        <div class="modal-body">
-          <p>One fine body&hellip;</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-        </div>
-      </template>
-
-      <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
-
-      <pre>{{closeResult}}</pre>
-    </div>
-
-    <div class="col-lg-6">
-      <ngb-tabset>
-        <ngb-tab title="Tab 1 Simple">
-          <template ngbTabContent>
-            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
-              master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
-              dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum
-              iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
-          </template>
-        </ngb-tab>
-        <ngb-tab>
-          <template ngbTabTitle><b>Tab 2 Fancy</b></template>
-          <template ngbTabContent>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.
-            <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table
-              craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
-              vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica
-              VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit,
-              sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown,
-              tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
-          </template>
-        </ngb-tab>
-        <ngb-tab title="Disabled" [disabled]="true">
-          <template ngbTabContent>
-            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
-              master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
-              dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum
-              iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
-          </template>
-        </ngb-tab>
-      </ngb-tabset>
-    </div>
-  </div>
-  <hr>
-
 
 
 

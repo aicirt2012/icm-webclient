@@ -1,7 +1,7 @@
 /*
  * Angular 2 decorators and services
  */
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, ViewContainerRef } from '@angular/core';
 
 import { AppState } from './app.service';
 
@@ -16,6 +16,33 @@ import { AppState } from './app.service';
     './app.component.css'
   ],
   template: `
+
+ <nav>
+      <span>
+        <a [routerLink]=" ['./'] ">
+          Index
+        </a>
+      </span>
+      |
+      <span>
+        <a [routerLink]=" ['./home'] ">
+          Home
+        </a>
+      </span>
+      |
+      <span>
+        <a [routerLink]=" ['./detail'] ">
+          Detail
+        </a>
+      </span>
+      |
+      <span>
+        <a [routerLink]=" ['./about'] ">
+          About
+        </a>
+      </span>
+    </nav>
+
     <main>
       <router-outlet></router-outlet>
     </main>
@@ -34,10 +61,11 @@ export class AppComponent {
   angularclassLogo = 'assets/img/angularclass-avatar.png';
   name = 'Angular 2 Webpack Starter';
   url = 'https://twitter.com/AngularClass';
+  private viewContainerRef: ViewContainerRef;
 
   constructor(
-    public appState: AppState) {
-
+    public appState: AppState, viewContainerRef: ViewContainerRef) {
+    this.viewContainerRef = viewContainerRef;
   }
 
   ngOnInit() {
