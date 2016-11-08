@@ -4,7 +4,7 @@ import { AppState } from '../app.service';
 import { Title } from './title';
 import { XLarge } from './x-large';
 import * as moment from 'moment';
-
+import { ModalDirective } from 'ng2-bootstrap';
 
 @Component({
   // The selector is what angular internally uses
