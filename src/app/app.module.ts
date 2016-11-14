@@ -19,7 +19,7 @@ import { HomeComponent } from './home';
 import { AboutComponent } from './about';
 import { NoContentComponent } from './no-content';
 import { XLarge } from './home/x-large';
-import {Angular2FlexModule} from 'angular2-flex'; 
+import {Angular2FlexModule} from 'angular2-flex';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -43,15 +43,15 @@ type StoreType = {
     AboutComponent,
     HomeComponent,
     NoContentComponent,
-    XLarge,
-    Angular2FlexModule.forRoot()
+    XLarge
   ],
   imports: [ // import Angular's modules
     BrowserModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot(ROUTES, { useHash: true }),
-    Ng2BootstrapModule
+    Ng2BootstrapModule,
+    Angular2FlexModule.forRoot()
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
