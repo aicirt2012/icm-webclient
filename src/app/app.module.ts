@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { Ng2BootstrapModule } from 'ng2-bootstrap';
+import { Angular2FlexModule } from 'angular2-flex';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -19,9 +20,6 @@ import { HomeComponent } from './home';
 import { AboutComponent } from './about';
 import { NoContentComponent } from './no-content';
 import { XLarge } from './home/x-large';
-import { FlexDirective } from './share/flex.directive';
-import { LayoutDirective } from './share/layout.directive';
-import { AlignDirective } from './share/align.directive.ts';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -45,17 +43,15 @@ type StoreType = {
     AboutComponent,
     HomeComponent,
     NoContentComponent,
-    XLarge,
-    FlexDirective,
-    LayoutDirective,
-    AlignDirective
+    XLarge
   ],
   imports: [ // import Angular's modules
     BrowserModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot(ROUTES, { useHash: true }),
-    Ng2BootstrapModule
+    Ng2BootstrapModule,
+    Angular2FlexModule.forRoot()
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
