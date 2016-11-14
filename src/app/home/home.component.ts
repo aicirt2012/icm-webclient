@@ -7,17 +7,11 @@ import * as moment from 'moment';
 import { ModalDirective } from 'ng2-bootstrap';
 
 @Component({
-  // The selector is what angular internally uses
-  // for `document.querySelectorAll(selector)` in our index.html
-  // where, in this case, selector is the string 'home'
   selector: 'home',  // <home></home>
-  // We need to tell Angular's Dependency Injection which providers are in our app.
   providers: [
     Title
   ],
-  // Our list of styles in our component. We may add more to compose many styles together
   styleUrls: ['./home.component.css'],
-  // Every Angular template is first compiled by the browser before Angular runs it's compiler
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
@@ -35,6 +29,8 @@ export class HomeComponent {
     formatYear: 'YY',
     startingDay: 1
   };
+  public test: string;
+  
   private opened: boolean = false;
   // TypeScript public modifiers
   constructor(public appState: AppState, public title: Title) {
@@ -45,49 +41,50 @@ export class HomeComponent {
       { date: this.tomorrow, status: 'full' },
       { date: this.afterTomorrow, status: 'partially' }
     ];
+    this.test = "hi";
   }
 
   public getDate():number {
     return this.dt && this.dt.getTime() || new Date().getTime();
   }
- 
+
   public today():void {
     this.dt = new Date();
   }
- 
+
   public d20090824():void {
     this.dt = moment('2009-08-24', 'YYYY-MM-DD').toDate();
   }
- 
+
   // todo: implement custom class cases
   public getDayClass(date:any, mode:string):string {
     if (mode === 'day') {
       let dayToCheck = new Date(date).setHours(0, 0, 0, 0);
- 
+
       for (let i = 0; i < this.events.length; i++) {
         let currentDay = new Date(this.events[i].date).setHours(0, 0, 0, 0);
- 
+
         if (dayToCheck === currentDay) {
           return this.events[i].status;
         }
       }
     }
- 
+
     return '';
   }
- 
+
   public disabled(date:Date, mode:string):boolean {
     return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
   }
- 
+
   public open():void {
     this.opened = !this.opened;
   }
- 
+
   public clear():void {
     this.dt = void 0;
   }
- 
+
   public toggleMin():void {
     this.dt = new Date(this.minDate.valueOf());
   }
@@ -95,14 +92,14 @@ export class HomeComponent {
   public showChildModal():void {
     this.childModal.show();
   }
- 
+
   public hideChildModal():void {
     this.childModal.hide();
   }
 
   ngOnInit() {
     console.log('hello `Home` component');
-    // this.title.getData().subscribe(data => this.data = data);
+
   }
 
   submitState(value: string) {

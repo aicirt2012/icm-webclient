@@ -1,5 +1,6 @@
-<div class="card-container padding">
-
+<!-- <div class="card-container padding">
+    <input [(ngModel)]="test">
+    <p>{{test}}</p>
   <div class="row">
     <div class="col-lg-12 text-center">
       <h1 x-large class="sample-content">Email-Webclient Angular 2</h1>
@@ -63,12 +64,6 @@
       <div class="col-lg-6">
         <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>
       </div>
-      <!--
-        <input type="text" [value]="localState.value" (input)="localState.value = $event.target.value" autofocus>
-        Rather than wiring up two-way data-binding ourselves with [value] and (input)
-        we can use Angular's [(ngModel)] syntax
-        <input type="text" name="textInput" [(ngModel)]="localState.value" autofocus>
-      -->
 
       <pre>this.localState = {{ localState | json }}</pre>
     </div>
@@ -78,4 +73,9 @@
 
 
 
+</div> -->
+
+<div flex layout="column" style="-webkit-align-items: center;align-items: center;-webkit-justify-content: center;justify-content: center;">
+  <div>First item in row</div>
+  <div>Second item in row</div>
 </div>
