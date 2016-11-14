@@ -19,6 +19,7 @@ import { HomeComponent } from './home';
 import { AboutComponent } from './about';
 import { NoContentComponent } from './no-content';
 import { XLarge } from './home/x-large';
+import {Angular2FlexModule} from 'angular2-flex'; 
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -42,7 +43,8 @@ type StoreType = {
     AboutComponent,
     HomeComponent,
     NoContentComponent,
-    XLarge
+    XLarge,
+    Angular2FlexModule.forRoot()
   ],
   imports: [ // import Angular's modules
     BrowserModule,
@@ -95,4 +97,3 @@ export class AppModule {
   }
 
 }
-
