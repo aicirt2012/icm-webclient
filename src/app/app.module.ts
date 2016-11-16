@@ -6,6 +6,9 @@ import { RouterModule } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { Ng2BootstrapModule } from 'ng2-bootstrap';
 import { Angular2FlexModule } from 'angular2-flex';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
+
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -26,6 +29,14 @@ const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
   AppState
 ];
+
+const LocalStorageConfig = {
+  provide: LOCAL_STORAGE_SERVICE_CONFIG,
+  useValue: {
+    prefix: '',
+    storageType: 'localStorage'
+  }
+};
 
 type StoreType = {
   state: InternalStateType,
@@ -55,7 +66,10 @@ type StoreType = {
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
-    APP_PROVIDERS
+    APP_PROVIDERS,
+    CookieService,
+    LocalStorageService,
+    LocalStorageConfig
   ]
 })
 export class AppModule {
