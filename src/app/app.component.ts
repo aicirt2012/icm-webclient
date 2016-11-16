@@ -67,7 +67,7 @@ export class AppComponent {
     public appState: AppState, viewContainerRef: ViewContainerRef, private _cookieService: CookieService, private _localStorageService: LocalStorageService) {
     this.viewContainerRef = viewContainerRef;
     if (_cookieService.get('email-oauth')) {
-      _localStorageService.add('email-oauth', _cookieService.get('email-oauth'));
+      _localStorageService.add('email-jwt', _cookieService.get('email-oauth'));
       _cookieService.remove('email-oauth');
     }
   }
