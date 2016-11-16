@@ -17,11 +17,15 @@ import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 import { HomeComponent } from './home';
 import { AboutComponent } from './about';
+import { NavBarComponent } from './home/navbar';
+import { ListComponent } from './home/list';
+import { DetailedViewComponent } from './home/detailedView';
+import { TaskListComponent } from './home/taskList';
 import { NoContentComponent } from './no-content';
 import { XLarge } from './home/x-large';
 import { FlexDirective } from './share/flex.directive';
 import { LayoutDirective } from './share/layout.directive';
-import { AlignDirective } from './share/align.directive.ts';
+import { AlignDirective } from './share/align.directive';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -44,6 +48,10 @@ type StoreType = {
     AppComponent,
     AboutComponent,
     HomeComponent,
+    NavBarComponent,
+    ListComponent,
+    DetailedViewComponent,
+    TaskListComponent,
     NoContentComponent,
     XLarge,
     FlexDirective,

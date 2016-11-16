@@ -15,8 +15,8 @@ import { AppState } from './app.service';
   styleUrls: [
     './app.component.css'
   ],
-  template: `
-
+  template: `<router-outlet></router-outlet>
+<!--
  <nav>
       <span>
         <a [routerLink]=" ['./'] ">
@@ -54,7 +54,7 @@ import { AppState } from './app.service';
           <img [src]="angularclassLogo" width="25%">
         </a>
       </div>
-    </footer>
+    </footer>-->
   `
 })
 export class AppComponent {

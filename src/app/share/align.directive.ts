@@ -14,7 +14,7 @@ export class AlignDirective {
   }
 
   // TODO: think about how to make this dynamic
-  @HostBinding(`class.layout-align-${this.horizontal}-${this.vertical}`)
+//  @HostBinding(`class.layout-align-${this.horizontal}-${this.vertical}`)
   get alignment() {
     return true;
   }

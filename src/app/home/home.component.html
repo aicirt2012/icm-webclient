@@ -70,12 +70,20 @@
   </div>
 
   <hr>
-
-
-
 </div> -->
 
-<div flex layout="column" style="-webkit-align-items: center;align-items: center;-webkit-justify-content: center;justify-content: center;">
-  <div>First item in row</div>
-  <div>Second item in row</div>
+<div layout="row">
+  <div flex="12" class="navigation">
+    <navbar></navbar>
+  </div>
+  <div flex="23">
+    <list></list>
+  </div>
+  <!-- style="-webkit-align-items: center;align-items: center;-webkit-justify-content: center;justify-content: center;" -->
+  <div flex="40">
+    <detailedView></detailedView>
+  </div>
+  <div flex="25">
+    <taskList></taskList>
+  </div>
 </div>

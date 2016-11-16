@@ -1,0 +1,28 @@
+/*styles detailed view content only*/
+
+.padding {
+  padding: 8px;
+}
+
+.full button span {
+  background-color: ab9ba9;
+  border-radius: 32px;
+  color: black;
+}
+
+.partially button span {
+  background-color: orange;
+  border-radius: 32px;
+  color: black;
+}
+
+.navbar {
+  margin-bottom: 0px;
+}
+
+.mailContainer {
+  margin-left:10px;
+  margin-right:10px;
+  margin-top:10px;
+  margin-bottom: 10px;
+}

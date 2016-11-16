@@ -13,14 +13,14 @@ export class FlexDirective {
     return `${this.grow} ${this.shrink} ${this.flex === '' ? '0' : this.flex}%`;
   }
 
-  @HostBinding('style.display')
+/*  @HostBinding('style.display')
   get displayWebkit() {
     return '-webkit-flex';
-  }
-  
-  @HostBinding('style.display')
+  }*/
+
+  /*@HostBinding('style.display')
   get display() {
     return 'flex';
-  }
+  }*/
 
 }

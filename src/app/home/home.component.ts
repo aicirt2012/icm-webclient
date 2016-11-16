@@ -5,6 +5,7 @@ import { Title } from './title';
 import { XLarge } from './x-large';
 import * as moment from 'moment';
 import { ModalDirective } from 'ng2-bootstrap';
+import { NavBarComponent } from './navbar';
 
 @Component({
   selector: 'home',  // <home></home>
@@ -15,7 +16,7 @@ import { ModalDirective } from 'ng2-bootstrap';
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
-  @ViewChild('childModal') public childModal:ModalDirective;
+  //@ViewChild('childModal') public childModal:ModalDirective;
   // Set our default values
   localState = { value: '' };
   public dt: Date = new Date();
@@ -30,7 +31,7 @@ export class HomeComponent {
     startingDay: 1
   };
   public test: string;
-  
+
   private opened: boolean = false;
   // TypeScript public modifiers
   constructor(public appState: AppState, public title: Title) {
@@ -89,13 +90,13 @@ export class HomeComponent {
     this.dt = new Date(this.minDate.valueOf());
   }
 
-  public showChildModal():void {
+/*  public showChildModal():void {
     this.childModal.show();
   }
 
   public hideChildModal():void {
     this.childModal.hide();
-  }
+  }*/
 
   ngOnInit() {
     console.log('hello `Home` component');

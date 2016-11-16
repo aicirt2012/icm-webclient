@@ -1,11 +1,11 @@
-/*styles for home content only*/
+/*styles list content only*/
 
 .padding {
   padding: 8px;
 }
 
 .full button span {
-  background-color: limegreen;
+  background-color: ab9ba9;
   border-radius: 32px;
   color: black;
 }
@@ -16,7 +16,12 @@
   color: black;
 }
 
-.navigation {
-  background-color: rgb(51, 51, 51);
-  color: white;
+.mailList {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: auto;
+}
+
+.navbar {
+  margin-bottom: 0px;
 }
