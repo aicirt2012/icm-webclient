@@ -16,7 +16,9 @@ import { NavBarComponent } from './navbar';
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
-  //@ViewChild('childModal') public childModal:ModalDirective;
+
+//  @ViewChild('childModal') public childModal: ModalDirective;
+
   // Set our default values
   localState = { value: '' };
   public dt: Date = new Date();
@@ -45,20 +47,20 @@ export class HomeComponent {
     this.test = "hi";
   }
 
-  public getDate():number {
+  public getDate(): number {
     return this.dt && this.dt.getTime() || new Date().getTime();
   }
 
-  public today():void {
+  public today(): void {
     this.dt = new Date();
   }
 
-  public d20090824():void {
+  public d20090824(): void {
     this.dt = moment('2009-08-24', 'YYYY-MM-DD').toDate();
   }
 
   // todo: implement custom class cases
-  public getDayClass(date:any, mode:string):string {
+  public getDayClass(date: any, mode: string): string {
     if (mode === 'day') {
       let dayToCheck = new Date(date).setHours(0, 0, 0, 0);
 
@@ -74,30 +76,30 @@ export class HomeComponent {
     return '';
   }
 
-  public disabled(date:Date, mode:string):boolean {
-    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+  public disabled(date: Date, mode: string): boolean {
+    return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
   }
 
-  public open():void {
+  public open(): void {
     this.opened = !this.opened;
   }
 
-  public clear():void {
+  public clear(): void {
     this.dt = void 0;
   }
 
-  public toggleMin():void {
+  public toggleMin(): void {
     this.dt = new Date(this.minDate.valueOf());
   }
-
-/*  public showChildModal():void {
+/*
+  public showChildModal(): void {
     this.childModal.show();
   }
 
-  public hideChildModal():void {
+  public hideChildModal(): void {
     this.childModal.hide();
-  }*/
-
+  }
+*/
   ngOnInit() {
     console.log('hello `Home` component');
 
