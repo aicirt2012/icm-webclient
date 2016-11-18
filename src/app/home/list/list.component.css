@@ -25,3 +25,8 @@
 .navbar {
   margin-bottom: 0px;
 }
+
+.list-group-item-text {
+  max-height: 50px;
+  overflow: hidden;
+}

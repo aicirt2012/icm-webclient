@@ -26,6 +26,9 @@ import { DetailedViewComponent } from './home/detailedView';
 import { TaskListComponent } from './home/taskList';
 import { NoContentComponent } from './no-content';
 import { XLarge } from './home/x-large';
+import { EmailService } from './services/email.service';
+import { Email } from '../models/email.model';
+
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -76,7 +79,8 @@ type StoreType = {
     APP_PROVIDERS,
     CookieService,
     LocalStorageService,
-    LocalStorageConfig
+    LocalStorageConfig,
+    EmailService
   ]
 })
 export class AppModule {
