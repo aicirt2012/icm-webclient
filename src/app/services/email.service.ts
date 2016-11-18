@@ -13,13 +13,13 @@ export class EmailService {
 
   constructor(private _http: Http) {
     //at the moment use fixed token --> just login via postman and copy token
-    this.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlBldGVyIiwiaWF0IjoxNDc5NDYxNDI2LCJleHAiOjE0Nzk1NDc4MjZ9.T2ZHwe5A_wFE7cRnMtCBxIHY2DVNL9r3PTa8eEWmJ4w";
+    this.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjU4MmVlZWJkYWI3YTgxMTkxNDQ0YmM4NyIsInVzZXJuYW1lIjoiTWUiLCJlbWFpbCI6InBldGVyQG5pZWRlcm1laWVyLWVkLmRlIn0sImlhdCI6MTQ3OTQ3MDgxOCwiZXhwIjoxNDc5NTU3MjE4fQ.uvpSaLYYs-djgvq11DcpL3PqnPBdPSLSbuHs5YlX_yk";
     this.actionUrl = 'http://localhost:4000/api/email/';
 
     this.headers = new Headers();
     this.headers.append('Content-Type', 'application/json');
     this.headers.append('Accept', 'application/json');
-    this.headers.append('Authorization', 'Bearer ' + this.token);
+    this.headers.append('Authorization', 'JWT ' + this.token);
   }
 
   public getAllMails = (): Observable<Response> => {

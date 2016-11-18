@@ -20,7 +20,7 @@ import { EmailService } from '../services/email.service';
 export class HomeComponent {
 
   /* need model for email */
-  public emails: Email[];
+  //public emails: Email[];
   //public firstMail: Email;
 
   //  @ViewChild('childModal') public childModal: ModalDirective;
@@ -60,12 +60,6 @@ export class HomeComponent {
                 .subscribe((data:any) => this.emails = data,
                     error => console.log(error),
                     () => this.storeMails(this.emails));*/
-  }
-
-  public storeMails(data: any): void {
-    console.log('Get all Items complete');
-    console.log(this.emails);
-
   }
 
   submitState(value: string) {

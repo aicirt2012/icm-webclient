@@ -21,5 +21,6 @@ export class Email {
    },
   date: {
     type: Date;
-  }]
+  }
+}];
 }
