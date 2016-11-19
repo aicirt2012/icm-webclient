@@ -14,11 +14,13 @@ import { EmailService } from '../../services/email.service';
 export class ListComponent {
 
   public emails: Email[];
+  /* todo: Define type/class for boxes */
   public boxes: any;
 
   constructor(private emailService: EmailService) {
   }
 
+  /* todo: use Email class instead of any in .subscribe */
   ngOnInit() {
     console.log('hello `list` component');
     /* Default --> load inbox mails */
@@ -40,13 +42,9 @@ export class ListComponent {
 
   public loadSentEmails(): void {
     console.log('loading sent mails folder');
-    console.log(this);
     this.emailService
       .getAllMailsSend()
-      .subscribe((data: any) => {
-        console.log(this);
-        this.emails = data
-      },
+      .subscribe((data: any) => this.emails = data,
       error => console.log(error),
       () => console.log("Send mails successfully loaded"));
   }
@@ -67,10 +65,6 @@ export class ListComponent {
       .subscribe((data: any) => this.OnDataUpdate(data),
       error => console.log(error),
       () => console.log("success"));
-  }
-
-  public changeValue(): void {
-    this.emails = [];
   }
 
   public OnDataUpdate: any = (data: any): void => {

@@ -5,10 +5,7 @@
 }
 
 .mailButton {
-  margin-top: 15px;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-bottom: 15px;
+  margin: 15px 10px;
   color: white;
   background-color: #168c40;
   border-color: #168c40;
