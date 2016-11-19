@@ -10,6 +10,7 @@ import { EmailService } from '../../services/email.service';
   styleUrls: ['./list.component.css'],
   templateUrl: './list.component.html'
 })
+
 export class ListComponent {
 
   public emails: Email[];
@@ -39,9 +40,13 @@ export class ListComponent {
 
   public loadSentEmails(): void {
     console.log('loading sent mails folder');
+    console.log(this);
     this.emailService
       .getAllMailsSend()
-      .subscribe((data: any) => this.emails = data,
+      .subscribe((data: any) => {
+        console.log(this);
+        this.emails = data
+      },
       error => console.log(error),
       () => console.log("Send mails successfully loaded"));
   }
@@ -56,14 +61,21 @@ export class ListComponent {
   }
 
   public loadTrashEmails(): void {
-    this.emails = [];
     console.log('loading trash mails folder');
     this.emailService
       .getAllMailsTrash()
-      .subscribe((data: any) => this.emails = data,
+      .subscribe((data: any) => this.OnDataUpdate(data),
       error => console.log(error),
-      () => console.log("Trash mails successfully loaded"));
-    console.log("emails");
+      () => console.log("success"));
+  }
+
+  public changeValue(): void {
+    this.emails = [];
+  }
+
+  public OnDataUpdate: any = (data: any): void => {
+    console.log(data);
+    this.emails = data;
     console.log(this.emails);
   }
 

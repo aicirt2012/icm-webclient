@@ -4,13 +4,12 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li>
-            <a href="#">From:</a>
+            <a (click)="changeValue()" href="#">From:</a>
           </li>
       </ul>
     </div>
   </div>
   </nav>
-  {{emails}}
   <a *ngFor="let mail of emails; let i = index" flex layout="row" style="display:flex" href="#" class="list-group-item">
     <div flex="5">
       <label>
