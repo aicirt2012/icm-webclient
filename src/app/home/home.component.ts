@@ -47,8 +47,6 @@ export class HomeComponent {
   */
   ngOnInit() {
     console.log('hello `Home` component');
-    console.log("now start email service");
-
     /*this.emailService
       .getAllMailsInbox()
       .subscribe((data: any) => this.emails = data,

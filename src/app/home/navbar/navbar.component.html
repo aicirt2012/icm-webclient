@@ -1,12 +1,35 @@
-<div  class="navbar">
+<div class="navbar">
   <div style="text-align: center;">
-    <button type="button" class="mailButton btn btn-default">COMPOSE NEW MAIL <span class="glyphicon glyphicon-edit"></span></button>
+    <button type="button" class="mailButton btn btn-default">COMPOSE NEW MAIL
+      <span class="glyphicon glyphicon-edit"></span>
+    </button>
   </div>
-<ul class="nav nav-pills nav-stacked">
-  <li role="presentation" class="active"><a href="#"><span style="margin-right: 5px;" class="glyphicon glyphicon-home"></span>Inbox  <span class="badge" style="background-color: #ce3434;color: white;">14</span></a> </li>
-  <li role="presentation"><a class="listitems"href="#"><span style="margin-right: 5px;" class="glyphicon glyphicon-star"></span>Starred</a></li>
-  <li role="presentation"><a class="listitems" href="#"><span style="margin-right: 5px;" class="glyphicon glyphicon-envelope"></span>Sent Emails</a></li>
-  <li role="presentation"><a class="listitems"href="#"><span style="margin-right: 5px;" class="glyphicon glyphicon-file"></span>Drafts <span class="badge" style="background-color: black;color: white;">3</span></a></li>
-  <li role="presentation"><a class="listitems" href="#"><span style="margin-right: 5px;" class="glyphicon glyphicon-trash"></span>Trash <span class="badge" style="background-color: black;color: white;">46</span></a></li>
-</ul>
+  <ul class="nav nav-pills nav-stacked">
+    <li role="presentation" class="active">
+      <a class="listitems" (click)="loadInboxEmails()" href="#">
+        <span style="margin-right: 5px;" class="glyphicon glyphicon-home"></span>Inbox
+        <span class="badge" style="background-color: #ce3434;color: white;">5</span>
+      </a>
+    </li>
+    <li role="presentation">
+      <a class="listitems" href="#">
+        <span style="margin-right: 5px;" class="glyphicon glyphicon-star"></span>Starred</a>
+    </li>
+    <li role="presentation">
+      <a class="listitems" (click)="loadSentEmails()" href="#">
+        <span style="margin-right: 5px;" class="glyphicon glyphicon-envelope"></span>Sent Emails</a>
+    </li>
+    <li role="presentation">
+      <a class="listitems" (click)="loadDraftEmails()" href="#">
+        <span style="margin-right: 5px;" class="glyphicon glyphicon-file"></span>Drafts
+        <span class="badge" style="background-color: black;color: white;">3</span>
+      </a>
+    </li>
+    <li role="presentation">
+      <a class="listitems" (click)="loadTrashEmails()" href="#">
+        <span style="margin-right: 5px;" class="glyphicon glyphicon-trash"></span>Trash
+        <span class="badge" style="background-color: black;color: white;">46</span>
+      </a>
+    </li>
+  </ul>
 </div>
