@@ -13,7 +13,7 @@ export class EmailService {
 
   constructor(private _http: Http) {
     //at the moment use fixed token --> just login via postman and copy token
-    this.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjU4MmVlZWJkYWI3YTgxMTkxNDQ0YmM4NyIsInVzZXJuYW1lIjoiTWUiLCJlbWFpbCI6InBldGVyQG5pZWRlcm1laWVyLWVkLmRlIn0sImlhdCI6MTQ3OTU1MDQ3NiwiZXhwIjoxNDc5NjM2ODc2fQ.MZe0yt8LyWXfuMLEwZNg4D_a7Lhw0Fi2eDp5TvGL3kw";
+    this.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjU4MmYzYjI1OGIwOTY5Mjg0NGM2NTc0NSIsInVzZXJuYW1lIjoiUGV0ZXIiLCJlbWFpbCI6InBldGVyQG5pZWRlcm1laWVyLWVkLmRlIn0sImlhdCI6MTQ3OTcyMjU3NiwiZXhwIjoxNDc5ODA4OTc2fQ.CiC4qJAYMRM8cZZ3INvSex0nVBvm-caiKKqvPnR4D3o";
     this.actionUrl = 'http://localhost:4000/api/email/';
 
     this.headers = new Headers();

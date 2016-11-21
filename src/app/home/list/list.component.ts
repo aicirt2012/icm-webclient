@@ -33,6 +33,7 @@ export class ListComponent {
 
   public loadInboxEmails(): void {
     console.log('loading inbox mails folder');
+    console.log(this.emails);
     this.emailService
       .getAllMailsInbox()
       .subscribe((data: any) => this.emails = data,
