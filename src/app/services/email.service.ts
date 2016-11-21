@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Http, Response, Headers} from '@angular/http';
-import 'rxjs/add/operator/map'
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import {Email} from './models/email.model';
+import {Email} from '../models';
+import {AuthService} from './auth.service';
 
 @Injectable()
 export class EmailService {
@@ -10,24 +10,27 @@ export class EmailService {
   private actionUrl: string;
   private headers: Headers;
   private token: string;
+  private baseUrl:string = 'http://localhost:4000/api/email/';
 
-  constructor(private _http: Http) {
-    //at the moment use fixed token --> just login via postman and copy token
-    this.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjU4MmYzYjI1OGIwOTY5Mjg0NGM2NTc0NSIsInVzZXJuYW1lIjoiUGV0ZXIiLCJlbWFpbCI6InBldGVyQG5pZWRlcm1laWVyLWVkLmRlIn0sImlhdCI6MTQ3OTcyMjU3NiwiZXhwIjoxNDc5ODA4OTc2fQ.CiC4qJAYMRM8cZZ3INvSex0nVBvm-caiKKqvPnR4D3o";
-    this.actionUrl = 'http://localhost:4000/api/email/';
-
-    this.headers = new Headers();
-    this.headers.append('Content-Type', 'application/json');
-    this.headers.append('Accept', 'application/json');
-    this.headers.append('Authorization', 'JWT ' + this.token);
+  constructor(private _http: Http, private _auth: AuthService) {
+  }
+  
+  getEmails(): Observable<Email[]> {
+    // add authorization header with jwt token
+    const headers = new Headers({ 'Authorization': `JWT ${this._auth.token}` });
+    const options = new RequestOptions({ headers: headers });
+    return this._http.get(`${this.baseUrl}inBox`, options)
+      .map((response: Response) => response.json());
   }
 
   public getAllMails = (): Observable<Response> => {
-    return this._http.get(this.actionUrl, { headers: this.headers }).map(res => res.json());
+    const req = this._http.get(this.actionUrl, { headers: this.headers });
+    return req.map(res => res.json());
   }
 
   public getAllMailsInbox = (): Observable<Response> => {
-    return this._http.get(this.actionUrl + "inBox", { headers: this.headers }).map(res => res.json());
+    const req = this._http.get(this.actionUrl + 'inBox', { headers: this.headers });
+    return req.map(res => res.json());
   }
 
   public getAllMailsDraft = (): Observable<Response> => {

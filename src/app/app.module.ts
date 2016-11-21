@@ -7,7 +7,6 @@ import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularcla
 import { Ng2BootstrapModule } from 'ng2-bootstrap';
 import { Angular2FlexModule } from 'angular2-flex';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
-import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -18,31 +17,17 @@ import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
-import { HomeComponent } from './home';
-import { AboutComponent } from './about';
-import { NavBarComponent } from './home/navbar';
-import { ListComponent } from './home/list';
-import { DetailedViewComponent } from './home/detailedView';
-import { TaskListComponent } from './home/taskList';
-import { NoContentComponent } from './no-content';
-import { XLarge } from './home/x-large';
-import { EmailService } from './services/email.service';
-import { Email } from '../models/email.model';
-
+// Self-written classes
+import { HomeComponent, NoContentComponent, ProfileComponent, LoginComponent } from './pages';
+import { NavBarComponent, ListComponent, DetailedViewComponent, TaskListComponent } from './components';
+import { AuthService, EmailService } from './services';
+import { Email, User } from './models';
 
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
   AppState
 ];
-
-const LocalStorageConfig = {
-  provide: LOCAL_STORAGE_SERVICE_CONFIG,
-  useValue: {
-    prefix: '',
-    storageType: 'localStorage'
-  }
-};
 
 type StoreType = {
   state: InternalStateType,
@@ -57,14 +42,16 @@ type StoreType = {
   bootstrap: [AppComponent],
   declarations: [
     AppComponent,
-    AboutComponent,
+    // pages
     HomeComponent,
+    ProfileComponent,
+    LoginComponent,
+    NoContentComponent,
+    // components
     NavBarComponent,
     ListComponent,
     DetailedViewComponent,
-    TaskListComponent,
-    NoContentComponent,
-    XLarge
+    TaskListComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
@@ -77,10 +64,11 @@ type StoreType = {
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS,
+    // external
     CookieService,
-    LocalStorageService,
-    LocalStorageConfig,
-    EmailService
+    // services
+    EmailService,
+    AuthService
   ]
 })
 export class AppModule {

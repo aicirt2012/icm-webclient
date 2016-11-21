@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap';
-import { ListComponent } from '../list/list.component';
+import { ListComponent } from '../list';
 
 @Component({
   selector: 'navbar',  // <navbar></navbar>

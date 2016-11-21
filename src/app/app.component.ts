@@ -1,6 +1,5 @@
 import { Component, ViewEncapsulation, ViewContainerRef } from '@angular/core';
 import { CookieService } from 'angular2-cookie/core';
-import { LocalStorageService } from 'angular-2-local-storage';
 import { AppState } from './app.service';
 
 @Component({
@@ -58,10 +57,10 @@ export class AppComponent {
   private viewContainerRef: ViewContainerRef;
 
   constructor(
-    public appState: AppState, viewContainerRef: ViewContainerRef, private _cookieService: CookieService, private _localStorageService: LocalStorageService) {
+    public appState: AppState, viewContainerRef: ViewContainerRef, private _cookieService: CookieService) {
     this.viewContainerRef = viewContainerRef;
     if (_cookieService.get('email-oauth')) {
-      _localStorageService.add('email-jwt', _cookieService.get('email-oauth'));
+      localStorage.setItem('email-jwt', _cookieService.get('email-oauth'));
       _cookieService.remove('email-oauth');
     }
   }

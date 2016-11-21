@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap';
-import { Email } from '../models/email.model';
-import { EmailService } from '../../services/email.service';
+import { Email } from '../../models';
+import { EmailService } from '../../services';
 
 @Component({
   selector: 'list',  // <list></list>
@@ -13,7 +13,7 @@ import { EmailService } from '../../services/email.service';
 
 export class ListComponent {
 
-  public emails: Email[];
+  public emails: Email[] = [];
   /* todo: Define type/class for boxes */
   public boxes: any;
 
@@ -25,10 +25,12 @@ export class ListComponent {
     console.log('hello `list` component');
     /* Default --> load inbox mails */
     this.emailService
-      .getAllMailsInbox()
-      .subscribe((data: any) => this.emails = data,
-      error => console.log(error),
-      () => console.log("Inbox mails successfully loaded"));
+      .getEmails()
+      .subscribe((data: Email[]) => { this.emails = data },
+      error => {
+          console.log(error)
+      },
+      () => { console.log("Inbox mails successfully loaded") });
   }
 
   public loadInboxEmails(): void {
@@ -69,7 +71,7 @@ export class ListComponent {
   }
 
   public OnDataUpdate: any = (data: any): void => {
-          this.emails = data;
+    this.emails = data;
   }
 
   public loadBoxes(): void {
