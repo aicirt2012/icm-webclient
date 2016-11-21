@@ -21,6 +21,7 @@ import { AppState, InternalStateType } from './app.service';
 import { HomeComponent, NoContentComponent, ProfileComponent, LoginComponent } from './pages';
 import { NavBarComponent, ListComponent, DetailedViewComponent, TaskListComponent } from './components';
 import { AuthService, EmailService } from './services';
+import { AuthGuard } from './app.authGuard';
 import { Email, User } from './models';
 
 // Application wide providers
@@ -67,6 +68,7 @@ type StoreType = {
     // external
     CookieService,
     // services
+    AuthGuard,
     EmailService,
     AuthService
   ]
