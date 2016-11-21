@@ -22,10 +22,10 @@ export class HomeComponent {
   /* todo: use Email class instead of any in .subscribe */
   ngOnInit() {
     console.log('hello `list` component');
-    /* Default --> load inbox mails */
+    this.loading = true;
     this.emailService
       .getEmails()
-      .subscribe((data: Email[]) => { this.emails = data },
+      .subscribe((data: Email[]) => { this.emails = data; this.loading = false; },
       error => {
         console.log(error)
       },
