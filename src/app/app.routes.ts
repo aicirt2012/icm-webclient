@@ -8,7 +8,7 @@ import { AuthGuard } from './app.authGuard';
 export const ROUTES: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   //{ path: 'unauthorized', component: UnauthorizedComponent }
   /*{
     path: 'detail', loadChildren: () => System.import('./+detail').then((comp: any) => {

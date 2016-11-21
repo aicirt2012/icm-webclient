@@ -1,12 +1,9 @@
 <div *ngIf="!loading" layout="row">
   <div flex="15" class="navigation">
-    <p>
-      <a [routerLink]="['/login']">Logout</a>
-    </p>
-    <navbar></navbar>
+    <navbar (onRefresh)="onRefresh($event)"></navbar>
   </div>
   <div flex="25">
-    <list [emails]="emails" (onRefresh)="onRefresh($event)"></list>
+    <list [emails]="emails"></list>
   </div>
   <div flex="40">
     <detailedView></detailedView>

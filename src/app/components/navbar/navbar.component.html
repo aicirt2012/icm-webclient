@@ -3,7 +3,11 @@
     <button type="button" class="mailButton btn btn-default">COMPOSE NEW MAIL
       <span class="glyphicon glyphicon-edit"></span>
     </button>
+    <button class="btn btn-default" (click)="refresh()">
+      <span class="glyphicon glyphicon-refresh"></span>
+    </button>
   </div>
+
   <ul class="nav nav-pills nav-stacked">
     <li role="presentation" class="active">
       <a class="listitems" (click)="loadInboxEmails()" href="#">
@@ -29,6 +33,17 @@
       <a class="listitems" (click)="loadTrashEmails()" href="#">
         <span style="margin-right: 5px;" class="glyphicon glyphicon-trash"></span>Trash
         <span class="badge" style="background-color: black;color: white;">46</span>
+      </a>
+    </li>
+    <hr>
+    <li role="presentation">
+      <a class="listitems" [routerLink]="['/profile']">
+        <span style="margin-right: 5px;" class="glyphicon glyphicon-user"></span>Account
+      </a>
+    </li>
+    <li role="presentation">
+      <a class="listitems" [routerLink]="['/login']">
+        <span style="margin-right: 5px;" class="glyphicon glyphicon-log-out"></span>Logout
       </a>
     </li>
   </ul>

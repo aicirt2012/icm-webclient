@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'navbar',  // <navbar></navbar>
@@ -9,12 +9,17 @@ import { ModalDirective } from 'ng2-bootstrap';
   templateUrl: './navbar.component.html'
 })
 export class NavBarComponent {
+  @Output() onRefresh = new EventEmitter<boolean>();
 
   constructor() {
   }
 
   ngOnInit() {
     console.log('hello `navbar` component');
+  }
+
+  refresh() {
+    this.onRefresh.emit(true);
   }
 
   // public loadInboxEmails() : void {

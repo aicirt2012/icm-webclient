@@ -13,13 +13,8 @@ import { Email } from '../../models';
 export class ListComponent {
 
   @Input() emails: Email[];
-  @Output() onRefresh = new EventEmitter<boolean>();
 
   constructor() {
-  }
-
-  refresh() {
-    this.onRefresh.emit(true);
   }
 
 }

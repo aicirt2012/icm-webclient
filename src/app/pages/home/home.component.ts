@@ -15,6 +15,7 @@ import { EmailService } from '../../services';
 export class HomeComponent {
 
   public emails: Email[] = [];
+  public loading: boolean = true;
 
   constructor(private emailService: EmailService, public appState: AppState) {
   }
