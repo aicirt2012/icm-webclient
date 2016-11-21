@@ -10,6 +10,9 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 })
 export class NavBarComponent {
   @Output() onRefresh = new EventEmitter<boolean>();
+  @Output() getEmailBox = new EventEmitter<string>();
+
+  public currentBox: string = '';
 
   constructor() {
   }
@@ -20,6 +23,11 @@ export class NavBarComponent {
 
   refresh() {
     this.onRefresh.emit(true);
+  }
+
+  getEmails(box?: string) {
+    this.currentBox = box;
+    this.getEmailBox.emit(box);
   }
 
   // public loadInboxEmails() : void {

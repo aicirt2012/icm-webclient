@@ -16,11 +16,11 @@ export class HomeComponent {
 
   public emails: Email[] = [];
   public loading: boolean = true;
+  private currentBox: string = '';
 
   constructor(private emailService: EmailService, public appState: AppState) {
   }
 
-  /* todo: use Email class instead of any in .subscribe */
   ngOnInit() {
     console.log('hello `list` component');
     this.loading = true;
@@ -34,7 +34,7 @@ export class HomeComponent {
   }
 
   onRefresh(refresh: boolean) {
-    console.log('refresh!');
+    console.log(`refresh...let's wait for 2 seconds...`);
     this.emails = [];
     setTimeout(() => {
       this.emailService
@@ -47,42 +47,53 @@ export class HomeComponent {
     }, 2000);
   }
 
-  public loadInboxEmails(): void {
-    console.log('loading inbox mails folder');
-    console.log(this.emails);
+  getEmailBox(box?: string) {
+    this.currentBox = box;
     this.emailService
-      .getAllMailsInbox()
-      .subscribe((data: any) => this.emails = data,
-      error => console.log(error),
-      () => console.log("Inbox mails successfully loaded"));
+      .getEmails(box)
+      .subscribe((data: Email[]) => { this.emails = data; },
+      error => {
+        console.log(error)
+      },
+      () => { console.log("Inbox mails successfully loaded") });
   }
 
-  public loadSentEmails(): void {
-    console.log('loading sent mails folder');
-    this.emailService
-      .getAllMailsSend()
-      .subscribe((data: any) => this.emails = data,
-      error => console.log(error),
-      () => console.log("Send mails successfully loaded"));
-  }
-
-  public loadDraftEmails(): void {
-    console.log('loading draft mails folder');
-    this.emailService
-      .getAllMailsDraft()
-      .subscribe((data: any) => this.emails = data,
-      error => console.log(error),
-      () => console.log("Draft mails successfully loaded"));
-  }
-
-  public loadTrashEmails(): void {
-    console.log('loading trash mails folder');
-    this.emailService
-      .getAllMailsTrash()
-      .subscribe((data: any) => this.OnDataUpdate(data),
-      error => console.log(error),
-      () => console.log("success"));
-  }
+  // public loadInboxEmails(): void {
+  //   console.log('loading inbox mails folder');
+  //   console.log(this.emails);
+  //   this.emailService
+  //     .getAllMailsInbox()
+  //     .subscribe((data: any) => this.emails = data,
+  //     error => console.log(error),
+  //     () => console.log("Inbox mails successfully loaded"));
+  // }
+  //
+  // public loadSentEmails(): void {
+  //   console.log('loading sent mails folder');
+  //   this.emailService
+  //     .getAllMailsSend()
+  //     .subscribe((data: any) => this.emails = data,
+  //     error => console.log(error),
+  //     () => console.log("Send mails successfully loaded"));
+  // }
+  //
+  // public loadDraftEmails(): void {
+  //   console.log('loading draft mails folder');
+  //   this.emailService
+  //     .getAllMailsDraft()
+  //     .subscribe((data: any) => this.emails = data,
+  //     error => console.log(error),
+  //     () => console.log("Draft mails successfully loaded"));
+  // }
+  //
+  // public loadTrashEmails(): void {
+  //   console.log('loading trash mails folder');
+  //   this.emailService
+  //     .getAllMailsTrash()
+  //     .subscribe((data: any) => this.OnDataUpdate(data),
+  //     error => console.log(error),
+  //     () => console.log("success"));
+  // }
 
   public OnDataUpdate: any = (data: any): void => {
     this.emails = data;
