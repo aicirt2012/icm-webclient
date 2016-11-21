@@ -1,21 +1,20 @@
-import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home';
-import { AboutComponent } from './about';
-//import { NavBarComponent } from './home/navbar';
-import { NoContentComponent } from './no-content';
-
+import { Routes, RouterModule, CanActivate, Router } from '@angular/router';
+import { HomeComponent, ProfileComponent, NoContentComponent, LoginComponent } from './pages';
+import { Injectable } from '@angular/core';
+import { AuthService } from './services';
 import { DataResolver } from './app.resolver';
-
+import { AuthGuard } from './app.authGuard';
 
 export const ROUTES: Routes = [
-  { path: '',      component: HomeComponent },
-  { path: 'home',  component: HomeComponent },
-  { path: 'about', component: AboutComponent },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
+  { path: 'profile', component: ProfileComponent },
+  //{ path: 'unauthorized', component: UnauthorizedComponent }
   /*{
     path: 'detail', loadChildren: () => System.import('./+detail').then((comp: any) => {
       return comp.default;
     })
     ,
   },*/
-  { path: '**',    component: NoContentComponent },
+  { path: '**', redirectTo: 'login' },
 ];

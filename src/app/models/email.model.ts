@@ -15,12 +15,12 @@ export class Email {
   date: Date;
   flags: string[];
   labels: string[];
-  tasks:[{
-   id: {
-     type: string;
-   },
-  date: {
-    type: Date;
-  }
-}];
+  tasks: [{
+    id: {
+      type: string;
+    },
+    date: {
+      type: Date;
+    }
+  }];
 }
