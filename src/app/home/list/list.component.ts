@@ -69,9 +69,7 @@ export class ListComponent {
   }
 
   public OnDataUpdate: any = (data: any): void => {
-    console.log(data);
-    this.emails = data;
-    console.log(this.emails);
+          this.emails = data;
   }
 
   public loadBoxes(): void {
