@@ -1,4 +1,4 @@
-<div layout="row">
+<div *ngIf="!loading" layout="row">
   <div flex="15" class="navigation">
     <p>
       <a [routerLink]="['/login']">Logout</a>
@@ -6,7 +6,7 @@
     <navbar></navbar>
   </div>
   <div flex="25">
-    <list></list>
+    <list [emails]="emails" (onRefresh)="onRefresh($event)"></list>
   </div>
   <div flex="40">
     <detailedView></detailedView>
@@ -14,4 +14,8 @@
   <div flex="20">
     <taskList></taskList>
   </div>
+</div>
+<div *ngIf="loading" class="spinner">
+  <div class="double-bounce1"></div>
+  <div class="double-bounce2"></div>
 </div>
