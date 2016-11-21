@@ -20,7 +20,7 @@ export class AuthService {
         let token = response.json() && response.json().token;
         if (token) {
           this.token = token;
-          localStorage.setItem('email-jwt', JSON.stringify({ username: username, token: token }));
+          localStorage.setItem('email-jwt', token);
           return true;
         } else {
           return false;
