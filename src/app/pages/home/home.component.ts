@@ -25,8 +25,8 @@ export class HomeComponent {
     console.log('hello `list` component');
     this.loading = true;
     this.emailService
-      .getEmails()
-      .subscribe((data: Email[]) => { this.emails = data; this.loading = false; },
+      .getEmails(['INBOX'])
+      .subscribe((data: any[]) => { this.emails = data[0]; this.loading = false; },
       error => {
         console.log(error)
       },
@@ -35,23 +35,13 @@ export class HomeComponent {
 
   onRefresh(refresh: boolean) {
     console.log(`refresh...let's wait for 2 seconds...`);
-    this.emails = [];
-    setTimeout(() => {
-      this.emailService
-        .getEmails()
-        .subscribe((data: Email[]) => { this.emails = data },
-        error => {
-          console.log(error)
-        },
-        () => { console.log("Inbox mails successfully loaded") });
-    }, 2000);
   }
 
   getEmailBox(box?: string) {
     this.currentBox = box;
     this.emailService
-      .getEmails(box)
-      .subscribe((data: Email[]) => { this.emails = data; },
+      .getEmails([box])
+      .subscribe((data: any[]) => { this.emails = data[0]; },
       error => {
         console.log(error)
       },
