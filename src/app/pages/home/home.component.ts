@@ -15,37 +15,64 @@ import { EmailService } from '../../services';
 export class HomeComponent {
 
   public emails: Email[] = [];
+  public boxList: string[];
   public loading: boolean = true;
-  private currentBox: string = '';
+  public syncing: boolean = false;
+  private currentBox: string = 'INBOX';
 
   constructor(private emailService: EmailService, public appState: AppState) {
   }
 
   ngOnInit() {
-    console.log('hello `list` component');
+    console.log('hello `Home` component');
     this.loading = true;
-    this.emailService
-      .getEmailsWithPagination('Testbox')
-      .subscribe((data: any) => { console.log(data);this.emails = data.docs; this.loading = false; },
-      error => {
-        console.log(error)
-      },
-      () => { console.log("Inbox mails successfully loaded") });
+    this.getBoxList().subscribe((data: any[]) => {
+      this.boxList = data;
+      console.log("boxlist:");
+      console.log(this.boxList);
+    }, error => {
+      console.log(error)
+    }, () => {
+      console.log("Init done!")
+      this.appState.set('boxList', this.boxList);
+      this.getEmailBox(this.currentBox);
+      console.log("State:");
+      console.log(this.appState.get());
+    });;
+
   }
 
   onRefresh(refresh: boolean) {
     console.log(`refresh...let's wait for 2 seconds...`);
   }
 
+  getBoxList() {
+    return this.emailService.initMailbox();
+  }
+
+  syncBoxes(boxes: string[]) {
+    this.syncing = true;
+    // TODO: not working yet, need to fix it
+    this.emailService.getEmails(['INBOX', 'Testbox']).subscribe((data: any) => {
+      console.log(data);
+      this.getEmailBox(this.currentBox);
+      this.syncing = false;
+    });
+  }
+
   getEmailBox(box?: string) {
     this.currentBox = box;
+    this.loading = true;
     this.emailService
-      .getEmails([box])
-      .subscribe((data: any[]) => { this.emails = data[0]; },
+      .getEmailsWithPagination(box)
+      .subscribe((data: any) => {
+        this.emails = data.docs;
+        this.loading = false;
+      },
       error => {
         console.log(error)
       },
-      () => { console.log("Inbox mails successfully loaded") });
+      () => { console.log(`${box} mails successfully loaded`) });
   }
 
 }
