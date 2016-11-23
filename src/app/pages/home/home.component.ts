@@ -15,6 +15,7 @@ import { EmailService } from '../../services';
 export class HomeComponent {
 
   public emails: Email[] = [];
+  public boxList: string[];
   public loading: boolean = true;
   private currentBox: string = '';
 
@@ -22,30 +23,44 @@ export class HomeComponent {
   }
 
   ngOnInit() {
-    console.log('hello `list` component');
+    console.log('hello `Home` component');
     this.loading = true;
-    this.emailService
-      .getEmails(['INBOX'])
-      .subscribe((data: any[]) => { this.emails = data[0]; this.loading = false; },
-      error => {
-        console.log(error)
-      },
-      () => { console.log("Inbox mails successfully loaded") });
+    this.getBoxList().subscribe((data: any[]) => {
+      this.boxList = data;
+      console.log("boxlist:");
+      console.log(this.boxList);
+    }, error => {
+      console.log(error)
+    }, () => {
+      console.log("Init done!")
+      this.appState.set('boxList', this.boxList);
+      this.getEmailBox('INBOX');
+      console.log("State:");
+      console.log(this.appState.get());
+    });;
+
   }
 
   onRefresh(refresh: boolean) {
     console.log(`refresh...let's wait for 2 seconds...`);
   }
 
+  getBoxList() {
+    return this.emailService.initMailbox();
+  }
+
   getEmailBox(box?: string) {
     this.currentBox = box;
+    this.loading = true;
     this.emailService
       .getEmails([box])
-      .subscribe((data: any[]) => { this.emails = data[0]; },
+      .subscribe((data: any[]) => {
+        this.emails = data; this.loading = false;
+      },
       error => {
         console.log(error)
       },
-      () => { console.log("Inbox mails successfully loaded") });
+      () => { console.log(`${box} mails successfully loaded`) });
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services';
 import { Router } from '@angular/router';
+import { AppState } from '../../app.service';
 
 @Component({
   selector: 'profile',
@@ -14,11 +15,13 @@ export class ProfileComponent {
 
   constructor(
     private router: Router,
-    private _auth: AuthService) { }
+    private _auth: AuthService,
+    public appState: AppState) { }
 
   ngOnInit() {
     // reset login status
-    this._auth.logout();
+    console.log('Hello Profile Component');
+    console.log(this.appState.get());
   }
 
   login() {
