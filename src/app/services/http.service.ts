@@ -14,7 +14,7 @@ export class HttpService {
   generateRequest(method: RequestMethod, domain: string, endpoint?: string, params?: any, body?: any): Observable<any[]> {
     const headers = new Headers({ 'Authorization': `JWT ${this._auth.token}`, 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers, method: method, body: body });
-    const pathEndpoint = endpoint ? `/${endpoint}` : ``;
+    const pathEndpoint = endpoint ? `/${endpoint}` : '';
     const path = `${domain}${pathEndpoint}`;
     return this._http.request(`${C.server}${path}${this.generateParams(params)}`, options)
       .map((response: Response) => response.json());

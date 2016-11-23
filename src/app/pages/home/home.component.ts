@@ -25,8 +25,8 @@ export class HomeComponent {
     console.log('hello `list` component');
     this.loading = true;
     this.emailService
-      .getEmails(['INBOX'])
-      .subscribe((data: any[]) => { this.emails = data[0]; this.loading = false; },
+      .getEmailsWithPagination('Testbox')
+      .subscribe((data: any) => { console.log(data);this.emails = data.docs; this.loading = false; },
       error => {
         console.log(error)
       },
