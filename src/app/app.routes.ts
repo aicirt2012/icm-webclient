@@ -6,6 +6,7 @@ import { DataResolver } from './app.resolver';
 import { AuthGuard } from './app.authGuard';
 
 export const ROUTES: Routes = [
+    // TODO: reverse mechanism protected/not-protected
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
