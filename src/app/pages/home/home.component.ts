@@ -50,8 +50,7 @@ export class HomeComponent {
 
   syncBoxes(boxes: string[]) {
     this.syncing = true;
-    const boxList = this.appState.get().boxList.filter((box) => box.total != 0 && box.name != '[Gmail]/Important').map((box) => box.name);
-    this.emailService.getEmails(boxList).subscribe((data: any) => {
+    this.emailService.getEmails([]).subscribe((data: any) => {
       this.getEmailBox(this.currentBox);
       this.syncing = false;
     });
