@@ -36,8 +36,6 @@ export class HomeComponent {
       console.log("Init done!")
       this.appState.set('boxList', this.boxList);
       this.getEmailBox(this.currentBox);
-      console.log("State:");
-      console.log(this.appState.get());
     });;
 
   }
@@ -52,9 +50,8 @@ export class HomeComponent {
 
   syncBoxes(boxes: string[]) {
     this.syncing = true;
-    // TODO: not working yet, need to fix it
-    this.emailService.getEmails(['INBOX', 'Testbox']).subscribe((data: any) => {
-      console.log(data);
+    const boxList = this.appState.get().boxList.filter((box) => box.total != 0 && box.name != '[Gmail]/Important').map((box) => box.name);
+    this.emailService.getEmails(boxList).subscribe((data: any) => {
       this.getEmailBox(this.currentBox);
       this.syncing = false;
     });
