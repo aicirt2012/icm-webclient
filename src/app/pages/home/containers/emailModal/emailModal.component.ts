@@ -1,7 +1,7 @@
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap';
-import { EmailService } from '../../services';
-import { ModalType } from '../../constants';
+import { EmailService } from '../../../../services';
+import { ModalType } from '../../../../constants';
 import { Observable } from 'rxjs/Observable';
 
 @Component({

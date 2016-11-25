@@ -18,9 +18,9 @@ import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 // Self-written classes
-import { HomeComponent, NoContentComponent, ProfileComponent, LoginComponent } from './pages';
-import { NavBarComponent, ListComponent, DetailedViewComponent, TaskListComponent } from './components';
-import { EmailModalComponent } from './containers';
+import { HomeComponent, NoContentComponent, ProfileComponent, LoginComponent } from './pages'; // all pages
+import { EmailModalComponent } from './pages'; // all containers
+import { NavBarComponent, ListComponent, DetailedViewComponent, TaskListComponent } from './components'; // all components
 import { AuthService, EmailService, HttpService, TaskService } from './services';
 import { AuthGuard } from './app.authGuard';
 import { Email, User } from './models';
