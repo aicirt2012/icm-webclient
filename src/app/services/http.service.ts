@@ -11,7 +11,7 @@ export class HttpService {
   constructor(private _http: Http, private _auth: AuthService) {
   }
 
-  generateRequest(method: RequestMethod, domain: string, endpoint?: string, params?: any, body?: any): Observable<any[]> {
+  generateRequest(method: RequestMethod, domain: string, endpoint?: string, params?: any, body?: any): Observable<any> {
     const headers = new Headers({ 'Authorization': `JWT ${this._auth.token}`, 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers, method: method, body: body });
     const pathEndpoint = endpoint ? `/${endpoint}` : '';

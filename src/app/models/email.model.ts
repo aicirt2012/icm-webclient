@@ -1,4 +1,5 @@
 export class Email {
+  _id: string;
   messageId: string;
   uid: number;
   from: [{

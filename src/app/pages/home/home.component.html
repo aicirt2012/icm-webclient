@@ -17,5 +17,11 @@
   <div class="double-bounce2"></div>
 </div>
 
-Currently Syncing: {{syncing}}
+Currently Syncing:
+{{syncing}}
 <button (click)="syncBoxes([])">Sync</button>
+
+<br>
+<input [(ngModel)]="taskName" placeholder="Task Name">
+<button (click)="createTask()">Create Task</button>
+{{createdTask}}

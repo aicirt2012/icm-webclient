@@ -3,7 +3,7 @@ import { AppState } from '../../app.service';
 import * as moment from 'moment';
 import { ModalDirective } from 'ng2-bootstrap';
 import { Email } from '../../models';
-import { EmailService } from '../../services';
+import { EmailService, TaskService } from '../../services';
 
 @Component({
   selector: 'home',  // <home></home>
@@ -19,8 +19,10 @@ export class HomeComponent {
   public loading: boolean = true;
   public syncing: boolean = false;
   private currentBox: string = 'INBOX';
+  private taskName: string = 'testName';
+  private createdTask: any = null;
 
-  constructor(private emailService: EmailService, public appState: AppState) {
+  constructor(private _emailService: EmailService, private _taskService: TaskService, public appState: AppState) {
   }
 
   ngOnInit() {
@@ -45,12 +47,12 @@ export class HomeComponent {
   }
 
   getBoxList() {
-    return this.emailService.initMailbox();
+    return this._emailService.initMailbox();
   }
 
   syncBoxes(boxes: string[]) {
     this.syncing = true;
-    this.emailService.getEmails([]).subscribe((data: any) => {
+    this._emailService.getEmails([]).subscribe((data: any) => {
       this.getEmailBox(this.currentBox);
       this.syncing = false;
     });
@@ -59,7 +61,7 @@ export class HomeComponent {
   getEmailBox(box?: string) {
     this.currentBox = box;
     this.loading = true;
-    this.emailService
+    this._emailService
       .getEmailsWithPagination(box)
       .subscribe((data: any) => {
         this.emails = data.docs;
@@ -69,6 +71,13 @@ export class HomeComponent {
         console.log(error)
       },
       () => { console.log(`${box} mails successfully loaded`) });
+  }
+
+  createTask() {
+      console.log(this.emails);
+      this._taskService.createTask(this.emails[0], this.taskName, '582639655429c571aae95b37').subscribe((task) => {
+          this.createdTask = task;
+      })
   }
 
 }
