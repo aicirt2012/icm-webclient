@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap';
+import { Email } from '../../models';
 
 @Component({
   selector: 'detailedView',  // <detailedView></detailedView>
@@ -7,6 +8,8 @@ import { ModalDirective } from 'ng2-bootstrap';
   templateUrl: './detailedView.component.html'
 })
 export class DetailedViewComponent {
+
+  @Input() email: Email;
 
   constructor() {
   }

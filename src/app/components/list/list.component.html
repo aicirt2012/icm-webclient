@@ -10,7 +10,7 @@
     </div>
   </div>
   </nav>
-  <a *ngFor="let mail of emails; let i = index" flex layout="row" style="display:flex" href="#" class="list-group-item">
+  <a (click)="loadSingleMail(mail._id)"*ngFor="let mail of emails; let i = index" flex layout="row" style="display:flex" href="#" class="list-group-item">
     <div flex="5">
       <label>
         <input type="checkbox">

@@ -3,10 +3,10 @@
     <navbar (onRefresh)="onRefresh($event)" (getEmailBox)="getEmailBox($event)" (openModal)="openModal($event)"></navbar>
   </div>
   <div flex="25">
-    <list [emails]="emails"></list>
+    <list [emails]="emails" (getSingleMail)="getSingleMail($event)"></list>
   </div>
   <div flex="40">
-    <detailedView></detailedView> 
+    <detailedView [email]="email"></detailedView>
   </div>
   <div flex="20">
     <taskList></taskList>
