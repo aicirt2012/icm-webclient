@@ -3,7 +3,6 @@ import {Observable} from 'rxjs/Observable';
 import {RequestMethod} from '@angular/http';
 import {Email} from '../models';
 import {HttpService} from './http.service';
-import C from '../constants';
 
 @Injectable()
 export class EmailService {

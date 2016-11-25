@@ -18,5 +18,11 @@
 </div>
 <email-modal [modalType]="currentModalType" (closeModal)="closeModal()"></email-modal>
 
-Currently Syncing: {{syncing}}
+Currently Syncing:
+{{syncing}}
 <button (click)="syncBoxes([])">Sync</button>
+
+<br>
+<input [(ngModel)]="taskName" placeholder="Task Name">
+<button (click)="createTask()">Create Task</button>
+{{createdTask}}

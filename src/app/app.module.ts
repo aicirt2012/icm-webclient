@@ -21,7 +21,7 @@ import { AppState, InternalStateType } from './app.service';
 import { HomeComponent, NoContentComponent, ProfileComponent, LoginComponent } from './pages';
 import { NavBarComponent, ListComponent, DetailedViewComponent, TaskListComponent } from './components';
 import { EmailModalComponent } from './containers';
-import { AuthService, EmailService, HttpService } from './services';
+import { AuthService, EmailService, HttpService, TaskService } from './services';
 import { AuthGuard } from './app.authGuard';
 import { Email, User } from './models';
 
@@ -73,7 +73,8 @@ type StoreType = {
     AuthGuard,
     EmailService,
     AuthService,
-    HttpService
+    HttpService,
+    TaskService
   ]
 })
 export class AppModule {
