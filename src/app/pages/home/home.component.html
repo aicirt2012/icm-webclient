@@ -1,12 +1,12 @@
 <div *ngIf="!loading" layout="row">
   <div flex="15" class="navigation">
-    <navbar (onRefresh)="onRefresh($event)" (getEmailBox)="getEmailBox($event)"></navbar>
+    <navbar (onRefresh)="onRefresh($event)" (getEmailBox)="getEmailBox($event)" (openModal)="openModal($event)"></navbar>
   </div>
   <div flex="25">
     <list [emails]="emails"></list>
   </div>
   <div flex="40">
-    <detailedView></detailedView>
+    <detailedView></detailedView> 
   </div>
   <div flex="20">
     <taskList></taskList>
@@ -16,6 +16,7 @@
   <div class="double-bounce1"></div>
   <div class="double-bounce2"></div>
 </div>
+<email-modal [modalType]="currentModalType" (closeModal)="closeModal()"></email-modal>
 
 Currently Syncing: {{syncing}}
 <button (click)="syncBoxes([])">Sync</button>

@@ -1,5 +1,5 @@
-import { ModalDirective } from 'ng2-bootstrap';
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
+import { ModalType } from '../../constants';
 
 @Component({
   selector: 'navbar',  // <navbar></navbar>
@@ -11,6 +11,8 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 export class NavBarComponent {
   @Output() onRefresh = new EventEmitter<boolean>();
   @Output() getEmailBox = new EventEmitter<string>();
+  @Output() openModal = new EventEmitter<any>();
+
 
   public currentBox: string = '';
 
@@ -30,24 +32,10 @@ export class NavBarComponent {
     this.getEmailBox.emit(box);
   }
 
-  // public loadInboxEmails() : void {
-  //   this.listComponent.loadInboxEmails();
-  // }
-  //
-  // public loadSentEmails() : void {
-  //   this.listComponent.loadSentEmails();
-  // }
-  //
-  // public loadDraftEmails() : void {
-  //   this.listComponent.loadDraftEmails();
-  // }
-  //
-  // public loadTrashEmails() : void {
-  //   this.listComponent.loadTrashEmails();
-  // }
-  //
-  // public loadBoxes() : void {
-  //   this.listComponent.loadBoxes();
-  // }
+  openCreateEmailModal() {
+    this.openModal.emit(ModalType.create);
+  }
+
+
 
 }

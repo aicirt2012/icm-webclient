@@ -20,6 +20,7 @@ import { AppState, InternalStateType } from './app.service';
 // Self-written classes
 import { HomeComponent, NoContentComponent, ProfileComponent, LoginComponent } from './pages';
 import { NavBarComponent, ListComponent, DetailedViewComponent, TaskListComponent } from './components';
+import { EmailModalComponent } from './containers';
 import { AuthService, EmailService, HttpService } from './services';
 import { AuthGuard } from './app.authGuard';
 import { Email, User } from './models';
@@ -52,7 +53,8 @@ type StoreType = {
     NavBarComponent,
     ListComponent,
     DetailedViewComponent,
-    TaskListComponent
+    TaskListComponent,
+    EmailModalComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,

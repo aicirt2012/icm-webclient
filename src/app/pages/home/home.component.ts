@@ -4,6 +4,9 @@ import * as moment from 'moment';
 import { ModalDirective } from 'ng2-bootstrap';
 import { Email } from '../../models';
 import { EmailService } from '../../services';
+import { ModalType } from '../../constants';
+import { Observable } from 'rxjs/Observable';
+import { Observer} from 'rxjs/Observer';
 
 @Component({
   selector: 'home',  // <home></home>
@@ -13,12 +16,12 @@ import { EmailService } from '../../services';
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
-
   public emails: Email[] = [];
   public boxList: string[];
   public loading: boolean = true;
   public syncing: boolean = false;
   private currentBox: string = 'INBOX';
+  public currentModalType: ModalType = null;
 
   constructor(private emailService: EmailService, public appState: AppState) {
   }
@@ -28,8 +31,6 @@ export class HomeComponent {
     this.loading = true;
     this.getBoxList().subscribe((data: any[]) => {
       this.boxList = data;
-      console.log("boxlist:");
-      console.log(this.boxList);
     }, error => {
       console.log(error)
     }, () => {
@@ -71,4 +72,11 @@ export class HomeComponent {
       () => { console.log(`${box} mails successfully loaded`) });
   }
 
+  openModal(type?: ModalType) {
+    this.currentModalType = type;
+  }
+
+  closeModal() {
+    this.currentModalType = null;
+  }
 }
