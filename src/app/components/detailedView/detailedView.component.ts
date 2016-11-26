@@ -10,6 +10,7 @@ import { Email } from '../../models';
 export class DetailedViewComponent {
 
   @Input() email: Email;
+  @Input() loadedOnce: boolean;
 
   constructor() {
   }

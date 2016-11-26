@@ -6,7 +6,7 @@
     <list [emails]="emails" (getSingleMail)="getSingleMail($event)"></list>
   </div>
   <div flex="40">
-    <detailedView [email]="email"></detailedView>
+    <detailedView [email]="email" [loadedOnce]="loadedOnce"></detailedView>
   </div>
   <div flex="20">
     <taskList></taskList>

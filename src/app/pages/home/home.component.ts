@@ -25,6 +25,7 @@ export class HomeComponent {
   public currentModalType: ModalType = null;
   private taskName: string = 'testName';
   private createdTask: any = null;
+  public loadedOnce: boolean = false;
 
   constructor(private _emailService: EmailService, private _taskService: TaskService, public appState: AppState) {
   }
@@ -68,7 +69,9 @@ export class HomeComponent {
       error => {
         console.log(error)
       },
-      () => { console.log(`Message with ID: ${id} has been successfully loaded`) });
+      () => {
+        this.loadedOnce = true;
+        console.log(`Message with ID: ${id} has been successfully loaded`) });
   }
 
   getEmailBox(box?: string) {

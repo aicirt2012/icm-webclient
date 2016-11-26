@@ -22,7 +22,7 @@
     </div>
   </div>
 </nav>
-<div class="mailContainer">
+<div class="mailContainer" *ngIf="loadedOnce">
   <!-- Subject -->
   <h2>{{email?.subject}}</h2>
   <!-- author -->
