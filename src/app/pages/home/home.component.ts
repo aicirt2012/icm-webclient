@@ -60,12 +60,10 @@ export class HomeComponent {
   }
 
   getSingleMail(id?: string) {
-    this.loading = true;
     this._emailService
       .getSingleMail(id)
       .subscribe((data: any) => {
         this.email = data;
-        this.loading = false;
       },
       error => {
         console.log(error)
@@ -75,7 +73,7 @@ export class HomeComponent {
 
   getEmailBox(box?: string) {
     this.currentBox = box;
-    this.loading = true;
+  //  this.loading = true;
     this._emailService
       .getEmailsWithPagination(box)
       .subscribe((data: any) => {

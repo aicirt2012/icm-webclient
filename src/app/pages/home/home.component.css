@@ -2,6 +2,21 @@
   padding: 8px;
 }
 
+.container {
+  /*height: 100%;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-box;
+  display: box;
+  -ms-flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -ms-box-orient: horizontal;
+  box-orient: horizontal;*/
+
+}
+
 .full button span {
   background-color: limegreen;
   border-radius: 32px;
@@ -17,12 +32,17 @@
 .navigation {
   background-color: rgb(51, 51, 51);
   color: white;
+  /*width: 100px;
+  -ms-flex: 0 100px;
+  -webkit-box-flex: 0;
+  -moz-box-flex: 0;
+  -ms-box-flex: 0;
+  box-flex: 0;*/
 }
 
 .spinner {
   width: 40px;
   height: 40px;
-
   position: relative;
   margin: 100px auto;
 }
@@ -36,7 +56,6 @@
   position: absolute;
   top: 0;
   left: 0;
-
   -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
   animation: sk-bounce 2.0s infinite ease-in-out;
 }
@@ -47,15 +66,20 @@
 }
 
 @-webkit-keyframes sk-bounce {
-  0%, 100% { -webkit-transform: scale(0.0) }
-  50% { -webkit-transform: scale(1.0) }
+  0%, 100% {
+    -webkit-transform: scale(0.0)
+  }
+  50% {
+    -webkit-transform: scale(1.0)
+  }
 }
 
 @keyframes sk-bounce {
   0%, 100% {
     transform: scale(0.0);
     -webkit-transform: scale(0.0);
-  } 50% {
+  }
+  50% {
     transform: scale(1.0);
     -webkit-transform: scale(1.0);
   }

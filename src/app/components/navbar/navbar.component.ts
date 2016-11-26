@@ -15,6 +15,7 @@ export class NavBarComponent {
 
 
   public currentBox: string = '';
+  public currentChoice: string = "INBOX";
 
   constructor() {
   }
@@ -36,6 +37,14 @@ export class NavBarComponent {
     this.openModal.emit(ModalType.create);
   }
 
+ setActive(choice: string): void{
+     this.currentChoice = choice;
+ }
 
-
+ getActive(choice: string) : string{
+     if(this.currentChoice == choice)
+          return "active";
+     else
+          return "";
+ }
 }
