@@ -1,4 +1,4 @@
-<div class="container">
+<!--<div class="container">
     <div class="card card-container">
         <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
         <p id="profile-name" class="profile-name-card"></p>
@@ -7,6 +7,61 @@
             <a class="btn btn-block btn-social btn-google" href="http://localhost:4000/api/auth/trello">
             <span class="fa fa-trello"></span> Connect to Trello
           </a>
-        </form><!-- /form -->
     </div>
+</div>
+-->
+
+<div class="container">
+    <div class="row profile">
+		<div class="col-md-3">
+			<div class="profile-sidebar">
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name">
+						Peter Niedermeier
+					</div>
+					<div class="profile-usertitle-job">
+						M.Sc. Information Systems
+					</div>
+           <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+				</div>
+
+				<div class="profile-usermenu">
+					<ul class="nav">
+						<li class="{{getActive('Overview')}}">
+							<a (click)="showView('Overview')">
+							<i class="glyphicon glyphicon-home"></i>
+							Overview </a>
+						</li>
+						<li class="{{getActive('Account')}}">
+							<a (click)="showView('Account')">
+							<i class="glyphicon glyphicon-user"></i>
+							Account Settings </a>
+						</li>
+						<li class="{{getActive('Tasks')}}">
+							<a (click)="showView('Tasks')">
+							<i class="glyphicon glyphicon-ok"></i>
+							Tasks </a>
+						</li>
+						<li class="{{getActive('Help')}}">
+							<a (click)="showView('Help')">
+							<i class="glyphicon glyphicon-flag"></i>
+							Help </a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-9">
+            <div class="profile-content">
+			            <!-- Overview -->
+                  <overview *ngIf="getCurrentView('Overview')"></overview>
+                  <!-- Account Settings -->
+                  <account *ngIf="getCurrentView('Account')"></account>
+                  <!-- Tasks -->
+                  <tasks *ngIf="getCurrentView('Tasks')"></tasks>
+                  <!-- Help -->
+                  <help *ngIf="getCurrentView('Help')"></help>
+            </div>
+		</div>
+	</div>
 </div>
