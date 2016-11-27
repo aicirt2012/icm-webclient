@@ -1,0 +1,13 @@
+<ul class="nav nav-tabs">
+  <li role="presentation" class="{{getActive('Gmail')}}">
+    <a (click)="showView('Gmail')">Gmail</a>
+  </li>
+  <li role="presentation" class="{{getActive('Exchange')}}">
+    <a (click)="showView('Exchange')">Exchange</a>
+  </li>
+</ul>
+
+<div class="row"></div>
+
+<gmail *ngIf="getCurrentView('Gmail')"></gmail>
+<exchange *ngIf="getCurrentView('Exchange')"></exchange>

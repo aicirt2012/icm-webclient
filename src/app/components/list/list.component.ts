@@ -12,9 +12,14 @@ import { Email } from '../../models';
 
 export class ListComponent {
 
+  @Output() getSingleMail = new EventEmitter<string>();
   @Input() emails: Email[];
 
   constructor() {
+  }
+
+  loadSingleMail(id?: string) {
+    this.getSingleMail.emit(id);
   }
 
 }

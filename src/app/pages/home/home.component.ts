@@ -17,6 +17,7 @@ import { Observer} from 'rxjs/Observer';
 })
 export class HomeComponent {
   public emails: Email[] = [];
+  public email: Email = null;
   public boxList: string[];
   public loading: boolean = true;
   public syncing: boolean = false;
@@ -24,6 +25,7 @@ export class HomeComponent {
   public currentModalType: ModalType = null;
   private taskName: string = 'testName';
   private createdTask: any = null;
+  public loadedOnce: boolean = false;
 
   constructor(private _emailService: EmailService, private _taskService: TaskService, public appState: AppState) {
   }
@@ -39,8 +41,7 @@ export class HomeComponent {
       console.log("Init done!")
       this.appState.set('boxList', this.boxList);
       this.getEmailBox(this.currentBox);
-    });;
-
+    });
   }
 
   onRefresh(refresh: boolean) {
@@ -59,13 +60,28 @@ export class HomeComponent {
     });
   }
 
+  getSingleMail(id?: string) {
+    this._emailService
+      .getSingleMail(id)
+      .subscribe((data: any) => {
+        this.email = data;
+      },
+      error => {
+        console.log(error)
+      },
+      () => {
+        this.loadedOnce = true;
+        console.log(`Message with ID: ${id} has been successfully loaded`) });
+  }
+
   getEmailBox(box?: string) {
     this.currentBox = box;
-    this.loading = true;
+  //  this.loading = true;
     this._emailService
       .getEmailsWithPagination(box)
       .subscribe((data: any) => {
         this.emails = data.docs;
+        console.log(this.emails);
         this.loading = false;
       },
       error => {

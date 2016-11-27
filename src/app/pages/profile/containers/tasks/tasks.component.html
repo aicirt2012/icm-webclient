@@ -1,0 +1,45 @@
+<ul class="nav nav-tabs">
+  <li role="presentation" class="{{getActive('Trello')}}">
+    <a (click)="showView('Trello')">Trello</a>
+  </li>
+  <li role="presentation" class="{{getActive('SocioCortex')}}">
+    <a (click)="showView('SocioCortex')">SocioCortex</a>
+  </li>
+</ul>
+
+<div class="row"></div>
+
+<trello *ngIf="getCurrentView('Trello')"></trello>
+<socioCortex *ngIf="getCurrentView('SocioCortex')"></socioCortex>
+
+
+<!--<h3>Trello</h3>
+<form>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" placeholder="Email">
+  </div>
+  <div class="form-group">
+    <a class="btn btn-block btn-social btn-google" href="http://localhost:4000/api/auth/trello">
+    <span class="fa fa-trello"></span> Connect to Trello
+  </a>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+<div class="row"></div>
+<div class="row"></div>
+
+<h3>Socio Cortex</h3>
+<form>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" placeholder="Email">
+  </div>
+  <div class="form-group">
+    <a class="btn btn-block btn-social btn-google">
+    <span class="fa fa-trello"></span> Connect to Socio Cortex
+  </a>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>-->

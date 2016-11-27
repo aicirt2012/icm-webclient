@@ -75,4 +75,12 @@ export class EmailService {
     return this._httpService.generateRequest(RequestMethod.Post, this.domain, 'box', null, {boxes: boxes});
   }
 
+  /*
+   @param: id: string
+   returns Email
+   */
+  getSingleMail(id: string): Observable<any> {
+    return this._httpService.generateRequest(RequestMethod.Get, this.domain,`single/${id}`, null, null);
+  }
+
 }

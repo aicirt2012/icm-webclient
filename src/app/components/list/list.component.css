@@ -16,12 +16,6 @@
   color: black;
 }
 
-.mailList {
-  overflow-y: scroll;
-  overflow-x: hidden;
-  max-height: auto;
-}
-
 .navbar {
   margin-bottom: 0px;
 }
