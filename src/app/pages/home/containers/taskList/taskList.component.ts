@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {ModalDirective} from 'ng2-bootstrap';
-import {Email} from '../../models';
-import {TaskService} from '../../services';
+import {Email} from '../../../../models';
+import {TaskService} from '../../../../services';
 
 @Component({
   selector: 'taskList',  // <taskList></taskList>
