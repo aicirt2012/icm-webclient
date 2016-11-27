@@ -34,7 +34,7 @@ const METADATA = {
  *
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
-module.exports = function (options) {
+module.exports = function(options) {
   isProd = options.env === 'production';
   return {
 
@@ -126,6 +126,15 @@ module.exports = function (options) {
           loaders: ['to-string-loader', 'css-loader']
         },
 
+        /*
+         * to string and css loader support for *.scss files
+         * Returns file content as string
+         *
+         */
+        {
+          test: /\.scss$/,
+          loaders: ['raw-loader', 'sass-loader']
+        },
         /* Raw loader support for *.html
          * Returns file content as string
          *
