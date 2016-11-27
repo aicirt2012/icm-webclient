@@ -12,7 +12,7 @@ export class ProfileComponent {
   model: any = {};
   loading = false;
   error = '';
-  currentView = "Overview";
+  public currentView: string = 'Overview';
 
   constructor(
     private router: Router,

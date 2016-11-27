@@ -1,4 +1,19 @@
-<h3>Trello</h3>
+<ul class="nav nav-tabs">
+  <li role="presentation" class="{{getActive('Trello')}}">
+    <a (click)="showView('Trello')">Trello</a>
+  </li>
+  <li role="presentation" class="{{getActive('SocioCortex')}}">
+    <a (click)="showView('SocioCortex')">SocioCortex</a>
+  </li>
+</ul>
+
+<div class="row"></div>
+
+<trello *ngIf="getCurrentView('Trello')"></trello>
+<socioCortex *ngIf="getCurrentView('SocioCortex')"></socioCortex>
+
+
+<!--<h3>Trello</h3>
 <form>
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
@@ -27,4 +42,4 @@
   </a>
   </div>
   <button type="submit" class="btn btn-default">Submit</button>
-</form>
+</form>-->
