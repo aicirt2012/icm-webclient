@@ -1,5 +1,14 @@
+.wrapper {
+  height: 100%;
+  overflow: hidden;
+}
+
 .padding {
   padding: 8px;
+}
+
+.scrollable {
+  overflow-y: scroll;
 }
 
 .container {

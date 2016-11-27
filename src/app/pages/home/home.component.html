@@ -1,14 +1,14 @@
-<div *ngIf="!loading" layout="row">
+<div *ngIf="!loading" layout="row" class="wrapper">
   <div flex="15" class="navigation">
     <navbar (onRefresh)="onRefresh($event)" (getEmailBox)="getEmailBox($event)" (openModal)="openModal($event)"></navbar>
   </div>
-  <div flex="25">
+  <div flex="25" class="scrollable">
     <list [emails]="emails" (getSingleMail)="getSingleMail($event)"></list>
   </div>
-  <div flex="40">
+  <div flex="40" class="scrollable">
     <detailedView [email]="email" [loadedOnce]="loadedOnce"></detailedView>
   </div>
-  <div flex="20">
+  <div flex="20" class="scrollable">
     <taskList></taskList>
   </div>
 </div>
@@ -18,11 +18,11 @@
 </div>
 <email-modal [modalType]="currentModalType" (closeModal)="closeModal()"></email-modal>
 
-Currently Syncing:
+<!-- Currently Syncing:
 {{syncing}}
 <button (click)="syncBoxes([])">Sync</button>
 
 <br>
 <input [(ngModel)]="taskName" placeholder="Task Name">
 <button (click)="createTask()">Create Task</button>
-{{createdTask}}
+{{createdTask}} -->

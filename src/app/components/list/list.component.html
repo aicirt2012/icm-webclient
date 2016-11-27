@@ -1,15 +1,15 @@
-<div class="list-group mailList">
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li>
-            <a href="#">From:</a>
-          </li>
-      </ul>
-    </div>
+<div class="list-group">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="#">From:</a>
+        </li>
+    </ul>
   </div>
-  </nav>
+</div>
+</nav>
   <a (click)="loadSingleMail(mail._id)"*ngFor="let mail of emails; let i = index" flex layout="row" style="display:flex" href="#" class="list-group-item">
     <div flex="5">
       <label>
@@ -25,6 +25,7 @@
       <p class="list-group-item-text">{{mail?.text}}</p>
     </div>
   </a>
+</div>
 <!--
   <a flex layout="row" style="display:flex" href="#" class="list-group-item">
     <div flex="5">
@@ -166,4 +167,3 @@
       <p class="list-group-item-text">Lorem ipsum dolor sit amet, erat tempor cu vis. Placerat consequat mel in, ius eros exerci no. Eu laudem causae explicari vim. Et blandit detracto percipit mel, vis ut recusabo constituto. Eu sit elitr nullam intellegebat.</p>
     </div>
   </a>-->
-</div>
