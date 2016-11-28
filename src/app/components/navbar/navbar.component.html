@@ -36,8 +36,8 @@
       </a>
     </li>
     <hr>
-    <li role="presentation">
-      <a class="listitems" href="#" [routerLink]="['/profile']">
+    <li role="presentation" class="{{getActive('Account')}}" (click)="changeView()">
+      <a class="listitems" href="#" (click)="setActive('Account')" >
         <span style="margin-right: 5px;" class="glyphicon glyphicon-user"></span>Account
       </a>
     </li>

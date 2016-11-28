@@ -18,8 +18,8 @@ import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 // Self-written classes
-import { HomeComponent, NoContentComponent, ProfileComponent, LoginComponent } from './pages'; // all pages
-import { EmailModalComponent, AccountComponent, OverviewComponent, TasksComponent, TaskListComponent, HelpComponent, GmailComponent, ExchangeComponent, SocioCortexComponent, TrelloComponent } from './pages'; // all containers
+import { HomeComponent, NoContentComponent, LoginComponent } from './pages'; // all pages
+import { EmailModalComponent, ProfileComponent, AccountComponent, OverviewComponent, TasksComponent, TaskListComponent, HelpComponent, GmailComponent, ExchangeComponent, SocioCortexComponent, TrelloComponent } from './pages'; // all containers
 import { NavBarComponent, ListComponent, DetailedViewComponent} from './components'; // all components
 import { AuthService, EmailService, HttpService, TaskService } from './services';
 import { AuthGuard } from './app.authGuard';

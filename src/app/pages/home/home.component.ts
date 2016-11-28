@@ -26,6 +26,7 @@ export class HomeComponent {
   private taskName: string = 'testName';
   private createdTask: any = null;
   public loadedOnce: boolean = false;
+  public mailView: boolean = true;
 
   constructor(private _emailService: EmailService, private _taskService: TaskService, public appState: AppState) {
   }
@@ -102,6 +103,12 @@ export class HomeComponent {
     this._taskService.createTask(this.emails[0], this.taskName, '582639655429c571aae95b37').subscribe((task) => {
       this.createdTask = task;
     })
+  }
+
+  switchView(newView: string) {
+    console.log("switching view to " + newView);
+    if(this.mailView) this.mailView = false;
+    else this.mailView = true;
   }
 
 }

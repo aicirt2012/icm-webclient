@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../services';
+import { AuthService } from '../../../../services';
 import { Router } from '@angular/router';
-import { AppState } from '../../app.service';
+import { AppState } from '../../../../app.service';
 
 @Component({
   selector: 'profile',

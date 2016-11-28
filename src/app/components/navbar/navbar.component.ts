@@ -12,10 +12,12 @@ export class NavBarComponent {
   @Output() onRefresh = new EventEmitter<boolean>();
   @Output() getEmailBox = new EventEmitter<string>();
   @Output() openModal = new EventEmitter<any>();
-
+  @Input() mailView: boolean;
+  @Output() switchView = new EventEmitter<string>();
 
   public currentBox: string = '';
   public currentChoice: string = "INBOX";
+  private newView: string = '';
 
   constructor() {
   }
@@ -29,6 +31,8 @@ export class NavBarComponent {
   }
 
   getEmails(box?: string) {
+    /* first change view to mail if necessary */
+    if(!this.mailView) this.changeView();
     this.currentBox = box;
     this.getEmailBox.emit(box);
   }
@@ -46,5 +50,11 @@ export class NavBarComponent {
           return "active";
      else
           return "";
+ }
+
+ changeView() {
+    if(this.mailView)  this.newView = "profile";
+    else this.newView = "mail";
+    this.switchView.emit(this.newView);
  }
 }

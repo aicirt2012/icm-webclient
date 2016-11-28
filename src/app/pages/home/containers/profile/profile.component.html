@@ -1,6 +1,5 @@
 <div layout="row">
-  <div flex="15"></div>
-  <div flex="70">
+  <div flex="85">
     <div class="row profile">
       <div layout="row">
         <div flex="25">
@@ -17,33 +16,27 @@
             <div class="profile-usermenu">
               <ul class="nav">
                 <li class="{{getActive('Overview')}}">
-                  <a (click)="showView('Overview')">
+                  <a href="#" (click)="showView('Overview')">
                     <i class="glyphicon glyphicon-home"></i>
                     Overview
                   </a>
                 </li>
                 <li class="{{getActive('Account')}}">
-                  <a (click)="showView('Account')">
+                  <a href="#" (click)="showView('Account')">
                     <i class="glyphicon glyphicon-user"></i>
                     Account Settings
                   </a>
                 </li>
                 <li class="{{getActive('Tasks')}}">
-                  <a (click)="showView('Tasks')">
+                  <a href="#" (click)="showView('Tasks')">
                     <i class="glyphicon glyphicon-ok"></i>
                     Tasks
                   </a>
                 </li>
                 <li class="{{getActive('Help')}}">
-                  <a (click)="showView('Help')">
+                  <a href="#" (click)="showView('Help')">
                     <i class="glyphicon glyphicon-flag"></i>
                     Help
-                  </a>
-                </li>
-                <li >
-                  <a href="#">
-                    <i class="glyphicon glyphicon-th-list"></i>
-                    Back to Home
                   </a>
                 </li>
               </ul>
