@@ -18,7 +18,7 @@ import { Observer} from 'rxjs/Observer';
 export class HomeComponent {
   public emails: Email[] = [];
   public boxList: string[];
-  public loading: boolean = true;
+  public loading: boolean = false;
   public syncing: boolean = false;
   private currentBox: string = 'INBOX';
   public currentModalType: ModalType = null;
@@ -30,16 +30,16 @@ export class HomeComponent {
 
   ngOnInit() {
     console.log('hello `Home` component');
-    this.loading = true;
-    this.getBoxList().subscribe((data: any[]) => {
-      this.boxList = data;
-    }, error => {
-      console.log(error)
-    }, () => {
-      console.log("Init done!")
-      this.appState.set('boxList', this.boxList);
-      this.getEmailBox(this.currentBox);
-    });;
+    // this.loading = true;
+    // this.getBoxList().subscribe((data: any[]) => {
+    //   this.boxList = data;
+    // }, error => {
+    //   console.log(error)
+    // }, () => {
+    //   console.log("Init done!")
+    //   this.appState.set('boxList', this.boxList);
+    //   this.getEmailBox(this.currentBox);
+    // });;
 
   }
 
@@ -81,6 +81,7 @@ export class HomeComponent {
   closeModal() {
     this.currentModalType = null;
   }
+
   createTask() {
     console.log(this.emails);
     this._taskService.createTask(this.emails[0], this.taskName, '582639655429c571aae95b37').subscribe((task) => {

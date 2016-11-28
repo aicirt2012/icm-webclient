@@ -10,9 +10,11 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: './emailModal.component.html'
 })
 export class EmailModalComponent {
-  @ViewChild('childModal') public childModal: ModalDirective;
+  @ViewChild('emailModal') public emailModal: ModalDirective;
   @Output() closeModal = new EventEmitter<any>();
   @Input() modalType: ModalType;
+
+  private currentlySending: boolean = false;
 
   constructor(private _emailService: EmailService) {
   }
@@ -23,16 +25,12 @@ export class EmailModalComponent {
 
   ngOnChanges() {
     if(this.modalType === ModalType.create) {
-      this.childModal.show();
+      this.emailModal.show();
     }
   }
 
-  public showChildModal(): void {
-    if(this.modalType === ModalType.create) {this.childModal.show();}
-  }
-
   public hideChildModal(): void {
-    this.childModal.hide();
+    this.emailModal.hide();
     this.closeModal.emit();
   }
 
@@ -45,7 +43,7 @@ export class EmailModalComponent {
       error => {
         console.log(error)
       },
-      () => { console.log(`Mail to ${mail.to} send!`) });
+      () => {  alert(`Mail to ${mail.to} send!`); });
   }
 
 }

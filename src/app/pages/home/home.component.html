@@ -6,7 +6,7 @@
     <list [emails]="emails"></list>
   </div>
   <div flex="40">
-    <detailedView></detailedView> 
+    <detailedView (openModal)="openModal($event)"></detailedView>
   </div>
   <div flex="20">
     <taskList></taskList>
