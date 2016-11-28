@@ -27,6 +27,7 @@ export class HomeComponent {
   private createdTask: any = null;
   public loadedOnce: boolean = false;
   public mailView: boolean = true;
+  public suggestedTask: any = {};
 
   constructor(private _emailService: EmailService, private _taskService: TaskService, public appState: AppState) {
   }
@@ -66,6 +67,9 @@ export class HomeComponent {
       .getSingleMail(id)
       .subscribe((data: any) => {
         this.email = data;
+        /* now we can create a suggested Task object*/
+        console.log(this.email);
+        this.suggestedTask = this._taskService.createSuggestedTask(this.email);
       },
       error => {
         console.log(error)
@@ -97,12 +101,6 @@ export class HomeComponent {
 
   closeModal() {
     this.currentModalType = null;
-  }
-  createTask() {
-    console.log(this.emails);
-    this._taskService.createTask(this.emails[0], this.taskName, '582639655429c571aae95b37').subscribe((task) => {
-      this.createdTask = task;
-    })
   }
 
   switchView(newView: string) {

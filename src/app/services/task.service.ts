@@ -36,12 +36,33 @@ export class TaskService {
   /*
   @param: mail: any - Mailobject {} TODO
   */
-  createTask(email: any, name: string, idList?:string): Observable<any> {
+  createTask(email: Email, taskObject: any, idList?:string): Observable<any> {
     const options = {
-      name: name,
+      name: taskObject.subject,
       idList: idList
     };
     const path = `email/${email._id}/addTask`;
     return this._httpService.generateRequest(RequestMethod.Post, this.domain, path, null, options);
+  }
+
+  createSuggestedTask(email: Email) {
+    let peopleArray: any[] = [];
+    let sender: string = "";
+    let receiver: string = "";
+    /* this has to be done for all names */
+    if(email.from[0].name == "") sender = email.from[0].address;
+    else sender = email.from[0].name;
+    peopleArray.push(sender);
+
+    if(email.to[0].name == "") receiver = email.to[0].address;
+    else receiver = email.to[0].name;
+    peopleArray.push(receiver);
+
+    let suggestedTaskObj = {
+      subject: email.subject,
+      text: email.text,
+      people: peopleArray
+    }
+    return suggestedTaskObj;
   }
 }

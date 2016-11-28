@@ -8,11 +8,11 @@
       <div flex="25" class="scrollable">
         <list [emails]="emails" (getSingleMail)="getSingleMail($event)"></list>
       </div>
-      <div flex="50" class="scrollable">
+      <div flex="55" class="scrollable">
         <detailedView [email]="email" [loadedOnce]="loadedOnce"></detailedView>
       </div>
-      <div flex="25" class="scrollable">
-        <taskList></taskList>
+      <div flex="20" class="scrollable">
+        <taskList [email]="email" [suggestedTask]="suggestedTask" [loadedOnce]="loadedOnce"></taskList>
       </div>
     </div>
   </div>

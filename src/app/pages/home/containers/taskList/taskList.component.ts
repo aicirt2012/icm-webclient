@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ModalDirective} from 'ng2-bootstrap';
 import {Email} from '../../../../models';
 import {TaskService} from '../../../../services';
@@ -8,8 +8,13 @@ import {TaskService} from '../../../../services';
   styleUrls: ['./taskList.component.css'],
   templateUrl: './taskList.component.html'
 })
+
 export class TaskListComponent {
-  private email:Email;
+  @Input() suggestedTask: any;
+  @Input() loadedOnce: boolean;
+  @Input() email: Email;
+
+  //private email:Email;
   private taskName:string = 'testName';
   private taskIdList:string = '582639655429c571aae95b37';
   private taskList: any = null;
@@ -25,13 +30,15 @@ export class TaskListComponent {
   getAllTasks() {
     this._taskService.getAllTasks(this.taskIdList).subscribe((tasks) => {
       this.taskList = tasks;
+      console.log(this.taskList);
     });
   }
 
-  createTask() {
-    this._taskService.createTask(this.email, this.taskName, this.taskIdList)
+  createTask(taskObject:any) {
+    this._taskService.createTask(this.email, taskObject, this.taskIdList)
       .subscribe((task) => {
         this.createdTask = task;
+        console.log(this.createdTask);
       })
   }
 
