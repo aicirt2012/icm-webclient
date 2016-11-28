@@ -28,6 +28,7 @@ export class HomeComponent {
   public loadedOnce: boolean = false;
   public mailView: boolean = true;
   public suggestedTask: any = {};
+  public tasksForMail: any = [];
 
   constructor(private _emailService: EmailService, private _taskService: TaskService, public appState: AppState) {
   }
@@ -70,18 +71,39 @@ export class HomeComponent {
         /* now we can create a suggested Task object*/
         console.log(this.email);
         this.suggestedTask = this._taskService.createSuggestedTask(this.email);
+        /* now we load the corresponding tasks */
+        this.tasksForMail = [];
+        this.getTasksForMail(this.email.tasks);
       },
       error => {
         console.log(error)
       },
       () => {
         this.loadedOnce = true;
-        console.log(`Message with ID: ${id} has been successfully loaded`) });
+        console.log(`Message with ID: ${id} has been successfully loaded`)
+      });
+  }
+
+  getTasksForMail(tasks: any) {
+    if (tasks.length > 0) {
+      for (let i = 0; i < tasks.length; i++) {
+        this._taskService
+          .getTaskByID(tasks[i].id)
+          .subscribe((data: any) => {
+            console.log(data);
+            this.tasksForMail.push(data);
+          }, error => {
+            console.log(error)
+          }, () => {
+            console.log("task loaded!")
+          });
+      }
+    }
   }
 
   getEmailBox(box?: string) {
     this.currentBox = box;
-  //  this.loading = true;
+    //  this.loading = true;
     this._emailService
       .getEmailsWithPagination(box)
       .subscribe((data: any) => {
@@ -105,7 +127,7 @@ export class HomeComponent {
 
   switchView(newView: string) {
     console.log("switching view to " + newView);
-    if(this.mailView) this.mailView = false;
+    if (this.mailView) this.mailView = false;
     else this.mailView = true;
   }
 

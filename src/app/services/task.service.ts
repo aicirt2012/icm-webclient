@@ -45,6 +45,14 @@ export class TaskService {
     return this._httpService.generateRequest(RequestMethod.Post, this.domain, path, null, options);
   }
 
+  /*
+   @param: id: string
+   returns Email
+   */
+  getTaskByID(id :string): Observable<any> {
+    return this._httpService.generateRequest(RequestMethod.Get, this.domain, `/${id}`, null, null);
+  }
+
   createSuggestedTask(email: Email) {
     let peopleArray: any[] = [];
     let sender: string = "";

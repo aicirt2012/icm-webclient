@@ -13,6 +13,7 @@ export class TaskListComponent {
   @Input() suggestedTask: any;
   @Input() loadedOnce: boolean;
   @Input() email: Email;
+  @Input() tasksForMail: any;
 
   /* we have to get this from backend */
   private taskIdList: string = '582639655429c571aae95b37';

@@ -14,6 +14,7 @@
     </div>
   </div>
 </nav>
+<!-- Suggested Task -->
 <div class="card card-block cardContainer" *ngIf="loadedOnce">
   <h4 class="card-title">{{suggestedTask?.subject}}</h4>
   <p class="card-title">
@@ -24,7 +25,20 @@
   <a href="#" (click)="createTask(suggestedTask)" class="btn btn-primary">Create Task</a>
   <a href="#" class="btn btn-danger">Close</a>
 </div>
+<!--corresponding tasks -->
+<div *ngFor="let task of tasksForMail; let i = index" class="card card-block cardList">
+  <h4 class="card-title">{{task?.name}}</h4>
+  <p class="card-title">
+    <span style="margin-right: 5px;" class="glyphicon glyphicon-user"></span>
+    <i>People...</i>
+  </p>
+  <p class="card-text card-item-text">.....</p>
+  <a href="#" class="btn btn-primary">Open</a>
+  <a href="#" class="btn btn-danger">Close</a>
+</div>
 
+<!--
 <div *ngFor="let task of taskList; let i = index" flex layout="row" href="#" class="list-group-item layout-row flex">
   {{task?.name}}
 </div>
+-->
