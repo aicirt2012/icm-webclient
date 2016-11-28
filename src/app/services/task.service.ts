@@ -11,6 +11,18 @@ export class TaskService {
   constructor(private _httpService: HttpService) { }
 
   /*
+   @param: idList: string ,
+   returns Object: {TODO}
+   */
+  getAllTasks(idList?:string): Observable<any> {
+    console.log("here!!!");
+    const options = {
+      idList: idList
+    };
+    return this._httpService.generateRequest(RequestMethod.Get, this.domain, '', options, null);
+  }
+
+  /*
   @param: query: string - Searchquery,
   returns Object: {"docs":[Emails...],"total": 3,"limit": 10,"page": 1,"pages": 1}
   */

@@ -1,0 +1,19 @@
+/*styles task list content only*/
+
+.padding {
+    padding: 8px;
+}
+
+.partially button span {
+    background-color: orange;
+    border-radius: 32px;
+    color: black;
+}
+
+.navbar {
+    margin-bottom: 0px;
+}
+
+.taskContainer {
+    margin: 0px;
+}
