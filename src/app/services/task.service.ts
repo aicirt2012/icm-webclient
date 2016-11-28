@@ -56,7 +56,7 @@ export class TaskService {
 
     if(email.to[0].name == "") receiver = email.to[0].address;
     else receiver = email.to[0].name;
-    peopleArray.push(receiver);
+    if (sender != receiver) peopleArray.push(receiver);
 
     let suggestedTaskObj = {
       subject: email.subject,
