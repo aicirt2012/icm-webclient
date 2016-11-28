@@ -14,12 +14,12 @@ export class TaskListComponent {
   @Input() loadedOnce: boolean;
   @Input() email: Email;
 
-/* we have to get this from backend */
-  private taskIdList:string = '582639655429c571aae95b37';
+  /* we have to get this from backend */
+  private taskIdList: string = '582639655429c571aae95b37';
   private taskList: any = null;
   private createdTask: any = null;
 
-  constructor(private _taskService:TaskService) {
+  constructor(private _taskService: TaskService) {
   }
 
   ngOnInit() {
@@ -33,15 +33,13 @@ export class TaskListComponent {
     });
   }
 
-  createTask(taskObject:any) {
+  createTask(taskObject: any) {
     this._taskService.createTask(this.email, taskObject, this.taskIdList)
       .subscribe((task) => {
         this.createdTask = task;
         console.log("task has been created");
         console.log(this.createdTask);
         console.log(this.email);
-        console.log("tasklist");
-        console.log(this.taskList);
       })
   }
 

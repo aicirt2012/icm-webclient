@@ -4,12 +4,12 @@
   </div>
   <!-- Mail View -->
   <div *ngIf="mailView" flex="85">
-    <div layout="row">
+    <div layout="row" class="wrapper">
       <div flex="25" class="scrollable">
         <list [emails]="emails" (getSingleMail)="getSingleMail($event)"></list>
       </div>
       <div flex="55" class="scrollable">
-        <detailedView [email]="email" [loadedOnce]="loadedOnce"></detailedView>
+        <detailedView [email]="email" [loadedOnce]="loadedOnce" (openModal)="openModal($event)"></detailedView>
       </div>
       <div flex="20" class="scrollable">
         <taskList [email]="email" [suggestedTask]="suggestedTask" [loadedOnce]="loadedOnce"></taskList>
