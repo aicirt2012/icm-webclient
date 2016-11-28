@@ -20,9 +20,9 @@ export class EmailFormComponent {
 
   sendMail() {
     this.email.from = 'sebisng2@gmail.com'; // TODO remove because 'from' should be generated in backend from user
-    this.email.html = '';
     console.log(this.email);
     this.sendEmail.emit(this.email);
+    this.email = {};
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap';
 import { ModalType } from '../../constants';
+import { Email } from '../../models';
 
 @Component({
   selector: 'detailedView',  // <detailedView></detailedView>
@@ -9,6 +10,9 @@ import { ModalType } from '../../constants';
 })
 export class DetailedViewComponent {
   @Output() openModal = new EventEmitter<any>();
+
+  @Input() email: Email;
+  @Input() loadedOnce: boolean;
 
   constructor() {
   }

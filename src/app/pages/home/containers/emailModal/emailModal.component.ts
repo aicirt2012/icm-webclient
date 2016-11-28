@@ -14,7 +14,7 @@ export class EmailModalComponent {
   @Output() closeModal = new EventEmitter<any>();
   @Input() modalType: ModalType;
 
-  private currentlySending: boolean = false;
+  public currentlySending: boolean = false;
 
   constructor(private _emailService: EmailService) {
   }
@@ -24,7 +24,7 @@ export class EmailModalComponent {
   }
 
   ngOnChanges() {
-    if(this.modalType === ModalType.create) {
+    if (this.modalType === ModalType.create) {
       this.emailModal.show();
     }
   }
@@ -35,15 +35,19 @@ export class EmailModalComponent {
   }
 
   sendEmail(mail: any) {
+    this.currentlySending = true;
     this._emailService
       .sendMail(mail)
       .subscribe((data: any) => {
-        console.log(data);
+        this.currentlySending = false;
+        this.hideChildModal();
       },
       error => {
         console.log(error)
       },
-      () => {  alert(`Mail to ${mail.to} send!`); });
+      () => {
+        alert(`Mail to ${mail.to} send!`);
+      });
   }
 
 }

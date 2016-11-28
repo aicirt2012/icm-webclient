@@ -22,18 +22,19 @@
     </div>
   </div>
 </nav>
-<div class="mailContainer">
+<div class="mailContainer" *ngIf="loadedOnce">
   <!-- Subject -->
-  <h2>WI17-ST submission review</h2>
+  <h2>{{email?.subject}}</h2>
   <!-- author -->
-  <!-- receiver -->
-  <i>Constantin Mense</i>
+  <b><i>{{email?.from[0].address}}</i></b>
   to
-  <i>sebisng2@gmail.com</i>
+  <!-- receiver -->
+  <b><i>{{email?.to[0].address}}</i></b>
   <br>
   <br>
-
   <!-- mail content -->
+  {{email?.text}}
+  <!--
   Dear sebis Team,
   <br>
   <p>
@@ -55,5 +56,5 @@
   <br>
   <p>
     Greetings, Consti
-  </p>
+  </p>-->
 </div>

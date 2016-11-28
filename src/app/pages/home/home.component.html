@@ -1,15 +1,24 @@
-<div *ngIf="!loading" layout="row">
+<div *ngIf="!loading" layout="row" class="wrapper">
   <div flex="15" class="navigation">
-    <navbar (onRefresh)="onRefresh($event)" (getEmailBox)="getEmailBox($event)" (openModal)="openModal($event)"></navbar>
+    <navbar (onRefresh)="onRefresh($event)" (getEmailBox)="getEmailBox($event)" (openModal)="openModal($event)" [mailView]="mailView" (switchView)="switchView($event)"></navbar>
   </div>
-  <div flex="25">
-    <list [emails]="emails"></list>
+  <!-- Mail View -->
+  <div *ngIf="mailView" flex="85">
+    <div layout="row">
+      <div flex="25" class="scrollable">
+        <list [emails]="emails" (getSingleMail)="getSingleMail($event)"></list>
+      </div>
+      <div flex="50" class="scrollable">
+        <detailedView [email]="email" [loadedOnce]="loadedOnce" (openModal)="openModal($event)"></detailedView>
+      </div>
+      <div flex="25" class="scrollable">
+        <taskList></taskList>
+      </div>
+    </div>
   </div>
-  <div flex="40">
-    <detailedView (openModal)="openModal($event)"></detailedView>
-  </div>
-  <div flex="20">
-    <taskList></taskList>
+  <!-- Profile View -->
+  <div *ngIf="!mailView" flex="85">
+    <profile></profile>
   </div>
 </div>
 <div *ngIf="loading" class="spinner">
@@ -18,11 +27,32 @@
 </div>
 <email-modal [modalType]="currentModalType" (closeModal)="closeModal()"></email-modal>
 
-Currently Syncing:
+<!--
+<div *ngIf="!loading" layout="row" class="wrapper">
+  <div flex="15" class="navigation">
+    <navbar (onRefresh)="onRefresh($event)" (getEmailBox)="getEmailBox($event)" (openModal)="openModal($event)"></navbar>
+  </div>
+    <div flex="25" class="scrollable">
+      <list [emails]="emails" (getSingleMail)="getSingleMail($event)"></list>
+    </div>
+    <div flex="40" class="scrollable">
+      <detailedView [email]="email" [loadedOnce]="loadedOnce"></detailedView>
+    </div>
+    <div flex="20" class="scrollable">
+      <taskList></taskList>
+    </div>
+</div>
+<div *ngIf="loading" class="spinner">
+  <div class="double-bounce1"></div>
+  <div class="double-bounce2"></div>
+</div>
+<email-modal [modalType]="currentModalType" (closeModal)="closeModal()"></email-modal>
+-->
+<!-- Currently Syncing:
 {{syncing}}
 <button (click)="syncBoxes([])">Sync</button>
 
 <br>
 <input [(ngModel)]="taskName" placeholder="Task Name">
 <button (click)="createTask()">Create Task</button>
-{{createdTask}}
+{{createdTask}} -->

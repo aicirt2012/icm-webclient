@@ -17,30 +17,32 @@ import { Observer} from 'rxjs/Observer';
 })
 export class HomeComponent {
   public emails: Email[] = [];
+  public email: Email = null;
   public boxList: string[];
-  public loading: boolean = false;
+  public loading: boolean = true;
   public syncing: boolean = false;
   private currentBox: string = 'INBOX';
   public currentModalType: ModalType = null;
   private taskName: string = 'testName';
   private createdTask: any = null;
+  public loadedOnce: boolean = false;
+  public mailView: boolean = true;
 
   constructor(private _emailService: EmailService, private _taskService: TaskService, public appState: AppState) {
   }
 
   ngOnInit() {
     console.log('hello `Home` component');
-    // this.loading = true;
-    // this.getBoxList().subscribe((data: any[]) => {
-    //   this.boxList = data;
-    // }, error => {
-    //   console.log(error)
-    // }, () => {
-    //   console.log("Init done!")
-    //   this.appState.set('boxList', this.boxList);
-    //   this.getEmailBox(this.currentBox);
-    // });;
-
+    this.loading = true;
+    this.getBoxList().subscribe((data: any[]) => {
+      this.boxList = data;
+    }, error => {
+      console.log(error)
+    }, () => {
+      console.log("Init done!")
+      this.appState.set('boxList', this.boxList);
+      this.getEmailBox(this.currentBox);
+    });
   }
 
   onRefresh(refresh: boolean) {
@@ -59,13 +61,28 @@ export class HomeComponent {
     });
   }
 
+  getSingleMail(id?: string) {
+    this._emailService
+      .getSingleMail(id)
+      .subscribe((data: any) => {
+        this.email = data;
+      },
+      error => {
+        console.log(error)
+      },
+      () => {
+        this.loadedOnce = true;
+        console.log(`Message with ID: ${id} has been successfully loaded`) });
+  }
+
   getEmailBox(box?: string) {
     this.currentBox = box;
-    this.loading = true;
+  //  this.loading = true;
     this._emailService
       .getEmailsWithPagination(box)
       .subscribe((data: any) => {
         this.emails = data.docs;
+        console.log(this.emails);
         this.loading = false;
       },
       error => {
@@ -81,12 +98,17 @@ export class HomeComponent {
   closeModal() {
     this.currentModalType = null;
   }
-
   createTask() {
     console.log(this.emails);
     this._taskService.createTask(this.emails[0], this.taskName, '582639655429c571aae95b37').subscribe((task) => {
       this.createdTask = task;
     })
+  }
+
+  switchView(newView: string) {
+    console.log("switching view to " + newView);
+    if(this.mailView) this.mailView = false;
+    else this.mailView = true;
   }
 
 }

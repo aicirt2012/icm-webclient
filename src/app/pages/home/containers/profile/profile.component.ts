@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../services';
+import { AuthService } from '../../../../services';
 import { Router } from '@angular/router';
-import { AppState } from '../../app.service';
+import { AppState } from '../../../../app.service';
 
 @Component({
   selector: 'profile',
@@ -12,6 +12,7 @@ export class ProfileComponent {
   model: any = {};
   loading = false;
   error = '';
+  public currentView: string = 'Overview';
 
   constructor(
     private router: Router,
@@ -37,5 +38,25 @@ export class ProfileComponent {
           this.loading = false;
         }
       });
+  }
+
+  showView(view: string): void{
+      this.currentView = view;
+      console.log("changed view to " + view);
+  }
+
+  getCurrentView(view: string) : boolean{
+    console.log("get current view method");
+      if(this.currentView == view)
+           return true;
+      else
+           return false;
+  }
+
+  getActive(choice: string) : string{
+      if(this.currentView == choice)
+           return "active";
+      else
+           return "";
   }
 }

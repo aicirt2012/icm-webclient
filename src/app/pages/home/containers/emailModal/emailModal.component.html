@@ -8,11 +8,10 @@
         <h4 class="modal-title">Create Email</h4>
       </div>
       <div class="modal-body">
-        <div *ngIf="currentlySending" class="spinner">
-          <div class="double-bounce1"></div>
-          <div class="double-bounce2"></div>
+        <div *ngIf="currentlySending">
+          <div class="alert alert-info" role="alert"> Sending... </div>
         </div>
-        <email-form *ngIf="!currentlySending" (sendEmail)="sendEmail($event)"></email-form>
+        <email-form (sendEmail)="sendEmail($event)"></email-form>
       </div>
     </div>
   </div>

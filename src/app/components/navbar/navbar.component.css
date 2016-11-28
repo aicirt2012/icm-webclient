@@ -15,6 +15,9 @@
   color: white;
 }
 
+/* fix for navbar hover */
+ul.nav a:hover { color: black !important; }
+
 .partially button span {
   background-color: orange;
   border-radius: 32px;
@@ -27,4 +30,5 @@
 
  .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
    background-color: rgba(0, 0, 0, 0.44) !important;
+   /* background-color: white !important;*/
  }

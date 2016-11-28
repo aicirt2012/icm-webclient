@@ -18,9 +18,10 @@ import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 // Self-written classes
-import { HomeComponent, NoContentComponent, ProfileComponent, LoginComponent } from './pages'; // all pages
-import { EmailModalComponent } from './pages'; // all containers
-import { NavBarComponent, ListComponent, DetailedViewComponent, TaskListComponent, EmailFormComponent } from './components'; // all components
+import { HomeComponent, NoContentComponent, LoginComponent } from './pages'; // all pages
+import { EmailModalComponent, ProfileComponent, AccountComponent, OverviewComponent, TasksComponent, TaskListComponent, HelpComponent, GmailComponent, ExchangeComponent, SocioCortexComponent, TrelloComponent } from './pages'; // all containers
+import { NavBarComponent, ListComponent, DetailedViewComponent, EmailFormComponent} from './components'; // all components
+
 import { AuthService, EmailService, HttpService, TaskService } from './services';
 import { AuthGuard } from './app.authGuard';
 import { Email, User } from './models';
@@ -55,7 +56,15 @@ type StoreType = {
     DetailedViewComponent,
     TaskListComponent,
     EmailModalComponent,
-    EmailFormComponent
+    EmailFormComponent,
+    AccountComponent,
+    TasksComponent,
+    HelpComponent,
+    OverviewComponent,
+    GmailComponent,
+    ExchangeComponent,
+    TrelloComponent,
+    SocioCortexComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
