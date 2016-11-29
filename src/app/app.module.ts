@@ -24,7 +24,7 @@ import { NavBarComponent, ListComponent, DetailedViewComponent, EmailFormCompone
 
 import { AuthService, EmailService, HttpService, TaskService } from './services';
 import { AuthGuard } from './app.authGuard';
-import { Email, User } from './models';
+import { Email, User, EmailForm } from './models';
 
 // Application wide providers
 const APP_PROVIDERS = [

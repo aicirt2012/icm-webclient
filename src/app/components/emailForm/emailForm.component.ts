@@ -1,5 +1,5 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-
+import { EmailForm } from '../../models';
 @Component({
   selector: 'email-form',
   styleUrls: ['./emailForm.component.css'],
@@ -8,13 +8,14 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 export class EmailFormComponent {
   @Output() sendEmail = new EventEmitter<any>();
   @Input() success: boolean;
+  // @Input() email: EmailForm;
 
-  public email: any = {};
+  public email: EmailForm;
 
   constructor() {
   }
-  ngOnInit() {
 
+  ngOnInit() {
     console.log('hello `EmailForm` component');
   }
 
@@ -22,7 +23,6 @@ export class EmailFormComponent {
     this.email.from = 'sebisng2@gmail.com'; // TODO remove because 'from' should be generated in backend from user
     console.log(this.email);
     this.sendEmail.emit(this.email);
-    this.email = {};
   }
 
 }
