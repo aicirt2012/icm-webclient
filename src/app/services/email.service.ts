@@ -83,4 +83,30 @@ export class EmailService {
     return this._httpService.generateRequest(RequestMethod.Get, this.domain,`single/${id}`, null, null);
   }
 
+  /*
+  */
+  generateEmailForm(email: Email, type:string): any {
+    const bodyHeader =`
+-------------------------------------------
+From: ${email.from[0].address}
+Date: ${email.date}
+Subject: ${email.subject}
+To:${email.to[0].address}
+${email.text}`;
+
+    if(type === 'reply') {
+      return {
+        to: email.from[0].address,
+        subject: `Re: ${email.subject}`,
+        text: bodyHeader
+      }
+    } else if (type === 'forward') {
+      return {
+        subject: `Fw: ${email.subject}`,
+        text: bodyHeader
+      }
+    }
+
+  }
+
 }

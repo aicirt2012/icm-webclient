@@ -2,16 +2,16 @@
   <div class="container-fluid">
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li>
+        <!-- <li>
           <a href="#">
             <span style="margin-right: 5px;" class="glyphicon glyphicon-plus"></span>New</a>
-        </li>
+        </li> -->
         <li>
           <a (click)="openReplyEmailModal()">
             <span style="margin-right: 5px;" class="glyphicon glyphicon-arrow-left"></span>Reply</a>
         </li>
         <li>
-          <a href="#">
+          <a href="#" (click)="openFowardEmailModal()">
             <span style="margin-right: 5px;" class="glyphicon glyphicon-share-alt"></span>Forward</a>
         </li>
         <li>
@@ -33,7 +33,8 @@
   <br>
   <br>
   <!-- mail content -->
-  {{email?.text}}
+  <p *ngIf="email.html" [innerHTML]="email?.html"></p>
+  <p *ngIf="!email.html">{{email?.text}}</p>
   <!--
   Dear sebis Team,
   <br>

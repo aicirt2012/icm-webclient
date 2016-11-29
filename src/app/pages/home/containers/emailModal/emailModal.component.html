@@ -5,7 +5,7 @@
         <button type="button" class="close" (click)="hideChildModal()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title">{{modalType == 1 ? 'Reply' : 'Create new Email'}}</h4>
+        <h4 class="modal-title">{{modalType == 0 ? 'Create new email' : ( modalType == 1 ? 'Reply' : 'Forward email')}}</h4>
       </div>
       <div class="modal-body">
         <div *ngIf="currentlySending">
