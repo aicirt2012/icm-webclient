@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { AppState } from '../../app.service';
 import * as moment from 'moment';
 import { ModalDirective } from 'ng2-bootstrap';
-import { Email } from '../../models';
+import { Email} from '../../models';
 import { EmailService, TaskService } from '../../services';
 import { ModalType } from '../../constants';
 import { Observable } from 'rxjs/Observable';

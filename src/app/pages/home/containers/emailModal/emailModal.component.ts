@@ -3,6 +3,7 @@ import { ModalDirective } from 'ng2-bootstrap';
 import { EmailService } from '../../../../services';
 import { ModalType } from '../../../../constants';
 import { Observable } from 'rxjs/Observable';
+import { Email, EmailForm } from '../../../../models';
 
 @Component({
   selector: 'email-modal',
@@ -13,8 +14,10 @@ export class EmailModalComponent {
   @ViewChild('emailModal') public emailModal: ModalDirective;
   @Output() closeModal = new EventEmitter<any>();
   @Input() modalType: ModalType;
+  @Input() email: Email;
 
   public currentlySending: boolean = false;
+  public emailForm: any = {};
 
   constructor(private _emailService: EmailService) {
   }
@@ -25,6 +28,13 @@ export class EmailModalComponent {
 
   ngOnChanges() {
     if (this.modalType === ModalType.create) {
+      this.emailModal.show();
+    } else if (this.modalType === ModalType.reply) {
+      this.emailForm = {
+        to: this.email.from[0].address,
+        subject: `Re: ${this.email.subject}`,
+        text: this.email.text
+      }
       this.emailModal.show();
     }
   }
@@ -40,6 +50,7 @@ export class EmailModalComponent {
       .sendMail(mail)
       .subscribe((data: any) => {
         this.currentlySending = false;
+        this.emailForm = {};
         this.hideChildModal();
       },
       error => {

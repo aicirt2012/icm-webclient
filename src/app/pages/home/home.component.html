@@ -25,7 +25,7 @@
   <div class="double-bounce1"></div>
   <div class="double-bounce2"></div>
 </div>
-<email-modal [modalType]="currentModalType" (closeModal)="closeModal()"></email-modal>
+<email-modal [modalType]="currentModalType" [email]="email" (closeModal)="closeModal()"></email-modal>
 
 <!--
 <div *ngIf="!loading" layout="row" class="wrapper">

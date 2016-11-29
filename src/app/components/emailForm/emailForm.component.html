@@ -1,15 +1,15 @@
 <form>
   <div class="form-group">
     <label>To:</label>
-    <input type="email" class="form-control" [(ngModel)]="email.to" name="to" placeholder="Enter email" required>
+    <input type="email" class="form-control" [(ngModel)]="emailForm.to" name="to" placeholder="Enter email" required>
   </div>
   <div class="form-group">
     <label>Subject:</label>
-    <input type="text" class="form-control" [(ngModel)]="email.subject" name="subject" placeholder="Enter subject">
+    <input type="text" class="form-control" [(ngModel)]="emailForm.subject" name="subject" placeholder="Enter subject">
   </div>
   <div class="form-group">
     <label>Message:</label>
-    <textarea class="form-control" name="text" rows="8" [(ngModel)]="email.text"></textarea>
+    <textarea class="form-control" name="text" rows="8" [(ngModel)]="emailForm.text"></textarea>
   </div>
   <button type="submit" class="btn btn-primary" (click)="sendMail()">Send</button>
 </form>
