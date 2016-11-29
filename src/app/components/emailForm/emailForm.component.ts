@@ -10,7 +10,7 @@ export class EmailFormComponent {
   @Input() success: boolean;
   // @Input() email: EmailForm;
 
-  public email: EmailForm;
+  public email: any = {};
 
   constructor() {
   }
