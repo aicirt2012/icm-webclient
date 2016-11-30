@@ -21,7 +21,7 @@ import { AppState, InternalStateType } from './app.service';
 // Self-written classes
 import { HomeComponent, NoContentComponent, LoginComponent } from './pages'; // all pages
 import { EmailModalComponent, ProfileComponent, TaskListComponent } from './pages'; // all containers
-import { NavBarComponent, ListComponent, DetailedViewComponent, EmailFormComponent, AccountComponent, OverviewComponent, TasksComponent, HelpComponent, GmailComponent, ExchangeComponent, SocioCortexComponent, TrelloComponent} from './components'; // all components
+import { NavBarComponent, ListComponent, DetailedViewComponent, EmailFormComponent, AccountComponent, OverviewComponent, TasksComponent, HelpComponent, GmailComponent, ExchangeComponent, SocioCortexComponent, TrelloComponent, SpinnerComponent} from './components'; // all components
 
 import { AuthService, EmailService, HttpService, TaskService } from './services';
 import { AuthGuard } from './app.authGuard';
@@ -65,7 +65,8 @@ type StoreType = {
     GmailComponent,
     ExchangeComponent,
     TrelloComponent,
-    SocioCortexComponent
+    SocioCortexComponent,
+    SpinnerComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
