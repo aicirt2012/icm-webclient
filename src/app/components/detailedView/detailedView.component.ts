@@ -24,4 +24,8 @@ export class DetailedViewComponent {
     this.openModal.emit(ModalType.reply);
   }
 
+  openFowardEmailModal() {
+    this.openModal.emit(ModalType.forward);
+  }
+
 }

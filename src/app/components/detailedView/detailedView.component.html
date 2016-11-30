@@ -2,16 +2,16 @@
   <div class="container-fluid">
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li>
+        <!-- <li>
           <a href="#">
             <span style="margin-right: 5px;" class="glyphicon glyphicon-plus"></span>New</a>
-        </li>
+        </li> -->
         <li>
           <a (click)="openReplyEmailModal()">
             <span style="margin-right: 5px;" class="glyphicon glyphicon-arrow-left"></span>Reply</a>
         </li>
         <li>
-          <a href="#">
+          <a href="#" (click)="openFowardEmailModal()">
             <span style="margin-right: 5px;" class="glyphicon glyphicon-share-alt"></span>Forward</a>
         </li>
         <li>
@@ -33,28 +33,6 @@
   <br>
   <br>
   <!-- mail content -->
-  {{email?.text}}
-  <!--
-  Dear sebis Team,
-  <br>
-  <p>
-    Lorem ipsum dolor sit amet, ei mel alii utinam electram, cum urbanitas temporibus eu. Ne eam atqui zril gloriatur. Dolor atomorum nam ut, ne mea illum option molestie, graeco dolorem oportere has id. Duo eu quodsi molestie, te per posse inermis
-    reprehendunt, in qui q od detracto appareat. Soleat soluta rationibus ut per, at iusto iudico veniam per. Eam error fabellas ut.
-  </p>
-  <p>Usu vocibus gubergren rationibus cu. Mea ut audiam signiferumque, pri in nisl partem possim, ei fierent albucius erroribus has. Vim ne tr actatos dignissim. Pri vitae adversarium id. Duo ne solet fabulas neglegentur. Malorum accusamus id has, cum
-    viderer inimicus eu, mel errem altera ornatus ne.
-  </p>
-
-  <p>
-    Legere ignota ne nec, civibus definitiones his te. Vel an commodo delenit feugait, dolorem appareat reprimique mea et. An eam libris possit, error fierent expetendis quo id. Quodsi dissentie t no eam, vis te insolens adipiscing, no vim suas saepe
-    quodsi. Quo augue nusquam fabellas ea. Te dolore aliq uam dignissim his. Idque dolorem has at, his at albucius quaestio gubergren. Unum insolens ad pri, vel eu vide tritani ocurreret. Eu eum verterem oportere expetenda, quodsi consectetuer vel ei, ad
-    prima complec titur duo. Agam ridens persequeris et eos, pro at purto probo. Ut vis diam choro vivendo, choro labit ur gloriatur sit ea, ne nobis fierent legendos ius. Eu exerci recteque duo, omnis posidonium sea no. Vix ni sl signiferumque ea, vel
-    zril virtute civibus no, dicam facilisi efficiantur his at. Denique incorrupte duo ex, sed dissentias definitiones te, ne faci lis postulant sed. Eam ea vitae inimicus, cu adhuc commune eos. Eam ea everti expetenda, munere argume ntum has in. Vis
-    omnes ubique numquam ut, corpora qualisque ex per, ut sumo probo antiopam qui. Recusabo omi ttantur nec ei. Cu nulla civibus quo, ut audire noluisse cum, te sed en im laoreet mediocrem. Quo ad habeo dolorem dissentiunt, animal i ntellegam duo et.
-  </p>
-  <br>
-  <br>
-  <p>
-    Greetings, Consti
-  </p>-->
+  <p *ngIf="email.html" [innerHTML]="email?.html"></p>
+  <p *ngIf="!email.html">{{email?.text}}</p>
 </div>

@@ -7,6 +7,7 @@ import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularcla
 import { Ng2BootstrapModule } from 'ng2-bootstrap';
 import { Angular2FlexModule } from 'angular2-flex';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { TagInputModule } from 'ng2-tag-input';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -73,7 +74,8 @@ type StoreType = {
     HttpModule,
     RouterModule.forRoot(ROUTES, { useHash: true }),
     Ng2BootstrapModule,
-    Angular2FlexModule.forRoot()
+    Angular2FlexModule.forRoot(),
+    TagInputModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,

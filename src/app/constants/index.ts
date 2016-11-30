@@ -3,5 +3,5 @@ export default {
 };
 
 export enum ModalType {
-  create, reply
+  create, reply, forward
 }
