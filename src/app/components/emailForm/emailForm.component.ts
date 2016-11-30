@@ -8,7 +8,11 @@ import { EmailForm } from '../../models';
 })
 export class EmailFormComponent {
   @Output() sendEmail = new EventEmitter<any>();
-  @Input() emailForm: EmailForm;
+  @Input() emailForm: any;
+  public tagInputOptions = {
+          placeholder: "+ email address",
+          secondaryPlaceholder: "Enter email address"
+      }
 
   constructor() {
   }
