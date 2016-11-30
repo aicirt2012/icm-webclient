@@ -1,5 +1,6 @@
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { ModalType } from '../../constants';
+import { AppState } from '../../app.service';
 
 @Component({
   selector: 'navbar',  // <navbar></navbar>
@@ -18,12 +19,36 @@ export class NavBarComponent {
   public currentBox: string = '';
   public currentChoice: string = "INBOX";
   private newView: string = '';
+  private navbarItems: any = [];
 
-  constructor() {
+  constructor(public appState: AppState) {
+    this.appState = appState;
+    this.appState.getObservableState().subscribe((data) => {
+      this.addDataToBoxes();
+    })
   }
 
   ngOnInit() {
-    console.log('hello `navbar` component');
+  }
+
+  addDataToBoxes() {
+    console.log(this.appState.get('boxList'));
+    if (this.appState.get('boxList').length > 0) {
+      this.navbarItems = this.appState.get('boxList').map((box) => {
+        let icon;
+        switch (box.name) { //TODO put in service
+          case 'INBOX':
+            icon = 'glyphicon glyphicon-home'
+          case 'Trash':
+            icon = 'glyphicon glyphicon-trash'
+          default:
+            icon = 'glyphicon glyphicon-home'
+        };
+        box.route = `/box/${box.name}`;
+        box.icon = icon;
+        return box;
+      });
+    }
   }
 
   refresh() {
@@ -32,8 +57,8 @@ export class NavBarComponent {
 
   getEmails(box?: string) {
     /* first change view to mail if necessary */
-    if(!this.mailView) this.changeView();
-    this.currentBox = box;
+    // if(!this.mailView) this.changeView();
+    // this.currentBox = box;
     this.getEmailBox.emit(box);
   }
 
@@ -41,20 +66,20 @@ export class NavBarComponent {
     this.openModal.emit(ModalType.create);
   }
 
- setActive(choice: string): void{
-     this.currentChoice = choice;
- }
+  setActive(choice: string): void {
+    this.currentChoice = choice;
+  }
 
- getActive(choice: string) : string{
-     if(this.currentChoice == choice)
-          return "active";
-     else
-          return "";
- }
+  getActive(choice: string): string {
+    if (this.currentChoice == choice)
+      return "active";
+    else
+      return "";
+  }
 
- changeView() {
-    if(this.mailView)  this.newView = "profile";
+  changeView() {
+    if (this.mailView) this.newView = "account";
     else this.newView = "mail";
     this.switchView.emit(this.newView);
- }
+  }
 }

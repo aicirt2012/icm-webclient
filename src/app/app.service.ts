@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {Observer} from 'rxjs/Observer';
+
 
 export type InternalStateType = {
   [key: string]: any
@@ -6,12 +9,18 @@ export type InternalStateType = {
 
 @Injectable()
 export class AppState {
-  _state: InternalStateType = { };
+  _state: InternalStateType = {};
+  dataChange: Observable<any>;
+  dataChangeObserver: Observer<any>;
 
   constructor() {
-
+    this.dataChange = new Observable((observer) => {
+      this.dataChangeObserver = observer;
+    });
   }
-
+  getObservableState() {
+    return this.dataChange;
+  }
   // already return a clone of the current state
   get state() {
     return this._state = this._clone(this._state);
@@ -21,7 +30,6 @@ export class AppState {
     throw new Error('do not mutate the `.state` directly');
   }
 
-
   get(prop?: any) {
     // use our state getter for the clone
     const state = this.state;
@@ -29,13 +37,12 @@ export class AppState {
   }
 
   set(prop: string, value: any) {
-    // internally mutate our state
-    return this._state[prop] = value;
+    this._state[prop] = value
+    this.dataChangeObserver.next(value)
   }
-
 
   private _clone(object: InternalStateType) {
     // simple object clone
-    return JSON.parse(JSON.stringify( object ));
+    return JSON.parse(JSON.stringify(object));
   }
 }

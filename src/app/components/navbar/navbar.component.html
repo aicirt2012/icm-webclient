@@ -7,9 +7,13 @@
       <span class="glyphicon glyphicon-refresh"></span>
     </button>
   </div>
+  <button (click)="showAppState()">test</button>
 
   <ul class="nav nav-pills nav-stacked">
-    <li role="presentation" (click)="setActive('INBOX')" class="{{getActive('INBOX')}}">
+      <navbar-list-item *ngFor="let item of navbarItems" [item]="item">
+      </navbar-list-item>
+  </ul>
+    <!-- <li role="presentation" (click)="setActive('INBOX')" class="{{getActive('INBOX')}}">
       <a class="listitems" (click)="getEmails('INBOX')" href="#">
         <span style="margin-right: 5px;" class="glyphicon glyphicon-home"></span>Inbox
         <span class="badge" style="background-color: #ce3434;color: white;">5</span>
@@ -46,5 +50,5 @@
         <span style="margin-right: 5px;" class="glyphicon glyphicon-log-out"></span>Logout
       </a>
     </li>
-  </ul>
+  </ul> -->
 </div>

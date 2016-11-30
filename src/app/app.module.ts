@@ -19,8 +19,8 @@ import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 // Self-written classes
 import { HomeComponent, NoContentComponent, LoginComponent } from './pages'; // all pages
-import { EmailModalComponent, ProfileComponent, TaskListComponent } from './pages'; // all containers
-import { NavBarComponent, ListComponent, DetailedViewComponent, EmailFormComponent, AccountComponent, OverviewComponent, TasksComponent, HelpComponent, GmailComponent, ExchangeComponent, SocioCortexComponent, TrelloComponent, SpinnerComponent} from './components'; // all components
+import { EmailModalComponent, AccountComponent, TaskListComponent } from './pages'; // all containers
+import { NavBarComponent, ListComponent, DetailedViewComponent, EmailFormComponent, OverviewComponent, TasksComponent, HelpComponent, GmailComponent, ExchangeComponent, SocioCortexComponent, TrelloComponent, SpinnerComponent, NavBarListItemComponent} from './components'; // all components
 
 import { AuthService, EmailService, HttpService, TaskService } from './services';
 import { AuthGuard } from './app.authGuard';
@@ -47,17 +47,17 @@ type StoreType = {
     AppComponent,
     // pages
     HomeComponent,
-    ProfileComponent,
+    AccountComponent,
     LoginComponent,
     NoContentComponent,
     // components
     NavBarComponent,
+    NavBarListItemComponent,
     ListComponent,
     DetailedViewComponent,
     TaskListComponent,
     EmailModalComponent,
     EmailFormComponent,
-    AccountComponent,
     TasksComponent,
     HelpComponent,
     OverviewComponent,

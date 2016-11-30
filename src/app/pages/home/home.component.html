@@ -17,10 +17,6 @@
       </div>
     </div>
   </div>
-  <!-- Profile View -->
-  <div *ngIf="!mailView" flex="85">
-    <profile></profile>
-  </div>
 </div>
 
 <email-modal [modalType]="currentModalType" (closeModal)="closeModal()"></email-modal>

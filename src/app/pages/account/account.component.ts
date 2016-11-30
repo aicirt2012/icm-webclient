@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { AppState } from '../../../../app.service';
 
 @Component({
-  selector: 'profile',
-  templateUrl: 'profile.component.html',
-  styleUrls: ['profile.component.css'],
+  selector: 'account',
+  templateUrl: 'account.component.html',
+  styleUrls: ['account.component.css'],
 })
-export class ProfileComponent {
+export class AccountComponent {
   model: any = {};
   loading = false;
   error = '';
@@ -21,7 +21,7 @@ export class ProfileComponent {
 
   ngOnInit() {
     // reset login status
-    console.log('Hello Profile Component');
+    console.log('Hello account Component');
     console.log(this.appState.get());
   }
 

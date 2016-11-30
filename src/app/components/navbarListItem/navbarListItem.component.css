@@ -1,0 +1,42 @@
+/*styles nav bar content only*/
+
+.padding {
+  padding: 8px;
+}
+
+.mailButton {
+  margin: 15px 10px;
+  color: white;
+  background-color: #168c40;
+  border-color: #168c40;
+}
+
+.listitems {
+  color: white;
+}
+
+
+/* fix for navbar hover */
+
+ul.nav a:hover {
+  color: black !important;
+}
+
+.partially button span {
+  background-color: orange;
+  border-radius: 32px;
+  color: black;
+}
+
+.badge {
+  float: right;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+  background-color: rgba(0, 0, 0, 0.44) !important;
+  /* background-color: white !important;*/
+}
+
+.active {
+  background-color: rgba(0, 0, 0, 0.44) !important;
+}

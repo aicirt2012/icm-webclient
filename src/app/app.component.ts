@@ -8,7 +8,8 @@ import { AppState } from './app.service';
   styleUrls: [
     './app.component.css'
   ],
-  template: `<router-outlet></router-outlet>
+  template: `
+  <router-outlet></router-outlet>
 <!--
  <nav>
       <span>

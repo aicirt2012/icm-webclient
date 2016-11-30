@@ -1,19 +1,19 @@
 <div layout="row">
   <div flex="85">
-    <div class="row profile">
+    <div class="row account">
       <div layout="row">
         <div flex="25">
-          <div class="profile-sidebar">
-            <div class="profile-usertitle">
-              <div class="profile-usertitle-name">
+          <div class="account-sidebar">
+            <div class="account-usertitle">
+              <div class="account-usertitle-name">
                 Peter Niedermeier
               </div>
-              <div class="profile-usertitle-job">
+              <div class="account-usertitle-job">
                 M.Sc. Information Systems
               </div>
-              <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+              <img id="account-img" class="account-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
             </div>
-            <div class="profile-usermenu">
+            <div class="account-usermenu">
               <ul class="nav">
                 <li class="{{getActive('Overview')}}">
                   <a href="#" (click)="showView('Overview')">
@@ -44,7 +44,7 @@
           </div>
         </div>
         <div flex="75">
-          <div class="profile-content">
+          <div class="account-content">
             <!-- Overview -->
             <overview *ngIf="getCurrentView('Overview')"></overview>
             <!-- Account Settings -->
