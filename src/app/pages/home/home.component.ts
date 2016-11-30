@@ -48,7 +48,7 @@ export class HomeComponent {
   }
 
   onRefresh(refresh: boolean) {
-    console.log(`refresh...let's wait for 2 seconds...`);
+    this.syncBoxes([]);
   }
 
   getBoxList() {
