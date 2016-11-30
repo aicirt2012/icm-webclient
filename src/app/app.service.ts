@@ -11,13 +11,14 @@ export type InternalStateType = {
 export class AppState {
   _state: InternalStateType = {};
   dataChange: Observable<any>;
-  dataChangeObserver: Observer<any>;
+  dataChangeObserver: Observer<any>[] = [];
 
   constructor() {
     this.dataChange = new Observable((observer) => {
-      this.dataChangeObserver = observer;
+      this.dataChangeObserver.push(observer);
     });
   }
+
   getObservableState() {
     return this.dataChange;
   }
@@ -37,8 +38,10 @@ export class AppState {
   }
 
   set(prop: string, value: any) {
-    this._state[prop] = value
-    this.dataChangeObserver.next(value)
+    this._state[prop] = value;
+    this.dataChangeObserver.forEach((observer) => {
+      observer.next(value);
+    });
   }
 
   private _clone(object: InternalStateType) {

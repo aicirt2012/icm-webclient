@@ -1,54 +1,15 @@
-<div class="navbar">
-  <div style="text-align: center;">
-    <button type="button" (click)="openCreateEmailModal()" class="mailButton btn btn-default">COMPOSE NEW MAIL
-      <span class="glyphicon glyphicon-edit"></span>
-    </button>
-    <button class="btn btn-default" (click)="refresh()">
-      <span class="glyphicon glyphicon-refresh"></span>
-    </button>
+<div class="navigation">
+  <div class="navbar">
+    <div style="text-align: center;">
+      <button type="button" (click)="openCreateEmailModal()" class="mailButton btn btn-default">COMPOSE NEW MAIL
+        <span class="glyphicon glyphicon-edit"></span>
+      </button>
+      <button class="btn btn-default" (click)="refresh()">
+        <span class="glyphicon glyphicon-refresh"></span>
+      </button>
+    </div>
+    <ul class="nav nav-pills nav-stacked">
+      <navbar-list-item *ngFor="let item of navbarItems" [item]="item"></navbar-list-item>
+    </ul>
   </div>
-  <button (click)="showAppState()">test</button>
-
-  <ul class="nav nav-pills nav-stacked">
-      <navbar-list-item *ngFor="let item of navbarItems" [item]="item">
-      </navbar-list-item>
-  </ul>
-    <!-- <li role="presentation" (click)="setActive('INBOX')" class="{{getActive('INBOX')}}">
-      <a class="listitems" (click)="getEmails('INBOX')" href="#">
-        <span style="margin-right: 5px;" class="glyphicon glyphicon-home"></span>Inbox
-        <span class="badge" style="background-color: #ce3434;color: white;">5</span>
-      </a>
-    </li>
-    <li role="presentation" (click)="setActive('Starred')" class="{{getActive('Starred')}}">
-      <a class="listitems" href="#">
-        <span style="margin-right: 5px;" class="glyphicon glyphicon-star"></span>Starred</a>
-    </li>
-    <li role="presentation" (click)="setActive('Sent Mail')" class="{{getActive('Sent Mail')}}">
-      <a class="listitems" href="#" (click)="getEmails('[Gmail]/Sent Mail')">
-        <span style="margin-right: 5px;" class="glyphicon glyphicon-envelope"></span>Sent Emails</a>
-    </li>
-    <li role="presentation" (click)="setActive('Drafts')" class="{{getActive('Drafts')}}">
-      <a class="listitems" href="#" (click)="getEmails('[Gmail]/Drafts')">
-        <span style="margin-right: 5px;" class="glyphicon glyphicon-file"></span>Drafts
-        <span class="badge" style="background-color: black;color: white;">3</span>
-      </a>
-    </li>
-    <li role="presentation" (click)="setActive('Trash')" class="{{getActive('Trash')}}">
-      <a class="listitems" href="#" (click)="getEmails('[Gmail]/Trash')">
-        <span style="margin-right: 5px;" class="glyphicon glyphicon-trash"></span>Trash
-        <span class="badge" style="background-color: black;color: white;">46</span>
-      </a>
-    </li>
-    <hr>
-    <li role="presentation" class="{{getActive('Account')}}" (click)="changeView()">
-      <a class="listitems" href="#" (click)="setActive('Account')" >
-        <span style="margin-right: 5px;" class="glyphicon glyphicon-user"></span>Account
-      </a>
-    </li>
-    <li role="presentation">
-      <a class="listitems" href="#" [routerLink]="['/login']">
-        <span style="margin-right: 5px;" class="glyphicon glyphicon-log-out"></span>Logout
-      </a>
-    </li>
-  </ul> -->
 </div>

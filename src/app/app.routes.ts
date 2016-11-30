@@ -7,10 +7,11 @@ import { AuthGuard } from './app.authGuard';
 
 export const ROUTES: Routes = [
     // TODO: reverse mechanism protected/not-protected
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
+  { path: 'box', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
   //{ path: 'info', component: InfoComponent },
-  { path: 'box/:name/:id?', component: HomeComponent, canActivate: [AuthGuard]},
+  { path: 'box/:boxId', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'box/:boxId/:emailId', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
   //{ path: 'unauthorized', component: UnauthorizedComponent }
   /*{
@@ -19,5 +20,5 @@ export const ROUTES: Routes = [
     })
     ,
   },*/
-  { path: '**', redirectTo: 'login' },
+  { path: '**', redirectTo: 'box' },
 ];

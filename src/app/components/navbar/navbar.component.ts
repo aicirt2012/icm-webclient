@@ -1,4 +1,5 @@
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalType } from '../../constants';
 import { AppState } from '../../app.service';
 
@@ -10,19 +11,9 @@ import { AppState } from '../../app.service';
   templateUrl: './navbar.component.html'
 })
 export class NavBarComponent {
-  @Output() onRefresh = new EventEmitter<boolean>();
-  @Output() getEmailBox = new EventEmitter<string>();
-  @Output() openModal = new EventEmitter<any>();
-  @Input() mailView: boolean;
-  @Output() switchView = new EventEmitter<string>();
-
-  public currentBox: string = '';
-  public currentChoice: string = "INBOX";
-  private newView: string = '';
   private navbarItems: any = [];
 
-  constructor(public appState: AppState) {
-    this.appState = appState;
+  constructor(public appState: AppState, public router: Router) {
     this.appState.getObservableState().subscribe((data) => {
       this.addDataToBoxes();
     })
@@ -44,42 +35,26 @@ export class NavBarComponent {
           default:
             icon = 'glyphicon glyphicon-home'
         };
-        box.route = `/box/${box.name}`;
+        box.route = `box/${box.name}`;
         box.icon = icon;
         return box;
       });
     }
   }
-
-  refresh() {
-    this.onRefresh.emit(true);
-  }
-
-  getEmails(box?: string) {
-    /* first change view to mail if necessary */
-    // if(!this.mailView) this.changeView();
-    // this.currentBox = box;
-    this.getEmailBox.emit(box);
-  }
-
-  openCreateEmailModal() {
-    this.openModal.emit(ModalType.create);
-  }
-
-  setActive(choice: string): void {
-    this.currentChoice = choice;
-  }
-
-  getActive(choice: string): string {
-    if (this.currentChoice == choice)
-      return "active";
-    else
-      return "";
-  }
-
-  changeView() {
-    if (this.mailView) this.newView = "account";
-    else this.newView = "mail";
-    this.switchView.emit(this.newView);
-  }
+  //
+  // refresh() {
+  //   this.onRefresh.emit(true);
+  // }
+  //
+  // getEmails(box?: string) {
+  //   /* first change view to mail if necessary */
+  //   // if(!this.mailView) this.changeView();
+  //   // this.currentBox = box;
+  //   this.getEmailBox.emit(box);
+  // }
+  //
+  // openCreateEmailModal() {
+  //   this.openModal.emit(ModalType.create);
+  // }
+  //
 }

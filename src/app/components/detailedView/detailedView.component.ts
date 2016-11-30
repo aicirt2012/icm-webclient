@@ -12,7 +12,6 @@ export class DetailedViewComponent {
   @Output() openModal = new EventEmitter<any>();
 
   @Input() email: Email;
-  @Input() loadedOnce: boolean;
 
   constructor() {
   }

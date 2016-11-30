@@ -1,4 +1,3 @@
-/*styles nav bar content only*/
 
 .padding {
   padding: 8px;
@@ -31,4 +30,10 @@ ul.nav a:hover { color: black !important; }
  .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
    background-color: rgba(0, 0, 0, 0.44) !important;
    /* background-color: white !important;*/
+ }
+
+ .navigation {
+   background-color: rgb(51, 51, 51);
+   color: white;
+   height:100%;
  }

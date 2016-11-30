@@ -7,3 +7,8 @@ html, body{
 span.active {
   background-color: gray;
 }
+
+.wrapper {
+  height: 100%;
+  overflow: hidden;
+}

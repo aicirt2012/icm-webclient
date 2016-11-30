@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AppState } from '../../app.service';
 import * as moment from 'moment';
 import { ModalDirective } from 'ng2-bootstrap';
@@ -6,7 +7,8 @@ import { Email} from '../../models';
 import { EmailService, TaskService } from '../../services';
 import { ModalType } from '../../constants';
 import { Observable } from 'rxjs/Observable';
-import { Observer} from 'rxjs/Observer';
+import 'rxjs/add/operator/switchMap';
+
 
 @Component({
   selector: 'home',  // <home></home>
@@ -18,49 +20,42 @@ import { Observer} from 'rxjs/Observer';
 export class HomeComponent {
   public emails: Email[] = [];
   public email: Email = null;
-  public boxList: string[];
   public loading: boolean = true;
-  public syncing: boolean = false;
-  private currentBox: string = 'INBOX';
+  private currentBox: Observable<string>;
+  private currentId: Observable<string>;
   public currentModalType: ModalType = null;
   private taskName: string = 'testName';
   private createdTask: any = null;
-  public loadedOnce: boolean = false;
-  public mailView: boolean = true;
   public suggestedTask: any = {};
   public tasksForMail: any = [];
 
-  constructor(private _emailService: EmailService, private _taskService: TaskService, public appState: AppState) {
+  constructor(private _emailService: EmailService, private _taskService: TaskService, public appState: AppState, public router: Router, public route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    console.log('hello `Home` component');
-    this.loading = true;
-    this.getBoxList().subscribe((data: any[]) => {
-      this.boxList = data;
-    }, error => {
-      console.log(error)
-    }, () => {
-      console.log("Init done!")
-      this.appState.set('boxList', this.boxList);
-      this.getEmailBox(this.currentBox);
+    this.currentId = this.route.params.map(params => params['emailId'] || 'None');
+    this.currentBox = this.route.params.map(params => params['boxId'] || 'None');
+    this.currentBox.subscribe((boxId) => {
+        boxId === 'None'? '' : this.getEmailBox(boxId);
     });
-  }
-
-  onRefresh(refresh: boolean) {
-    this.syncBoxes([]);
+    this.currentId.subscribe((emailId) => {
+        emailId === 'None' ? '' : this.getSingleMail(emailId);
+    });
+    if (!(this.appState.get('boxList').length > 0)) {
+      this.loading = true;
+      this.getBoxList().subscribe((data: any[]) => {
+        this.appState.set('boxList', data);
+        this.getEmailBox(data[0]);
+      }, error => {
+        console.log(error)
+      }, () => {
+        console.log("Init done!")
+      });
+    }
   }
 
   getBoxList() {
     return this._emailService.initMailbox();
-  }
-
-  syncBoxes(boxes: string[]) {
-    this.syncing = true;
-    this._emailService.getEmails([]).subscribe((data: any) => {
-      this.getEmailBox(this.currentBox);
-      this.syncing = false;
-    });
   }
 
   getSingleMail(id?: string) {
@@ -79,7 +74,6 @@ export class HomeComponent {
         console.log(error)
       },
       () => {
-        this.loadedOnce = true;
         console.log(`Message with ID: ${id} has been successfully loaded`)
       });
   }
@@ -101,20 +95,21 @@ export class HomeComponent {
     }
   }
 
-  getEmailBox(box?: string) {
-    this.currentBox = box;
-    //  this.loading = true;
-    this._emailService
+  getEmailBox(box?:string) {
+      this._emailService
       .getEmailsWithPagination(box)
       .subscribe((data: any) => {
-        this.emails = data.docs;
+        this.emails = data.docs.map((email) => {
+          email.route = () => {this.router.navigate(['/box', {emailId: email.id, boxId: email.box}])};
+          return email;
+        });
         console.log(this.emails);
         this.loading = false;
       },
       error => {
         console.log(error)
       },
-      () => { console.log(`${box} mails successfully loaded`) });
+      () => { console.log(`Mails successfully loaded`) });
   }
 
   openModal(type?: ModalType) {
@@ -123,12 +118,6 @@ export class HomeComponent {
 
   closeModal() {
     this.currentModalType = null;
-  }
-
-  switchView(newView: string) {
-    console.log("switching view to " + newView);
-    if (this.mailView) this.mailView = false;
-    else this.mailView = true;
   }
 
 }
