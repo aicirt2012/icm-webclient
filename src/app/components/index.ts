@@ -1,5 +1,6 @@
 export * from './detailedView';
 export * from './list';
+export * from './listItem';
 export * from './navbar';
 export * from './navbarListItem';
 export * from './emailForm';

@@ -12,6 +12,7 @@ import { EmailService, AuthService } from './services';
   template: `
   <div layout="row" flex class="wrapper">
     <navbar *ngIf="authService.isAuthenticated()" flex="15" (onRefresh)="onRefresh($event)"></navbar>
+    <spinner [loading]="syncing"></spinner>
     <div *ngIf="!syncing" flex>
         <router-outlet></router-outlet>
     </div>
@@ -24,7 +25,7 @@ export class AppComponent {
   private viewContainerRef: ViewContainerRef;
 
   constructor(
-    public appState: AppState, viewContainerRef: ViewContainerRef, private _cookieService: CookieService, private _emailService: EmailService,  public authService: AuthService) {
+    public appState: AppState, viewContainerRef: ViewContainerRef, private _cookieService: CookieService, private _emailService: EmailService, public authService: AuthService) {
     this.viewContainerRef = viewContainerRef;
     if (_cookieService.get('email-oauth')) {
       localStorage.setItem('email-jwt', _cookieService.get('email-oauth'));
@@ -36,12 +37,15 @@ export class AppComponent {
     console.log('Initial App State', this.appState.state);
   }
 
-  onRefresh(refresh: boolean) {
+  onRefresh(refresh?: boolean) {
     this.syncBoxes([]);
   }
 
   syncBoxes(boxes: string[]) {
     this.syncing = true;
+    this._emailService.updateMailboxList().subscribe((data) => {
+      this.appState.set('boxList', data);
+    });
     this._emailService.getEmails([]).subscribe((data: any) => {
       this.syncing = false;
     });

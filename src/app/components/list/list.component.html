@@ -10,19 +10,5 @@
   </div>
 </div>
 </nav>
-  <a (click)="mail.route()" *ngFor="let mail of emails; let i = index" flex layout="row" style="display:flex" href="#" class="list-group-item">
-    <div flex="5">
-      <label>
-        <input type="checkbox">
-      </label>
-    </div>
-    <div flex="5">
-      <span class="glyphicon glyphicon-star"></span>
-    </div>
-    <div flex="90">
-      <h4 class="list-group-item-heading">{{mail?.from[0].name}}</h4>
-      <p class="list-group-item-text"><b>{{mail?.subject}}</b></p>
-      <p class="list-group-item-text">{{mail?.text}}</p>
-    </div>
-  </a>
+ <list-item *ngFor="let mail of emails; let i = index" [email]="mail"></list-item>
 </div>

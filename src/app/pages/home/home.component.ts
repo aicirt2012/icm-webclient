@@ -36,10 +36,15 @@ export class HomeComponent {
     this.currentId = this.route.params.map(params => params['emailId'] || 'None');
     this.currentBox = this.route.params.map(params => params['boxId'] || 'None');
     this.currentBox.subscribe((boxId) => {
-        boxId === 'None'? '' : this.getEmailBox(boxId);
+      if (this.appState.get('boxList').length > 0) {
+        boxId === 'None' ? '' : this.getEmailBox(this.appState.get('boxList').filter((box) => box.id == boxId)[0]);
+      }
     });
     this.currentId.subscribe((emailId) => {
-        emailId === 'None' ? '' : this.getSingleMail(emailId);
+      emailId === 'None' ? '' : this.getSingleMail(emailId);
+    });
+    this.appState.getObservableState().subscribe((data) => {
+        this.getEmailBox(this.appState.get('boxList')[0]);
     });
     if (!(this.appState.get('boxList').length > 0)) {
       this.loading = true;
@@ -55,7 +60,7 @@ export class HomeComponent {
   }
 
   getBoxList() {
-    return this._emailService.initMailbox();
+    return this._emailService.updateMailboxList();
   }
 
   getSingleMail(id?: string) {
@@ -95,12 +100,13 @@ export class HomeComponent {
     }
   }
 
-  getEmailBox(box?:string) {
-      this._emailService
-      .getEmailsWithPagination(box)
+  getEmailBox(box?: any) {
+    console.log(box);
+    this._emailService
+      .getEmailsWithPagination(box.name)
       .subscribe((data: any) => {
         this.emails = data.docs.map((email) => {
-          email.route = () => {this.router.navigate(['/box', {emailId: email.id, boxId: email.box}])};
+          email.route = `/box/${email.box.id}/${email._id}`;
           return email;
         });
         console.log(this.emails);

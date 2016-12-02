@@ -21,7 +21,7 @@ import { AppState, InternalStateType } from './app.service';
 // Self-written classes
 import { HomeComponent, NoContentComponent, LoginComponent } from './pages'; // all pages
 import { EmailModalComponent, AccountComponent, TaskListComponent } from './pages'; // all containers
-import { NavBarComponent, ListComponent, DetailedViewComponent, EmailFormComponent, OverviewComponent, TasksComponent, HelpComponent, GmailComponent, ExchangeComponent, SocioCortexComponent, TrelloComponent, SpinnerComponent, NavBarListItemComponent} from './components'; // all components
+import { NavBarComponent, ListComponent,ListItemComponent, DetailedViewComponent, EmailFormComponent, OverviewComponent, TasksComponent, HelpComponent, GmailComponent, ExchangeComponent, SocioCortexComponent, TrelloComponent, SpinnerComponent, NavBarListItemComponent} from './components'; // all components
 
 import { AuthService, EmailService, HttpService, TaskService } from './services';
 import { AuthGuard } from './app.authGuard';
@@ -55,6 +55,7 @@ type StoreType = {
     NavBarComponent,
     NavBarListItemComponent,
     ListComponent,
+    ListItemComponent,
     DetailedViewComponent,
     TaskListComponent,
     EmailModalComponent,

@@ -40,7 +40,7 @@ export class AppState {
   set(prop: string, value: any) {
     this._state[prop] = value;
     this.dataChangeObserver.forEach((observer) => {
-      observer.next(value);
+      observer.next(prop);
     });
   }
 

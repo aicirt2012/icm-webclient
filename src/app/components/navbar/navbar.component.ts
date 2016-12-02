@@ -12,10 +12,12 @@ import { AppState } from '../../app.service';
 })
 export class NavBarComponent {
   private navbarItems: any = [];
-
+  @Output() onRefresh = new EventEmitter<boolean>();
   constructor(public appState: AppState, public router: Router) {
     this.appState.getObservableState().subscribe((data) => {
-      this.addDataToBoxes();
+      if (data === 'boxList') {
+        this.addDataToBoxes();
+      }
     })
   }
 
@@ -23,11 +25,10 @@ export class NavBarComponent {
   }
 
   addDataToBoxes() {
-    console.log(this.appState.get('boxList'));
     if (this.appState.get('boxList').length > 0) {
       this.navbarItems = this.appState.get('boxList').map((box) => {
         let icon;
-        switch (box.name) { //TODO put in service
+        switch (box.shortName) { //TODO put in service
           case 'INBOX':
             icon = 'glyphicon glyphicon-home'
           case 'Trash':
@@ -35,16 +36,16 @@ export class NavBarComponent {
           default:
             icon = 'glyphicon glyphicon-home'
         };
-        box.route = `box/${box.name}`;
+        box.route = `box/${box.id}`;
         box.icon = icon;
         return box;
       });
     }
   }
-  //
-  // refresh() {
-  //   this.onRefresh.emit(true);
-  // }
+
+  refresh() {
+    this.onRefresh.emit(true);
+  }
   //
   // getEmails(box?: string) {
   //   /* first change view to mail if necessary */
