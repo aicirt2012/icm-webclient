@@ -1,6 +1,6 @@
 <li role="presentation">
     <!-- [routerLinkActive]="active"  -->
-  <a class="listitems" [routerLink]="item.route" > 
+  <a class="listitems" [routerLink]="item.route" [routerLinkActive]="['active']"> 
     <span style="margin-right: 5px;" class="{{item.icon}}"></span>{{item.name}}
     <span class="badge" style="background-color: #ce3434;color: white;">{{item.total}}</span>
   </a>

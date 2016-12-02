@@ -12,12 +12,12 @@
       <navbar-list-item *ngFor="let item of navbarItems" [item]="item"></navbar-list-item>
       <hr>
       <li role="presentation">
-        <a class="listitems" [routerLink]="['/account']">
+        <a class="listitems" [routerLink]="['/account']" [routerLinkActive]="['active']">
           <span style="margin-right: 5px;" class="glyphicon glyphicon-user"></span>Account
         </a>
       </li>
       <li role="presentation">
-        <a class="listitems" [routerLink]="['/login']">
+        <a class="listitems" [routerLink]="['/login']" [routerLinkActive]="['active']">
           <span style="margin-right: 5px;" class="glyphicon glyphicon-log-out"></span>Logout
         </a>
       </li>
