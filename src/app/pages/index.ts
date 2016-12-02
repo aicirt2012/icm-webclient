@@ -1,4 +1,4 @@
-export * from './home';
+export * from './email';
 export * from './login';
 export * from './no-content';
-export * from './account';
+export * from './settings';

@@ -1,7 +1,7 @@
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap';
-import { ModalType } from '../../constants';
-import { Email } from '../../models';
+import { ModalType } from '../../../../constants';
+import { Email } from '../../../../models';
 
 @Component({
   selector: 'detailedView',  // <detailedView></detailedView>

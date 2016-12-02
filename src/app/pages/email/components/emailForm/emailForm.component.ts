@@ -1,5 +1,5 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { EmailForm } from '../../models';
+import { EmailForm } from '../../../../models';
 
 @Component({
   selector: 'email-form',

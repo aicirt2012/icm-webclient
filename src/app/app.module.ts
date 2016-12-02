@@ -19,10 +19,11 @@ import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 // Self-written classes
-import { HomeComponent, NoContentComponent, LoginComponent } from './pages'; // all pages
-import { EmailModalComponent, AccountComponent, TaskListComponent } from './pages'; // all containers
-import { NavBarComponent, ListComponent,ListItemComponent, DetailedViewComponent, EmailFormComponent, OverviewComponent, TasksComponent, HelpComponent, GmailComponent, ExchangeComponent, SocioCortexComponent, TrelloComponent, SpinnerComponent, NavBarListItemComponent} from './components'; // all components
-
+import { EmailComponent,SettingsComponent, NoContentComponent, LoginComponent } from './pages'; // all pages
+import { EmailModalComponent, TaskListComponent } from './pages'; // all containers
+import { ListComponent,ListItemComponent, DetailedViewComponent, EmailFormComponent } from './pages'; // all email components
+import { AccountComponent, OverviewComponent, TasksComponent, HelpComponent, GmailComponent, ExchangeComponent, SocioCortexComponent, TrelloComponent } from './pages'; // all settings components
+import { NavBarComponent, SpinnerComponent, NavBarListItemComponent} from './shared-components'; // all shared components
 import { AuthService, EmailService, HttpService, TaskService } from './services';
 import { AuthGuard } from './app.authGuard';
 import { Email, User, EmailForm } from './models';
@@ -47,19 +48,20 @@ type StoreType = {
   declarations: [
     AppComponent,
     // pages
-    HomeComponent,
-    AccountComponent,
+    EmailComponent,
+    SettingsComponent,
     LoginComponent,
     NoContentComponent,
-    // components
-    NavBarComponent,
-    NavBarListItemComponent,
+    //containers
+    TaskListComponent,
+    EmailModalComponent,
+    //email components
     ListComponent,
     ListItemComponent,
     DetailedViewComponent,
-    TaskListComponent,
-    EmailModalComponent,
     EmailFormComponent,
+    //settings components
+    AccountComponent,
     TasksComponent,
     HelpComponent,
     OverviewComponent,
@@ -67,6 +69,9 @@ type StoreType = {
     ExchangeComponent,
     TrelloComponent,
     SocioCortexComponent,
+    // shared-components
+    NavBarComponent,
+    NavBarListItemComponent,
     SpinnerComponent
   ],
   imports: [ // import Angular's modules
