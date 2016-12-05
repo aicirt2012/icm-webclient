@@ -1,7 +1,8 @@
 import { Component, ViewEncapsulation, ViewContainerRef } from '@angular/core';
 import { CookieService } from 'angular2-cookie/core';
 import { AppState } from './app.service';
-import { EmailService, AuthService } from './services';
+import { HttpService, AuthService } from './shared';
+import { EmailService, TaskService } from './client/shared';
 
 @Component({
   selector: 'app',

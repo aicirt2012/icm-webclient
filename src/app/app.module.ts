@@ -7,7 +7,9 @@ import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularcla
 import { Ng2BootstrapModule } from 'ng2-bootstrap';
 import { Angular2FlexModule } from 'angular2-flex';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
-import { TagInputModule } from 'ng2-tag-input';
+import { ClientModule } from './client/client.module';
+import { LoginModule } from './login/login.module';
+import { SettingsModule } from './settings/settings.module';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -19,14 +21,15 @@ import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 // Self-written classes
-import { EmailComponent,SettingsComponent, NoContentComponent, LoginComponent } from './pages'; // all pages
-import { EmailModalComponent, TaskListComponent } from './pages'; // all containers
-import { ListComponent,ListItemComponent, DetailedViewComponent, EmailFormComponent } from './pages'; // all email components
-import { AccountComponent, OverviewComponent, TasksComponent, HelpComponent, GmailComponent, ExchangeComponent, SocioCortexComponent, TrelloComponent } from './pages'; // all settings components
-import { NavBarComponent, SpinnerComponent, NavBarListItemComponent} from './shared-components'; // all shared components
-import { AuthService, EmailService, HttpService, TaskService } from './services';
+// import { EmailComponent,SettingsComponent, NoContentComponent, LoginComponent } from './pages'; // all pages
+// import { EmailModalComponent, TaskListComponent } from './pages'; // all containers
+// import { ListComponent,ListItemComponent, DetailedViewComponent, EmailFormComponent } from './pages'; // all email components
+// import { AccountComponent, OverviewComponent, TasksComponent, HelpComponent, GmailComponent, ExchangeComponent, SocioCortexComponent, TrelloComponent } from './pages'; // all settings components
+import { NavBarComponent, SpinnerComponent, NavBarListItemComponent} from './shared'; // all shared components
+import { AuthService, HttpService } from './shared';
+import { EmailService, TaskService } from './client/shared';
 import { AuthGuard } from './app.authGuard';
-import { Email, User, EmailForm } from './models';
+import { User } from './shared';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -48,27 +51,27 @@ type StoreType = {
   declarations: [
     AppComponent,
     // pages
-    EmailComponent,
-    SettingsComponent,
-    LoginComponent,
-    NoContentComponent,
-    //containers
-    TaskListComponent,
-    EmailModalComponent,
-    //email components
-    ListComponent,
-    ListItemComponent,
-    DetailedViewComponent,
-    EmailFormComponent,
+    // EmailComponent,
+    // SettingsComponent,
+    // LoginComponent,
+    // NoContentComponent,
+    // //containers
+    // TaskListComponent,
+    // EmailModalComponent,
+    // //email components
+    // ListComponent,
+    // ListItemComponent,
+    // DetailedViewComponent,
+    // EmailFormComponent,
     //settings components
-    AccountComponent,
-    TasksComponent,
-    HelpComponent,
-    OverviewComponent,
-    GmailComponent,
-    ExchangeComponent,
-    TrelloComponent,
-    SocioCortexComponent,
+    // AccountComponent,
+    // TasksComponent,
+    // HelpComponent,
+    // OverviewComponent,
+    // GmailComponent,
+    // ExchangeComponent,
+    // TrelloComponent,
+    // SocioCortexComponent,
     // shared-components
     NavBarComponent,
     NavBarListItemComponent,
@@ -81,7 +84,10 @@ type StoreType = {
     RouterModule.forRoot(ROUTES, { useHash: true }),
     Ng2BootstrapModule,
     Angular2FlexModule.forRoot(),
-    TagInputModule
+    // custom modules
+    LoginModule,
+    ClientModule,
+    SettingsModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
@@ -90,9 +96,9 @@ type StoreType = {
     CookieService,
     // services
     AuthGuard,
-    EmailService,
     AuthService,
     HttpService,
+    EmailService,
     TaskService
   ]
 })
