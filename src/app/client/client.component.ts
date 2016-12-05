@@ -5,9 +5,8 @@ import * as moment from 'moment';
 import { ModalDirective } from 'ng2-bootstrap';
 import { Email } from './shared';
 import { EmailService, TaskService } from './shared';
-import { ModalType } from '../shared';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/switchMap';
+import { ModalType } from '../shared/constants';
 
 @Component({
   selector: 'client',
@@ -18,10 +17,10 @@ import 'rxjs/add/operator/switchMap';
 export class ClientComponent {
   public emails: Email[] = [];
   public email: Email = null;
+  public currentModalType: ModalType = null;
   public loading: boolean = true;
   private currentBox: Observable<string>;
   private currentId: Observable<string>;
-  public currentModalType: ModalType = null;
   private taskName: string = 'testName';
   private createdTask: any = null;
   public suggestedTask: any = {};

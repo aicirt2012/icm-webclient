@@ -3,6 +3,7 @@ import { CookieService } from 'angular2-cookie/core';
 import { AppState } from './app.service';
 import { HttpService, AuthService } from './shared';
 import { EmailService, TaskService } from './client/shared';
+import { ModalType } from './shared/constants';
 
 @Component({
   selector: 'app',
@@ -14,12 +15,13 @@ import { EmailService, TaskService } from './client/shared';
   <div layout="column" flex class="wrapper">
     <top-navbar></top-navbar>
     <div layout="row" flex>
-        <navbar *ngIf="authService.isAuthenticated()" flex="15" (onRefresh)="onRefresh($event)"></navbar>
+        <navbar *ngIf="authService.isAuthenticated()" flex="15" (onRefresh)="onRefresh($event)" (openModal)="openModal($event)"></navbar>
         <spinner [loading]="syncing"></spinner>
         <div *ngIf="!syncing" flex>
             <router-outlet></router-outlet>
         </div>
     </div>
+    <email-modal [modalType]="currentModalType" (closeModal)="closeModal()"></email-modal>
   </div>
   `
 })
@@ -27,6 +29,7 @@ export class AppComponent {
   public syncing: boolean = false;
   public name: string = 'Email Client';
   private viewContainerRef: ViewContainerRef;
+  public currentModalType: ModalType = null;
 
   constructor(
     public appState: AppState, viewContainerRef: ViewContainerRef, private _cookieService: CookieService, private _emailService: EmailService, public authService: AuthService) {
@@ -53,6 +56,14 @@ export class AppComponent {
     this._emailService.getEmails([]).subscribe((data: any) => {
       this.syncing = false;
     });
+  }
+
+  openModal(type?: ModalType) {
+    this.currentModalType = type;
+  }
+
+  closeModal() {
+    this.currentModalType = null;
   }
 
 }

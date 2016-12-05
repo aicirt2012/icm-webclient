@@ -13,6 +13,7 @@ import { AppState } from '../../../app.service';
 export class NavBarComponent {
   private navbarItems: any = [];
   @Output() onRefresh = new EventEmitter<boolean>();
+  @Output() openModal = new EventEmitter<any>();
   constructor(public appState: AppState, public router: Router) {
     this.appState.getObservableState().subscribe((data) => {
       if (data === 'boxList') {
@@ -46,16 +47,9 @@ export class NavBarComponent {
   refresh() {
     this.onRefresh.emit(true);
   }
-  //
-  // getEmails(box?: string) {
-  //   /* first change view to mail if necessary */
-  //   // if(!this.mailView) this.changeView();
-  //   // this.currentBox = box;
-  //   this.getEmailBox.emit(box);
-  // }
-  //
-  // openCreateEmailModal() {
-  //   this.openModal.emit(ModalType.create);
-  // }
-  //
+
+  openCreateEmailModal() {
+    this.openModal.emit(ModalType.create);
+  }
+
 }

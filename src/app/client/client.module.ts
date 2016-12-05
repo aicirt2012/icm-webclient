@@ -37,6 +37,7 @@ import { Email, EmailForm } from './shared'; // all models from client
     TaskService
   ],
   exports: [
+      EmailModalComponent
   ]
 })
 export class ClientModule {
