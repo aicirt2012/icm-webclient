@@ -21,11 +21,11 @@ import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 // Self-written classes
-// import { EmailComponent,SettingsComponent, NoContentComponent, LoginComponent } from './pages'; // all pages
+// import { EmailComponent,SettingsComponent, LoginComponent } from './pages'; // all pages
 // import { EmailModalComponent, TaskListComponent } from './pages'; // all containers
 // import { ListComponent,ListItemComponent, DetailedViewComponent, EmailFormComponent } from './pages'; // all email components
 // import { AccountComponent, OverviewComponent, TasksComponent, HelpComponent, GmailComponent, ExchangeComponent, SocioCortexComponent, TrelloComponent } from './pages'; // all settings components
-import { NavBarComponent, SpinnerComponent, NavBarListItemComponent} from './shared'; // all shared components
+import { NavBarComponent, SpinnerComponent, NavBarListItemComponent, TopNavbarComponent} from './shared'; // all shared components
 import { AuthService, HttpService } from './shared';
 import { EmailService, TaskService } from './client/shared';
 import { AuthGuard } from './app.authGuard';
@@ -50,32 +50,10 @@ type StoreType = {
   bootstrap: [AppComponent],
   declarations: [
     AppComponent,
-    // pages
-    // EmailComponent,
-    // SettingsComponent,
-    // LoginComponent,
-    // NoContentComponent,
-    // //containers
-    // TaskListComponent,
-    // EmailModalComponent,
-    // //email components
-    // ListComponent,
-    // ListItemComponent,
-    // DetailedViewComponent,
-    // EmailFormComponent,
-    //settings components
-    // AccountComponent,
-    // TasksComponent,
-    // HelpComponent,
-    // OverviewComponent,
-    // GmailComponent,
-    // ExchangeComponent,
-    // TrelloComponent,
-    // SocioCortexComponent,
-    // shared-components
     NavBarComponent,
     NavBarListItemComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    TopNavbarComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,

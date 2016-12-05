@@ -2,7 +2,6 @@ import { Routes, RouterModule, CanActivate, Router } from '@angular/router';
 import { LoginComponent } from './login';
 import { SettingsComponent } from './settings';
 import { ClientComponent } from './client';
-import { NoContentComponent } from './no-content';
 
 import { Injectable } from '@angular/core';
 import { AuthService } from './shared';

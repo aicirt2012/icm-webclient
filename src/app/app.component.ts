@@ -11,11 +11,14 @@ import { EmailService, TaskService } from './client/shared';
     './app.component.css'
   ],
   template: `
-  <div layout="row" flex class="wrapper">
-    <navbar *ngIf="authService.isAuthenticated()" flex="15" (onRefresh)="onRefresh($event)"></navbar>
-    <spinner [loading]="syncing"></spinner>
-    <div *ngIf="!syncing" flex>
-        <router-outlet></router-outlet>
+  <div layout="column" flex class="wrapper">
+    <top-navbar></top-navbar>
+    <div layout="row" flex>
+        <navbar *ngIf="authService.isAuthenticated()" flex="15" (onRefresh)="onRefresh($event)"></navbar>
+        <spinner [loading]="syncing"></spinner>
+        <div *ngIf="!syncing" flex>
+            <router-outlet></router-outlet>
+        </div>
     </div>
   </div>
   `
