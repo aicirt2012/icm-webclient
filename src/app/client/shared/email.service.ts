@@ -58,7 +58,7 @@ export class EmailService {
       destBox: destBox
     };
     return this._httpService.generateRequest(RequestMethod.Post, this.domain, 'move', null, body);
-}
+  }
 
   /*
    returns Object: {"boxlist": [{name: "INBOX", new: "2", total: "9"}]}
@@ -72,7 +72,7 @@ export class EmailService {
    returns Array: [Emails...]
    */
   getEmails(boxes: string[]): Observable<any> {
-    return this._httpService.generateRequest(RequestMethod.Post, this.domain, 'box', null, {boxes: boxes});
+    return this._httpService.generateRequest(RequestMethod.Post, this.domain, 'box', null, { boxes: boxes });
   }
 
   /*
@@ -80,13 +80,13 @@ export class EmailService {
    returns Email
    */
   getSingleMail(id: string): Observable<any> {
-    return this._httpService.generateRequest(RequestMethod.Get, this.domain,`single/${id}`, null, null);
+    return this._httpService.generateRequest(RequestMethod.Get, this.domain, `single/${id}`, null, null);
   }
 
   /*
   */
-  generateEmailForm(email: Email, type:string): any {
-    const bodyHeader =`
+  generateEmailForm(email: Email, type: string): any {
+    const bodyHeader = `
 -------------------------------------------
 From: ${email.from[0].address}
 Date: ${email.date}
@@ -94,17 +94,13 @@ Subject: ${email.subject}
 To:${email.to[0].address}
 ${email.text}`;
 
-    if(type === 'reply') {
-      console.log("mail");
-      console.log(email);
+    if (type === 'reply') {
       return {
         to: email.from[0].address,
         subject: `Re: ${email.subject}`,
         text: bodyHeader
       }
     } else if (type === 'forward') {
-      console.log("forward");
-      console.log(email);
       return {
         subject: `Fw: ${email.subject}`,
         text: bodyHeader

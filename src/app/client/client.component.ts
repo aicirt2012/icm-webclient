@@ -41,7 +41,7 @@ export class ClientComponent {
       emailId === 'None' ? '' : this.getSingleMail(emailId);
     });
     this.appState.getObservableState().subscribe((data) => {
-        this.getEmailBox(this.appState.get('boxList')[0]);
+      this.getEmailBox(this.appState.get('boxList')[0]);
     });
     if (!(this.appState.get('boxList').length > 0)) {
       this.loading = true;
@@ -68,6 +68,8 @@ export class ClientComponent {
         /* now we can create a suggested Task object*/
         console.log(this.email);
         this.suggestedTask = this._taskService.createSuggestedTask(this.email);
+        console.log("suggested task");
+        console.log(this.suggestedTask);
         /* now we load the corresponding tasks */
         this.tasksForMail = [];
         this.getTasksForMail(this.email.tasks);
@@ -95,6 +97,10 @@ export class ClientComponent {
           });
       }
     }
+  }
+
+  syncTasksForMail() {
+    this.getTasksForMail(this.email.tasks);
   }
 
   getEmailBox(box?: any) {

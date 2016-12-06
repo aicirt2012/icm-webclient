@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, EventEmitter, Output} from '@angular/core';
 import {ModalDirective} from 'ng2-bootstrap';
 import {Email} from '../shared';
 import {TaskService} from '../shared';
@@ -11,9 +11,9 @@ import {TaskService} from '../shared';
 
 export class TaskListComponent {
   @Input() suggestedTask: any;
-  @Input() loadedOnce: boolean;
   @Input() email: Email;
   @Input() tasksForMail: any;
+  @Output() syncTasksForMail = new EventEmitter<any>();
 
   /* we have to get this from backend */
   private taskIdList: string = '582639655429c571aae95b37';
@@ -39,9 +39,12 @@ export class TaskListComponent {
       .subscribe((task) => {
         this.createdTask = task;
         console.log("task has been created");
-        console.log(this.createdTask);
-        console.log(this.email);
+        this.syncTasks();
       })
+  }
+
+  syncTasks() {
+    this.syncTasksForMail.emit();
   }
 
 }

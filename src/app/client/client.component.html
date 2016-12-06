@@ -9,7 +9,7 @@
         <detailedView [email]="email" (openModal)="openModal($event)"></detailedView>
       </div>
       <div flex="20" class="scrollable">
-        <taskList [email]="email" [suggestedTask]="suggestedTask" [tasksForMail]="tasksForMail"></taskList>
+        <taskList [email]="email" [suggestedTask]="suggestedTask" [tasksForMail]="tasksForMail" (syncTasksForMail)="syncTasksForMail()"></taskList>
       </div>
     </div>
   </div>

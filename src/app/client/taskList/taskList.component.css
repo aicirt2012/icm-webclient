@@ -40,3 +40,7 @@
   max-height: 60px;
   overflow: hidden;
 }
+
+.pointer {
+  cursor: pointer;
+}
