@@ -95,12 +95,16 @@ To:${email.to[0].address}
 ${email.text}`;
 
     if(type === 'reply') {
+      console.log("mail");
+      console.log(email);
       return {
         to: email.from[0].address,
         subject: `Re: ${email.subject}`,
         text: bodyHeader
       }
     } else if (type === 'forward') {
+      console.log("forward");
+      console.log(email);
       return {
         subject: `Fw: ${email.subject}`,
         text: bodyHeader

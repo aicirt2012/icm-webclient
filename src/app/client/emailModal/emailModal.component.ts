@@ -30,6 +30,7 @@ export class EmailModalComponent {
     if (this.modalType === ModalType.create) {
       this.emailModal.show();
     } else if (this.modalType === ModalType.reply) {
+      console.log("we are in reply");
       this.emailForm = this._emailService.generateEmailForm(this.email, 'reply');
       this.emailModal.show();
     } else if (this.modalType === ModalType.forward) {
