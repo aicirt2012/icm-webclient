@@ -1,3 +1,7 @@
 .row {
   margin-bottom:15px;
 }
+
+.pointer {
+  cursor: pointer;
+}
