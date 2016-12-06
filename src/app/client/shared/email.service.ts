@@ -95,8 +95,11 @@ To:${email.to[0].address}
 ${email.text}`;
 
     if (type === 'reply') {
+      /* tag input requires an array as input */
+      let receivers = [];
+      receivers.push(email.from[0].address);
       return {
-        to: email.from[0].address,
+        to: receivers,
         subject: `Re: ${email.subject}`,
         text: bodyHeader
       }
