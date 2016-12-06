@@ -14,6 +14,10 @@ export const ROUTES: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'box/:boxId', component: ClientComponent, canActivate: [AuthGuard] },
   { path: 'box/:boxId/:emailId', component: ClientComponent, canActivate: [AuthGuard] },
-  { path: 'account', component: SettingsComponent, canActivate: [AuthGuard] },
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
+  { path: 'settings/email', component: SettingsComponent, canActivate: [AuthGuard] },
+  { path: 'settings/tasks', component: SettingsComponent, canActivate: [AuthGuard] },
+  { path: 'settings/overview', component: SettingsComponent, canActivate: [AuthGuard] },
+  { path: 'settings/help', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'box' },
 ];

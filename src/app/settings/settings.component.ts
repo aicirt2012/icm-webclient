@@ -12,7 +12,6 @@ export class SettingsComponent {
   model: any = {};
   loading = false;
   error = '';
-  public currentView: string = 'Overview';
 
   constructor(
     private router: Router,
@@ -40,23 +39,12 @@ export class SettingsComponent {
       });
   }
 
-  showView(view: string): void{
-      this.currentView = view;
-      console.log("changed view to " + view);
+  getCurrentView(view: string): boolean {
+    let currentURL = this.router.url;
+    if (currentURL.includes(view))
+      return true;
+    else
+      return false;
   }
 
-  getCurrentView(view: string) : boolean{
-    console.log("get current view method");
-      if(this.currentView == view)
-           return true;
-      else
-           return false;
-  }
-
-  getActive(choice: string) : string{
-      if(this.currentView == choice)
-           return "active";
-      else
-           return "";
-  }
 }

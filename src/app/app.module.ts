@@ -7,10 +7,10 @@ import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularcla
 import { Ng2BootstrapModule } from 'ng2-bootstrap';
 import { Angular2FlexModule } from 'angular2-flex';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
+// Self-written modules
 import { ClientModule } from './client/client.module';
 import { LoginModule } from './login/login.module';
 import { SettingsModule } from './settings/settings.module';
-
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -21,10 +21,6 @@ import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 // Self-written classes
-// import { EmailComponent,SettingsComponent, LoginComponent } from './pages'; // all pages
-// import { EmailModalComponent, TaskListComponent } from './pages'; // all containers
-// import { ListComponent,ListItemComponent, DetailedViewComponent, EmailFormComponent } from './pages'; // all email components
-// import { AccountComponent, OverviewComponent, TasksComponent, HelpComponent, GmailComponent, ExchangeComponent, SocioCortexComponent, TrelloComponent } from './pages'; // all settings components
 import { NavBarComponent, SpinnerComponent, NavBarListItemComponent, TopNavbarComponent} from './shared'; // all shared components
 import { AuthService, HttpService } from './shared';
 import { EmailService, TaskService } from './client/shared';
@@ -43,9 +39,6 @@ type StoreType = {
   disposeOldHosts: () => void
 };
 
-/**
- * `AppModule` is the main entry point into Angular2's bootstraping process
- */
 @NgModule({
   bootstrap: [AppComponent],
   declarations: [
@@ -55,7 +48,7 @@ type StoreType = {
     SpinnerComponent,
     TopNavbarComponent
   ],
-  imports: [ // import Angular's modules
+  imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
@@ -67,7 +60,7 @@ type StoreType = {
     ClientModule,
     SettingsModule
   ],
-  providers: [ // expose our Services and Providers into Angular's dependency injection
+  providers: [
     ENV_PROVIDERS,
     APP_PROVIDERS,
     // external

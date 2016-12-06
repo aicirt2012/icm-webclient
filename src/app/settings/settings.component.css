@@ -135,7 +135,7 @@ body {
 }
 
 .account-sidebar {
-  padding: 20px 0 10px 0;
+  /*padding: 20px 0 10px 0;*/
   background: #fff;
 }
 
@@ -225,7 +225,7 @@ body {
 }
 
 .account-content {
-  padding: 20px;
+  margin-top:20px;
+  padding-left: 20px;
   background: #fff;
-  min-height: 460px;
 }

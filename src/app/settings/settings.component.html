@@ -6,7 +6,7 @@
           <div class="account-sidebar">
             <div class="account-usertitle">
               <div class="account-usertitle-name">
-                Peter Niedermeier
+                John Smith
               </div>
               <div class="account-usertitle-job">
                 M.Sc. Information Systems
@@ -15,26 +15,26 @@
             </div>
             <div class="account-usermenu">
               <ul class="nav">
-                <li class="{{getActive('Overview')}}">
-                  <a href="#" (click)="showView('Overview')">
+                <li [routerLinkActive]="['active']" >
+                  <a [routerLink]="['/settings/email']">
+                    <i class="glyphicon glyphicon-envelope"></i>
+                    Email Settings
+                  </a>
+                </li>
+                <li  [routerLinkActive]="['active']" >
+                  <a [routerLink]="['/settings/tasks']">
+                    <i class="glyphicon glyphicon-ok"></i>
+                    Task Settings
+                  </a>
+                </li>
+                <li [routerLinkActive]="['active']" >
+                  <a [routerLink]="['/settings/overview']">
                     <i class="glyphicon glyphicon-home"></i>
                     Overview
                   </a>
                 </li>
-                <li class="{{getActive('Account')}}">
-                  <a href="#" (click)="showView('Account')">
-                    <i class="glyphicon glyphicon-user"></i>
-                    Account Settings
-                  </a>
-                </li>
-                <li class="{{getActive('Tasks')}}">
-                  <a href="#" (click)="showView('Tasks')">
-                    <i class="glyphicon glyphicon-ok"></i>
-                    Tasks
-                  </a>
-                </li>
-                <li class="{{getActive('Help')}}">
-                  <a href="#" (click)="showView('Help')">
+                <li [routerLinkActive]="['active']" >
+                  <a [routerLink]="['/settings/help']">
                     <i class="glyphicon glyphicon-flag"></i>
                     Help
                   </a>
@@ -45,14 +45,14 @@
         </div>
         <div flex="75">
           <div class="account-content">
-            <!-- Overview -->
-            <overview *ngIf="getCurrentView('Overview')"></overview>
             <!-- Account Settings -->
-            <account *ngIf="getCurrentView('Account')"></account>
+            <account *ngIf="getCurrentView('email')"></account>
             <!-- Tasks -->
-            <tasks *ngIf="getCurrentView('Tasks')"></tasks>
+            <tasks *ngIf="getCurrentView('tasks')"></tasks>
+            <!-- Overview -->
+            <overview *ngIf="getCurrentView('overview')"></overview>
             <!-- Help -->
-            <help *ngIf="getCurrentView('Help')"></help>
+            <help *ngIf="getCurrentView('help')"></help>
           </div>
         </div>
       </div>

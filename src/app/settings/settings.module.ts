@@ -1,10 +1,9 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { RouterModule } from '@angular/router';
 import { Ng2BootstrapModule } from 'ng2-bootstrap';
 import { Angular2FlexModule } from 'angular2-flex';
-
 import { SettingsComponent } from './';
 import { AccountComponent, OverviewComponent, TasksComponent, HelpComponent, GmailComponent, ExchangeComponent, SocioCortexComponent, TrelloComponent } from './components'; // all settings components
 
@@ -13,7 +12,8 @@ import { AccountComponent, OverviewComponent, TasksComponent, HelpComponent, Gma
     CommonModule,
     FormsModule,
     Ng2BootstrapModule,
-    Angular2FlexModule.forRoot()
+    Angular2FlexModule.forRoot(),
+    RouterModule
   ],
   declarations: [
     SettingsComponent,

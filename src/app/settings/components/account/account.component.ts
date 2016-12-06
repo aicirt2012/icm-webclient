@@ -22,7 +22,6 @@ public currentView: string = 'Gmail';
   }
 
   getCurrentView(view: string) : boolean{
-    console.log("get current view method");
       if(this.currentView == view)
            return true;
       else
