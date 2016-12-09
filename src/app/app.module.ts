@@ -21,7 +21,7 @@ import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 // Self-written classes
-import { NavBarComponent, SpinnerComponent, NavBarListItemComponent, TopNavbarComponent} from './shared'; // all shared components
+import { NavBarComponent, SpinnerComponent, TopNavbarComponent} from './shared'; // all shared components
 import { AuthService, HttpService } from './shared';
 import { EmailService, TaskService } from './client/shared';
 import { AuthGuard } from './app.authGuard';
@@ -44,7 +44,6 @@ type StoreType = {
   declarations: [
     AppComponent,
     NavBarComponent,
-    NavBarListItemComponent,
     SpinnerComponent,
     TopNavbarComponent
   ],

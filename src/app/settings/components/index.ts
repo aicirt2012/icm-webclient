@@ -1,4 +1,4 @@
 export * from './account';
 export * from './help';
 export * from './overview';
-export * from './tasks';
+export * from './task';

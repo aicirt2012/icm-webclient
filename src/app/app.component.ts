@@ -13,9 +13,9 @@ import { ModalType } from './shared/constants';
   ],
   template: `
   <div layout="column" flex class="wrapper">
-    <top-navbar></top-navbar>
+    <top-navbar *ngIf="authService.isAuthenticated()"></top-navbar>
     <div layout="row" flex>
-        <navbar *ngIf="authService.isAuthenticated()" flex="15" (onRefresh)="onRefresh($event)" (openModal)="openModal($event)"></navbar>
+        <navbar *ngIf="authService.isAuthenticated()" flex="15" (onRefresh)="onRefresh($event)" (openModal)="openModal($event)" class="scrollable"></navbar>
         <spinner [loading]="syncing"></spinner>
         <div *ngIf="!syncing" flex>
             <router-outlet></router-outlet>

@@ -4,12 +4,12 @@ import {Email} from '../shared';
 import {TaskService} from '../shared';
 
 @Component({
-  selector: 'taskList',  // <taskList></taskList>
-  styleUrls: ['./taskList.component.css'],
-  templateUrl: './taskList.component.html'
+  selector: 'tasks',  // <taskList></taskList>
+  styleUrls: ['./tasks.component.css'],
+  templateUrl: './tasks.component.html'
 })
 
-export class TaskListComponent {
+export class TasksComponent {
   @Input() suggestedTask: any;
   @Input() email: Email;
   @Input() tasksForMail: any;

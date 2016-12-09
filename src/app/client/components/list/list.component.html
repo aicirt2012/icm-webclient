@@ -1,14 +1,21 @@
-<div class="list-group">
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li>
-          <a href="#">Search</a>
-        </li>
-    </ul>
-  </div>
-</div>
-</nav>
- <list-item *ngFor="let mail of emails; let i = index" [email]="mail"></list-item>
+<div flex layout="column">
+  <search-bar></search-bar>
+  <table class="table table-inbox table-hover">
+    <tbody>
+      <tr [routerLink]="mail.route" [routerLinkActive]="['active']" *ngFor="let mail of emails; let i = index" class="{{mail.unread}}">
+        <td class="inbox-small-cells">
+          <input type="checkbox" class="mail-checkbox">
+        </td>
+        <td class="inbox-small-cells">
+          <i class="fa fa-star"></i>
+        </td>
+        <td class="view-message dont-show">{{mail.from[0].name}}</td>
+        <td class="view-message">{{mail.subject}}</td>
+        <!-- <td class="view-message inbox-small-cells">
+          <i class="fa fa-paperclip"></i>
+        </td> -->
+        <td class="view-message text-right message-date">{{mail.date | date:'short'}}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

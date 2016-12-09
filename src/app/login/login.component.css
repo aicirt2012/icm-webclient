@@ -46,7 +46,6 @@ body, html {
     width: 96px;
     height: 96px;
     margin: 0 auto 10px;
-    display: block;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
     border-radius: 50%;
@@ -64,7 +63,6 @@ body, html {
 }
 
 .reauth-email {
-    display: block;
     color: #404040;
     line-height: 2;
     margin-bottom: 10px;
@@ -90,7 +88,6 @@ body, html {
 .form-signin input[type=text],
 .form-signin button {
     width: 100%;
-    display: block;
     margin-bottom: 10px;
     z-index: 1;
     position: relative;

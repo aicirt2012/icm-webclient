@@ -1,17 +1,17 @@
 <div flex layout="row" class="wrapper">
   <!-- <spinner flex [loading]="loading"></spinner> -->
-  <div *ngIf="!loading">
-    <div layout="row" class="wrapper">
-      <div flex="25" class="scrollable">
-        <list [emails]="emails" (getSingleMail)="getSingleMail($event)"></list>
+  <!-- <div flex layout="column" *ngIf="!loading"> -->
+    <!-- <div flex> -->
+      <div flex="25" layout="column" class="scrollable">
+        <list [emails]="emails" (getSingleMail)="getSingleMail($event)" ></list>
       </div>
-      <div flex="55" class="scrollable">
-        <detailedView [email]="email" (openModal)="openModal($event)"></detailedView>
+      <div flex="55" layout="column" class="scrollable">
+        <detailed-view [email]="email" (openModal)="openModal($event)"></detailed-view>
       </div>
-      <div flex="20" class="scrollable">
-        <taskList [email]="email" [suggestedTask]="suggestedTask" [tasksForMail]="tasksForMail" (syncTasksForMail)="syncTasksForMail()"></taskList>
+      <div flex="20" layout="column" class="scrollable">
+        <tasks [email]="email" [suggestedTask]="suggestedTask" [tasksForMail]="tasksForMail" (syncTasksForMail)="syncTasksForMail()"></tasks>
       </div>
-    </div>
-  </div>
+    <!-- </div> -->
+  <!-- </div> -->
 </div>
 <email-modal [email]="email" [modalType]="currentModalType" (closeModal)="closeModal()"></email-modal>

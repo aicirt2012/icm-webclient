@@ -7,8 +7,8 @@ import { Ng2BootstrapModule } from 'ng2-bootstrap';
 import { Angular2FlexModule } from 'angular2-flex';
 import { TagInputModule } from 'ng2-tag-input';
 
-import { ClientComponent, EmailModalComponent, TaskListComponent } from './'; // all intelligent components
-import { ListComponent, ListItemComponent, DetailedViewComponent, EmailFormComponent } from './components'; // all dumb components
+import { ClientComponent, EmailModalComponent, TasksComponent } from './'; // all intelligent components
+import { ListComponent, DetailedViewComponent, EmailFormComponent, SearchBarComponent, EmailActionBarComponent, EmailViewComponent,TaskListComponent, TaskSuggestionComponent } from './components'; // all dumb components
 import { EmailService, TaskService } from './shared'; // all services
 import { Email, EmailForm } from './shared'; // all models from client
 
@@ -24,13 +24,17 @@ import { Email, EmailForm } from './shared'; // all models from client
   declarations: [
     ClientComponent,
     //intelligent components
-    TaskListComponent,
+    TasksComponent,
     EmailModalComponent,
     //dumb components
     ListComponent,
-    ListItemComponent,
     DetailedViewComponent,
-    EmailFormComponent
+    EmailFormComponent,
+    SearchBarComponent,
+    EmailActionBarComponent,
+    EmailViewComponent,
+    TaskListComponent,
+    TaskSuggestionComponent
   ],
   providers: [
     EmailService,

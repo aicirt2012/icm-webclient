@@ -1,24 +1,19 @@
-.padding {
-  padding: 8px;
+.table-inbox {
+   margin-bottom: 0;
 }
-
-.full button span {
-  background-color: ab9ba9;
-  border-radius: 32px;
-  color: black;
+.table-inbox tr td {
+   padding: 12px !important;
 }
-
-.partially button span {
-  background-color: orange;
-  border-radius: 32px;
-  color: black;
+.table-inbox tr td:hover {
+   cursor: pointer;
 }
-
-.navbar {
-  margin-bottom: 0px;
+.table-inbox tr td .fa-star.inbox-started, .table-inbox tr td .fa-star:hover {
+   color: #f78a09 ;
 }
-
-.list-group-item-text {
-  max-height: 50px;
-  overflow: hidden;
+.table-inbox tr td .fa-star {
+   color: #d5d5d5 ;
+}
+.table-inbox tr.unread td {
+   background: none repeat scroll 0 0 #f7f7f7 ;
+   font-weight: 600;
 }

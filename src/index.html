@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html 🆖>
+<html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
 
   <title><%= htmlWebpackPlugin.options.title %></title>
 
@@ -17,12 +17,11 @@
   <!-- base url -->
   <base href="<%= htmlWebpackPlugin.options.metadata.baseUrl %>">
 
-  <!-- Load Material CSS for flexing -->
-  <link rel="stylesheet" href="./assets/css/layout.css">
   <!-- Load Bootstrap CSS via CDN -->
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-
+  <!-- Load Material CSS for flexing -->
+  <link rel="stylesheet" href="./assets/css/layout.css">
 
 </head>
 

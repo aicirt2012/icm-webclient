@@ -1,0 +1,25 @@
+.card {
+  box-sizing: border-box;
+  border-radius: 2px;
+  background-clip: padding-box;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.card .card-content {
+  border-radius: 0 0 2px 2px;
+  background-clip: padding-box;
+  box-sizing: border-box;
+}
+
+.card .card-content p {
+  color: inherit;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  line-height: 1.8em;
+  max-height: 3.6em;
+}
+
+.card .card-action {
+  border-top: 1px solid rgba(160, 160, 160, 0.2);
+}

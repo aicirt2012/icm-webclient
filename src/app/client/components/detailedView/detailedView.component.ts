@@ -4,7 +4,7 @@ import { ModalType } from '../../../shared';
 import { Email } from '../../shared';
 
 @Component({
-  selector: 'detailedView',  // <detailedView></detailedView>
+  selector: 'detailed-view',  // <detailedView></detailedView>
   styleUrls: ['./detailedView.component.css'],
   templateUrl: './detailedView.component.html'
 })
@@ -17,14 +17,6 @@ export class DetailedViewComponent {
   }
   ngOnInit() {
     console.log('hello `DetailedViewComponent` component');
-  }
-
-  openReplyEmailModal() {
-    this.openModal.emit(ModalType.reply);
-  }
-
-  openForwardEmailModal() {
-    this.openModal.emit(ModalType.forward);
   }
 
 }

@@ -1,27 +1,27 @@
-<form>
-  <div class="form-group">
+<form flex layout="column">
+  <div flex class="form-group">
     <label>To:</label>
     <!-- <input type="email" class="form-control" [(ngModel)]="emailForm.to" name="to" placeholder="Enter email" required> -->
     <tag-input [(ngModel)]='emailForm.to' [placeholder]="tagInputOptions.placeholder" [secondaryPlaceholder]="tagInputOptions.secondaryPlaceholder" name="emailTagTo">
     </tag-input>
   </div>
-  <div class="form-group">
+  <div flex class="form-group">
     <label>Cc:</label>
     <!-- <input type="email" class="form-control" [(ngModel)]="emailForm.to" name="to" placeholder="Enter email" required> -->
     <tag-input [(ngModel)]='emailForm.cc' [placeholder]="tagInputOptions.placeholder" [secondaryPlaceholder]="tagInputOptions.secondaryPlaceholder" name="emailTagCC">
     </tag-input>
   </div>
-  <div class="form-group">
+  <div flex class="form-group">
     <label>Bcc:</label>
     <!-- <input type="email" class="form-control" [(ngModel)]="emailForm.to" name="to" placeholder="Enter email" required> -->
     <tag-input [(ngModel)]='emailForm.bcc' [placeholder]="tagInputOptions.placeholder" [secondaryPlaceholder]="tagInputOptions.secondaryPlaceholder" name="emailTagBCC">
     </tag-input>
   </div>
-  <div class="form-group">
+  <div flex class="form-group">
     <label>Subject:</label>
     <input type="text" class="form-control" [(ngModel)]="emailForm.subject" name="subject" placeholder="Enter subject">
   </div>
-  <div class="form-group">
+  <div flex class="form-group">
     <label>Message:</label>
     <textarea class="form-control" name="text" rows="20" [(ngModel)]="emailForm.text"></textarea>
   </div>

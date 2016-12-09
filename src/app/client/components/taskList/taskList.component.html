@@ -1,0 +1,14 @@
+<div layout="column" flex layout-padding>
+  <task-suggestion [suggestedTask]="suggestedTask"></task-suggestion>
+
+  <div *ngFor="let task of tasksForMail; let i = index" class="card card-block cardList">
+    <h4 class="card-title">{{task?.name}}</h4>
+    <p class="card-title">
+      <span style="margin-right: 5px;" class="glyphicon glyphicon-user"></span>
+      <i>People...</i>
+    </p>
+    <p class="card-text card-item-text">.....</p>
+    <a class="pointer" class="btn btn-primary">Open</a>
+    <a class="pointer" class="btn btn-danger">Close</a>
+  </div>
+</div>

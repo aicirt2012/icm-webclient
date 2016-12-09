@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { Ng2BootstrapModule } from 'ng2-bootstrap';
 import { Angular2FlexModule } from 'angular2-flex';
 import { SettingsComponent } from './';
-import { AccountComponent, OverviewComponent, TasksComponent, HelpComponent, GmailComponent, ExchangeComponent, SocioCortexComponent, TrelloComponent } from './components'; // all settings components
+import { AccountComponent, OverviewComponent, TaskComponent, HelpComponent, GmailComponent, ExchangeComponent, SocioCortexComponent, TrelloComponent } from './components'; // all settings components
 
 @NgModule({
   imports: [
@@ -19,7 +19,7 @@ import { AccountComponent, OverviewComponent, TasksComponent, HelpComponent, Gma
     SettingsComponent,
     //dumb components
     AccountComponent,
-    TasksComponent,
+    TaskComponent,
     HelpComponent,
     OverviewComponent,
     GmailComponent,

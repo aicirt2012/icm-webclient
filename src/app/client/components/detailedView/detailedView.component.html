@@ -1,38 +1,4 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <!-- <li>
-          <a href="#">
-            <span style="margin-right: 5px;" class="glyphicon glyphicon-plus"></span>New</a>
-        </li> -->
-        <li>
-          <a class="pointer" (click)="openReplyEmailModal()">
-            <span style="margin-right: 5px;" class="glyphicon glyphicon-arrow-left"></span>Reply</a>
-        </li>
-        <li>
-          <a class="pointer" (click)="openForwardEmailModal()">
-            <span style="margin-right: 5px;" class="glyphicon glyphicon-share-alt"></span>Forward</a>
-        </li>
-        <li>
-          <a class="pointer">
-            <span style="margin-right: 5px;" class="glyphicon glyphicon-trash"></span>Delete</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<div class="mailContainer" *ngIf="email">
-  <!-- Subject -->
-  <h2>{{email?.subject}}</h2>
-  <!-- author -->
-  <b><i>{{email?.from[0].address}}</i></b>
-  to
-  <!-- receiver -->
-  <b><i>{{email?.to[0].address}}</i></b>
-  <br>
-  <br>
-  <!-- mail content -->
-  <p *ngIf="email.html" [innerHTML]="email?.html"></p>
-  <p *ngIf="!email.html">{{email?.text}}</p>
+<div flex layout="column">
+  <email-action-bar [openModal]="openModal"></email-action-bar>
+  <email-view [email]="email" layout-padding></email-view>
 </div>

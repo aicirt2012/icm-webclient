@@ -1,0 +1,14 @@
+<div flex layout="column" class="card" layout-padding >
+  <div class="card-title">
+    <h4>{{suggestedTask.subject}}</h4>
+  </div>
+
+  <div class="card-content">
+    <p>{{suggestedTask.text}}</p>
+  </div>
+
+  <div class="card-action">
+      <a class="pointer" (click)="createTask(suggestedTask)" class="btn btn-primary">Create Task</a>
+      <a class="pointer" class="btn btn-danger">Close</a>
+  </div>
+</div>

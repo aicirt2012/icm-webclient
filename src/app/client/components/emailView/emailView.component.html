@@ -1,0 +1,15 @@
+<div flex layout="column" *ngIf="email">
+  <div flex>
+    <h2>{{email?.subject}}</h2>
+  </div>
+  <div flex>
+    <h4>{{email?.from[0].address}}</h4>
+  </div>
+  <div flex>
+    <h4>{{email?.to[0].address}}</h4>
+  </div>
+  <div flex>
+    <p *ngIf="email.html" [innerHTML]="email?.html"></p>
+    <p *ngIf="!email.html">{{email?.text}}</p>
+  </div>
+</div>

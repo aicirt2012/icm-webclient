@@ -1,39 +1,73 @@
-
-.padding {
-  padding: 8px;
+ul.inbox-nav {
+   display: inline-block;
+   margin: 0;
+   padding: 0;
+   width: 100%;
 }
 
-.mailButton {
-  margin: 15px 10px;
-  color: white;
-  background-color: #168c40;
-  border-color: #168c40;
+ul.inbox-nav li {
+   display: inline-block;
+   line-height: 45px;
+   width: 100%;
+}
+ul.inbox-nav li a {
+   color: #6a6a6a ;
+   display: inline-block;
+   line-height: 45px;
+   padding: 0 20px;
+   width: 100%;
+}
+ul.inbox-nav li a:hover, ul.inbox-nav li.active a, ul.inbox-nav li a:focus {
+   background: none repeat scroll 0 0 #d5d7de ;
+   color: #6a6a6a ;
+}
+ul.inbox-nav li a i {
+   color: #6a6a6a ;
+   font-size: 16px;
+   padding-right: 10px;
+}
+ul.inbox-nav li a span.label {
+   margin-top: 13px;
+}
+ul.labels-info li h4 {
+   color: #5c5c5e ;
+   font-size: 13px;
+   padding-left: 15px;
+   padding-right: 15px;
+   padding-top: 5px;
+   text-transform: uppercase;
+}
+ul.labels-info li {
+   margin: 0;
+}
+ul.labels-info li a {
+   border-radius: 0;
+   color: #6a6a6a ;
+}
+ul.labels-info li a:hover, ul.labels-info li a:focus {
+   background: none repeat scroll 0 0 #d5d7de ;
+   color: #6a6a6a ;
+}
+ul.labels-info li a i {
+   padding-right: 10px;
 }
 
-.listitems {
-  color: white;
+.icon-margin {
+    margin-right: 5px;
 }
 
-/* fix for navbar hover */
-ul.nav a:hover { color: black !important; }
-
-.partially button span {
-  background-color: orange;
-  border-radius: 32px;
-  color: black;
+.btn-compose {
+   background: none repeat scroll 0 0 #ff6c60 ;
+   color: #fff;
+   margin:12px;
+   padding: 12px 0;
+   text-align: center;
+   width: 100%;
 }
-
- .badge {
-   float:right;
- }
-
- .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
-   background-color: rgba(0, 0, 0, 0.44) !important;
-   /* background-color: white !important;*/
- }
-
- .navigation {
-   background-color: rgb(51, 51, 51);
-   color: white;
-   height:100%;
- }
+.btn-compose:hover {
+   background: none repeat scroll 0 0 #f5675c ;
+   color: #fff;
+}
+.sync-status {
+    bottom:0;
+}

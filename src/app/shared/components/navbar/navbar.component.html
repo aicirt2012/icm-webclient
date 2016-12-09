@@ -1,26 +1,37 @@
-<div class="navigation">
-  <div class="navbar">
-    <div style="text-align: center;">
-      <button type="button" (click)="openCreateEmailModal()" class="mailButton btn btn-default">COMPOSE NEW MAIL
-        <span class="glyphicon glyphicon-edit"></span>
-      </button>
+<div flex layout="column">
+  <div flex>
+    <button type="button" (click)="openCreateEmailModal()" class="btn-compose btn">COMPOSE
+      <span class="glyphicon glyphicon-edit"></span>
+    </button>
+  </div>
+  <div flex>
+    <ul flex class="inbox-nav inbox-divider">
+      <li *ngFor="let item of navbarItems">
+        <a class="listitems" [routerLink]="item.route" [routerLinkActive]="['active']">
+          <span class="icon-margin {{item.icon}}"></span>{{item.name}}
+          <span class="label label-info pull-right">{{item.total}}</span>
+        </a>
+      </li>
+      <hr>
+      <li>
+        <a [routerLink]="['/settings/email']" [routerLinkActive]="['active']">
+          <span class="icon-margin glyphicon glyphicon-user"></span>Account
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/login']" [routerLinkActive]="['active']">
+          <span class="icon-margin glyphicon glyphicon-log-out"></span>Logout
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div flex layout="column" class="sync-status">
+    <hr>
+    <div flex layout="row" class="sync-title">
+      Last synced: 12.12.2012 - 12:12
       <button class="btn btn-default" (click)="refresh()">
         <span class="glyphicon glyphicon-refresh"></span>
       </button>
     </div>
-    <ul class="nav nav-pills nav-stacked">
-      <navbar-list-item *ngFor="let item of navbarItems" [item]="item"></navbar-list-item>
-      <hr>
-      <li role="presentation">
-        <a class="listitems" [routerLink]="['/settings/email']" [routerLinkActive]="['active']">
-          <span style="margin-right: 5px;" class="glyphicon glyphicon-user"></span>Account
-        </a>
-      </li>
-      <li role="presentation">
-        <a class="listitems" [routerLink]="['/login']" [routerLinkActive]="['active']">
-          <span style="margin-right: 5px;" class="glyphicon glyphicon-log-out"></span>Logout
-        </a>
-      </li>
-    </ul>
   </div>
 </div>

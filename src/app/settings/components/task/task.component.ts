@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'tasks',
-  templateUrl: 'tasks.component.html',
-  styleUrls: ['tasks.component.css'],
+  selector: 'task',
+  templateUrl: 'task.component.html',
+  styleUrls: ['task.component.css'],
 })
-export class TasksComponent {
+export class TaskComponent {
 
   public currentView: string = 'Trello';
 
