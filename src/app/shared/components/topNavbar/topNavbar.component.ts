@@ -7,6 +7,16 @@ import { Component } from '@angular/core';
 })
 export class TopNavbarComponent {
   constructor() {  }
+  
+  public showSettings: boolean = false;
 
   ngOnInit() {}
+  
+  showSettingsMenu() {
+    this.showSettings = true;
+  }
+  
+  hideSettingsMenu() {
+    this.showSettings = false;
+  }
 }

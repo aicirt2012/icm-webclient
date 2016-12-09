@@ -10,6 +10,8 @@ import { ModalType } from '../../../shared';
 export class EmailActionBarComponent {
   @Input() openModal: EventEmitter<any>;
 
+  
+
   constructor() {
   }
 
