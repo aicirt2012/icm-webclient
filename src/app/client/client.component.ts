@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, style, state, animate, transition, trigger } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AppState } from '../app.service';
 import * as moment from 'moment';
@@ -12,7 +12,15 @@ import { ModalType } from '../shared/constants';
   selector: 'client',
   providers: [],
   styleUrls: ['./client.component.css'],
-  templateUrl: './client.component.html'
+  templateUrl: './client.component.html',
+  animations: [trigger('fadeInOut', [
+      transition('void => *', [
+        style({opacity:0}), //style only for transition transition (after transiton it removes)
+        animate(500, style({opacity:1})) // the new state of the transition(after transiton it removes)
+      ]),
+      transition('* => void', [
+      ])
+    ])]
 })
 export class ClientComponent {
   public emails: Email[] = [];
