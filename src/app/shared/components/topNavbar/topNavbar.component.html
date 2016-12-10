@@ -1,4 +1,14 @@
-<div flex layout="row" class="tn-top-nav" layout-wrap>
-    <div layout-padding flex layout-align="start center">Logo</div>
-    <div layout-padding flex layout-align="end center"><div flex layout-align="end center"><span class="glyphicon glyphicon-cog"></span></div></div>
+<div flex layout="row" class="tn-top-nav" layout-wrap (mouseleave)="hideSettingsMenu()">
+    <div layout-padding flex layout-align="start center"><span id="logo"></span></div>
+    <div layout-padding flex layout-align="end center">
+        <div flex ></div>
+        <div flex=15 layout-align="end center" class="dropdown">
+            <span class="pointer" (click)="showSettingsMenu()" class="glyphicon glyphicon-user"></span>
+            <ul *ngIf="showSettings" (mouseleave)="hideSettingsMenu()" class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                <li><a role="menuitem" tabindex="-1" href="#">Account</a></li>
+                <li class="divider"></li>
+                <li><a role="menuitem" tabindex="-1" href="#">Logout</a></li>
+            </ul>
+        </div>
+    </div>
 </div>
