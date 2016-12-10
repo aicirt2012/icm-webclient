@@ -7,20 +7,9 @@ import { DropdownModule } from 'ng2-bootstrap/components/dropdown';
   styleUrls: ['topNavbar.component.css'],
 })
 export class TopNavbarComponent {
-  public status:{isopen:boolean} = {isopen: false};
-  public items:Array<string> = ['Acccount', 'Logout'];
+  public items:Array<string> = ['Settings', 'Logout'];
 
   constructor() {  }
 
   ngOnInit() {}
-  
-  public toggled(open:boolean):void {
-    console.log('Dropdown is now: ', open);
-  }
-
-  public toggleDropdown($event:MouseEvent):void {
-    $event.preventDefault();
-    $event.stopPropagation();
-    this.status.isopen = !this.status.isopen;
-  }
 }
