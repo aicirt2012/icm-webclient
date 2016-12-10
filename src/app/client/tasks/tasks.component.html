@@ -9,5 +9,5 @@
       </li>
     </ul>
   </div>
-  <task-list [tasksForMail]="tasksForMail" [suggestedTask]="suggestedTask"></task-list>
+  <task-list (createTask)="createTask($event)" closeTaskModal="closeTaskModal($event)" (openTaskModal)="openTaskModal($event)" [tasksForMail]="tasksForMail" [suggestedTask]="suggestedTask"></task-list>
 </div>

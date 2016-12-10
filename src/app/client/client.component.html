@@ -9,9 +9,10 @@
         <detailed-view [email]="email" (openModal)="openModal($event)"></detailed-view>
       </div>
       <div flex="20" layout="column" class="scrollable">
-        <tasks [email]="email" [suggestedTask]="suggestedTask" [tasksForMail]="tasksForMail" (syncTasksForMail)="syncTasksForMail()"></tasks>
+        <tasks (openTaskModalOutput)="openTaskModalOutput($event)" (closeTaskModalOutput)="closeTaskModalOutput($event)" [email]="email" [suggestedTask]="suggestedTask" [tasksForMail]="tasksForMail" (syncTasksForMail)="syncTasksForMail()"></tasks>
       </div>
     <!-- </div> -->
   <!-- </div> -->
 </div>
 <email-modal [email]="email" [modalType]="currentModalType" (closeModal)="closeModal()"></email-modal>
+<task-modal [taskModalType]="taskModalType" (closeTaskModal)="closeTaskModal($event)" (openTaskModal)="openTaskModal($event)" [suggestedTask]="suggestedTask"></task-modal>

@@ -6,9 +6,10 @@ import { RouterModule } from '@angular/router';
 import { Ng2BootstrapModule } from 'ng2-bootstrap';
 import { Angular2FlexModule } from 'angular2-flex';
 import { TagInputModule } from 'ng2-tag-input';
+import { DatepickerModule } from 'ng2-bootstrap/ng2-bootstrap';
 
-import { ClientComponent, EmailModalComponent, TasksComponent } from './'; // all intelligent components
-import { ListComponent, DetailedViewComponent, EmailFormComponent, SearchBarComponent, EmailActionBarComponent, EmailViewComponent,TaskListComponent, TaskSuggestionComponent } from './components'; // all dumb components
+import { ClientComponent, EmailModalComponent, TasksComponent, TaskModalComponent } from './'; // all intelligent components
+import { ListComponent, DetailedViewComponent, EmailFormComponent, SearchBarComponent, EmailActionBarComponent, EmailViewComponent,TaskListComponent } from './components'; // all dumb components
 import { EmailService, TaskService } from './shared'; // all services
 import { Email, EmailForm } from './shared'; // all models from client
 
@@ -34,14 +35,15 @@ import { Email, EmailForm } from './shared'; // all models from client
     EmailActionBarComponent,
     EmailViewComponent,
     TaskListComponent,
-    TaskSuggestionComponent
+    TaskModalComponent
   ],
   providers: [
     EmailService,
     TaskService
   ],
   exports: [
-      EmailModalComponent
+      EmailModalComponent,
+      TaskModalComponent
   ]
 })
 export class ClientModule {

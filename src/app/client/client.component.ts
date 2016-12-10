@@ -18,6 +18,7 @@ export class ClientComponent {
   public emails: Email[] = [];
   public email: Email = null;
   public currentModalType: ModalType = null;
+  public taskModalType: string = null;
   public loading: boolean = true;
   private currentBox: Observable<string>;
   private currentId: Observable<string>;
@@ -127,6 +128,14 @@ export class ClientComponent {
 
   closeModal() {
     this.currentModalType = null;
+  }
+
+  closeTaskModal() {
+    this.taskModalType = "";
+  }
+
+  openTaskModalOutput() {
+    this.taskModalType = "create";
   }
 
 }

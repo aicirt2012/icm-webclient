@@ -54,6 +54,8 @@ export class TaskService {
   }
 
   createSuggestedTask(email: Email) {
+    console.log("email");
+    console.log(email);
     let peopleArray: any[] = [];
     let sender: string = "";
     let receiver: string = "";
@@ -69,7 +71,9 @@ export class TaskService {
     let suggestedTaskObj = {
       subject: email.subject,
       text: email.text,
-      people: peopleArray
+      html: email.html,
+      people: peopleArray,
+      date: email.date
     }
     return suggestedTaskObj;
   }

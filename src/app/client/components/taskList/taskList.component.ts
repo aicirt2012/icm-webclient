@@ -10,11 +10,37 @@ import {ModalDirective} from 'ng2-bootstrap';
 export class TaskListComponent {
   @Input() tasksForMail: any;
   @Input() suggestedTask:any;
-  
+  @Output() createTask = new EventEmitter<any>();
+  @Output() openTaskModal = new EventEmitter<any>();
+  public dueDate : Date;
+  private opened:boolean = false;
+
   constructor() {
+    this.dueDate = new Date();
   }
 
   ngOnInit() {
-    console.log('hello `TaskList` component');
   }
+
+  public openDatePicker():void {
+     this.opened = !this.opened;
+   }
+
+   public clearDatePicker():void {
+     this.dueDate = void 0;
+   }
+
+   public closeDatePicker():void {
+     this.opened = false;
+   }
+
+   public createSuggestedTask(suggestedTask:any) {
+     this.createTask.emit(suggestedTask);
+   }
+
+   public showTaskModal() {
+     console.log("emit now");
+     this.openTaskModal.emit();
+   }
+
 }

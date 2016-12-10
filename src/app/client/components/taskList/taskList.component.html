@@ -1,6 +1,28 @@
 <div layout="column" flex layout-padding>
-  <task-suggestion [suggestedTask]="suggestedTask"></task-suggestion>
+  <div flex layout="column" class="card" layout-padding>
+    <div class="card-title">
+      <h4>{{suggestedTask.subject}}</h4>
+    </div>
+    <div flex layout="column" class="card-content">
+      <p flex="50">
+        <span class="glyphicon glyphicon-user glyph"></span>
+        {{suggestedTask.people}}
+      </p>
+      <p flex="50">
+        <span (click)="openDatePicker()" class="glyphicon glyphicon-calendar glyph"></span>
+        {{dueDate | date:'shortDate'}}
+        <span *ngIf="opened" (click)="closeDatePicker()" class="  glyphicon glyphicon-ok"></span>
+      </p>
+    </div>
 
+    <div class="card-action">
+      <a flex="33" class="pointer dividerButtonLeft paddingLeft" (click)="createSuggestedTask(suggestedTask)">Create</a>
+      <a flex="33" class="pointer dividerButtonLeft" (click)="showTaskModal()">Modify</a>
+      <a flex="33" class="pointer">Close</a>
+    </div>
+  </div>
+  <datepicker *ngIf="opened" [(ngModel)]="dueDate" [minDate]="minDate"></datepicker>
+<!--
   <div *ngFor="let task of tasksForMail; let i = index" class="card card-block cardList">
     <h4 class="card-title">{{task?.name}}</h4>
     <p class="card-title">
@@ -10,5 +32,5 @@
     <p class="card-text card-item-text">.....</p>
     <a class="pointer" class="btn btn-primary">Open</a>
     <a class="pointer" class="btn btn-danger">Close</a>
-  </div>
+  </div>-->
 </div>
