@@ -1,6 +1,6 @@
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalType } from '../../constants';
+import { ModalType } from '../../../shared/constants';
 import { AppState } from '../../../app.service';
 
 @Component({
@@ -12,22 +12,20 @@ import { AppState } from '../../../app.service';
 })
 export class NavBarComponent {
   private navbarItems: any = [];
+  @Input() boxList: any[];
   @Output() onRefresh = new EventEmitter<boolean>();
   @Output() openModal = new EventEmitter<any>();
   constructor(public appState: AppState, public router: Router) {
-    this.appState.getObservableState().subscribe((data) => {
-      if (data === 'boxList') {
-        this.addDataToBoxes();
-      }
-    })
+    this.navbarItems = this.boxList;
   }
 
-  ngOnInit() {
+  ngOnChanges() {
+      this.addDataToBoxes();
   }
 
   addDataToBoxes() {
-    if (this.appState.get('boxList').length > 0) {
-      this.navbarItems = this.appState.get('boxList').map((box) => {
+    if (this.boxList.length > 0) {
+      this.navbarItems = this.boxList.map((box) => {
         let icon;
         switch (box.shortName) { //TODO put in service
           case 'INBOX':
@@ -37,7 +35,7 @@ export class NavBarComponent {
           default:
             icon = 'glyphicon glyphicon-home'
         };
-        box.route = `box/${box.id}`;
+        box.route = `/box/${box.id}`;
         box.icon = icon;
         return box;
       });

@@ -19,41 +19,51 @@ export class ClientComponent {
   public email: Email = null;
   public currentModalType: ModalType = null;
   public loading: boolean = true;
+  public syncing: boolean = true;
   private currentBox: Observable<string>;
   private currentId: Observable<string>;
   private taskName: string = 'testName';
   private createdTask: any = null;
   public suggestedTask: any = {};
   public tasksForMail: any = [];
+  public boxList: any = [];
 
   constructor(private _emailService: EmailService, private _taskService: TaskService, public appState: AppState, public router: Router, public route: ActivatedRoute) {
+    this.currentId = this.route.params.map(params => params['emailId'] || 'None');
+    this.currentBox = this.route.params.map(params => params['boxId'] || 'None');
   }
 
   ngOnInit() {
-    this.currentId = this.route.params.map(params => params['emailId'] || 'None');
-    this.currentBox = this.route.params.map(params => params['boxId'] || 'None');
-    this.currentBox.subscribe((boxId) => {
-      if (this.appState.get('boxList').length > 0) {
-        boxId === 'None' ? '' : this.getEmailBox(this.appState.get('boxList').filter((box) => box.id == boxId)[0]);
-      }
-    });
+    this.syncing = true;
+    if (!(this.appState.get('boxList').length > 0)) {
+      this.getBoxList().subscribe((data: any[]) => {
+        if (data.length > 0) {
+          this.syncing = false;
+          this.appState.set('boxList', data);
+          this.boxList = data;
+          this.getEmailBox(data[0]);
+          this.fetchBoxByRouteId();
+          this.fetchMailByRouteId();
+        }
+      });
+    } else {
+      this.boxList = this.appState.get('boxList');
+      this.syncing = false;
+      this.fetchBoxByRouteId();
+      this.fetchMailByRouteId();
+    }
+  }
+
+  fetchMailByRouteId() {
     this.currentId.subscribe((emailId) => {
       emailId === 'None' ? '' : this.getSingleMail(emailId);
     });
-    this.appState.getObservableState().subscribe((data) => {
-      this.getEmailBox(this.appState.get('boxList')[0]);
+  }
+
+  fetchBoxByRouteId() {
+    this.currentBox.subscribe((boxId) => {
+      boxId === 'None' ? '' : this.getEmailBox(this.boxList.filter((box) => box.id == boxId)[0]);
     });
-    if (!(this.appState.get('boxList').length > 0)) {
-      this.loading = true;
-      this.getBoxList().subscribe((data: any[]) => {
-        this.appState.set('boxList', data);
-        this.getEmailBox(data[0]);
-      }, error => {
-        console.log(error)
-      }, () => {
-        console.log("Init done!")
-      });
-    }
   }
 
   getBoxList() {
@@ -65,12 +75,7 @@ export class ClientComponent {
       .getSingleMail(id)
       .subscribe((data: any) => {
         this.email = data;
-        /* now we can create a suggested Task object*/
-        console.log(this.email);
         this.suggestedTask = this._taskService.createSuggestedTask(this.email);
-        console.log("suggested task");
-        console.log(this.suggestedTask);
-        /* now we load the corresponding tasks */
         this.tasksForMail = [];
         this.getTasksForMail(this.email.tasks);
       },
@@ -83,20 +88,14 @@ export class ClientComponent {
   }
 
   getTasksForMail(tasks: any) {
-    if (tasks.length > 0) {
-      for (let i = 0; i < tasks.length; i++) {
-        this._taskService
-          .getTaskByID(tasks[i].id)
-          .subscribe((data: any) => {
-            console.log(data);
-            this.tasksForMail.push(data);
-          }, error => {
-            console.log(error)
-          }, () => {
-            console.log("task loaded!")
-          });
-      }
-    }
+    tasks.forEach((task) => {
+      this._taskService
+        .getTaskByID(task.id)
+        .subscribe((data: any) => {
+          console.log(data);
+          this.tasksForMail.push(data);
+        });
+    });
   }
 
   syncTasksForMail() {
@@ -104,7 +103,7 @@ export class ClientComponent {
   }
 
   getEmailBox(box?: any) {
-    console.log(box);
+    this.loading = true;
     this._emailService
       .getEmailsWithPagination(box.name)
       .subscribe((data: any) => {
@@ -127,6 +126,22 @@ export class ClientComponent {
 
   closeModal() {
     this.currentModalType = null;
+  }
+
+  onRefresh(refresh?: boolean) {
+    this.syncBoxes([]);
+  }
+
+  syncBoxes(boxes: string[]) {
+    this.syncing = true;
+    this._emailService.updateMailboxList().subscribe((data) => {
+      this.appState.set('boxList', data);
+      this.boxList = data;
+      this._emailService.getEmails([]).subscribe((data: any) => {
+        this.syncing = false;
+        this.getEmailBox(this.boxList[0]);
+      });
+    });
   }
 
 }
