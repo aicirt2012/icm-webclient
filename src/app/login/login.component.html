@@ -2,7 +2,7 @@
     <div flex id="login-wallpaper" class="wrapper">
     </div>
     <div flex="25" layout="column" class="wrapper">
-        <div flex="20" layout-align="left center">
+        <div flex="20" layout-align="start center">
             <span id="logo"></span>
         </div>
         <div flex="60" layout="column" layout-align="center center">
@@ -16,7 +16,7 @@
                     <button [disabled]="loading" class="btn btn-lg btn-primary btn-block btn-signin" (click)="login()"
                             type="submit">Sign in
                     </button>
-                    <a class="btn btn-block btn-social btn-google" href="http://localhost:4000/api/auth/google">
+                    <a class="btn btn-block btn-social btn-google" [href]="googleLoginLink">
                         <span class="fa fa-google"></span> Sign in with Google
                     </a>
                 </form>
@@ -27,32 +27,3 @@
         </div>
     </div>
 </div>
-
-
-<!--<div flex layout="column" id="loginScreen" layout-align="center center" layout-wrap>-->
-<!--<div>-->
-<!--<div>-->
-<!--<span id="logo">hola</span>-->
-<!--</div>-->
-<!--<div>chao</div>-->
-<!--</div>-->
-<!--<div>-->
-<!--<div class="card card-container">-->
-<!--<img id="account-img" class="account-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>-->
-<!--<p id="account-name" class="account-name-card"></p>-->
-<!--<form class="form-signin">-->
-<!--<span id="reauth-email" class="reauth-email"></span>-->
-<!--<input type="text" name="username" [(ngModel)]="model.username" #username="ngModel" class="form-control"-->
-<!--placeholder="Username" required autofocus>-->
-<!--<input type="password" name="password" [(ngModel)]="model.password" #password="ngModel"-->
-<!--class="form-control" placeholder="Password" required>-->
-<!--<button [disabled]="loading" class="btn btn-lg btn-primary btn-block btn-signin" (click)="login()"-->
-<!--type="submit">Sign in-->
-<!--</button>-->
-<!--<a class="btn btn-block btn-social btn-google" href="http://localhost:4000/api/auth/google">-->
-<!--<span class="fa fa-google"></span> Sign in with Google-->
-<!--</a>-->
-<!--</form>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->

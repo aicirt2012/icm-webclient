@@ -11,6 +11,7 @@ export class LoginComponent {
   model: any = {};
   loading = false;
   error = '';
+  googleLoginLink = "http://localhost:4000/api/auth/google";
 
   constructor(
     private router: Router,
