@@ -1,10 +1,10 @@
 <div layout="column" flex class="wrapper">
   <top-navbar></top-navbar>
   <spinner *ngIf="syncing" flex [loading]="syncing"></spinner>
-  <div *ngIf="!syncing" layout="row" flex>
+  <div *ngIf="!syncing" layout="row" [@fadeInOut]="!syncing" flex>
     <navbar flex="15" [boxList]="boxList" (onRefresh)="onRefresh($event)" (openModal)="openModal($event)" class="scrollable"></navbar>
     <spinner *ngIf="loading" flex [loading]="loading"></spinner>
-    <div *ngIf="!loading" flex>
+    <div *ngIf="!loading" [@fadeInOut]="!loading" flex>
       <list [emails]="emails" (getSingleMail)="getSingleMail($event)" flex="25" layout="column" class="scrollable"></list>
       <detailed-view *ngIf="email" [email]="email" (openModal)="openModal($event)" flex="55" layout="column" class="scrollable"></detailed-view>
       <tasks *ngIf="email" [email]="email" [suggestedTask]="suggestedTask" [tasksForMail]="tasksForMail" (syncTasksForMail)="syncTasksForMail()" flex="20" layout="column" class="scrollable"></tasks>
