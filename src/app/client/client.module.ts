@@ -8,19 +8,23 @@ import { Angular2FlexModule } from 'angular2-flex';
 import { TagInputModule } from 'ng2-tag-input';
 import { DatepickerModule } from 'ng2-bootstrap/ng2-bootstrap';
 
-import { ClientComponent, EmailModalComponent, TasksComponent, TaskModalComponent } from './'; // all intelligent components
-import { ListComponent, DetailedViewComponent, EmailFormComponent, SearchBarComponent, EmailActionBarComponent, EmailViewComponent,TaskListComponent } from './components'; // all dumb components
+import { ClientComponent, EmailModalComponent, TasksComponent,TaskModalComponent } from './'; // all intelligent components
+import { NavBarComponent, ListComponent, DetailedViewComponent, EmailFormComponent, SearchBarComponent, EmailActionBarComponent, EmailViewComponent, TaskListComponent } from './components'; // all dumb components
 import { EmailService, TaskService } from './shared'; // all services
 import { Email, EmailForm } from './shared'; // all models from client
+import { SharedModule } from '../shared';
+import { ROUTES } from './client.routes';
+import { AuthGuard } from '../app.authGuard';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule,
+    RouterModule.forRoot(ROUTES),
     Ng2BootstrapModule,
     Angular2FlexModule.forRoot(),
-    TagInputModule
+    TagInputModule,
+    SharedModule
   ],
   declarations: [
     ClientComponent,
@@ -35,11 +39,13 @@ import { Email, EmailForm } from './shared'; // all models from client
     EmailActionBarComponent,
     EmailViewComponent,
     TaskListComponent,
-    TaskModalComponent
+    TaskModalComponent,
+    NavBarComponent
   ],
   providers: [
     EmailService,
-    TaskService
+    TaskService,
+    AuthGuard
   ],
   exports: [
       EmailModalComponent,
@@ -47,4 +53,4 @@ import { Email, EmailForm } from './shared'; // all models from client
   ]
 })
 export class ClientModule {
- }
+}

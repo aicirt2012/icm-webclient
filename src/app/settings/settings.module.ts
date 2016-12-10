@@ -6,6 +6,9 @@ import { Ng2BootstrapModule } from 'ng2-bootstrap';
 import { Angular2FlexModule } from 'angular2-flex';
 import { SettingsComponent } from './';
 import { AccountComponent, OverviewComponent, TaskComponent, HelpComponent, GmailComponent, ExchangeComponent, SocioCortexComponent, TrelloComponent } from './components'; // all settings components
+import { ROUTES } from './settings.routes';
+import { AuthGuard } from '../app.authGuard';
+
 
 @NgModule({
   imports: [
@@ -13,7 +16,7 @@ import { AccountComponent, OverviewComponent, TaskComponent, HelpComponent, Gmai
     FormsModule,
     Ng2BootstrapModule,
     Angular2FlexModule.forRoot(),
-    RouterModule
+    RouterModule.forRoot(ROUTES)
   ],
   declarations: [
     SettingsComponent,
@@ -28,7 +31,7 @@ import { AccountComponent, OverviewComponent, TaskComponent, HelpComponent, Gmai
     SocioCortexComponent
   ],
   providers: [
-
+      AuthGuard
   ],
   exports: [
   ]

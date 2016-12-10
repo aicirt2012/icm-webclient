@@ -21,9 +21,7 @@ import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 // Self-written classes
-import { NavBarComponent, SpinnerComponent, TopNavbarComponent} from './shared'; // all shared components
-import { AuthService, HttpService } from './shared';
-import { EmailService, TaskService } from './client/shared';
+import { SharedModule } from './shared'; // all shared components
 import { AuthGuard } from './app.authGuard';
 import { User } from './shared';
 
@@ -42,22 +40,20 @@ type StoreType = {
 @NgModule({
   bootstrap: [AppComponent],
   declarations: [
-    AppComponent,
-    NavBarComponent,
-    SpinnerComponent,
-    TopNavbarComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES, { useHash: true }),
+    RouterModule.forRoot(ROUTES),
     Ng2BootstrapModule,
     Angular2FlexModule.forRoot(),
     // custom modules
     LoginModule,
     ClientModule,
-    SettingsModule
+    SettingsModule,
+    SharedModule
   ],
   providers: [
     ENV_PROVIDERS,
@@ -65,11 +61,7 @@ type StoreType = {
     // external
     CookieService,
     // services
-    AuthGuard,
-    AuthService,
-    HttpService,
-    EmailService,
-    TaskService
+    AuthGuard
   ]
 })
 export class AppModule {

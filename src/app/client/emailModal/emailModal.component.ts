@@ -52,12 +52,6 @@ export class EmailModalComponent {
         this.currentlySending = false;
         this.emailForm = {};
         this.hideChildModal();
-      },
-      error => {
-        console.log(error)
-      },
-      () => {
-        alert(`Mail to ${mail.to} send!`);
       });
   }
 

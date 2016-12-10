@@ -1,4 +1,16 @@
 <div flex layout="row" class="tn-top-nav" layout-wrap>
-    <div layout-padding flex layout-align="start center">Logo</div>
-    <div layout-padding flex layout-align="end center"><div flex layout-align="end center"><span class="glyphicon glyphicon-cog"></span></div></div>
+    <div layout-padding flex layout-align="start center"><span id="logo"></span></div>
+    <div layout-padding flex layout-align="end center">
+        <div flex="15" layout-align="end center" dropdown>
+            <a href id="user-settings-dropdown" dropdownToggle>
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
+            <ul class="dropdown-menu" dropdownMenu
+                aria-labelledby="user-settings-dropdown">
+                <li *ngFor="let choice of items">
+                    <a class="dropdown-item" [routerLink]="choice.route">{{choice.name}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>

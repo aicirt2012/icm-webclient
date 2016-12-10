@@ -1,4 +1,5 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap';
 import { Email } from '../../shared';
 
@@ -12,6 +13,12 @@ import { Email } from '../../shared';
 
 export class ListComponent {
   @Input() emails: Email[];
-  constructor() {
+  constructor(public router: Router) {
+  }
+
+  isActive(route:string): boolean {
+      console.log(route);
+      console.log(this.router.isActive(route, false));
+    return this.router.isActive(route, false);
   }
 }
