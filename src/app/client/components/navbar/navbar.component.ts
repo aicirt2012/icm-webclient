@@ -20,7 +20,7 @@ export class NavBarComponent {
   }
 
   ngOnChanges() {
-      this.addDataToBoxes();
+    this.addDataToBoxes();
   }
 
   addDataToBoxes() {
@@ -35,7 +35,7 @@ export class NavBarComponent {
           default:
             icon = 'glyphicon glyphicon-home'
         };
-        box.route = `/box/${box.id}`;
+        box.route=`/box/${box.id}`;
         box.icon = icon;
         return box;
       });
@@ -48,6 +48,10 @@ export class NavBarComponent {
 
   openCreateEmailModal() {
     this.openModal.emit(ModalType.create);
+  }
+
+  isActive(route:string): boolean {
+    return this.router.isActive(route, false);
   }
 
 }

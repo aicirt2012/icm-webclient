@@ -8,7 +8,7 @@
             <ul class="dropdown-menu" dropdownMenu
                 aria-labelledby="user-settings-dropdown">
                 <li *ngFor="let choice of items">
-                    <a class="dropdown-item" href="#">{{choice}}</a>
+                    <a class="dropdown-item" [routerLink]="choice.route">{{choice.name}}</a>
                 </li>
             </ul>
         </div>

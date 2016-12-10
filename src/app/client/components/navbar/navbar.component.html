@@ -7,7 +7,7 @@
   <div flex>
     <ul flex class="inbox-nav inbox-divider">
       <li *ngFor="let item of navbarItems">
-        <a class="listitems" [routerLink]="item.route" [routerLinkActive]="['active']">
+        <a class="listitems" [routerLink]="item.route" [class.route-active]="isActive(item.route)">
           <span class="icon-margin {{item.icon}}"></span>{{item.name}}
           <span class="label label-info pull-right">{{item.total}}</span>
         </a>

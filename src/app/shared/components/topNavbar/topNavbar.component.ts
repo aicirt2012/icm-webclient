@@ -7,9 +7,9 @@ import { DropdownModule } from 'ng2-bootstrap/components/dropdown';
   styleUrls: ['topNavbar.component.css'],
 })
 export class TopNavbarComponent {
-  public items:Array<string> = ['Settings', 'Logout'];
+  public items: any[] = [{ name: 'Settings', route: '/settings' }, { name: 'Logout', route: '/login' }];
 
-  constructor() {  }
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

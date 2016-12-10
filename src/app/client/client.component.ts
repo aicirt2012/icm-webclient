@@ -63,12 +63,14 @@ export class ClientComponent {
   }
 
   fetchMailByRouteId() {
+      //TODO: logic that only if email differs, this is refetched
     this.currentId.subscribe((emailId) => {
       emailId === 'None' ? '' : this.getSingleMail(emailId);
     });
   }
 
   fetchBoxByRouteId() {
+      // TODO: logic that only if box differs this is refetched
     this.currentBox.subscribe((boxId) => {
       boxId === 'None' ? '' : this.getEmailBox(this.boxList.filter((box) => box.id == boxId)[0]);
     });

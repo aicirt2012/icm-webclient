@@ -46,7 +46,7 @@ type StoreType = {
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES, { useHash: true }),
+    RouterModule.forRoot(ROUTES),
     Ng2BootstrapModule,
     Angular2FlexModule.forRoot(),
     // custom modules

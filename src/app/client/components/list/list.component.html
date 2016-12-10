@@ -2,19 +2,21 @@
   <search-bar></search-bar>
   <table class="table table-inbox table-hover">
     <tbody>
-      <tr [routerLink]="mail.route" [routerLinkActive]="['active']" *ngFor="let mail of emails; let i = index" class="{{mail.unread}}">
-        <td class="inbox-small-cells">
-          <input type="checkbox" class="mail-checkbox">
-        </td>
-        <td class="inbox-small-cells">
-          <i class="fa fa-star"></i>
-        </td>
-        <td class="view-message dont-show">{{mail.from[0].name}}</td>
-        <td class="view-message">{{mail.subject}}</td>
-        <!-- <td class="view-message inbox-small-cells">
+      <tr *ngFor="let mail of emails; let i = index" class="{{mail.unread}}">
+        <div [routerLink]="mail.route" [class.route-active]="isActive(mail.route)">
+          <td class="inbox-small-cells">
+            <input type="checkbox" class="mail-checkbox">
+          </td>
+          <td class="inbox-small-cells">
+            <i class="fa fa-star"></i>
+          </td>
+          <td class="view-message dont-show">{{mail.from[0].name ? mail.from[0].name : mail.from[0].address}}</td>
+          <td class="view-message">{{mail.subject}}</td>
+          <!-- <td class="view-message inbox-small-cells">
           <i class="fa fa-paperclip"></i>
         </td> -->
-        <td class="view-message text-right message-date">{{mail.date | date:'short'}}</td>
+          <td class="view-message text-right message-date">{{mail.date | date:'short'}}</td>
+      </div>
       </tr>
     </tbody>
   </table>

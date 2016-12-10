@@ -8,16 +8,18 @@ import { Angular2FlexModule } from 'angular2-flex';
 import { TagInputModule } from 'ng2-tag-input';
 
 import { ClientComponent, EmailModalComponent, TasksComponent } from './'; // all intelligent components
-import { NavBarComponent, ListComponent, DetailedViewComponent, EmailFormComponent, SearchBarComponent, EmailActionBarComponent, EmailViewComponent,TaskListComponent, TaskSuggestionComponent } from './components'; // all dumb components
+import { NavBarComponent, ListComponent, DetailedViewComponent, EmailFormComponent, SearchBarComponent, EmailActionBarComponent, EmailViewComponent, TaskListComponent, TaskSuggestionComponent } from './components'; // all dumb components
 import { EmailService, TaskService } from './shared'; // all services
 import { Email, EmailForm } from './shared'; // all models from client
 import { SharedModule } from '../shared';
+import { ROUTES } from './client.routes';
+import { AuthGuard } from '../app.authGuard';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule,
+    RouterModule.forRoot(ROUTES),
     Ng2BootstrapModule,
     Angular2FlexModule.forRoot(),
     TagInputModule,
@@ -41,11 +43,12 @@ import { SharedModule } from '../shared';
   ],
   providers: [
     EmailService,
-    TaskService
+    TaskService,
+    AuthGuard
   ],
   exports: [
-      EmailModalComponent
+    EmailModalComponent
   ]
 })
 export class ClientModule {
- }
+}
