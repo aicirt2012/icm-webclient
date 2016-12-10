@@ -22,7 +22,7 @@ export class LoginComponent {
   }
 
   login() {
-    this.loading = true;
+    //this.loading = true;
     this._auth.login(this.model.username, this.model.password)
       .subscribe(result => {
         if (result === true) {
@@ -31,7 +31,7 @@ export class LoginComponent {
         } else {
           // login failed
           this.error = 'Username or password is incorrect';
-          this.loading = false;
+          //this.loading = false;
         }
       });
   }
