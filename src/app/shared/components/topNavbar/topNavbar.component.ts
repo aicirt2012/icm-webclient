@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DropdownModule } from 'ng2-bootstrap/components/dropdown';
 
 @Component({
   selector: 'top-navbar',
@@ -6,17 +7,20 @@ import { Component } from '@angular/core';
   styleUrls: ['topNavbar.component.css'],
 })
 export class TopNavbarComponent {
+  public status:{isopen:boolean} = {isopen: false};
+  public items:Array<string> = ['Acccount', 'Logout'];
+
   constructor() {  }
-  
-  public showSettings: boolean = false;
 
   ngOnInit() {}
   
-  showSettingsMenu() {
-    this.showSettings = true;
+  public toggled(open:boolean):void {
+    console.log('Dropdown is now: ', open);
   }
-  
-  hideSettingsMenu() {
-    this.showSettings = false;
+
+  public toggleDropdown($event:MouseEvent):void {
+    $event.preventDefault();
+    $event.stopPropagation();
+    this.status.isopen = !this.status.isopen;
   }
 }
