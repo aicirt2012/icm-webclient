@@ -8,9 +8,10 @@ import { Angular2FlexModule } from 'angular2-flex';
 import { TagInputModule } from 'ng2-tag-input';
 
 import { ClientComponent, EmailModalComponent, TasksComponent } from './'; // all intelligent components
-import { ListComponent, DetailedViewComponent, EmailFormComponent, SearchBarComponent, EmailActionBarComponent, EmailViewComponent,TaskListComponent, TaskSuggestionComponent } from './components'; // all dumb components
+import { NavBarComponent, ListComponent, DetailedViewComponent, EmailFormComponent, SearchBarComponent, EmailActionBarComponent, EmailViewComponent,TaskListComponent, TaskSuggestionComponent } from './components'; // all dumb components
 import { EmailService, TaskService } from './shared'; // all services
 import { Email, EmailForm } from './shared'; // all models from client
+import { SharedModule } from '../shared';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { Email, EmailForm } from './shared'; // all models from client
     RouterModule,
     Ng2BootstrapModule,
     Angular2FlexModule.forRoot(),
-    TagInputModule
+    TagInputModule,
+    SharedModule
   ],
   declarations: [
     ClientComponent,
@@ -34,7 +36,8 @@ import { Email, EmailForm } from './shared'; // all models from client
     EmailActionBarComponent,
     EmailViewComponent,
     TaskListComponent,
-    TaskSuggestionComponent
+    TaskSuggestionComponent,
+    NavBarComponent
   ],
   providers: [
     EmailService,

@@ -4,10 +4,6 @@ html, body {
   font-family: Arial, Helvetica, sans-serif
 }
 
-.scrollable {
-  overflow-y: scroll;
-}
-
 div {
   display: flex;
   width: 100%;
