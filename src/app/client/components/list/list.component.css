@@ -21,3 +21,36 @@
 .route-active {
     background: none repeat scroll 0 0 #f7f7f7 ;
 }
+
+.lc-padding {
+  padding: 8px;
+}
+
+.lc-mail {
+  border-bottom: 1px solid lightgrey;
+}
+
+.lc-mail:hover {
+  cursor: pointer;
+  background-color: #f7f7f7;
+}
+
+.lc-text-overflow {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.lc-text-head {
+  font-weight: 600;
+}
+
+.lc-text-subhead {
+  font-weight: 500;
+}
+
+.lc-text-date {
+  font-size: 12px;
+  font-weight: 200;
+}

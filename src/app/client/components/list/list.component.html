@@ -1,4 +1,4 @@
-<div flex layout="column">
+<!-- <div flex layout="column">
   <search-bar></search-bar>
   <table class="table table-inbox table-hover">
     <tbody>
@@ -9,15 +9,34 @@
           </td>
           <td class="inbox-small-cells">
             <i class="fa fa-star"></i>
+
           </td>
           <td class="view-message dont-show">{{mail.from[0].name ? mail.from[0].name : mail.from[0].address}}</td>
           <td class="view-message">{{mail.subject}}</td>
-          <!-- <td class="view-message inbox-small-cells">
+          <td class="view-message inbox-small-cells">
           <i class="fa fa-paperclip"></i>
-        </td> -->
+        </td>
           <td class="view-message text-right message-date">{{mail.date | date:'short'}}</td>
       </div>
       </tr>
     </tbody>
   </table>
+</div>  -->
+
+<div flex layout="column">
+  <search-bar></search-bar>
+  <div *ngFor="let mail of emails; let i = index" class="{{mail.unread}}">
+    <div flex layout="row" layout-align="start center" class="lc-padding lc-mail" [routerLink]="mail.route" [class.route-active]="isActive(mail.route)">
+      <div flex="10" layout-align="center center">
+        <input type="checkbox" class="mail-checkbox">
+      </div>
+      <div flex="90" layout="column">
+        <div layout="row" layout-align="start center">
+          <div flex="70" class="lc-text-overflow lc-text-head"> {{mail.from[0].name ? mail.from[0].name : mail.from[0].address}} </div>
+          <div flex="30" class="lc-text-overflow lc-text-date">  {{mail.date | date:'shortDate'}}</div>
+        </div>
+        <div class="lc-text-overflow lc-text-subhead"> {{mail.subject}} </div>
+      </div>
+    </div>
+  </div>
 </div>
