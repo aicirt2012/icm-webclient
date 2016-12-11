@@ -1,15 +1,29 @@
-<div flex>
-    <div flex class="card card-container">
-        <img id="account-img" class="account-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-        <p id="account-name" class="account-name-card"></p>
-        <form class="form-signin">
-            <span id="reauth-email" class="reauth-email"></span>
-            <input type="text" name="username" [(ngModel)]="model.username" #username="ngModel" class="form-control" placeholder="Username" required autofocus>
-            <input type="password" name="password" [(ngModel)]="model.password" #password="ngModel" class="form-control" placeholder="Password" required>
-            <button [disabled]="loading" class="btn btn-lg btn-primary btn-block btn-signin" (click)="login()" type="submit">Sign in</button>
-            <a class="btn btn-block btn-social btn-google" href="http://localhost:4000/api/auth/google">
-            <span class="fa fa-google"></span> Sign in with Google
-          </a>
-        </form>
+<div layout="row" flex class="wrapper" layout-align="center center">
+    <div flex id="login-wallpaper" class="wrapper">
+    </div>
+    <div flex="25" layout="column" class="wrapper">
+        <div flex="20" layout-align="start center">
+            <span id="logo"></span>
+        </div>
+        <div flex="60" layout="column" layout-align="center center">
+            <div class="card card-container">
+                <form flex layout="column" layout-align="center center" class="form-signin">
+                    <input type="text" name="username" [(ngModel)]="model.username" #username="ngModel"
+                           class="form-control"
+                           placeholder="Username" required autofocus>
+                    <input type="password" name="password" [(ngModel)]="model.password" #password="ngModel"
+                           class="form-control" placeholder="Password" required>
+                    <button [disabled]="loading" class="btn btn-lg btn-primary btn-block btn-signin" (click)="login()"
+                            type="submit">Sign in
+                    </button>
+                    <a class="btn btn-block btn-social btn-google" [href]="googleLoginLink">
+                        <span class="fa fa-google"></span> Sign in with Google
+                    </a>
+                </form>
+            </div>
+        </div>
+        <div flex flex="20" layout-align="center end">
+            <span class="copyrights">&copy; 2016 Master Lab Course Web Applications</span>
+        </div>
     </div>
 </div>
