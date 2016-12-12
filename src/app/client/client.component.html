@@ -25,4 +25,4 @@
   </div>
 </div>
 <email-modal [email]="email" [modalType]="currentModalType" (closeModal)="closeModal()"></email-modal>
-<task-modal [taskModalType]="taskModalType" (closeTaskModal)="closeTaskModal($event)" (openTaskModal)="openTaskModal($event)" [suggestedTask]="suggestedTask"></task-modal>
+<task-modal [email]="email" [taskModalType]="taskModalType" (closeTaskModal)="closeTaskModal($event)" (openTaskModal)="openTaskModal($event)" [suggestedTask]="suggestedTask"></task-modal>

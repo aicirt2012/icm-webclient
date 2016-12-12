@@ -24,7 +24,7 @@
   border-color: green;
   padding: 5px;
   padding-top: 0px;
-  margin:10px;
+  margin: 10px;
 }
 
 .cardList {
@@ -33,7 +33,7 @@
   border-color: black;
   padding: 5px;
   padding-top: 0px;
-  margin:10px;
+  margin: 10px;
 }
 
 .card-item-text {
@@ -80,12 +80,11 @@
 }
 
 .paddingLeft {
-  padding-left: 15px;
+  padding-left: 40px;
 }
 
 .dividerButtonLeft {
   border-right: 1px solid rgba(160, 160, 160, 0.2);
-  padding-right: 10px;
 }
 
 .pointer {
@@ -94,4 +93,13 @@
 
 .glyph {
   margin-right: 5px;
+}
+
+.datepicker {
+  position: absolute;
+  margin-top: 140px;
+}
+
+.tasks {
+  margin-top: 20px;
 }

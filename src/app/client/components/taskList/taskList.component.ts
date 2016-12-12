@@ -35,6 +35,8 @@ export class TaskListComponent {
    }
 
    public createSuggestedTask(suggestedTask:any) {
+     console.log(suggestedTask);
+     this.suggestedTask['dueDate'] = this.dueDate;
      this.createTask.emit(suggestedTask);
    }
 

@@ -17,8 +17,8 @@ export class ListComponent {
   }
 
   isActive(route:string): boolean {
-      console.log(route);
-      console.log(this.router.isActive(route, false));
+      /*console.log(route);
+      console.log(this.router.isActive(route, false));*/
     return this.router.isActive(route, false);
   }
 }
