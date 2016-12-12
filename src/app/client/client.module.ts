@@ -9,7 +9,7 @@ import { TagInputModule } from 'ng2-tag-input';
 import { DatepickerModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { ClientComponent, EmailModalComponent, TasksComponent,TaskModalComponent } from './'; // all intelligent components
-import { NavBarComponent, ListComponent, DetailedViewComponent, EmailFormComponent, SearchBarComponent, EmailActionBarComponent, EmailViewComponent, TaskListComponent } from './components'; // all dumb components
+import { NavBarComponent,NavBarListItemComponent, ListComponent, DetailedViewComponent, EmailFormComponent, SearchBarComponent, EmailActionBarComponent, EmailViewComponent, TaskListComponent } from './components'; // all dumb components
 import { EmailService, TaskService } from './shared'; // all services
 import { Email, EmailForm } from './shared'; // all models from client
 import { SharedModule } from '../shared';
@@ -40,7 +40,8 @@ import { AuthGuard } from '../app.authGuard';
     EmailViewComponent,
     TaskListComponent,
     TaskModalComponent,
-    NavBarComponent
+    NavBarComponent,
+    NavBarListItemComponent
   ],
   providers: [
     EmailService,

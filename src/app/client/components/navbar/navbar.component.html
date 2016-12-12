@@ -7,21 +7,7 @@
   <div flex>
     <ul flex class="inbox-nav inbox-divider">
       <li *ngFor="let item of navbarItems">
-        <a class="listitems" [routerLink]="item.route" [class.route-active]="isActive(item.route)">
-          <span class="icon-margin {{item.icon}}"></span>{{item.name}}
-          <span class="label label-info pull-right">{{item.total}}</span>
-        </a>
-      </li>
-      <hr>
-      <li>
-        <a [routerLink]="['/settings/email']" [routerLinkActive]="['active']">
-          <span class="icon-margin glyphicon glyphicon-user"></span>Account
-        </a>
-      </li>
-      <li>
-        <a [routerLink]="['/login']" [routerLinkActive]="['active']">
-          <span class="icon-margin glyphicon glyphicon-log-out"></span>Logout
-        </a>
+        <navbar-list-item [item]="item"></navbar-list-item>
       </li>
     </ul>
   </div>

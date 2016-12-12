@@ -11,7 +11,7 @@ import { AppState } from '../../../app.service';
   templateUrl: './navbar.component.html'
 })
 export class NavBarComponent {
-  private navbarItems: any = [];
+  private navbarItems: any[] = [];
   @Input() boxList: any[];
   @Output() onRefresh = new EventEmitter<boolean>();
   @Output() openModal = new EventEmitter<any>();
@@ -35,11 +35,27 @@ export class NavBarComponent {
           default:
             icon = 'glyphicon glyphicon-home'
         };
-        box.route=`/box/${box.id}`;
+        box.route = `/box/${box.id}`;
         box.icon = icon;
+        box.children = [];
         return box;
       });
+      this._populateBoxesTree(this.navbarItems);
     }
+  }
+
+  _populateBoxesTree(boxes) {
+    let removeableIndices = [];
+    boxes.forEach((box, index) => {
+      if (box.parent != null) {
+        let parent = boxes.filter((b) => b.id == box.parent.id)[0];
+        parent.children.push(box);
+        removeableIndices.push(index);
+      }
+    });
+    removeableIndices.reverse().forEach((i) => {
+      boxes.splice(i, 1);
+    });
   }
 
   refresh() {
@@ -48,10 +64,6 @@ export class NavBarComponent {
 
   openCreateEmailModal() {
     this.openModal.emit(ModalType.create);
-  }
-
-  isActive(route:string): boolean {
-    return this.router.isActive(route, false);
   }
 
 }

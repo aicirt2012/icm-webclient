@@ -6,3 +6,4 @@ export * from './emailActionBar';
 export * from './emailView';
 export * from './searchBar';
 export * from './navbar';
+export * from './navbarListItem';

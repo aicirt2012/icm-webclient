@@ -9,6 +9,19 @@ div {
   width: 100%;
 }
 
+ul ul, ol ul {
+    list-style-type: none !important;
+}
+
+ul, menu, dir {
+    list-style-type: none;
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 15px;
+}
+
 span.active {
   background-color: gray;
 }

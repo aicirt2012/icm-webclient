@@ -161,7 +161,6 @@ export class ClientComponent {
         this.getEmailBox(this.boxList[0]);
       });
     });
-
   }
 
 }
