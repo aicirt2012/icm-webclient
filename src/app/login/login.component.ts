@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../shared';
 import { Router } from '@angular/router';
+import C from '../shared/constants';
 
 @Component({
   selector: 'login',
@@ -11,7 +12,7 @@ export class LoginComponent {
   model: any = {};
   loading = false;
   error = '';
-  googleLoginLink = "http://localhost:4000/api/auth/google";
+  googleLoginLink = `${C.server}auth/google`;
 
   constructor(
     private router: Router,

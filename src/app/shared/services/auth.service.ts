@@ -34,10 +34,21 @@ export class AuthService {
   }
 
   isAuthenticated() {
-    if (localStorage.getItem('email-jwt')) {
+    const token = localStorage.getItem('email-jwt');
+    if (token) {
+      if (new Date() > new Date(this.parseToken(token).exp * 1000)) {
+        localStorage.removeItem('email-jwt');
+        return false;
+      }
       return true;
     } else {
       return false;
     }
+  }
+
+  parseToken(token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
   }
 }
