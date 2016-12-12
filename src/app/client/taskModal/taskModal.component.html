@@ -13,27 +13,26 @@
       </div>
       <div class="modal-body">
         <div flex layout="column">
-          <div flex layout="row" class="form-group">
-            <p flex="50">
+          <div layout="row">
+            <div flex="50">
               <span class="glyphicon glyphicon-user glyph"></span>
               {{suggestedTask.people}}
-              <span class="glyphicon glyphicon-plus plus"></span>
-            </p>
-            <p flex="50">
+              <!--<span class="glyphicon glyphicon-plus plus"></span>-->
+            </div>
+            <div flex="50">
               <span (click)="openDatePicker()" class="glyphicon glyphicon-calendar glyph"></span>
-              {{dueDate | date:'shortDate'}}
+              {{suggestedTask.dueDate | date:'shortDate'}}
               <span *ngIf="opened" (click)="closeDatePicker()" class="  glyphicon glyphicon-ok"></span>
-              <datepicker *ngIf="opened" [(ngModel)]="dueDate" [minDate]="minDate"></datepicker>
-            </p>
-
+               <datepicker class="datepicker" *ngIf="opened" [(ngModel)]="suggestedTask.dueDate" [minDate]="minDate"></datepicker>
+            </div>
           </div>
-          <div flex layout="column" class="form-group">
-            <label>Task Content</label>
-            <textarea class="form-control" name="text" rows="30" [(ngModel)]="suggestedTask.text"></textarea>
+          <div  layout="column" class="textField">
+            <label>Description</label>
+            <textarea class="form-control" name="text" rows="20" [(ngModel)]="suggestedTask.text"></textarea>
           </div>
-          <div flex layout-align="start center">
-            <button type="submit" class="btn btn-primary" (click)="sendMail()">Create</button>
-            <button type="submit" class="btn btn-danger" (click)="hideChildModal()">Close</button>
+          <div layout-align="start center" class="footer">
+            <button type="submit" class="btn btn-primary" (click)="createSuggestedTask(suggestedTask)">Create</button>
+            <button type="submit" class="btn btn-danger btn-margin" (click)="hideChildModal()">Close</button>
           </div>
         </div>
       </div>

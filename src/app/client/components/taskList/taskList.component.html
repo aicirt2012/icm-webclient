@@ -1,5 +1,6 @@
 <div layout="column" flex layout-padding>
-  <div flex layout="column" class="card" layout-padding>
+  <!-- Suggested Task -->
+  <div flex layout="column" class="card tasks" layout-padding>
     <div class="card-title">
       <h4>{{suggestedTask.subject}}</h4>
     </div>
@@ -11,18 +12,48 @@
       <p flex="50">
         <span (click)="openDatePicker()" class="glyphicon glyphicon-calendar glyph"></span>
         {{dueDate | date:'shortDate'}}
-        <span *ngIf="opened" (click)="closeDatePicker()" class="  glyphicon glyphicon-ok"></span>
+        <!--  <span *ngIf="opened" (click)="closeDatePicker()" class="  glyphicon glyphicon-ok"></span>-->
       </p>
     </div>
-
-    <div class="card-action">
-      <a flex="33" class="pointer dividerButtonLeft paddingLeft" (click)="createSuggestedTask(suggestedTask)">Create</a>
-      <a flex="33" class="pointer dividerButtonLeft" (click)="showTaskModal()">Modify</a>
-      <a flex="33" class="pointer">Close</a>
+    <div class="card-action" flex layout="row" layout-align="center center">
+      <div flex="33" class="dividerButtonLeft paddingLeft pointer">
+        <span (click)="createSuggestedTask(suggestedTask)" class="glyphicon glyphicon-check"></span>
+      </div>
+      <div flex="33" class="dividerButtonLeft paddingLeft pointer">
+        <span (click)="showTaskModal()" class="glyphicon glyphicon-pencil"></span>
+      </div>
+      <div flex="33" class="paddingLeft pointer">
+        <span class="glyphicon glyphicon-remove"></span>
+      </div>
     </div>
   </div>
-  <datepicker *ngIf="opened" [(ngModel)]="dueDate" [minDate]="minDate"></datepicker>
-<!--
+  <!--<datepicker class="datepicker" *ngIf="opened" [(ngModel)]="suggestedTask.dueDate" [minDate]="minDate"></datepicker>-->
+
+  <!-- Tasks referred to email -->
+  <div *ngFor="let task of tasksForMail; let i = index" flex layout="column" class="card tasks" layout-padding>
+    <div class="card-title">
+      <h4>{{task?.name}}</h4>
+    </div>
+    <div flex layout="column" class="card-content">
+      <p flex="50">
+        <span class="glyphicon glyphicon-user glyph"></span>
+        just some people
+      </p>
+      <p flex="50">
+        <span (click)="openDatePicker()" class="glyphicon glyphicon-calendar glyph"></span>
+        {{task?.dateLastActivity | date:'shortDate'}}
+      </p>
+    </div>
+    <div class="card-action" flex layout="row" layout-align="center center">
+      <div flex="50" class="dividerButtonLeft paddingLeft pointer">
+        <span (click)="showTaskModal()" class="glyphicon glyphicon-pencil"></span>
+      </div>
+      <div flex="50" class="paddingLeft pointer">
+        <span class="glyphicon glyphicon-remove"></span>
+      </div>
+    </div>
+  </div>
+  <!--
   <div *ngFor="let task of tasksForMail; let i = index" class="card card-block cardList">
     <h4 class="card-title">{{task?.name}}</h4>
     <p class="card-title">
