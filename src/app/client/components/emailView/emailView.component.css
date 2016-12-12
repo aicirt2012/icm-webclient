@@ -1,0 +1,31 @@
+.evc-padding: {
+  padding: 8px 0 0 8px;
+}
+.evc-from-circle {
+  border-radius: 50%;
+	width: 50px;
+	height: 50px;
+  background-color: lightblue;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 8px;
+}
+
+.evc-header {
+  border-top: 1px solid lightgrey;
+  border-bottom: 1px solid lightgrey;
+  margin-bottom: 5px;
+}
+
+.evc-text-title {
+  font-weight: 600;
+}
+
+.evc-text-subtitle {
+  font-weight: 500;
+}
+
+.evc-text-caption {
+  font-size: 12px;
+  font-weight: 200;
+}
