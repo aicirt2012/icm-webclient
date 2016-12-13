@@ -1,8 +1,13 @@
 <div layout="column" flex layout-padding>
   <!-- Suggested Task -->
   <div flex layout="column" class="card tasks" layout-padding>
-    <div class="card-title">
-      <h4>{{suggestedTask.subject}}</h4>
+    <div flex layout="row" class="card-title">
+      <div flex="70">
+        <h4>{{suggestedTask.subject}}</h4>
+      </div>
+      <div flex="30" layout-align="right right">
+        <img src="/assets/img/trello.gif" height="40" width="60">
+      </div>
     </div>
     <div flex layout="column" class="card-content">
       <p flex="50">
@@ -31,8 +36,13 @@
 
   <!-- Tasks referred to email -->
   <div *ngFor="let task of tasksForMail; let i = index" flex layout="column" class="card tasks" layout-padding>
-    <div class="card-title">
-      <h4>{{task?.name}}</h4>
+    <div flex layout="row" class="card-title">
+      <div flex="70">
+        <h4>{{task?.name}}</h4>
+      </div>
+      <div flex="30" layout-align="right right">
+        <img src="/assets/img/trello.gif" height="40" width="60">
+      </div>
     </div>
     <div flex layout="column" class="card-content">
       <p flex="50">
