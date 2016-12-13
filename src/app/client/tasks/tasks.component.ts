@@ -40,11 +40,18 @@ export class TasksComponent {
 
   createTask(taskObject: any) {
     this._taskService.createTask(this.email, taskObject, this.taskIdList)
-      .subscribe((task) => {
+      .subscribe((task: any) => {
         this.createdTask = task;
         console.log("task has been created");
-        this.syncTasks();
-      })
+      },
+      error => {
+        console.log(error)
+      },
+      () => {
+        /*hotfix for syncing bug */
+        this.tasksForMail.push(this.createdTask)
+        //this.syncTasks();
+      });
   }
 
   syncTasks() {

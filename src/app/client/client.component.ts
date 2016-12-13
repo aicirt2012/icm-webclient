@@ -99,6 +99,8 @@ export class ClientComponent {
   }
 
   getTasksForMail(tasks: any) {
+    console.log("tasks to sync");
+    console.log(tasks);
     tasks.forEach((task) => {
       this._taskService
         .getTaskByID(task.id)
@@ -107,6 +109,7 @@ export class ClientComponent {
           this.tasksForMail.push(data);
         });
     });
+    console.log(this.tasksForMail);
   }
 
   syncTasksForMail() {
