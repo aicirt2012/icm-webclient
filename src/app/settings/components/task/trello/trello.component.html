@@ -1,17 +1,22 @@
-<form>
-  <div class="form-group has-success has-feedback">
-    <label class="control-label" for="inputSuccess2">Email address is valid</label>
-    <input type="email" class="form-control" [disabled]="mailValid" value="sebisng2@gmail.com" placeholder="Email">
-    <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
-    <span id="inputSuccess2Status" class="sr-only">(success)</span>
-  </div>
+<form flex>
+    <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
+        <label flex="15" class="control-label" for="inputSuccess2">Email address is valid</label>
+        <input flex="45" type="email" class="form-control" [disabled]="mailValid" value="sebisng2@gmail.com" placeholder="Email">
+        <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+        <span id="inputSuccess2Status" class="sr-only">(success)</span>
+    </div>
 
-  <div class="form-group">
-    <a class="btn btn-block btn-social btn-google" href="http://localhost:4000/api/auth/trello">
-      <span class="fa fa-trello"></span>
-      Connect to Trello
-    </a>
-  </div>
-  <button type="submit" class="btn btn-default" [disabled]="mailValid" (click)="mailValid=true">Submit</button>
-  <button type="submit" class="btn btn-default" [disabled]="!mailValid" (click)="mailValid=false">Edit Settings</button>
+    <div flex layout="row" layout-align="center center" class="form-group">
+        <div flex="15"></div>
+        <a flex="45" class="btn btn-block btn-social btn-google" href="http://localhost:4000/api/auth/trello">
+            <span class="fa fa-trello"></span>
+            Connect to Trello
+        </a>
+        <div flex></div>
+        <div flex></div>
+    </div>
+
+    <button type="submit" class="btn btn-default" [disabled]="mailValid" (click)="mailValid=true">Submit</button>
+    <button type="submit" class="btn btn-default" [disabled]="!mailValid" (click)="mailValid=false">Edit Settings
+    </button>
 </form>
