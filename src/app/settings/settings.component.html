@@ -44,15 +44,15 @@
         </div>
         <div flex layout="row">
             <div flex>
-                <div class="account-content">
+                <div flex class="account-content">
                     <!-- Account Settings -->
-                    <account *ngIf="getCurrentView('email')"></account>
+                    <account flex *ngIf="getCurrentView('email')"></account>
                     <!-- Tasks -->
-                    <task *ngIf="getCurrentView('tasks')"></task>
+                    <task flex *ngIf="getCurrentView('tasks')"></task>
                     <!-- Overview -->
-                    <overview *ngIf="getCurrentView('overview')"></overview>
+                    <overview flex *ngIf="getCurrentView('overview')"></overview>
                     <!-- Help -->
-                    <help *ngIf="getCurrentView('help')"></help>
+                    <help flex *ngIf="getCurrentView('help')"></help>
                 </div>
             </div>
         </div>
