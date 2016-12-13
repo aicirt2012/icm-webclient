@@ -1,31 +1,32 @@
-<form>
-  <div layout="row">
-    <div flex="45">
-      <div class="form-group">
-        <label for="exampleInputEmail1">Firstname</label>
-        <input type="text" class="form-control" [disabled]="!editSettings" placeholder="Firstname" value="Peter">
-      </div>
+<form flex>
+    <div flex layout="column">
+        <div flex layout="row" layout-align="start center" class="form-group">
+            <label flex="15" for="exampleInputEmail1">Firstname</label>
+            <input flex="45" type="text" class="form-control" [disabled]="!editSettings" placeholder="Firstname"
+                   value="Peter">
+        </div>
+        <div flex layout="row" layout-align="start center" class="form-group">
+            <label flex="15" for="exampleInputEmail1">Lastname</label>
+            <input flex="45" type="text" class="form-control" [disabled]="!editSettings" placeholder="Lastname"
+                   value="Niedermeier">
+        </div>
+        <div flex layout="row" layout-align="start center" class="form-group">
+            <label flex="15" for="exampleInputEmail1">Email address</label>
+            <input flex="45" type="email" class="form-control" placeholder="Email" [disabled]="!editSettings"
+                   value="peter@niedermeier-ed.de">
+        </div>
+        <div flex layout="row" layout-align="start center" class="form-group">
+            <label flex="15" for="exampleInputPassword1">Password</label>
+            <input flex="45" type="password" class="form-control" placeholder="Password" [disabled]="!editSettings" value="......">
+        </div>
+        <div flex layout="row" layout-align="start center" class="form-group">
+            <label flex="15" for="exampleInputFile">Upload account Picture</label>
+            <input flex="45" type="file" id="exampleInputFile">
+        </div>
     </div>
-    <div flex="10"></div>
-    <div flex="45">
-      <div class="form-group">
-        <label for="exampleInputEmail1">Lastname</label>
-        <input type="text" class="form-control" [disabled]="!editSettings" placeholder="Lastname" value="Niedermeier">
-      </div>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" placeholder="Email" [disabled]="!editSettings" value="peter@niedermeier-ed.de">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" placeholder="Password"  [disabled]="!editSettings" value="......">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputFile">Upload account Picture</label>
-    <input type="file" id="exampleInputFile">
-  </div>
-  <button type="submit" class="btn btn-default" [disabled]="!editSettings">Submit</button>
-  <button type="submit" class="btn btn-default" [disabled]="editSettings" (click)="editSettings = true">Edit Settings</button>
+
+    <button type="submit" class="btn btn-default" [disabled]="!editSettings">Submit</button>
+    <button type="submit" class="btn btn-default" [disabled]="editSettings" (click)="editSettings = true">Edit
+        Settings
+    </button>
 </form>
