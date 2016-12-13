@@ -1,7 +1,7 @@
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap';
 import { TaskService } from '../shared';
-import { ModalType } from '../../shared';
+import { TaskModalType } from '../../shared';
 import { Observable } from 'rxjs/Observable';
 import { Email, EmailForm } from '../shared';
 
@@ -14,7 +14,7 @@ export class TaskModalComponent {
   @ViewChild('taskModal') public taskModal: ModalDirective;
   @Output() closeTaskModal = new EventEmitter<any>();
   @Input() suggestedTask: any;
-  @Input() taskModalType: string;
+  @Input() taskModalType: TaskModalType;
   @Input() email: Email;
   public dueDate: Date;
   private opened: boolean = false;
@@ -30,11 +30,23 @@ export class TaskModalComponent {
   }
 
   ngOnChanges() {
+    console.log("loading modal ");
     console.log("modal type is " + this.taskModalType);
-    if (this.taskModalType == "create") {
+
+    if (this.taskModalType === TaskModalType.create) {
       this.suggestedTask['dueDate'] = new Date();
       this.taskModal.show();
+    } else if (this.taskModalType === TaskModalType.edit) {
+      this.suggestedTask['dueDate'] = new Date();
+      //this.emailForm = this._emailService.generateEmailForm(this.email, 'reply');
+      this.taskModal.show();
     }
+
+
+    /*if (this.taskModalType == "create") {
+      this.suggestedTask['dueDate'] = new Date();
+      this.taskModal.show();
+    }*/
   }
 
   public hideChildModal(): void {
@@ -59,7 +71,17 @@ export class TaskModalComponent {
     this._taskService.createTask(this.email, suggestedTask, this.taskIdList)
       .subscribe((task) => {
         console.log("task has been created");
+        this.taskModal.hide();
+        this.closeTaskModal.emit();
+        /* we have to sync here */
       })
+  }
+
+  public saveTask(task:any) :void {
+    console.log("saving task");
+    console.log(task);
+    this.taskModal.hide();
+    this.closeTaskModal.emit();
   }
 
 }

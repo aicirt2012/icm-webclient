@@ -25,7 +25,7 @@
         <span (click)="createSuggestedTask(suggestedTask)" class="glyphicon glyphicon-check"></span>
       </div>
       <div flex="33" class="dividerButtonLeft paddingLeft pointer">
-        <span (click)="showTaskModal()" class="glyphicon glyphicon-pencil"></span>
+        <span (click)="showTaskModal('create')" class="glyphicon glyphicon-pencil"></span>
       </div>
       <div flex="33" class="paddingLeft pointer">
         <span class="glyphicon glyphicon-remove"></span>
@@ -56,7 +56,7 @@
     </div>
     <div class="card-action" flex layout="row" layout-align="center center">
       <div flex="50" class="dividerButtonLeft paddingLeft pointer">
-        <span (click)="showTaskModal()" class="glyphicon glyphicon-pencil"></span>
+        <span (click)="showTaskModal('edit')" class="glyphicon glyphicon-pencil"></span>
       </div>
       <div flex="50" class="paddingLeft pointer">
         <span class="glyphicon glyphicon-remove"></span>

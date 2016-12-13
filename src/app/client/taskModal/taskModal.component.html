@@ -3,7 +3,9 @@
     <div flex layout="column" class="modal-content">
       <div flex layout-align="start center" class="modal-header">
         <div flex class="modal-header-title">
-          <h4 class="modal-title">{{suggestedTask.subject}}</h4>
+          <h4 class="modal-title">{{taskModalType == 0 ? 'Create Task - ' + suggestedTask.subject : 'Edit Task - ' + suggestedTask.subject}}
+            <!--  {{suggestedTask.subject}}-->
+          </h4>
         </div>
         <div flex layout-align="end center" class="modal-header-close">
           <button type="button" class="btn btn-default" (click)="hideChildModal()" aria-label="Close">
@@ -23,15 +25,16 @@
               <span (click)="openDatePicker()" class="glyphicon glyphicon-calendar glyph"></span>
               {{suggestedTask.dueDate | date:'shortDate'}}
               <span *ngIf="opened" (click)="closeDatePicker()" class="  glyphicon glyphicon-ok"></span>
-               <datepicker class="datepicker" *ngIf="opened" [(ngModel)]="suggestedTask.dueDate" [minDate]="minDate"></datepicker>
+              <datepicker class="datepicker" *ngIf="opened" [(ngModel)]="suggestedTask.dueDate" [minDate]="minDate"></datepicker>
             </div>
           </div>
-          <div  layout="column" class="textField">
+          <div layout="column" class="textField">
             <label>Description</label>
             <textarea class="form-control" name="text" rows="20" [(ngModel)]="suggestedTask.text"></textarea>
           </div>
           <div layout-align="start center" class="footer">
-            <button type="submit" class="btn btn-primary" (click)="createSuggestedTask(suggestedTask)">Create</button>
+            <button *ngIf="taskModalType == 0" type="submit" class="btn btn-primary" (click)="createSuggestedTask(suggestedTask)">Create</button>
+            <button *ngIf="taskModalType == 1" type="submit" class="btn btn-primary" (click)="saveTask(suggestedTask)">Save</button>
             <button type="submit" class="btn btn-danger btn-margin" (click)="hideChildModal()">Close</button>
           </div>
         </div>

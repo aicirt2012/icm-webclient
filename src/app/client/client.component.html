@@ -20,9 +20,9 @@
     <div *ngIf="!loading" [@fadeInOut]="!loading" flex>
       <list [emails]="emails" (getSingleMail)="getSingleMail($event)" flex="25" layout="column" class="scrollable"></list>
       <detailed-view *ngIf="email" [email]="email" (openModal)="openModal($event)" flex="55" layout="column" class="scrollable"></detailed-view>
-      <tasks *ngIf="email" [email]="email" [suggestedTask]="suggestedTask" [tasksForMail]="tasksForMail" (syncTasksForMail)="syncTasksForMail()" (openTaskModalOutput)="openTaskModalOutput($event)" (closeTaskModalOutput)="closeTaskModalOutput($event)" flex="20" layout="column" class="scrollable"></tasks>
+      <tasks *ngIf="email" [email]="email" [suggestedTask]="suggestedTask" [tasksForMail]="tasksForMail" (syncTasksForMail)="syncTasksForMail()" (openTaskModal)="openTaskModal($event)" (closeTaskModalOutput)="closeTaskModalOutput($event)" flex="20" layout="column" class="scrollable"></tasks>
     </div>
   </div>
 </div>
 <email-modal [email]="email" [modalType]="currentModalType" (closeModal)="closeModal()"></email-modal>
-<task-modal [email]="email" [taskModalType]="taskModalType" (closeTaskModal)="closeTaskModal($event)" (openTaskModal)="openTaskModal($event)" [suggestedTask]="suggestedTask"></task-modal>
+<task-modal [email]="email" [taskModalType]="taskModalType" (closeTaskModal)="closeTaskModal($event)" [suggestedTask]="suggestedTask"></task-modal>

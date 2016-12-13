@@ -7,6 +7,7 @@ import { Email } from './shared';
 import { EmailService, TaskService } from './shared';
 import { Observable } from 'rxjs/Observable';
 import { ModalType } from '../shared/constants';
+import { TaskModalType } from '../shared/constants';
 
 @Component({
   selector: 'client',
@@ -26,7 +27,7 @@ export class ClientComponent {
   public emails: Email[] = [];
   public email: Email = null;
   public currentModalType: ModalType = null;
-  public taskModalType: string = null;
+  public taskModalType: TaskModalType = null;
   public loading: boolean = true;
   public syncing: boolean = true;
   private currentBox: Observable<string>;
@@ -135,6 +136,7 @@ export class ClientComponent {
   }
 
   openModal(type?: ModalType) {
+    console.log("open email modal in client");
     this.currentModalType = type;
   }
 
@@ -143,11 +145,13 @@ export class ClientComponent {
   }
 
   closeTaskModal() {
-    this.taskModalType = "";
+    this.taskModalType = null;
   }
 
-  openTaskModalOutput() {
-    this.taskModalType = "create";
+  openTaskModal(type?: TaskModalType) {
+    console.log("open task modal in client");
+    console.log(type);
+    this.taskModalType = type;
 }
 
   onRefresh(refresh?: boolean) {

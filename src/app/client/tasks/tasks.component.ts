@@ -1,8 +1,8 @@
-import {Component, Input, EventEmitter, Output} from '@angular/core';
+import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ng2-bootstrap';
 import {Email} from '../shared';
 import {TaskService} from '../shared';
-import { ModalType } from '../../shared/constants';
+import {TaskModalType} from '../../shared/constants';
 
 @Component({
   selector: 'tasks',  // <taskList></taskList>
@@ -15,9 +15,8 @@ export class TasksComponent {
   @Input() email: Email;
   @Input() tasksForMail: any;
   @Output() syncTasksForMail = new EventEmitter<any>();
-  @Output() openTaskModalOutput = new EventEmitter<any>();
+  @Output() openTaskModal = new EventEmitter<any>();
   @Output() closeTaskModalOutput = new EventEmitter<any>();
-  public taskModalType: ModalType = null;
   public currentTab: string = 'Trello';
 
   /* we have to get this from backend */
@@ -59,19 +58,15 @@ export class TasksComponent {
     this.syncTasksForMail.emit();
   }
 
-  openTaskModal() {
-    this.openTaskModalOutput.emit();
+  getActive(choice: string): string {
+    if (this.currentTab == choice)
+      return "active";
+    else
+      return "";
   }
 
-  getActive(choice: string) : string{
-      if(this.currentTab == choice)
-           return "active";
-      else
-           return "";
-  }
-
-  switchTab(tab: string): void{
-      this.currentTab = tab;
+  switchTab(tab: string): void {
+    this.currentTab = tab;
   }
 
 }
