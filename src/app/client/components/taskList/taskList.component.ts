@@ -10,6 +10,7 @@ import {ModalDirective} from 'ng2-bootstrap';
 export class TaskListComponent {
   @Input() tasksForMail: any;
   @Input() suggestedTask:any;
+  @Input() currentTab:string;
   @Output() createTask = new EventEmitter<any>();
   @Output() openTaskModal = new EventEmitter<any>();
   public dueDate : Date;

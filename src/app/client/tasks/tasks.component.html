@@ -1,13 +1,13 @@
 <div layout="column" flex>
   <div style="margin-bottom:10px;">
     <ul class="nav nav-tabs nav-justified">
-      <li class="active">
-        <a>Trello</a>
+      <li class="{{getActive('Trello')}} pointer">
+        <a (click)="switchTab('Trello')">Trello</a>
       </li>
-      <li>
-        <a>Socio Cortex</a>
+      <li class="{{getActive('Socio Cortex')}} pointer">
+        <a (click)="switchTab('Socio Cortex')">Socio Cortex</a>
       </li>
     </ul>
   </div>
-  <task-list (createTask)="createTask($event)" closeTaskModal="closeTaskModal($event)" (openTaskModal)="openTaskModal($event)" [tasksForMail]="tasksForMail" [suggestedTask]="suggestedTask"></task-list>
+  <task-list [currentTab]="currentTab" (createTask)="createTask($event)" closeTaskModal="closeTaskModal($event)" (openTaskModal)="openTaskModal($event)" [tasksForMail]="tasksForMail" [suggestedTask]="suggestedTask"></task-list>
 </div>

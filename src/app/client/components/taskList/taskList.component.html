@@ -1,4 +1,4 @@
-<div layout="column" flex layout-padding>
+<div *ngIf="currentTab == 'Trello'" layout="column" flex layout-padding>
   <!-- Suggested Task -->
   <div flex layout="column" class="card tasks" layout-padding>
     <div flex layout="row" class="card-title">
@@ -74,4 +74,8 @@
     <a class="pointer" class="btn btn-primary">Open</a>
     <a class="pointer" class="btn btn-danger">Close</a>
   </div>-->
+</div>
+
+<div *ngIf="currentTab == 'Socio Cortex'" layout="column" flex layout-padding>
+  Display Socio Cortex Tasks
 </div>

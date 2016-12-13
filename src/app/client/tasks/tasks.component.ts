@@ -18,6 +18,7 @@ export class TasksComponent {
   @Output() openTaskModalOutput = new EventEmitter<any>();
   @Output() closeTaskModalOutput = new EventEmitter<any>();
   public taskModalType: ModalType = null;
+  public currentTab: string = 'Trello';
 
   /* we have to get this from backend */
   private taskIdList: string = '582639655429c571aae95b37';
@@ -60,6 +61,17 @@ export class TasksComponent {
 
   openTaskModal() {
     this.openTaskModalOutput.emit();
+  }
+
+  getActive(choice: string) : string{
+      if(this.currentTab == choice)
+           return "active";
+      else
+           return "";
+  }
+
+  switchTab(tab: string): void{
+      this.currentTab = tab;
   }
 
 }
