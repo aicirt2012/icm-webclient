@@ -29,9 +29,23 @@ export class NavBarComponent {
         let icon;
         switch (box.shortName) { //TODO put in service
           case 'INBOX':
-            icon = 'glyphicon glyphicon-home'
+            icon = 'glyphicon glyphicon-home';
+            break;
+          case 'Sent Mail':
+            icon = 'glyphicon glyphicon-share-alt';
+            break;
+          case 'Drafts':
+            icon = 'glyphicon glyphicon-file';
+            break;
+          case 'Starred':
+            icon = 'glyphicon glyphicon-star';
+            break;
+          case 'Spam':
+            icon = 'glyphicon glyphicon-warning-sign';
+            break;
           case 'Trash':
-            icon = 'glyphicon glyphicon-trash'
+            icon = 'glyphicon glyphicon-trash';
+            break;
           default:
             icon = 'glyphicon glyphicon-home'
         };
