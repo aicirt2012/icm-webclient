@@ -45,6 +45,8 @@ export class EmailModalComponent {
   }
 
   sendEmail(mail: any) {
+    console.log("send now ");
+    console.log(mail);
     this.currentlySending = true;
     this._emailService
       .sendMail(mail)

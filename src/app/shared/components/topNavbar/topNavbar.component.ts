@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DropdownModule } from 'ng2-bootstrap/components/dropdown';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'top-navbar',
@@ -7,7 +8,7 @@ import { DropdownModule } from 'ng2-bootstrap/components/dropdown';
   styleUrls: ['topNavbar.component.css'],
 })
 export class TopNavbarComponent {
-  public items: any[] = [{ name: 'Settings', route: '/settings' }, { name: 'Logout', route: '/login' }];
+  public items: any[] = [{ name: 'Settings', route: '/settings/email' }, { name: 'Logout', route: '/login' }];
 
   constructor() { }
 

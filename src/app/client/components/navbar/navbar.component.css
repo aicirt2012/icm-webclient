@@ -1,15 +1,18 @@
 .btn-compose {
-  background: none repeat scroll 0 0 #ff6c60;
-  color: #fff;
+  /*background: none repeat scroll 0 0 #ff6c60;*/
+  color: #496DDB;
   margin: 12px;
   padding: 12px 0;
   text-align: center;
   width: 100%;
+  font-size: 16px;
+  background-color: #eaeaea;
+  border: 1px solid #ccc;
 }
 
 .btn-compose:hover {
-  background: none repeat scroll 0 0 #f5675c;
-  color: #fff;
+  /*background: none repeat scroll 0 0 #f5675c;*/
+  color: #496DDB;
 }
 
 .sync-status {
@@ -22,7 +25,7 @@
 }
 
 ul.li {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 ul.inbox-nav {
@@ -86,4 +89,12 @@ ul.labels-info li a:hover, ul.labels-info li a:focus {
 
 ul.labels-info li a i {
   padding-right: 10px;
+}
+
+.navBarLayout {
+  background-color: #F8F8FF;
+}
+
+.glyph {
+  margin-right: 5px;
 }

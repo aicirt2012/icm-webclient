@@ -1,39 +1,35 @@
 <div layout="column" flex class="wrapper">
     <top-navbar></top-navbar>
 
-    <div layout="row" flex>
-        <div flex="15" class="account-sidebar">
+    <div layout="row" flex class="inbox-nav">
+        <div flex="15" class="inbox-nav">
             <div class="account-usertitle" layout="column" layout-align="start center" flex>
-                <div layout-align="center center" class="account-usertitle-name">
-                    John Smith
-                </div>
+
                 <img id="account-img" class="account-img-card"
                      src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
-                <div layout-align="center center" class="account-usertitle-job">
-                    M.Sc. Information Systems
-                </div>
+
                 <div flex layout="row" class="account-usermenu">
                     <ul class="nav" flex>
-                        <li [routerLinkActive]="['active']">
-                            <a [routerLink]="['/settings/email']">
+                        <li [routerLinkActive]="['route-active']">
+                            <a class="listitems" [routerLink]="['/settings/email']">
                                 <i class="glyphicon glyphicon-envelope"></i>
                                 Email Settings
                             </a>
                         </li>
-                        <li [routerLinkActive]="['active']">
-                            <a [routerLink]="['/settings/tasks']">
+                        <li [routerLinkActive]="['route-active']">
+                            <a class="listitems"[routerLink]="['/settings/tasks']">
                                 <i class="glyphicon glyphicon-ok"></i>
                                 Task Settings
                             </a>
                         </li>
-                        <li [routerLinkActive]="['active']">
-                            <a [routerLink]="['/settings/overview']">
+                        <li [routerLinkActive]="['route-active']">
+                            <a class="listitems" [routerLink]="['/settings/overview']">
                                 <i class="glyphicon glyphicon-home"></i>
                                 Overview
                             </a>
                         </li>
-                        <li [routerLinkActive]="['active']">
-                            <a [routerLink]="['/settings/help']">
+                        <li [routerLinkActive]="['route-active']">
+                            <a class="listitems" [routerLink]="['/settings/help']">
                                 <i class="glyphicon glyphicon-flag"></i>
                                 Help
                             </a>

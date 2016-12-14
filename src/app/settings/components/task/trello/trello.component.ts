@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import C from '../../../../shared/constants';
 
 @Component({
   selector: 'trello',
@@ -8,6 +9,7 @@ import { Component } from '@angular/core';
 export class TrelloComponent {
 
   public mailValid: boolean = true;
+  public trelloURL = `${C.server}auth/trello`;
 
   constructor() {
 

@@ -8,6 +8,7 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 export class EmailFormComponent {
   @Output() sendEmail = new EventEmitter<any>();
   @Input() emailForm: any;
+
   public tagInputOptions = {
           placeholder: "+ email address",
           secondaryPlaceholder: "Enter email address"

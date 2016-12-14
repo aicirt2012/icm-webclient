@@ -47,7 +47,8 @@ export class NavBarComponent {
             icon = 'glyphicon glyphicon-trash';
             break;
           default:
-            icon = 'glyphicon glyphicon-home'
+            icon = 'glyphicon glyphicon-home';
+            break;
         };
         box.route = `/box/${box.id}`;
         box.icon = icon;

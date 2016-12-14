@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import C from '../../../../shared/constants';
 
 @Component({
   selector: 'gmail',
@@ -8,6 +9,7 @@ import { Component } from '@angular/core';
 export class GmailComponent {
 
   public mailValid: boolean = true;
+  public googleURL = `${C.server}auth/google`;
 
   constructor() {
 
