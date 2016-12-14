@@ -5,8 +5,7 @@
   color: #8a8a8a;
   height: 40px;
   padding: 0 10px;
-  border: 1px solid #b5b2b2;
-  border-left: none;
+  border-bottom: 1px solid #b5b2b2;
 }
 
 .sr-btn {
@@ -16,7 +15,5 @@
   color: black;
   height: 40px;
   padding: 0 20px;
-  border: 1px solid #b5b2b2;
-  border-left: none;
-  border-right: none;
+  border-bottom: 1px solid #b5b2b2;
 }

@@ -33,7 +33,7 @@
       <div flex="90" layout="column">
         <div layout="row" layout-align="start center">
           <div flex="70" class="lc-text-overflow lc-text-head"> {{mail.from[0].name ? mail.from[0].name : mail.from[0].address}} </div>
-          <div flex="30" class="lc-text-overflow lc-text-date">  {{mail.date | date:'shortDate'}}</div>
+          <div flex="30" class="lc-text-overflow lc-text-date">  {{mail.date | date:'short'}}</div>
         </div>
         <div class="lc-text-overflow lc-text-subhead"> {{mail.subject}} </div>
       </div>
