@@ -1,3 +1,21 @@
 .row {
   margin-bottom:15px;
 }
+
+.form-control-feedback {
+  padding-left: 10px;
+  position: inherit;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  display: inherit;
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  text-align: inherit;
+  pointer-events: none;
+}
+
+.has-feedback label~.form-control-feedback {
+  top: 0px;
+}

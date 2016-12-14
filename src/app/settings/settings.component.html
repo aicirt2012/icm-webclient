@@ -1,62 +1,60 @@
-<div layout="row">
-  <div flex="85">
-    <div class="row account">
-      <div layout="row">
-        <div flex="25">
-          <div class="account-sidebar">
-            <div class="account-usertitle">
-              <div class="account-usertitle-name">
-                John Smith
-              </div>
-              <div class="account-usertitle-job">
-                M.Sc. Information Systems
-              </div>
-              <img id="account-img" class="account-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+<div layout="column" flex class="wrapper">
+    <top-navbar></top-navbar>
+
+    <div layout="row" flex>
+        <div flex="15" class="account-sidebar">
+            <div class="account-usertitle" layout="column" layout-align="start center" flex>
+                <div layout-align="center center" class="account-usertitle-name">
+                    John Smith
+                </div>
+                <img id="account-img" class="account-img-card"
+                     src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+                <div layout-align="center center" class="account-usertitle-job">
+                    M.Sc. Information Systems
+                </div>
+                <div flex layout="row" class="account-usermenu">
+                    <ul class="nav" flex>
+                        <li [routerLinkActive]="['active']">
+                            <a [routerLink]="['/settings/email']">
+                                <i class="glyphicon glyphicon-envelope"></i>
+                                Email Settings
+                            </a>
+                        </li>
+                        <li [routerLinkActive]="['active']">
+                            <a [routerLink]="['/settings/tasks']">
+                                <i class="glyphicon glyphicon-ok"></i>
+                                Task Settings
+                            </a>
+                        </li>
+                        <li [routerLinkActive]="['active']">
+                            <a [routerLink]="['/settings/overview']">
+                                <i class="glyphicon glyphicon-home"></i>
+                                Overview
+                            </a>
+                        </li>
+                        <li [routerLinkActive]="['active']">
+                            <a [routerLink]="['/settings/help']">
+                                <i class="glyphicon glyphicon-flag"></i>
+                                Help
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="account-usermenu">
-              <ul class="nav">
-                <li [routerLinkActive]="['active']" >
-                  <a [routerLink]="['/settings/email']">
-                    <i class="glyphicon glyphicon-envelope"></i>
-                    Email Settings
-                  </a>
-                </li>
-                <li  [routerLinkActive]="['active']" >
-                  <a [routerLink]="['/settings/tasks']">
-                    <i class="glyphicon glyphicon-ok"></i>
-                    Task Settings
-                  </a>
-                </li>
-                <li [routerLinkActive]="['active']" >
-                  <a [routerLink]="['/settings/overview']">
-                    <i class="glyphicon glyphicon-home"></i>
-                    Overview
-                  </a>
-                </li>
-                <li [routerLinkActive]="['active']" >
-                  <a [routerLink]="['/settings/help']">
-                    <i class="glyphicon glyphicon-flag"></i>
-                    Help
-                  </a>
-                </li>
-              </ul>
+        </div>
+        <div flex layout="row">
+            <div flex>
+                <div flex class="account-content">
+                    <!-- Account Settings -->
+                    <account flex *ngIf="getCurrentView('email')"></account>
+                    <!-- Tasks -->
+                    <task flex *ngIf="getCurrentView('tasks')"></task>
+                    <!-- Overview -->
+                    <overview flex *ngIf="getCurrentView('overview')"></overview>
+                    <!-- Help -->
+                    <help flex *ngIf="getCurrentView('help')"></help>
+                </div>
             </div>
-          </div>
         </div>
-        <div flex="75">
-          <div class="account-content">
-            <!-- Account Settings -->
-            <account *ngIf="getCurrentView('email')"></account>
-            <!-- Tasks -->
-            <task *ngIf="getCurrentView('tasks')"></task>
-            <!-- Overview -->
-            <overview *ngIf="getCurrentView('overview')"></overview>
-            <!-- Help -->
-            <help *ngIf="getCurrentView('help')"></help>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
-  <div flex="15"></div>
 </div>

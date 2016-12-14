@@ -1,4 +1,4 @@
-<ul class="nav nav-tabs">
+<ul flex class="nav nav-tabs">
   <li role="presentation" class="{{getActive('Gmail')}}">
     <a class="pointer" (click)="showView('Gmail')">Gmail</a>
   </li>
@@ -9,5 +9,5 @@
 
 <div class="row"></div>
 
-<gmail *ngIf="getCurrentView('Gmail')"></gmail>
-<exchange *ngIf="getCurrentView('Exchange')"></exchange>
+<gmail flex *ngIf="getCurrentView('Gmail')"></gmail>
+<exchange flex *ngIf="getCurrentView('Exchange')"></exchange>
