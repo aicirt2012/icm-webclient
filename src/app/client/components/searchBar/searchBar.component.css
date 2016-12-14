@@ -1,17 +1,22 @@
 .sr-input {
-    border: medium none;
-    border-radius: 4px 0 0 4px;
-    box-shadow: none;
-    color: #8a8a8a;
-    height: 40px;
-    padding: 0 10px;
+  border: medium none;
+  border-radius: 4px 0 0 4px;
+  box-shadow: none;
+  color: #8a8a8a;
+  height: 40px;
+  padding: 0 10px;
+  border: 1px solid #b5b2b2;
+  border-left: none;
 }
 
 .sr-btn {
-    background: none;
-    border: medium none;
-    border-radius: 0 4px 4px 0;
-    color: black;
-    height: 40px;
-    padding: 0 20px;
+  background: none;
+  border: medium none;
+  border-radius: 0 4px 4px 0;
+  color: black;
+  height: 40px;
+  padding: 0 20px;
+  border: 1px solid #b5b2b2;
+  border-left: none;
+  border-right: none;
 }
