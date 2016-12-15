@@ -13,6 +13,7 @@ import { Email, EmailForm } from '../shared';
 export class TaskModalComponent {
   @ViewChild('taskModal') public taskModal: ModalDirective;
   @Output() closeTaskModal = new EventEmitter<any>();
+  @Output() createTask = new EventEmitter<any>();
   @Input() suggestedTask: any;
   @Input() taskModalType: TaskModalType;
   @Input() email: Email;
@@ -30,23 +31,13 @@ export class TaskModalComponent {
   }
 
   ngOnChanges() {
-    console.log("loading modal ");
-    console.log("modal type is " + this.taskModalType);
-
     if (this.taskModalType === TaskModalType.create) {
       this.suggestedTask['dueDate'] = new Date();
       this.taskModal.show();
     } else if (this.taskModalType === TaskModalType.edit) {
       this.suggestedTask['dueDate'] = new Date();
-      //this.emailForm = this._emailService.generateEmailForm(this.email, 'reply');
       this.taskModal.show();
     }
-
-
-    /*if (this.taskModalType == "create") {
-      this.suggestedTask['dueDate'] = new Date();
-      this.taskModal.show();
-    }*/
   }
 
   public hideChildModal(): void {
@@ -68,20 +59,13 @@ export class TaskModalComponent {
 
   public createSuggestedTask(suggestedTask: any) {
     this.suggestedTask['dueDate'] = this.dueDate;
-    this._taskService.createTask(this.email, suggestedTask, this.taskIdList)
-      .subscribe((task) => {
-        console.log("task has been created");
-        this.taskModal.hide();
-        this.closeTaskModal.emit();
-        /* we have to sync here */
-      })
+    this.createTask.emit(suggestedTask);
+    this.hideChildModal();
   }
 
   public saveTask(task:any) :void {
     console.log("saving task");
-    console.log(task);
-    this.taskModal.hide();
-    this.closeTaskModal.emit();
+    this.hideChildModal();
   }
 
 }

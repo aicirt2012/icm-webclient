@@ -37,6 +37,8 @@ export class ClientComponent {
   public suggestedTask: any = {};
   public tasksForMail: any = [];
   public boxList: any = [];
+  /* we have to get this from backend */
+  private taskIdList: string = '582639655429c571aae95b37';
 
   constructor(private _emailService: EmailService, private _taskService: TaskService, public appState: AppState, public router: Router, public route: ActivatedRoute) {
     this.currentId = this.route.params.map(params => params['emailId'] || 'None');
@@ -168,6 +170,21 @@ export class ClientComponent {
         this.getEmailBox(this.boxList[0]);
       });
     });
+  }
+
+  createTask(taskObject: any) {
+    this._taskService.createTask(this.email, taskObject, this.taskIdList)
+      .subscribe((task: any) => {
+        this.createdTask = task;
+      },
+      error => {
+        console.log(error)
+      },
+      () => {
+        /*hotfix for syncing bug */
+        this.tasksForMail.push(this.createdTask)
+        //this.syncTasks();
+      });
   }
 
 }
