@@ -1,23 +1,23 @@
 <div layout="column" flex *ngIf="email">
 
   <div flex class="evc-padding">
-    <h2>{{email?.subject}}</h2>
+    <h2>{{email.subject}}</h2>
   </div>
 
   <div flex layout="row" class="evc-header" layout-align="start center">
     <div class="evc-from-circle" layout="column" layout-align="center center" hide-sm>
-      {{email?.from[0].address | slice: 0:1 | uppercase}}
+      {{email.from[0].address | slice: 0:1 | uppercase}}
     </div>
     <div layout="column">
-      <div class="evc-text-title"> {{email?.from[0].address}} </div>
+      <div class="evc-text-title"> {{email.from[0].address}} </div>
       <div class="evc-text-caption"> {{email.date | date:'medium'}}</div>
-      <div class="evc-text-caption"> To: {{email?.to[0].address}} </div>
+      <div class="evc-text-caption"> To: {{email.to[0].address}} </div>
     </div>
   </div>
 
   <div flex>
     <p *ngIf="email.html" [innerHTML]="email?.html"></p>
-    <p *ngIf="!email.html">{{email?.text}}</p>
+    <p *ngIf="!email.html">{{email.text}}</p>
   </div>
 
 </div>

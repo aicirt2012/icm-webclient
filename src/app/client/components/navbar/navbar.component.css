@@ -7,7 +7,6 @@
   width: 100%;
   font-size: 16px;
   background-color: #eaeaea;
-  
 }
 
 .btn-compose:hover {
@@ -16,7 +15,13 @@
 }
 
 .sync-status {
+  position: absolute;
   bottom: 0;
+}
+
+.sync-title {
+  padding: 5px;
+  margin: 5px;
 }
 
 .route-active {

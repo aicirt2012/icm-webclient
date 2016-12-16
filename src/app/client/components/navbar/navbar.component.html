@@ -13,11 +13,13 @@
   </div>
   <div flex layout="column" class="sync-status">
     <hr>
-    <div flex layout="row" class="sync-title">
-      Last synced: 12.12.2012 - 12:12
-      <button class="btn btn-default" (click)="refresh()">
-        <span class="glyphicon glyphicon-refresh"></span>
-      </button>
+    <div flex layout="row" layout-align="start center" class="sync-title">
+      <div layout="row" layout-align="start center" flex="5">
+        <button class="btn btn-default" (click)="refresh()">
+          <span class="glyphicon glyphicon-refresh"></span>
+        </button>
+      </div>
+      <div flex></div>
     </div>
   </div>
 </div>
