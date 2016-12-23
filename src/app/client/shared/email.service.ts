@@ -72,7 +72,7 @@ export class EmailService {
    returns Array: [Emails...]
    */
   getEmails(boxes: string[]): Observable<any> {
-    return this._httpService.generateRequest(RequestMethod.Post, this.domain, 'box', null, { boxes: boxes });
+    return this._httpService.generateRequest(RequestMethod.Post, this.domain, 'sync', null, { boxes: boxes });
   }
 
   /*
