@@ -10,6 +10,7 @@ import { AccountComponent, OverviewComponent, TaskComponent, HelpComponent, Gmai
 import { SharedModule } from '../shared';
 import { ROUTES } from './settings.routes';
 import { AuthGuard } from '../app.authGuard';
+import { SettingsService } from './shared';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { AuthGuard } from '../app.authGuard';
     SocioCortexComponent
   ],
   providers: [
-      AuthGuard
+      AuthGuard,
+      SettingsService
   ],
   exports: [
   ]
