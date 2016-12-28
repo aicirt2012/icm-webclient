@@ -1,15 +1,19 @@
 <form>
   <div flex layout="column">
     <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
+      <label flex="15">Email Address:</label>
       <input flex="45" name="user" type="email" class="form-control" [(ngModel)]="gmailConfig.user" placeholder="Email">
     </div>
     <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
+      <label flex="15">Password:</label>
       <input flex="45" name="password" type="password" class="form-control"  [(ngModel)]="gmailConfig.password" placeholder="Password">
     </div>
     <div flex layout="row"layout-align="start center" class="form-group has-success has-feedback">
+      <label flex="15">Host:</label>
       <input flex="45" name="host"  type="text" class="form-control" [(ngModel)]="gmailConfig.host" placeholder="Host">
     </div>
     <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
+      <label flex="15">Port:</label>
       <input flex="45" name="port" type="number" class="form-control" [(ngModel)]="gmailConfig.port" placeholder="Port">
     </div>
   </div>
