@@ -14,7 +14,10 @@
 <div layout="column" flex class="wrapper">
   <top-navbar></top-navbar>
   <spinner *ngIf="syncing" flex [loading]="syncing"></spinner>
-  <div *ngIf="!syncing" layout="row" [@fadeInOut]="!syncing" flex>
+  <div *ngIf="noMailboxConnected" flex layout-align="center center">
+    Please connect to a mailbox in <a routerLink="/settings/email">&nbsp;Settings</a>
+  </div>
+  <div *ngIf="!syncing && !noMailboxConnected" layout="row" [@fadeInOut]="!syncing" flex>
     <navbar flex="15" [boxList]="boxList" (onRefresh)="onRefresh($event)" (openModal)="openModal($event)" class="scrollable"></navbar>
     <spinner *ngIf="loading" flex [loading]="loading"></spinner>
     <div *ngIf="!loading" [@fadeInOut]="!loading" flex>

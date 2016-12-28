@@ -11,7 +11,11 @@ export class GmailComponent {
 
   public mailValid: boolean = true;
   public googleURL = `${C.server}auth/google`;
-  public gmailConfig = {};
+  public gmailConfig = {
+    user: 'sebisng2@gmail.com',
+    password: 's3b1sng2',
+    host: 'imap.gmail.com'
+  };
 
   constructor(private _settingsService: SettingsService) {
 
