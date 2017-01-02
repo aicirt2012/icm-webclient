@@ -16,21 +16,20 @@ export class SettingsService {
     return this._httpService.generateRequest(RequestMethod.Get, this.domain, this._authService.parseToken(localStorage.getItem('email-jwt')).user._id, null, null);
   }
 
-  updateEmailConfig(config: any): Observable<any> {
+  updateEmailConfig(emailConfig: any, provider: string): Observable<any> {
 
-    this.body = {
-      google: {
-        email: {
-          user: config.user,
-          password: config.password,
-          port: config.port,
-          host: config.host
+    if(provider == 'gmail'){
+      this.body = {
+        google: {
+          ...emailConfig
         }
-      }
-    };
-
-    return this._httpService.generateRequest(RequestMethod.Put, this.domain,this._authService.parseToken(localStorage.getItem('email-jwt')).user._id, null, this.body);
+      };
+    } 
+    return this._httpService.generateRequest(
+      RequestMethod.Put,
+      this.domain,this._authService.parseToken(localStorage.getItem('email-jwt')).user._id,
+      null,
+      this.body
+    );
   }
-
-
 }

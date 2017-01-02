@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {SettingsService } from '../../shared';
+
 
 @Component({
   selector: 'account',
@@ -8,12 +10,29 @@ import { Component } from '@angular/core';
 export class AccountComponent {
 
 public currentView: string = 'Gmail';
+public gmailConfig = {
+  user: 'sebisng2@gmail.com',
+  password: 's3b1sng2',
+  host: 'imap.gmail.com',
+  port: 993,
+  smtpHost: 'smtp.gmail.com',
+  smtpPort: 465,
+  smtpDomains: ['gmail.com', 'googlemail.com']
+};
 
-  constructor() {
+  constructor(private _settingsService: SettingsService) {
 
   }
 
   ngOnInit() {
+  }
+
+  updateGmailConfig() {
+    console.log('update user with config', this.gmailConfig);
+    this._settingsService.updateEmailConfig(this.gmailConfig, 'gmail')
+    .subscribe((data: any) => {
+      this.gmailConfig = data.google.emailConfig;
+    });
   }
 
   showView(view: string): void{

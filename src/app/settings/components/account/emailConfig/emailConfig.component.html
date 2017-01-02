@@ -16,6 +16,19 @@
       <label flex="15">Port:</label>
       <input flex="45" name="port" type="number" class="form-control" [(ngModel)]="gmailConfig.port" placeholder="Port">
     </div>
+    <hr>
+    <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
+      <label flex="15">SMTP Host:</label>
+      <input flex="45" name="smtpHost" type="text" class="form-control" [(ngModel)]="gmailConfig.smtpHost" placeholder="Host">
+    </div>
+    <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
+      <label flex="15">SMTP Port:</label>
+      <input flex="45" name="smtpPort" type="number" class="form-control" [(ngModel)]="gmailConfig.smtpPort" placeholder="Port">
+    </div>
+    <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
+      <label flex="15">SMTP Domains:</label>
+      <input flex="45" name="smtpDomains" type="text" class="form-control" [(ngModel)]="gmailConfig.smtpDomains" placeholder="Domains" disabled="true">
+    </div>
   </div>
 
   <div flex layout="row" layout-align="center center" class="form-group">
