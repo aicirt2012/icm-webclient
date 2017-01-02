@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 export class SocioCortexComponent {
 
   public mailValid: boolean = false;
+  public scConfig = {};
 
   constructor() {
 

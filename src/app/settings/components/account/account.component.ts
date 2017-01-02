@@ -34,6 +34,15 @@ public exchangeConfig = {
   }
 
   ngOnInit() {
+    this._settingsService.getUserInfo().subscribe((data: any) => {
+   if(data.google) {
+     this.gmailConfig = data.google.emailConfig;
+   }
+   if(data.exchange) {
+     this.exchangeConfig = data.exchange.emailConfig;
+   }
+})
+
   }
 
   updateGmailConfig() {

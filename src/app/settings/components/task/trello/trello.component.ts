@@ -8,8 +8,8 @@ import C from '../../../../shared/constants';
 })
 export class TrelloComponent {
 
-  public mailValid: boolean = true;
   public trelloURL = `${C.server}auth/trello`;
+  public trelloConfig = {};
 
   constructor() {
 
