@@ -19,6 +19,15 @@ public gmailConfig = {
   smtpPort: 465,
   smtpDomains: ['gmail.com', 'googlemail.com']
 };
+public exchangeConfig = {
+  user: 'someone@outlook.com',
+  password: '1234',
+  host: 'exchange.outlook.com',
+  port: 993,
+  smtpHost: 'smtp.exchange.com',
+  smtpPort: 465,
+  smtpDomains: ['outlook.com']
+};
 
   constructor(private _settingsService: SettingsService) {
 
@@ -28,10 +37,18 @@ public gmailConfig = {
   }
 
   updateGmailConfig() {
-    console.log('update user with config', this.gmailConfig);
+    console.log('update gmail config', this.gmailConfig);
     this._settingsService.updateEmailConfig(this.gmailConfig, 'gmail')
     .subscribe((data: any) => {
       this.gmailConfig = data.google.emailConfig;
+    });
+  }
+
+  updateExchangeConfig() {
+    console.log('update exchange config', this.exchangeConfig);
+    this._settingsService.updateEmailConfig(this.exchangeConfig, 'exchange')
+    .subscribe((data: any) => {
+      this.exchangeConfig = data.exchange.emailConfig;
     });
   }
 

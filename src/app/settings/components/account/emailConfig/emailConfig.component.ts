@@ -8,8 +8,8 @@ import {SettingsService } from '../../../shared';
   styleUrls: ['emailConfig.component.css'],
 })
 export class EmailConfigComponent {
-  @Input() gmailConfig: any;
-  @Output() updateGmailConfig = new EventEmitter<any>();
+  @Input() emailConfig: any;
+  @Output() updateEmailConfig = new EventEmitter<any>();
 
 
   constructor() {
@@ -22,7 +22,7 @@ export class EmailConfigComponent {
 
 
   updateUser() {
-    this.updateGmailConfig.emit();
+    this.updateEmailConfig.emit();
   }
 
 }

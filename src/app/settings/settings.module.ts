@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { Ng2BootstrapModule } from 'ng2-bootstrap';
 import { Angular2FlexModule } from 'angular2-flex';
 import { SettingsComponent } from './';
-import { AccountComponent, OverviewComponent, TaskComponent, HelpComponent, ExchangeComponent, SocioCortexComponent, TrelloComponent, EmailConfigComponent } from './components'; // all settings components
+import { AccountComponent, OverviewComponent, TaskComponent, HelpComponent, SocioCortexComponent, TrelloComponent, EmailConfigComponent } from './components'; // all settings components
 import { SharedModule } from '../shared';
 import { ROUTES } from './settings.routes';
 import { AuthGuard } from '../app.authGuard';
@@ -29,7 +29,6 @@ import { SettingsService } from './shared';
     TaskComponent,
     HelpComponent,
     OverviewComponent,
-    ExchangeComponent,
     TrelloComponent,
     SocioCortexComponent,
     EmailConfigComponent

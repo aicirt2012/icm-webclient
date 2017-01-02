@@ -9,6 +9,7 @@
 
 <div class="row"></div>
 
-<email-config (updateGmailConfig)="updateGmailConfig($event)" [gmailConfig]="gmailConfig"
+<email-config (updateEmailConfig)="updateGmailConfig($event)" [emailConfig]="gmailConfig"
 flex *ngIf="getCurrentView('Gmail')"></email-config>
-<exchange flex *ngIf="getCurrentView('Exchange')"></exchange>
+<email-config (updateEmailConfig)="updateExchangeConfig($event)" [emailConfig]="exchangeConfig"
+flex *ngIf="getCurrentView('Exchange')"></email-config>

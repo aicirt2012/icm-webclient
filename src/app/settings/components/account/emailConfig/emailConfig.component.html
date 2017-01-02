@@ -2,42 +2,33 @@
   <div flex layout="column">
     <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
       <label flex="15">Email Address:</label>
-      <input flex="45" name="user" type="email" class="form-control" [(ngModel)]="gmailConfig.user" placeholder="Email">
+      <input flex="45" name="user" type="email" class="form-control" [(ngModel)]="emailConfig.user" placeholder="Email">
     </div>
     <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
       <label flex="15">Password:</label>
-      <input flex="45" name="password" type="password" class="form-control"  [(ngModel)]="gmailConfig.password" placeholder="Password">
+      <input flex="45" name="password" type="password" class="form-control"  [(ngModel)]="emailConfig.password" placeholder="Password">
     </div>
     <div flex layout="row"layout-align="start center" class="form-group has-success has-feedback">
       <label flex="15">Host:</label>
-      <input flex="45" name="host"  type="text" class="form-control" [(ngModel)]="gmailConfig.host" placeholder="Host">
+      <input flex="45" name="host"  type="text" class="form-control" [(ngModel)]="emailConfig.host" placeholder="Host">
     </div>
     <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
       <label flex="15">Port:</label>
-      <input flex="45" name="port" type="number" class="form-control" [(ngModel)]="gmailConfig.port" placeholder="Port">
+      <input flex="45" name="port" type="number" class="form-control" [(ngModel)]="emailConfig.port" placeholder="Port">
     </div>
     <hr>
     <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
       <label flex="15">SMTP Host:</label>
-      <input flex="45" name="smtpHost" type="text" class="form-control" [(ngModel)]="gmailConfig.smtpHost" placeholder="Host">
+      <input flex="45" name="smtpHost" type="text" class="form-control" [(ngModel)]="emailConfig.smtpHost" placeholder="Host">
     </div>
     <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
       <label flex="15">SMTP Port:</label>
-      <input flex="45" name="smtpPort" type="number" class="form-control" [(ngModel)]="gmailConfig.smtpPort" placeholder="Port">
+      <input flex="45" name="smtpPort" type="number" class="form-control" [(ngModel)]="emailConfig.smtpPort" placeholder="Port">
     </div>
     <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
       <label flex="15">SMTP Domains:</label>
-      <input flex="45" name="smtpDomains" type="text" class="form-control" [(ngModel)]="gmailConfig.smtpDomains" placeholder="Domains" disabled="true">
+      <input flex="45" name="smtpDomains" type="text" class="form-control" [(ngModel)]="emailConfig.smtpDomains" placeholder="Domains" disabled="true">
     </div>
-  </div>
-
-  <div flex layout="row" layout-align="center center" class="form-group">
-    <div flex="15"></div>
-    <a flex="45" class="btn btn-block btn-social btn-google" [href]='googleURL'>
-      <span class="fa fa-google"></span> Connect to Gmail
-    </a>
-    <div flex></div>
-    <div flex></div>
   </div>
 
   <button type="submit" class="btn btn-default" (click)="updateUser()">Save</button>

@@ -24,7 +24,13 @@ export class SettingsService {
           ...emailConfig
         }
       };
-    } 
+    } else if(provider == 'exchange') {
+      this.body = {
+        exchange: {
+          ...emailConfig
+        }
+      };
+    }
     return this._httpService.generateRequest(
       RequestMethod.Put,
       this.domain,this._authService.parseToken(localStorage.getItem('email-jwt')).user._id,
