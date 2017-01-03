@@ -7,7 +7,7 @@ import {HttpService, AuthService} from '../../shared';
 export class SettingsService {
 
   private domain = '/users';
-  private body: any;
+  private body: any = {};
 
   constructor(private _httpService: HttpService, private _authService: AuthService) {
   }
@@ -18,22 +18,12 @@ export class SettingsService {
 
   updateEmailConfig(emailConfig: any, provider: string): Observable<any> {
 
-    if(provider == 'gmail'){
-      this.body = {
-        google: {
-          ...emailConfig
-        }
-      };
-    } else if(provider == 'exchange') {
-      this.body = {
-        exchange: {
-          ...emailConfig
-        }
-      };
-    }
+    this.body[provider] = emailConfig;
+    console.log(this.body);
+
     return this._httpService.generateRequest(
       RequestMethod.Put,
-      this.domain,this._authService.parseToken(localStorage.getItem('email-jwt')).user._id,
+      this.domain,this._authService.parseToken(this._authService.token).user._id,
       null,
       this.body
     );

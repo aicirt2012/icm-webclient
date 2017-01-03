@@ -36,10 +36,10 @@ public exchangeConfig = {
   ngOnInit() {
     this._settingsService.getUserInfo().subscribe((data: any) => {
    if(data.google) {
-     this.gmailConfig = data.google.emailConfig;
+     this.gmailConfig = data.google;
    }
    if(data.exchange) {
-     this.exchangeConfig = data.exchange.emailConfig;
+     this.exchangeConfig = data.exchange;
    }
 })
 
@@ -47,9 +47,9 @@ public exchangeConfig = {
 
   updateGmailConfig() {
     console.log('update gmail config', this.gmailConfig);
-    this._settingsService.updateEmailConfig(this.gmailConfig, 'gmail')
+    this._settingsService.updateEmailConfig(this.gmailConfig, 'google')
     .subscribe((data: any) => {
-      this.gmailConfig = data.google.emailConfig;
+      this.gmailConfig = data.google;
     });
   }
 
@@ -57,7 +57,7 @@ public exchangeConfig = {
     console.log('update exchange config', this.exchangeConfig);
     this._settingsService.updateEmailConfig(this.exchangeConfig, 'exchange')
     .subscribe((data: any) => {
-      this.exchangeConfig = data.exchange.emailConfig;
+      this.exchangeConfig = data.exchange;
     });
   }
 

@@ -11,15 +11,9 @@ export class EmailConfigComponent {
   @Input() emailConfig: any;
   @Output() updateEmailConfig = new EventEmitter<any>();
 
+  constructor() {}
 
-  constructor() {
-
-  }
-
-  ngOnInit() {
-
-  }
-
+  ngOnInit() {}
 
   updateUser() {
     this.updateEmailConfig.emit();
