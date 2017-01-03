@@ -1,7 +1,7 @@
 <div flex layout="column">
   <search-bar></search-bar>
-  <div *ngFor="let mail of emails; let i = index" class="lc-mail-height {{mail.unread}}">
-    <div flex layout="row" layout-align="start center" class="lc-padding lc-mail" [routerLink]="mail.route" [class.route-active]="isActive(mail.route)">
+  <ul *ngFor="let mail of emails; let i = index" class="{{mail.unread}}" flex>
+    <li flex layout="row" layout-align="start start" class="lc-padding lc-mail" [routerLink]="mail.route" [class.route-active]="isActive(mail.route)">
       <div flex="10" layout-align="center center">
         <input type="checkbox" class="mail-checkbox">
       </div>
@@ -12,6 +12,6 @@
         </div>
         <div class="lc-text-overflow lc-text-subhead"> {{mail.subject}} </div>
       </div>
-    </div>
-  </div>
+  </li>
+  </ul>
 </div>

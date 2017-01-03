@@ -21,7 +21,7 @@
     <navbar flex="15" [boxList]="boxList" (onRefresh)="onRefresh($event)" (openModal)="openModal($event)" class="scrollable"></navbar>
     <spinner *ngIf="loading" flex [loading]="loading"></spinner>
     <div *ngIf="!loading" [@fadeInOut]="!loading" flex>
-      <list [emails]="emails" (getSingleMail)="getSingleMail($event)" flex="25" layout="column" class="scrollable"></list>
+      <list [emails]="emails" (getSingleMail)="getSingleMail($event)" flex="25" layout="column" class="scrollable list-container"></list>
       <detailed-view *ngIf="email" [email]="email" (openModal)="openModal($event)" flex="55" layout="column" class="scrollable"></detailed-view>
       <tasks *ngIf="email" [email]="email" [suggestedTask]="suggestedTask" [tasksForMail]="tasksForMail" (syncTasksForMail)="syncTasksForMail()" (openTaskModal)="openTaskModal($event)" (closeTaskModalOutput)="closeTaskModalOutput($event)" flex="20" layout="column" class="scrollable"></tasks>
     </div>
