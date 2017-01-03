@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import C from '../../../../shared/constants';
 
 @Component({
@@ -9,7 +9,7 @@ import C from '../../../../shared/constants';
 export class TrelloComponent {
 
   public trelloURL = `${C.server}auth/trello`;
-  public trelloConfig = {};
+  @Input() trelloConfig: any;
 
   constructor() {
 

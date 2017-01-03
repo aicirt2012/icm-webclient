@@ -1,6 +1,6 @@
 <form flex>
   <div flex layout="column">
-    <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
+    <!-- <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
       <label flex="15">App Name:</label>
       <input flex="45" name="appName" type="text" class="form-control" [(ngModel)]="trelloConfig.appName" placeholder="App Name">
     </div>
@@ -11,14 +11,18 @@
     <div flex layout="row"layout-align="start center" class="form-group has-success has-feedback">
       <label flex="15">Secret:</label>
       <input flex="45" name="secret"  type="text" class="form-control" [(ngModel)]="trelloConfig.secret" placeholder="Secret">
+    </div> -->
+    <div flex layout="row" layout-align="start center" class="form-group" [class.has-error]="!trelloConfig.trelloId" [class.has-success]="trelloConfig.trelloId">
+      <label flex="15">Trello ID:</label>
+      <input flex="45" name="appName" type="text" class="form-control" [(ngModel)]="trelloConfig.trelloId" placeholder="trelloId">
     </div>
-    <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
+    <div flex layout="row" layout-align="start center" class="form-group" [class.has-error]="!trelloConfig.trelloAccessToken" [class.has-success]="trelloConfig.trelloAccessToken">
       <label flex="15">Access Token:</label>
-      <input flex="45" name="accessToken" type="text" class="form-control" [(ngModel)]="trelloConfig.accessToken" placeholder="AccessToken">
+      <input flex="45" name="accessToken" type="text" class="form-control" [(ngModel)]="trelloConfig.trelloAccessToken" placeholder="AccessToken">
     </div>
-    <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
+    <div flex layout="row" layout-align="start center" class="form-group" [class.has-error]="!trelloConfig.trelloAccessTokenSecret" [class.has-success]="trelloConfig.trelloAccessTokenSecret">
       <label flex="15">Access Token Secret:</label>
-      <input flex="45" name="accessTokenSecret" type="text" class="form-control" [(ngModel)]="trelloConfig.accessTokenSecret" placeholder="AccessTokenSecret">
+      <input flex="45" name="accessTokenSecret" type="text" class="form-control" [(ngModel)]="trelloConfig.trelloAccessTokenSecret" placeholder="AccessTokenSecret">
     </div>
   </div>
 

@@ -9,5 +9,6 @@
 
 <div class="row"></div>
 
-<trello *ngIf="getCurrentView('Trello')"></trello>
-<socioCortex *ngIf="getCurrentView('SocioCortex')"></socioCortex>
+<trello *ngIf="getCurrentView('Trello')" [trelloConfig]="trelloConfig"></trello>
+<socioCortex *ngIf="getCurrentView('SocioCortex')" (updateUserWithScConfig)="updateUserWithScConfig($event)"
+[scConfig]="scConfig"></socioCortex>

@@ -1,33 +1,29 @@
 <form flex>
   <div flex layout="column">
-    <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
+    <div flex layout="row" layout-align="start center" class="form-group" [class.has-error]="!user.username" [class.has-success]="user.username">
       <label flex="15">Username:</label>
       <input flex="45" name="username" type="text" class="form-control" [(ngModel)]="user.username" placeholder="Username">
     </div>
-    <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
+    <div flex layout="row" layout-align="start center" class="form-group" [class.has-error]="!user.email" [class.has-success]="user.email">
       <label flex="15">Email:</label>
       <input flex="45" name="email" type="email" class="form-control" [(ngModel)]="user.email" placeholder="Email">
     </div>
-    <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
+    <div flex layout="row" layout-align="start center" class="form-group" [class.has-error]="!user.password" [class.has-success]="user.password">
       <label flex="15">Password:</label>
       <input flex="45" name="password" type="password" class="form-control"  [(ngModel)]="user.password" placeholder="Password">
     </div>
     <hr>
-    <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
-      <label flex="15">Gmail:</label>
-      <div flex="45"  class="form-control">{{user.google ? 'Connected' : 'Not Connected'}}</div>
+    <div flex layout="row" layout-align="start center" class="form-group" [class.has-error]="user.provider && !user.provider.name" [class.has-success]="user.provider && user.provider.name">
+      <label flex="15">{{user.provider && user.provider.name ? user.provider.name : 'Email Provider'}}:</label>
+      <div flex="45" *ngIf="user.provider" class="form-control">{{user.provider && user.provider.name ? 'Connected' : 'Not Connected'}}</div>
     </div>
-    <div flex layout="row" layout-align="start center"  class="form-group has-success has-feedback">
-      <label flex="15">Exchange:</label>
-      <div flex="45"  class="form-control">{{user.exchange ? 'Connected' : 'Not Connected'}}</div>
-    </div>
-    <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
+    <div flex layout="row" layout-align="start center" class="form-group" [class.has-error]="!user.trello" [class.has-success]="user.trello">
       <label flex="15">Trello:</label>
       <div flex="45"  class="form-control">{{user.trello ? 'Connected' : 'Not Connected'}}</div>
     </div>
-    <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
+    <div flex layout="row" layout-align="start center" class="form-group" [class.has-error]="!user.sociocortex" [class.has-success]="user.sociocortex">
       <label flex="15">SocioCortex:</label>
-      <div flex="45"  class="form-control">{{user.socioCortex ? 'Connected' : 'Not Connected'}}</div>
+      <div flex="45"  class="form-control">{{user.sociocortex ? 'Connected' : 'Not Connected'}}</div>
     </div>
   </div>
 

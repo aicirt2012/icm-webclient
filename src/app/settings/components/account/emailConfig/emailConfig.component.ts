@@ -16,6 +16,7 @@ export class EmailConfigComponent {
   ngOnInit() {}
 
   updateUser() {
+    this.emailConfig.smtpDomains = this.emailConfig.smtpDomains.replace(" ","").split(",");
     this.updateEmailConfig.emit();
   }
 

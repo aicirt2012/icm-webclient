@@ -7,7 +7,6 @@ import {HttpService, AuthService} from '../../shared';
 export class SettingsService {
 
   private domain = '/users';
-  private body: any = {};
 
   constructor(private _httpService: HttpService, private _authService: AuthService) {
   }
@@ -16,16 +15,29 @@ export class SettingsService {
     return this._httpService.generateRequest(RequestMethod.Get, this.domain, this._authService.parseToken(localStorage.getItem('email-jwt')).user._id, null, null);
   }
 
-  updateEmailConfig(emailConfig: any, provider: string): Observable<any> {
-
-    this.body[provider] = emailConfig;
-    console.log(this.body);
-
+  updateEmailConfig(emailConfig: any): Observable<any> {
+    let body = {
+      provider: {}
+    }
+    body.provider = emailConfig;
     return this._httpService.generateRequest(
       RequestMethod.Put,
       this.domain,this._authService.parseToken(this._authService.token).user._id,
       null,
-      this.body
+      body
+    );
+  }
+
+  updateScConfig(scConfig: any): Observable<any> {
+    let body = {
+      sociocortex: {}
+    }
+    body.sociocortex = scConfig;
+    return this._httpService.generateRequest(
+      RequestMethod.Put,
+      this.domain,this._authService.parseToken(this._authService.token).user._id,
+      null,
+      body
     );
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {SettingsService } from '../../shared';
+import { SettingsService } from '../../shared';
 
 
 @Component({
@@ -9,8 +9,8 @@ import {SettingsService } from '../../shared';
 })
 export class AccountComponent {
 
-public currentView: string = 'Gmail';
-public gmailConfig = {
+public emailConfig = {
+  name:'Gmail',
   user: 'sebisng2@gmail.com',
   password: 's3b1sng2',
   host: 'imap.gmail.com',
@@ -19,65 +19,24 @@ public gmailConfig = {
   smtpPort: 465,
   smtpDomains: ['gmail.com', 'googlemail.com']
 };
-public exchangeConfig = {
-  user: 'someone@outlook.com',
-  password: '1234',
-  host: 'exchange.outlook.com',
-  port: 993,
-  smtpHost: 'smtp.exchange.com',
-  smtpPort: 465,
-  smtpDomains: ['outlook.com']
-};
 
-  constructor(private _settingsService: SettingsService) {
-
-  }
+  constructor(private _settingsService: SettingsService) {}
 
   ngOnInit() {
     this._settingsService.getUserInfo().subscribe((data: any) => {
-   if(data.google) {
-     this.gmailConfig = data.google;
-   }
-   if(data.exchange) {
-     this.exchangeConfig = data.exchange;
-   }
-})
-
+      if(data.provider) {
+        this.emailConfig = data.provider;
+      }
+    })
   }
 
-  updateGmailConfig() {
-    console.log('update gmail config', this.gmailConfig);
-    this._settingsService.updateEmailConfig(this.gmailConfig, 'google')
+  updateEmailConfig() {
+    console.log('update email config', this.emailConfig);
+    this._settingsService.updateEmailConfig(this.emailConfig)
     .subscribe((data: any) => {
-      this.gmailConfig = data.google;
+      console.log(data);
+      this.emailConfig = data.provider;
     });
-  }
-
-  updateExchangeConfig() {
-    console.log('update exchange config', this.exchangeConfig);
-    this._settingsService.updateEmailConfig(this.exchangeConfig, 'exchange')
-    .subscribe((data: any) => {
-      this.exchangeConfig = data.exchange;
-    });
-  }
-
-  showView(view: string): void{
-      this.currentView = view;
-      console.log("changed view to " + view);
-  }
-
-  getCurrentView(view: string) : boolean{
-      if(this.currentView == view)
-           return true;
-      else
-           return false;
-  }
-
-  getActive(choice: string) : string{
-      if(this.currentView == choice)
-           return "active";
-      else
-           return "";
   }
 
 }
