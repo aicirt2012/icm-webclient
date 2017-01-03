@@ -16,7 +16,6 @@ export class OverviewComponent {
 
   ngOnInit() {
     this._settingsService.getUserInfo().subscribe( (data) => {
-      console.log(data);
       this.user = data;
     });
   }

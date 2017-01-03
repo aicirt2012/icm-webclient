@@ -10,7 +10,11 @@ import { SettingsService } from '../../shared';
 export class TaskComponent {
 
   public currentView: string = 'Trello';
-  private trelloConfig = {};
+  private trelloConfig = {
+    trelloId: '',
+    trelloAccessToken: '',
+    trelloAccesTokenSecret: ''
+  };
   private scConfig = {
     username: '',
     password: ''
@@ -20,7 +24,9 @@ export class TaskComponent {
 
     ngOnInit() {
       this._settingsService.getUserInfo().subscribe((data) => {
-        this.trelloConfig = data.trello;
+        if(data.trello) {
+          this.trelloConfig = data.trello;
+        }
         if(data.sociocortex) {
           this.scConfig = data.sociocortex;
         }

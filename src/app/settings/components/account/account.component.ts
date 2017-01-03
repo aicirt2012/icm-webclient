@@ -24,14 +24,13 @@ public emailConfig = {
 
   ngOnInit() {
     this._settingsService.getUserInfo().subscribe((data: any) => {
-      if(data.provider) {
+      if(data.provider.name) {
         this.emailConfig = data.provider;
       }
     })
   }
 
   updateEmailConfig() {
-    console.log('update email config', this.emailConfig);
     this._settingsService.updateEmailConfig(this.emailConfig)
     .subscribe((data: any) => {
       console.log(data);

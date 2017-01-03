@@ -11,9 +11,7 @@ export class TrelloComponent {
   public trelloURL = `${C.server}auth/trello`;
   @Input() trelloConfig: any;
 
-  constructor() {
-
-  }
+  constructor() {}
 
   ngOnInit() {
   }
