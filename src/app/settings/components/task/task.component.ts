@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { SettingsService } from '../../shared';
+import { SnackbarService } from '../../../shared';
+
 
 
 @Component({
@@ -20,7 +22,7 @@ export class TaskComponent {
     password: ''
   };
 
-    constructor(private _settingsService: SettingsService) {}
+    constructor(private _settingsService: SettingsService, private _snackbarService: SnackbarService) {}
 
     ngOnInit() {
       this._settingsService.getUserInfo().subscribe((data) => {
@@ -41,8 +43,12 @@ export class TaskComponent {
     updateUserWithScConfig() {
       this._settingsService.updateScConfig(this.scConfig)
       .subscribe((data: any) => {
-        console.log(data);
         this.scConfig = data.sociocortex;
+        this._snackbarService.setMessage('Update successful');
+        this._snackbarService.setShow();
+      }, (error) => {
+        this._snackbarService.setMessage('Error');
+        this._snackbarService.setShow();
       });
     }
 
