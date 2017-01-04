@@ -15,6 +15,15 @@ export class SettingsService {
     return this._httpService.generateRequest(RequestMethod.Get, this.domain, this._authService.parseToken(localStorage.getItem('email-jwt')).user._id, null, null);
   }
 
+  updateUserInfo(user: any): Observable<any> {
+    return this._httpService.generateRequest(
+      RequestMethod.Put,
+      this.domain,this._authService.parseToken(this._authService.token).user._id,
+      null,
+      user
+    );
+  }
+
   updateEmailConfig(emailConfig: any): Observable<any> {
     let body = {
       provider: {}

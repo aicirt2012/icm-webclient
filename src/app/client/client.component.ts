@@ -55,7 +55,7 @@ export class ClientComponent {
 
     this._settingsService.getUserInfo().subscribe( (user) => {
       this.user = user;
-      if (this.user.google || this.user.exchange) {
+      if (this.user.provider.name) {
         if (!(this.appState.get('boxList').length > 0)) {
           this.getBoxList().subscribe((data: any[]) => {
             if (data.length > 0) {

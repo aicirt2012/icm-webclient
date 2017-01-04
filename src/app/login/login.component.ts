@@ -37,4 +37,19 @@ export class LoginComponent {
         }
       });
   }
+
+  signup() {
+    //this.loading = true;
+    this._auth.signup(this.model.username, this.model.password)
+      .subscribe(result => {
+        if (result.status == 200) {
+          // login successful
+          this.login();
+        } else {
+          // login failed
+          this.error = 'Username already taken';
+          //this.loading = false;
+        }
+      });
+  }
 }

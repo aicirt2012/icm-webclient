@@ -20,4 +20,10 @@ export class OverviewComponent {
     });
   }
 
+  updateUser() {
+    this._settingsService.updateUserInfo(this.user).subscribe( (data) => {
+      this.user = data;
+    });
+  }
+
 }
