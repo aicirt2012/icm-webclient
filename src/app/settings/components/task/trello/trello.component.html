@@ -1,10 +1,18 @@
 <form flex>
-    <div flex layout="row" layout-align="start center" class="form-group has-success has-feedback">
-        <label flex="15" class="control-label" for="inputSuccess2">Email address is valid</label>
-        <input flex="45" type="email" class="form-control" [disabled]="mailValid" value="sebisng2@gmail.com" placeholder="Email">
-        <span flex class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
-        <span flex id="inputSuccess2Status" class="sr-only">(success)</span>
+  <div flex layout="column">
+    <div flex layout="row" layout-align="start center" class="form-group" [class.has-error]="!trelloConfig.trelloId" [class.has-success]="trelloConfig.trelloId">
+      <label flex="15">Trello ID:</label>
+      <input flex="45" name="appName" type="text" class="form-control" [(ngModel)]="trelloConfig.trelloId" placeholder="trelloId" disabled="true">
     </div>
+    <div flex layout="row" layout-align="start center" class="form-group" [class.has-error]="!trelloConfig.trelloAccessToken" [class.has-success]="trelloConfig.trelloAccessToken">
+      <label flex="15">Access Token:</label>
+      <input flex="45" name="accessToken" type="text" class="form-control" [(ngModel)]="trelloConfig.trelloAccessToken" placeholder="AccessToken" disabled="true">
+    </div>
+    <div flex layout="row" layout-align="start center" class="form-group" [class.has-error]="!trelloConfig.trelloAccessTokenSecret" [class.has-success]="trelloConfig.trelloAccessTokenSecret">
+      <label flex="15">Access Token Secret:</label>
+      <input flex="45" name="accessTokenSecret" type="text" class="form-control" [(ngModel)]="trelloConfig.trelloAccessTokenSecret" placeholder="AccessTokenSecret" disabled="true">
+    </div>
+  </div>
 
     <div flex layout="row" layout-align="center center" class="form-group">
         <div flex="15"></div>
@@ -15,8 +23,4 @@
         <div flex></div>
         <div flex></div>
     </div>
-
-    <button type="submit" class="btn btn-default" [disabled]="mailValid" (click)="mailValid=true">Submit</button>
-    <button type="submit" class="btn btn-default" [disabled]="!mailValid" (click)="mailValid=false">Edit Settings
-    </button>
 </form>

@@ -5,6 +5,8 @@ import * as moment from 'moment';
 import { ModalDirective } from 'ng2-bootstrap';
 import { Email } from './shared';
 import { EmailService, TaskService } from './shared';
+/* Importing SettingsService from other module is not optimal */
+import { SettingsService } from '../settings/shared';
 import { Observable } from 'rxjs/Observable';
 import { ModalType } from '../shared/constants';
 import { TaskModalType } from '../shared/constants';
@@ -39,31 +41,43 @@ export class ClientComponent {
   public boxList: any = [];
   /* we have to get this from backend */
   private taskIdList: string = '582639655429c571aae95b37';
+  private noMailboxConnected = false;
+  private user: any;
 
-  constructor(private _emailService: EmailService, private _taskService: TaskService, public appState: AppState, public router: Router, public route: ActivatedRoute) {
+  constructor(private _emailService: EmailService, private _taskService: TaskService, public appState: AppState,
+    public router: Router, public route: ActivatedRoute, private _settingsService: SettingsService) {
     this.currentId = this.route.params.map(params => params['emailId'] || 'None');
     this.currentBox = this.route.params.map(params => params['boxId'] || 'None');
   }
 
   ngOnInit() {
     this.syncing = true;
-    if (!(this.appState.get('boxList').length > 0)) {
-      this.getBoxList().subscribe((data: any[]) => {
-        if (data.length > 0) {
+
+    this._settingsService.getUserInfo().subscribe( (user) => {
+      this.user = user;
+      if (this.user.provider.name) {
+        if (!(this.appState.get('boxList').length > 0)) {
+          this.getBoxList().subscribe((data: any[]) => {
+            if (data.length > 0) {
+              this.syncing = false;
+              this.appState.set('boxList', data);
+              this.boxList = data;
+              this.getEmailBox(data[0]);
+              this.fetchBoxByRouteId();
+              this.fetchMailByRouteId();
+            }
+          });
+        } else {
+          this.boxList = this.appState.get('boxList');
           this.syncing = false;
-          this.appState.set('boxList', data);
-          this.boxList = data;
-          this.getEmailBox(data[0]);
           this.fetchBoxByRouteId();
           this.fetchMailByRouteId();
         }
-      });
-    } else {
-      this.boxList = this.appState.get('boxList');
-      this.syncing = false;
-      this.fetchBoxByRouteId();
-      this.fetchMailByRouteId();
-    }
+      } else {
+        this.syncing = false;
+        this.noMailboxConnected = true;
+      }
+    })
   }
 
   fetchMailByRouteId() {

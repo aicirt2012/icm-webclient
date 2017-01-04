@@ -1,13 +1,1 @@
-<ul flex class="nav nav-tabs">
-  <li role="presentation" class="{{getActive('Gmail')}}">
-    <a class="pointer" (click)="showView('Gmail')">Gmail</a>
-  </li>
-  <li role="presentation" class="{{getActive('Exchange')}}">
-    <a class="pointer" (click)="showView('Exchange')">Exchange</a>
-  </li>
-</ul>
-
-<div class="row"></div>
-
-<gmail flex *ngIf="getCurrentView('Gmail')"></gmail>
-<exchange flex *ngIf="getCurrentView('Exchange')"></exchange>
+<email-config (updateEmailConfig)="updateEmailConfig($event)" [emailConfig]="emailConfig"></email-config>

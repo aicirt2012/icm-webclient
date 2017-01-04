@@ -14,7 +14,10 @@
                     <input type="password" name="password" [(ngModel)]="model.password" #password="ngModel"
                            class="form-control" placeholder="Password" required>
                     <button [disabled]="loading" class="btn btn-lg btn-primary btn-block btn-signin" (click)="login()"
-                            type="submit">Sign in
+                            type="submit">Log in
+                    </button>
+                    <button [disabled]="loading" class="btn btn-lg btn-primary btn-block btn-signin" (click)="signup()"
+                            type="submit">Sign up
                     </button>
                     <a class="btn btn-block btn-social btn-google" [href]="googleLoginLink">
                         <span class="fa fa-google"></span> Sign in with Google

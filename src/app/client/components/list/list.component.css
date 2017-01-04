@@ -26,6 +26,10 @@
   padding: 8px;
 }
 
+.lc-mail-height {
+    min-height: 55px;
+}
+
 .lc-mail {
   border-bottom: 1px solid lightgrey;
 }

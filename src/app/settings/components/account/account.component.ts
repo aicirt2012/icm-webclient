@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { SettingsService } from '../../shared';
+import { SnackbarService } from '../../../shared';
+
 
 @Component({
   selector: 'account',
@@ -7,32 +10,36 @@ import { Component } from '@angular/core';
 })
 export class AccountComponent {
 
-public currentView: string = 'Gmail';
+public emailConfig = {
+  name:'Gmail',
+  user: 'sebisng2@gmail.com',
+  password: 's3b1sng2',
+  host: 'imap.gmail.com',
+  port: 993,
+  smtpHost: 'smtp.gmail.com',
+  smtpPort: 465,
+  smtpDomains: ['gmail.com', 'googlemail.com']
+};
 
-  constructor() {
-
-  }
+  constructor(private _settingsService: SettingsService, private _snackbarService: SnackbarService) {}
 
   ngOnInit() {
+    this._settingsService.getUserInfo().subscribe((data: any) => {
+      if(data.provider.name) {
+        this.emailConfig = data.provider;
+      }
+    })
   }
 
-  showView(view: string): void{
-      this.currentView = view;
-      console.log("changed view to " + view);
+  updateEmailConfig() {
+    this._settingsService.updateEmailConfig(this.emailConfig)
+    .subscribe((data: any) => {
+      this.emailConfig = data.provider;
+      this._snackbarService.setMessage('Update successful');
+      this._snackbarService.setShow();
+    }, (error) => {
+      this._snackbarService.setMessage('Error');
+      this._snackbarService.setShow();
+    });
   }
-
-  getCurrentView(view: string) : boolean{
-      if(this.currentView == view)
-           return true;
-      else
-           return false;
-  }
-
-  getActive(choice: string) : string{
-      if(this.currentView == choice)
-           return "active";
-      else
-           return "";
-  }
-
 }

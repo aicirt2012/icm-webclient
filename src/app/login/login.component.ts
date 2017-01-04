@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../shared';
+import { SnackbarService } from '../shared';
+
 import { Router } from '@angular/router';
 import C from '../shared/constants';
 
@@ -16,7 +18,8 @@ export class LoginComponent {
 
   constructor(
     private router: Router,
-    private _auth: AuthService) { }
+    private _auth: AuthService,
+  private _snackbarService: SnackbarService) { }
 
   ngOnInit() {
     // reset login status
@@ -30,9 +33,26 @@ export class LoginComponent {
         if (result === true) {
           // login successful
           this.router.navigate(['/box/0']);
+          this._snackbarService.setMessage('Login successful');
+          this._snackbarService.setShow();
         } else {
           // login failed
           this.error = 'Username or password is incorrect';
+          //this.loading = false;
+        }
+      });
+  }
+
+  signup() {
+    //this.loading = true;
+    this._auth.signup(this.model.username, this.model.password)
+      .subscribe(result => {
+        if (result.status == 200) {
+          // login successful
+          this.login();
+        } else {
+          // login failed
+          this.error = 'Username already taken';
           //this.loading = false;
         }
       });

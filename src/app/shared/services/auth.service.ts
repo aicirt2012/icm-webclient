@@ -28,6 +28,10 @@ export class AuthService {
       });
   }
 
+  signup(username: string, password: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/users`, { username: username, password: password });
+  }
+
   logout(): void {
     this.token = null;
     localStorage.removeItem('email-jwt');

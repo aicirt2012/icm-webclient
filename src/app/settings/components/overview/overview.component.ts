@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {SettingsService } from '../../shared';
+
 
 @Component({
   selector: 'overview',
@@ -8,10 +10,20 @@ import { Component } from '@angular/core';
 export class OverviewComponent {
 
   public editSettings: boolean = false;
+  public user = {};
 
-  constructor() { }
+  constructor(private _settingsService: SettingsService) { }
 
   ngOnInit() {
+    this._settingsService.getUserInfo().subscribe( (data) => {
+      this.user = data;
+    });
+  }
+
+  updateUser() {
+    this._settingsService.updateUserInfo(this.user).subscribe( (data) => {
+      this.user = data;
+    });
   }
 
 }

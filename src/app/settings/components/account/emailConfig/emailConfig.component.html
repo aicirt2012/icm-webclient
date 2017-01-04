@@ -1,0 +1,41 @@
+<form>
+  <div flex layout="column">
+    <div flex layout="row" layout-align="start center" class="form-group" [class.has-error]="!emailConfig.name" [class.has-success]="emailConfig.name">
+      <label flex="15">Email Provider:</label>
+      <input name="emailProvider" type="radio" [(ngModel)]="emailConfig.name" value="Gmail">Gmail
+      <input name="emailProvider" type="radio" [(ngModel)]="emailConfig.name" value="Exchange">Exchange
+    </div>
+    <div flex layout="row" layout-align="start center" class="form-group" [class.has-error]="!emailConfig.user" [class.has-success]="emailConfig.user">
+      <label flex="15">Email Address:</label>
+      <input flex="45" name="user" type="email" class="form-control" [(ngModel)]="emailConfig.user" placeholder="Email">
+    </div>
+    <div flex layout="row" layout-align="start center" class="form-group" [class.has-error]="!emailConfig.password" [class.has-success]="emailConfig.password">
+      <label flex="15">Password:</label>
+      <input flex="45" name="password" type="password" class="form-control"  [(ngModel)]="emailConfig.password" placeholder="Password">
+    </div>
+    <div flex layout="row"layout-align="start center" class="form-group" [class.has-error]="!emailConfig.host" [class.has-success]="emailConfig.host">
+      <label flex="15">Host:</label>
+      <input flex="45" name="host"  type="text" class="form-control" [(ngModel)]="emailConfig.host" placeholder="Host">
+    </div>
+    <div flex layout="row" layout-align="start center" class="form-group" [class.has-error]="!emailConfig.port" [class.has-success]="emailConfig.port">
+      <label flex="15">Port:</label>
+      <input flex="45" name="port" type="number" class="form-control" [(ngModel)]="emailConfig.port" placeholder="Port">
+    </div>
+    <hr>
+    <div flex layout="row" layout-align="start center" class="form-group" [class.has-error]="!emailConfig.smtpHost" [class.has-success]="emailConfig.smtpHost">
+      <label flex="15">SMTP Host:</label>
+      <input flex="45" name="smtpHost" type="text" class="form-control" [(ngModel)]="emailConfig.smtpHost" placeholder="Host">
+    </div>
+    <div flex layout="row" layout-align="start center" class="form-group" [class.has-error]="!emailConfig.smtpPort" [class.has-success]="emailConfig.smtpPort">
+      <label flex="15">SMTP Port:</label>
+      <input flex="45" name="smtpPort" type="number" class="form-control" [(ngModel)]="emailConfig.smtpPort" placeholder="Port">
+    </div>
+    <div flex layout="row" layout-align="start center" class="form-group" [class.has-error]="!emailConfig.smtpDomains" [class.has-success]="emailConfig.smtpDomains">
+      <label flex="15">SMTP Domains:</label>
+      <input flex="45" name="smtpDomains" type="text" class="form-control" [(ngModel)]="emailConfig.smtpDomains" placeholder="Domains">
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-default" (click)="updateUser()">Save</button>
+
+</form>

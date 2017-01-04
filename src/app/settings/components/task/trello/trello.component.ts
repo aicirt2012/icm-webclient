@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import C from '../../../../shared/constants';
 
 @Component({
@@ -8,12 +8,10 @@ import C from '../../../../shared/constants';
 })
 export class TrelloComponent {
 
-  public mailValid: boolean = true;
   public trelloURL = `${C.server}auth/trello`;
+  @Input() trelloConfig: any;
 
-  constructor() {
-
-  }
+  constructor() {}
 
   ngOnInit() {
   }
