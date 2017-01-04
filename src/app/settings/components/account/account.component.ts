@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SettingsService } from '../../shared';
+import { SnackbarService } from '../../../shared';
 
 
 @Component({
@@ -20,7 +21,7 @@ public emailConfig = {
   smtpDomains: ['gmail.com', 'googlemail.com']
 };
 
-  constructor(private _settingsService: SettingsService) {}
+  constructor(private _settingsService: SettingsService, private _snackbarService: SnackbarService) {}
 
   ngOnInit() {
     this._settingsService.getUserInfo().subscribe((data: any) => {
@@ -33,9 +34,12 @@ public emailConfig = {
   updateEmailConfig() {
     this._settingsService.updateEmailConfig(this.emailConfig)
     .subscribe((data: any) => {
-      console.log(data);
       this.emailConfig = data.provider;
+      this._snackbarService.setMessage('Update successful');
+      this._snackbarService.setShow();
+    }, (error) => {
+      this._snackbarService.setMessage('Error');
+      this._snackbarService.setShow();
     });
   }
-
 }
