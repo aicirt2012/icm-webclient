@@ -1,31 +1,31 @@
-<div layout="row" flex class="wrapper" layout-align="center center">
-    <div flex id="login-wallpaper" class="wrapper">
+<div class="flex-container full-height" fxLayout.gt-sm="row" fxLayout="column">
+    <div fxFlex fxHide="false" fxHide.sm fxHide.xs id="login-wallpaper"></div>
+    <div fxFlex fxFlex.gt-sm="30" fxLayout="column">
+        <div fxFlex="10" fxLayoutAlign="center center">
+            <img src="" alt="logo" >
+        </div>
+        <div fxFlex fxLayoutAlign="center center" fxLayout="row">
+                <md-card fxFlex="80">
+      <md-card-content>
+        <form fxLayout="column">
+            <md-input-container>
+                <input md-input placeholder="Username" type="text" name="username" [(ngModel)]="model.username" autofocus required>
+            </md-input-container>
+            <md-input-container>
+                <input md-input placeholder="Password" type="password" name="password" [(ngModel)]="model.password" required>
+            </md-input-container>
+        </form>
+      </md-card-content>
+      <md-card-actions fxLayoutAlign="center center">
+        <button md-raised-button color="primary" [disabled]="loading" (click)="login()">Login</button>
+        <button md-raised-button [disabled]="loading" (click)="signup()">Signup</button>
+    </md-card-actions>
+    <div fxLayoutAlign="center center">
+        <a [href]="googleLoginLink"><span class="fa fa-google"></span> Sign in with Google</a>
     </div>
-    <div flex="25" layout="column" class="wrapper">
-        <div flex="20" layout-align="start center">
-            <span id="logo"></span>
+    </md-card>
         </div>
-        <div flex="60" layout="column" layout-align="center center">
-            <div class="card card-container">
-                <form flex layout="column" layout-align="center center" class="form-signin">
-                    <input type="text" name="username" [(ngModel)]="model.username" #username="ngModel"
-                           class="form-control"
-                           placeholder="Username" required autofocus>
-                    <input type="password" name="password" [(ngModel)]="model.password" #password="ngModel"
-                           class="form-control" placeholder="Password" required>
-                    <button [disabled]="loading" class="btn btn-lg btn-primary btn-block btn-signin" (click)="login()"
-                            type="submit">Log in
-                    </button>
-                    <button [disabled]="loading" class="btn btn-lg btn-primary btn-block btn-signin" (click)="signup()"
-                            type="submit">Sign up
-                    </button>
-                    <a class="btn btn-block btn-social btn-google" [href]="googleLoginLink">
-                        <span class="fa fa-google"></span> Sign in with Google
-                    </a>
-                </form>
-            </div>
-        </div>
-        <div flex flex="20" layout-align="center end">
+        <div fxFlex="10" fxLayoutAlign="center center">
             <span class="copyrights">&copy; 2016 Master Lab Course Web Applications</span>
         </div>
     </div>
