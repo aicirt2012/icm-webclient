@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { SettingsService } from '../../shared';
-import { SnackbarService } from '../../../shared';
-
-
+import { MdSnackBar } from '@angular/material';
 
 @Component({
   selector: 'task',
   templateUrl: 'task.component.html',
   styleUrls: ['task.component.css'],
+  providers: [MdSnackBar]
 })
 export class TaskComponent {
 
@@ -21,7 +20,7 @@ export class TaskComponent {
     password: ''
   };
 
-    constructor(private _settingsService: SettingsService, private _snackbarService: SnackbarService) {}
+    constructor(private _settingsService: SettingsService, private snackBar:  MdSnackBar) {}
 
     ngOnInit() {
       this._settingsService.getUserInfo().subscribe((data) => {
@@ -38,11 +37,10 @@ export class TaskComponent {
       this._settingsService.updateScConfig(this.scConfig)
       .subscribe((data: any) => {
         this.scConfig = data.sociocortex;
-        this._snackbarService.setMessage('Update successful');
-        this._snackbarService.setShow();
+        this.snackBar.open('Update successful.', 'OK');
       }, (error) => {
-        this._snackbarService.setMessage('Error');
-        this._snackbarService.setShow();
+        this.snackBar.open('Error while updating. Try again.', 'OK');
+
       });
     }
 

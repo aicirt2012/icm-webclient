@@ -11,7 +11,6 @@ export class SocioCortexComponent {
   @Output() updateUserWithScConfig = new EventEmitter<any>();
 
   constructor() {
-
   }
 
   ngOnInit() {
