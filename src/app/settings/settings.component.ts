@@ -12,6 +12,28 @@ export class SettingsComponent {
   model: any = {};
   loading = false;
   error = '';
+  links = [
+    {
+      name: 'Email Settings',
+      icon: 'email',
+      link: '/settings/email'
+    },
+    {
+      name: 'Task Settings',
+      icon: 'check_circle',
+      link: '/settings/tasks'
+    },
+    {
+      name: 'Overview',
+      icon: 'home',
+      link: '/settings/overview'
+    },
+    {
+      name: 'Help',
+      icon: 'help',
+      link: '/settings/help'
+    }
+  ]
 
   constructor(
     private router: Router,
