@@ -8,6 +8,7 @@
     z-index: 999;
     bottom: 30px;
     padding:16px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.2);
 }
 
 #snackbar.show-snack {
