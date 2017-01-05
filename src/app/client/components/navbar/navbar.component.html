@@ -1,25 +1,44 @@
-<div flex layout="column" class="inbox-nav">
-  <div flex>
+<!-- <div fxFlex fxLayout="column" class="inbox-nav">
+  <div fxFlex>
     <button type="button" (click)="openCreateEmailModal()" class="btn-compose btn">
       <span class="glyphicon glyphicon-edit glyph"></span>Compose Email
     </button>
   </div>
-  <div flex>
+  <div fxFlex>
     <ul flex class="inbox-nav inbox-divider">
       <li *ngFor="let item of navbarItems">
         <navbar-list-item [item]="item"></navbar-list-item>
       </li>
     </ul>
   </div>
-  <div flex layout="column" class="sync-status">
+  <div fxFlex fxLayout="column" class="sync-status">
     <hr>
-    <div flex layout="row" layout-align="start center" class="sync-title">
-      <div layout="row" layout-align="start center" flex="5">
+    <div fxFlex fxLayout="row" fxLayoutAlign="start center" class="sync-title">
+      <div fxLayout="row" layout-align="start center" flex="5">
         <button class="btn btn-default" (click)="refresh()">
           <span class="glyphicon glyphicon-refresh"></span>
         </button>
       </div>
-      <div flex></div>
+      <div fxFlex></div>
     </div>
   </div>
+</div> -->
+
+<div fxLayout="column" class="full-height">
+    <div fxFlex="10" fxLayoutAlign="center center">
+      <button md-raised-button (click)="openCreateEmailModal()">
+        <md-icon>create</md-icon>
+        <span>Compose Email</span>
+      </button>
+    </div>
+    <div fxFlex>
+        <md-nav-list>
+            <navbar-list-item [item]="item" *ngFor="let item of navbarItems"></navbar-list-item>
+         </md-nav-list>
+    </div>
+    <div fxFlex="10" fxLayoutAlign="end end">
+        <button md-mini-fab (click)="refresh()">
+            <md-icon class="md-24">sync</md-icon>
+        </button>
+    </div>
 </div>

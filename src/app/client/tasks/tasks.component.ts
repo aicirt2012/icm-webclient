@@ -58,11 +58,8 @@ export class TasksComponent {
     this.syncTasksForMail.emit();
   }
 
-  getActive(choice: string): string {
-    if (this.currentTab == choice)
-      return "active";
-    else
-      return "";
+  getActive(choice: string): boolean {
+    return this.currentTab == choice;
   }
 
   switchTab(tab: string): void {
