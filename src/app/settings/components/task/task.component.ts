@@ -11,7 +11,6 @@ import { SnackbarService } from '../../../shared';
 })
 export class TaskComponent {
 
-  public currentView: string = 'Trello';
   private trelloConfig = {
     trelloId: '',
     trelloAccessToken: '',
@@ -35,11 +34,6 @@ export class TaskComponent {
       })
     }
 
-    showView(view: string): void{
-        this.currentView = view;
-        console.log("changed view to " + view);
-    }
-
     updateUserWithScConfig() {
       this._settingsService.updateScConfig(this.scConfig)
       .subscribe((data: any) => {
@@ -50,20 +44,6 @@ export class TaskComponent {
         this._snackbarService.setMessage('Error');
         this._snackbarService.setShow();
       });
-    }
-
-    getCurrentView(view: string) : boolean{
-        if(this.currentView == view)
-             return true;
-        else
-             return false;
-    }
-
-    getActive(choice: string) : string{
-        if(this.currentView == choice)
-             return "active";
-        else
-             return "";
     }
 
 }

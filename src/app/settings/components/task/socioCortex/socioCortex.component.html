@@ -1,14 +1,13 @@
-<form flex>
-  <div flex layout="column">
-    <div flex layout="row" layout-align="start center" class="form-group" [class.has-error]="!scConfig.username" [class.has-success]="scConfig.username">
-      <label flex="15">Username:</label>
-      <input flex="45" name="username" type="text" class="form-control" [(ngModel)]="scConfig.username" placeholder="Username">
+<md-card fxFlex>
+  <form fxFlex>
+    <div fxFlex fxfxLayout="column">
+      <md-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
+        <input md-input name="username" type="text" [(ngModel)]="scConfig.username" placeholder="Username" autofocus required>
+      </md-input-container>
+      <md-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
+        <input md-input fxFlex="45" name="password" type="password" [(ngModel)]="scConfig.password" placeholder="password" required>
+      </md-input-container>
     </div>
-    <div flex layout="row" layout-align="start center" class="form-group" [class.has-error]="!scConfig.password" [class.has-success]="scConfig.password">
-      <label flex="15">Password:</label>
-      <input flex="45" name="password" type="text" class="form-control"  [(ngModel)]="scConfig.password" placeholder="Password">
-    </div>
-  </div>
-
-    <button (click)="updateUser()" class="btn btn-default">Save</button>
-</form>
+      <button md-raised-button color="primary" (click)="updateUser()">Save SC Configuration</button>
+  </form>
+</md-card>
