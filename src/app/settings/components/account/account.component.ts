@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { SettingsService } from '../../shared';
-import { SnackbarService } from '../../../shared';
+import { MdSnackBar } from '@angular/material';
 
 
 @Component({
   selector: 'account',
   templateUrl: 'account.component.html',
   styleUrls: ['account.component.css'],
+  providers: [MdSnackBar]
 })
 export class AccountComponent {
 
@@ -21,7 +22,7 @@ public emailConfig = {
   smtpDomains: ['gmail.com', 'googlemail.com']
 };
 
-  constructor(private _settingsService: SettingsService, private _snackbarService: SnackbarService) {}
+  constructor(private _settingsService: SettingsService, private snackBar: MdSnackBar) {}
 
   ngOnInit() {
     this._settingsService.getUserInfo().subscribe((data: any) => {
@@ -32,14 +33,13 @@ public emailConfig = {
   }
 
   updateEmailConfig() {
+    this.emailConfig.smtpDomains = this.emailConfig.smtpDomains.toString().replace(" ","").split(",");
     this._settingsService.updateEmailConfig(this.emailConfig)
     .subscribe((data: any) => {
       this.emailConfig = data.provider;
-      this._snackbarService.setMessage('Update successful');
-      this._snackbarService.setShow();
+      this.snackBar.open('Update successful', 'OK');
     }, (error) => {
-      this._snackbarService.setMessage('Error');
-      this._snackbarService.setShow();
+      this.snackBar.open('Error while updating', 'OK');
     });
   }
 }

@@ -1,26 +1,14 @@
 <div fxLayout="column" fxFlex>
     <top-navbar></top-navbar>
 
-    <div fxLayout="row" class="inbox-nav">
-        <div fxFlex="15" class="inbox-nav">
-            <div class="account-usertitle" fxFlex fxLayout="column" fxLayoutAlign="start center">
-
-                <img id="account-img" class="account-img-card"
-                     src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
-
-                <div fxFlex fxLayout="row" class="account-usermenu">
-
-                  <md-nav-list>
-                    <md-list-item *ngFor="let link of links" [routerLinkActive]="['route-active']">
-                      <a md-line [routerLink]="link.link">{{link.name}}</a>
-                      <button md-icon-button>
-                        <md-icon>{{link.icon}}</md-icon>
-                      </button>
-                    </md-list-item>
-                  </md-nav-list>
-
-                </div>
-            </div>
+    <div fxLayout="row">
+        <div fxFlex="15" fxFlex.sm="30" fxFlex.xs="30">
+          <md-nav-list fxFlex>
+            <md-list-item *ngFor="let link of links" [routerLinkActive]="['route-active']">
+              <a md-line [routerLink]="link.link">{{link.name}}</a>
+                <md-icon>{{link.icon}}</md-icon>
+            </md-list-item>
+          </md-nav-list>
         </div>
         <div fxFlex layout="row">
                 <div fxFlex class="account-content">
