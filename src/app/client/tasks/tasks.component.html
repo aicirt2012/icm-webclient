@@ -1,11 +1,11 @@
-<div layout="column" flex>
+<div fxLayout="column" fxFlex>
   <div style="margin-bottom:10px;">
-    <ul class="nav nav-tabs nav-justified">
-      <li class="{{getActive('Trello')}} pointer">
-        <a (click)="switchTab('Trello')">Trello</a>
+    <ul class="nav nav-tabs" fxLayout="row" fxLayoutAlign="center center">
+      <li fxFlex [class.active]="getActive('Trello')" class="pointer">
+        <button md-button (click)="switchTab('Trello')">Trello</button>
       </li>
-      <li class="{{getActive('Socio Cortex')}} pointer">
-        <a (click)="switchTab('Socio Cortex')">SocioCortex</a>
+      <li fxFlex [class.active]="getActive('SocioCortex')" class="pointer">
+        <button md-button (click)="switchTab('SocioCortex')">SocioCortex</button>
       </li>
     </ul>
   </div>
