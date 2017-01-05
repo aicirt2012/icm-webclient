@@ -10,8 +10,8 @@
 </ul> -->
 
 
-<md-list-item>
-  <a md-line [routerLink]="item.route" [class.route-active]="isActive(item.route)">{{item.shortName}}</a>
+<md-list-item [class.route-active]="isActive(item.route)">
+  <a md-line [routerLink]="item.route">{{item.shortName}}</a>
   <md-icon>{{item.icon}}</md-icon>
 </md-list-item>
 <md-nav-list *ngIf="item.children.length > 0">
