@@ -61,6 +61,16 @@ export class EmailService {
   }
 
   /*
+   @param: msgId: string - msg id in box
+   */
+  deleteMail(msgId: string): Observable<any> {
+    const body = {
+      msgId: msgId,
+    };
+    return this._httpService.generateRequest(RequestMethod.Delete, this.domain, 'delete', null, body);
+  }
+
+  /*
    returns Object: {"boxlist": [{name: "INBOX", new: "2", total: "9"}]}
    */
   updateMailboxList(): Observable<any> {
@@ -111,6 +121,28 @@ ${email.text}`;
       }
     }
 
+  }
+
+  /*
+   @param: boxName: string
+   */
+  addBox(boxName: string): Observable<any> {
+    console.log('adding box...');
+    const body = {
+      boxName: boxName
+    };
+    return this._httpService.generateRequest(RequestMethod.Post, this.domain, 'addBox', null, body);
+  }
+
+  /*
+   @param: boxName: string
+   */
+  deleteBox(boxName: string): Observable<any> {
+    console.log('removing box...');
+    const body = {
+      boxName: boxName
+    };
+    return this._httpService.generateRequest(RequestMethod.Post, this.domain, 'delBox', null, body);
   }
 
 }
