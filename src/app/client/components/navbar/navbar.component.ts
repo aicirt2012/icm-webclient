@@ -94,12 +94,4 @@ export class NavBarComponent {
     this.onBoxDelete.emit(this.boxName)
   }
 
-  addBox() {
-    this.onBoxAdd.emit(this.boxName);
-  }
-
-  delBox() {
-    this.onBoxDelete.emit(this.boxName)
-  }
-
 }
