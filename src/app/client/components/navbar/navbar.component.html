@@ -36,6 +36,15 @@
             <navbar-list-item [item]="item" *ngFor="let item of navbarItems"></navbar-list-item>
          </md-nav-list>
     </div>
+    <div fxFlex>
+      <md-input-container>
+        <input md-input placeholder="Add/Del Box" [(ngModel)]="boxName">
+      </md-input-container>
+      <div class="button-row">
+        <button md-raised-button (click)="addBox()">Add</button>
+        <button md-raised-button (click)="delBox()">Del</button>
+      </div>
+    </div>
     <div fxFlex="10" fxLayoutAlign="end end">
         <button md-mini-fab (click)="refresh()">
             <md-icon class="md-24">sync</md-icon>
