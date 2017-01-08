@@ -10,26 +10,9 @@
     <div *ngIf="!loading" [@fadeInOut]="!loading" fxFlex fxLayout="row">
       <list [emails]="emails" (getSingleMail)="getSingleMail($event)" fxFlex="25"></list>
       <detailed-view *ngIf="email" [email]="email" (openModal)="openModal($event)" fxFlex="55"></detailed-view>
-      <tasks *ngIf="email" [email]="email" [suggestedTask]="suggestedTask" [tasksForMail]="tasksForMail" (syncTasksForMail)="syncTasksForMail()" (openTaskModal)="openTaskModal($event)" (closeTaskModalOutput)="closeTaskModalOutput($event)" fxFlex="20"></tasks>
-    </div>
+        <tasks *ngIf="email" [email]="email" [boards]="boards" (syncTasksForMail)="syncTasksForMail()" (openTaskModal)="openTaskModal($event)" (closeTaskModalOutput)="closeTaskModalOutput($event)" fxFlex="20"></tasks>
+  </div>
   </div>
 </div>
 <!-- <email-modal [email]="email" [modalType]="currentModalType" (closeModal)="closeModal()"></email-modal>
 <task-modal [email]="email" [taskModalType]="taskModalType" (closeTaskModal)="closeTaskModal($event)" [suggestedTask]="suggestedTask" (createTask)="createTask($event)"></task-modal> -->
-<!--
-<div class="flex-container full-height" fxLayout="column">
-  <top-navbar></top-navbar>
-  <spinner *ngIf="syncing" fxFlex [loading]="syncing"></spinner>
-  <div *ngIf="!syncing && noMailboxConnected" fxFlex fxLayoutAlign="center center">
-    Please connect to a mailbox in <a routerLink="/settings/email">&nbsp;Settings</a>
-  </div>
-  <div *ngIf="!syncing && !noMailboxConnected" class="flex-container full-height" fxLayout="row" [@fadeInOut]="!syncing">
-    <div id="navbar" fxFlex="15">nav</div>
-    <spinner *ngIf="loading" fxFlex [loading]="loading"></spinner>
-    <div *ngIf="!loading" [@fadeInOut]="!loading" fxFlex>
-        <div id="list" fxFlex="25">list</div>
-        <div id="detail" fxFlex="55">detail</div>
-        <div id="task" fxFlex="20">task</div>
-    </div>
-  </div>
- </div> -->

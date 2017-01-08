@@ -1,6 +1,47 @@
 <div *ngIf="currentTab == 'Trello'" layout="column" fxFlex>
-  <!-- Suggested Task -->
-  <div fxFlex fxLayout="column" class="card tasks">
+
+  <div fxFlex fxLayout="column" *ngFor="let suggestedTask of suggestedTasks" class="tasks">
+
+    <md-card *ngFor="let suggestedTask of suggestedTasks; let i = index;" class="tasks-card">
+      <md-card-header>
+        <img md-card-avatar src="/assets/img/trello.gif">
+        <md-card-subtitle>{{suggestedTask.name}}</md-card-subtitle>
+        <!-- <md-card-title>{{suggestedTask.name}}</md-card-title>-->
+      </md-card-header>
+      <md-card-content>
+        <p>
+          <i class="material-icons glyph">date_range</i>{{suggestedTask.date | date:'shortDate'}}</p>
+        <p>
+          <i class="material-icons glyph">people</i>Matthes, Florian</p>
+        <p>{{suggestedTask.desc}}</p>
+        <md-select placeholder="Select a board..">
+          <md-option *ngFor="let board of boards" [value]="board.name">
+            {{ board.name }}
+            dd</md-option>
+        </md-select>
+      </md-card-content>
+      <md-card-actions fxFlex fxLayout="row">
+        <div fxFlex="33">
+          <button md-button>
+            <i class="material-icons">open_in_new</i>
+          </button>
+        </div>
+        <div fxFlex="33">
+          <button md-button>
+            <i class="material-icons">mode_edit</i>
+          </button>
+        </div>
+        <div fxFlex="33">
+          <button md-button>
+            <i class="material-icons">close</i>
+          </button>
+        </div>
+      </md-card-actions>
+    </md-card>
+
+  </div>
+
+  <!--<div fxFlex fxLayout="column" class="card tasks">
     <div fxFlex fxLayout="row" class="card-title">
       <div fxFlex="70">
         <h4>{{suggestedTask.subject}}</h4>
@@ -17,7 +58,7 @@
       <p flex="50">
         <span (click)="openDatePicker()" class="glyphicon glyphicon-calendar glyph"></span>
         {{dueDate | date:'shortDate'}}
-        <!--  <span *ngIf="opened" (click)="closeDatePicker()" class="  glyphicon glyphicon-ok"></span>-->
+
       </p>
     </div>
     <div class="card-action" flex layout="row" layout-align="center center">
@@ -31,11 +72,10 @@
         <span class="glyphicon glyphicon-remove"></span>
       </div>
     </div>
-  </div>
-  <!--<datepicker class="datepicker" *ngIf="opened" [(ngModel)]="suggestedTask.dueDate" [minDate]="minDate"></datepicker>-->
+  </div>-->
 
   <!-- Tasks referred to email -->
-  <div *ngFor="let task of tasksForMail; let i = index" flex layout="column" class="card tasks" layout-padding>
+  <!--<div *ngFor="let task of tasksForMail; let i = index" flex layout="column" class="card tasks" layout-padding>
     <div flex layout="row" class="card-title">
       <div flex="70">
         <h4>{{task?.name}}</h4>
@@ -63,19 +103,9 @@
       </div>
     </div>
   </div>
-  <!--
-  <div *ngFor="let task of tasksForMail; let i = index" class="card card-block cardList">
-    <h4 class="card-title">{{task?.name}}</h4>
-    <p class="card-title">
-      <span style="margin-right: 5px;" class="glyphicon glyphicon-user"></span>
-      <i>People...</i>
-    </p>
-    <p class="card-text card-item-text">.....</p>
-    <a class="pointer" class="btn btn-primary">Open</a>
-    <a class="pointer" class="btn btn-danger">Close</a>
-  </div>-->
-</div>
 
-<div *ngIf="currentTab == 'Socio Cortex'" layout="column" flex layout-padding>
-  At the moment SocioCortex tasks are not available
-</div>
+</div>-->
+
+  <div *ngIf="currentTab == 'Socio Cortex'" layout="column" fxFlex>
+    At the moment SocioCortex tasks are not available
+  </div>

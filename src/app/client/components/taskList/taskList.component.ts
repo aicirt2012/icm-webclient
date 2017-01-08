@@ -9,8 +9,9 @@ import {TaskModalType} from '../../../shared';
 })
 
 export class TaskListComponent {
-  @Input() tasksForMail: any;
-  @Input() suggestedTask: any;
+  @Input() linkedTasks: any;
+  @Input() suggestedTasks: any;
+  @Input() boards: string[];
   @Input() currentTab: string;
   @Output() createTask = new EventEmitter<any>();
   @Input() openTaskModal = new EventEmitter<any>();
@@ -37,7 +38,7 @@ export class TaskListComponent {
   }
 
   public createSuggestedTask(suggestedTask: any) {
-    this.suggestedTask['dueDate'] = this.dueDate;
+  //  this.suggestedTask['dueDate'] = this.dueDate;
     this.createTask.emit(suggestedTask);
   }
 

@@ -1,5 +1,18 @@
 .padding {
   padding: 8px;
+  padding-top: 0px;
+}
+
+.tasks-card{
+  margin-bottom: 5px;
+}
+
+.tasks {
+    padding: 8px;
+}
+
+.glyph {
+  margin-right: 5px;
 }
 
 .partially button span {
@@ -89,15 +102,9 @@
   cursor: pointer;
 }
 
-.glyph {
-  margin-right: 5px;
-}
+
 
 .datepicker {
   position: absolute;
   margin-top: 140px;
-}
-
-.tasks {
-  margin-top: 20px;
 }

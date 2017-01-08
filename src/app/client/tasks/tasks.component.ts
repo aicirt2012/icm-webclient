@@ -11,9 +11,9 @@ import {TaskModalType} from '../../shared/constants';
 })
 
 export class TasksComponent {
-  @Input() suggestedTask: any;
-  @Input() email: Email;
-  @Input() tasksForMail: any;
+
+  @Input() email: any;
+  @Input() boards: any;
   @Output() syncTasksForMail = new EventEmitter<any>();
   @Output() openTaskModal = new EventEmitter<any>();
   @Output() closeTaskModalOutput = new EventEmitter<any>();
@@ -23,12 +23,19 @@ export class TasksComponent {
   private taskIdList: string = '582639655429c571aae95b37';
   private taskList: any = null;
   private createdTask: any = null;
+  public suggestedTasks: any = [];
+  public linkedTasks: any = [];
 
   constructor(private _taskService: TaskService) {
   }
 
   ngOnInit() {
     console.log('hello `TaskList` component');
+  }
+
+  ngOnChanges() {
+    this.suggestedTasks = this.email.suggestedTasks ? this.email.suggestedTasks : [];
+    this.linkedTasks = this.email.linkedTasks ? this.email.linkedTasks : [];
   }
 
   getAllTasks() {
@@ -45,11 +52,11 @@ export class TasksComponent {
         console.log("task has been created");
       },
       error => {
-        console.log(error)
+        console.log(error);
       },
       () => {
         /*hotfix for syncing bug */
-        this.tasksForMail.push(this.createdTask)
+
         //this.syncTasks();
       });
   }

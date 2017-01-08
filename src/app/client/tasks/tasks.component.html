@@ -9,5 +9,5 @@
       </li>
     </ul>
   </div>
-  <task-list [currentTab]="currentTab" (createTask)="createTask($event)" closeTaskModal="closeTaskModal($event)" [openTaskModal]="openTaskModal" [tasksForMail]="tasksForMail" [suggestedTask]="suggestedTask"></task-list>
-</div>
+  <task-list [boards]="boards" [currentTab]="currentTab" (createTask)="createTask($event)" closeTaskModal="closeTaskModal($event)" [openTaskModal]="openTaskModal" [linkedTasks]="linkedTasks" [suggestedTasks]="suggestedTasks"></task-list>
+  </div>

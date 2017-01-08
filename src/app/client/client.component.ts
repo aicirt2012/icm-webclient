@@ -36,13 +36,14 @@ export class ClientComponent {
   private currentId: Observable<string>;
   private taskName: string = 'testName';
   private createdTask: any = null;
-  public suggestedTask: any = {};
-  public tasksForMail: any = [];
   public boxList: any = [];
   /* we have to get this from backend */
   private taskIdList: string = '582639655429c571aae95b37';
   private noMailboxConnected = false;
   private user: any;
+  public suggestedTasks: any = [];
+  public linkedTasks: any = [];
+  public boards: any = [];
 
   constructor(private _emailService: EmailService, private _taskService: TaskService, public appState: AppState,
     public router: Router, public route: ActivatedRoute, private _settingsService: SettingsService) {
@@ -73,6 +74,7 @@ export class ClientComponent {
           this.fetchBoxByRouteId();
           this.fetchMailByRouteId();
         }
+         this.getAllBoards();
       } else {
         this.syncing = false;
         this.noMailboxConnected = true;
@@ -98,39 +100,31 @@ export class ClientComponent {
     return this._emailService.updateMailboxList();
   }
 
-  getSingleMail(id?: string) {
-    this._emailService
-      .getSingleMail(id)
-      .subscribe((data: any) => {
-        this.email = data;
-        this.suggestedTask = this._taskService.createSuggestedTask(this.email);
-        this.tasksForMail = [];
-        this.getTasksForMail(this.email.tasks);
-      },
-      error => {
-        console.log(error)
-      },
-      () => {
-        console.log(`Message with ID: ${id} has been successfully loaded`)
-      });
-  }
 
-  getTasksForMail(tasks: any) {
-    console.log("tasks to sync");
-    console.log(tasks);
-    tasks.forEach((task) => {
-      this._taskService
-        .getTaskByID(task.id)
-        .subscribe((data: any) => {
-          console.log(data);
-          this.tasksForMail.push(data);
-        });
-    });
-    console.log(this.tasksForMail);
-  }
+  getSingleMail(id?: string) {
+     this._emailService
+       .getSingleMail(id)
+       .subscribe((data: any) => {
+         this.email = data;
+         console.log("data");
+         console.log(data);
+         this.getTasksForMail(this.email);
+       },
+       error => {
+         console.log(error)
+       },
+       () => {
+         console.log(`Message with ID: ${id} has been successfully loaded`)
+       });
+   }
+
+   getTasksForMail(email: any) {
+     this.suggestedTasks = email.suggestedTasks ? email.suggestedTasks : [];
+     this.linkedTasks = email.linkedTasks ? email.linkedTasks : [];
+   }
 
   syncTasksForMail() {
-    this.getTasksForMail(this.email.tasks);
+    this.getTasksForMail(this.email);
   }
 
   getEmailBox(box?: any) {
@@ -142,6 +136,7 @@ export class ClientComponent {
           email.route = `/box/${email.box.id}/${email._id}`;
           return email;
         });
+        console.log("emails");
         console.log(this.emails);
         this.loading = false;
       },
@@ -196,9 +191,22 @@ export class ClientComponent {
       },
       () => {
         /*hotfix for syncing bug */
-        this.tasksForMail.push(this.createdTask)
+        //this.tasksForMail.push(this.createdTask)
         //this.syncTasks();
       });
+  }
+
+   getAllBoards() {
+    this._taskService.getAllBoards()
+    .subscribe((data: any) => {
+      this.boards = data;
+    },
+    error => {
+      console.log(error)
+    },
+    () => {
+    console.log("all boards success")
+    });
   }
 
 }
