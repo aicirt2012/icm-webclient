@@ -185,6 +185,32 @@ export class ClientComponent {
     this.syncBoxes([]);
   }
 
+  onBoxAdd(boxName?: string) {
+    console.log('Adding...' + boxName);
+    this._emailService.addBox(boxName).subscribe((box: any) => {
+      console.log(box);
+      this.syncBoxes([]);
+    },
+    error => {
+      console.log(error);
+      this.syncBoxes([]);
+    },
+    () => { this.syncBoxes([]) });
+  }
+
+  onBoxDelete(boxName?: string) {
+    console.log('Del eting...' + boxName);
+    this._emailService.deleteBox(boxName).subscribe((box: any) => {
+        console.log(box);
+        this.syncBoxes([]);
+      },
+      error => {
+        console.log(error);
+        this.syncBoxes([]);
+      },
+      () => { this.syncBoxes([]) });
+  }
+
   syncBoxes(boxes: string[]) {
     this.syncing = true;
     this._emailService.updateMailboxList().subscribe((data) => {

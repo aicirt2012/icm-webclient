@@ -5,7 +5,9 @@
     Please connect to a mailbox in <a routerLink="/settings/email">&nbsp;Settings</a>
   </div>
   <div *ngIf="!syncing && !noMailboxConnected" fxLayout="row" [@fadeInOut]="!syncing" fxFlex class="scrollable">
-    <navbar fxFlex="15" [boxList]="boxList" (onRefresh)="onRefresh($event)" (openDialog)="openDialog($event)" [lastSync]="user.lastSync"></navbar>
+    <navbar fxFlex="15" [boxList]="boxList" (onRefresh)="onRefresh($event)" (openDialog)="openDialog($event)" [lastSync]="user.lastSync"
+            (onBoxAdd)="onBoxAdd($event)" (onBoxDelete)="onBoxDelete($event)">
+    </navbar>
     <spinner *ngIf="loading" fxFlex [loading]="loading"></spinner>
     <div *ngIf="!loading" [@fadeInOut]="!loading" fxFlex fxLayout="row">
       <list [emails]="emails" (searchEmailBox)="searchEmailBox($event)" fxFlex="25"></list>
