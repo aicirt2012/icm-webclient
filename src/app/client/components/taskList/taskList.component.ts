@@ -17,6 +17,7 @@ export class TaskListComponent {
   @Input() openTaskModal = new EventEmitter<any>();
   public dueDate: Date;
   private opened: boolean = false;
+  public lists: any = [];
 
   constructor() {
     this.dueDate = new Date();
@@ -38,7 +39,6 @@ export class TaskListComponent {
   }
 
   public createSuggestedTask(suggestedTask: any) {
-  //  this.suggestedTask['dueDate'] = this.dueDate;
     this.createTask.emit(suggestedTask);
   }
 
@@ -47,4 +47,8 @@ export class TaskListComponent {
     else this.openTaskModal.emit(TaskModalType.create);
   }
 
+  public changeBoard(value: any) {
+    let filteredBoard = this.boards.filter((board:any) => board.name == value)[0];
+    this.lists = filteredBoard['lists'] ? filteredBoard['lists'] : [];
+  }
 }

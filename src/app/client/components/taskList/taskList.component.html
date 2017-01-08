@@ -14,11 +14,16 @@
         <p>
           <i class="material-icons glyph">people</i>Matthes, Florian</p>
         <p>{{suggestedTask.desc}}</p>
-        <md-select placeholder="Select a board..">
-          <md-option *ngFor="let board of boards" [value]="board.name">
+        <md-select class="selectList" [(ngModel)]="selectedBoard" [disabled]="selectedList"(ngModelChange)="changeBoard($event)"  placeholder="Select a board..">
+          <md-option *ngFor="let board of boards; let b = index" [value]="board.name">
             {{ board.name }}
-            dd</md-option>
+            </md-option>
         </md-select>
+        <md-select class="selectList" [(ngModel)]="selectedList" *ngIf="selectedBoard" placeholder="Select a list..">
+          <md-option *ngFor="let list of lists" [value]="list.name">
+            {{ list.name }}
+            </md-option>
+        </md-select>  <i class="material-icons"  *ngIf="selectedBoard" (click)="selectedList = null;selectedBoard = null">close</i>
       </md-card-content>
       <md-card-actions fxFlex fxLayout="row">
         <div fxFlex="33">

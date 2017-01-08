@@ -8,7 +8,11 @@
 }
 
 .tasks {
-    padding: 8px;
+  padding: 8px;
+}
+
+.selectList {
+  margin-top: 15px;
 }
 
 .glyph {
