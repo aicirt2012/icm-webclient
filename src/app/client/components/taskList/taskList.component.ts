@@ -17,28 +17,20 @@ export class TaskListComponent {
   @Input() openTaskModal = new EventEmitter<any>();
   public dueDate: Date;
   private opened: boolean = false;
+  public lists: any = [];
+  /* Dummy Values --> boardmember names should be included in boards Array */
+  public boardMembers: any = [];
+  public boardMemberDefault : string = "Peter";
 
   constructor() {
     this.dueDate = new Date();
+    this.boardMembers.push('Peter','Daniel','Constantin','Paul');
   }
 
   ngOnInit() {
   }
 
-  public openDatePicker(): void {
-    this.opened = !this.opened;
-  }
-
-  public clearDatePicker(): void {
-    this.dueDate = void 0;
-  }
-
-  public closeDatePicker(): void {
-    this.opened = false;
-  }
-
   public createSuggestedTask(suggestedTask: any) {
-  //  this.suggestedTask['dueDate'] = this.dueDate;
     this.createTask.emit(suggestedTask);
   }
 
@@ -47,4 +39,8 @@ export class TaskListComponent {
     else this.openTaskModal.emit(TaskModalType.create);
   }
 
+  public changeBoard(value: any) {
+    let filteredBoard = this.boards.filter((board:any) => board.name == value)[0];
+    this.lists = filteredBoard['lists'] ? filteredBoard['lists'] : [];
+  }
 }
