@@ -1,7 +1,7 @@
 <div *ngIf="currentTab == 'Trello'" layout="column" fxFlex>
 
   <div fxFlex fxLayout="column" class="tasks">
-
+    <!-- Suggested Tasks -->
     <md-card *ngFor="let suggestedTask of suggestedTasks; let i = index;" class="tasks-card">
       <md-card-header>
         <img md-card-avatar src="/assets/img/trello.gif">
@@ -11,56 +11,59 @@
       <md-card-content>
         <p>
           <i class="material-icons glyph">date_range</i>
-          <md-input-container class="example-full-width">
-            <input md-input placeholder="Due Date" type="date" [(ngModel)]="suggestedTask.date" value="suggestedTask.date | date:'dd.mm.yyyy'">
+          <md-input-container>
+            <input md-input placeholder="Due Date" type="date" required [(ngModel)]="suggestedTask.date" value="suggestedTask.date | date:'dd.mm.yyyy'">
           </md-input-container>
         </p>
         <!--  <p>
           <i class="material-icons glyph">date_range</i>{{suggestedTask.date | date:'dd.mm.yyyy'}}</p>-->
         <p>
-          <i class="material-icons glyph">people</i>
-          <md-select class="selectList" [(ngModel)]="boardMemberDefault" placeholder="Delegate to..">
-            <md-option *ngFor="let member of boardMembers" [value]="member">
-              {{ member }}
-            </md-option>
-          </md-select>
-        </p>
-        <p>{{suggestedTask.desc}}</p>
-        <p>
-          <md-select class="selectList" [(ngModel)]="selectedBoard" [disabled]="selectedList" (ngModelChange)="changeBoard($event)" placeholder="Select a board..">
-            <md-option *ngFor="let board of boards; let b = index" [value]="board.name">
+          <md-select class="selectList board-width" [(ngModel)]="suggestedTask.selectedBoard" [disabled]="suggestedTask.idList || suggestedTask.selectedMembers" required (ngModelChange)="changeBoard($event)" placeholder="Select a board..">
+            <md-option *ngFor="let board of boards; let b = index" [value]="board.id">
               {{ board.name }}
             </md-option>
           </md-select>
+          <i class="material-icons" *ngIf="suggestedTask.selectedBoard" (click)="suggestedTask.idList = null;suggestedTask.selectedBoard = null;suggestedTask.selectedMembers=null">close</i>
         </p>
         <p>
-          <md-select class="selectList" [(ngModel)]="selectedList" *ngIf="selectedBoard" placeholder="Select a list..">
-            <md-option *ngFor="let list of lists" [value]="list.name">
+          <md-select class="selectList board-width" [(ngModel)]="suggestedTask.idList" *ngIf="suggestedTask.selectedBoard" required placeholder="Select a list..">
+            <md-option *ngFor="let list of lists" [value]="list.id">
               {{ list.name }}
             </md-option>
           </md-select>
-          <i class="material-icons" *ngIf="selectedBoard" (click)="selectedList = null;selectedBoard = null">close</i>
+        </p>
+        <p *ngIf="suggestedTask.selectedBoard">
+          <i class="material-icons glyph">people</i>
+          <md-select multiple class="selectList board-width" [(ngModel)]="suggestedTask.selectedMembers" required placeholder="Delegate to..">
+            <md-option *ngFor="let member of boardMembers" [value]="member.id">
+              {{ member.fullName }}
+            </md-option>
+          </md-select>
+        </p>
+        <p>
+          <md-input-container class="example-full-width">
+            <textarea md-input type="text" placeholder="Task Description" maxRows="3" [(ngModel)]="suggestedTask.desc" value="suggestedTask.desc"></textarea>
+          </md-input-container>
         </p>
       </md-card-content>
       <md-card-actions fxFlex fxLayout="row">
         <div fxFlex="33">
-          <button md-button>
-            <i class="material-icons">open_in_new</i>
+          <button (click)="createSuggestedTask(suggestedTask)" md-button>
+            <md-icon>check</md-icon>
           </button>
         </div>
         <div fxFlex="33">
           <button md-button>
-            <i class="material-icons">mode_edit</i>
+            <md-icon>mode_edit</md-icon>
           </button>
         </div>
         <div fxFlex="33">
           <button md-button>
-            <i class="material-icons">close</i>
+            <md-icon>close</md-icon>
           </button>
         </div>
       </md-card-actions>
     </md-card>
-
   </div>
 
   <!--<div fxFlex fxLayout="column" class="card tasks">
