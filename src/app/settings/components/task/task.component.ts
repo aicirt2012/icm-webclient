@@ -1,17 +1,15 @@
 import { Component } from '@angular/core';
 import { SettingsService } from '../../shared';
-import { SnackbarService } from '../../../shared';
-
-
+import { MdSnackBar } from '@angular/material';
 
 @Component({
   selector: 'task',
   templateUrl: 'task.component.html',
   styleUrls: ['task.component.css'],
+  providers: [MdSnackBar]
 })
 export class TaskComponent {
 
-  public currentView: string = 'Trello';
   private trelloConfig = {
     trelloId: '',
     trelloAccessToken: '',
@@ -22,7 +20,7 @@ export class TaskComponent {
     password: ''
   };
 
-    constructor(private _settingsService: SettingsService, private _snackbarService: SnackbarService) {}
+    constructor(private _settingsService: SettingsService, private snackBar:  MdSnackBar) {}
 
     ngOnInit() {
       this._settingsService.getUserInfo().subscribe((data) => {
@@ -35,35 +33,15 @@ export class TaskComponent {
       })
     }
 
-    showView(view: string): void{
-        this.currentView = view;
-        console.log("changed view to " + view);
-    }
-
     updateUserWithScConfig() {
       this._settingsService.updateScConfig(this.scConfig)
       .subscribe((data: any) => {
         this.scConfig = data.sociocortex;
-        this._snackbarService.setMessage('Update successful');
-        this._snackbarService.setShow();
+        this.snackBar.open('Update successful.', 'OK');
       }, (error) => {
-        this._snackbarService.setMessage('Error');
-        this._snackbarService.setShow();
+        this.snackBar.open('Error while updating. Try again.', 'OK');
+
       });
-    }
-
-    getCurrentView(view: string) : boolean{
-        if(this.currentView == view)
-             return true;
-        else
-             return false;
-    }
-
-    getActive(choice: string) : string{
-        if(this.currentView == choice)
-             return "active";
-        else
-             return "";
     }
 
 }

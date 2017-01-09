@@ -4,9 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
-import { Ng2BootstrapModule } from 'ng2-bootstrap';
-import { Angular2FlexModule } from 'angular2-flex';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { MaterialModule } from '@angular/material';
+import { FlexLayoutModule } from "@angular/flex-layout";
+
 // Self-written modules
 import { ClientModule } from './client/client.module';
 import { LoginModule } from './login/login.module';
@@ -47,8 +48,8 @@ type StoreType = {
     FormsModule,
     HttpModule,
     RouterModule.forRoot(ROUTES),
-    Ng2BootstrapModule,
-    Angular2FlexModule.forRoot(),
+    MaterialModule.forRoot(),
+    FlexLayoutModule.forRoot(),
     // custom modules
     LoginModule,
     ClientModule,

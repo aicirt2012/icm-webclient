@@ -10,7 +10,6 @@ import { AppState } from './app.service';
   ],
   template: `
   <router-outlet></router-outlet>
-  <snackbar></snackbar>
   `
 })
 export class AppComponent {

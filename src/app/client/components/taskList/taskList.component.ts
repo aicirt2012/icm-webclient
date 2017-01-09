@@ -5,45 +5,57 @@ import {TaskModalType} from '../../../shared';
 @Component({
   selector: 'task-list',
   styleUrls: ['./taskList.component.css'],
-  templateUrl: './taskList.component.html'
+  templateUrl: './taskList.component.html',
 })
 
 export class TaskListComponent {
-  @Input() tasksForMail: any;
-  @Input() suggestedTask: any;
+  @Input() linkedTasks: any;
+  @Input() suggestedTasks: any;
+  @Input() boards: string[];
   @Input() currentTab: string;
   @Output() createTask = new EventEmitter<any>();
   @Input() openTaskModal = new EventEmitter<any>();
-  public dueDate: Date;
-  private opened: boolean = false;
+  public lists: any = [];
+  public boardMembers: any = [];
 
   constructor() {
-    this.dueDate = new Date();
   }
 
   ngOnInit() {
   }
 
-  public openDatePicker(): void {
-    this.opened = !this.opened;
-  }
-
-  public clearDatePicker(): void {
-    this.dueDate = void 0;
-  }
-
-  public closeDatePicker(): void {
-    this.opened = false;
-  }
-
   public createSuggestedTask(suggestedTask: any) {
-    this.suggestedTask['dueDate'] = this.dueDate;
+    console.log("creating suggested Task");
+    console.log(suggestedTask);
     this.createTask.emit(suggestedTask);
   }
+
+  /* fill lists array based on selected board */
+    public changeBoard(value: any) {
+      let filteredBoard = this.boards.filter((board:any) => board.id == value)[0];
+      this.lists = filteredBoard['lists'] ? filteredBoard['lists'] : [];
+      this.boardMembers = filteredBoard['members'] ? filteredBoard['members'] : [];
+    }
 
   public showTaskModal(type: string) {
     if (type == "edit") this.openTaskModal.emit(TaskModalType.edit);
     else this.openTaskModal.emit(TaskModalType.create);
   }
 
+/*
+  public getFilteredBoard(suggestedTask: any) {
+    return this.boards.filter((board:any) => board.name == suggestedTask.selectedBoard)[0];
+  }
+
+  public getFilteredList(suggestedTask: any) {
+    return this.lists.filter((list:any) => list.name == suggestedTask.selectedList)[0];
+  }
+
+  public getListIDByName(suggestedTask: any) {
+    let filteredBoard = this.getFilteredBoard(suggestedTask);
+    this.lists = filteredBoard['lists'] ? filteredBoard['lists'] : [];
+    let filteredList = this.getFilteredList(suggestedTask);
+    let listID = filteredList['id'] ? filteredList['id'] : "";
+    return listID;
+  }*/
 }

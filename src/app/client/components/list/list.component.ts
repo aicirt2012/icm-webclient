@@ -13,10 +13,13 @@ import { Email } from '../../shared';
 
 export class ListComponent {
   @Input() emails: Email[];
+  @Output() searchEmailBox = new EventEmitter<string>();
+
   constructor(public router: Router) {
   }
 
   isActive(route:string): boolean {
     return this.router.isActive(route, false);
   }
+
 }

@@ -13,8 +13,9 @@ import { AppState } from '../../../app.service';
 export class NavBarComponent {
   private navbarItems: any[] = [];
   @Input() boxList: any[];
+  @Input() lastSync: Date;
   @Output() onRefresh = new EventEmitter<boolean>();
-  @Output() openModal = new EventEmitter<any>();
+  @Output() openDialog = new EventEmitter<any>();
   constructor(public appState: AppState, public router: Router) {
     this.navbarItems = this.boxList;
   }
@@ -29,25 +30,25 @@ export class NavBarComponent {
         let icon;
         switch (box.shortName) { //TODO put in service
           case 'INBOX':
-            icon = 'glyphicon glyphicon-home';
+            icon = 'home';
             break;
           case 'Sent Mail':
-            icon = 'glyphicon glyphicon-share-alt';
+            icon = 'send';
             break;
           case 'Drafts':
-            icon = 'glyphicon glyphicon-file';
+            icon = 'drafts';
             break;
           case 'Starred':
-            icon = 'glyphicon glyphicon-star';
+            icon = 'star';
             break;
           case 'Spam':
-            icon = 'glyphicon glyphicon-warning-sign';
+            icon = 'error';
             break;
           case 'Trash':
-            icon = 'glyphicon glyphicon-trash';
+            icon = 'delete';
             break;
           default:
-            icon = 'glyphicon glyphicon-home';
+            icon = 'home';
             break;
         };
         box.route = `/box/${box.id}`;
@@ -77,8 +78,8 @@ export class NavBarComponent {
     this.onRefresh.emit(true);
   }
 
-  openCreateEmailModal() {
-    this.openModal.emit(ModalType.create);
+  openCreateEmailDialog() {
+    this.openDialog.emit(ModalType.create);
   }
 
 }

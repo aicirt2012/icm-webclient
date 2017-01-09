@@ -1,56 +1,22 @@
-<div layout="column" flex class="wrapper">
+<div fxLayout="column" fxFlex>
     <top-navbar></top-navbar>
 
-    <div layout="row" flex class="inbox-nav">
-        <div flex="15" class="inbox-nav">
-            <div class="account-usertitle" layout="column" layout-align="start center" flex>
-
-                <img id="account-img" class="account-img-card"
-                     src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
-
-                <div flex layout="row" class="account-usermenu">
-                    <ul class="nav" flex>
-                        <li >
-                            <a [routerLinkActive]="['route-active']" class="listitems" [routerLink]="['/settings/email']">
-                                <i class="glyphicon glyphicon-envelope"></i>
-                                Email Settings
-                            </a>
-                        </li>
-                        <li >
-                            <a [routerLinkActive]="['route-active']" class="listitems"[routerLink]="['/settings/tasks']">
-                                <i class="glyphicon glyphicon-ok"></i>
-                                Task Settings
-                            </a>
-                        </li>
-                        <li >
-                            <a [routerLinkActive]="['route-active']"class="listitems" [routerLink]="['/settings/overview']">
-                                <i class="glyphicon glyphicon-home"></i>
-                                Overview
-                            </a>
-                        </li>
-                        <li >
-                            <a [routerLinkActive]="['route-active']"class="listitems" [routerLink]="['/settings/help']">
-                                <i class="glyphicon glyphicon-flag"></i>
-                                Help
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+    <div fxLayout="row">
+        <div fxFlex="15" fxFlex.sm="30" fxFlex.xs="30">
+          <md-nav-list fxFlex>
+            <md-list-item *ngFor="let link of links" [routerLinkActive]="['route-active']">
+              <a md-line [routerLink]="link.link">{{link.name}}</a>
+                <md-icon>{{link.icon}}</md-icon>
+            </md-list-item>
+          </md-nav-list>
         </div>
-        <div flex layout="row">
-            <div flex>
-                <div flex class="account-content">
-                    <!-- Account Settings -->
-                    <account flex *ngIf="getCurrentView('email')"></account>
-                    <!-- Tasks -->
-                    <task flex *ngIf="getCurrentView('tasks')"></task>
-                    <!-- Overview -->
-                    <overview flex *ngIf="getCurrentView('overview')"></overview>
-                    <!-- Help -->
-                    <help flex *ngIf="getCurrentView('help')"></help>
+        <div fxFlex layout="row">
+                <div fxFlex class="account-content">
+                    <account fxFlex *ngIf="getCurrentView('email')"></account>
+                    <task fxFlex *ngIf="getCurrentView('tasks')"></task>
+                    <overview fxFlex *ngIf="getCurrentView('overview')"></overview>
+                    <help fxFlex *ngIf="getCurrentView('help')"></help>
                 </div>
-            </div>
         </div>
     </div>
 </div>

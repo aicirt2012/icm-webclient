@@ -1,14 +1,11 @@
-<ul flex class="nav nav-tabs">
-  <li role="presentation" class="{{getActive('Trello')}}">
-    <a class="pointer" (click)="showView('Trello')">Trello</a>
-  </li>
-  <li role="presentation" class="{{getActive('SocioCortex')}}">
-    <a class="pointer" (click)="showView('SocioCortex')">SocioCortex</a>
-  </li>
-</ul>
-
-<div class="row"></div>
-
-<trello *ngIf="getCurrentView('Trello')" [trelloConfig]="trelloConfig"></trello>
-<socioCortex *ngIf="getCurrentView('SocioCortex')" (updateUserWithScConfig)="updateUserWithScConfig($event)"
-[scConfig]="scConfig"></socioCortex>
+<md-card fxFlex>
+<md-tab-group>
+  <md-tab label="Trello">
+    <trello [trelloConfig]="trelloConfig"></trello>
+  </md-tab>
+  <md-tab label="SocioCortex">
+    <socioCortex (updateUserWithScConfig)="updateUserWithScConfig($event)"
+    [scConfig]="scConfig"></socioCortex>
+    </md-tab>
+</md-tab-group>
+</md-card>

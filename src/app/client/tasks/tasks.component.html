@@ -1,13 +1,3 @@
-<div layout="column" flex>
-  <div style="margin-bottom:10px;">
-    <ul class="nav nav-tabs nav-justified">
-      <li class="{{getActive('Trello')}} pointer">
-        <a (click)="switchTab('Trello')">Trello</a>
-      </li>
-      <li class="{{getActive('Socio Cortex')}} pointer">
-        <a (click)="switchTab('Socio Cortex')">SocioCortex</a>
-      </li>
-    </ul>
-  </div>
-  <task-list [currentTab]="currentTab" (createTask)="createTask($event)" closeTaskModal="closeTaskModal($event)" [openTaskModal]="openTaskModal" [tasksForMail]="tasksForMail" [suggestedTask]="suggestedTask"></task-list>
+<div fxLayout="column" fxFlex class="full-height">
+  <task-list class="scrollable" [boards]="boards" [currentTab]="currentTab" (createTask)="createTask($event)" closeTaskModal="closeTaskModal($event)" [openTaskModal]="openTaskModal" [linkedTasks]="linkedTasks" [suggestedTasks]="suggestedTasks"></task-list>
 </div>

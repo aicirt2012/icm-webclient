@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { Ng2BootstrapModule } from 'ng2-bootstrap';
-import { Angular2FlexModule } from 'angular2-flex';
+import { MaterialModule } from '@angular/material';
+import { FlexLayoutModule } from "@angular/flex-layout";
 import { SpinnerComponent, TopNavbarComponent, SnackbarComponent } from './components'; // all shared components
 import { AuthService, HttpService, SnackbarService } from './services';
 
 @NgModule({
-  imports: [RouterModule, BrowserModule, FormsModule, Ng2BootstrapModule, Angular2FlexModule],
+  imports: [RouterModule, BrowserModule, FormsModule, MaterialModule.forRoot(), FlexLayoutModule.forRoot()],
   declarations: [
     SpinnerComponent,
     TopNavbarComponent,

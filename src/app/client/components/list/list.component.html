@@ -1,4 +1,4 @@
-<div flex layout="column">
+<!-- <div fxFlex fxLayout="column">
   <search-bar></search-bar>
   <ul *ngFor="let mail of emails; let i = index" class="{{mail.unread}}" flex>
     <li flex layout="row" layout-align="start start" class="lc-padding lc-mail" [routerLink]="mail.route" [class.route-active]="isActive(mail.route)">
@@ -14,4 +14,15 @@
       </div>
   </li>
   </ul>
-</div>
+</div> -->
+
+<div fxLayout="column" class="full-height">
+  <search-bar [searchEmailBox]="searchEmailBox"></search-bar>
+  <md-list class="scrollable">
+    <md-list-item [routerLink]="mail.route" [class.route-active]="isActive(mail.route)" *ngFor="let mail of emails; let i = index">
+      <h3 md-line> {{mail.from[0].name ? mail.from[0].name : mail.from[0].address}} </h3>
+      <p md-line> {{mail.subject}} </p>
+      <p md-line> {{mail.date | date:'shortTime'}}, {{mail.date | date:'shortDate'}} </p>
+    </md-list-item>
+  </md-list>
+  </div>

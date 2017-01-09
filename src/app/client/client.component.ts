@@ -2,7 +2,6 @@ import { Component, ViewChild, style, state, animate, transition, trigger } from
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AppState } from '../app.service';
 import * as moment from 'moment';
-import { ModalDirective } from 'ng2-bootstrap';
 import { Email } from './shared';
 import { EmailService, TaskService } from './shared';
 /* Importing SettingsService from other module is not optimal */
@@ -10,6 +9,9 @@ import { SettingsService } from '../settings/shared';
 import { Observable } from 'rxjs/Observable';
 import { ModalType } from '../shared/constants';
 import { TaskModalType } from '../shared/constants';
+import { MdDialog } from '@angular/material';
+import { EmailDialogComponent } from './emailDialog';
+
 
 @Component({
   selector: 'client',
@@ -33,19 +35,25 @@ export class ClientComponent {
   public loading: boolean = true;
   public syncing: boolean = true;
   private currentBox: Observable<string>;
+  private lastFetchedBox: any;
   private currentId: Observable<string>;
   private taskName: string = 'testName';
   private createdTask: any = null;
-  public suggestedTask: any = {};
-  public tasksForMail: any = [];
   public boxList: any = [];
   /* we have to get this from backend */
   private taskIdList: string = '582639655429c571aae95b37';
   private noMailboxConnected = false;
   private user: any;
+  public suggestedTasks: any = [];
+  public linkedTasks: any = [];
+  public boards: any = [];
+  public dialogConfig = {
+    width: '80%',
+    height: '80%'
+  }
 
   constructor(private _emailService: EmailService, private _taskService: TaskService, public appState: AppState,
-    public router: Router, public route: ActivatedRoute, private _settingsService: SettingsService) {
+    public router: Router, public route: ActivatedRoute, private _settingsService: SettingsService, public dialog: MdDialog) {
     this.currentId = this.route.params.map(params => params['emailId'] || 'None');
     this.currentBox = this.route.params.map(params => params['boxId'] || 'None');
   }
@@ -73,6 +81,7 @@ export class ClientComponent {
           this.fetchBoxByRouteId();
           this.fetchMailByRouteId();
         }
+         this.getAllBoards();
       } else {
         this.syncing = false;
         this.noMailboxConnected = true;
@@ -98,14 +107,13 @@ export class ClientComponent {
     return this._emailService.updateMailboxList();
   }
 
+
   getSingleMail(id?: string) {
     this._emailService
       .getSingleMail(id)
       .subscribe((data: any) => {
         this.email = data;
-        this.suggestedTask = this._taskService.createSuggestedTask(this.email);
-        this.tasksForMail = [];
-        this.getTasksForMail(this.email.tasks);
+        this.getTasksForMail(this.email);
       },
       error => {
         console.log(error)
@@ -115,22 +123,13 @@ export class ClientComponent {
       });
   }
 
-  getTasksForMail(tasks: any) {
-    console.log("tasks to sync");
-    console.log(tasks);
-    tasks.forEach((task) => {
-      this._taskService
-        .getTaskByID(task.id)
-        .subscribe((data: any) => {
-          console.log(data);
-          this.tasksForMail.push(data);
-        });
-    });
-    console.log(this.tasksForMail);
+  getTasksForMail(email: any) {
+    this.suggestedTasks = email.suggestedTasks ? email.suggestedTasks : [];
+    this.linkedTasks = email.linkedTasks ? email.linkedTasks : [];
   }
 
   syncTasksForMail() {
-    this.getTasksForMail(this.email.tasks);
+    this.getTasksForMail(this.email);
   }
 
   getEmailBox(box?: any) {
@@ -138,11 +137,11 @@ export class ClientComponent {
     this._emailService
       .getEmailsWithPagination(box.name)
       .subscribe((data: any) => {
+        this.lastFetchedBox = box;
         this.emails = data.docs.map((email) => {
           email.route = `/box/${email.box.id}/${email._id}`;
           return email;
         });
-        console.log(this.emails);
         this.loading = false;
       },
       error => {
@@ -151,13 +150,25 @@ export class ClientComponent {
       () => { console.log(`Mails successfully loaded`) });
   }
 
-  openModal(type?: ModalType) {
-    console.log("open email modal in client");
-    this.currentModalType = type;
+  searchEmailBox(query = '') {
+    this.loading = true;
+    this._emailService
+      .searchEmailsWithPagination(this.lastFetchedBox.name, query)
+      .subscribe((data: any) => {
+        this.emails = data.docs.map((email) => {
+          email.route = `/box/${email.box.id}/${email._id}`;
+          return email;
+        });
+        this.loading = false;
+      },
+      error => {
+        console.log(error)
+      },
+      () => { console.log(`Mails successfully loaded`) });
   }
 
-  closeModal() {
-    this.currentModalType = null;
+  openDialog(type: ModalType) {
+    let dialogRef = this.dialog.open(EmailDialogComponent, this.dialogConfig);
   }
 
   closeTaskModal() {
@@ -196,9 +207,23 @@ export class ClientComponent {
       },
       () => {
         /*hotfix for syncing bug */
-        this.tasksForMail.push(this.createdTask)
+        //this.tasksForMail.push(this.createdTask)
         //this.syncTasks();
       });
+  }
+
+   getAllBoards() {
+    this._taskService.getAllBoards()
+    .subscribe((data: any) => {
+      this.boards = data;
+      console.log(this.boards);
+    },
+    error => {
+      console.log(error)
+    },
+    () => {
+    console.log("all boards success")
+    });
   }
 
 }

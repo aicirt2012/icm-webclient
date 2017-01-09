@@ -1,16 +1,5 @@
-<div flex layout="row">
-  <ul class="nav navbar-nav">
-    <li>
-      <a class="pointer" (click)="openReplyEmailModal()">
-        <span style="margin-right: 5px;" class="glyphicon glyphicon-arrow-left"></span>Reply</a>
-    </li>
-    <li>
-      <a class="pointer" (click)="openForwardEmailModal()">
-        <span style="margin-right: 5px;" class="glyphicon glyphicon-share-alt"></span>Forward</a>
-    </li>
-    <li>
-      <a class="pointer">
-        <span style="margin-right: 5px;" class="glyphicon glyphicon-trash"></span>Delete</a>
-    </li>
-  </ul>
+<div fxFlex fxLayout="row" fxLayoutAlign="center center" class="action-buttons">
+    <button md-raised-button (click)="openReplyEmailModal()"><md-icon>reply</md-icon>Reply</button>
+    <button md-raised-button (click)="openForwardEmailModal()"><md-icon>forward</md-icon>Forward</button>
+    <button md-raised-button><md-icon>delete</md-icon>Delete</button>
 </div>

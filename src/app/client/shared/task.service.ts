@@ -36,45 +36,34 @@ export class TaskService {
   /*
   @param: mail: any - Mailobject {} TODO
   */
-  createTask(email: Email, taskObject: any, idList?:string): Observable<any> {
+  createTask(email: Email, task: any, idList?:string): Observable<any> {
     const options = {
-      name: taskObject.subject,
-      idList: idList
+      name: task.name,
+      idList: task.idList,
+      desc: task.desc,
+      idMembers: task.selectedMembers,
+      due: task.date
     };
     const path = `email/${email._id}/addTask`;
+    console.log("in task service ");
+    console.log("path: " + path);
+    console.log(options);
     return this._httpService.generateRequest(RequestMethod.Post, this.domain, path, null, options);
   }
 
-  /*
-   @param: id: string
-   returns Email
-   */
   getTaskByID(id :string): Observable<any> {
     return this._httpService.generateRequest(RequestMethod.Get, this.domain, `/${id}`, null, null);
   }
 
-  createSuggestedTask(email: Email) {
-    console.log("email");
-    console.log(email);
-    let peopleArray: any[] = [];
-    let sender: string = "";
-    let receiver: string = "";
-    /* this has to be done for all names */
-    if(email.from[0].name == "") sender = email.from[0].address;
-    else sender = email.from[0].name;
-    peopleArray.push(sender);
+  getListsForBoard(boardID :string, boards :any[]): Observable<any> {
+    const options = {
+      provider: 'trello'
+    };
+    const path = `boards/${boardID}/lists`;
+    return this._httpService.generateRequest(RequestMethod.Get, this.domain, 'boards', null, null);
+  }
 
-    if(email.to[0].name == "") receiver = email.to[0].address;
-    else receiver = email.to[0].name;
-    if (sender != receiver) peopleArray.push(receiver);
-
-    let suggestedTaskObj = {
-      subject: email.subject,
-      text: email.text,
-      html: email.html,
-      people: peopleArray,
-      date: email.date
-    }
-    return suggestedTaskObj;
+  getAllBoards(): Observable<any> {
+    return this._httpService.generateRequest(RequestMethod.Get, this.domain, 'boards', null, null);
   }
 }
