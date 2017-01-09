@@ -18,9 +18,13 @@ export class TaskListComponent {
   public dueDate: Date;
   private opened: boolean = false;
   public lists: any = [];
+  /* Dummy Values --> boardmember names should be included in boards Array */
+  public boardMembers: any = [];
+  public boardMemberDefault : string = "Peter";
 
   constructor() {
     this.dueDate = new Date();
+    this.boardMembers.push('Peter','Daniel','Constantin','Paul');
   }
 
   ngOnInit() {

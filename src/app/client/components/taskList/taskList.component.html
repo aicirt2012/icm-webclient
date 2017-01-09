@@ -12,13 +12,19 @@
         <p>
           <i class="material-icons glyph">date_range</i>
           <md-input-container class="example-full-width">
-            <input md-input placeholder="Due Date" type="date" value="suggestedTask.date | date:'dd.mm.yyyy'">
+            <input md-input placeholder="Due Date" type="date" [(ngModel)]="suggestedTask.date" value="suggestedTask.date | date:'dd.mm.yyyy'">
           </md-input-container>
         </p>
-      <!--  <p>
+        <!--  <p>
           <i class="material-icons glyph">date_range</i>{{suggestedTask.date | date:'dd.mm.yyyy'}}</p>-->
         <p>
-          <i class="material-icons glyph">people</i>Matthes, Florian</p>
+          <i class="material-icons glyph">people</i>
+          <md-select class="selectList" [(ngModel)]="boardMemberDefault" placeholder="Delegate to..">
+            <md-option *ngFor="let member of boardMembers" [value]="member">
+              {{ member }}
+            </md-option>
+          </md-select>
+        </p>
         <p>{{suggestedTask.desc}}</p>
         <p>
           <md-select class="selectList" [(ngModel)]="selectedBoard" [disabled]="selectedList" (ngModelChange)="changeBoard($event)" placeholder="Select a board..">
