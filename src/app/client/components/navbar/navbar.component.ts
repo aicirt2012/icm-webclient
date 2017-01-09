@@ -13,6 +13,7 @@ import { AppState } from '../../../app.service';
 export class NavBarComponent {
   private navbarItems: any[] = [];
   @Input() boxList: any[];
+  @Input() lastSync: Date;
   @Output() onRefresh = new EventEmitter<boolean>();
   @Output() openDialog = new EventEmitter<any>();
   constructor(public appState: AppState, public router: Router) {
