@@ -15,15 +15,10 @@ export class TaskListComponent {
   @Input() currentTab: string;
   @Output() createTask = new EventEmitter<any>();
   @Input() openTaskModal = new EventEmitter<any>();
-  public dueDate: Date;
-  private opened: boolean = false;
   public lists: any = [];
-  /* Dummy Values --> boardmember names should be included in boards Array */
   public boardMembers: any = [];
 
   constructor() {
-    this.dueDate = new Date();
-    //this.boardMembers.push('Peter','Daniel','Constantin','Paul');
   }
 
   ngOnInit() {
@@ -32,9 +27,8 @@ export class TaskListComponent {
   public createSuggestedTask(suggestedTask: any) {
     console.log("creating suggested Task");
     console.log(suggestedTask);
-    /* now get list id by list name */
-    console.log(this.boards);
-    //this.createTask.emit(suggestedTask);
+    suggestedTask['idList'] = this.getListIDByName(suggestedTask);
+    this.createTask.emit(suggestedTask);
   }
 
   public showTaskModal(type: string) {
@@ -46,5 +40,21 @@ export class TaskListComponent {
     let filteredBoard = this.boards.filter((board:any) => board.name == value)[0];
     this.lists = filteredBoard['lists'] ? filteredBoard['lists'] : [];
     this.boardMembers = filteredBoard['members'] ? filteredBoard['members'] : [];
+  }
+
+  public getFilteredBoard(suggestedTask: any) {
+    return this.boards.filter((board:any) => board.name == suggestedTask.selectedBoard)[0];
+  }
+
+  public getFilteredList(suggestedTask: any) {
+    return this.lists.filter((list:any) => list.name == suggestedTask.selectedList)[0];
+  }
+
+  public getListIDByName(suggestedTask: any) {
+    let filteredBoard = this.getFilteredBoard(suggestedTask);
+    this.lists = filteredBoard['lists'] ? filteredBoard['lists'] : [];
+    let filteredList = this.getFilteredList(suggestedTask);
+    let listID = filteredList['id'] ? filteredList['id'] : "";
+    return listID;
   }
 }

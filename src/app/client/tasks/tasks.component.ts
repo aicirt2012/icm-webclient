@@ -46,7 +46,8 @@ export class TasksComponent {
   }
 
   createTask(taskObject: any) {
-    this._taskService.createTask(this.email, taskObject, this.taskIdList)
+    console.log("list id in tasks: " + taskObject.idList);
+    this._taskService.createTask(this.email, taskObject)
       .subscribe((task: any) => {
         this.createdTask = task;
         console.log("task has been created");

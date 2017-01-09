@@ -38,10 +38,13 @@ export class TaskService {
   */
   createTask(email: Email, taskObject: any, idList?:string): Observable<any> {
     const options = {
-      name: taskObject.subject,
-      idList: idList
+      name: taskObject.name,
+      idList: taskObject.idList
     };
     const path = `email/${email._id}/addTask`;
+    console.log("in task service ");
+    console.log("path: " + path);
+    console.log(options);
     return this._httpService.generateRequest(RequestMethod.Post, this.domain, path, null, options);
   }
 
