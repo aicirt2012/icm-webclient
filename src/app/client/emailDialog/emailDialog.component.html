@@ -1,0 +1,26 @@
+<div fxFlex fxLayout="column">
+  <div md-dialog-title fxLayout="row">
+    <span fxFlex>New Email</span>
+    <md-icon (click)="closeDialog()">close</md-icon>
+  </div>
+  <div>
+    <form fxFlex fxLayout="column">
+      <md-input-container>
+          <input md-input placeholder="TO:" type="email" name="to-email" [(ngModel)]="emailForm.to" autofocus required>
+      </md-input-container>
+    
+      <md-input-container *ngIf="cc">
+          <input md-input placeholder="CC:" type="email" name="cc-email" [(ngModel)]="emailForm.cc">
+      </md-input-container>
+      <md-input-container *ngIf="bcc">
+          <input md-input placeholder="BCC:" type="email" name="bcc-email" [(ngModel)]="emailForm.bcc">
+      </md-input-container>
+      <md-input-container>
+        <textarea md-input placeholder="Message" [(ngModel)]="emailForm.text" name="text" rows="10"></textarea>
+      </md-input-container>
+    </form>
+  </div>
+  <md-dialog-actions>
+    <button md-submit md-raised-button color="primary">Send Email</button>
+  </md-dialog-actions>
+</div>

@@ -2,7 +2,6 @@ import { Component, ViewChild, style, state, animate, transition, trigger } from
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AppState } from '../app.service';
 import * as moment from 'moment';
-import { ModalDirective } from 'ng2-bootstrap';
 import { Email } from './shared';
 import { EmailService, TaskService } from './shared';
 /* Importing SettingsService from other module is not optimal */
@@ -10,6 +9,9 @@ import { SettingsService } from '../settings/shared';
 import { Observable } from 'rxjs/Observable';
 import { ModalType } from '../shared/constants';
 import { TaskModalType } from '../shared/constants';
+import { MdDialog } from '@angular/material';
+import { EmailDialogComponent } from './emailDialog';
+
 
 @Component({
   selector: 'client',
@@ -44,9 +46,13 @@ export class ClientComponent {
   public suggestedTasks: any = [];
   public linkedTasks: any = [];
   public boards: any = [];
+  public dialogConfig = {
+    width: '80%',
+    height: '80%'
+  }
 
   constructor(private _emailService: EmailService, private _taskService: TaskService, public appState: AppState,
-    public router: Router, public route: ActivatedRoute, private _settingsService: SettingsService) {
+    public router: Router, public route: ActivatedRoute, private _settingsService: SettingsService, public dialog: MdDialog) {
     this.currentId = this.route.params.map(params => params['emailId'] || 'None');
     this.currentBox = this.route.params.map(params => params['boxId'] || 'None');
   }
@@ -146,13 +152,8 @@ export class ClientComponent {
       () => { console.log(`Mails successfully loaded`) });
   }
 
-  openModal(type?: ModalType) {
-    console.log("open email modal in client");
-    this.currentModalType = type;
-  }
-
-  closeModal() {
-    this.currentModalType = null;
+  openDialog(type: ModalType) {
+    let dialogRef = this.dialog.open(EmailDialogComponent, this.dialogConfig);
   }
 
   closeTaskModal() {
