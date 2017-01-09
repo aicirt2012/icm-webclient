@@ -22,3 +22,11 @@
 .pointer {
   cursor: pointer;
 }
+
+.example-full-width {
+  width: 100%;
+}
+
+.board-width {
+  width: 80%;
+}

@@ -11,40 +11,44 @@
       <md-card-content>
         <p>
           <i class="material-icons glyph">date_range</i>
-          <md-input-container class="example-full-width">
+          <md-input-container>
             <input md-input placeholder="Due Date" type="date" required [(ngModel)]="suggestedTask.date" value="suggestedTask.date | date:'dd.mm.yyyy'">
           </md-input-container>
         </p>
         <!--  <p>
           <i class="material-icons glyph">date_range</i>{{suggestedTask.date | date:'dd.mm.yyyy'}}</p>-->
         <p>
-          <i class="material-icons glyph">people</i>
-          <md-select class="selectList" [(ngModel)]="boardMemberDefault" required placeholder="Delegate to..">
-            <md-option *ngFor="let member of boardMembers" [value]="member">
-              {{ member }}
-            </md-option>
-          </md-select>
-        </p>
-        <p>{{suggestedTask.desc}}</p>
-        <p>
-          <md-select class="selectList" [(ngModel)]="selectedBoard" [disabled]="selectedList" required (ngModelChange)="changeBoard($event)" placeholder="Select a board..">
+          <md-select class="selectList board-width" [(ngModel)]="suggestedTask.selectedBoard" [disabled]="suggestedTask.selectedList || suggestedTask.selectedMembers" required (ngModelChange)="changeBoard($event)" placeholder="Select a board..">
             <md-option *ngFor="let board of boards; let b = index" [value]="board.name">
               {{ board.name }}
             </md-option>
           </md-select>
+          <i class="material-icons" *ngIf="suggestedTask.selectedBoard" (click)="suggestedTask.selectedList = null;suggestedTask.selectedBoard = null">close</i>
         </p>
         <p>
-          <md-select class="selectList" [(ngModel)]="selectedList" *ngIf="selectedBoard" required placeholder="Select a list..">
+          <md-select class="selectList board-width" [(ngModel)]="suggestedTask.selectedList" *ngIf="suggestedTask.selectedBoard" required placeholder="Select a list..">
             <md-option *ngFor="let list of lists" [value]="list.name">
               {{ list.name }}
             </md-option>
           </md-select>
-          <i class="material-icons" *ngIf="selectedBoard" (click)="selectedList = null;selectedBoard = null">close</i>
+        </p>
+        <p *ngIf="suggestedTask.selectedBoard">
+          <i class="material-icons glyph">people</i>
+          <md-select multiple class="selectList board-width" [(ngModel)]="suggestedTask.selectedMembers" required placeholder="Delegate to..">
+            <md-option *ngFor="let member of boardMembers" [value]="member.fullName">
+              {{ member.fullName }}
+            </md-option>
+          </md-select>
+        </p>
+        <p>
+          <md-input-container class="example-full-width">
+            <textarea md-input type="text" placeholder="Task Description" maxRows="3" [(ngModel)]="suggestedTask.desc" value="suggestedTask.desc"></textarea>
+          </md-input-container>
         </p>
       </md-card-content>
       <md-card-actions fxFlex fxLayout="row">
         <div fxFlex="33">
-          <button md-button>
+          <button (click)="createSuggestedTask(suggestedTask)" md-button>
             <i class="material-icons">open_in_new</i>
           </button>
         </div>

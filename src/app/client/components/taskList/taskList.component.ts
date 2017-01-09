@@ -5,7 +5,7 @@ import {TaskModalType} from '../../../shared';
 @Component({
   selector: 'task-list',
   styleUrls: ['./taskList.component.css'],
-  templateUrl: './taskList.component.html'
+  templateUrl: './taskList.component.html',
 })
 
 export class TaskListComponent {
@@ -20,18 +20,21 @@ export class TaskListComponent {
   public lists: any = [];
   /* Dummy Values --> boardmember names should be included in boards Array */
   public boardMembers: any = [];
-  public boardMemberDefault : string = "Peter";
 
   constructor() {
     this.dueDate = new Date();
-    this.boardMembers.push('Peter','Daniel','Constantin','Paul');
+    //this.boardMembers.push('Peter','Daniel','Constantin','Paul');
   }
 
   ngOnInit() {
   }
 
   public createSuggestedTask(suggestedTask: any) {
-    this.createTask.emit(suggestedTask);
+    console.log("creating suggested Task");
+    console.log(suggestedTask);
+    /* now get list id by list name */
+    console.log(this.boards);
+    //this.createTask.emit(suggestedTask);
   }
 
   public showTaskModal(type: string) {
@@ -42,5 +45,6 @@ export class TaskListComponent {
   public changeBoard(value: any) {
     let filteredBoard = this.boards.filter((board:any) => board.name == value)[0];
     this.lists = filteredBoard['lists'] ? filteredBoard['lists'] : [];
+    this.boardMembers = filteredBoard['members'] ? filteredBoard['members'] : [];
   }
 }
