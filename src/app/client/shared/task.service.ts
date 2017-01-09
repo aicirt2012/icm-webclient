@@ -36,10 +36,13 @@ export class TaskService {
   /*
   @param: mail: any - Mailobject {} TODO
   */
-  createTask(email: Email, taskObject: any, idList?:string): Observable<any> {
+  createTask(email: Email, task: any, idList?:string): Observable<any> {
     const options = {
-      name: taskObject.name,
-      idList: taskObject.idList
+      name: task.name,
+      idList: task.idList,
+      desc: task.desc,
+      idMembers: task.selectedMembers,
+      due: task.date
     };
     const path = `email/${email._id}/addTask`;
     console.log("in task service ");

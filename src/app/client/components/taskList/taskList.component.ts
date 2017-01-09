@@ -27,21 +27,22 @@ export class TaskListComponent {
   public createSuggestedTask(suggestedTask: any) {
     console.log("creating suggested Task");
     console.log(suggestedTask);
-    suggestedTask['idList'] = this.getListIDByName(suggestedTask);
     this.createTask.emit(suggestedTask);
   }
+
+  /* fill lists array based on selected board */
+    public changeBoard(value: any) {
+      let filteredBoard = this.boards.filter((board:any) => board.id == value)[0];
+      this.lists = filteredBoard['lists'] ? filteredBoard['lists'] : [];
+      this.boardMembers = filteredBoard['members'] ? filteredBoard['members'] : [];
+    }
 
   public showTaskModal(type: string) {
     if (type == "edit") this.openTaskModal.emit(TaskModalType.edit);
     else this.openTaskModal.emit(TaskModalType.create);
   }
 
-  public changeBoard(value: any) {
-    let filteredBoard = this.boards.filter((board:any) => board.name == value)[0];
-    this.lists = filteredBoard['lists'] ? filteredBoard['lists'] : [];
-    this.boardMembers = filteredBoard['members'] ? filteredBoard['members'] : [];
-  }
-
+/*
   public getFilteredBoard(suggestedTask: any) {
     return this.boards.filter((board:any) => board.name == suggestedTask.selectedBoard)[0];
   }
@@ -56,5 +57,5 @@ export class TaskListComponent {
     let filteredList = this.getFilteredList(suggestedTask);
     let listID = filteredList['id'] ? filteredList['id'] : "";
     return listID;
-  }
+  }*/
 }
