@@ -17,7 +17,7 @@
 </div> -->
 
 <div fxLayout="column" class="full-height">
-  <search-bar></search-bar>
+  <search-bar [searchEmailBox]="searchEmailBox"></search-bar>
   <md-list class="scrollable">
     <md-list-item [routerLink]="mail.route" [class.route-active]="isActive(mail.route)" *ngFor="let mail of emails; let i = index">
       <h3 md-line> {{mail.from[0].name ? mail.from[0].name : mail.from[0].address}} </h3>

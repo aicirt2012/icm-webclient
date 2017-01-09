@@ -1,8 +1,8 @@
 <div fxLayout="row" fxFlex>
     <md-input-container fxFlex>
-        <input md-input placeholder="Search...">
+        <input md-input placeholder="Search..." [(ngModel)]="query">
     </md-input-container>
-    <button md-mini-fab>
+    <button md-icon-button (click)="search()">
         <md-icon class="md-24">search</md-icon>
     </button>
 </div>

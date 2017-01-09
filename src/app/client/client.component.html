@@ -8,7 +8,7 @@
     <navbar fxFlex="15" [boxList]="boxList" (onRefresh)="onRefresh($event)" (openDialog)="openDialog($event)" [lastSync]="user.lastSync"></navbar>
     <spinner *ngIf="loading" fxFlex [loading]="loading"></spinner>
     <div *ngIf="!loading" [@fadeInOut]="!loading" fxFlex fxLayout="row">
-      <list [emails]="emails" (getSingleMail)="getSingleMail($event)" fxFlex="25"></list>
+      <list [emails]="emails" (searchEmailBox)="searchEmailBox($event)" fxFlex="25"></list>
       <detailed-view *ngIf="email" [email]="email" (openModal)="openModal($event)" fxFlex="55"></detailed-view>
         <tasks *ngIf="email" [email]="email" [boards]="boards" (syncTasksForMail)="syncTasksForMail()" (openTaskModal)="openTaskModal($event)" (closeTaskModalOutput)="closeTaskModalOutput($event)" fxFlex="20"></tasks>
   </div>

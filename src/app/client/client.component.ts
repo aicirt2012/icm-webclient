@@ -35,6 +35,7 @@ export class ClientComponent {
   public loading: boolean = true;
   public syncing: boolean = true;
   private currentBox: Observable<string>;
+  private lastFetchedBox: any;
   private currentId: Observable<string>;
   private taskName: string = 'testName';
   private createdTask: any = null;
@@ -108,26 +109,24 @@ export class ClientComponent {
 
 
   getSingleMail(id?: string) {
-     this._emailService
-       .getSingleMail(id)
-       .subscribe((data: any) => {
-         this.email = data;
-         console.log("data");
-         console.log(data);
-         this.getTasksForMail(this.email);
-       },
-       error => {
-         console.log(error)
-       },
-       () => {
-         console.log(`Message with ID: ${id} has been successfully loaded`)
-       });
-   }
+    this._emailService
+      .getSingleMail(id)
+      .subscribe((data: any) => {
+        this.email = data;
+        this.getTasksForMail(this.email);
+      },
+      error => {
+        console.log(error)
+      },
+      () => {
+        console.log(`Message with ID: ${id} has been successfully loaded`)
+      });
+  }
 
-   getTasksForMail(email: any) {
-     this.suggestedTasks = email.suggestedTasks ? email.suggestedTasks : [];
-     this.linkedTasks = email.linkedTasks ? email.linkedTasks : [];
-   }
+  getTasksForMail(email: any) {
+    this.suggestedTasks = email.suggestedTasks ? email.suggestedTasks : [];
+    this.linkedTasks = email.linkedTasks ? email.linkedTasks : [];
+  }
 
   syncTasksForMail() {
     this.getTasksForMail(this.email);
@@ -138,12 +137,28 @@ export class ClientComponent {
     this._emailService
       .getEmailsWithPagination(box.name)
       .subscribe((data: any) => {
+        this.lastFetchedBox = box;
         this.emails = data.docs.map((email) => {
           email.route = `/box/${email.box.id}/${email._id}`;
           return email;
         });
-        console.log("emails");
-        console.log(this.emails);
+        this.loading = false;
+      },
+      error => {
+        console.log(error)
+      },
+      () => { console.log(`Mails successfully loaded`) });
+  }
+
+  searchEmailBox(query = '') {
+    this.loading = true;
+    this._emailService
+      .searchEmailsWithPagination(this.lastFetchedBox.name, query)
+      .subscribe((data: any) => {
+        this.emails = data.docs.map((email) => {
+          email.route = `/box/${email.box.id}/${email._id}`;
+          return email;
+        });
         this.loading = false;
       },
       error => {
