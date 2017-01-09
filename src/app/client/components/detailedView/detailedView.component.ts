@@ -10,6 +10,7 @@ import { Email } from '../../shared';
 })
 export class DetailedViewComponent {
   @Output() openModal = new EventEmitter<any>();
+  @Input() boxList: any[];
 
   @Input() email: Email;
 
