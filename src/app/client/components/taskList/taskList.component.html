@@ -1,7 +1,7 @@
 <div *ngIf="currentTab == 'Trello'" layout="column" fxFlex>
 
   <div fxFlex fxLayout="column" class="tasks">
-
+    <!-- Suggested Tasks -->
     <md-card *ngFor="let suggestedTask of suggestedTasks; let i = index;" class="tasks-card">
       <md-card-header>
         <img md-card-avatar src="/assets/img/trello.gif">
@@ -12,14 +12,14 @@
         <p>
           <i class="material-icons glyph">date_range</i>
           <md-input-container class="example-full-width">
-            <input md-input placeholder="Due Date" type="date" [(ngModel)]="suggestedTask.date" value="suggestedTask.date | date:'dd.mm.yyyy'">
+            <input md-input placeholder="Due Date" type="date" required [(ngModel)]="suggestedTask.date" value="suggestedTask.date | date:'dd.mm.yyyy'">
           </md-input-container>
         </p>
         <!--  <p>
           <i class="material-icons glyph">date_range</i>{{suggestedTask.date | date:'dd.mm.yyyy'}}</p>-->
         <p>
           <i class="material-icons glyph">people</i>
-          <md-select class="selectList" [(ngModel)]="boardMemberDefault" placeholder="Delegate to..">
+          <md-select class="selectList" [(ngModel)]="boardMemberDefault" required placeholder="Delegate to..">
             <md-option *ngFor="let member of boardMembers" [value]="member">
               {{ member }}
             </md-option>
@@ -27,14 +27,14 @@
         </p>
         <p>{{suggestedTask.desc}}</p>
         <p>
-          <md-select class="selectList" [(ngModel)]="selectedBoard" [disabled]="selectedList" (ngModelChange)="changeBoard($event)" placeholder="Select a board..">
+          <md-select class="selectList" [(ngModel)]="selectedBoard" [disabled]="selectedList" required (ngModelChange)="changeBoard($event)" placeholder="Select a board..">
             <md-option *ngFor="let board of boards; let b = index" [value]="board.name">
               {{ board.name }}
             </md-option>
           </md-select>
         </p>
         <p>
-          <md-select class="selectList" [(ngModel)]="selectedList" *ngIf="selectedBoard" placeholder="Select a list..">
+          <md-select class="selectList" [(ngModel)]="selectedList" *ngIf="selectedBoard" required placeholder="Select a list..">
             <md-option *ngFor="let list of lists" [value]="list.name">
               {{ list.name }}
             </md-option>
@@ -60,7 +60,6 @@
         </div>
       </md-card-actions>
     </md-card>
-
   </div>
 
   <!--<div fxFlex fxLayout="column" class="card tasks">

@@ -30,18 +30,6 @@ export class TaskListComponent {
   ngOnInit() {
   }
 
-  public openDatePicker(): void {
-    this.opened = !this.opened;
-  }
-
-  public clearDatePicker(): void {
-    this.dueDate = void 0;
-  }
-
-  public closeDatePicker(): void {
-    this.opened = false;
-  }
-
   public createSuggestedTask(suggestedTask: any) {
     this.createTask.emit(suggestedTask);
   }
