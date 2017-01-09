@@ -1,9 +1,10 @@
 <!--<div *ngIf="currentTab == 'Trello'" layout="column" fxFlex>-->
+
 <md-tab-group>
-  <md-tab label="Trello" class="full-height">
+  <md-tab label="Trello">
     <md-tab-group>
-      <md-tab label="Suggested Tasks" class="full-height">
-        <div fxFlex fxLayout="column" class="tasks scrollable">
+      <md-tab label="Suggested Tasks">
+        <div fxFlex fxLayout="column">
           <md-card *ngFor="let suggestedTask of suggestedTasks; let i = index;" class="tasks-card">
             <md-card-header>
               <img md-card-avatar src="/assets/img/trello.gif">
@@ -69,8 +70,7 @@
         </div>
       </md-tab>
       <md-tab label="Linked Tasks">
-
-        <div fxFlex fxLayout="column" class="tasks scrollable">
+        <div fxFlex fxLayout="column" class="tasks">
           <md-card *ngFor="let linkedTask of linkedTasks; let i = index;" class="tasks-card">
             <md-card-header>
               <img md-card-avatar src="/assets/img/trello.gif">
@@ -158,6 +158,7 @@
     At the moment SocioCortex tasks are not available
   </md-tab>
 </md-tab-group>
+
 
 <!--<div *ngIf="currentTab == 'Socio Cortex'" layout="column" fxFlex>
     At the moment SocioCortex tasks are not available

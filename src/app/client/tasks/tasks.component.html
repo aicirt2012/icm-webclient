@@ -1,4 +1,4 @@
-<div fxLayout="column" fxFlex>
+<div fxLayout="column" fxFlex class="full-height">
   <div style="margin-bottom:10px;">
   <!--  <ul class="nav nav-tabs" fxLayout="row" fxLayoutAlign="center center">
       <li fxFlex [class.active]="getActive('Trello')" class="pointer">
@@ -9,5 +9,5 @@
       </li>
     </ul>-->
   </div>
-  <task-list [boards]="boards" [currentTab]="currentTab" (createTask)="createTask($event)" closeTaskModal="closeTaskModal($event)" [openTaskModal]="openTaskModal" [linkedTasks]="linkedTasks" [suggestedTasks]="suggestedTasks"></task-list>
+  <task-list class="scrollable" [boards]="boards" [currentTab]="currentTab" (createTask)="createTask($event)" closeTaskModal="closeTaskModal($event)" [openTaskModal]="openTaskModal" [linkedTasks]="linkedTasks" [suggestedTasks]="suggestedTasks"></task-list>
   </div>
