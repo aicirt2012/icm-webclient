@@ -3,7 +3,7 @@ import { EmailService } from '../shared';
 import { ModalType } from '../../shared';
 import { Observable } from 'rxjs/Observable';
 import { Email, EmailForm } from '../shared';
-import { MdDialogRef } from '@angular/material';
+import { MdDialogRef, MdSnackBar, MdInput } from '@angular/material';
 
 @Component({
   selector: 'email-dialog',
@@ -12,35 +12,49 @@ import { MdDialogRef } from '@angular/material';
 })
 export class EmailDialogComponent {
 
-  public emailForm: any = {};
+  public emailForm: any = {
+    to: [],
+    cc: [],
+    bcc: []
+  };
   public cc = false;
   public bcc = false;
+  public sending = false;
 
-  constructor(private _emailService: EmailService, public emailDialogRef: MdDialogRef<EmailDialogComponent>) {
+  constructor(private _emailService: EmailService, public emailDialogRef: MdDialogRef<EmailDialogComponent>, private snackBar: MdSnackBar) {
   }
 
   ngOnInit() {
-    console.log('hello `EmailDialogComponent` component');
-  }
-
-  showCc() {
-    this.cc=!this.cc;
-  }
-  showBcc() {
-    this.bcc=!this.bcc;
   }
 
   closeDialog() {
     this.emailDialogRef.close();
   }
 
-  sendEmail(mail: any) {
-    console.log("sending now ");
-    console.log(mail);
+  addAddress(address: MdInput, addressType: string): void {
+    if (address.value && address.value.trim() != '') {
+      this.emailForm[addressType].push(address.value.trim());
+      address.value = '';
+    }
+  }
+
+  deleteAddress(index: number, addressType: string) {
+    if(index > -1) {
+      this.emailForm[addressType].splice(index,1);
+    }
+  }
+
+  sendEmail() {
+    this.sending=true;
     this._emailService
-      .sendMail(mail)
+      .sendMail(this.emailForm)
       .subscribe((data: any) => {
-        this.emailForm = {};
+        this.sending = false;
+        this.snackBar.open('Message successfully send.', 'OK');
+          this.closeDialog();
+      }, (error) => {
+        this.sending = false;
+        this.snackBar.open('Error while sending.', 'OK');
       });
   }
 
