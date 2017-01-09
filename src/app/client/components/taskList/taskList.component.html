@@ -1,6 +1,6 @@
 <div *ngIf="currentTab == 'Trello'" layout="column" fxFlex>
 
-  <div fxFlex fxLayout="column" *ngFor="let suggestedTask of suggestedTasks" class="tasks">
+  <div fxFlex fxLayout="column" class="tasks">
 
     <md-card *ngFor="let suggestedTask of suggestedTasks; let i = index;" class="tasks-card">
       <md-card-header>
