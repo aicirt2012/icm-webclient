@@ -14,7 +14,7 @@ export class NavBarComponent {
   private navbarItems: any[] = [];
   @Input() boxList: any[];
   @Output() onRefresh = new EventEmitter<boolean>();
-  @Output() openModal = new EventEmitter<any>();
+  @Output() openDialog = new EventEmitter<any>();
   constructor(public appState: AppState, public router: Router) {
     this.navbarItems = this.boxList;
   }
@@ -77,8 +77,8 @@ export class NavBarComponent {
     this.onRefresh.emit(true);
   }
 
-  openCreateEmailModal() {
-    this.openModal.emit(ModalType.create);
+  openCreateEmailDialog() {
+    this.openDialog.emit(ModalType.create);
   }
 
 }
