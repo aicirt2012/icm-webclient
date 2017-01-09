@@ -30,3 +30,7 @@
 .board-width {
   width: 80%;
 }
+
+.scrollable {
+  overflow-y: scroll;
+}

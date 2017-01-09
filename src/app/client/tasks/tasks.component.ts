@@ -66,12 +66,12 @@ export class TasksComponent {
     this.syncTasksForMail.emit();
   }
 
-  getActive(choice: string): boolean {
+/*  getActive(choice: string): boolean {
     return this.currentTab == choice;
   }
 
   switchTab(tab: string): void {
     this.currentTab = tab;
-  }
+  }*/
 
 }

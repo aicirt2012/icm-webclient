@@ -1,13 +1,13 @@
 <div fxLayout="column" fxFlex>
   <div style="margin-bottom:10px;">
-    <ul class="nav nav-tabs" fxLayout="row" fxLayoutAlign="center center">
+  <!--  <ul class="nav nav-tabs" fxLayout="row" fxLayoutAlign="center center">
       <li fxFlex [class.active]="getActive('Trello')" class="pointer">
         <button md-button (click)="switchTab('Trello')">Trello</button>
       </li>
       <li fxFlex [class.active]="getActive('SocioCortex')" class="pointer">
         <button md-button (click)="switchTab('SocioCortex')">SocioCortex</button>
       </li>
-    </ul>
+    </ul>-->
   </div>
   <task-list [boards]="boards" [currentTab]="currentTab" (createTask)="createTask($event)" closeTaskModal="closeTaskModal($event)" [openTaskModal]="openTaskModal" [linkedTasks]="linkedTasks" [suggestedTasks]="suggestedTasks"></task-list>
   </div>
