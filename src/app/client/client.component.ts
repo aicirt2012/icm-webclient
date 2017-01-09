@@ -189,13 +189,12 @@ export class ClientComponent {
     console.log('Adding...' + boxName);
     this._emailService.addBox(boxName).subscribe((box: any) => {
       console.log(box);
-      this.syncBoxes([]);
+      //this.syncBoxes([]);
     },
     error => {
       console.log(error);
-      this.syncBoxes([]);
-    },
-    () => { this.syncBoxes([]) });
+      //this.syncBoxes([]);
+    });
   }
 
   onBoxDelete(boxName?: string) {

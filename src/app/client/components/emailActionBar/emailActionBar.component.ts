@@ -12,8 +12,6 @@ export class EmailActionBarComponent {
   @Input() openModal: EventEmitter<any>;
   @Input() boxList: any[];
 
-  
-
   constructor() {
     this.actionBoxItems = this.boxList;
   }
