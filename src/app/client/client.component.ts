@@ -12,7 +12,6 @@ import { TaskModalType } from '../shared/constants';
 import { MdDialog } from '@angular/material';
 import { EmailDialogComponent } from './emailDialog';
 
-
 @Component({
   selector: 'client',
   providers: [],
