@@ -130,6 +130,23 @@ export class ClientComponent {
       });
   }
 
+  deleteMail(id?: string) {
+    this._emailService.deleteMail(id).subscribe((data: any) => {
+        console.log(data);
+      },
+      error => {
+        console.log(error)
+      },
+      () => {
+        console.log(`Message with ID: ${id} has been successfully deleted`)
+      });
+  }
+
+  onEmailDelete(id?: string) {
+    console.log("deleting...");
+    this.deleteMail(id);
+  }
+
   getTasksForMail(email: any) {
     this.suggestedTasks = email.suggestedTasks ? email.suggestedTasks : [];
     this.linkedTasks = email.linkedTasks ? email.linkedTasks : [];

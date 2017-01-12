@@ -11,6 +11,7 @@ import { Email } from '../../shared';
 export class DetailedViewComponent {
   @Output() openModal = new EventEmitter<any>();
   @Input() boxList: any[];
+  @Output() onEmailDelete = new EventEmitter<any>();
 
   @Input() email: Email;
 
