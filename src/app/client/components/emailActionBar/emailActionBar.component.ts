@@ -1,6 +1,7 @@
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap';
 import { ModalType } from '../../../shared';
+import { Email } from '../../shared';
 
 @Component({
   selector: 'email-action-bar',  // <detailedView></detailedView>
@@ -11,6 +12,7 @@ export class EmailActionBarComponent {
   private actionBoxItems: any[] = [];
   @Input() openModal: EventEmitter<any>;
   @Input() boxList: any[];
+  @Input() email: Email;
   @Input() onEmailDelete: EventEmitter<any>;
 
   constructor() {
@@ -26,7 +28,7 @@ export class EmailActionBarComponent {
   }
 
   deleteEmail() {
-    this.onEmailDelete.emit('1');
+    this.onEmailDelete.emit(this.email.messageId);
   }
 
 }
