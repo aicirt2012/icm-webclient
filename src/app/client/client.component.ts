@@ -106,6 +106,14 @@ export class ClientComponent {
     return this._emailService.updateMailboxList();
   }
 
+  refreshBoxList() {
+    this.getBoxList().subscribe((data: any[]) => {
+      if (data.length > 0) {
+        this.appState.set('boxList', data);
+        this.boxList = data;
+      }
+    });
+  }
 
   getSingleMail(id?: string) {
     this._emailService
@@ -187,26 +195,21 @@ export class ClientComponent {
   onBoxAdd(boxName?: string) {
     console.log('Adding...' + boxName);
     this._emailService.addBox(boxName).subscribe((box: any) => {
-      console.log(box);
-      //this.syncBoxes([]);
+      this.refreshBoxList();
     },
     error => {
       console.log(error);
-      //this.syncBoxes([]);
     });
   }
 
   onBoxDelete(boxName?: string) {
     console.log('Del eting...' + boxName);
     this._emailService.deleteBox(boxName).subscribe((box: any) => {
-        console.log(box);
-        this.syncBoxes([]);
+        this.refreshBoxList();
       },
       error => {
         console.log(error);
-        this.syncBoxes([]);
-      },
-      () => { this.syncBoxes([]) });
+      });
   }
 
   syncBoxes(boxes: string[]) {
