@@ -19,15 +19,13 @@
 <div fxLayout="column" class="full-height">
   <search-bar [searchEmailBox]="searchEmailBox"></search-bar>
   <md-list class="scrollable">
-    <md-list-item [class.route-active]="isActive(mail.route)" *ngFor="let mail of emails; let i = index">
-      <div>
-        <md-checkbox></md-checkbox>
-      </div>
-      <div [routerLink]="mail.route">
+    <md-list-item class="md-3-line" [class.route-active]="isActive(mail.route)"*ngFor=" let mail of emails; let i = index">
+      <md-checkbox></md-checkbox>
+      <div class="md-list-item-text" [routerLink]="mail.route">
         <h3 md-line> {{mail.from[0].name ? mail.from[0].name : mail.from[0].address}} </h3>
         <p md-line> {{mail.subject}} </p>
         <p md-line> {{mail.date | date:'shortTime'}}, {{mail.date | date:'shortDate'}} </p>
       </div>
     </md-list-item>
   </md-list>
-  </div>
+</div>
