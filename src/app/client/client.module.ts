@@ -6,8 +6,8 @@ import { TagInputModule } from 'ng2-tag-input';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 
-import { ClientComponent, EmailDialogComponent, TasksComponent,TaskModalComponent } from './'; // all intelligent components
-import { NavBarComponent,NavBarListItemComponent, ListComponent, DetailedViewComponent, EmailFormComponent, SearchBarComponent, EmailActionBarComponent, EmailViewComponent, TaskListComponent, EmailResponseComponent } from './components'; // all dumb components
+import { ClientComponent, EmailDialogComponent, TasksComponent,TaskModalComponent, DetailedViewComponent} from './'; // all intelligent components
+import { NavBarComponent,NavBarListItemComponent, ListComponent, EmailFormComponent, SearchBarComponent, EmailActionBarComponent, EmailViewComponent, TaskListComponent, EmailResponseComponent } from './components'; // all dumb components
 import { EmailService, TaskService } from './shared'; // all services
 import { Email, EmailForm } from './shared'; // all models from client
 import { SharedModule } from '../shared';

@@ -1,12 +1,10 @@
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
-import { ModalType } from '../../../shared';
-import { Email } from '../../shared';
-import { EmailService } from '../../shared';
+import { Email } from '../shared';
+import { EmailService } from '../shared';
 import { MdSnackBar } from '@angular/material';
 
-/* TODO: refactor to smart component EmailDetailedView */
 @Component({
-  selector: 'detailed-view',  // <detailedView></detailedView>
+  selector: 'detailed-view',
   styleUrls: ['./detailedView.component.css'],
   templateUrl: './detailedView.component.html'
 })
