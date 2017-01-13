@@ -1,8 +1,7 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { DialogType } from '../../shared';
 import { Observable } from 'rxjs/Observable';
-import { Email, EmailForm } from '../shared';
 import { MdDialogRef, MdSnackBar, MdInput } from '@angular/material';
+import { TaskService } from '../shared';
 
 @Component({
   selector: 'task-dialog',
@@ -12,29 +11,27 @@ import { MdDialogRef, MdSnackBar, MdInput } from '@angular/material';
 export class TaskDialogComponent {
 
   public task: any = {};
+  public email: any = {};
 
-  constructor(public TaskDialogRef: MdDialogRef<TaskDialogComponent>, private snackBar: MdSnackBar) {
+  constructor(public taskDialogRef: MdDialogRef<TaskDialogComponent>, private snackBar: MdSnackBar, private _taskService: TaskService) {
   }
 
   ngOnInit() {
-    console.log(this.task);
+  }
+
+  updateTask() {
+    this._taskService.updateTask(this.task)
+      .subscribe((task: any) => {
+        console.log("task has been created");
+      },
+      error => {
+        console.log(error);
+      },
+      () => {});
   }
 
   closeDialog() {
-    this.TaskDialogRef.close();
-  }
-
-  addAddress(address: MdInput, addressType: string): void {
-    if (address.value && address.value.trim() != '') {
-      // this.emailForm[addressType].push(address.value.trim());
-      // address.value = '';
-    }
-  }
-
-  deleteAddress(index: number, addressType: string) {
-    if(index > -1) {
-      // this.emailForm[addressType].splice(index,1);
-    }
+    this.taskDialogRef.close();
   }
 
 }

@@ -45,10 +45,12 @@ export class TaskService {
       sentences: email.sentences
     };
     const path = `email/${email._id}/addTask`;
-    console.log("in task service ");
-    console.log("path: " + path);
-    console.log(options);
     return this._httpService.generateRequest(RequestMethod.Post, this.domain, path, null, options);
+  }
+
+  updateTask(task: any): Observable<any> {
+    const path = `${task.taskId}`;
+    return this._httpService.generateRequest(RequestMethod.Put, this.domain, path, null, task);
   }
 
   getTaskByID(id :string): Observable<any> {

@@ -32,8 +32,6 @@ export class TasksComponent {
   }
 
   createTask(taskObject: any) {
-    console.log("list id in tasks: " + taskObject.idList);
-    // only pass ID?
     this._taskService.createTask(this.email, taskObject)
       .subscribe((task: any) => {
         console.log("task has been created");
