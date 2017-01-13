@@ -1,6 +1,4 @@
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap';
-import { ModalType } from '../../../shared';
 import { Email } from '../../shared';
 
 @Component({
@@ -24,12 +22,11 @@ export class EmailActionBarComponent {
   }
 
   replyEmail() {
-    console.log('actionBar');
-    this.generateEmailResponseActionBar.emit(ModalType.reply);
+    this.generateEmailResponseActionBar.emit('reply');
   }
 
   forwardEmail() {
-    this.generateEmailResponseActionBar.emit(ModalType.forward);
+    this.generateEmailResponseActionBar.emit('forward');
   }
 
   emitDiscardEmailResponse() {

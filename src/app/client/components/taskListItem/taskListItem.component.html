@@ -1,0 +1,59 @@
+<md-card class="tasks-card">
+  <md-card-header>
+    <img md-card-avatar src="/assets/img/trello.gif">
+    <md-card-subtitle>{{task.name}}</md-card-subtitle>
+  </md-card-header>
+  <md-card-content>
+    <p>
+      <i class="material-icons glyph">date_range</i>
+      <md-input-container>
+        <input md-input placeholder="Due Date" type="date" required [(ngModel)]="task.date" value="task.date | date:'yyyy-MM-dd'">
+      </md-input-container>
+    </p>
+    <p>
+      <md-select class="selectList board-width" [(ngModel)]="task.selectedBoard" [disabled]="task.idList || task.selectedMembers" required (ngModelChange)="changeBoard($event)" placeholder="Select a board..">
+        <md-option *ngFor="let board of boards; let b = index" [value]="board.id">
+          {{ board.name }}
+        </md-option>
+      </md-select>
+      <i class="material-icons" *ngIf="task.selectedBoard" (click)="task.idList = null;task.selectedBoard = null;task.selectedMembers=null">close</i>
+    </p>
+    <p>
+      <md-select class="selectList board-width" [(ngModel)]="task.idList" *ngIf="task.selectedBoard" required placeholder="Select a list..">
+        <md-option *ngFor="let list of lists" [value]="list.id">
+          {{ list.name }}
+        </md-option>
+      </md-select>
+    </p>
+    <p *ngIf="task.selectedBoard">
+      <i class="material-icons glyph">people</i>
+      <md-select multiple class="selectList board-width" [(ngModel)]="task.selectedMembers" required placeholder="Delegate to..">
+        <md-option *ngFor="let member of boardMembers" [value]="member.id">
+          {{ member.fullName }}
+        </md-option>
+      </md-select>
+    </p>
+    <p>
+      <md-input-container class="example-full-width">
+        <textarea md-input type="text" placeholder="Task Description" maxRows="3" [(ngModel)]="task.desc" value="task.desc"></textarea>
+      </md-input-container>
+    </p>
+  </md-card-content>
+  <md-card-actions fxFlex fxLayout="row">
+    <div fxFlex="33">
+      <button (click)="onCreateTask()" md-button>
+        <md-icon>check</md-icon>
+      </button>
+    </div>
+    <div fxFlex="33">
+      <button (click)="openTaskDialog()" md-button>
+        <md-icon>mode_edit</md-icon>
+      </button>
+    </div>
+    <div fxFlex="33">
+      <button md-button>
+        <md-icon>close</md-icon>
+      </button>
+    </div>
+  </md-card-actions>
+</md-card>

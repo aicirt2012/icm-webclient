@@ -24,12 +24,11 @@ export class DetailedViewComponent {
   }
 
   ngOnInit() {
-    console.log('hello `DetailedViewComponent` component');
     this.emailResponse = {};
     this.responseStatus = false;
   }
 
-  generateEmailResponse(type:any) {
+  generateEmailResponse(type: string) {
     this.responseStatus = true;
     this.emailResponse = this._emailService.generateEmailForm(this.email, type);
   }
@@ -39,8 +38,8 @@ export class DetailedViewComponent {
     this.emailResponse = {};
   }
 
-  sendEmail(mail:any) {
-    this.sending=true;
+  sendEmail(mail: any) {
+    this.sending = true;
     this._emailService
       .sendMail(mail)
       .subscribe((data: any) => {

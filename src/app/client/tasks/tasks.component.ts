@@ -14,15 +14,7 @@ import { TaskDialogComponent } from '../taskDialog';
 export class TasksComponent {
 
   @Input() email: any;
-  @Input() boards: any;
-  @Output() syncTasksForMail = new EventEmitter<any>();
-  @Output() closeTaskModalOutput = new EventEmitter<any>();
-  public currentTab: string = 'Trello';
-
-  /* we have to get this from backend */
-  private taskIdList: string = '582639655429c571aae95b37';
-  private taskList: any = null;
-  private createdTask: any = null;
+  public boards: any;
   public suggestedTasks: any = [];
   public linkedTasks: any = [];
   private dialogConfig = {
@@ -34,21 +26,9 @@ export class TasksComponent {
   }
 
   ngOnInit() {
-    console.log('hello `TaskList` component');
-    console.log('email', this.email);
-  }
-
-  ngOnChanges() {
     this.suggestedTasks = this.email.suggestedTasks ? this.email.suggestedTasks : [];
     this.linkedTasks = this.email.linkedTasks ? this.email.linkedTasks : [];
-
-  }
-
-  getAllTasks() {
-    this._taskService.getAllTasks(this.taskIdList).subscribe((tasks) => {
-      this.taskList = tasks;
-      console.log(this.taskList);
-    });
+    this.getAllBoards();
   }
 
   createTask(taskObject: any) {
@@ -56,7 +36,6 @@ export class TasksComponent {
     // only pass ID?
     this._taskService.createTask(this.email, taskObject)
       .subscribe((task: any) => {
-        this.createdTask = task;
         console.log("task has been created");
       },
       error => {
@@ -65,8 +44,18 @@ export class TasksComponent {
       () => {});
   }
 
-  syncTasks() {
-    this.syncTasksForMail.emit();
+  getAllBoards() {
+    this._taskService.getAllBoards()
+    .subscribe((data: any) => {
+      this.boards = data;
+      console.log(this.boards);
+    },
+    error => {
+      console.log(error)
+    },
+    () => {
+    console.log("all boards success")
+    });
   }
 
   openDialog(task: any) {

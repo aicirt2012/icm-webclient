@@ -1,154 +1,14 @@
-<!--<div *ngIf="currentTab == 'Trello'" layout="column" fxFlex>-->
-
 <md-tab-group>
   <md-tab label="Trello">
     <md-tab-group>
       <md-tab label="Suggested Tasks">
         <div fxFlex fxLayout="column" class="padding">
-          <md-card *ngFor="let suggestedTask of suggestedTasks; let i = index;" class="tasks-card">
-            <md-card-header>
-              <img md-card-avatar src="/assets/img/trello.gif">
-              <md-card-subtitle>{{suggestedTask.name}}</md-card-subtitle>
-              <!-- <md-card-title>{{suggestedTask.name}}</md-card-title>-->
-            </md-card-header>
-            <md-card-content>
-              <p>
-                <i class="material-icons glyph">date_range</i>
-                <md-input-container>
-                  <input md-input placeholder="Due Date" type="date" required [(ngModel)]="suggestedTask.date" value="suggestedTask.date | date:'yyyy-MM-dd'">
-                </md-input-container>
-              </p>
-              <!--  <p>
-          <i class="material-icons glyph">date_range</i>{{suggestedTask.date | date:'dd.mm.yyyy'}}</p>-->
-              <p>
-                <md-select class="selectList board-width" [(ngModel)]="suggestedTask.selectedBoard" [disabled]="suggestedTask.idList || suggestedTask.selectedMembers" required (ngModelChange)="changeBoard($event)" placeholder="Select a board..">
-                  <md-option *ngFor="let board of boards; let b = index" [value]="board.id">
-                    {{ board.name }}
-                  </md-option>
-                </md-select>
-                <i class="material-icons" *ngIf="suggestedTask.selectedBoard" (click)="suggestedTask.idList = null;suggestedTask.selectedBoard = null;suggestedTask.selectedMembers=null">close</i>
-              </p>
-              <p>
-                <md-select class="selectList board-width" [(ngModel)]="suggestedTask.idList" *ngIf="suggestedTask.selectedBoard" required placeholder="Select a list..">
-                  <md-option *ngFor="let list of lists" [value]="list.id">
-                    {{ list.name }}
-                  </md-option>
-                </md-select>
-              </p>
-              <p *ngIf="suggestedTask.selectedBoard">
-                <i class="material-icons glyph">people</i>
-                <md-select multiple class="selectList board-width" [(ngModel)]="suggestedTask.selectedMembers" required placeholder="Delegate to..">
-                  <md-option *ngFor="let member of boardMembers" [value]="member.id">
-                    {{ member.fullName }}
-                  </md-option>
-                </md-select>
-              </p>
-              <p>
-                <md-input-container class="example-full-width">
-                  <textarea md-input type="text" placeholder="Task Description" maxRows="3" [(ngModel)]="suggestedTask.desc" value="suggestedTask.desc"></textarea>
-                </md-input-container>
-              </p>
-            </md-card-content>
-            <md-card-actions fxFlex fxLayout="row">
-              <div fxFlex="33">
-                <button (click)="createSuggestedTask(suggestedTask)" md-button>
-                  <md-icon>check</md-icon>
-                </button>
-              </div>
-              <div fxFlex="33">
-                <button (click)="openTaskDialog(suggestedTask)" md-button>
-                  <md-icon>mode_edit</md-icon>
-                </button>
-              </div>
-              <div fxFlex="33">
-                <button md-button>
-                  <md-icon>close</md-icon>
-                </button>
-              </div>
-            </md-card-actions>
-          </md-card>
+          <task-list-item *ngFor="let suggestedTask of suggestedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="suggestedTask" [boards]="boards"> </task-list-item>
         </div>
       </md-tab>
       <md-tab label="Linked Tasks">
         <div fxFlex fxLayout="column" class="tasks">
-          <md-card *ngFor="let linkedTask of linkedTasks; let i = index;" class="tasks-card">
-            <md-card-header>
-              <img md-card-avatar src="/assets/img/trello.gif">
-              <md-card-subtitle>{{linkedTask.name}}</md-card-subtitle>
-              <!-- <md-card-title>{{linkedTask.name}}</md-card-title>-->
-            </md-card-header>
-            <md-card-content>
-              <p>
-                <md-icon class="glyph">date_range</md-icon>
-                <md-input-container>
-                  <input md-input placeholder="Due Date" type="date" disabled="true" required [(ngModel)]="linkedTask.due" value="linkedTask.due | date:'yyyy-MM-dd'">
-                </md-input-container>
-                <!--  {{linkedTask.due | date:'shortDate'}}-->
-              </p>
-              <p>
-                <md-input-container>
-                  <input md-input placeholder="Selected Board" type="text" required [(ngModel)]="linkedTask.board.name" disabled="true">
-                </md-input-container>
-              </p>
-              <p>
-                <md-input-container>
-                  <input md-input placeholder="Selected List" type="text" required [(ngModel)]="linkedTask.list.name" disabled="true">
-                </md-input-container>
-              </p>
-              <p>
-                <md-input-container>
-                  <input md-input placeholder="Assigned Members" type="text" required [(ngModel)]="linkedTask.members.fullName" disabled="true">
-                </md-input-container>
-
-                {{linkedTask.members}}
-              </p>
-              <p>
-                <md-input-container class="example-full-width">
-                  <textarea md-input type="text" placeholder="Task Description" maxRows="3" disabled="true" [(ngModel)]="linkedTask.desc" value="linkedTask.desc"></textarea>
-                </md-input-container>
-              </p>
-              <!--<p>
-              <md-select class="selectList board-width" [(ngModel)]="linkedTask.selectedBoard" [disabled]="linkedTask.idList || linkedTask.selectedMembers" required (ngModelChange)="changeBoard($event)" placeholder="Select a board..">
-                <md-option *ngFor="let board of boards; let b = index" [value]="board.id">
-                  {{ board.name }}
-                </md-option>
-              </md-select>
-              <i class="material-icons" *ngIf="linkedTask.selectedBoard" (click)="linkedTask.idList = null;linkedTask.selectedBoard = null;linkedTask.selectedMembers=null">close</i>
-            </p>
-            <p>
-              <md-select class="selectList board-width" [(ngModel)]="linkedTask.idList" *ngIf="linkedTask.selectedBoard" required placeholder="Select a list..">
-                <md-option *ngFor="let list of lists" [value]="list.id">
-                  {{ list.name }}
-                </md-option>
-              </md-select>
-            </p>
-            <p *ngIf="linkedTask.selectedBoard">
-              <i class="material-icons glyph">people</i>
-              <md-select multiple class="selectList board-width" [(ngModel)]="linkedTask.selectedMembers" required placeholder="Delegate to..">
-                <md-option *ngFor="let member of boardMembers" [value]="member.id">
-                  {{ member.fullName }}
-                </md-option>
-              </md-select>
-            </p>
-            <p>
-              <md-input-container class="example-full-width">
-                <textarea md-input type="text" placeholder="Task Description" maxRows="3" [(ngModel)]="linkedTask.desc" value="linkedTask.desc"></textarea>
-              </md-input-container>
-            </p>-->
-            </md-card-content>
-            <md-card-actions fxFlex fxLayout="row">
-              <div fxFlex="50">
-                <button md-button>
-                  <md-icon>mode_edit</md-icon>
-                </button>
-              </div>
-              <div fxFlex="50">
-                <button md-button>
-                  <md-icon>close</md-icon>
-                </button>
-              </div>
-            </md-card-actions>
-          </md-card>
+          <task-list-item *ngFor="let linkedTask of suggestedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="linkedTask" [boards]="boards"> </task-list-item>
         </div>
       </md-tab>
     </md-tab-group>
@@ -158,8 +18,3 @@
     At the moment SocioCortex tasks are not available
   </md-tab>
 </md-tab-group>
-
-
-<!--<div *ngIf="currentTab == 'Socio Cortex'" layout="column" fxFlex>
-    At the moment SocioCortex tasks are not available
-  </div>-->

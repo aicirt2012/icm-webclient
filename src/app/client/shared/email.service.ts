@@ -115,7 +115,7 @@ export class EmailService {
 
   /*
   */
-  generateEmailForm(email: Email, type: number): any {
+  generateEmailForm(email: Email, type: string): any {
     console.log('emailService,Email',email);
     const bodyHeader = `
 -------------------------------------------
@@ -125,7 +125,7 @@ Subject: ${email.subject}
 To:${email.to[0].address}
 ${email.text}`;
 
-    if (type == 1) {
+    if (type == 'reply') {
       /* tag input requires an array as input */
       /*let receivers = [];
       receivers.push(email.from[0].address);*/
@@ -136,7 +136,7 @@ ${email.text}`;
         subject: `Re: ${email.subject}`,
         text: bodyHeader
       }
-    } else if (type == 2) {
+    } else if (type == 'forward') {
       return {
         subject: `Fw: ${email.subject}`,
         text: bodyHeader
