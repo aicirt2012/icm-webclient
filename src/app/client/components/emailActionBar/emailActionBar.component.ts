@@ -14,6 +14,7 @@ export class EmailActionBarComponent {
   @Input() boxList: any[];
   @Input() email: Email;
   @Input() onEmailDelete: EventEmitter<any>;
+  @Input() onEmailMoveToBox: EventEmitter<any>;
 
   constructor() {
     this.actionBoxItems = this.boxList;
@@ -29,6 +30,10 @@ export class EmailActionBarComponent {
 
   deleteEmail() {
     this.onEmailDelete.emit(this.email.messageId);
+  }
+
+  moveEmailToBox(boxName: string) {
+    //this.onEmailMoveToBox.emit([this.email.messageId, this.email.box, boxName]);
   }
 
 }

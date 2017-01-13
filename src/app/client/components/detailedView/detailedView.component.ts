@@ -12,6 +12,7 @@ export class DetailedViewComponent {
   @Output() openModal = new EventEmitter<any>();
   @Input() boxList: any[];
   @Output() onEmailDelete = new EventEmitter<any>();
+  @Output() onEmailMoveToBox = new EventEmitter<any>();
 
   @Input() email: Email;
 

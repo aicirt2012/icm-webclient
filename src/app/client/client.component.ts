@@ -147,6 +147,16 @@ export class ClientComponent {
     this.deleteMail(id);
   }
 
+  moveEmailToBox(msgId: string, srcBox: string, destBox: string) {
+    console.log("")
+  }
+
+  onEmailMoveToBox(msgId: string, srcBox: string, destBox: string) {
+    console.log("moving to...");
+    console.log(destBox);
+    //this.moveEmailToBox(msgId, srcBox, destBox);
+  }
+
   getTasksForMail(email: any) {
     this.suggestedTasks = email.suggestedTasks ? email.suggestedTasks : [];
     this.linkedTasks = email.linkedTasks ? email.linkedTasks : [];
