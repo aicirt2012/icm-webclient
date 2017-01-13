@@ -17,6 +17,7 @@ export class Email {
   date: Date;
   flags: string[];
   labels: string[];
+  sentences: any[];
   tasks: [{
     id: {
       type: string;

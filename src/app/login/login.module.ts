@@ -7,7 +7,6 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { AuthService } from '../shared'; // all services
 import { LoginComponent } from './';
 
-
 @NgModule({
   declarations: [ LoginComponent ],
   imports: [CommonModule, FormsModule, RouterModule, MaterialModule.forRoot(), FlexLayoutModule.forRoot()],

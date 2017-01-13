@@ -10,30 +10,56 @@ import { Email } from '../../shared';
 })
 export class EmailActionBarComponent {
   private actionBoxItems: any[] = [];
-  @Input() openModal: EventEmitter<any>;
   @Input() boxList: any[];
   @Input() email: Email;
-  @Input() onEmailDelete: EventEmitter<any>;
   @Input() onEmailMoveToBox: EventEmitter<any>;
+  @Input() onAddFlags: EventEmitter<any>;
+  @Input() onDeleteFlags: EventEmitter<any>;
+  @Output() generateEmailResponseActionBar = new EventEmitter<any>();
+  @Output() discardEmailResponse = new EventEmitter<any>();
+  @Input() responseStatus: boolean;
 
   constructor() {
     this.actionBoxItems = this.boxList;
   }
 
-  openReplyEmailModal() {
-    this.openModal.emit(ModalType.reply);
+  replyEmail() {
+    console.log('actionBar');
+    this.generateEmailResponseActionBar.emit(ModalType.reply);
   }
 
-  openForwardEmailModal() {
-    this.openModal.emit(ModalType.forward);
+  forwardEmail() {
+    this.generateEmailResponseActionBar.emit(ModalType.forward);
   }
 
-  deleteEmail() {
-    this.onEmailDelete.emit(this.email.messageId);
+  emitDiscardEmailResponse() {
+    this.discardEmailResponse.emit();
   }
 
-  moveEmailToBox(boxName: string) {
-    this.onEmailMoveToBox.emit({msgId: this.email.messageId, srcBox: this.email.box.name, destBox: boxName});
+  moveEmailToBox(destBox: string) {
+      if(destBox == 'Trash') {
+          destBox = this.boxList.find((b) => b.shortName == destBox).name;
+      }
+      const params = {
+          msgId: this.email.uid,
+          srcBox: this.email.box.name,
+          destBox: destBox
+      };
+      this.onEmailMoveToBox.emit(params);
+  }
+
+  addFlags(flags:string[]) {
+      const params = {email: this.email, flags:flags, box:this.email.box.name};
+      this.onAddFlags.emit(params);
+  }
+
+  deleteFlags(flags:string[]) {
+      const params = {email: this.email, flags:flags, box:this.email.box.name};
+      this.onDeleteFlags.emit(params);
+  }
+
+  isRead() {
+      return this.email.flags.indexOf('\\Seen') > -1;
   }
 
 }

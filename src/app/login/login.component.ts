@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../shared';
-import { SnackbarService } from '../shared';
 
 import { Router } from '@angular/router';
 import C from '../shared/constants';
@@ -18,8 +17,7 @@ export class LoginComponent {
 
   constructor(
     private router: Router,
-    private _auth: AuthService,
-  private _snackbarService: SnackbarService) { }
+    private _auth: AuthService) { }
 
   ngOnInit() {
     // reset login status
@@ -33,8 +31,6 @@ export class LoginComponent {
         if (result === true) {
           // login successful
           this.router.navigate(['/box/0']);
-          this._snackbarService.setMessage('Login successful');
-          this._snackbarService.setShow();
         } else {
           // login failed
           this.error = 'Username or password is incorrect';

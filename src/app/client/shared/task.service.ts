@@ -15,7 +15,6 @@ export class TaskService {
    returns Object: {TODO}
    */
   getAllTasks(idList?:string): Observable<any> {
-    console.log("here!!!");
     const options = {
       idList: idList
     };
@@ -42,7 +41,8 @@ export class TaskService {
       idList: task.idList,
       desc: task.desc,
       idMembers: task.selectedMembers,
-      due: task.date
+      due: task.date,
+      sentences: email.sentences
     };
     const path = `email/${email._id}/addTask`;
     console.log("in task service ");

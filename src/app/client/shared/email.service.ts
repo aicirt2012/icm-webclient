@@ -58,17 +58,8 @@ export class EmailService {
       srcBox: srcBox,
       destBox: destBox
     };
+    console.log('moving in service',body);
     return this._httpService.generateRequest(RequestMethod.Post, this.domain, 'move', null, body);
-  }
-
-  /*
-   @param: msgId: string - msg id in box
-   */
-  deleteMail(msgId: string): Observable<any> {
-    const body = {
-      msgId: msgId,
-    };
-    return this._httpService.generateRequest(RequestMethod.Delete, this.domain, 'delete', null, body);
   }
 
   /*
@@ -95,8 +86,37 @@ export class EmailService {
   }
 
   /*
+      @param: msgId: string - msg id in box,
+      @param: flags: string[] - array of flags to add to mail,
+      @param: box: string - Boxname as string,
+   */
+  addFlags(msgId: string, flags: string[], boxName: string): Observable<any> {
+      const body = {
+        msgId: msgId,
+        flags: flags,
+        box: boxName
+      };
+    return this._httpService.generateRequest(RequestMethod.Post, this.domain, `addFlags`, null, body);
+  }
+
+  /*
+      @param: msgId: string - msg id in box,
+      @param: flags: string[] - array of flags to be deleted from mail,
+      @param: box: string - Boxname as string,
+   */
+  delFlags(msgId: string, flags: string[], boxName: string): Observable<any> {
+      const body = {
+        msgId: msgId,
+        flags: flags,
+        box: boxName
+      };
+    return this._httpService.generateRequest(RequestMethod.Post, this.domain, `delFlags`, null, body);
+  }
+
+  /*
   */
-  generateEmailForm(email: Email, type: string): any {
+  generateEmailForm(email: Email, type: number): any {
+    console.log('emailService,Email',email);
     const bodyHeader = `
 -------------------------------------------
 From: ${email.from[0].address}
@@ -105,17 +125,18 @@ Subject: ${email.subject}
 To:${email.to[0].address}
 ${email.text}`;
 
-    if (type === 'reply') {
+    if (type == 1) {
       /* tag input requires an array as input */
       /*let receivers = [];
       receivers.push(email.from[0].address);*/
       let receivers = email.from[0].address;
+      console.log('REPLY TYPE');
       return {
         to: receivers,
         subject: `Re: ${email.subject}`,
         text: bodyHeader
       }
-    } else if (type === 'forward') {
+    } else if (type == 2) {
       return {
         subject: `Fw: ${email.subject}`,
         text: bodyHeader
@@ -138,7 +159,7 @@ ${email.text}`;
   /*
    @param: boxName: string
    */
-  deleteBox(boxName: string): Observable<any> {
+  delBox(boxName: string): Observable<any> {
     console.log('removing box...');
     const body = {
       boxName: boxName

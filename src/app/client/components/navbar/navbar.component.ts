@@ -16,8 +16,8 @@ export class NavBarComponent {
   @Input() lastSync: Date;
   @Output() onRefresh = new EventEmitter<boolean>();
   @Output() openDialog = new EventEmitter<any>();
-  @Output() onBoxAdd = new EventEmitter<any>();
-  @Output() onBoxDelete = new EventEmitter<any>();
+  @Output() onAddBox = new EventEmitter<string>();
+  @Output() onDeleteBox = new EventEmitter<string>();
   boxName: string;
 
   constructor(public appState: AppState, public router: Router) {
@@ -87,11 +87,11 @@ export class NavBarComponent {
   }
 
   addBox() {
-    this.onBoxAdd.emit(this.boxName);
+    this.onAddBox.emit(this.boxName);
   }
 
   delBox() {
-    this.onBoxDelete.emit(this.boxName)
+    this.onDeleteBox.emit(this.boxName)
   }
 
 }

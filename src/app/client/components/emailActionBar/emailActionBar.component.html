@@ -1,14 +1,17 @@
-<div fxFlex fxLayout="row" fxLayoutAlign="center center" class="action-buttons">
-    <button md-raised-button (click)="openReplyEmailModal()"><md-icon>reply</md-icon>Reply</button>
-    <button md-raised-button (click)="openForwardEmailModal()"><md-icon>forward</md-icon>Forward</button>
-    <button md-raised-button (click)="deleteEmail()"><md-icon>delete</md-icon>Delete</button>
-    <button md-raised-button [mdMenuTriggerFor]="menu">
-        <md-icon>more_vert</md-icon>
-        <span>Move to</span>
+<div fxLayout="row" fxLayoutAlign="center center" class="action-buttons" *ngIf="!responseStatus">
+<button md-raised-button *ngIf="!isRead()" (click)="addFlags(['\\Seen'])"><md-icon>mail_outline</md-icon>Mark as read</button>
+<button md-raised-button *ngIf="isRead()" (click)="deleteFlags(['\\Seen'])"><md-icon>mail</md-icon>Mark as unread</button>
+<button md-raised-button (click)="replyEmail()"><md-icon>reply</md-icon>Reply</button>
+<button md-raised-button (click)="forwardEmail()"><md-icon>forward</md-icon>Forward</button>
+<button md-raised-button (click)="moveEmailToBox('Trash')"><md-icon>delete</md-icon>Delete</button>
+<button md-raised-button [mdMenuTriggerFor]="menu">
+    <md-icon>more_vert</md-icon>
+    <span>Move to</span>
+</button>
+<md-menu #menu="mdMenu">
+    <button (click)="moveEmailToBox(box.name)" md-menu-item *ngFor="let box of boxList">
+        <span>{{box.shortName}}</span>
     </button>
-    <md-menu #menu="mdMenu">
-        <button (click)="moveEmailToBox(box.name)" md-menu-item *ngFor="let box of boxList">
-            <span>{{box.shortName}}</span>
-        </button>
-    </md-menu>
+</md-menu>
 </div>
+<button *ngIf="responseStatus" md-raised-button (click)="emitDiscardEmailResponse()"><md-icon>close</md-icon>Discard</button>

@@ -1,31 +1,10 @@
-<!-- <div fxFlex fxLayout="column">
-  <search-bar></search-bar>
-  <ul *ngFor="let mail of emails; let i = index" class="{{mail.unread}}" flex>
-    <li flex layout="row" layout-align="start start" class="lc-padding lc-mail" [routerLink]="mail.route" [class.route-active]="isActive(mail.route)">
-      <div flex="10" layout-align="center center">
-        <input type="checkbox" class="mail-checkbox">
-      </div>
-      <div flex="90" layout="column">
-        <div layout="row" layout-align="start center">
-          <div flex="65" class="lc-text-overflow lc-text-head"> {{mail.from[0].name ? mail.from[0].name : mail.from[0].address}} </div>
-          <div flex="35" class="lc-text-overflow lc-text-date">  {{mail.date | date:'shortTime'}}, {{mail.date | date:'shortDate'}}</div>
-        </div>
-        <div class="lc-text-overflow lc-text-subhead"> {{mail.subject}} </div>
-      </div>
-  </li>
-  </ul>
-</div> -->
-
 <div fxLayout="column" class="full-height">
-  <search-bar [searchEmailBox]="searchEmailBox"></search-bar>
-  <md-list class="scrollable">
-    <md-list-item class="md-3-line" [class.route-active]="isActive(mail.route)"*ngFor=" let mail of emails; let i = index">
-      <md-checkbox></md-checkbox>
-      <div class="md-list-item-text" [routerLink]="mail.route">
-        <h3 md-line> {{mail.from[0].name ? mail.from[0].name : mail.from[0].address}} </h3>
-        <p md-line> {{mail.subject}} </p>
-        <p md-line> {{mail.date | date:'shortTime'}}, {{mail.date | date:'shortDate'}} </p>
-      </div>
-    </md-list-item>
-  </md-list>
-</div>
+ <search-bar [searchEmailBox]="searchEmailBox"></search-bar>
+ <md-list class="scrollable">
+   <md-list-item [routerLink]="mail.route" [class.route-active]="isActive(mail.route)" *ngFor="let mail of emails; let i = index">
+     <h3 md-line> {{mail.from[0].name ? mail.from[0].name : mail.from[0].address}} </h3>
+     <p md-line> {{mail.subject}} </p>
+     <p md-line> {{mail.date | date:'shortTime'}}, {{mail.date | date:'shortDate'}} </p>
+   </md-list-item>
+ </md-list>
+ </div>
