@@ -1,17 +1,5 @@
-<!-- <div flex class="item-list-bg">
-<a flex class="listitems" [routerLink]="item.route" [class.route-active]="isActive(item.route)">
-  <span class="icon-margin {{item?.icon}}"></span>{{item?.shortName}}
-</a>
-</div>
-<ul flex class="inbox-nav inbox-divider" *ngIf="item.children.length > 0">
-  <li *ngFor="let child of item.children">
-    <navbar-list-item [item]="child"></navbar-list-item>
-  </li>
-</ul> -->
-
-
-<md-list-item [class.route-active]="isActive(item.route)">
-  <a md-line [routerLink]="item.route">{{item.shortName}}</a>
+<md-list-item [class.route-active]="isActive(item.route)" [routerLink]="item.route">
+  <a md-line >{{item.shortName}}</a>
   <md-icon>{{item.icon}}</md-icon>
 </md-list-item>
 <md-nav-list *ngIf="item.children.length > 0">
