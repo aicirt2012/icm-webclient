@@ -4,6 +4,7 @@ export * from './list';
 export * from './taskList';
 export * from './emailActionBar';
 export * from './emailView';
+export * from './emailResponse';
 export * from './searchBar';
 export * from './navbar';
 export * from './navbarListItem';

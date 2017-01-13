@@ -112,8 +112,6 @@ export class ClientComponent {
        .getSingleMail(id)
        .subscribe((data: any) => {
          this.email = data;
-         console.log("data");
-         console.log(data);
          this.getTasksForMail(this.email);
        },
        error => {
@@ -155,6 +153,7 @@ export class ClientComponent {
   openDialog(type: ModalType) {
     let dialogRef = this.dialog.open(EmailDialogComponent, this.dialogConfig);
   }
+
 
   closeTaskModal() {
     this.taskModalType = null;

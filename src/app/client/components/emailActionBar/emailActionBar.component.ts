@@ -8,19 +8,24 @@ import { ModalType } from '../../../shared';
   templateUrl: './emailActionBar.component.html'
 })
 export class EmailActionBarComponent {
-  @Input() openModal: EventEmitter<any>;
-
-  
+  @Output() generateEmailResponseActionBar = new EventEmitter<any>();
+  @Output() discardEmailResponse = new EventEmitter<any>();
+  @Input() responseStatus: boolean;
 
   constructor() {
   }
 
-  openReplyEmailModal() {
-    this.openModal.emit(ModalType.reply);
+  replyEmail() {
+    console.log('actionBar');
+    this.generateEmailResponseActionBar.emit(ModalType.reply);
   }
 
-  openForwardEmailModal() {
-    this.openModal.emit(ModalType.forward);
+  forwardEmail() {
+    this.generateEmailResponseActionBar.emit(ModalType.forward);
+  }
+
+  emitDiscardEmailResponse() {
+    this.discardEmailResponse.emit();
   }
 
 }

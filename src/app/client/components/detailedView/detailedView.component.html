@@ -1,4 +1,5 @@
 <div fxFlex fxLayout="column" class="full-height">
-  <email-action-bar [openModal]="openModal"></email-action-bar>
-  <email-view [email]="email" fxFlex class="scrollable"></email-view>
+  <email-action-bar [responseStatus]="responseStatus" (generateEmailResponseActionBar)="generateEmailResponse($event)" (discardEmailResponse)="discardEmailResponse($event)"></email-action-bar>
+  <email-view *ngIf="!emailResponse.text" [email]="email" fxFlex class="scrollable"></email-view>
+  <email-response *ngIf="emailResponse.text" [emailForm]="emailResponse" (sendMail)="sendEmail($event)"></email-response>
 </div>
