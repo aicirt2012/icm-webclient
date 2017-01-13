@@ -53,6 +53,7 @@ export class ClientComponent {
 
     this._settingsService.getUserInfo().subscribe( (user) => {
       this.user = user;
+      console.log('user', user);
       if (this.user.provider.name) {
         if (!(this.appState.get('boxList').length > 0)) {
           this.getBoxList().subscribe((data: any[]) => {
