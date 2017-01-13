@@ -16,7 +16,7 @@ export class EmailService {
   @param: params: any - {page:1, limit: 50}
   returns Object: {"docs":[Emails...],"total": 3,"limit": 10,"page": 1,"pages": 1}
   */
-  getEmailsWithPagination(box: string, page = 1, limit = 50): Observable<any> {
+  getEmailsWithPagination(box: string, page = 1, limit = 25): Observable<any> {
     const options = {
       box: box,
       page: page,
@@ -30,8 +30,9 @@ export class EmailService {
   @param: params: any - {page:1, limit: 50, q: 'searchQuery'}
   returns Object: {"docs":[Emails...],"total": 3,"limit": 10,"page": 1,"pages": 1}
   */
-  searchEmailsWithPagination(query = '', page = 1, limit = 10): Observable<any> {
+  searchEmailsWithPagination(box: string, query = '', page = 1, limit = 25): Observable<any> {
     const options = {
+      box: box,
       q: query,
       page: page,
       limit: limit

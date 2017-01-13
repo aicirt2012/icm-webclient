@@ -10,6 +10,11 @@ import { ModalDirective } from 'ng2-bootstrap';
 })
 
 export class SearchBarComponent {
+  @Input() searchEmailBox: any;
+  query: string = '';
   constructor() {
+  }
+  search() {
+    this.searchEmailBox.emit(this.query);
   }
 }
