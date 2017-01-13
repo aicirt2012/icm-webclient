@@ -33,7 +33,7 @@ export class EmailActionBarComponent {
   }
 
   moveEmailToBox(boxName: string) {
-    //this.onEmailMoveToBox.emit([this.email.messageId, this.email.box, boxName]);
+    this.onEmailMoveToBox.emit({msgId: this.email.messageId, srcBox: this.email.box.name, destBox: boxName});
   }
 
 }
