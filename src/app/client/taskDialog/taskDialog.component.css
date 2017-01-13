@@ -1,10 +1,4 @@
-.cc-tags {
-  cursor:pointer;
-  padding: 4px;
-  font-size: 12px;
-  color: rgba(0,0,0,0.54);
-}
-
-.pointer {
-  cursor: pointer;
+.selectList {
+  margin-top: 15px;
+  margin-bottom: 15px;
 }

@@ -1,6 +1,5 @@
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { EmailService } from '../shared';
-import { ModalType } from '../../shared';
 import { Observable } from 'rxjs/Observable';
 import { Email, EmailForm } from '../shared';
 import { MdDialogRef, MdSnackBar, MdInput } from '@angular/material';

@@ -59,6 +59,8 @@ export class TasksComponent {
   openDialog(task: any) {
     let taskDialogRef: MdDialogRef<TaskDialogComponent> = this.dialog.open(TaskDialogComponent, this.dialogConfig);
     taskDialogRef.componentInstance.task = task;
+    taskDialogRef.componentInstance.email = this.email;
+    taskDialogRef.componentInstance.boards = this.boards;
   }
 
 }

@@ -14,6 +14,10 @@ export class TaskListItemComponent {
   constructor() {
   }
 
+  ngOnInit() {
+
+  }
+
   onCreateTask() {
     this.createTask.emit(this.task);
   }
