@@ -6,7 +6,7 @@ import { TagInputModule } from 'ng2-tag-input';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 
-import { ClientComponent, EmailDialogComponent, TasksComponent,TaskModalComponent, DetailedViewComponent} from './'; // all intelligent components
+import { ClientComponent, EmailDialogComponent, TaskDialogComponent, TasksComponent, TaskModalComponent, DetailedViewComponent} from './'; // all intelligent components
 import { NavBarComponent,NavBarListItemComponent, ListComponent, EmailFormComponent, SearchBarComponent, EmailActionBarComponent, EmailViewComponent, TaskListComponent, EmailResponseComponent } from './components'; // all dumb components
 import { EmailService, TaskService } from './shared'; // all services
 import { Email, EmailForm } from './shared'; // all models from client
@@ -30,6 +30,7 @@ import { AuthGuard } from '../app.authGuard';
     TasksComponent,
     EmailDialogComponent,
     //dumb components
+    TaskDialogComponent,
     ListComponent,
     DetailedViewComponent,
     EmailResponseComponent,
@@ -48,7 +49,8 @@ import { AuthGuard } from '../app.authGuard';
     AuthGuard
   ],
   entryComponents: [
-    EmailDialogComponent
+    EmailDialogComponent,
+    TaskDialogComponent
   ],
   exports: [
       TaskModalComponent

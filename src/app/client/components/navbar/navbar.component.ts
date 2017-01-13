@@ -1,6 +1,6 @@
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalType } from '../../../shared/constants';
+import { DialogType } from '../../../shared/constants';
 import { AppState } from '../../../app.service';
 
 @Component({
@@ -79,7 +79,7 @@ export class NavBarComponent {
   }
 
   openCreateEmailDialog() {
-    this.openDialog.emit(ModalType.create);
+    this.openDialog.emit(DialogType.email);
   }
 
 }

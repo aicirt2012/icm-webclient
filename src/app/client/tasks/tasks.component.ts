@@ -1,8 +1,9 @@
-import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core';
-import {ModalDirective} from 'ng2-bootstrap';
-import {Email} from '../shared';
-import {TaskService} from '../shared';
-import {TaskModalType} from '../../shared/constants';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { MdDialog, MdDialogRef } from '@angular/material';
+import { Email } from '../shared';
+import { TaskService } from '../shared';
+import { TaskDialogType, DialogType} from '../../shared/constants';
+import { TaskDialogComponent } from '../taskDialog';
 
 @Component({
   selector: 'tasks',  // <taskList></taskList>
@@ -15,7 +16,6 @@ export class TasksComponent {
   @Input() email: any;
   @Input() boards: any;
   @Output() syncTasksForMail = new EventEmitter<any>();
-  @Output() openTaskModal = new EventEmitter<any>();
   @Output() closeTaskModalOutput = new EventEmitter<any>();
   public currentTab: string = 'Trello';
 
@@ -25,17 +25,23 @@ export class TasksComponent {
   private createdTask: any = null;
   public suggestedTasks: any = [];
   public linkedTasks: any = [];
+  private dialogConfig = {
+    width:"70%",
+    height:'70%'
+  }
 
-  constructor(private _taskService: TaskService) {
+  constructor(private _taskService: TaskService, public dialog: MdDialog) {
   }
 
   ngOnInit() {
     console.log('hello `TaskList` component');
+    console.log('email', this.email);
   }
 
   ngOnChanges() {
     this.suggestedTasks = this.email.suggestedTasks ? this.email.suggestedTasks : [];
     this.linkedTasks = this.email.linkedTasks ? this.email.linkedTasks : [];
+
   }
 
   getAllTasks() {
@@ -47,6 +53,7 @@ export class TasksComponent {
 
   createTask(taskObject: any) {
     console.log("list id in tasks: " + taskObject.idList);
+    // only pass ID?
     this._taskService.createTask(this.email, taskObject)
       .subscribe((task: any) => {
         this.createdTask = task;
@@ -55,23 +62,16 @@ export class TasksComponent {
       error => {
         console.log(error);
       },
-      () => {
-        /*hotfix for syncing bug */
-
-        //this.syncTasks();
-      });
+      () => {});
   }
 
   syncTasks() {
     this.syncTasksForMail.emit();
   }
 
-/*  getActive(choice: string): boolean {
-    return this.currentTab == choice;
+  openDialog(task: any) {
+    let taskDialogRef: MdDialogRef<TaskDialogComponent> = this.dialog.open(TaskDialogComponent, this.dialogConfig);
+    taskDialogRef.componentInstance.task = task;
   }
-
-  switchTab(tab: string): void {
-    this.currentTab = tab;
-  }*/
 
 }

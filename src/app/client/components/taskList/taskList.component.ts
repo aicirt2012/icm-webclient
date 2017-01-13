@@ -1,6 +1,5 @@
 import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core';
-import {ModalDirective} from 'ng2-bootstrap';
-import {TaskModalType} from '../../../shared';
+import {TaskDialogType} from '../../../shared';
 
 @Component({
   selector: 'task-list',
@@ -14,7 +13,10 @@ export class TaskListComponent {
   @Input() boards: string[];
   @Input() currentTab: string;
   @Output() createTask = new EventEmitter<any>();
-  @Input() openTaskModal = new EventEmitter<any>();
+  @Output() openDialog = new EventEmitter<any>();
+
+  // @Output() openDialog()
+
   public lists: any = [];
   public boardMembers: any = [];
 
@@ -37,10 +39,10 @@ export class TaskListComponent {
       this.boardMembers = filteredBoard['members'] ? filteredBoard['members'] : [];
     }
 
-  public showTaskModal(type: string) {
-    if (type == "edit") this.openTaskModal.emit(TaskModalType.edit);
-    else this.openTaskModal.emit(TaskModalType.create);
+  openTaskDialog(task:any) {
+    this.openDialog.emit(task);
   }
+
 
 /*
   public getFilteredBoard(suggestedTask: any) {
