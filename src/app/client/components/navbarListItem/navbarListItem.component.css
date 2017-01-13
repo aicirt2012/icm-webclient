@@ -1,86 +1,32 @@
-.listitems {
-  color: #555;
-  padding-left: 5px;
-}
-
 .route-active {
+  background-color: #2f3649;
+  box-shadow:0px 0px 2px 1px #000 inset;
+}
+
+.route-active a {
   font-weight: bold;
-  color: #496DDB;
-  background: none repeat scroll 0 0 #f7f7f7;
 }
 
-.icon-margin {
-  margin-right: 5px;
+.navbar-list-item {
+  color: #d7e3ef; 
 }
 
-.item-list-bg {
-  padding: 5px;
+.v-align-middle {
+  vertical-align: middle;
 }
 
-.item-list-bg :hover, :active {
-  background: none repeat scroll 0 0 #f7f7f7;
+.unseen-counter {
+    background-color: #2f3649;
+    width: 18px;
+    color: white;
+    height: 18px;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+    padding: 2px;
+    border-radius: 4px;
 }
 
-
-/*ul.inbox-nav {
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-  width: 100%;
+.route-active .unseen-counter {
+  background-color: #ec4b4e;
 }
-
-ul.inbox-nav li {
-  display: inline-block;
-  line-height: 45px;
-  width: 100%;
-}
-
-ul.inbox-nav li a {
-  color: #6a6a6a;
-  display: inline-block;
-  line-height: 45px;
-  padding: 0 20px;
-  width: 100%;
-}
-
-ul.inbox-nav li a:hover, ul.inbox-nav li.active a, ul.inbox-nav li a:focus {
-  background: none repeat scroll 0 0 #d5d7de;
-  color: #6a6a6a;
-}
-
-ul.inbox-nav li a i {
-  color: #6a6a6a;
-  font-size: 16px;
-  padding-right: 10px;
-}
-
-ul.inbox-nav li a span.label {
-  margin-top: 13px;
-}
-
-ul.labels-info li h4 {
-  color: #5c5c5e;
-  font-size: 13px;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-top: 5px;
-  text-transform: uppercase;
-}
-
-ul.labels-info li {
-  margin: 0;
-}
-
-ul.labels-info li a {
-  border-radius: 0;
-  color: #6a6a6a;
-}
-
-ul.labels-info li a:hover, ul.labels-info li a:focus {
-  background: none repeat scroll 0 0 #d5d7de;
-  color: #6a6a6a;
-}
-
-ul.labels-info li a i {
-  padding-right: 10px;
-}*/

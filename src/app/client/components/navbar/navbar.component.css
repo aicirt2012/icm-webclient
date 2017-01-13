@@ -1,7 +1,41 @@
-.create-email-btn {
+.create-email {
     margin:5px;
+}
+
+.create-email-btn {
+    background-color: #20c9a1;
+    color:white;
 }
 
 .sidenav-boxes {
     padding: 5px 0;
+    margin: 5px 0;
+}
+
+.navbar-list {
+    background-color: #444c62;
+}
+
+.button-row button {
+    margin:5px;
+    color:white;
+}
+
+.btn-add-box {
+    background-color: #20c9a1;
+}
+
+.btn-delete-box {
+    background-color: #ec4b4e;
+}
+
+.box-action-input {
+    margin:15px;
+    color:white;
+}
+
+.refresh-btn {
+    color:white;
+    background-color: #2f3649;
+    padding: 0px 8px;
 }
