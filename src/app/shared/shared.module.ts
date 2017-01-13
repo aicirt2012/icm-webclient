@@ -4,24 +4,21 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { SpinnerComponent, TopNavbarComponent, SnackbarComponent } from './components'; // all shared components
-import { AuthService, HttpService, SnackbarService } from './services';
+import { SpinnerComponent, TopNavbarComponent } from './components'; // all shared components
+import { AuthService, HttpService } from './services';
 
 @NgModule({
   imports: [RouterModule, BrowserModule, FormsModule, MaterialModule.forRoot(), FlexLayoutModule.forRoot()],
   declarations: [
     SpinnerComponent,
-    TopNavbarComponent,
-    SnackbarComponent],
+    TopNavbarComponent],
   exports: [
     SpinnerComponent,
-    TopNavbarComponent,
-    SnackbarComponent
+    TopNavbarComponent
   ],
   providers: [
     AuthService,
-    HttpService,
-    SnackbarService
-  ]
+    HttpService
+    ]
 })
 export class SharedModule { }

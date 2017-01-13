@@ -15,7 +15,6 @@ export class TaskService {
    returns Object: {TODO}
    */
   getAllTasks(idList?:string): Observable<any> {
-    console.log("here!!!");
     const options = {
       idList: idList
     };

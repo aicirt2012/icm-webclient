@@ -1,45 +1,27 @@
-<!-- <div fxFlex fxLayout="column" class="inbox-nav">
-  <div fxFlex>
-    <button type="button" (click)="openCreateEmailModal()" class="btn-compose btn">
-      <span class="glyphicon glyphicon-edit glyph"></span>Compose Email
-    </button>
-  </div>
-  <div fxFlex>
-    <ul flex class="inbox-nav inbox-divider">
-      <li *ngFor="let item of navbarItems">
-        <navbar-list-item [item]="item"></navbar-list-item>
-      </li>
-    </ul>
-  </div>
-  <div fxFlex fxLayout="column" class="sync-status">
-    <hr>
-    <div fxFlex fxLayout="row" fxLayoutAlign="start center" class="sync-title">
-      <div fxLayout="row" layout-align="start center" flex="5">
-        <button class="btn btn-default" (click)="refresh()">
-          <span class="glyphicon glyphicon-refresh"></span>
-        </button>
-      </div>
-      <div fxFlex></div>
-    </div>
-  </div>
-</div> -->
-
 <div fxLayout="column" class="full-height">
-    <div fxFlex="10" fxLayoutAlign="center center">
+    <div fxLayout="row" class="create-email-btn" fxLayoutAlign="center center">
       <button md-raised-button (click)="openCreateEmailDialog()">
         <md-icon>create</md-icon>
         <span>Compose Email</span>
       </button>
     </div>
-    <div fxFlex>
-        <md-nav-list>
-            <navbar-list-item [item]="item" *ngFor="let item of navbarItems"></navbar-list-item>
-         </md-nav-list>
+    <div class="sidenav-boxes scrollable">
+      <md-nav-list>
+        <navbar-list-item [item]="item" *ngFor="let item of navbarItems"></navbar-list-item>
+      </md-nav-list>
+      <hr>
+      <md-input-container>
+        <input md-input placeholder="Add/Del Box" [(ngModel)]="boxName">
+      </md-input-container>
+      <div class="button-row">
+        <button md-raised-button (click)="addBox()">Add</button>
+        <button md-raised-button (click)="delBox()">Del</button>
+      </div>
     </div>
-    <div fxFlex="10" fxLayoutAlign="center center">
+    <div fxLayoutAlign="center center">
         <button md-button (click)="refresh()">
             Last sync: <small>{{lastSync | date:'short'}}</small>
-            <md-icon class="md-24" style="color:gray">sync</md-icon>
+        <md-icon class="md-24" style="color:gray">sync</md-icon>
         </button>
     </div>
 </div>

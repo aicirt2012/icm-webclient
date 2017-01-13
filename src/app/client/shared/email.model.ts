@@ -10,6 +10,7 @@ export class Email {
     address: string;
     name: string;
   }];
+  box: any;
   subject: string;
   html: string;
   text: string;

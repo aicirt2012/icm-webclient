@@ -11,6 +11,11 @@ import { MdSnackBar } from '@angular/material';
 export class DetailedViewComponent {
 
   @Input() email: Email;
+  @Input() boxList: any[];
+  @Output() onEmailMoveToBox: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onAddFlags: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onDeleteFlags: EventEmitter<any> = new EventEmitter<any>();
+
   private emailResponse: any;
   private sending = false;
   public responseStatus: boolean;

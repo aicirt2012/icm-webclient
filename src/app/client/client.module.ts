@@ -2,7 +2,6 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { TagInputModule } from 'ng2-tag-input';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 
@@ -19,7 +18,6 @@ import { AuthGuard } from '../app.authGuard';
     CommonModule,
     FormsModule,
     RouterModule.forRoot(ROUTES),
-    TagInputModule,
     SharedModule,
     MaterialModule.forRoot(),
     FlexLayoutModule.forRoot(),

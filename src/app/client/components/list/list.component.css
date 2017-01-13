@@ -1,4 +1,4 @@
-.table-inbox {
+/*.table-inbox {
    margin-bottom: 0;
 }
 .table-inbox tr td {
@@ -58,3 +58,19 @@
   font-size: 12px;
   font-weight: 200;
 }
+
+md-list-item {
+  padding: 16px;
+}
+
+.md-list-item-text h3 {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  font-size: inherit;
+}
+
+.md-list-item-text h3, .md-list-item-text p{
+  padding: 0;
+  margin: 0;
+}*/
