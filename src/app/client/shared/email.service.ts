@@ -58,6 +58,7 @@ export class EmailService {
       srcBox: srcBox,
       destBox: destBox
     };
+    console.log('moving in service',body);
     return this._httpService.generateRequest(RequestMethod.Post, this.domain, 'move', null, body);
   }
 
@@ -82,6 +83,34 @@ export class EmailService {
    */
   getSingleMail(id: string): Observable<any> {
     return this._httpService.generateRequest(RequestMethod.Get, this.domain, `single/${id}`, null, null);
+  }
+
+  /*
+      @param: msgId: string - msg id in box,
+      @param: flags: string[] - array of flags to add to mail,
+      @param: box: string - Boxname as string,
+   */
+  addFlags(msgId: string, flags: string[], boxName: string): Observable<any> {
+      const body = {
+        msgId: msgId,
+        flags: flags,
+        box: boxName
+      };
+    return this._httpService.generateRequest(RequestMethod.Post, this.domain, `addFlags`, null, body);
+  }
+
+  /*
+      @param: msgId: string - msg id in box,
+      @param: flags: string[] - array of flags to be deleted from mail,
+      @param: box: string - Boxname as string,
+   */
+  delFlags(msgId: string, flags: string[], boxName: string): Observable<any> {
+      const body = {
+        msgId: msgId,
+        flags: flags,
+        box: boxName
+      };
+    return this._httpService.generateRequest(RequestMethod.Post, this.domain, `delFlags`, null, body);
   }
 
   /*
@@ -114,6 +143,28 @@ ${email.text}`;
       }
     }
 
+  }
+
+  /*
+   @param: boxName: string
+   */
+  addBox(boxName: string): Observable<any> {
+    console.log('adding box...');
+    const body = {
+      boxName: boxName
+    };
+    return this._httpService.generateRequest(RequestMethod.Post, this.domain, 'addBox', null, body);
+  }
+
+  /*
+   @param: boxName: string
+   */
+  delBox(boxName: string): Observable<any> {
+    console.log('removing box...');
+    const body = {
+      boxName: boxName
+    };
+    return this._httpService.generateRequest(RequestMethod.Post, this.domain, 'delBox', null, body);
   }
 
 }

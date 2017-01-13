@@ -11,7 +11,6 @@ import { ROUTES } from './settings.routes';
 import { AuthGuard } from '../app.authGuard';
 import { SettingsService } from './shared';
 
-
 @NgModule({
   imports: [
     CommonModule,
