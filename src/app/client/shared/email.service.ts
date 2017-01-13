@@ -85,6 +85,34 @@ export class EmailService {
   }
 
   /*
+      @param: msgId: string - msg id in box,
+      @param: flags: string[] - array of flags to add to mail,
+      @param: boxName: string - Boxname as string,
+   */
+  addFlags(msgId: string, flags: string[], boxName: string): Observable<any> {
+      const body = {
+        msgId: msgId,
+        flags: flags,
+        boxName: boxName
+      };
+    return this._httpService.generateRequest(RequestMethod.Post, this.domain, `addFlags`, null, body);
+  }
+
+  /*
+      @param: msgId: string - msg id in box,
+      @param: flags: string[] - array of flags to be deleted from mail,
+      @param: boxName: string - Boxname as string,
+   */
+  delFlags(msgId: string, flags: string[], boxName: string): Observable<any> {
+      const body = {
+        msgId: msgId,
+        flags: flags,
+        boxName: boxName
+      };
+    return this._httpService.generateRequest(RequestMethod.Post, this.domain, `delFlags`, null, body);
+  }
+
+  /*
   */
   generateEmailForm(email: Email, type: number): any {
     console.log('emailService,Email',email);
