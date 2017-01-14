@@ -17,6 +17,7 @@
         <input md-input placeholder="Name of box" [(ngModel)]="boxName">
         <button md-suffix md-mini-fab class="btn-add-box" *ngIf="boxAction == 'add'" (click)="addBox();boxAction = null;"><md-icon>add</md-icon></button>
         <button md-suffix md-mini-fab class="btn-delete-box" *ngIf="boxAction == 'delete'" (click)="delBox();boxAction = null;"><md-icon>remove</md-icon></button>
+        <button md-suffix md-mini-fab *ngIf="boxAction" class="btn-close" (click)="boxAction = null;"><md-icon>close</md-icon></button>
       </md-input-container>
     </div>
     <div fxLayoutAlign="center center">

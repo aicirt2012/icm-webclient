@@ -39,3 +39,9 @@
     background-color: #2f3649;
     padding: 0px 8px;
 }
+
+.btn-close {
+    background-color:white;
+    color:black;
+    margin-left:2px;
+}
