@@ -1,5 +1,5 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { MdDialog, MdDialogRef } from '@angular/material';
+import { MdDialog, MdDialogRef, MdSnackBar } from '@angular/material';
 import { Email } from '../shared';
 import { TaskService } from '../shared';
 import { TaskDialogType, DialogType} from '../../shared/constants';
@@ -22,7 +22,7 @@ export class TasksComponent {
     height:'70%'
   }
 
-  constructor(private _taskService: TaskService, public dialog: MdDialog) {
+  constructor(private _taskService: TaskService, public dialog: MdDialog, public snackBar: MdSnackBar) {
   }
 
   ngOnInit() {
@@ -34,10 +34,11 @@ export class TasksComponent {
   createTask(taskObject: any) {
     this._taskService.createTask(this.email, taskObject)
       .subscribe((task: any) => {
-        console.log("task has been created");
+        this.snackBar.open('Task successfully created.', 'OK');
       },
       error => {
         console.log(error);
+        this.snackBar.open('Error while creating task.', 'OK');
       },
       () => {});
   }

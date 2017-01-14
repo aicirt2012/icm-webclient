@@ -1,4 +1,5 @@
 <div fxFlex fxLayout="column">
+  <md-progress-bar *ngIf="sending" mode="indeterminate"></md-progress-bar>
   <div md-dialog-title fxLayout="row">
     <span fxFlex>{{task.name}}</span>
     <md-icon (click)="closeDialog()">close</md-icon>
@@ -12,7 +13,7 @@
               {{ board.name }}
             </md-option>
           </md-select>
-          <md-select fxFlex="33"  [(ngModel)]="task.selectedList" name="list-select" *ngIf="task.selectedBoard" required placeholder="Select a list..">
+          <md-select fxFlex="33"  [(ngModel)]="task.idList" name="list-select" *ngIf="task.selectedBoard" required placeholder="Select a list..">
             <md-option *ngFor="let list of task.selectedBoard.lists" [value]="list">
               {{ list.name }}
             </md-option>
@@ -37,7 +38,7 @@
     </form>
   </div>
   <md-dialog-actions>
-    <button md-submit md-raised-button color="primary" (click)="createTask()">Create Task</button>
-    <button md-submit md-raised-button color="primary" (click)="updateTask()">Update Task</button>
+    <button md-submit md-raised-button color="primary" [disabled]="sending" (click)="createTask()">Create Task</button>
+    <button md-submit md-raised-button color="primary" >Update Task</button>
   </md-dialog-actions>
 </div>

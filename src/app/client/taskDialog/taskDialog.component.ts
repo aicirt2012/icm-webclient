@@ -14,6 +14,7 @@ export class TaskDialogComponent {
   public task: any = {};
   public email: any = {};
   public boards: any[] = [];
+  public sending: boolean = false;
 
   constructor(public taskDialogRef: MdDialogRef<TaskDialogComponent>, private snackBar: MdSnackBar, private _taskService: TaskService) {
   }
@@ -22,12 +23,17 @@ export class TaskDialogComponent {
   }
 
   createTask() {
+    this.sending = true;
     this._taskService.createTask(this.email, this.task)
       .subscribe((task: any) => {
-        console.log("task has been created");
+        this.sending=false;
+        this.snackBar.open('Task successfully created.', 'OK');
+        this.closeDialog();
       },
       error => {
         console.log(error);
+        this.sending=false;
+        this.snackBar.open('Error while creating task.', 'OK');
       },
       () => {});
   }
@@ -35,10 +41,13 @@ export class TaskDialogComponent {
   updateTask() {
     this._taskService.updateTask(this.task)
       .subscribe((task: any) => {
-        console.log("task has been created");
+        this.snackBar.open('Task successfully updated.', 'OK');
+
       },
       error => {
         console.log(error);
+        this.snackBar.open('Error while updating task.', 'OK');
+
       },
       () => {});
   }
