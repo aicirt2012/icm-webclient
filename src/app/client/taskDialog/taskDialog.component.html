@@ -1,62 +1,44 @@
-Na du arschloch
-
-{{task}}
-
-<!-- <div fxFlex fxLayout="column">
+<div fxFlex fxLayout="column">
   <md-progress-bar *ngIf="sending" mode="indeterminate"></md-progress-bar>
   <div md-dialog-title fxLayout="row">
-    <span fxFlex>New Email</span>
+    <span fxFlex>{{task.name}}</span>
     <md-icon (click)="closeDialog()">close</md-icon>
   </div>
   <div>
     <form fxFlex fxLayout="column">
-    <md-input-container>
-      <div fxFlex fxLayout="row">
-        <input md-input #inputTo (keyup.enter)="addAddress(inputTo,'to')" (change)="addAddress(inputTo,'to')" type="email" placeholder="To:" required/>
-      <span class="cc-tags" (click)="cc = !cc">CC</span>
-      <span class="cc-tags" (click)="bcc = !bcc">BCC</span>
-    </div>
-    <md-chip-list>
-      <md-chip *ngFor="let to of emailForm.to; let i = index">
-        <div fxLayout="row" fxLayoutAlign="start center">
-          <span>{{to}}</span>
-          <md-icon class="pointer" (click)="deleteAddress(i, 'to')">close</md-icon>
-        </div>
-      </md-chip>
-    </md-chip-list>
-    </md-input-container>
-    <md-input-container *ngIf="cc">
-        <input md-input #inputCc (keyup.enter)="addAddress(inputCc,'cc')" (change)="addAddress(inputCc,'cc')" placeholder="CC:" type="email">
-        <md-chip-list>
-          <md-chip *ngFor="let cc of emailForm.cc; let i = index">
-            <div fxLayout="row" fxLayoutAlign="start center">
-              <span>{{cc}}</span>
-              <md-icon class="pointer" (click)="deleteAddress(i, 'cc')">close</md-icon>
-            </div>
-          </md-chip>
-        </md-chip-list>
-    </md-input-container>
-    <md-input-container *ngIf="bcc">
-        <input md-input #inputBcc (keyup.enter)="addAddress(inputBcc,'bcc')" (change)="addAddress(inputBcc,'bcc')" placeholder="BCC:" type="email">
-        <md-chip-list>
-          <md-chip *ngFor="let bcc of emailForm.bcc; let i = index">
-            <div fxLayout="row" fxLayoutAlign="start center">
-              <span>{{bcc}}</span>
-              <md-icon class="pointer" (click)="deleteAddress(i, 'bcc')">close</md-icon>
-            </div>
-          </md-chip>
-        </md-chip-list>
-    </md-input-container>
-      <md-input-container>
-          <input md-input placeholder="Subject:" type="text" name="subject" [(ngModel)]="emailForm.subject">
-      </md-input-container>
 
-      <md-input-container>
-        <textarea md-input placeholder="Message" [(ngModel)]="emailForm.text" name="text" rows="10"></textarea>
-      </md-input-container>
+        <div fxLayout="row" class="selectList">
+          <md-select fxFlex="33" name="board-select" [(ngModel)]="task.selectedBoard" [disabled]="task.idList || task.selectedMembers" required placeholder="Select a board..">
+            <md-option *ngFor="let board of boards; let b = index" [value]="board">
+              {{ board.name }}
+            </md-option>
+          </md-select>
+          <md-select fxFlex="33"  [(ngModel)]="task.idList" name="list-select" *ngIf="task.selectedBoard" required placeholder="Select a list..">
+            <md-option *ngFor="let list of task.selectedBoard.lists" [value]="list">
+              {{ list.name }}
+            </md-option>
+          </md-select>
+          <md-select fxFlex="33" name="member-list" *ngIf="task.selectedBoard" [(ngModel)]="task.selectedMembers" required placeholder="Delegate to..">
+            <md-option *ngFor="let member of task.selectedBoard.members" [value]="member">
+              {{ member.fullName }}
+            </md-option>
+          </md-select>
+        </div>
+
+        <div fxLayout="row">
+          <md-input-container fxFlex="20">
+            <input name="date" md-input placeholder="Due Date" type="date" required [(ngModel)]="task.date" value="task.date | date:'yyyy-MM-dd'">
+          </md-input-container>
+        </div>
+
+        <md-input-container>
+          <textarea md-input type="text" name="task-description" placeholder="Task Description" maxRows="3" [(ngModel)]="task.desc" value="task.desc" rows="10"></textarea>
+        </md-input-container>
+
     </form>
   </div>
   <md-dialog-actions>
-    <button md-submit md-raised-button color="primary" (click)="sendEmail()" [disabled]="sending">Send Email</button>
+    <button md-submit md-raised-button color="primary" [disabled]="sending" (click)="createTask()">Create Task</button>
+    <button md-submit md-raised-button color="primary" >Update Task</button>
   </md-dialog-actions>
-</div> -->
+</div>

@@ -11,8 +11,8 @@
       </md-input-container>
     </p>
     <p>
-      <md-select class="selectList board-width" [(ngModel)]="task.selectedBoard" [disabled]="task.idList || task.selectedMembers" required (ngModelChange)="changeBoard($event)" placeholder="Select a board..">
-        <md-option *ngFor="let board of boards; let b = index" [value]="board.id">
+      <md-select class="selectList board-width" [(ngModel)]="task.selectedBoard" [disabled]="task.idList || task.selectedMembers" required placeholder="Select a board..">
+        <md-option *ngFor="let board of boards; let b = index" [value]="board">
           {{ board.name }}
         </md-option>
       </md-select>
@@ -20,7 +20,7 @@
     </p>
     <p>
       <md-select class="selectList board-width" [(ngModel)]="task.idList" *ngIf="task.selectedBoard" required placeholder="Select a list..">
-        <md-option *ngFor="let list of lists" [value]="list.id">
+        <md-option *ngFor="let list of task.selectedBoard.lists" [value]="list">
           {{ list.name }}
         </md-option>
       </md-select>
@@ -28,7 +28,7 @@
     <p *ngIf="task.selectedBoard">
       <i class="material-icons glyph">people</i>
       <md-select multiple class="selectList board-width" [(ngModel)]="task.selectedMembers" required placeholder="Delegate to..">
-        <md-option *ngFor="let member of boardMembers" [value]="member.id">
+        <md-option *ngFor="let member of task.selectedBoard.members" [value]="member">
           {{ member.fullName }}
         </md-option>
       </md-select>

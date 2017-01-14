@@ -49,8 +49,6 @@ import { AuthGuard } from '../app.authGuard';
   entryComponents: [
     EmailDialogComponent,
     TaskDialogComponent
-  ],
-  exports: [
   ]
 })
 export class ClientModule {

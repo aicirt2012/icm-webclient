@@ -1,8 +1,8 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { DialogType } from '../../shared';
+import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { Email, EmailForm } from '../shared';
 import { MdDialogRef, MdSnackBar, MdInput } from '@angular/material';
+import { TaskService } from '../shared';
 
 @Component({
   selector: 'task-dialog',
@@ -12,29 +12,48 @@ import { MdDialogRef, MdSnackBar, MdInput } from '@angular/material';
 export class TaskDialogComponent {
 
   public task: any = {};
+  public email: any = {};
+  public boards: any[] = [];
+  public sending: boolean = false;
 
-  constructor(public TaskDialogRef: MdDialogRef<TaskDialogComponent>, private snackBar: MdSnackBar) {
+  constructor(public taskDialogRef: MdDialogRef<TaskDialogComponent>, private snackBar: MdSnackBar, private _taskService: TaskService) {
   }
 
   ngOnInit() {
-    console.log(this.task);
+  }
+
+  createTask() {
+    this.sending = true;
+    this._taskService.createTask(this.email, this.task)
+      .subscribe((task: any) => {
+        this.sending=false;
+        this.snackBar.open('Task successfully created.', 'OK');
+        this.closeDialog();
+      },
+      error => {
+        console.log(error);
+        this.sending=false;
+        this.snackBar.open('Error while creating task.', 'OK');
+      },
+      () => {});
+  }
+
+  updateTask() {
+    this._taskService.updateTask(this.task)
+      .subscribe((task: any) => {
+        this.snackBar.open('Task successfully updated.', 'OK');
+
+      },
+      error => {
+        console.log(error);
+        this.snackBar.open('Error while updating task.', 'OK');
+
+      },
+      () => {});
   }
 
   closeDialog() {
-    this.TaskDialogRef.close();
-  }
-
-  addAddress(address: MdInput, addressType: string): void {
-    if (address.value && address.value.trim() != '') {
-      // this.emailForm[addressType].push(address.value.trim());
-      // address.value = '';
-    }
-  }
-
-  deleteAddress(index: number, addressType: string) {
-    if(index > -1) {
-      // this.emailForm[addressType].splice(index,1);
-    }
+    this.taskDialogRef.close();
   }
 
 }

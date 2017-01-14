@@ -38,17 +38,21 @@ export class TaskService {
   createTask(email: Email, task: any, idList?:string): Observable<any> {
     const options = {
       name: task.name,
-      idList: task.idList,
+      /*TODO: change naming */
+      idList: task.idList.id,
       desc: task.desc,
-      idMembers: task.selectedMembers,
+      idMembers: [task.selectedMembers.id],
       due: task.date,
-      sentences: email.sentences
+      sentences: email.sentences,
+      sentenceId: task.task.id
     };
     const path = `email/${email._id}/addTask`;
-    console.log("in task service ");
-    console.log("path: " + path);
-    console.log(options);
     return this._httpService.generateRequest(RequestMethod.Post, this.domain, path, null, options);
+  }
+
+  updateTask(task: any): Observable<any> {
+    const path = `${task.taskId}`;
+    return this._httpService.generateRequest(RequestMethod.Put, this.domain, path, null, task);
   }
 
   getTaskByID(id :string): Observable<any> {
