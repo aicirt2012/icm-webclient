@@ -5,7 +5,7 @@
         <span>Compose Email</span>
       </button>
     </div>
-    <div class="sidenav-boxes scrollable">
+    <div fxFlex class="sidenav-boxes scrollable">
       <md-nav-list>
         <navbar-list-item [item]="item" *ngFor="let item of navbarItems"></navbar-list-item>
       </md-nav-list>
@@ -20,7 +20,7 @@
       </md-input-container>
     </div>
     <div fxLayoutAlign="center center">
-        <button md-button class="refresh-btn" (click)="refresh()">
+        <button md-button fxFlex class="refresh-btn" (click)="refresh()">
             Last sync: <small>{{lastSync | date:'short'}}</small>
         <md-icon class="md-24">sync</md-icon>
         </button>

@@ -1,76 +1,35 @@
-/*.table-inbox {
-   margin-bottom: 0;
+.email-list-container {
+  background-color:#F8F8F8;
 }
-.table-inbox tr td {
-   padding: 12px !important;
+
+.email-list-item {
+  border-right: none;
+  border-top: none;
+  border-bottom: 1px solid #f1f6f9;
+  cursor: pointer;
 }
-.table-inbox tr td:hover {
-   cursor: pointer;
+
+.email-list-item .md-list-item:hover {
+  background-color: #f2f6fa;
 }
-.table-inbox tr td .fa-star.inbox-started, .table-inbox tr td .fa-star:hover {
-   color: #f78a09 ;
+
+.email-list {
+  box-shadow: -3px 0px 1px -2px rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.0), 0 1px 5px 0 rgba(0,0,0,.12);
 }
-.table-inbox tr td .fa-star {
-   color: #d5d5d5 ;
+
+.email-list md-list-item:nth-child(odd)  {
+  border-left:2px solid #20c9a1;
 }
-.table-inbox tr.unread td {
-   background: none repeat scroll 0 0 #f7f7f7 ;
-   font-weight: 600;
+
+.email-list md-list-item:nth-child(even)  {
+  border-left:2px solid #f78578;
 }
 
 .route-active {
-    background: none repeat scroll 0 0 #f7f7f7 ;
+  background-color: #f2f6fa;
+  box-shadow: 0px 0px 0px -2px rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.0), 0 1px 5px 0 rgba(0,0,0,.12);
 }
 
-.lc-padding {
-  padding: 8px;
+.unseen h1, .unseen h2,.unseen h3,.unseen h4,.unseen p {
+  font-weight:bold !important;
 }
-
-.lc-mail-height {
-    min-height: 55px;
-}
-
-.lc-mail {
-  border-bottom: 1px solid lightgrey;
-}
-
-.lc-mail:hover {
-  cursor: pointer;
-  background-color: #f7f7f7;
-}
-
-.lc-text-overflow {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  display: inline-block;
-  white-space: nowrap;
-}
-
-.lc-text-head {
-  font-weight: 600;
-}
-
-.lc-text-subhead {
-  font-weight: 500;
-}
-
-.lc-text-date {
-  font-size: 12px;
-  font-weight: 200;
-}
-
-md-list-item {
-  padding: 16px;
-}
-
-.md-list-item-text h3 {
-  margin: 0;
-  padding: 0;
-  font-weight: 400;
-  font-size: inherit;
-}
-
-.md-list-item-text h3, .md-list-item-text p{
-  padding: 0;
-  margin: 0;
-}*/

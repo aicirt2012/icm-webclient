@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayoutAlign="center center" class="action-buttons" *ngIf="!responseStatus">
-<button md-raised-button *ngIf="!isRead()" (click)="addFlags(['\\Seen'])"><md-icon>mail_outline</md-icon>Mark as read</button>
+<button md-raised-button *ngIf="!isRead()" (click)="addFlags(['\\Seen'])"><md-icon>drafts</md-icon>Mark as read</button>
 <button md-raised-button *ngIf="isRead()" (click)="deleteFlags(['\\Seen'])"><md-icon>mail</md-icon>Mark as unread</button>
 <button md-raised-button (click)="replyEmail()"><md-icon>reply</md-icon>Reply</button>
 <button md-raised-button (click)="forwardEmail()"><md-icon>forward</md-icon>Forward</button>

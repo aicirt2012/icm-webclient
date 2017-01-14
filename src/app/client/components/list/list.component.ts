@@ -22,4 +22,8 @@ export class ListComponent {
     return this.router.isActive(route, false);
   }
 
+  isRead(email) {
+      return email.flags.indexOf('\\Seen') > -1;
+  }
+
 }
