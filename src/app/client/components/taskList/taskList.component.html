@@ -8,7 +8,7 @@
       </md-tab>
       <md-tab label="Linked Tasks">
         <div fxFlex fxLayout="column" class="tasks">
-          <task-list-item *ngFor="let linkedTask of suggestedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="linkedTask" [boards]="boards"> </task-list-item>
+          <task-list-item *ngFor="let linkedTask of linkedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="linkedTask" [boards]="boards"> </task-list-item>
         </div>
       </md-tab>
     </md-tab-group>

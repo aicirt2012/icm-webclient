@@ -11,7 +11,6 @@ export class TaskListComponent {
   @Input() linkedTasks: any;
   @Input() suggestedTasks: any;
   @Input() boards: any[];
-
   @Output() createTask = new EventEmitter<any>();
   @Output() openDialog = new EventEmitter<any>();
 

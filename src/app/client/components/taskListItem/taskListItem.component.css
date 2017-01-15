@@ -30,3 +30,10 @@
 .board-width {
   width: 80%;
 }
+
+.card-title {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
