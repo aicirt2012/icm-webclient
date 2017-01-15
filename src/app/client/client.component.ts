@@ -179,6 +179,17 @@ export class ClientComponent {
       });
   }
 
+  /* GET EMAILS WITH PAGINATION */
+  onEmailListScrolling(params: any) {
+    this._emailService.getEmailsWithPagination(params.box, params.page, params.limit).subscribe((res) => {
+      const moreEmails: Email[] = res.docs.map((email) => {
+        email.route = `/box/${email.box.id}/${email._id}`;
+        return email;
+      });
+      Array.prototype.push.apply(this.emails, moreEmails);
+    });
+  }
+
   /* EMAIL-RELATED ACTION-LISTENERS */
 onEmailMoveToBox(params: any) {
   this._emailService.moveMail(params.msgId, params.srcBox, params.destBox).subscribe((res) => {

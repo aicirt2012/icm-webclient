@@ -5,7 +5,7 @@
           [infiniteScrollDistance]="scrollDistance"
           [infiniteScrollThrottle]="scrollThrottle"
           [scrollWindow]="false"
-          (scrolled)="onScrollDown()">
+          (scrolled)="onScroll()">
    <md-list-item class="email-list-item" [routerLink]="mail.route" [class.route-active]="isActive(mail.route)" [class.unseen]="!isRead(mail)" *ngFor="let mail of emails; let i = index">
      <h3 md-line> {{mail.from[0].name ? mail.from[0].name : mail.from[0].address}} </h3>
      <p md-line> {{mail.subject}} </p>

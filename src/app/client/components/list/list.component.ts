@@ -14,10 +14,15 @@ import { Email } from '../../shared';
 export class ListComponent {
   @Input() emails: Email[];
   @Output() searchEmailBox = new EventEmitter<string>();
+  @Output() onEmailListScrolling = new EventEmitter<any>();
+
+  page = 0;
+  limit = 10;
   scrollDistance = 2;
-  scrollThrottle = 200;
+  scrollThrottle = 300;
 
   constructor(public router: Router) {
+    this.page = 0;
   }
 
   isActive(route:string): boolean {
@@ -28,8 +33,14 @@ export class ListComponent {
     return email.flags.indexOf('\\Seen') > -1;
   }
 
-  onScrollDown () {
-    console.log('scrolled!!');
+  onScroll() {
+    this.page += 1;
+    const params = {
+      box: this.emails[0].box.name,
+      page: this.page,
+      limit: this.limit
+    };
+    this.onEmailListScrolling.emit(params);
   }
 
 }
