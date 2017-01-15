@@ -33,6 +33,17 @@ export class TaskService {
   }
 
   /*
+  @param: emailAddresses: string[] - Searchquery,
+  returns Object: {[card]}
+  */
+  searchCardsForMembers(emailAddresses): Observable<any> {
+    const body = {
+      emailAddresses: emailAddresses
+    }
+    return this._httpService.generateRequest(RequestMethod.Post, this.domain, 'cards', null, body);
+  }
+
+  /*
   @param: mail: any - Mailobject {} TODO
   */
   createTask(email: Email, task: any, idList?:string): Observable<any> {

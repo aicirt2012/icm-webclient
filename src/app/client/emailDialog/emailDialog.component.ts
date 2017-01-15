@@ -1,8 +1,9 @@
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
-import { EmailService } from '../shared';
+import { EmailService, TaskService } from '../shared';
 import { Observable } from 'rxjs/Observable';
 import { Email, EmailForm } from '../shared';
 import { MdDialogRef, MdSnackBar, MdInput } from '@angular/material';
+
 
 @Component({
   selector: 'email-dialog',
@@ -19,8 +20,10 @@ export class EmailDialogComponent {
   public cc = false;
   public bcc = false;
   public sending = false;
+  public searchForTasks = false;
+  public relatedTasks: any = [];
 
-  constructor(private _emailService: EmailService, public emailDialogRef: MdDialogRef<EmailDialogComponent>, private snackBar: MdSnackBar) {
+  constructor(private _emailService: EmailService, public emailDialogRef: MdDialogRef<EmailDialogComponent>, private snackBar: MdSnackBar, private _taskService) {
   }
 
   ngOnInit() {
@@ -41,6 +44,14 @@ export class EmailDialogComponent {
     if(index > -1) {
       this.emailForm[addressType].splice(index,1);
     }
+  }
+
+  searchCardsForMembers() {
+    this.searchForTasks = true;
+    this._taskService.searchCardsForMembers(this.emailForm.to).subscribe((data:any) => {
+      this.relatedTasks = data; 
+    })
+
   }
 
   sendEmail() {

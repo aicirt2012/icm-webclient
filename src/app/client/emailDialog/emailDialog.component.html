@@ -4,11 +4,11 @@
     <span fxFlex>New Email</span>
     <md-icon (click)="closeDialog()">close</md-icon>
   </div>
-  <div>
+  <div fxFlex="70" fxLayout="column">
     <form fxFlex fxLayout="column">
     <md-input-container>
       <div fxFlex fxLayout="row">
-        <input md-input #inputTo (keyup.enter)="addAddress(inputTo,'to')" (change)="addAddress(inputTo,'to')" type="email" placeholder="To:" required/>
+        <input md-input #inputTo (keyup.enter)="addAddress(inputTo,'to')" (blur)="searchCardsForMembers()" (change)="addAddress(inputTo,'to')" type="email" placeholder="To:" required/>
       <span class="cc-tags" (click)="cc = !cc">CC</span>
       <span class="cc-tags" (click)="bcc = !bcc">BCC</span>
     </div>
@@ -51,8 +51,12 @@
         <textarea md-input placeholder="Message" [(ngModel)]="emailForm.text" name="text" rows="10"></textarea>
       </md-input-container>
     </form>
+    <md-dialog-actions>
+      <button md-submit md-raised-button color="primary" (click)="sendEmail()" [disabled]="sending">Send Email</button>
+    </md-dialog-actions>
   </div>
-  <md-dialog-actions>
-    <button md-submit md-raised-button color="primary" (click)="sendEmail()" [disabled]="sending">Send Email</button>
-  </md-dialog-actions>
+  <div fxFlex="30" fxLayout="column">
+    <div *ngIf="!relatedTasks[0].id">No tasks found</div>
+    <task-list-item *ngFor="let task of relatedTasks; let i = index;" [task]="task"></task-list-item>
+  </div>
 </div>
