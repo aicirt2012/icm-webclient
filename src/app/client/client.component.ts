@@ -186,7 +186,7 @@ export class ClientComponent {
         email.route = `/box/${email.box.id}/${email._id}`;
         return email;
       });
-      Array.prototype.push.apply(this.emails, moreEmails);
+      this.emails = this.emails.concat(moreEmails);
     });
   }
 
