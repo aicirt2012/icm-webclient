@@ -1,6 +1,11 @@
 <div fxLayout="column" class="full-height email-list-container">
  <search-bar [searchEmailBox]="searchEmailBox"></search-bar>
- <md-list class="scrollable email-list">
+ <md-list class="infinite-scroll-body email-list"
+          infinite-scroll
+          [infiniteScrollDistance]="scrollDistance"
+          [infiniteScrollThrottle]="scrollThrottle"
+          [scrollWindow]="false"
+          (scrolled)="onScroll()">
    <md-list-item class="email-list-item" [routerLink]="mail.route" [class.route-active]="isActive(mail.route)" [class.unseen]="!isRead(mail)" *ngFor="let mail of emails; let i = index">
      <h3 md-line> {{mail.from[0].name ? mail.from[0].name : mail.from[0].address}} </h3>
      <p md-line> {{mail.subject}} </p>

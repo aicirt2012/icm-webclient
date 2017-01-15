@@ -8,7 +8,7 @@
     <form fxFlex fxLayout="column">
 
         <div fxLayout="row" class="selectList">
-          <md-select fxFlex="33" name="board-select" [(ngModel)]="task.selectedBoard" [disabled]="task.idList || task.selectedMembers" required placeholder="Select a board..">
+          <md-select fxFlex="33" name="board-select" [(ngModel)]="task.selectedBoard" required placeholder="Select a board..">
             <md-option *ngFor="let board of boards; let b = index" [value]="board">
               {{ board.name }}
             </md-option>

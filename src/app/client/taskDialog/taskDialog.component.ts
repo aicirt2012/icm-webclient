@@ -20,6 +20,7 @@ export class TaskDialogComponent {
   }
 
   ngOnInit() {
+    console.log(this.task);
   }
 
   createTask() {
