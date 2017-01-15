@@ -12,6 +12,7 @@ import { Email, EmailForm } from './shared'; // all models from client
 import { SharedModule } from '../shared';
 import { ROUTES } from './client.routes';
 import { AuthGuard } from '../app.authGuard';
+import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { AuthGuard } from '../app.authGuard';
     SharedModule,
     MaterialModule.forRoot(),
     FlexLayoutModule.forRoot(),
+    InfiniteScrollModule
   ],
   declarations: [
     ClientComponent,
