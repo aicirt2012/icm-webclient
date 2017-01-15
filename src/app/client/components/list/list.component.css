@@ -33,3 +33,8 @@
 .unseen h1, .unseen h2,.unseen h3,.unseen h4,.unseen p {
   font-weight:bold !important;
 }
+
+.infinite-scroll-body {
+  max-height: 100%;
+  overflow: auto;
+}

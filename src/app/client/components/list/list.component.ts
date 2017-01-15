@@ -14,6 +14,8 @@ import { Email } from '../../shared';
 export class ListComponent {
   @Input() emails: Email[];
   @Output() searchEmailBox = new EventEmitter<string>();
+  scrollDistance = 2;
+  scrollThrottle = 200;
 
   constructor(public router: Router) {
   }
@@ -23,7 +25,11 @@ export class ListComponent {
   }
 
   isRead(email) {
-      return email.flags.indexOf('\\Seen') > -1;
+    return email.flags.indexOf('\\Seen') > -1;
+  }
+
+  onScrollDown () {
+    console.log('scrolled!!');
   }
 
 }
