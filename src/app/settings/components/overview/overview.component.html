@@ -3,13 +3,13 @@
   <form fxFlex>
     <div fxFlex fxfxLayout="column">
       <md-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
-        <input md-input fxFlex="45" name="username" type="text" [(ngModel)]="user.username" placeholder="Username" [disabled]="true">
+        <input md-input fxFlex="70" name="username" type="text" [(ngModel)]="user.username" placeholder="Username" [disabled]="true">
       </md-input-container>
       <md-input-container fxFlex fxLayout="row" fxLayoutAlign="start center" >
-        <input md-input fxFlex="45" name="email" type="email" [(ngModel)]="user.email" placeholder="Email" autofocus>
+        <input md-input fxFlex="70" name="email" type="email" [(ngModel)]="user.email" placeholder="Email" autofocus>
       </md-input-container>
       <md-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
-        <input md-input fxFlex="45" name="password" type="password" [(ngModel)]="user.password" placeholder="Password" required>
+        <input md-input fxFlex="70" name="password" type="password" [(ngModel)]="user.password" placeholder="Password" required>
       </md-input-container>
     </div>
       <button md-raised-button color="primary" (click)="updateUser()">Update User Credentials</button>
