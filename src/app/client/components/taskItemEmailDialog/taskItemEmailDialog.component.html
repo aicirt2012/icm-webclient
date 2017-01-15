@@ -1,0 +1,21 @@
+<md-card class="tasks-card">
+  <md-card-header fxLayout="row" fxLayoutAlign="start center">
+    <img md-card-avatar src="/assets/img/trello.gif">
+    <h5>{{task.name}}</h5>
+  </md-card-header>
+  <md-card-content>
+    <p>
+      Due: {{task.due | date:'short'}}
+    </p>
+    <p>
+      {{task.desc}}
+    </p>
+  </md-card-content>
+  <md-card-actions fxFlex fxLayout="row" fxLayoutAlign="center center">
+
+      <a md-button [href]="task.shortUrl" target="_blank">
+        <span>Go to card</span>
+      </a>
+
+  </md-card-actions>
+</md-card>

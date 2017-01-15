@@ -2,6 +2,7 @@ export * from './emailForm';
 export * from './list';
 export * from './taskList';
 export * from './taskListItem';
+export * from './taskItemEmailDialog';
 export * from './emailActionBar';
 export * from './emailView';
 export * from './emailResponse';

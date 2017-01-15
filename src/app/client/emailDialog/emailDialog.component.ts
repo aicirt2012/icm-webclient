@@ -23,7 +23,7 @@ export class EmailDialogComponent {
   public searchForTasks = false;
   public relatedTasks: any = [];
 
-  constructor(private _emailService: EmailService, public emailDialogRef: MdDialogRef<EmailDialogComponent>, private snackBar: MdSnackBar, private _taskService) {
+  constructor(private _emailService: EmailService, public emailDialogRef: MdDialogRef<EmailDialogComponent>, private snackBar: MdSnackBar, private _taskService: TaskService) {
   }
 
   ngOnInit() {
@@ -49,13 +49,14 @@ export class EmailDialogComponent {
   searchCardsForMembers() {
     this.searchForTasks = true;
     this._taskService.searchCardsForMembers(this.emailForm.to).subscribe((data:any) => {
-      this.relatedTasks = data; 
+      this.relatedTasks = data;
+      this.searchForTasks = false;
     })
 
   }
 
   sendEmail() {
-    this.sending=true;
+    this.sending = true;
     this._emailService
       .sendMail(this.emailForm)
       .subscribe((data: any) => {

@@ -1,0 +1,32 @@
+.padding {
+  padding: 8px;
+  padding-top: 0px;
+}
+
+.tasks-card {
+  margin-bottom: 5px;
+}
+
+.tasks {
+  padding: 8px;
+}
+
+.selectList {
+  margin-top: 15px;
+}
+
+.glyph {
+  margin-right: 5px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.board-width {
+  width: 80%;
+}

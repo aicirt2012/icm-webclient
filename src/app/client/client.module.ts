@@ -6,7 +6,7 @@ import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 
 import { ClientComponent, EmailDialogComponent, TaskDialogComponent, TasksComponent, DetailedViewComponent} from './'; // all intelligent components
-import { NavBarComponent,NavBarListItemComponent, ListComponent, EmailFormComponent, SearchBarComponent, EmailActionBarComponent, EmailViewComponent, TaskListComponent,TaskListItemComponent, EmailResponseComponent } from './components'; // all dumb components
+import { NavBarComponent,NavBarListItemComponent, ListComponent, EmailFormComponent, SearchBarComponent, EmailActionBarComponent, EmailViewComponent, TaskListComponent,TaskListItemComponent, TaskItemEmailDialogComponent, EmailResponseComponent } from './components'; // all dumb components
 import { EmailService, TaskService } from './shared'; // all services
 import { Email, EmailForm } from './shared'; // all models from client
 import { SharedModule } from '../shared';
@@ -38,6 +38,7 @@ import { AuthGuard } from '../app.authGuard';
     EmailViewComponent,
     TaskListComponent,
     TaskListItemComponent,
+    TaskItemEmailDialogComponent,
     NavBarComponent,
     NavBarListItemComponent
   ],

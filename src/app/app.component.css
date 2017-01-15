@@ -22,3 +22,7 @@ html, body {
 .padding-side {
   padding: 0 10px;
 }
+
+div.cdk-focus-trap-content {
+  height:100%;
+}
