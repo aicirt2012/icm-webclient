@@ -62,8 +62,17 @@ export class TaskService {
   }
 
   updateTask(task: any): Observable<any> {
-    const path = `${task.taskId}`;
-    return this._httpService.generateRequest(RequestMethod.Put, this.domain, path, null, task);
+    console.log(task);
+    const options = {
+      name: task.name,
+      /*TODO: change naming */
+      idList: task.idList.id,
+      desc: task.desc,
+      idMembers: [task.selectedMembers.id],
+      due: task.date,
+    };
+    const path = `${task.id}`;
+    return this._httpService.generateRequest(RequestMethod.Put, this.domain, path, null, options);
   }
 
   getTaskByID(id :string): Observable<any> {

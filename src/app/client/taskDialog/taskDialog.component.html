@@ -6,39 +6,37 @@
   </div>
   <div>
     <form fxFlex fxLayout="column">
-
-        <div fxLayout="row" class="selectList">
-          <md-select fxFlex="33" name="board-select" [(ngModel)]="task.selectedBoard" required placeholder="Select a board..">
-            <md-option *ngFor="let board of boards; let b = index" [value]="board">
-              {{ board.name }}
-            </md-option>
-          </md-select>
-          <md-select fxFlex="33"  [(ngModel)]="task.idList" name="list-select" *ngIf="task.selectedBoard" required placeholder="Select a list..">
-            <md-option *ngFor="let list of task.selectedBoard.lists" [value]="list">
-              {{ list.name }}
-            </md-option>
-          </md-select>
-          <md-select fxFlex="33" name="member-list" *ngIf="task.selectedBoard" [(ngModel)]="task.selectedMembers" required placeholder="Delegate to..">
-            <md-option *ngFor="let member of task.selectedBoard.members" [value]="member">
-              {{ member.fullName }}
-            </md-option>
-          </md-select>
-        </div>
-
-        <div fxLayout="row">
-          <md-input-container fxFlex="20">
-            <input name="date" md-input placeholder="Due Date" type="date" required [(ngModel)]="task.date" value="task.date | date:'yyyy-MM-dd'">
-          </md-input-container>
-        </div>
-
-        <md-input-container>
-          <textarea md-input type="text" name="task-description" placeholder="Task Description" maxRows="3" [(ngModel)]="task.desc" value="task.desc" rows="10"></textarea>
+      <div fxLayout="row" class="selectList">
+        <md-select fxFlex="33" name="board-select" [(ngModel)]="task.selectedBoard" disabled="task.taskType == 'linked'" required placeholder="Select a board..">
+          <md-option *ngFor="let board of boards; let b = index" [value]="task.taskType == 'suggested' ? board : task.board">
+            {{ board.name }}
+          </md-option>
+        </md-select>
+        <md-select fxFlex="33" [(ngModel)]="task.idList" name="list-select" *ngIf="task.selectedBoard" disabled="task.taskType == 'linked'" required placeholder="Select a list..">
+          <md-option *ngFor="let list of task.selectedBoard.lists" [value]="task.taskType == 'suggested' ? list : task.list">
+            {{ list.name }}
+          </md-option>
+        </md-select>
+        <md-select fxFlex="33" name="member-list" *ngIf="task.selectedBoard" [(ngModel)]="task.selectedMembers" disabled="task.taskType == 'linked'" required placeholder="Delegate to..">
+          <md-option *ngFor="let member of task.selectedBoard.members" [value]="task.taskType == 'suggested' ? member : task.member">
+            {{ member.fullName }}
+          </md-option>
+        </md-select>
+      </div>
+      <div fxLayout="row">
+        <md-input-container fxFlex="20">
+          <input name="date" md-input placeholder="Due Date" type="date" required [(ngModel)]="task.date" value="task.date | date:'yyyy-MM-dd'">
         </md-input-container>
+      </div>
+
+      <md-input-container>
+        <textarea md-input type="text" name="task-description" placeholder="Task Description" maxRows="3" [(ngModel)]="task.desc" value="task.desc" rows="10"></textarea>
+      </md-input-container>
 
     </form>
   </div>
   <md-dialog-actions>
     <button md-submit md-raised-button color="primary" [disabled]="sending" (click)="createTask()">Create Task</button>
-    <button md-submit md-raised-button color="primary" >Update Task</button>
+    <button md-submit md-raised-button color="primary" (click)="updateTask()">Update Task</button>
   </md-dialog-actions>
 </div>
