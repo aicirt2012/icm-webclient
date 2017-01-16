@@ -10,6 +10,7 @@ export class TaskListItemComponent {
   @Input() boards: any;
   @Input() createTask: EventEmitter<any> = new EventEmitter<any>();
   @Input() openDialog: EventEmitter<any> = new EventEmitter<any>();
+  @Input() deleteTask: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {
   }
@@ -33,6 +34,11 @@ export class TaskListItemComponent {
       this.task.selectedMembers = this.task.members[0];
     }
     this.openDialog.emit(this.task);
+  }
+
+  removeTask() {
+    console.log("remove this task from tasklist");
+    this.deleteTask.emit(this.task);
   }
 
 }

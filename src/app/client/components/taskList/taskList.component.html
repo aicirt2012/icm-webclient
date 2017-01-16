@@ -1,18 +1,17 @@
 <md-tab-group>
   <md-tab label="Trello">
     <md-tab-group>
-      <md-tab label="Suggested Tasks">
+      <md-tab label="Suggested"  title="Suggested Tasks">
         <div fxFlex fxLayout="column" class="padding">
-          <task-list-item *ngFor="let suggestedTask of suggestedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="suggestedTask" [boards]="boards"> </task-list-item>
+          <task-list-item *ngFor="let suggestedTask of suggestedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="suggestedTask" [boards]="boards" [deleteTask]="deleteTask"> </task-list-item>
         </div>
       </md-tab>
-      <md-tab label="Linked Tasks">
+      <md-tab label="Linked">
         <div fxFlex fxLayout="column" class="tasks">
-          <task-list-item *ngFor="let linkedTask of linkedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="linkedTask" [boards]="boards"> </task-list-item>
+          <task-list-item *ngFor="let linkedTask of linkedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="linkedTask" [boards]="boards" [deleteTask]="deleteTask"> </task-list-item>
         </div>
       </md-tab>
     </md-tab-group>
-
   </md-tab>
   <md-tab label="Socio Cortex" class="full-height">
     At the moment SocioCortex tasks are not available

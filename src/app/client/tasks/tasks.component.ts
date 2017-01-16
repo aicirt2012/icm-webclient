@@ -25,7 +25,13 @@ export class TasksComponent {
   constructor(private _taskService: TaskService, public dialog: MdDialog, public snackBar: MdSnackBar) {
   }
 
-  ngOnInit() {
+  /*ngOnInit() {
+    this.suggestedTasks = this.email.suggestedTasks ? this.email.suggestedTasks : [];
+    this.linkedTasks = this.email.linkedTasks ? this.email.linkedTasks : [];
+    this.getAllBoards();
+  }*/
+
+  ngOnChanges() {
     this.suggestedTasks = this.email.suggestedTasks ? this.email.suggestedTasks : [];
     this.linkedTasks = this.email.linkedTasks ? this.email.linkedTasks : [];
     this.getAllBoards();
@@ -62,6 +68,23 @@ export class TasksComponent {
     taskDialogRef.componentInstance.task = task;
     taskDialogRef.componentInstance.email = this.email;
     taskDialogRef.componentInstance.boards = this.boards;
+  }
+
+  deleteTask(task: any) {
+    console.log("deleting task in tasks");
+    console.log(task);
+    if(task.taskType == "suggested") {
+      /* search by desc in suggestedTasks because there is not yet any ID for a suggested Task */
+      /* we have to find a way to identify suggestedTasks better */
+      let position = 0;
+      for(let index = 0; index < this.suggestedTasks.length; index++) {
+        if(this.suggestedTasks[index].desc == task.desc) position = index;
+      }
+      this.suggestedTasks.splice(position, 1);
+    }
+    else {
+    //let found = this.suggestedTasks.filter((obj) => { if(obj.desc == task.desc) return obj});
+    }
   }
 
 }

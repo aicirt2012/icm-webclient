@@ -75,7 +75,7 @@ export class ClientComponent {
         /* initial syncing */
         if (!this.user.lastSync) {
           console.log("first syncing");
-          this.onRefresh(true);
+          this.syncBoxes([]);
         }
 
       } else {

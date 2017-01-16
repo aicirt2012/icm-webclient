@@ -6,7 +6,7 @@
   <md-card-content>
     <div *ngIf="task.taskType == 'suggested'">
       <p>
-        <i class="material-icons glyph">date_range</i>
+        <!--<i class="material-icons glyph">date_range</i>-->
         <md-input-container class="board-width">
           <input md-input placeholder="Due Date" type="date" required [(ngModel)]="task.date" value="task.date | date:'yyyy-MM-dd'">
         </md-input-container>
@@ -27,7 +27,7 @@
         </md-select>
       </p>
       <p *ngIf="task.selectedBoard">
-        <i class="material-icons glyph">people</i>
+      <!--  <i class="material-icons glyph">people</i>-->
         <md-select multiple class="selectList board-width" [(ngModel)]="task.selectedMembers" required placeholder="Delegate to..">
           <md-option *ngFor="let member of task.selectedBoard.members" [value]="member">
             {{ member.fullName }}
@@ -54,7 +54,7 @@
       </button>
     </div>
     <div fxFlex="33">
-      <button md-button>
+      <button (click)="removeTask()" md-button>
         <md-icon>close</md-icon>
       </button>
     </div>
@@ -66,7 +66,7 @@
       </button>
     </div>
     <div fxFlex="50">
-      <button md-button>
+      <button (click)="removeTask()" md-button>
         <md-icon>close</md-icon>
       </button>
     </div>

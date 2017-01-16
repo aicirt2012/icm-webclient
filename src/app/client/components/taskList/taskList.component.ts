@@ -13,6 +13,7 @@ export class TaskListComponent {
   @Input() boards: any[];
   @Output() createTask = new EventEmitter<any>();
   @Output() openDialog = new EventEmitter<any>();
+  @Output() deleteTask = new EventEmitter<any>();
 
   constructor() {
   }
