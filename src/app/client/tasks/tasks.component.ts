@@ -14,6 +14,8 @@ import { TaskDialogComponent } from '../taskDialog';
 export class TasksComponent {
 
   @Input() email: any;
+  @Input() user: any;
+  public errorTrello = false;
   public boards: any;
   public suggestedTasks: any = [];
   public linkedTasks: any = [];
@@ -25,16 +27,11 @@ export class TasksComponent {
   constructor(private _taskService: TaskService, public dialog: MdDialog, public snackBar: MdSnackBar) {
   }
 
-  /*ngOnInit() {
-    this.suggestedTasks = this.email.suggestedTasks ? this.email.suggestedTasks : [];
-    this.linkedTasks = this.email.linkedTasks ? this.email.linkedTasks : [];
-    this.getAllBoards();
-  }*/
-
   ngOnChanges() {
     this.suggestedTasks = this.email.suggestedTasks ? this.email.suggestedTasks : [];
     this.linkedTasks = this.email.linkedTasks ? this.email.linkedTasks : [];
-    this.getAllBoards();
+    if(this.user.trello) this.getAllBoards();
+    else this.errorTrello = true;
   }
 
   createTask(taskObject: any) {
