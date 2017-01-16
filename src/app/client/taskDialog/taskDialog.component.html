@@ -2,7 +2,7 @@
   <md-progress-bar *ngIf="sending" mode="indeterminate"></md-progress-bar>
   <div md-dialog-title fxLayout="row">
     <span fxFlex>{{task.name}}</span>
-    <md-icon (click)="closeDialog()">close</md-icon>
+    <md-icon (click)="closeDialog()" class="pointer">close</md-icon>
   </div>
   <div>
     <form fxFlex fxLayout="column">

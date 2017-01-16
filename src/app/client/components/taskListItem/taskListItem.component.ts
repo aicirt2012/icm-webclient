@@ -21,7 +21,8 @@ export class TaskListItemComponent {
   }
 
   ngOnInit() {
-      this.task.date = this._taskService.formatDate(this.task.date);
+    if(this.task.taskType == 'linked') this.task.date = this._taskService.formatDate(this.task.due);
+    else this.task.date = this._taskService.formatDate(this.task.date);
   }
 
   onSelectBoard(board:any) {
@@ -46,7 +47,7 @@ export class TaskListItemComponent {
       this.task.selectedBoard = this.task.board;
       this.task.idList = this.task.list;
       this.task.selectedMembers = this.task.members[0];
-      this.task.date = this._taskService.formatDate(this.task.due);
+      //this.task.date = this._taskService.formatDate(this.task.due);
     }
     this.openDialog.emit(task);
   }

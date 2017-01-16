@@ -2,12 +2,23 @@
   <md-card-header>
     <md-card-title class="card-title">
       <md-input-container >
-        <input md-input placeholder="Task title" type="text" [(ngModel)]="task.name">
+        <input md-input placeholder="Task Name" type="text" [disabled]="task.taskType == 'linked'" [(ngModel)]="task.name">
       </md-input-container>
     </md-card-title>
       <img md-card-avatar src="/assets/img/trello.gif">
   </md-card-header>
   <md-card-content>
+    <div *ngIf="task.taskType == 'linked'">
+          <p>
+            <!--<i class="material-icons glyph">date_range</i>-->
+            <md-input-container class="board-width">
+              <input md-input placeholder="Due Date" type="date" required [(ngModel)]="task.date" [disabled]="true" value="task.date">
+            </md-input-container>
+          </p>
+          <p>
+            {{task.desc}}
+          </p>
+        </div>
     <div *ngIf="task.taskType == 'suggested'">
       <p>
         <!--<i class="material-icons glyph">date_range</i>-->
@@ -30,6 +41,7 @@
           </md-option>
         </md-select>
       </p>
+
 <!--
       <p *ngIf="task.selectedBoard">
 
@@ -50,12 +62,13 @@
           </md-option>
         </md-select>
       </div>
+      <p>
+        <md-input-container class="example-full-width">
+          <textarea md-input type="text" placeholder="Task Description" maxRows="3" [disabled]="task.taskType == 'linked'" [(ngModel)]="task.desc" value="task.desc"></textarea>
+        </md-input-container>
+      </p>
     </div>
-    <p>
-      <md-input-container class="example-full-width">
-        <textarea md-input type="text" placeholder="Task Description" maxRows="3" [disabled]="task.taskType == 'linked'" [(ngModel)]="task.desc" value="task.desc"></textarea>
-      </md-input-container>
-    </p>
+
   </md-card-content>
   <md-card-actions *ngIf="task.taskType == 'suggested'" fxFlex fxLayout="row">
     <div fxFlex="33">
