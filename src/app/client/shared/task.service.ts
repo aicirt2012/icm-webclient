@@ -52,7 +52,7 @@ export class TaskService {
       /*TODO: change naming */
       idList: task.idList.id,
       desc: task.desc,
-      idMembers: [task.selectedMembers.id],
+      idMembers: task.selectedMembers.map((s) => s.id),
       due: task.date,
       sentences: email.sentences,
       sentenceId: task.task.id
