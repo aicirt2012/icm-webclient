@@ -1,7 +1,11 @@
 <md-card class="tasks-card">
   <md-card-header>
-    <img md-card-avatar src="/assets/img/trello.gif">
-    <md-card-title class="card-title">{{task.name}}</md-card-title>
+    <md-card-title class="card-title">
+      <md-input-container >
+        <input md-input placeholder="Task title" type="text" [(ngModel)]="task.name">
+      </md-input-container>
+    </md-card-title>
+      <img md-card-avatar src="/assets/img/trello.gif">
   </md-card-header>
   <md-card-content>
     <div *ngIf="task.taskType == 'suggested'">
@@ -13,11 +17,11 @@
       </p>
       <p>
         <md-select class="board-width" [(ngModel)]="task.selectedBoard" [disabled]="task.idList || task.selectedMembers" required placeholder="Select a board..">
-          <md-option *ngFor="let board of boards; let b = index" [value]="board">
+          <md-option *ngFor="let board of boards; let b = index" [value]="board" (onSelect)="onSelectBoard(board)">
             {{ board.name }}
           </md-option>
         </md-select>
-        <i class="material-icons" *ngIf="task.selectedBoard" (click)="task.idList = null;task.selectedBoard = null;task.selectedMembers=null">close</i>
+        <i class="material-icons" *ngIf="task.selectedBoard" (click)="task.idList = null;task.selectedBoard = null;task.selectedMembers=null; selectedMembers=[]">close</i>
       </p>
       <p>
         <md-select class="selectList board-width" [(ngModel)]="task.idList" *ngIf="task.selectedBoard" required placeholder="Select a list..">
@@ -26,14 +30,26 @@
           </md-option>
         </md-select>
       </p>
+<!--
       <p *ngIf="task.selectedBoard">
-      <!--  <i class="material-icons glyph">people</i>-->
+
         <md-select multiple class="selectList board-width" [(ngModel)]="task.selectedMembers" required placeholder="Delegate to..">
           <md-option *ngFor="let member of task.selectedBoard.members" [value]="member">
+-->
+      <div *ngIf="task.selectedBoard">
+        <div fxLayout="row">
+          <div *ngFor="let member of selectedMembers; let i = index" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
+          <span >{{member.initials}}</span>
+          <md-icon (click)="deleteMember(member, i)" >close</md-icon>
+        </div>
+        </div>
+        <md-select class="selectList board-width" placeholder="Delegate to.." [(ngModel)]="currMember" (onClose)="currMember = ''">
+          <md-option [value]="''">Choose...</md-option>
+          <md-option *ngFor="let member of possibleMembers; let i = index" [value]="member" (onSelect)="addMember(member, i)">
             {{ member.fullName }}
           </md-option>
         </md-select>
-      </p>
+      </div>
     </div>
     <p>
       <md-input-container class="example-full-width">

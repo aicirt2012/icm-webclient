@@ -38,3 +38,9 @@
   max-height: 100%;
   overflow: auto;
 }
+
+.loading-list {
+  height: 30px;
+  color: gray;
+  font-weight: bold;
+}

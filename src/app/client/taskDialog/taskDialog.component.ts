@@ -15,6 +15,10 @@ export class TaskDialogComponent {
   public email: any = {};
   public boards: any[] = [];
   public sending: boolean = false;
+  public selectedMembers: any[] = [];
+  public possibleMembers: any[] = [];
+  public currMember = '';
+
 
   constructor(public taskDialogRef: MdDialogRef<TaskDialogComponent>, private snackBar: MdSnackBar, private _taskService: TaskService) {
   }
@@ -55,6 +59,18 @@ export class TaskDialogComponent {
 
   closeDialog() {
     this.taskDialogRef.close();
+  }
+
+  addMember(member: any, index: number): void {
+      this.selectedMembers.push(member);
+      this.possibleMembers.splice(index,1);
+      this.currMember = '';
+  }
+
+  deleteMember(member: any, index: number) {
+    this.possibleMembers.push(member);
+    this.selectedMembers.splice(index,1);
+    this.currMember = '';
   }
 
 }

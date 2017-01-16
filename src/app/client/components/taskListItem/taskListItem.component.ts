@@ -1,5 +1,6 @@
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { TaskService } from '../../shared';
+import { MdSnackBar} from '@angular/material';
 
 @Component({
   selector: 'task-list-item',
@@ -12,16 +13,28 @@ export class TaskListItemComponent {
   @Input() createTask: EventEmitter<any> = new EventEmitter<any>();
   @Input() openDialog: EventEmitter<any> = new EventEmitter<any>();
   @Input() deleteTask: EventEmitter<any> = new EventEmitter<any>();
+  public selectedMembers: any[] = [];
+  public possibleMembers: any[] = [];
+  public currMember = '';
 
-  constructor(private _taskService: TaskService) {
+  constructor(private _taskService: TaskService,public snackBar: MdSnackBar) {
   }
 
   ngOnInit() {
       this.task.date = this._taskService.formatDate(this.task.date);
   }
 
+  onSelectBoard(board:any) {
+    this.possibleMembers = board.members;
+  }
+
   onCreateTask() {
-    this.createTask.emit(this.task);
+    if(this.task.idList) {
+      this.task.selectedMembers = this.selectedMembers;
+      this.createTask.emit(this.task);
+    } else {
+      this.snackBar.open('Please select a list.', 'OK');
+    }
   }
 
   openTaskDialog(task: any) {
@@ -40,6 +53,18 @@ export class TaskListItemComponent {
 
   removeTask() {
     this.deleteTask.emit(this.task);
+  }
+
+  addMember(member: any, index: number): void {
+      this.selectedMembers.push(member);
+      this.possibleMembers.splice(index,1);
+      this.currMember = '';
+  }
+
+  deleteMember(member: any, index: number) {
+    this.possibleMembers.push(member);
+    this.selectedMembers.splice(index,1);
+    this.currMember = '';
   }
 
 }

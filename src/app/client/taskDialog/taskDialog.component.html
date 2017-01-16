@@ -28,11 +28,9 @@
           <input name="date" md-input placeholder="Due Date" type="date" required [(ngModel)]="task.date" value="task.date | date:'yyyy-MM-dd'">
         </md-input-container>
       </div>
-
       <md-input-container>
         <textarea md-input type="text" name="task-description" placeholder="Task Description" maxRows="3" [(ngModel)]="task.desc" value="task.desc" rows="10"></textarea>
       </md-input-container>
-
     </form>
   </div>
   <md-dialog-actions>

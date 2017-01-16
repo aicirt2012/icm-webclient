@@ -13,6 +13,7 @@ import { Email } from '../../shared';
 
 export class ListComponent {
   @Input() emails: Email[];
+  @Input() loadingList: boolean;
   @Output() searchEmailBox = new EventEmitter<string>();
   @Output() onEmailListScrolling = new EventEmitter<any>();
 
@@ -20,6 +21,7 @@ export class ListComponent {
   limit = 10;
   scrollDistance = 2;
   scrollThrottle = 300;
+  emailsCounter = 0;
 
   constructor(public router: Router) {
     this.page = 0;
@@ -34,13 +36,16 @@ export class ListComponent {
   }
 
   onScroll() {
-    this.page += 1;
-    const params = {
-      box: this.emails[0].box.name,
-      page: this.page,
-      limit: this.limit
-    };
-    this.onEmailListScrolling.emit(params);
+    if (this.emailsCounter < this.emails.length) {
+      this.emailsCounter = this.emails.length;
+      this.page += 1;
+      const params = {
+        box: this.emails[0].box.name,
+        page: this.page,
+        limit: this.limit
+      };
+      this.onEmailListScrolling.emit(params);
+    }
   }
 
 }

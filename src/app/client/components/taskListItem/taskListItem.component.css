@@ -37,3 +37,18 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
+
+.member-initials {
+  background-color: #2f3649;
+  color: white;
+  height: 24px;
+  font-size: 12px;
+  line-height: 24px;
+  text-align: center;
+  padding: 2px;
+  border-radius: 4px;
+}
+
+.member-initials md-icon {
+  color: #ec4b4e;
+}

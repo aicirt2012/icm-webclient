@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SettingsService } from '../../shared';
-import { MdSnackBar } from '@angular/material';
+import { MdSnackBar, MdInput } from '@angular/material';
 
 
 @Component({
@@ -19,8 +19,10 @@ public emailConfig = {
   port: 993,
   smtpHost: 'smtp.gmail.com',
   smtpPort: 465,
-  smtpDomains: ['gmail.com', 'googlemail.com']
+  smtpDomains: []
 };
+
+public smtpDomains: string[] = ['gmail.com', 'googlemail.com'];
 
   constructor(private _settingsService: SettingsService, private snackBar: MdSnackBar) {}
 
@@ -30,6 +32,19 @@ public emailConfig = {
         this.emailConfig = data.provider;
       }
     })
+  }
+
+  addDomain(domain: MdInput): void {
+    if (domain.value && domain.value.trim() != '') {
+      this.emailConfig['smtpDomains'].push(domain.value.trim());
+      domain.value = '';
+    }
+  }
+
+  deleteDomain(index: number) {
+    if(index > -1) {
+      this.emailConfig['smtpDomains'].splice(index,1);
+    }
   }
 
   updateEmailConfig() {
