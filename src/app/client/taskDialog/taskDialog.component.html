@@ -36,7 +36,7 @@
     </form>
   </div>
   <md-dialog-actions>
-    <button md-submit md-raised-button color="primary" [disabled]="sending" (click)="createTask()">Create Task</button>
-    <button md-submit md-raised-button color="primary" (click)="updateTask()">Update Task</button>
+    <button md-submit md-raised-button color="primary" [disabled]="sending" (click)="createTask()" *ngIf="task.taskType == 'suggested'">Create Task</button>
+    <button md-submit md-raised-button color="primary" (click)="updateTask()" *ngIf="task.taskType == 'linked'">Update Task</button>
   </md-dialog-actions>
 </div>
