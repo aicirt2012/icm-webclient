@@ -28,7 +28,15 @@
           <input md-input placeholder="SMTP Port" type="number" name="smtpport" [(ngModel)]="emailConfig.smtpPort" required>
       </md-input-container>
       <md-input-container>
-          <input md-input placeholder="SMTP Domains" type="text" name="smtpdomains" [(ngModel)]="emailConfig.smtpDomains" required>
+          <input md-input #inputSmtpDomains (keyup.enter)="addDomain(inputSmtpDomains)" (change)="addDomain(inputSmtpDomains)"  type="text" placeholder="SMTP Domains:" required/>
+          <md-chip-list>
+            <md-chip *ngFor="let domain of emailConfig.smtpDomains; let i = index">
+              <div fxLayout="row" fxLayoutAlign="start center">
+                <span>{{domain}}</span>
+                <md-icon class="pointer" (click)="deleteDomain(i)">close</md-icon>
+              </div>
+            </md-chip>
+          </md-chip-list>
       </md-input-container>
     </div>
       <button md-raised-button color="primary" (click)="updateEmailConfig()">Save Configuration</button>
