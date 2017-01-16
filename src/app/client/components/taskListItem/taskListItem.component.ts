@@ -1,4 +1,5 @@
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
+import { TaskService } from '../../shared';
 
 @Component({
   selector: 'task-list-item',
@@ -12,26 +13,27 @@ export class TaskListItemComponent {
   @Input() openDialog: EventEmitter<any> = new EventEmitter<any>();
   @Input() deleteTask: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor() {
+  constructor(private _taskService: TaskService) {
   }
 
   ngOnInit() {
-
+      this.task.date = this._taskService.formatDate(this.task.date);
   }
 
   onCreateTask() {
     this.createTask.emit(this.task);
   }
 
-  openTaskDialog(task:any) {
+  openTaskDialog(task: any) {
     /* For linked task we have to append lists to task.board (We do not get this info from backend) */
-    let listsForBoard = this.boards.map((board) => { if(board.id == this.task.idBoard) return board.lists; })[0];
-    if(this.task.taskType == 'linked') {
+    let listsForBoard = this.boards.map((board) => { if (board.id == this.task.idBoard) return board.lists; })[0];
+    if (this.task.taskType == 'linked') {
       this.task.board['lists'] = listsForBoard;
       this.task.board['members'] = this.task.members;
       this.task.selectedBoard = this.task.board;
       this.task.idList = this.task.list;
       this.task.selectedMembers = this.task.members[0];
+      this.task.date = this._taskService.formatDate(this.task.due);
     }
     this.openDialog.emit(this.task);
   }
