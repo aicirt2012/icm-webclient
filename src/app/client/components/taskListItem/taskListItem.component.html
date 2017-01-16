@@ -37,7 +37,7 @@
     </div>
     <p>
       <md-input-container class="example-full-width">
-        <textarea md-input type="text" placeholder="Task Description" maxRows="3" disabled="task.taskType == 'linked'" [(ngModel)]="task.desc" value="task.desc"></textarea>
+        <textarea md-input type="text" placeholder="Task Description" maxRows="3" [disabled]="task.taskType == 'linked'" [(ngModel)]="task.desc" value="task.desc"></textarea>
       </md-input-container>
     </p>
   </md-card-content>
