@@ -1,12 +1,12 @@
 <md-tab-group>
   <md-tab label="Trello">
     <md-tab-group>
-      <md-tab label="Suggested"  title="Suggested Tasks">
+      <md-tab style="min-width:120px" label="Suggested"  title="Suggested Tasks">
         <div fxFlex fxLayout="column" class="padding">
           <task-list-item *ngFor="let suggestedTask of suggestedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="suggestedTask" [boards]="boards" [deleteTask]="deleteTask"> </task-list-item>
         </div>
       </md-tab>
-      <md-tab label="Linked">
+      <md-tab  style="min-width:120px" label="Linked">
         <div fxFlex fxLayout="column" class="tasks">
           <task-list-item *ngFor="let linkedTask of linkedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="linkedTask" [boards]="boards" [deleteTask]="deleteTask"> </task-list-item>
         </div>

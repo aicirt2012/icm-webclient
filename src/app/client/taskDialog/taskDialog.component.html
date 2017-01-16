@@ -17,11 +17,27 @@
             {{ list.name }}
           </md-option>
         </md-select>
+        <!--
         <md-select fxFlex="33" name="member-list" *ngIf="task.selectedBoard" [(ngModel)]="task.selectedMembers" [disabled]="task.taskType == 'linked'" required placeholder="Delegate to..">
           <md-option *ngFor="let member of task.selectedBoard.members" [value]="task.taskType == 'suggested' ? member : task.member">
             {{ member.fullName }}
           </md-option>
-        </md-select>
+        </md-select>-->
+
+        <div *ngIf="task.selectedBoard">
+          <div fxLayout="row">
+            <div *ngFor="let member of task.selectedMembers; let i = index" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
+              <span >{{member.initials}}</span>
+              <md-icon (click)="deleteMember(member, i)">close</md-icon>
+            </div>
+          </div>
+          <md-select class="selectList board-width" placeholder="Delegate to.." [(ngModel)]="currMember" name="member" (onClose)="currMember = ''">
+            <md-option [value]="''">Choose...</md-option>
+            <md-option *ngFor="let member of possibleMembers; let i = index" [value]="member" (onSelect)="addMember(member, i)">
+              {{ member.fullName }}
+            </md-option>
+          </md-select>
+        </div>
       </div>
       <div fxLayout="row">
         <md-input-container fxFlex="20">

@@ -39,15 +39,22 @@ export class TaskListItemComponent {
   }
 
   openTaskDialog(task: any) {
+    console.log("open for task");
+    console.log(task);
+    console.log("selectedMembers");
+    console.log(this.selectedMembers);
     if (this.task.taskType == 'linked' && this.task.board) {
-      /* For linked task we have to append lists to task.board (We do not get this info from backend) */
+      // For linked task we have to append lists to task.board (We do not get this info from backend) */
       let listsForBoard = this.boards.filter((board) => { if (board.id == this.task.idBoard) return board.lists; })[0].lists;
       this.task.board['lists'] = listsForBoard;
       this.task.board['members'] = this.task.members;
       this.task.selectedBoard = this.task.board;
       this.task.idList = this.task.list;
-      this.task.selectedMembers = this.task.members[0];
+      this.task.selectedMembers = this.task.members;
       //this.task.date = this._taskService.formatDate(this.task.due);
+    }
+    else {
+      this.task.selectedMembers = this.selectedMembers;
     }
     this.openDialog.emit(task);
   }

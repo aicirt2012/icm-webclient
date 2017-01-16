@@ -25,6 +25,8 @@ export class TaskDialogComponent {
 
   ngOnInit() {
     console.log(this.task);
+    //hotfix for now:
+    this.possibleMembers = this.task.selectedMembers;
   }
 
   createTask() {
@@ -59,6 +61,10 @@ export class TaskDialogComponent {
 
   closeDialog() {
     this.taskDialogRef.close();
+  }
+
+  onSelectBoard(board:any) {
+    this.possibleMembers = board.members;
   }
 
   addMember(member: any, index: number): void {
