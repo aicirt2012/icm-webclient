@@ -71,19 +71,20 @@ export class TasksComponent {
   }
 
   deleteTask(task: any) {
-    console.log("deleting task in tasks");
-    console.log(task);
+    let position = 0;
     if(task.taskType == "suggested") {
       /* search by desc in suggestedTasks because there is not yet any ID for a suggested Task */
       /* we have to find a way to identify suggestedTasks better */
-      let position = 0;
       for(let index = 0; index < this.suggestedTasks.length; index++) {
         if(this.suggestedTasks[index].desc == task.desc) position = index;
       }
       this.suggestedTasks.splice(position, 1);
     }
     else {
-    //let found = this.suggestedTasks.filter((obj) => { if(obj.desc == task.desc) return obj});
+      for(let index = 0; index < this.linkedTasks.length; index++) {
+        if(this.linkedTasks[index].id == task.id) position = index;
+      }
+      this.linkedTasks.splice(position, 1);
     }
   }
 
