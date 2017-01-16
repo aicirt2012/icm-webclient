@@ -16,13 +16,13 @@ import { EmailDialogComponent } from './emailDialog';
   styleUrls: ['./client.component.css'],
   templateUrl: './client.component.html',
   animations: [trigger('fadeInOut', [
-      transition('void => *', [
-        style({opacity:0}), //style only for transition transition (after transiton it removes)
-        animate(500, style({opacity:1})) // the new state of the transition(after transiton it removes)
-      ]),
-      transition('* => void', [
-      ])
-    ])]
+    transition('void => *', [
+      style({ opacity: 0 }), //style only for transition transition (after transiton it removes)
+      animate(500, style({ opacity: 1 })) // the new state of the transition(after transiton it removes)
+    ]),
+    transition('* => void', [
+    ])
+  ])]
 })
 export class ClientComponent {
   public emails: Email[] = [];
@@ -51,7 +51,7 @@ export class ClientComponent {
   ngOnInit() {
     this.syncing = true;
 
-    this._settingsService.getUserInfo().subscribe( (user) => {
+    this._settingsService.getUserInfo().subscribe((user) => {
       this.user = user;
       console.log('user', user);
       if (this.user.provider.name) {
@@ -72,6 +72,12 @@ export class ClientComponent {
           this.fetchBoxByRouteId();
           this.fetchMailByRouteId();
         }
+        /* initial syncing */
+        if (!this.user.lastSync) {
+          console.log("first syncing");
+          this.onRefresh(true);
+        }
+
       } else {
         this.syncing = false;
         this.noMailboxConnected = true;
@@ -101,22 +107,22 @@ export class ClientComponent {
   }
 
   refreshBoxList(boxList?: any[]) {
-      if (boxList) {
-        this.appState.set('boxList', boxList);
-        this.boxList = boxList;
-      } else {
-        this.getBoxList().subscribe((data: any[]) => {
-          if (data.length > 0) {
-            this.appState.set('boxList', data);
-            this.boxList = data;
-          }
-        });
+    if (boxList) {
+      this.appState.set('boxList', boxList);
+      this.boxList = boxList;
+    } else {
+      this.getBoxList().subscribe((data: any[]) => {
+        if (data.length > 0) {
+          this.appState.set('boxList', data);
+          this.boxList = data;
+        }
+      });
     }
   }
 
   /* FETCHING EMAILS BY BOX */
   fetchBoxByRouteId() {
-      // TODO: logic that only if box differs this is refetched
+    // TODO: logic that only if box differs this is refetched
     this.currentBox.subscribe((boxId) => {
       boxId === 'None' ? '' : this.getEmailBox(this.boxList.filter((box) => box.id == boxId)[0]);
     });
@@ -159,7 +165,7 @@ export class ClientComponent {
 
   /* FETCHING SINGLE EMAIL */
   fetchMailByRouteId() {
-      //TODO: logic that only if email differs, this is refetched
+    //TODO: logic that only if email differs, this is refetched
     this.currentId.subscribe((emailId) => {
       emailId === 'None' ? '' : this.getSingleMail(emailId);
     });
@@ -191,39 +197,39 @@ export class ClientComponent {
   }
 
   /* EMAIL-RELATED ACTION-LISTENERS */
-onEmailMoveToBox(params: any) {
-  this._emailService.moveMail(params.msgId, params.srcBox, params.destBox).subscribe((res) => {
+  onEmailMoveToBox(params: any) {
+    this._emailService.moveMail(params.msgId, params.srcBox, params.destBox).subscribe((res) => {
       console.log(res);
-  });
-}
+    });
+  }
 
-onAddBox(boxName: string) {
+  onAddBox(boxName: string) {
     this._emailService.addBox(boxName).subscribe((res) => {
-        this.refreshBoxList(res.boxList);
+      this.refreshBoxList(res.boxList);
     });
-}
+  }
 
-onDeleteBox(boxName: string) {
+  onDeleteBox(boxName: string) {
     this._emailService.delBox(boxName).subscribe((res) => {
-        this.refreshBoxList(res.boxList);
+      this.refreshBoxList(res.boxList);
     });
-}
+  }
 
-/* msgId: string, flags: string[], boxName: string */
-onAddFlags(params:any) {
+  /* msgId: string, flags: string[], boxName: string */
+  onAddFlags(params: any) {
     this._emailService.addFlags(params.email.uid, params.flags, params.box).subscribe((res) => {
-        params.email.flags = params.email.flags.concat(params.flags);
+      params.email.flags = params.email.flags.concat(params.flags);
     });
-}
+  }
 
-/* msgId: string, flags: string[], boxName: string */
-onDeleteFlags(params:any) {
+  /* msgId: string, flags: string[], boxName: string */
+  onDeleteFlags(params: any) {
     this._emailService.delFlags(params.email.uid, params.flags, params.box).subscribe((res) => {
-        params.flags.forEach((f) => {
-            params.email.flags.splice(params.email.flags.indexOf(f),1);
-        });
+      params.flags.forEach((f) => {
+        params.email.flags.splice(params.email.flags.indexOf(f), 1);
+      });
     });
-}
+  }
 
   /* HELPERS */
   openDialog() {
