@@ -11,5 +11,6 @@
      <p md-line> {{mail.subject}} </p>
      <p md-line> {{mail.date | date:'shortTime'}}, {{mail.date | date:'shortDate'}} </p>
    </md-list-item>
- </md-list>
- </div>
+  </md-list>
+<div class="loading-list" *ngIf="loadingList" fxLayoutAlign="center center">Loading...</div>
+</div>

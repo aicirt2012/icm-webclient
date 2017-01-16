@@ -30,6 +30,7 @@ export class ClientComponent {
   public loading: boolean = true;
   public syncing: boolean = true;
   public boxList: any = [];
+  public loadingList: boolean = false;
 
   private currentBox: Observable<string>;
   private lastFetchedBox: any;
@@ -181,12 +182,14 @@ export class ClientComponent {
 
   /* GET EMAILS WITH PAGINATION */
   onEmailListScrolling(params: any) {
+    this.loadingList = true;
     this._emailService.getEmailsWithPagination(params.box, params.page, params.limit).subscribe((res) => {
       const moreEmails: Email[] = res.docs.map((email) => {
         email.route = `/box/${email.box.id}/${email._id}`;
         return email;
       });
       this.emails = this.emails.concat(moreEmails);
+      this.loadingList = false;
     });
   }
 

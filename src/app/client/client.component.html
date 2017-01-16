@@ -10,7 +10,7 @@
     </navbar>
     <spinner *ngIf="loading" fxFlex [loading]="loading"></spinner>
     <div *ngIf="!loading" [@fadeInOut]="!loading" fxFlex="85" fxLayout="row">
-      <list [emails]="emails" (searchEmailBox)="searchEmailBox($event)" (onEmailListScrolling)="onEmailListScrolling($event)" fxFlex="25"></list>
+      <list [emails]="emails" [loadingList]="loadingList" (searchEmailBox)="searchEmailBox($event)" (onEmailListScrolling)="onEmailListScrolling($event)" fxFlex="25"></list>
       <detailed-view *ngIf="email" [email]="email" [boxList]="boxList" fxFlex="55" (onEmailMoveToBox)="onEmailMoveToBox($event)" (onDeleteFlags)="onDeleteFlags($event)" (onAddFlags)="onAddFlags($event)"></detailed-view>
       <tasks *ngIf="email" [email]="email" fxFlex="20"></tasks>
   </div>
