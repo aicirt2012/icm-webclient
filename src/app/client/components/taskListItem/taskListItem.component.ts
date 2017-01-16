@@ -25,9 +25,9 @@ export class TaskListItemComponent {
   }
 
   openTaskDialog(task: any) {
-    /* For linked task we have to append lists to task.board (We do not get this info from backend) */
-    let listsForBoard = this.boards.map((board) => { if (board.id == this.task.idBoard) return board.lists; })[0];
-    if (this.task.taskType == 'linked') {
+    if (this.task.taskType == 'linked' && this.task.board) {
+      /* For linked task we have to append lists to task.board (We do not get this info from backend) */
+      let listsForBoard = this.boards.filter((board) => { if (board.id == this.task.idBoard) return board.lists; })[0].lists;
       this.task.board['lists'] = listsForBoard;
       this.task.board['members'] = this.task.members;
       this.task.selectedBoard = this.task.board;
@@ -35,11 +35,10 @@ export class TaskListItemComponent {
       this.task.selectedMembers = this.task.members[0];
       this.task.date = this._taskService.formatDate(this.task.due);
     }
-    this.openDialog.emit(this.task);
+    this.openDialog.emit(task);
   }
 
   removeTask() {
-    console.log("remove this task from tasklist");
     this.deleteTask.emit(this.task);
   }
 

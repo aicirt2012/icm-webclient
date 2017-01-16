@@ -38,6 +38,11 @@ export class TasksComponent {
     this._taskService.createTask(this.email, taskObject)
       .subscribe((task: any) => {
         this.snackBar.open('Task successfully created.', 'OK');
+        //remove taskObject from suggestedTasks
+        this.deleteTask(taskObject);
+        //add returned task to linked tasks - we have to manually add the task type because we don't fetch the new mail
+        this.addLinkedTaskLocally(task, taskObject);
+        //now switch to linkedTasks View
       },
       error => {
         console.log(error);
@@ -83,6 +88,18 @@ export class TasksComponent {
       }
       this.linkedTasks.splice(position, 1);
     }
+  }
+
+  addLinkedTaskLocally(task: any, suggestedTask: any) {
+    task.selectedBoard = suggestedTask.selectedBoard;
+    task.selectedMembers = [suggestedTask.selectedMembers];
+    task.idList = suggestedTask.idList;
+    task.date = suggestedTask.date;
+    task.board = task.selectedBoard;
+    task.list = task.idList;
+    task.members = task.selectedMembers;
+    task.taskType = "linked"
+    this.linkedTasks.push(task);
   }
 
 }

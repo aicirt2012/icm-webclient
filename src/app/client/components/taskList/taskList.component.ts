@@ -19,8 +19,6 @@ export class TaskListComponent {
   }
 
   ngOnInit() {
-    console.log("boards");
-    console.log(this.boards);
   }
 
 

@@ -42,14 +42,13 @@
     </p>
   </md-card-content>
   <md-card-actions *ngIf="task.taskType == 'suggested'" fxFlex fxLayout="row">
-
     <div fxFlex="33">
       <button (click)="onCreateTask()" md-button>
         <md-icon>check</md-icon>
       </button>
     </div>
     <div fxFlex="33">
-      <button (click)="openTaskDialog()" md-button>
+      <button (click)="openTaskDialog(task)" md-button>
         <md-icon>mode_edit</md-icon>
       </button>
     </div>
@@ -61,7 +60,7 @@
   </md-card-actions>
   <md-card-actions *ngIf="task.taskType == 'linked'" fxFlex fxLayout="row">
     <div fxFlex="50">
-      <button (click)="openTaskDialog()" md-button>
+      <button (click)="openTaskDialog(task)" md-button>
         <md-icon>mode_edit</md-icon>
       </button>
     </div>
