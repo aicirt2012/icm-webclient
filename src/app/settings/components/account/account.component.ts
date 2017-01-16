@@ -19,10 +19,8 @@ public emailConfig = {
   port: 993,
   smtpHost: 'smtp.gmail.com',
   smtpPort: 465,
-  smtpDomains: []
+  smtpDomains: ['gmail.com', 'googlemail.com']
 };
-
-public smtpDomains: string[] = ['gmail.com', 'googlemail.com'];
 
   constructor(private _settingsService: SettingsService, private snackBar: MdSnackBar) {}
 
@@ -48,7 +46,6 @@ public smtpDomains: string[] = ['gmail.com', 'googlemail.com'];
   }
 
   updateEmailConfig() {
-    this.emailConfig.smtpDomains = this.emailConfig.smtpDomains.toString().replace(" ","").split(",");
     this._settingsService.updateEmailConfig(this.emailConfig)
     .subscribe((data: any) => {
       this.emailConfig = data.provider;
