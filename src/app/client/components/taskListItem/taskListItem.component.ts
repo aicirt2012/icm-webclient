@@ -21,8 +21,13 @@ export class TaskListItemComponent {
   }
 
   ngOnInit() {
-    if(this.task.taskType == 'linked') this.task.date = this._taskService.formatDate(this.task.due);
-    else this.task.date = this._taskService.formatDate(this.task.date);
+    console.log(this.boards);
+    if(this.task.taskType == 'linked') {
+      this.task.date = this._taskService.formatDate(this.task.due);
+    }
+    else {
+     this.task.date = this._taskService.formatDate(this.task.date);
+   }
   }
 
   onSelectBoard(board:any) {
@@ -41,20 +46,22 @@ export class TaskListItemComponent {
   openTaskDialog(task: any) {
     console.log("open for task");
     console.log(task);
-    console.log("selectedMembers");
-    console.log(this.selectedMembers);
     if (this.task.taskType == 'linked' && this.task.board) {
       // For linked task we have to append lists to task.board (We do not get this info from backend) */
       let listsForBoard = this.boards.filter((board) => { if (board.id == this.task.idBoard) return board.lists; })[0].lists;
+      let membersForBoard = this.boards.filter((board) => { if (board.id == this.task.idBoard) return board.members; })[0].members;
+            console.log(membersForBoard);
       this.task.board['lists'] = listsForBoard;
-      this.task.board['members'] = this.task.members;
+      this.task.board['members'] = membersForBoard;
       this.task.selectedBoard = this.task.board;
       this.task.idList = this.task.list;
       this.task.selectedMembers = this.task.members;
-      //this.task.date = this._taskService.formatDate(this.task.due);
+      this.task.possibleMembers = membersForBoard;
     }
     else {
+      let membersForBoard = this.boards.filter((board) => { if (board.id == this.task.selectedBoard.id) return board.members; })[0].members;
       this.task.selectedMembers = this.selectedMembers;
+      this.task.possibleMembers = membersForBoard;
     }
     this.openDialog.emit(task);
   }

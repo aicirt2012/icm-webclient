@@ -33,7 +33,7 @@
           </div>
           <md-select class="selectList board-width" placeholder="Delegate to.." [(ngModel)]="currMember" name="member" (onClose)="currMember = ''">
             <md-option [value]="''">Choose...</md-option>
-            <md-option *ngFor="let member of possibleMembers; let i = index" [value]="member" (onSelect)="addMember(member, i)">
+            <md-option *ngFor="let member of task.possibleMembers; let i = index" [value]="member" (onSelect)="addMember(member, i)">
               {{ member.fullName }}
             </md-option>
           </md-select>

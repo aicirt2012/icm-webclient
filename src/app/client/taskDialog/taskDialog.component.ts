@@ -24,9 +24,6 @@ export class TaskDialogComponent {
   }
 
   ngOnInit() {
-    console.log(this.task);
-    //hotfix for now:
-    this.possibleMembers = this.task.selectedMembers;
   }
 
   createTask() {
@@ -64,18 +61,18 @@ export class TaskDialogComponent {
   }
 
   onSelectBoard(board:any) {
-    this.possibleMembers = board.members;
+    this.task.possibleMembers = board.members;
   }
 
   addMember(member: any, index: number): void {
-      this.selectedMembers.push(member);
-      this.possibleMembers.splice(index,1);
+      this.task.selectedMembers.push(member);
+      this.task.possibleMembers.splice(index,1);
       this.currMember = '';
   }
 
   deleteMember(member: any, index: number) {
-    this.possibleMembers.push(member);
-    this.selectedMembers.splice(index,1);
+    this.task.possibleMembers.push(member);
+    this.task.selectedMembers.splice(index,1);
     this.currMember = '';
   }
 
