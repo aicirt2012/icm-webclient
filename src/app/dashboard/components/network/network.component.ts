@@ -14,7 +14,9 @@ export class NetworkComponent {
   constructor(private _dashboardService: DashboardService) {}
 
   ngOnInit() {
+    this._dashboardService.getNetwork().subscribe((timeline)=>{
 
+    });
   }
 
 

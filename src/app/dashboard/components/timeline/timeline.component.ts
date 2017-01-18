@@ -18,7 +18,7 @@ export class TimelineComponent {
     this._dashboardService.getTimeline().subscribe((timeline)=>{
       this.renderMonthlyPunchcard(timeline.monthly);
       this.renderDailyPunchcard(timeline.daily);
-    })
+    });
   }
 
   renderMonthlyPunchcard(data) {
@@ -32,24 +32,25 @@ export class TimelineComponent {
       });
     });
 
-    const to = new Date(2017,11,31);
     const from = new Date(2017,0,1);
-    const heatmap = CalendarHeatmap(from, to)
+    const to = new Date(2017,11,31);
+    CalendarHeatmap(from, to)
       .data(chartData)
       .selector('#monthlypunchcard')
       .tooltipEnabled(true)
       .tooltipUnit('Email')
       .tooltipDatefromat('MMM Do')
-      .colorRange(['#eee', '#1e6823']);
-    heatmap();
+      .colorRange(['#eee', '#1e6823'])();
   }
+  
 
   renderDailyPunchcard(data) {
-    const arr = []; //[[Day, Hour, CircleSize (effort)]]
+    /* [[Day, Hour, weight]] */
+    const arr = [];
     data.forEach((pc) => {
       arr.push([pc.day, pc.hour, pc.count]);
     });
-    new Punchcard({target: '#dailypunchcard', width: 900}).render(arr)
+    new Punchcard({target: '#dailypunchcard', width: 900}).render(arr);
   }
 
 
