@@ -9,7 +9,7 @@ let cytoscape = require('../../../../../node_modules/cytoscape/dist/cytoscape');
   styleUrls: ['network.component.css'],
   providers: []
 })
-export class NetworkComponent {
+export class NetworkComponent implements OnInit{
 
   public topSender: any;
   public topReceiver: any;
