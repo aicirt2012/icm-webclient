@@ -10,14 +10,15 @@ import { DashboardService } from '../../shared';
 })
 export class StructureComponent {
 
-  public structure: any = {};
+  public converstations: any;
+  public labels: any;
 
   constructor(private _ds: DashboardService) { }
 
   ngOnInit() {
     this._ds.getStructure().subscribe((s)=>{
-      console.log(s);
-      this.structure = s;
+      this.converstations = s.converstations;
+      this.labels = s.labels;
     })
   }
 

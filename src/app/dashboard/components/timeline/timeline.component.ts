@@ -42,7 +42,7 @@ export class TimelineComponent {
       .tooltipDatefromat('MMM Do')
       .colorRange(['#eee', '#1e6823'])();
   }
-  
+
 
   renderDailyPunchcard(data) {
     /* [[Day, Hour, weight]] */
