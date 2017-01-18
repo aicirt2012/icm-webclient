@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {RequestMethod} from '@angular/http';
-import {HttpService, AuthService} from '../../shared';
+import {HttpService} from '../../shared';
 
 @Injectable()
 export class DashboardService {
 
   private path = '/dashboard';
 
-  constructor(private _httpService: HttpService, private _authService: AuthService) {
+  constructor(private _httpService: HttpService) {
   }
 
   getTimeline(): Observable<any> {
@@ -19,5 +19,8 @@ export class DashboardService {
     return this._httpService.generateRequest(RequestMethod.Get, this.path+'/network', null, null, null);
   }
 
+  getStructure(): Observable<any> {
+    return this._httpService.generateRequest(RequestMethod.Get, this.path+'/structure', null, null, null);
+  }
 
 }

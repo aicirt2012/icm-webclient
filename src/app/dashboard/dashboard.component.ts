@@ -14,14 +14,19 @@ export class DashboardComponent {
   error = '';
   links = [
     {
-      name: 'Network',
-      icon: 'email',
+      name: 'Timeline',
+      icon: 'timeline',
+      link: '/dashboard/timeline'
+    },
+    {
+      name: 'Person Network',
+      icon: 'share',
       link: '/dashboard/network'
     },
     {
-      name: 'Timeline',
-      icon: 'home',
-      link: '/dashboard/timeline'
+      name: 'Structural Information',
+      icon: 'fingerprint',
+      link: '/dashboard/structure'
     }
   ]
 
@@ -31,13 +36,10 @@ export class DashboardComponent {
     public appState: AppState) { }
 
   ngOnInit() {
-    // reset login status
-    console.log('Hello dashboard Component');
     console.log(this.appState.get());
   }
 
   getCurrentView(view: string): boolean {
-    console.log('here Im');
     let currentURL = this.router.url;
     if (currentURL.includes(view))
       return true;

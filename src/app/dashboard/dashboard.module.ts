@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { DashboardComponent } from './';
-import { NetworkComponent, TimelineComponent} from './components'; // all settings components
+import { NetworkComponent, TimelineComponent, StructureComponent} from './components';
 import { SharedModule } from '../shared';
 import { ROUTES } from './dashboard.routes';
 import { AuthGuard } from '../app.authGuard';
@@ -22,13 +22,13 @@ import { DashboardService } from './shared';
   ],
   declarations: [
     DashboardComponent,
-    //dumb components
     NetworkComponent,
-    TimelineComponent
+    TimelineComponent,
+    StructureComponent
   ],
   providers: [
-      AuthGuard,
-      DashboardService
+    AuthGuard,
+    DashboardService
   ],
   exports: [
   ]
