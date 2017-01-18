@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { DashboardService } from '../../shared';
 let $ = require('../../../../../node_modules/jquery/dist/jquery.min');
 let cytoscape = require('../../../../../node_modules/cytoscape/dist/cytoscape');
@@ -13,10 +13,12 @@ export class NetworkComponent {
 
   public topSender: any;
   public topReceiver: any;
+  public container:any;
 
-  constructor(private _dashboardService: DashboardService, private rootNode: ElementRef) {}
+  constructor(private _dashboardService: DashboardService, private rootElement: ElementRef) {}
 
   ngOnInit() {
+    this.container = $(this.rootElement.nativeElement).find('#network')[0];
     this._dashboardService.getNetwork().subscribe((network)=>{
       this.renderNetwork(network.graph);
       this.topSender = network.topsender;
@@ -26,9 +28,7 @@ export class NetworkComponent {
 
 
   renderNetwork(graph) {
-    console.log(graph);
-    let container = $(this.rootNode.nativeElement).find('#network')[0];
-    console.log(container);
+
     let elements = {nodes:[], edges:[]};
     graph.nodes.forEach((n)=>{
       elements.nodes.push({data: {id: n.email, name: n.name, weight: 1, faveColor: '#6FB1FC', faveShape: 'ellipse'}});
@@ -37,7 +37,7 @@ export class NetworkComponent {
       elements.edges.push({data: {source: e.from, target: e.to, label: 'send ' +e.count + ' Mails', faveColor: '#6FB1FC', strength: e.count}});
     });
     let cy = cytoscape({
-      container: container,
+      container: this.container,
       style: cytoscape.stylesheet()
         .selector('node')
         .css({
@@ -84,6 +84,7 @@ export class NetworkComponent {
         randomize: true
       }
     });
+    console.log(cy);
   }
 
 
