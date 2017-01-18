@@ -1,6 +1,7 @@
 import { Routes, RouterModule, CanActivate, Router } from '@angular/router';
 import { LoginComponent } from './login';
 import { SettingsComponent } from './settings';
+import { DashboardComponent } from './dashboard';
 import { ClientComponent } from './client';
 
 import { Injectable } from '@angular/core';

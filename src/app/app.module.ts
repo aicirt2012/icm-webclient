@@ -12,6 +12,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { ClientModule } from './client/client.module';
 import { LoginModule } from './login/login.module';
 import { SettingsModule } from './settings/settings.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -54,6 +55,7 @@ type StoreType = {
     LoginModule,
     ClientModule,
     SettingsModule,
+    DashboardModule,
     SharedModule
   ],
   providers: [
