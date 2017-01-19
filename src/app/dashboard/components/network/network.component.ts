@@ -28,15 +28,14 @@ export class NetworkComponent implements OnInit{
 
 
   renderNetwork(graph) {
-
-    let elements = {nodes:[], edges:[]};
+    const elements = {nodes:[], edges:[]};
     graph.nodes.forEach((n)=>{
       elements.nodes.push({data: {id: n.email, name: n.name, weight: 1, faveColor: '#6FB1FC', faveShape: 'ellipse'}});
     });
     graph.edges.forEach((e)=>{
       elements.edges.push({data: {source: e.from, target: e.to, label: 'send ' +e.count + ' Mails', faveColor: '#6FB1FC', strength: e.count}});
     });
-    let cy = cytoscape({
+    cytoscape({
       container: this.container,
       style: cytoscape.stylesheet()
         .selector('node')
@@ -84,7 +83,6 @@ export class NetworkComponent implements OnInit{
         randomize: true
       }
     });
-    console.log(cy);
   }
 
 
