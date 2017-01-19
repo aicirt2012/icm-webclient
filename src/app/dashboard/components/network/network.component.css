@@ -6,3 +6,8 @@
 md-radio-button {
   margin: 8px;
 }
+#network {
+  height: 500px;
+  width: 900px;
+  border: 1px solid grey;
+}
