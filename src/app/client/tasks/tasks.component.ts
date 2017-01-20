@@ -38,11 +38,6 @@ export class TasksComponent {
     this._taskService.createTask(this.email, taskObject)
       .subscribe((task: any) => {
         this.snackBar.open('Task successfully created.', 'OK');
-        //remove taskObject from suggestedTasks
-        this.deleteTask(taskObject);
-        //add returned task to linked tasks - we have to manually add the task type because we don't fetch the new mail
-        this.addLinkedTaskLocally(task, taskObject);
-        //now switch to linkedTasks View
       },
       error => {
         console.log(error);
@@ -70,36 +65,8 @@ export class TasksComponent {
     taskDialogRef.componentInstance.task = task;
     taskDialogRef.componentInstance.email = this.email;
     taskDialogRef.componentInstance.boards = this.boards;
-  }
-
-  deleteTask(task: any) {
-    let position = 0;
-    if(task.taskType == "suggested") {
-      /* search by desc in suggestedTasks because there is not yet any ID for a suggested Task */
-      /* we have to find a way to identify suggestedTasks better */
-      for(let index = 0; index < this.suggestedTasks.length; index++) {
-        if(this.suggestedTasks[index].desc == task.desc) position = index;
-      }
-      this.suggestedTasks.splice(position, 1);
-    }
-    else {
-      for(let index = 0; index < this.linkedTasks.length; index++) {
-        if(this.linkedTasks[index].id == task.id) position = index;
-      }
-      this.linkedTasks.splice(position, 1);
-    }
-  }
-
-  addLinkedTaskLocally(task: any, suggestedTask: any) {
-    task.selectedBoard = suggestedTask.selectedBoard;
-    task.selectedMembers = [suggestedTask.selectedMembers];
-    task.idList = suggestedTask.idList;
-    task.date = suggestedTask.date;
-    task.board = task.selectedBoard;
-    task.list = task.idList;
-    task.members = task.selectedMembers;
-    task.taskType = "linked"
-    this.linkedTasks.push(task);
+    taskDialogRef.afterClosed().subscribe(result => {
+    });
   }
 
 }

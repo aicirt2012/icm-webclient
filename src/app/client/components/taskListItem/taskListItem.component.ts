@@ -30,56 +30,23 @@ export class TaskListItemComponent {
    }
   }
 
-  onSelectBoard(board:any) {
-    this.possibleMembers = board.members;
-  }
-
-  onCreateTask() {
-    if(this.task.idList) {
-      this.task.selectedMembers = this.selectedMembers;
-      this.createTask.emit(this.task);
-    } else {
-      this.snackBar.open('Please select a list.', 'OK');
-    }
-  }
-
   openTaskDialog(task: any) {
-    console.log("open for task");
-    console.log(task);
-    if (this.task.taskType == 'linked' && this.task.board) {
-      // For linked task we have to append lists to task.board (We do not get this info from backend) */
-      let listsForBoard = this.boards.filter((board) => { if (board.id == this.task.idBoard) return board.lists; })[0].lists;
-      let membersForBoard = this.boards.filter((board) => { if (board.id == this.task.idBoard) return board.members; })[0].members;
-            console.log(membersForBoard);
-      this.task.board['lists'] = listsForBoard;
-      this.task.board['members'] = membersForBoard;
-      this.task.selectedBoard = this.task.board;
-      this.task.idList = this.task.list;
+    if(this.task.taskType == 'linked') {
+      this.task.board.lists = this.boards.filter((board) => { if (board.id == this.task.idBoard) return board.lists; })[0].lists;
       this.task.selectedMembers = this.task.members;
-      this.task.possibleMembers = membersForBoard;
-    }
-    else {
-      let membersForBoard = this.boards.filter((board) => { if (board.id == this.task.selectedBoard.id) return board.members; })[0].members;
-      this.task.selectedMembers = this.selectedMembers;
-      this.task.possibleMembers = membersForBoard;
-    }
+      this.task.possibleMembers = this.getPossibleMembers(this.task.board, this.task.selectedMembers);
+      }
     this.openDialog.emit(task);
   }
 
-  removeTask() {
-    this.deleteTask.emit(this.task);
-  }
-
-  addMember(member: any, index: number): void {
-      this.selectedMembers.push(member);
-      this.possibleMembers.splice(index,1);
-      this.currMember = '';
-  }
-
-  deleteMember(member: any, index: number) {
-    this.possibleMembers.push(member);
-    this.selectedMembers.splice(index,1);
-    this.currMember = '';
+  getPossibleMembers(selectedBoard, selectedMembers) {
+    //In case of opening a linked task, the possibleMembers are just filled with the selected Members from trello
+    //Therefore we have to get all available members from boards and then remove the one's that are already selected
+    //when there are no selected members we do not need to remove anything
+    let membersForBoard = this.boards.filter((board) => { if (board.id == selectedBoard.id) return board.members; })[0].members;
+    let selectedMembersIDs = selectedMembers.map((member) => { return member.id} );
+    if(selectedMembers.length > 0) membersForBoard = membersForBoard.filter(( member ) => { return selectedMembersIDs.indexOf( member.id ) < 0;});
+    return membersForBoard;
   }
 
 }

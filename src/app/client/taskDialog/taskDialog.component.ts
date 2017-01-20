@@ -19,7 +19,6 @@ export class TaskDialogComponent {
   public possibleMembers: any[] = [];
   public currMember = '';
 
-
   constructor(public taskDialogRef: MdDialogRef<TaskDialogComponent>, private snackBar: MdSnackBar, private _taskService: TaskService) {
   }
 
@@ -32,6 +31,8 @@ export class TaskDialogComponent {
       .subscribe((task: any) => {
         this.sending=false;
         this.snackBar.open('Task successfully created.', 'OK');
+        console.log("now remove suggested Task");
+        console.log(task);
         this.closeDialog();
       },
       error => {
@@ -43,15 +44,16 @@ export class TaskDialogComponent {
   }
 
   updateTask() {
+    this.sending = true;
     this._taskService.updateTask(this.task)
       .subscribe((task: any) => {
+        this.sending=false;
         this.snackBar.open('Task successfully updated.', 'OK');
-
       },
       error => {
         console.log(error);
+        this.sending=false;
         this.snackBar.open('Error while updating task.', 'OK');
-
       },
       () => {});
   }
@@ -61,16 +63,18 @@ export class TaskDialogComponent {
   }
 
   onSelectBoard(board:any) {
-    this.task.possibleMembers = board.members;
+    this.task.possibleMembers = [].concat(board.members);
+    this.task.selectedMembers = this.task.selectedMembers == undefined ? [] : this.task.selectedMembers;
   }
 
   addMember(member: any, index: number): void {
-      this.task.selectedMembers.push(member);
-      this.task.possibleMembers.splice(index,1);
-      this.currMember = '';
+    this.task.selectedMembers.push(member);
+    this.task.possibleMembers.splice(index,1);
+    this.currMember = '';
   }
 
   deleteMember(member: any, index: number) {
+    this.task.possibleMembers = this.task.possibleMembers == undefined ? [] : this.task.possibleMembers;
     this.task.possibleMembers.push(member);
     this.task.selectedMembers.splice(index,1);
     this.currMember = '';

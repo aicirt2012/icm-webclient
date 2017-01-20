@@ -50,7 +50,7 @@ export class TaskService {
     const options = {
       name: task.name,
       /*TODO: change naming */
-      idList: task.idList.id,
+      idList: task.list.id,
       desc: task.desc,
       idMembers: task.selectedMembers.map((s) => s.id),
       due: task.date,
@@ -66,7 +66,7 @@ export class TaskService {
     const options = {
       name: task.name,
       /*TODO: change naming */
-      idList: task.idList.id,
+      idList: task.list.id,
       desc: task.desc,
       idMembers: task.selectedMembers.map((s) => s.id),
       due: task.date,

@@ -8,20 +8,19 @@
       <img md-card-avatar src="/assets/img/trello.gif">
   </md-card-header>
   <md-card-content>
-    <div *ngIf="task.taskType == 'linked'">
+    <div>
           <p>
-            <!--<i class="material-icons glyph">date_range</i>-->
             <md-input-container class="board-width">
               <input md-input placeholder="Due Date" type="date" required [(ngModel)]="task.date" [disabled]="true" value="task.date">
             </md-input-container>
           </p>
-          <p>
+          <p class="card-title">
             {{task.desc}}
           </p>
-        </div>
+    </div>
+        <!--
     <div *ngIf="task.taskType == 'suggested'">
       <p>
-        <!--<i class="material-icons glyph">date_range</i>-->
         <md-input-container class="board-width">
           <input md-input placeholder="Due Date" type="date" required [(ngModel)]="task.date" value="task.date">
         </md-input-container>
@@ -41,13 +40,6 @@
           </md-option>
         </md-select>
       </p>
-
-<!--
-      <p *ngIf="task.selectedBoard">
-
-        <md-select multiple class="selectList board-width" [(ngModel)]="task.selectedMembers" required placeholder="Delegate to..">
-          <md-option *ngFor="let member of task.selectedBoard.members" [value]="member">
--->
       <div *ngIf="task.selectedBoard">
         <div fxLayout="row">
           <div *ngFor="let member of selectedMembers; let i = index" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
@@ -67,27 +59,10 @@
           <textarea md-input type="text" placeholder="Task Description" maxRows="3" [disabled]="task.taskType == 'linked'" [(ngModel)]="task.desc" value="task.desc"></textarea>
         </md-input-container>
       </p>
-    </div>
+    </div>-->
 
   </md-card-content>
-  <md-card-actions *ngIf="task.taskType == 'suggested'" fxFlex fxLayout="row">
-    <div fxFlex="33">
-      <button (click)="onCreateTask()" md-button>
-        <md-icon>check</md-icon>
-      </button>
-    </div>
-    <div fxFlex="33">
-      <button (click)="openTaskDialog(task)" md-button>
-        <md-icon>mode_edit</md-icon>
-      </button>
-    </div>
-    <div fxFlex="33">
-      <button (click)="removeTask()" md-button>
-        <md-icon>close</md-icon>
-      </button>
-    </div>
-  </md-card-actions>
-  <md-card-actions *ngIf="task.taskType == 'linked'" fxFlex fxLayout="row">
+  <md-card-actions fxFlex fxLayout="row">
     <div fxFlex="50">
       <button (click)="openTaskDialog(task)" md-button>
         <md-icon>mode_edit</md-icon>
