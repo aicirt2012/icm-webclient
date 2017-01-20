@@ -4,7 +4,7 @@
     <md-icon class="v-align-middle">{{item.icon}}</md-icon>
     <a class="v-align-middle">{{item.shortName}}</a>
   </div>
-  <div class="unseen-counter"><a>{{item.unseen}}</a></div>
+  <div *ngIf="item.unseen > 0" class="unseen-counter"><a>{{item.unseen}}</a></div>
 
 </md-list-item>
 <md-nav-list *ngIf="item.children.length > 0">

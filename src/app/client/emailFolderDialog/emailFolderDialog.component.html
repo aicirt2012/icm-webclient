@@ -1,0 +1,37 @@
+<div fxFlex fxLayout="column">
+  <md-progress-bar  mode="indeterminate"  *ngIf="updating"></md-progress-bar>
+  <div md-dialog-title fxLayout="row">
+    <span fxFlex>Manage Folders</span>
+    <md-icon (click)="closeDialog()">close</md-icon>
+  </div>
+  <div fxLayout="row">
+    <div fxFlex="50">
+      <div fxLayout="column">
+        <div>New Box</div>
+      <md-input-container>
+          <input md-input placeholder="Name of new box..." type="text" [(ngModel)]="newBoxName">
+      </md-input-container>
+
+         <md-select [(ngModel)]="parentBox"  placeholder="Nest under...">
+          <md-option *ngFor="let box of boxList; let b = index" [value]="box.name" >
+            {{ box.shortName }}
+          </md-option>
+      </md-select>
+
+    
+      <button md-fab color="primary" (click)="onAddBox()"> <md-icon>add</md-icon></button>
+      </div>
+    </div>
+     <div fxFlex="50">
+      <div fxLayout="column">
+        <div>Delete Box</div>
+        <md-select [(ngModel)]="selectedBoxName"  placeholder="Select a folder..">
+            <md-option *ngFor="let box of boxList; let b = index" [value]="box.name" >
+              {{ box.shortName }}
+            </md-option>
+        </md-select>
+        <button md-fab color="primary" (click)="onDeleteBox()"> <md-icon>close</md-icon></button>
+      </div>
+    </div>  
+  </div>
+</div>

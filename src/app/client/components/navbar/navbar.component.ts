@@ -16,8 +16,7 @@ export class NavBarComponent {
   @Input() lastSync: Date;
   @Output() onRefresh = new EventEmitter<boolean>();
   @Output() openDialog = new EventEmitter<any>();
-  @Output() onAddBox = new EventEmitter<string>();
-  @Output() onDeleteBox = new EventEmitter<string>();
+  @Output() onOpenEmailFolderDialog = new EventEmitter<any>();
   boxName: string;
 
   constructor(public appState: AppState, public router: Router) {
@@ -86,12 +85,8 @@ export class NavBarComponent {
     this.openDialog.emit(DialogType.email);
   }
 
-  addBox() {
-    this.onAddBox.emit(this.boxName);
-  }
-
-  delBox() {
-    this.onDeleteBox.emit(this.boxName)
+  openEmailFolderDialog() {
+    this.onOpenEmailFolderDialog.emit();
   }
 
 }
