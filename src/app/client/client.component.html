@@ -6,7 +6,7 @@
   </div>
   <div *ngIf="!syncing && !noMailboxConnected" fxLayout="row" [@fadeInOut]="!syncing" fxFlex>
     <navbar fxFlex="15" [boxList]="boxList" (onRefresh)="onRefresh($event)" (openDialog)="openDialog($event)" [lastSync]="user.lastSync"
-            (onAddBox)="onAddBox($event)" (onDeleteBox)="onDeleteBox($event)">
+            (onOpenEmailFolderDialog)="onOpenEmailFolderDialog($event)">
     </navbar>
     <spinner *ngIf="loading" fxFlex [loading]="loading"></spinner>
     <div *ngIf="!loading" [@fadeInOut]="!loading" fxFlex="85" fxLayout="row">

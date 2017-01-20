@@ -9,16 +9,9 @@
       <md-nav-list>
         <navbar-list-item [item]="item" *ngFor="let item of navbarItems"></navbar-list-item>
       </md-nav-list>
-      <div class="button-row" fxLayoutAlign="center center" *ngIf="!boxAction">
-        <button md-mini-fab class="btn-add-box" (click)="boxAction = 'add';"><md-icon>add</md-icon></button>
-        <button md-mini-fab class="btn-delete-box" (click)="boxAction = 'delete';"><md-icon>remove</md-icon></button>
+      <div fxLayoutAlign="center center">
+        <a (click)="openEmailFolderDialog()"><small style="color:white"> Manage Folders</small></a>
       </div>
-      <md-input-container class="box-action-input" *ngIf="boxAction">
-        <input md-input placeholder="Name of box" [(ngModel)]="boxName">
-        <button md-suffix md-mini-fab class="btn-add-box" *ngIf="boxAction == 'add'" (click)="addBox();boxAction = null;"><md-icon>add</md-icon></button>
-        <button md-suffix md-mini-fab class="btn-delete-box" *ngIf="boxAction == 'delete'" (click)="delBox();boxAction = null;"><md-icon>remove</md-icon></button>
-        <button md-suffix md-mini-fab *ngIf="boxAction" class="btn-close" (click)="boxAction = null;"><md-icon>close</md-icon></button>
-      </md-input-container>
     </div>
     <div fxLayoutAlign="center center">
         <button md-button fxFlex class="refresh-btn" (click)="refresh()">

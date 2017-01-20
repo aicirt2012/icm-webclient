@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 
-import { ClientComponent, EmailDialogComponent, TaskDialogComponent, TasksComponent, DetailedViewComponent} from './'; // all intelligent components
+import { ClientComponent, EmailDialogComponent, EmailFolderDialogComponent, TaskDialogComponent, TasksComponent, DetailedViewComponent} from './'; // all intelligent components
 import { NavBarComponent,NavBarListItemComponent, ListComponent, EmailFormComponent, SearchBarComponent, EmailActionBarComponent, EmailViewComponent, TaskListComponent,TaskListItemComponent, TaskItemEmailDialogComponent, EmailResponseComponent } from './components'; // all dumb components
 import { EmailService, TaskService } from './shared'; // all services
 import { Email, EmailForm } from './shared'; // all models from client
@@ -29,6 +29,7 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
     //intelligent components
     TasksComponent,
     EmailDialogComponent,
+    EmailFolderDialogComponent,
     //dumb components
     TaskDialogComponent,
     ListComponent,
@@ -51,7 +52,8 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
   ],
   entryComponents: [
     EmailDialogComponent,
-    TaskDialogComponent
+    TaskDialogComponent,
+    EmailFolderDialogComponent
   ]
 })
 export class ClientModule {

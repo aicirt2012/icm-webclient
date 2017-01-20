@@ -9,6 +9,7 @@ import { SettingsService } from '../settings/shared';
 import { Observable } from 'rxjs/Observable';
 import { MdDialog } from '@angular/material';
 import { EmailDialogComponent } from './emailDialog';
+import { EmailFolderDialogComponent } from './emailFolderDialog';
 
 @Component({
   selector: 'client',
@@ -30,6 +31,7 @@ export class ClientComponent {
   public loading: boolean = true;
   public syncing: boolean = true;
   public boxList: any = [];
+  public boxList$: any = [];
   public loadingList: boolean = false;
 
   private currentBox: Observable<string>;
@@ -52,7 +54,13 @@ export class ClientComponent {
   ngOnInit() {
     this.syncing = true;
 
-    this._settingsService.getUserInfo().subscribe((user) => {
+    this.boxList$ = this.appState.dataChange.subscribe((stateChange) => {
+      if(this.appState.get('boxList').length > 0) {
+        this.boxList = this.appState.get('boxList');
+     }
+    })
+
+    this._settingsService.getUserInfo().subscribe( (user) => {
       this.user = user;
       console.log('user', user);
       if (this.user.provider.name) {
@@ -219,7 +227,7 @@ export class ClientComponent {
   }
 
   /* msgId: string, flags: string[], boxName: string */
-  onAddFlags(params: any) {
+ onAddFlags(params:any) {
     this._emailService.addFlags(params.email.uid, params.flags, params.box).subscribe((res) => {
       params.email.flags = params.email.flags.concat(params.flags);
     });
@@ -237,6 +245,16 @@ export class ClientComponent {
   /* HELPERS */
   openDialog() {
     let dialogRef = this.dialog.open(EmailDialogComponent, this.dialogConfig);
+  }
+
+  onOpenEmailFolderDialog() {
+    let dialogRef = this.dialog.open(EmailFolderDialogComponent, {
+      width: '50%',
+      height: '50%'
+    });
+
+    dialogRef.componentInstance.boxList = this.boxList;
+    dialogRef.componentInstance.refreshBoxList = this.refreshBoxList();
   }
 
 
