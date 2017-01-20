@@ -33,13 +33,20 @@ export class EmailFolderDialogComponent {
 
   onAddBox() {
     this.updating = true;
-    this._emailService.addBox(this.newBoxName).subscribe((res) => {
+    let newBox: string = this.newBoxName;
+    if(this.parentBox != '') {
+      newBox = `${this.parentBox}/${this.newBoxName}`
+    }
+    this._emailService.addBox(newBox).subscribe((res) => {
         this._emailService.updateMailboxList().subscribe((res: any[]) => {
           this.appState.set('boxList', res);
           this.updating = false;
-          this.snackBar.open(`New folder '${this.newBoxName}' successfully created.`, 'OK');
+          this.parentBox = '';
+          this.newBoxName = '';
+          this.snackBar.open(`New box '${this.newBoxName}' was successfully created.`, 'OK');
         }, () => {
-           this.snackBar.open('Error while creating new folder.', 'OK');
+           this.updating = false;
+           this.snackBar.open('Error while creating new box.', 'OK');
         });
     });
 }

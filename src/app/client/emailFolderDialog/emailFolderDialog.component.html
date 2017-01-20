@@ -1,37 +1,44 @@
 <div fxFlex fxLayout="column">
-  <md-progress-bar  mode="indeterminate"  *ngIf="updating"></md-progress-bar>
-  <div md-dialog-title fxLayout="row">
-    <span fxFlex>Manage Folders</span>
+  <md-progress-bar mode="indeterminate" *ngIf="updating"></md-progress-bar>
+  <div md-dialog-title fxLayout="row" fxLayoutAlign="end center">
+
     <md-icon (click)="closeDialog()">close</md-icon>
+
   </div>
   <div fxLayout="row">
-    <div fxFlex="50">
+    <div fxFlex="50" fxLayout="column">
+    <md-card fxFlex>
       <div fxLayout="column">
-        <div>New Box</div>
-      <md-input-container>
-          <input md-input placeholder="Name of new box..." type="text" [(ngModel)]="newBoxName">
-      </md-input-container>
-
-         <md-select [(ngModel)]="parentBox"  placeholder="Nest under...">
-          <md-option *ngFor="let box of boxList; let b = index" [value]="box.name" >
+        <md-card-title>Create new box</md-card-title>
+        <md-card-content>
+        <md-input-container fxFlex>
+          <input fxFlex md-input placeholder="Name of new box..." type="text" [(ngModel)]="newBoxName">
+        </md-input-container>
+        <md-select *ngIf="newBoxName != ''" fxFlex [(ngModel)]="parentBox" placeholder="Nest under...">
+          <md-option fxFlex *ngFor="let box of boxList; let b = index" [value]="box.name">
             {{ box.shortName }}
           </md-option>
-      </md-select>
-
-    
-      <button md-fab color="primary" (click)="onAddBox()"> <md-icon>add</md-icon></button>
-      </div>
-    </div>
-     <div fxFlex="50">
-      <div fxLayout="column">
-        <div>Delete Box</div>
-        <md-select [(ngModel)]="selectedBoxName"  placeholder="Select a folder..">
-            <md-option *ngFor="let box of boxList; let b = index" [value]="box.name" >
-              {{ box.shortName }}
-            </md-option>
         </md-select>
-        <button md-fab color="primary" (click)="onDeleteBox()"> <md-icon>close</md-icon></button>
+        </md-card-content>
+      <md-card-actions fxLayoutAlign="center center">
+        <button  md-raised-button [disabled]="newBoxName == '' || updating" color="primary" (click)="onAddBox()"> Create Box</button>
+      </md-card-actions>
       </div>
-    </div>  
+    </md-card>
+  </div>
+  <div fxFlex="50" fxLayout="column">
+    <md-card fxFlex>
+      <md-card-title>Delete box</md-card-title>
+      <md-card-content>
+        <md-select fxFlex [(ngModel)]="selectedBoxName" placeholder="Select a box..">
+          <md-option *ngFor="let box of boxList; let b = index" [value]="box.name">
+            {{ box.shortName }}
+          </md-option>
+        </md-select>
+      </md-card-content>
+      <md-card-actions fxLayoutAlign="center center">
+        <button [disabled]="selectedBoxName == '' || updating" md-raised-button color="primary" (click)="onDeleteBox()">Delete Box</button>
+      </md-card-actions>
+    </md-card>
   </div>
 </div>
