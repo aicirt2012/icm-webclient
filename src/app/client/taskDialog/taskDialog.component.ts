@@ -31,8 +31,6 @@ export class TaskDialogComponent {
       .subscribe((task: any) => {
         this.sending=false;
         this.snackBar.open('Task successfully created.', 'OK');
-        console.log("now remove suggested Task");
-        console.log(task);
         this.closeDialog();
       },
       error => {

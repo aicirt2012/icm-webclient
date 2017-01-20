@@ -21,13 +21,8 @@ export class TaskListItemComponent {
   }
 
   ngOnInit() {
-    console.log(this.boards);
-    if(this.task.taskType == 'linked') {
-      this.task.date = this._taskService.formatDate(this.task.due);
-    }
-    else {
-     this.task.date = this._taskService.formatDate(this.task.date);
-   }
+    if(this.task.taskType == 'linked') this.task.date = this._taskService.formatDate(this.task.due);
+    else this.task.date = this._taskService.formatDate(this.task.date);
   }
 
   openTaskDialog(task: any) {
