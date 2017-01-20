@@ -7,7 +7,7 @@ import { EmailService, TaskService } from './shared';
 /* TODO:move settingsservice to userservice */
 import { SettingsService } from '../settings/shared';
 import { Observable } from 'rxjs/Observable';
-import { MdDialog } from '@angular/material';
+import { MdDialog, MdSnackBar } from '@angular/material';
 import { EmailDialogComponent } from './emailDialog';
 import { EmailFolderDialogComponent } from './emailFolderDialog';
 
@@ -27,6 +27,8 @@ import { EmailFolderDialogComponent } from './emailFolderDialog';
 })
 export class ClientComponent {
   public emails: Email[] = [];
+  public email$: Email = null;
+  public emails$: Email[] = [];
   public email: Email = null;
   public loading: boolean = true;
   public syncing: boolean = true;
@@ -44,8 +46,8 @@ export class ClientComponent {
     height: '80%'
   }
 
-  constructor(private _emailService: EmailService, private _taskService: TaskService, public appState: AppState,
-    public router: Router, public route: ActivatedRoute, private _settingsService: SettingsService, public dialog: MdDialog) {
+  constructor(private _emailService: EmailService, private _taskService: TaskService, public appState: AppState, public snackBar: MdSnackBar,
+    public router: Router, public route: ActivatedRoute, private _settingsService: SettingsService, public dialog: MdDialog,) {
     this.currentId = this.route.params.map(params => params['emailId'] || 'None');
     this.currentBox = this.route.params.map(params => params['boxId'] || 'None');
   }
@@ -57,6 +59,7 @@ export class ClientComponent {
     this.boxList$ = this.appState.dataChange.subscribe((stateChange) => {
       if(this.appState.get('boxList').length > 0) {
         this.boxList = this.appState.get('boxList');
+        console.log(this.boxList);
      }
     })
 
@@ -179,6 +182,7 @@ export class ClientComponent {
       .getSingleMail(id)
       .subscribe((data: any) => {
         this.email = data;
+        this.appState.set('email', this.email);
       },
       error => {
         console.log(error)
@@ -197,6 +201,7 @@ export class ClientComponent {
         return email;
       });
       this.emails = this.emails.concat(moreEmails);
+      this.appState.set('emails', this.emails);
       this.loadingList = false;
     });
   }
@@ -210,17 +215,62 @@ onEmailMoveToBox(params: any) {
 
 /* msgId: string, flags: string[], boxName: string */
 onAddFlags(params:any) {
-    this._emailService.addFlags(params.email.uid, params.flags, params.box).subscribe((res) => {
-        params.email.flags = params.email.flags.concat(params.flags);
+    const oldEmail = Object.assign(this.email, {});
+    const oldEmails = Object.assign(this.emails, {});
+    const oldBoxList = Object.assign(this.boxList, {});
+     
+    params.email.flags = params.email.flags.concat(params.flags);
+        this.emails = this.emails.map((email) => {
+          if (this.email._id == email._id) {
+            email.flags = params.email.flags;
+          }
+          return email;
+        });
+        this.boxList = this.boxList.map((box)=> {
+          if(box.name == params.box) {
+            box.unseen -= 1;
+          }
+          return box;
+        });
+        this.appState.set('boxList', this.boxList);
+    
+    this._emailService.addFlags(params.email.uid, params.flags, params.box).subscribe((res) => {}, (err) => {
+        this.email = oldEmail;
+        this.emails = oldEmails;
+        this.boxList = oldBoxList;
+        this.snackBar.open('Error while setting email to READ.', 'OK');
+
     });
 }
 
 /* msgId: string, flags: string[], boxName: string */
 onDeleteFlags(params:any) {
-    this._emailService.delFlags(params.email.uid, params.flags, params.box).subscribe((res) => {
-        params.flags.forEach((f) => {
+    const oldEmail = Object.assign(this.email, {});
+    const oldEmails = Object.assign(this.emails, {});
+    const oldBoxList = Object.assign(this.boxList, {});
+    
+    params.flags.forEach((f) => {
             params.email.flags.splice(params.email.flags.indexOf(f),1);
         });
+        this.emails.map((email) => {
+          if (this.email._id == email._id) {
+            email.flags = params.email.flags;
+          }
+          return email;
+        });
+        this.boxList.map((box)=> {
+          if(box.name == params.box) {
+            box.unseen += 1;
+          }
+          return box;
+        });
+        this.appState.set('boxList', this.boxList);
+
+    this._emailService.delFlags(params.email.uid, params.flags, params.box).subscribe((res) => {}, (err) => {
+        this.email = oldEmail;
+        this.emails = oldEmails;
+        this.appState.set('boxList', oldBoxList);
+        this.snackBar.open('Error while setting email to UNREAD.', 'OK');
     });
 }
 
