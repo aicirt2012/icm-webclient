@@ -10,6 +10,7 @@ import { MdSnackBar} from '@angular/material';
 export class TaskListItemComponent {
   @Input() task: any;
   @Input() boards: any;
+  @Input() index: any;
   @Input() createTask: EventEmitter<any> = new EventEmitter<any>();
   @Input() openDialog: EventEmitter<any> = new EventEmitter<any>();
   @Input() deleteTask: EventEmitter<any> = new EventEmitter<any>();
@@ -31,6 +32,9 @@ export class TaskListItemComponent {
       this.task.selectedMembers = this.task.members;
       this.task.possibleMembers = this.getPossibleMembers(this.task.board, this.task.selectedMembers);
       }
+    else {
+      this.task.index = this.index;
+    }
     this.openDialog.emit(task);
   }
 
@@ -42,6 +46,11 @@ export class TaskListItemComponent {
     let selectedMembersIDs = selectedMembers.map((member) => { return member.id} );
     if(selectedMembers.length > 0) membersForBoard = membersForBoard.filter(( member ) => { return selectedMembersIDs.indexOf( member.id ) < 0;});
     return membersForBoard;
+  }
+
+  removeTask(task:any) {
+    task['index'] = this.index;
+    this.deleteTask.emit(task);
   }
 
 }

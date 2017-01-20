@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { MdDialogRef, MdSnackBar, MdInput } from '@angular/material';
 import { TaskService } from '../shared';
+import { AppState } from '../../app.service';
 
 @Component({
   selector: 'task-dialog',
@@ -12,24 +13,33 @@ import { TaskService } from '../shared';
 export class TaskDialogComponent {
 
   public task: any = {};
+  public suggestedTasks: any = [];
+  public linkedTasks: any = [];
+  public suggestedTasks$: any = [];
+  public linkedTasks$: any = [];
   public email: any = {};
   public boards: any[] = [];
   public sending: boolean = false;
   public selectedMembers: any[] = [];
   public possibleMembers: any[] = [];
   public currMember = '';
+  public index = '';
 
-  constructor(public taskDialogRef: MdDialogRef<TaskDialogComponent>, private snackBar: MdSnackBar, private _taskService: TaskService) {
+  constructor(public taskDialogRef: MdDialogRef<TaskDialogComponent>, private snackBar: MdSnackBar, private _taskService: TaskService, public appState: AppState) {
   }
 
   ngOnInit() {
+      this.suggestedTasks = this.appState.get('suggestedTasks');
+      this.linkedTasks = this.appState.get('linkedTasks');
   }
 
   createTask() {
     this.sending = true;
     this._taskService.createTask(this.email, this.task)
       .subscribe((task: any) => {
-        this.sending=false;
+        this.sending = false;
+        this.appState.set('suggestedTasks', this.removeSuggestedTask(this.task.index));
+        this.appState.set('linkedTasks', this.addLinkedTask(task));
         this.snackBar.open('Task successfully created.', 'OK');
         this.closeDialog();
       },
@@ -76,6 +86,17 @@ export class TaskDialogComponent {
     this.task.possibleMembers.push(member);
     this.task.selectedMembers.splice(index,1);
     this.currMember = '';
+  }
+
+  addLinkedTask(task: any) {
+    task['taskType'] = "linked";
+    this.linkedTasks.push(task);
+    return this.linkedTasks;
+  }
+
+  removeSuggestedTask(index) {
+    this.suggestedTasks.splice(index,1);
+    return this.suggestedTasks;
   }
 
 }

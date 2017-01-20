@@ -4,6 +4,7 @@ import { Email } from '../shared';
 import { TaskService } from '../shared';
 import { TaskDialogType, DialogType} from '../../shared/constants';
 import { TaskDialogComponent } from '../taskDialog';
+import { AppState } from '../../app.service';
 
 @Component({
   selector: 'tasks',  // <taskList></taskList>
@@ -20,17 +21,19 @@ export class TasksComponent {
   public suggestedTasks: any = [];
   public linkedTasks: any = [];
   private dialogConfig = {
-    width:"70%",
-    height:'70%'
+    width: "70%",
+    height: '70%'
   }
 
-  constructor(private _taskService: TaskService, public dialog: MdDialog, public snackBar: MdSnackBar) {
+  constructor(private _taskService: TaskService, public dialog: MdDialog, public snackBar: MdSnackBar, public appState: AppState) {
   }
 
   ngOnChanges() {
     this.suggestedTasks = this.email.suggestedTasks ? this.email.suggestedTasks : [];
     this.linkedTasks = this.email.linkedTasks ? this.email.linkedTasks : [];
-    if(this.user.trello) this.getAllBoards();
+    this.appState.set('suggestedTasks', this.suggestedTasks);
+    this.appState.set('linkedTasks', this.linkedTasks);
+    if (this.user.trello) this.getAllBoards();
     else this.errorTrello = true;
   }
 
@@ -43,21 +46,21 @@ export class TasksComponent {
         console.log(error);
         this.snackBar.open('Error while creating task.', 'OK');
       },
-      () => {});
+      () => { });
   }
 
   getAllBoards() {
     this._taskService.getAllBoards()
-    .subscribe((data: any) => {
-      this.boards = data;
-      console.log(this.boards);
-    },
-    error => {
-      console.log(error)
-    },
-    () => {
-    console.log("all boards success")
-    });
+      .subscribe((data: any) => {
+        this.boards = data;
+        console.log(this.boards);
+      },
+      error => {
+        console.log(error)
+      },
+      () => {
+        console.log("all boards success")
+      });
   }
 
   openDialog(task: any) {
@@ -67,6 +70,17 @@ export class TasksComponent {
     taskDialogRef.componentInstance.boards = this.boards;
     taskDialogRef.afterClosed().subscribe(result => {
     });
+  }
+
+  deleteTask(task: any) {
+    if (task.taskType == 'suggested') {
+      this.suggestedTasks.splice(task.index, 1);
+      this.appState.set('suggestedTasks', this.suggestedTasks);
+    }
+    else {
+      this.linkedTasks.splice(task.index, 1);
+      this.appState.set('linkedTasks', this.linkedTasks);
+    }
   }
 
 }
