@@ -14,4 +14,6 @@
     </button>
 </md-menu>
 </div>
-<button *ngIf="responseStatus" md-raised-button (click)="emitDiscardEmailResponse()"><md-icon>close</md-icon>Discard</button>
+<div fxLayout="row" fxLayoutAlign="center center" class="action-buttons" *ngIf="responseStatus">
+    <button md-raised-button (click)="emitDiscardEmailResponse()"><md-icon>close</md-icon>Discard</button>
+</div>
