@@ -1,6 +1,13 @@
-import { Component, ViewEncapsulation, ViewContainerRef } from '@angular/core';
-import { CookieService } from 'angular2-cookie/core';
+/*
+ * Angular 2 decorators and services
+ */
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation
+} from '@angular/core';
 import { AppState } from './app.service';
+import { CookieService } from 'angular2-cookie/core';
 
 @Component({
   selector: 'app',
@@ -9,25 +16,16 @@ import { AppState } from './app.service';
     './app.component.css'
   ],
   template: `
-  <router-outlet></router-outlet>
+     <router-outlet></router-outlet>
   `
 })
 export class AppComponent {
-  public syncing: boolean = false;
-  public name: string = 'Email Client';
-  private viewContainerRef: ViewContainerRef;
-
   constructor(
-    public appState: AppState, viewContainerRef: ViewContainerRef, private _cookieService: CookieService) {
-    this.viewContainerRef = viewContainerRef;
+    public appState: AppState, private _cookieService: CookieService) {
     if (_cookieService.get('email-oauth')) {
       localStorage.setItem('email-jwt', _cookieService.get('email-oauth'));
       _cookieService.remove('email-oauth');
     }
   }
-
-  ngOnInit() {
-    console.log('Initial App State', this.appState.state);
-  }
-
 }
+

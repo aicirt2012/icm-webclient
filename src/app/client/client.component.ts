@@ -7,82 +7,51 @@ import { EmailService, TaskService } from './shared';
 /* TODO:move settingsservice to userservice */
 import { SettingsService } from '../settings/shared';
 import { Observable } from 'rxjs/Observable';
-import { MdDialog, MdSnackBar } from '@angular/material';
+import { MdDialog } from '@angular/material';
 import { EmailDialogComponent } from './emailDialog';
 import { EmailFolderDialogComponent } from './emailFolderDialog';
 
 @Component({
   selector: 'client',
-  providers: [],
   styleUrls: ['./client.component.css'],
-  templateUrl: './client.component.html',
-  animations: [trigger('fadeInOut', [
-      transition('void => *', [
-        style({opacity:0}), //style only for transition transition (after transiton it removes)
-        animate(500, style({opacity:1})) // the new state of the transition(after transiton it removes)
-      ]),
-      transition('* => void', [
-      ])
-    ])]
+  templateUrl: './client.component.html'
 })
 export class ClientComponent {
-  public emails: Email[] = [];
-  public email$: Email = null;
-  public emails$: Email[] = [];
-  public email: Email = null;
-  public loading: boolean = true;
-  public syncing: boolean = true;
   public boxList: any = [];
-  public boxList$: any = [];
-  public loadingList: boolean = false;
-
-  private currentBox: Observable<string>;
-  private lastFetchedBox: any;
-  private currentId: Observable<string>;
   private noMailboxConnected = false;
   private user: any;
-  private dialogConfig = {
-    width: '80%',
-    height: '80%'
-  }
-
-  constructor(private _emailService: EmailService, private _taskService: TaskService, public appState: AppState, public snackBar: MdSnackBar,
-    public router: Router, public route: ActivatedRoute, private _settingsService: SettingsService, public dialog: MdDialog,) {
-    this.currentId = this.route.params.map(params => params['emailId'] || 'None');
-    this.currentBox = this.route.params.map(params => params['boxId'] || 'None');
+  private syncing: boolean;
+  
+  constructor(private _emailService: EmailService, public appState: AppState, private _settingsService: SettingsService) {
   }
 
   /* INITIALIZE EMAIL APP */
   ngOnInit() {
     this.syncing = true;
 
-    this.boxList$ = this.appState.dataChange.subscribe((stateChange) => {
-      if(this.appState.get('boxList').length > 0) {
-        this.boxList = this.appState.get('boxList');
-        console.log(this.boxList);
-     }
-    })
+    this.boxList = this.appState.get('boxList');
+    this.user = this.appState.get('user');
 
-    this._settingsService.getUserInfo().subscribe( (user) => {
+    this.appState.dataChange.subscribe((stateChange) => {
+      if (this.appState.get('boxList').length > 0) {
+        this.boxList = this.appState.get('boxList');
+      }
+    });
+
+    this._settingsService.getUserInfo().subscribe((user) => {
+      this.appState.set('user', user);
       this.user = user;
-      console.log('user', user);
       if (this.user.provider.name) {
         if (!(this.appState.get('boxList').length > 0)) {
           this.getBoxList().subscribe((data: any[]) => {
             if (data.length > 0) {
               this.syncing = false;
               this.appState.set('boxList', data);
-              this.boxList = data;
-              this.getEmailBox(data[0]);
-              this.fetchBoxByRouteId();
-              this.fetchMailByRouteId();
             }
           });
         } else {
-          this.boxList = this.appState.get('boxList');
           this.syncing = false;
-          this.fetchBoxByRouteId();
-          this.fetchMailByRouteId();
+          this.boxList = this.appState.get('boxList');
         }
       } else {
         this.syncing = false;
@@ -107,187 +76,7 @@ export class ClientComponent {
       this.boxList = data;
       this._emailService.getEmails([]).subscribe((data: any) => {
         this.syncing = false;
-        this.getEmailBox(this.boxList[0]);
       });
     });
   }
-
-  refreshBoxList(boxList?: any[]) {
-      if (boxList) {
-        this.appState.set('boxList', boxList);
-        this.boxList = boxList;
-      } else {
-        this.getBoxList().subscribe((data: any[]) => {
-          if (data.length > 0) {
-            this.appState.set('boxList', data);
-            this.boxList = data;
-          }
-        });
-    }
-  }
-
-  /* FETCHING EMAILS BY BOX */
-  fetchBoxByRouteId() {
-      // TODO: logic that only if box differs this is refetched
-    this.currentBox.subscribe((boxId) => {
-      boxId === 'None' ? '' : this.getEmailBox(this.boxList.filter((box) => box.id == boxId)[0]);
-    });
-  }
-
-  getEmailBox(box?: any) {
-    this.loading = true;
-    this._emailService
-      .getEmailsWithPagination(box.name)
-      .subscribe((data: any) => {
-        this.lastFetchedBox = box;
-        this.emails = data.docs.map((email) => {
-          email.route = `/box/${email.box.id}/${email._id}`;
-          return email;
-        });
-        this.loading = false;
-      },
-      error => {
-        console.log(error)
-      },
-      () => { console.log(`Mails successfully loaded`) });
-  }
-
-  searchEmailBox(query = '') {
-    this.loading = true;
-    this._emailService
-      .searchEmailsWithPagination(this.lastFetchedBox.name, query)
-      .subscribe((data: any) => {
-        this.emails = data.docs.map((email) => {
-          email.route = `/box/${email.box.id}/${email._id}`;
-          return email;
-        });
-        this.loading = false;
-      },
-      error => {
-        console.log(error)
-      },
-      () => { console.log(`Mails successfully loaded`) });
-  }
-
-  /* FETCHING SINGLE EMAIL */
-  fetchMailByRouteId() {
-      //TODO: logic that only if email differs, this is refetched
-    this.currentId.subscribe((emailId) => {
-      emailId === 'None' ? '' : this.getSingleMail(emailId);
-    });
-  }
-
-  getSingleMail(id?: string) {
-    this._emailService
-      .getSingleMail(id)
-      .subscribe((data: any) => {
-        this.email = data;
-        this.appState.set('email', this.email);
-      },
-      error => {
-        console.log(error)
-      },
-      () => {
-        console.log(`Message with ID: ${id} has been successfully loaded`)
-      });
-  }
-
-  /* GET EMAILS WITH PAGINATION */
-  onEmailListScrolling(params: any) {
-    this.loadingList = true;
-    this._emailService.getEmailsWithPagination(params.box, params.page, params.limit).subscribe((res) => {
-      const moreEmails: Email[] = res.docs.map((email) => {
-        email.route = `/box/${email.box.id}/${email._id}`;
-        return email;
-      });
-      this.emails = this.emails.concat(moreEmails);
-      this.appState.set('emails', this.emails);
-      this.loadingList = false;
-    });
-  }
-
-  /* EMAIL-RELATED ACTION-LISTENERS */
-onEmailMoveToBox(params: any) {
-  this._emailService.moveMail(params.msgId, params.srcBox, params.destBox).subscribe((res) => {
-      console.log(res);
-  });
-}
-
-/* msgId: string, flags: string[], boxName: string */
-onAddFlags(params:any) {
-    const oldEmail = Object.assign(this.email, {});
-    const oldEmails = Object.assign(this.emails, {});
-    const oldBoxList = Object.assign(this.boxList, {});
-     
-    params.email.flags = params.email.flags.concat(params.flags);
-        this.emails = this.emails.map((email) => {
-          if (this.email._id == email._id) {
-            email.flags = params.email.flags;
-          }
-          return email;
-        });
-        this.boxList = this.boxList.map((box)=> {
-          if(box.name == params.box) {
-            box.unseen -= 1;
-          }
-          return box;
-        });
-        this.appState.set('boxList', this.boxList);
-    
-    this._emailService.addFlags(params.email.uid, params.flags, params.box).subscribe((res) => {}, (err) => {
-        this.email = oldEmail;
-        this.emails = oldEmails;
-        this.boxList = oldBoxList;
-        this.snackBar.open('Error while setting email to READ.', 'OK');
-
-    });
-}
-
-/* msgId: string, flags: string[], boxName: string */
-onDeleteFlags(params:any) {
-    const oldEmail = Object.assign(this.email, {});
-    const oldEmails = Object.assign(this.emails, {});
-    const oldBoxList = Object.assign(this.boxList, {});
-    
-    params.flags.forEach((f) => {
-            params.email.flags.splice(params.email.flags.indexOf(f),1);
-        });
-        this.emails.map((email) => {
-          if (this.email._id == email._id) {
-            email.flags = params.email.flags;
-          }
-          return email;
-        });
-        this.boxList.map((box)=> {
-          if(box.name == params.box) {
-            box.unseen += 1;
-          }
-          return box;
-        });
-        this.appState.set('boxList', this.boxList);
-
-    this._emailService.delFlags(params.email.uid, params.flags, params.box).subscribe((res) => {}, (err) => {
-        this.email = oldEmail;
-        this.emails = oldEmails;
-        this.appState.set('boxList', oldBoxList);
-        this.snackBar.open('Error while setting email to UNREAD.', 'OK');
-    });
-}
-
-  /* HELPERS */
-  openDialog() {
-    let dialogRef = this.dialog.open(EmailDialogComponent, this.dialogConfig);
-  }
-
-  onOpenEmailFolderDialog() {
-    let dialogRef = this.dialog.open(EmailFolderDialogComponent, {
-      width: '50%',
-      height: '50%'
-    });
-
-    dialogRef.componentInstance.boxList = this.boxList;
-    dialogRef.componentInstance.refreshBoxList = this.refreshBoxList();
-  }
-
-
 }

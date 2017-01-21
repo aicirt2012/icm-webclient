@@ -1,4 +1,4 @@
-<div class="flex-container full-height" fxLayout="column">
+<!--<div class="flex-container full-height" fxLayout="column">
   <top-navbar></top-navbar>
   <spinner *ngIf="syncing" fxFlex [loading]="syncing"></spinner>
   <div *ngIf="!syncing && noMailboxConnected" fxFlex fxLayoutAlign="center center">
@@ -15,4 +15,19 @@
       <tasks *ngIf="email" [email]="email" fxFlex="20"></tasks>
   </div>
   </div>
+</div>-->
+
+<div class="flex-container full-height" fxLayout="column">
+  <top-navbar></top-navbar>
+  <div *ngIf="noMailboxConnected" fxFlex fxLayoutAlign="center center">
+    Please connect to a mailbox in <a routerLink="/settings/email">&nbsp;Settings</a>
+  </div>
+
+  <div fxShow="!syncing && !noMailboxConnected" fxLayout="row" fxFlex>
+    <navbar fxFlex="15" (onRefresh)="onRefresh($event)" [lastSync]="user?.lastSync"></navbar>
+    <router-outlet></router-outlet>
+  </div>
 </div>
+<!--<nav [routerLink]="[123]">box: 123</nav>
+<nav [routerLink]="[124]">box: 124</nav>
+-->

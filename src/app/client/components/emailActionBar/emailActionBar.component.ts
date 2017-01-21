@@ -7,18 +7,16 @@ import { Email } from '../../shared';
   templateUrl: './emailActionBar.component.html'
 })
 export class EmailActionBarComponent {
-  private actionBoxItems: any[] = [];
   @Input() boxList: any[];
   @Input() email: Email;
-  @Input() onEmailMoveToBox: EventEmitter<any>;
-  @Input() onAddFlags: EventEmitter<any>;
-  @Input() onDeleteFlags: EventEmitter<any>;
+  @Output() onEmailMoveToBox = new EventEmitter<any>();
+  @Output() onAddFlags = new EventEmitter<any>();
+  @Output() onDeleteFlags = new EventEmitter<any>();
   @Output() generateEmailResponseActionBar = new EventEmitter<any>();
   @Output() discardEmailResponse = new EventEmitter<any>();
   @Input() responseStatus: boolean;
 
   constructor() {
-    this.actionBoxItems = this.boxList;
   }
 
   replyEmail() {
