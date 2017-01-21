@@ -92,20 +92,19 @@ export class EmailListComponent {
   }
 
   searchEmailBox(query = '') {
-    /*this.loading = true;
+    const boxName = this.boxList.filter((box) => box.id == this.activeRoute.snapshot.params['boxId'])[0].name;
     this._emailService
-      .searchEmailsWithPagination(this.lastFetchedBox.name, query)
+      .searchEmailsWithPagination(boxName, query)
       .subscribe((data: any) => {
         this.emails = data.docs.map((email) => {
           email.route = `/box/${email.box.id}/${email._id}`;
           return email;
         });
-        this.loading = false;
       },
       error => {
         console.log(error)
       },
-      () => { console.log(`Mails successfully loaded`) });*/
+      () => { console.log(`Searched for mails in box ${boxName}`) });
   }
 
 }

@@ -1,6 +1,6 @@
 <div fxLayout="row" fxFlex class="full-height email-list-container">
   <div fxLayout="column" fxFlex="25">
-    <search-bar [searchEmailBox]="searchEmailBox"></search-bar>
+    <search-bar (searchEmailBox)="searchEmailBox($event)"></search-bar>
       <div fxFlex class="infinite-scroll-body email-list" infinite-scroll [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="scrollThrottle"
         [scrollWindow]="false" (scrolled)="onScroll()">
         <div fxFlex fxLayout="column" class="email-list-item" [routerLink]="mail.route" [class.route-active]="isActive(mail.route)"
