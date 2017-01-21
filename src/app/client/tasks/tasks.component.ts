@@ -4,6 +4,7 @@ import { Email } from '../shared';
 import { TaskService } from '../shared';
 import { TaskDialogType, DialogType} from '../../shared/constants';
 import { TaskDialogComponent } from '../taskDialog';
+import { LinkTaskDialogComponent } from '../linkTaskDialog';
 import { AppState } from '../../app.service';
 
 @Component({
@@ -23,6 +24,10 @@ export class TasksComponent {
   private dialogConfig = {
     width: "70%",
     height: '70%'
+  }
+  private linkTaskDialogConfig = {
+    width: '60%',
+    height: '40%'
   }
 
   constructor(private _taskService: TaskService, public dialog: MdDialog, public snackBar: MdSnackBar, public appState: AppState) {
@@ -53,6 +58,7 @@ export class TasksComponent {
     this._taskService.getAllBoards()
       .subscribe((data: any) => {
         this.boards = data;
+        //this.appState.set('boards', this.boards);
         console.log(this.boards);
       },
       error => {
@@ -68,8 +74,8 @@ export class TasksComponent {
     taskDialogRef.componentInstance.task = task;
     taskDialogRef.componentInstance.email = this.email;
     taskDialogRef.componentInstance.boards = this.boards;
-    taskDialogRef.afterClosed().subscribe(result => {
-    });
+    //taskDialogRef.afterClosed().subscribe(result => {
+    //});
   }
 
   deleteTask(task: any) {
@@ -81,6 +87,13 @@ export class TasksComponent {
       this.linkedTasks.splice(task.index, 1);
       this.appState.set('linkedTasks', this.linkedTasks);
     }
+  }
+
+  openLinkTaskDialog(task: any) {
+    let linkTaskDialogRef: MdDialogRef<LinkTaskDialogComponent> = this.dialog.open(LinkTaskDialogComponent, this.linkTaskDialogConfig);
+    linkTaskDialogRef.componentInstance.task = task;
+    linkTaskDialogRef.componentInstance.email = this.email;
+    linkTaskDialogRef.componentInstance.boards = this.boards;
   }
 
 }

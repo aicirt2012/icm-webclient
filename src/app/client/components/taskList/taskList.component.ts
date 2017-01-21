@@ -17,6 +17,7 @@ export class TaskListComponent {
   @Output() createTask = new EventEmitter<any>();
   @Output() openDialog = new EventEmitter<any>();
   @Output() deleteTask = new EventEmitter<any>();
+  @Output() openLinkTaskDialog = new EventEmitter<any>();
 
   constructor(public appState: AppState) {
   }
@@ -31,6 +32,10 @@ export class TaskListComponent {
       console.log(res);
       this.linkedTasks = this.appState.get('linkedTasks');
     });
+  }
+
+  open() {
+      this.openLinkTaskDialog.emit({'hallo' : '1'});
   }
 
 }

@@ -3,6 +3,7 @@ export * from './client.module';
 export * from './emailDialog';
 export * from './emailFolderDialog';
 export * from './taskDialog';
+export * from './linkTaskDialog';
 export * from './tasks';
 export * from './detailedView';
 export * from './components';
