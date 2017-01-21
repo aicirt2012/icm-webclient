@@ -36,6 +36,8 @@ export class LinkTaskDialogComponent {
     this.sending = true;
     this._taskService.linkTask(this.email, this.task)
       .subscribe((task: any) => {
+        console.log(this.task);
+        console.log(task);
         this.sending = false;
         this.snackBar.open('Task successfully linked.', 'OK');
         this.closeDialog();

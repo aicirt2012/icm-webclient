@@ -58,7 +58,6 @@ export class TasksComponent {
     this._taskService.getAllBoards()
       .subscribe((data: any) => {
         this.boards = data;
-        //this.appState.set('boards', this.boards);
         console.log(this.boards);
       },
       error => {
@@ -74,8 +73,6 @@ export class TasksComponent {
     taskDialogRef.componentInstance.task = task;
     taskDialogRef.componentInstance.email = this.email;
     taskDialogRef.componentInstance.boards = this.boards;
-    //taskDialogRef.afterClosed().subscribe(result => {
-    //});
   }
 
   deleteTask(task: any) {

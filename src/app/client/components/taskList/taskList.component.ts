@@ -35,7 +35,7 @@ export class TaskListComponent {
   }
 
   open() {
-      this.openLinkTaskDialog.emit({'hallo' : '1'});
+      this.openLinkTaskDialog.emit({'taskType': 'linked'});
   }
 
 }
