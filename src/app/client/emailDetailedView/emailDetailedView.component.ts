@@ -15,6 +15,7 @@ export class EmailDetailedViewComponent {
   private emailResponse: any;
   private sending = false;
   email:Email;
+  emails: Email[];
   currentId: any;
   boxList: any[];
   public responseStatus: boolean;
@@ -26,10 +27,14 @@ export class EmailDetailedViewComponent {
   }
 
   ngOnInit() {
+    
     this.appState.dataChange.subscribe((stateChange) => {
-      if (this.appState.get('boxList').length > 0) {
+      if ( stateChange == "boxList" && this.appState.get('boxList').length > 0) {
         this.boxList = this.appState.get('boxList');
-      }
+      } else if (stateChange == "emails" && this.appState.get('emails').length > 0) {
+        this.emails = this.appState.get('emails');
+      } else if (stateChange == "email") {
+        this.email = this.appState.get('email');      }
     });
     
     this.currentId = this.route.params.map(params => params['emailId'] || 'None');
@@ -65,7 +70,7 @@ export class EmailDetailedViewComponent {
     this._emailService
       .getSingleMail(id)
       .subscribe((data: any) => {
-        this.email = data;
+        this.appState.set('email', data);
       },
       error => {
         console.log(error)
@@ -81,62 +86,71 @@ export class EmailDetailedViewComponent {
     });
   }
 
-  addFlags(params:any) {
-    /*const oldEmail = Object.assign(this.email, {});
-    const oldEmails = Object.assign(this.emails, {});
-    const oldBoxList = Object.assign(this.boxList, {});
+  addFlags(flags:any) {
+    const oldEmail = this.appState.get('email');
+    const oldEmails = this.appState.get('emails');
+    const oldBoxList = this.appState.get('boxList');
      
-    params.email.flags = params.email.flags.concat(params.flags);
+    this.appState.set('noSync', true); 
+    this.email.flags = this.email.flags.concat(flags);
         this.emails = this.emails.map((email) => {
           if (this.email._id == email._id) {
-            email.flags = params.email.flags;
+            email.flags = this.email.flags;
           }
           return email;
         });
         this.boxList = this.boxList.map((box)=> {
-          if(box.name == params.box) {
+          if(box.name == this.email.box.name) {
             box.unseen -= 1;
           }
           return box;
         });
-        this.appState.set('boxList', this.boxList);*/
+        this.appState.set('email', this.email);
+        this.appState.set('boxList', this.boxList);
+        this.appState.set('emails', this.emails);
     
-    this._emailService.addFlags(params.email.uid, params.flags, params.box).subscribe((res) => {}, (err) => {
-        /*this.email = oldEmail;
-        this.emails = oldEmails;
-        this.boxList = oldBoxList;*/
+    this._emailService.addFlags(this.email.uid, flags, this.email.box.name).subscribe((res) => {}, (err) => {
+        this.appState.set('email', oldEmail);
+        this.appState.set('emails', oldEmails);
+        this.appState.set('boxList', oldBoxList);
         this.snackBar.open('Error while setting email to READ.', 'OK');
-
+    }, () => {
+        this.appState.set('noSync', false); 
     });
 }
 
-deleteFlags(params:any) {
-    /*const oldEmail = Object.assign(this.email, {});
-    const oldEmails = Object.assign(this.emails, {});
-    const oldBoxList = Object.assign(this.boxList, {});
+deleteFlags(flags: any) {
+    const oldEmail = this.appState.get('email');
+    const oldEmails = this.appState.get('emails');
+    const oldBoxList = this.appState.get('boxList');
     
-    params.flags.forEach((f) => {
-            params.email.flags.splice(params.email.flags.indexOf(f),1);
+    this.appState.set('noSync', true); 
+    flags.forEach((f) => {
+           this.email.flags.splice(this.email.flags.indexOf(f),1);
         });
         this.emails.map((email) => {
           if (this.email._id == email._id) {
-            email.flags = params.email.flags;
+            email.flags = this.email.flags;
           }
           return email;
         });
         this.boxList.map((box)=> {
-          if(box.name == params.box) {
+          if(box.name == this.email.box.name) {
             box.unseen += 1;
           }
           return box;
         });
-        this.appState.set('boxList', this.boxList);*/
+        this.appState.set('email', this.email);
+        this.appState.set('boxList', this.boxList);
+        this.appState.set('emails', this.emails);
 
-    this._emailService.delFlags(params.email.uid, params.flags, params.box).subscribe((res) => {}, (err) => {
-        /*this.email = oldEmail;
-        this.emails = oldEmails;
-        this.appState.set('boxList', oldBoxList);*/
-        this.snackBar.open('Error while setting email to UNREAD.', 'OK');
+    this._emailService.delFlags(this.email.uid, flags, this.email.box.name).subscribe((res) => {}, (err) => {
+       this.appState.set('email', oldEmail);
+       this.appState.set('emails', oldEmails);
+       this.appState.set('boxList', oldBoxList);
+       this.snackBar.open('Error while setting email to READ.', 'OK');
+    }, () => {
+      this.appState.set('noSync', false); 
     });
 }
 

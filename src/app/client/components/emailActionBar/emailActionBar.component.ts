@@ -15,6 +15,7 @@ export class EmailActionBarComponent {
   @Output() generateEmailResponseActionBar = new EventEmitter<any>();
   @Output() discardEmailResponse = new EventEmitter<any>();
   @Input() responseStatus: boolean;
+  selectedBox: string;
 
   constructor() {
   }
@@ -44,17 +45,11 @@ export class EmailActionBarComponent {
   }
 
   addFlags(flags:string[]) {
-      const params = {email: this.email, flags:flags, box:this.email.box.name};
-      this.onAddFlags.emit(params);
+      this.onAddFlags.emit(flags);
   }
 
   deleteFlags(flags:string[]) {
-      const params = {email: this.email, flags:flags, box:this.email.box.name};
-      this.onDeleteFlags.emit(params);
-  }
-
-  isRead() {
-      return this.email.flags.indexOf('\\Seen') > -1;
+      this.onDeleteFlags.emit(flags);
   }
 
 }

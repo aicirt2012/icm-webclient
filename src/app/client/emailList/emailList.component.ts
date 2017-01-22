@@ -31,9 +31,11 @@ export class EmailListComponent {
     this.boxList = this.appState.get('boxList');
 
     this.appState.dataChange.subscribe((stateChange) => {
-      if (this.appState.get('boxList').length > 0) {
+      if (stateChange == 'boxList' && this.appState.get('boxList').length > 0 && !(this.appState.get('noSync') == true)) {
         this.boxList = this.appState.get('boxList');
         this.getEmailBox(this.boxList.filter((box) => box.id == this.activeRoute.snapshot.params['boxId'])[0]);
+      } else if(stateChange == 'emails' && this.appState.get('emails').length > 0) {
+        this.emails = this.appState.get('emails');;
       }
     });
 
@@ -54,10 +56,11 @@ export class EmailListComponent {
           email.route = `/box/${email.box.id}/${email._id}`;
           return email;
         });
+        this.appState.set('emails', this.emails);
         this.loading = false;
       },
       error => {
-        console.log(error)
+        console.log(error);
       },
       () => { console.log(`Mails successfully loaded`) });
   }
@@ -86,6 +89,7 @@ export class EmailListComponent {
         return email;
       });
       this.emails = this.emails.concat(moreEmails);
+      this.appState.set('emails', this.emails);
       this.loadingList = false;
     });
     }

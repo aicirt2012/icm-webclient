@@ -28,5 +28,13 @@
 }
 
 .route-active .unseen-counter {
-  background-color: #ec4b4e;
+  background-color: #f78578;
+}
+
+.no-padding {
+  padding-top: 0;
+}
+
+.padding-left {
+  padding-left: 10px;
 }

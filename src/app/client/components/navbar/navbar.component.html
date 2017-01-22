@@ -10,15 +10,15 @@
         <navbar-list-item [item]="item" *ngFor="let item of navbarItems"></navbar-list-item>
       </md-nav-list>
       <div fxLayoutAlign="center center">
-        <a (click)="openEmailFolderDialog()"><small style="color:white"> Manage Folders</small></a>
+        <button md-raised-button fxLayout="row" fxLayoutAlign="center center" class="manage-folders" (click)="openEmailFolderDialog()">Manage Folders</button>
       </div>
     </div>
     <div fxLayoutAlign="center center">
-        <button fxShow="false" fxShow.gt-sm md-button fxFlex class="refresh-btn" (click)="refresh()" fxLayoutAlign="center center">
+        <button fxShow="false" fxShow.gt-md md-button fxFlex class="refresh-btn" (click)="refresh()" fxLayoutAlign="center center">
             Last sync: <small>{{lastSync | date:'short'}}</small>
         <md-icon class="md-24">sync</md-icon>
         </button>
-         <button  fxLayoutAlign="center center" fxHide="false" fxHide.gt-sm md-button fxFlex class="refresh-btn" (click)="refresh()">
+         <button  fxLayoutAlign="center center" fxHide="false" fxHide.gt-md md-button fxFlex class="refresh-btn" (click)="refresh()">
         <md-icon class="md-24">sync</md-icon>
         </button>
     </div>
