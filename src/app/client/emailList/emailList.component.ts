@@ -21,6 +21,7 @@ export class EmailListComponent {
   currentBox: any;
   boxList: any[];
   loading: boolean;
+  emptyBox: boolean = false;
   loadingList: boolean;
 
   constructor(public appState: AppState, public router: Router, public activeRoute: ActivatedRoute, private _emailService: EmailService) {
@@ -54,6 +55,7 @@ export class EmailListComponent {
           email.route = `/box/${email.box.id}/${email._id}`;
           return email;
         });
+        this.emptyBox = this.emails.length == 0;
         this.loading = false;
       },
       error => {
