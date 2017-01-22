@@ -29,9 +29,6 @@ export class ClientComponent {
   ngOnInit() {
     this.syncing = true;
 
-    this.boxList = this.appState.get('boxList');
-    this.user = this.appState.get('user');
-
     this.appState.dataChange.subscribe((stateChange) => {
       if (this.appState.get('boxList').length > 0) {
         this.boxList = this.appState.get('boxList');
@@ -39,7 +36,6 @@ export class ClientComponent {
     });
 
     this._settingsService.getUserInfo().subscribe((user) => {
-      this.appState.set('user', user);
       this.user = user;
       if (this.user.provider.name) {
         if (!(this.appState.get('boxList').length > 0)) {
