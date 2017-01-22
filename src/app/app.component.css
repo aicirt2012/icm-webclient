@@ -34,3 +34,9 @@ div.cdk-focus-trap-content {
 .md-tab-list > div{
   min-width: 100px! important;
 }
+
+.md-dialog-container {
+    -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+}

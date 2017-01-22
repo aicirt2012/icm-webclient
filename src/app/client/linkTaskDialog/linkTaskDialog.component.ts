@@ -38,6 +38,7 @@ export class LinkTaskDialogComponent {
       .subscribe((task: any) => {
         console.log(this.task);
         console.log(task);
+        this.appState.set('linkedTasks', this.addLinkedTask(this.task));
         this.sending = false;
         this.snackBar.open('Task successfully linked.', 'OK');
         this.closeDialog();
@@ -57,6 +58,11 @@ export class LinkTaskDialogComponent {
   onSelectBoard(board:any) {
     this.task.possibleMembers = [].concat(board.members);
     this.task.selectedMembers = this.task.selectedMembers == undefined ? [] : this.task.selectedMembers;
+  }
+
+    addLinkedTask(task: any) {
+    this.linkedTasks.push(task);
+    return this.linkedTasks;
   }
 
 }

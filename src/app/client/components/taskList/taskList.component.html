@@ -2,12 +2,13 @@
   <md-tab label="Trello">
     <md-tab-group>
       <md-tab label="Suggested Tasks"  title="Suggested Tasks">
-        <div fxFlex fxLayout="column" class="padding">
-          <task-list-item *ngFor="let suggestedTask of suggestedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="suggestedTask" [boards]="boards" [deleteTask]="deleteTask" [index]="i"> </task-list-item>
+         <a fxFlex fxLayoutAlign="center center" class="tasks linkTaskBtn" md-raised-button (click)="openTaskDialog()"><md-icon>add</md-icon>Create Linked Task</a>
+        <div fxFlex fxLayout="column" class="tasks">
+              <task-list-item *ngFor="let suggestedTask of suggestedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="suggestedTask" [boards]="boards" [deleteTask]="deleteTask" [index]="i"> </task-list-item>
         </div>
       </md-tab>
-      <md-tab label="Linked Tasks">
-       <a fxFlex fxLayoutAlign="center center" class="tasks linkTaskBtn" md-raised-button (click)="open()">Choose Task</a>
+      <md-tab label="Linked Tasks" title="Linked Tasks">
+       <a fxFlex fxLayoutAlign="center center" class="tasks linkTaskBtn" md-raised-button (click)="openLinkTask()"><md-icon>add</md-icon>Link Task to Mail</a>
         <div fxFlex fxLayout="column" class="tasks">
           <task-list-item *ngFor="let linkedTask of linkedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="linkedTask" [boards]="boards" [deleteTask]="deleteTask" [index]="i"> </task-list-item>
         </div>

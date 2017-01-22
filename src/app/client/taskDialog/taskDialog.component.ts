@@ -31,6 +31,8 @@ export class TaskDialogComponent {
   ngOnInit() {
       this.suggestedTasks = this.appState.get('suggestedTasks');
       this.linkedTasks = this.appState.get('linkedTasks');
+      console.log("boards ");
+      console.log(this.boards);
   }
 
   createTask() {

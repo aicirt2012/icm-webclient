@@ -34,8 +34,12 @@ export class TaskListComponent {
     });
   }
 
-  open() {
+  openLinkTask() {
       this.openLinkTaskDialog.emit({'taskType': 'linked'});
+  }
+
+  openTaskDialog() {
+      this.openDialog.emit({'taskType': 'suggested','status':'empty'});
   }
 
 }
