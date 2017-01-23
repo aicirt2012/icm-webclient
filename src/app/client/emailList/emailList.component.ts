@@ -6,7 +6,7 @@ import {AppState} from '../../app.service';
 import {EmailService} from '../shared';
 
 @Component({
-  selector: 'email-list',
+  selector: 'email-list[style=max-width:85%]',
   styleUrls: ['./emailList.component.css'],
   templateUrl: './emailList.component.html'
 })
