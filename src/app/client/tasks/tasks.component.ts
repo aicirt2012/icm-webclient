@@ -63,7 +63,6 @@ export class TasksComponent {
     this._taskService.getAllBoards()
       .subscribe((data: any) => {
         this.boards = data;
-        console.log(this.boards);
       },
       error => {
         console.log(error)
