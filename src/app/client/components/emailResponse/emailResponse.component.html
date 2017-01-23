@@ -11,7 +11,7 @@
     <md-chip-list>
       <md-chip *ngFor="let to of emailForm.to; let i = index">
         <div fxLayout="row" fxLayoutAlign="start center">
-          <span>{{to}}</span>
+          <span>{{to.name ? to.name : to.address}}</span>
           <md-icon class="pointer" (click)="deleteAddress(i, 'to')">close</md-icon>
         </div>
       </md-chip>
