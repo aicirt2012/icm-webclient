@@ -22,8 +22,12 @@ export class TaskListItemComponent {
   }
 
   ngOnInit() {
-    if(this.task.taskType == 'linked') this.task.date = this._taskService.formatDate(this.task.due);
-    else this.task.date = this._taskService.formatDate(this.task.date);
+    if(this.task.taskType == 'linked') {
+      this.task.date = this._taskService.formatDate(this.task.due);
+    }
+    else {
+      this.task.date = this._taskService.formatDate(this.task.date);
+    }
   }
 
   openTaskDialog(task: any) {
@@ -35,7 +39,7 @@ export class TaskListItemComponent {
     else {
       this.task.index = this.index;
     }
-    this.openDialog.emit(task);
+    this.openDialog.emit(this.task);
   }
 
   getPossibleMembers(selectedBoard, selectedMembers) {

@@ -1,4 +1,4 @@
-<md-card class="tasks-card">
+<!--<md-card class="tasks-card">
   <md-card-header>
     <md-card-title class="card-title">
       <md-input-container >
@@ -20,15 +20,35 @@
     </div>
   </md-card-content>
   <md-card-actions fxFlex fxLayout="row">
-    <div fxFlex="50">
+    <div fxFlex="50" fxLayoutAlign="center center">
       <button (click)="openTaskDialog(task)" md-button>
         <md-icon>mode_edit</md-icon>
       </button>
     </div>
-    <div fxFlex="50">
+    <div fxFlex="50" fxLayoutAlign="center center">
       <button (click)="removeTask(task)" md-button>
         <md-icon>close</md-icon>
       </button>
     </div>
+  </md-card-actions>
+</md-card>-->
+
+<md-card class="tasks-card">
+  <md-card-header>
+    <div md-card-avatar class="header-image"></div>
+    <md-card-title class="card-title">{{task.name}}</md-card-title>
+  </md-card-header>
+  <md-card-content class="card-desc">
+    <p>
+        {{task.desc}}
+    </p>
+  </md-card-content>
+  <md-card-actions>
+    <button (click)="openTaskDialog(task)" md-button>
+      <md-icon>crop_free</md-icon>
+    </button>
+    <button (click)="removeTask(task)" md-button>
+      <md-icon>close</md-icon>
+    </button>
   </md-card-actions>
 </md-card>
