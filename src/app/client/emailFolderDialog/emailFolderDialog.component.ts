@@ -42,8 +42,8 @@ export class EmailFolderDialogComponent {
           this.appState.set('boxList', res);
           this.updating = false;
           this.parentBox = '';
-          this.newBoxName = '';
           this.snackBar.open(`New box '${this.newBoxName}' was successfully created.`, 'OK');
+          this.newBoxName = '';
         }, () => {
            this.updating = false;
            this.snackBar.open('Error while creating new box.', 'OK');

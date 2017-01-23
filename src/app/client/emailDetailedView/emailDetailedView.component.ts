@@ -11,8 +11,7 @@ import { AppState } from '../../app.service';
   templateUrl: './emailDetailedView.component.html'
 })
 export class EmailDetailedViewComponent {
-
-
+  currentBox: string;
   email: Email;
   emails: Email[];
   currentId: any;
@@ -21,17 +20,20 @@ export class EmailDetailedViewComponent {
   private emailResponse: any;
   private sending = false;
   private manuallyRemovedFlag = false;
+  private moving = false;
 
   constructor(private _emailService: EmailService, public snackBar: MdSnackBar,
-    public route: ActivatedRoute, public appState: AppState) {
+    public route: ActivatedRoute, public appState: AppState, public router: Router) {
     this.emailResponse = {};
     this.responseStatus = false;
   }
 
   ngOnInit() {
+    
     this.emails = this.appState.get('emails').length > 0 ? this.appState.get('emails') : [];
     this.boxList = this.appState.get('boxList').length > 0 ? this.appState.get('boxList') : [];
     
+
     this.appState.dataChange.subscribe((stateChange) => {
       this[stateChange] = this.appState.get(stateChange);
 
@@ -64,6 +66,7 @@ export class EmailDetailedViewComponent {
       .subscribe((data: any) => {
         this.sending = false;
         this.snackBar.open('Message successfully sent.', 'OK');
+        this.responseStatus = false;
       }, (error) => {
         this.sending = false;
         this.snackBar.open('Error while sending.', 'OK');
@@ -85,8 +88,17 @@ export class EmailDetailedViewComponent {
   }
 
   emailMoveToBox(params: any) {
+    this.moving = true;
     this._emailService.moveMail(params.msgId, params.srcBox, params.destBox).subscribe((res) => {
-      console.log(res);
+      this.emails.splice(this.emails.findIndex((e)=>this.email._id==e._id),1);
+      this.emails.length > 0 ? this.appState.set('emails', this.emails) : this.appState.set('emails', []);
+      this.snackBar.open(`Message successfully moved to ${params.destBox}.`, 'OK');
+      this.router.navigate([`box/${this.appState.get('currentBox')}`]);
+      this.moving = false;
+    }, (err) => {
+      console.log(err);
+      this.snackBar.open('Message successfully moved.', 'OK');
+      this.moving = false;
     });
   }
 

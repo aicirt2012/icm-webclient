@@ -33,9 +33,11 @@ export class EmailListComponent {
     this.emails = this.appState.get('emails').length > 0 ? this.appState.get('emails') : [];
 
     this.appState.dataChange.subscribe((stateChange) => {
+      console.log('change list comp',stateChange);
       this[stateChange] = this.appState.get(stateChange);
       if(!this.emptyBox && this.emails.length == 0 && this.boxList.length > 0) { 
           this.getEmailBox(this.boxList.filter((box) => box.id == this.activeRoute.snapshot.params['boxId'])[0]);
+
       }
     });
 
@@ -56,6 +58,8 @@ export class EmailListComponent {
           email.route = `/box/${email.box.id}/${email._id}`;
           return email;
         });
+        console.log('set curr box',  this.activeRoute.snapshot.params['boxId']);
+        this.appState.set('currentBox', this.activeRoute.snapshot.params['boxId']);
         this.appState.set('emails', this.emails);
         this.emptyBox = this.emails.length == 0;
         this.loading = false;
