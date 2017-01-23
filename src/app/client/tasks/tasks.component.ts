@@ -4,6 +4,8 @@ import { Email } from '../shared';
 import { TaskService } from '../shared';
 import { TaskDialogType, DialogType} from '../../shared/constants';
 import { TaskDialogComponent } from '../taskDialog';
+import { LinkTaskDialogComponent } from '../linkTaskDialog';
+import { AppState } from '../../app.service';
 
 @Component({
   selector: 'tasks',  // <taskList></taskList>
@@ -14,55 +16,61 @@ import { TaskDialogComponent } from '../taskDialog';
 export class TasksComponent {
 
   @Input() email: any;
-  @Input() user: any;
   public errorTrello = false;
   public boards: any;
+  public user: any;
   public suggestedTasks: any = [];
   public linkedTasks: any = [];
   private dialogConfig = {
-    width:"70%",
-    height:'70%'
+    width: "70%",
+    height: '70%',
+  }
+  private linkTaskDialogConfig = {
+    width: '60%',
+    height: '40%'
   }
 
-  constructor(private _taskService: TaskService, public dialog: MdDialog, public snackBar: MdSnackBar) {
+  constructor(private _taskService: TaskService, public dialog: MdDialog, public snackBar: MdSnackBar, public appState: AppState) {
   }
 
   ngOnChanges() {
     this.suggestedTasks = this.email.suggestedTasks ? this.email.suggestedTasks : [];
     this.linkedTasks = this.email.linkedTasks ? this.email.linkedTasks : [];
-    if(this.user.trello) this.getAllBoards();
-    else this.errorTrello = true;
+    this.appState.set('suggestedTasks', this.suggestedTasks);
+    this.appState.set('linkedTasks', this.linkedTasks);
+    this.user = this.appState.get('user');
+    if (this.user.trello) {
+      this.getAllBoards();
+    }
+    else {
+      this.errorTrello = true;
+    }
   }
 
   createTask(taskObject: any) {
     this._taskService.createTask(this.email, taskObject)
       .subscribe((task: any) => {
         this.snackBar.open('Task successfully created.', 'OK');
-        //remove taskObject from suggestedTasks
-        this.deleteTask(taskObject);
-        //add returned task to linked tasks - we have to manually add the task type because we don't fetch the new mail
-        this.addLinkedTaskLocally(task, taskObject);
-        //now switch to linkedTasks View
       },
       error => {
         console.log(error);
         this.snackBar.open('Error while creating task.', 'OK');
       },
-      () => {});
+      () => { });
   }
 
   getAllBoards() {
     this._taskService.getAllBoards()
-    .subscribe((data: any) => {
-      this.boards = data;
-      console.log(this.boards);
-    },
-    error => {
-      console.log(error)
-    },
-    () => {
-    console.log("all boards success")
-    });
+      .subscribe((data: any) => {
+        this.boards = data;
+        console.log(this.boards);
+      },
+      error => {
+        console.log(error)
+      },
+      () => {
+        console.log("all boards success")
+      });
   }
 
   openDialog(task: any) {
@@ -73,33 +81,21 @@ export class TasksComponent {
   }
 
   deleteTask(task: any) {
-    let position = 0;
-    if(task.taskType == "suggested") {
-      /* search by desc in suggestedTasks because there is not yet any ID for a suggested Task */
-      /* we have to find a way to identify suggestedTasks better */
-      for(let index = 0; index < this.suggestedTasks.length; index++) {
-        if(this.suggestedTasks[index].desc == task.desc) position = index;
-      }
-      this.suggestedTasks.splice(position, 1);
+    if (task.taskType == 'suggested') {
+      this.suggestedTasks.splice(task.index, 1);
+      this.appState.set('suggestedTasks', this.suggestedTasks);
     }
     else {
-      for(let index = 0; index < this.linkedTasks.length; index++) {
-        if(this.linkedTasks[index].id == task.id) position = index;
-      }
-      this.linkedTasks.splice(position, 1);
+      this.linkedTasks.splice(task.index, 1);
+      this.appState.set('linkedTasks', this.linkedTasks);
     }
   }
 
-  addLinkedTaskLocally(task: any, suggestedTask: any) {
-    task.selectedBoard = suggestedTask.selectedBoard;
-    task.selectedMembers = [suggestedTask.selectedMembers];
-    task.idList = suggestedTask.idList;
-    task.date = suggestedTask.date;
-    task.board = task.selectedBoard;
-    task.list = task.idList;
-    task.members = task.selectedMembers;
-    task.taskType = "linked"
-    this.linkedTasks.push(task);
+  openLinkTaskDialog(task: any) {
+    let linkTaskDialogRef: MdDialogRef<LinkTaskDialogComponent> = this.dialog.open(LinkTaskDialogComponent, this.linkTaskDialogConfig);
+    linkTaskDialogRef.componentInstance.task = task;
+    linkTaskDialogRef.componentInstance.email = this.email;
+    linkTaskDialogRef.componentInstance.boards = this.boards;
   }
 
 }

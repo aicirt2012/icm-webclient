@@ -1,5 +1,0 @@
-<div fxFlex fxLayout="column" class="full-height">
-    <email-action-bar [responseStatus]="responseStatus" (generateEmailResponseActionBar)="generateEmailResponse($event)" (discardEmailResponse)="discardEmailResponse($event)" [email]="email" [onEmailMoveToBox]="onEmailMoveToBox" [boxList]="boxList" [onAddFlags]="onAddFlags" [onDeleteFlags]="onDeleteFlags"></email-action-bar>
-  <email-view class="email-detail-container" *ngIf="!emailResponse.text" [email]="email" fxFlex class="scrollable"></email-view>
-  <email-response class="email-detail-container" *ngIf="emailResponse.text" [emailForm]="emailResponse" (sendMail)="sendEmail($event)"></email-response>
-</div>

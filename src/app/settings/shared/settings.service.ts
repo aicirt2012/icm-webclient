@@ -6,7 +6,7 @@ import {HttpService, AuthService} from '../../shared';
 @Injectable()
 export class SettingsService {
 
-  private domain = '/users';
+  private domain = 'users';
 
   constructor(private _httpService: HttpService, private _authService: AuthService) {
   }

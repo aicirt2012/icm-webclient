@@ -29,3 +29,19 @@
   font-size: 12px;
   font-weight: 200;
 }
+
+.iframe-container {
+  position: relative;
+  padding-top: 100%;
+  height: 0;
+  width: 100%;
+}
+
+.iframe-container > iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  border: 0;
+}

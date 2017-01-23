@@ -13,7 +13,11 @@
     </div>
   </div>
   <div fxFlex *ngIf="email">
-    <p *ngIf="email.html" [innerHTML]="email.html"></p>
+    <div *ngIf="email.html" class="iframe-container">
+      <iframe srcdoc="{{email.html}}"
+              onload="this.style.height=this.contentDocument.body.scrollHeight +'px';">
+      </iframe>
+    </div>
     <p *ngIf="!email.html">{{email.text}}</p>
   </div>
 

@@ -1,10 +1,16 @@
 import { Routes, RouterModule, CanActivate, Router } from '@angular/router';
 import { AuthGuard } from '../app.authGuard';
 import {ClientComponent} from './';
+import {EmailDetailedViewComponent} from './emailDetailedView';
+import {EmailListComponent} from './emailList';
 
-export const ROUTES: Routes = [
-  // TODO: reverse mechanism protected/not-protected
-  { path: 'box', component: ClientComponent, canActivate: [AuthGuard] },
-  { path: 'box/:boxId', component: ClientComponent, canActivate: [AuthGuard] },
-  { path: 'box/:boxId/:emailId', component: ClientComponent, canActivate: [AuthGuard] }
+export const ROUTES = [
+  { path: 'box', component: ClientComponent, canActivate: [AuthGuard], children: [
+    {
+    path: ':boxId', component: EmailListComponent, children: [
+      { path: ':emailId', component: EmailDetailedViewComponent }
+    ]
+  }
+  ] },
+  
 ];

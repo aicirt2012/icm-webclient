@@ -10,6 +10,7 @@ import { MdSnackBar} from '@angular/material';
 export class TaskListItemComponent {
   @Input() task: any;
   @Input() boards: any;
+  @Input() index: any;
   @Input() createTask: EventEmitter<any> = new EventEmitter<any>();
   @Input() openDialog: EventEmitter<any> = new EventEmitter<any>();
   @Input() deleteTask: EventEmitter<any> = new EventEmitter<any>();
@@ -21,65 +22,37 @@ export class TaskListItemComponent {
   }
 
   ngOnInit() {
-    console.log(this.boards);
-    if(this.task.taskType == 'linked') {
-      this.task.date = this._taskService.formatDate(this.task.due);
-    }
-    else {
-     this.task.date = this._taskService.formatDate(this.task.date);
-   }
-  }
-
-  onSelectBoard(board:any) {
-    this.possibleMembers = board.members;
-  }
-
-  onCreateTask() {
-    if(this.task.idList) {
-      this.task.selectedMembers = this.selectedMembers;
-      this.createTask.emit(this.task);
-    } else {
-      this.snackBar.open('Please select a list.', 'OK');
-    }
+    if(this.task.taskType == 'linked') this.task.date = this._taskService.formatDate(this.task.due);
+    else this.task.date = this._taskService.formatDate(this.task.date);
   }
 
   openTaskDialog(task: any) {
-    console.log("open for task");
-    console.log(task);
-    if (this.task.taskType == 'linked' && this.task.board) {
-      // For linked task we have to append lists to task.board (We do not get this info from backend) */
-      let listsForBoard = this.boards.filter((board) => { if (board.id == this.task.idBoard) return board.lists; })[0].lists;
-      let membersForBoard = this.boards.filter((board) => { if (board.id == this.task.idBoard) return board.members; })[0].members;
-            console.log(membersForBoard);
-      this.task.board['lists'] = listsForBoard;
-      this.task.board['members'] = membersForBoard;
-      this.task.selectedBoard = this.task.board;
-      this.task.idList = this.task.list;
-      this.task.selectedMembers = this.task.members;
-      this.task.possibleMembers = membersForBoard;
-    }
+    if(this.task.taskType == 'linked') {
+      this.task.board.lists = this.boards.filter((board) => { if (board.id == this.task.idBoard) return board.lists; })[0].lists;
+      this.task.selectedMembers = this.task.selectedMembers ? this.task.selectedMembers : this.task.members;
+      this.task.possibleMembers = this.getPossibleMembers(this.task.board, this.task.selectedMembers);
+      }
     else {
-      let membersForBoard = this.boards.filter((board) => { if (board.id == this.task.selectedBoard.id) return board.members; })[0].members;
-      this.task.selectedMembers = this.selectedMembers;
-      this.task.possibleMembers = membersForBoard;
+      this.task.index = this.index;
     }
     this.openDialog.emit(task);
   }
 
-  removeTask() {
-    this.deleteTask.emit(this.task);
+  getPossibleMembers(selectedBoard, selectedMembers) {
+    //In case of opening a linked task, the possibleMembers are just filled with the selected Members from trello
+    //Therefore we have to get all available members from boards and then remove the one's that are already selected
+    //when there are no selected members we do not need to remove anything
+    let membersForBoard = this.boards.filter((board) => { if (board.id == selectedBoard.id) return board.members; })[0].members;
+    if(selectedMembers.length > 0) {
+      let selectedMembersIDs = selectedMembers.map((member) => { return member.id} );
+      membersForBoard = membersForBoard.filter(( member ) => { return selectedMembersIDs.indexOf( member.id ) < 0;});
+    }
+    return membersForBoard;
   }
 
-  addMember(member: any, index: number): void {
-      this.selectedMembers.push(member);
-      this.possibleMembers.splice(index,1);
-      this.currMember = '';
-  }
-
-  deleteMember(member: any, index: number) {
-    this.possibleMembers.push(member);
-    this.selectedMembers.splice(index,1);
-    this.currMember = '';
+  removeTask(task:any) {
+    task['index'] = this.index;
+    this.deleteTask.emit(task);
   }
 
 }
