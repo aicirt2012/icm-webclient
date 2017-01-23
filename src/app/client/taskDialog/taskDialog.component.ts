@@ -52,6 +52,7 @@ export class TaskDialogComponent {
   }
 
   updateTask() {
+    console.log(this.task);
     this.sending = true;
     this._taskService.updateTask(this.task)
       .subscribe((task: any) => {

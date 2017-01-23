@@ -35,4 +35,7 @@
   margin-top: 8px;
   margin-left: 8px;
   margin-right: 8px;
+  -webkit-box-shadow: 1px 1px 1px 0px rgba(90, 83, 83, 0.75);
+  -moz-box-shadow: 1px 1px 1px 0px rgba(90, 83, 83, 0.75);
+  box-shadow: 1px 1px 1px 0px rgba(90, 83, 83, 0.75);
 }
