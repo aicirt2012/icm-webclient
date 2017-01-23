@@ -65,6 +65,8 @@ export class EmailDetailedViewComponent {
       .sendMail(mail)
       .subscribe((data: any) => {
         this.sending = false;
+        this.emailResponse = {};
+        this.responseStatus = false;
         this.snackBar.open('Message successfully sent.', 'OK');
         this.emailResponse = {};
         this.responseStatus = false;
