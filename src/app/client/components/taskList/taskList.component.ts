@@ -24,12 +24,9 @@ export class TaskListComponent {
 
   ngOnInit() {
     this.suggestedTasks$ = this.appState.dataChange.subscribe((res) => {
-      console.log('taskList',res);
       this.suggestedTasks = this.appState.get('suggestedTasks');
-      console.log(this.suggestedTasks);
     });
     this.linkedTasks$ = this.appState.dataChange.subscribe((res) => {
-      console.log(res);
       this.linkedTasks = this.appState.get('linkedTasks');
     });
   }

@@ -29,7 +29,7 @@ export class TaskListItemComponent {
   openTaskDialog(task: any) {
     if(this.task.taskType == 'linked') {
       this.task.board.lists = this.boards.filter((board) => { if (board.id == this.task.idBoard) return board.lists; })[0].lists;
-      this.task.selectedMembers = this.task.members;
+      this.task.selectedMembers = this.task.selectedMembers ? this.task.selectedMembers : this.task.members;
       this.task.possibleMembers = this.getPossibleMembers(this.task.board, this.task.selectedMembers);
       }
     else {
@@ -43,8 +43,10 @@ export class TaskListItemComponent {
     //Therefore we have to get all available members from boards and then remove the one's that are already selected
     //when there are no selected members we do not need to remove anything
     let membersForBoard = this.boards.filter((board) => { if (board.id == selectedBoard.id) return board.members; })[0].members;
-    let selectedMembersIDs = selectedMembers.map((member) => { return member.id} );
-    if(selectedMembers.length > 0) membersForBoard = membersForBoard.filter(( member ) => { return selectedMembersIDs.indexOf( member.id ) < 0;});
+    if(selectedMembers.length > 0) {
+      let selectedMembersIDs = selectedMembers.map((member) => { return member.id} );
+      membersForBoard = membersForBoard.filter(( member ) => { return selectedMembersIDs.indexOf( member.id ) < 0;});
+    }
     return membersForBoard;
   }
 

@@ -15,8 +15,6 @@ export class TaskDialogComponent {
   public task: any = {};
   public suggestedTasks: any = [];
   public linkedTasks: any = [];
-  public suggestedTasks$: any = [];
-  public linkedTasks$: any = [];
   public email: any = {};
   public boards: any[] = [];
   public sending: boolean = false;
@@ -31,17 +29,17 @@ export class TaskDialogComponent {
   ngOnInit() {
       this.suggestedTasks = this.appState.get('suggestedTasks');
       this.linkedTasks = this.appState.get('linkedTasks');
-      console.log("boards ");
-      console.log(this.boards);
   }
 
   createTask() {
     this.sending = true;
+    console.log(this.task);
     this._taskService.createTask(this.email, this.task)
       .subscribe((task: any) => {
         this.sending = false;
         this.appState.set('suggestedTasks', this.removeSuggestedTask(this.task.index));
-        this.appState.set('linkedTasks', this.addLinkedTask(task));
+        this.linkedTasks.push(this.addLinkedTask(task));
+        this.appState.set('linkedTasks', this.linkedTasks);
         this.snackBar.open('Task successfully created.', 'OK');
         this.closeDialog();
       },
@@ -90,10 +88,13 @@ export class TaskDialogComponent {
     this.currMember = '';
   }
 
-  addLinkedTask(task: any) {
-    task['taskType'] = "linked";
-    this.linkedTasks.push(task);
-    return this.linkedTasks;
+  addLinkedTask(task:any) {
+    task['board'] = this.task.board;
+    task['list']  = this.task.list;
+    task['possibleMembers'] = this.task.possibleMembers;
+    task['selectedMembers'] = this.task.selectedMembers;
+    task['taskType'] = 'linked';
+    return task;
   }
 
   removeSuggestedTask(index) {

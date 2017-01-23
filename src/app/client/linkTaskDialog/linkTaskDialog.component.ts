@@ -28,41 +28,45 @@ export class LinkTaskDialogComponent {
   }
 
   ngOnInit() {
-      this.suggestedTasks = this.appState.get('suggestedTasks');
-      this.linkedTasks = this.appState.get('linkedTasks');
+    this.suggestedTasks = this.appState.get('suggestedTasks');
+    this.linkedTasks = this.appState.get('linkedTasks');
   }
 
   linkTask() {
     this.sending = true;
     this._taskService.linkTask(this.email, this.task)
       .subscribe((task: any) => {
-        console.log(this.task);
-        console.log(task);
-        this.appState.set('linkedTasks', this.addLinkedTask(this.task));
+        this.linkedTasks.push(this.addLinkedTask());
+        this.appState.set('linkedTasks', this.linkedTasks);
         this.sending = false;
         this.snackBar.open('Task successfully linked.', 'OK');
         this.closeDialog();
       },
       error => {
         console.log(error);
-        this.sending=false;
+        this.sending = false;
         this.snackBar.open('Error while linking task.', 'OK');
       },
-      () => {});
+      () => { });
   }
 
   closeDialog() {
     this.linkTaskDialogRef.close();
   }
 
-  onSelectBoard(board:any) {
+  onSelectBoard(board: any) {
     this.task.possibleMembers = [].concat(board.members);
     this.task.selectedMembers = this.task.selectedMembers == undefined ? [] : this.task.selectedMembers;
   }
 
-    addLinkedTask(task: any) {
-    this.linkedTasks.push(task);
-    return this.linkedTasks;
+  addLinkedTask() {
+    this.task.card['taskType'] = 'linked';
+    this.task.card['board'] = this.task.board;
+    this.task.card['possibleMembers'] = this.task.possibleMembers;
+    this.task.card['selectedMembers'] = this.task.board.members.length > 0 ? this.task.board.members.filter((member) => { if (this.task.card.idMembers.indexOf(member.id) > -1) return member }) : [];
+    this.task.card['list'] = this.task.card.board ? this.task.card.board.lists.filter((list) => { if(list.id == this.task.card.idList) return list })[0] : {};
+    this.task.board.cards = "";
+    return this.task.card;
   }
 
 }

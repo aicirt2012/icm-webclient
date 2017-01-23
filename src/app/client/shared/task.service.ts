@@ -54,8 +54,8 @@ export class TaskService {
       desc: task.desc,
       idMembers: task.selectedMembers.map((s) => s.id),
       due: task.date,
-      sentences: email.sentences,
-      sentenceId: task.task.id
+      sentences: email.sentences ? email.sentences : [],
+      sentenceId: task.task ? task.task.id : ""
     };
     const path = `email/${email._id}/addTask`;
     return this._httpService.generateRequest(RequestMethod.Post, this.domain, path, null, options);
