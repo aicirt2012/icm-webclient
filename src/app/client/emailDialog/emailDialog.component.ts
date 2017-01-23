@@ -15,7 +15,9 @@ export class EmailDialogComponent {
   public emailForm: any = {
     to: [],
     cc: [],
-    bcc: []
+    bcc: [],
+    subject: '',
+    text: ''
   };
   public cc = false;
   public bcc = false;
