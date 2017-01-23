@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class NavBarListItemComponent {
   @Input() item: any;
+
   constructor(public router: Router) {
   }
 

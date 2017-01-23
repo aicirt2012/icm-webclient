@@ -4,6 +4,7 @@ export * from './emailDialog';
 export * from './emailFolderDialog';
 export * from './taskDialog';
 export * from './tasks';
-export * from './detailedView';
+export * from './emailDetailedView';
+export * from './emailList';
 export * from './components';
 export * from './shared';

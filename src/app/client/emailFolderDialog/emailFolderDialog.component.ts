@@ -64,7 +64,15 @@ export class EmailFolderDialogComponent {
            this.snackBar.open('Error while deleting folder.', 'OK');
         });
     });
-}
+} 
+
+  addPadding(box:any) {
+    let paddingLeft = `0`;
+    if(box.level > 0) {
+      paddingLeft = `${box.level*5}px`;
+    } 
+    return paddingLeft;
+  }
 
   closeDialog() {
     this.taskDialogRef.close();

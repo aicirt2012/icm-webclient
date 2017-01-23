@@ -10,7 +10,7 @@ import { ModalDirective } from 'ng2-bootstrap';
 })
 
 export class SearchBarComponent {
-  @Input() searchEmailBox: any;
+  @Output() searchEmailBox = new EventEmitter<string>();
   query: string = '';
   constructor() {
   }

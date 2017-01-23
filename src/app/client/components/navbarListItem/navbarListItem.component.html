@@ -7,6 +7,9 @@
   <div *ngIf="item.unseen > 0" class="unseen-counter"><a>{{item.unseen}}</a></div>
 
 </md-list-item>
-<md-nav-list *ngIf="item.children.length > 0">
+
+<md-nav-list class="no-padding padding-left" *ngIf="item.children.length > 0">
     <navbar-list-item [item]="child" *ngFor="let child of item.children"></navbar-list-item>
 </md-nav-list>
+
+

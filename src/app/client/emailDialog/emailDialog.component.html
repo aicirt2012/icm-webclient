@@ -6,7 +6,7 @@
   </div>
   <div fxFlex fxLayout="row">
   <div fxFlex="70" fxLayout="column">
-    <form fxFlex fxLayout="column" (ngSubmit)="sendEmail()">
+    <form fxFlex fxLayout="column" (ngSubmit)="sendEmail()" novalidate>
     <md-input-container>
       <div fxFlex fxLayout="row">
         <input md-input #inputTo (keyup.enter)="addAddress(inputTo,'to')" (blur)="searchCardsForMembers()" (change)="addAddress(inputTo,'to')" type="email" placeholder="To:" required/>

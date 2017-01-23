@@ -1,18 +1,13 @@
 <div class="flex-container full-height" fxLayout="column">
   <top-navbar></top-navbar>
-  <spinner *ngIf="syncing" fxFlex [loading]="syncing"></spinner>
-  <div *ngIf="!syncing && noMailboxConnected" fxFlex fxLayoutAlign="center center">
+  <div *ngIf="noMailboxConnected" fxFlex fxLayoutAlign="center center">
     Please connect to a mailbox in <a routerLink="/settings/email">&nbsp;Settings</a>
   </div>
-  <div *ngIf="!syncing && !noMailboxConnected" fxLayout="row" [@fadeInOut]="!syncing" fxFlex>
-    <navbar fxFlex="15" [boxList]="boxList" (onRefresh)="onRefresh($event)" (openDialog)="openDialog($event)" [lastSync]="user.lastSync"
-            (onOpenEmailFolderDialog)="onOpenEmailFolderDialog($event)">
-    </navbar>
-    <spinner *ngIf="loading" fxFlex [loading]="loading"></spinner>
-    <div *ngIf="!loading" [@fadeInOut]="!loading" fxFlex="85" fxLayout="row">
-      <list [emails]="emails" [loadingList]="loadingList" (searchEmailBox)="searchEmailBox($event)" (onEmailListScrolling)="onEmailListScrolling($event)" fxFlex="25"></list>
-      <detailed-view *ngIf="email" [email]="email" [boxList]="boxList" fxFlex="55" (onEmailMoveToBox)="onEmailMoveToBox($event)" (onDeleteFlags)="onDeleteFlags($event)" (onAddFlags)="onAddFlags($event)"></detailed-view>
-      <tasks *ngIf="email" [email]="email" fxFlex="20"></tasks>
+  <div *ngIf="syncing">
+    <spinner [loading]="true"></spinner>
   </div>
+  <div [fxShow]="!syncing && !noMailboxConnected" fxLayout="row" fxFlex>
+    <navbar fxFlex="15" (onRefresh)="onRefresh($event)" [lastSync]="user?.lastSync"></navbar>
+    <router-outlet></router-outlet>
   </div>
 </div>

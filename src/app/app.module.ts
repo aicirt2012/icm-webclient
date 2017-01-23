@@ -1,9 +1,19 @@
-import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
-import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
+import {
+  NgModule,
+  ApplicationRef
+} from '@angular/core';
+import {
+  removeNgStyles,
+  createNewHosts,
+  createInputTransfer
+} from '@angularclass/hmr';
+import {
+  RouterModule,
+  PreloadAllModules
+} from '@angular/router';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -12,6 +22,9 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { ClientModule } from './client/client.module';
 import { LoginModule } from './login/login.module';
 import { SettingsModule } from './settings/settings.module';
+import { SharedModule } from './shared'; // all shared components
+
+
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -19,16 +32,14 @@ import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
 // App is our top level component
 import { AppComponent } from './app.component';
-import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
-// Self-written classes
-import { SharedModule } from './shared'; // all shared components
 import { AuthGuard } from './app.authGuard';
-import { User } from './shared';
+
+import '../styles/styles.scss';
+import '../styles/headings.css';
 
 // Application wide providers
 const APP_PROVIDERS = [
-  ...APP_RESOLVER_PROVIDERS,
   AppState
 ];
 
@@ -38,16 +49,19 @@ type StoreType = {
   disposeOldHosts: () => void
 };
 
+/**
+ * `AppModule` is the main entry point into Angular2's bootstraping process
+ */
 @NgModule({
-  bootstrap: [AppComponent],
+  bootstrap: [ AppComponent ],
   declarations: [
-    AppComponent
+    AppComponent,
   ],
-  imports: [
+  imports: [ // import Angular's modules
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES),
+    RouterModule.forRoot(ROUTES, { useHash: false }),
     MaterialModule.forRoot(),
     FlexLayoutModule.forRoot(),
     // custom modules
@@ -56,7 +70,7 @@ type StoreType = {
     SettingsModule,
     SharedModule
   ],
-  providers: [
+  providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS,
     // external
@@ -66,9 +80,13 @@ type StoreType = {
   ]
 })
 export class AppModule {
-  constructor(public appRef: ApplicationRef, public appState: AppState) { }
 
-  hmrOnInit(store: StoreType) {
+  constructor(
+    public appRef: ApplicationRef,
+    public appState: AppState
+  ) {}
+
+hmrOnInit(store: StoreType) {
     if (!store || !store.state) return;
     console.log('HMR store', JSON.stringify(store, null, 2));
     // set state
