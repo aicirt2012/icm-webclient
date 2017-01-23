@@ -21,7 +21,7 @@ export class ClientComponent {
   private noMailboxConnected = false;
   private user: any;
   private syncing: boolean;
-  
+
   constructor(private _emailService: EmailService, public appState: AppState, private _settingsService: SettingsService) {
   }
 
@@ -37,6 +37,7 @@ export class ClientComponent {
 
     this._settingsService.getUserInfo().subscribe((user) => {
       this.user = user;
+      this.appState.set('user', user);
       if (this.user.provider.name) {
         if (!(this.appState.get('boxList').length > 0)) {
           this.getBoxList().subscribe((data: any[]) => {

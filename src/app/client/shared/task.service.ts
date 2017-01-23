@@ -11,12 +11,12 @@ export class TaskService {
   constructor(private _httpService: HttpService) { }
 
   /*
-   @param: idList: string ,
+   @param: list: string ,
    returns Object: {TODO}
    */
-  getAllTasks(idList?:string): Observable<any> {
+  getAllTasks(list?:string): Observable<any> {
     const options = {
-      idList: idList
+      idList: list
     };
     return this._httpService.generateRequest(RequestMethod.Get, this.domain, '', options, null);
   }
@@ -50,20 +50,28 @@ export class TaskService {
     const options = {
       name: task.name,
       /*TODO: change naming */
-      idList: task.idList.id,
+      idList: task.list.id,
       desc: task.desc,
       idMembers: task.selectedMembers.map((s) => s.id),
       due: task.date,
-      sentences: email.sentences,
-      sentenceId: task.task.id
+      sentences: email.sentences ? email.sentences : [],
+      sentenceId: task.task ? task.task.id : ""
     };
     const path = `email/${email._id}/addTask`;
     return this._httpService.generateRequest(RequestMethod.Post, this.domain, path, null, options);
   }
 
   updateTask(task: any): Observable<any> {
-    const path = `${task.taskId}`;
-    return this._httpService.generateRequest(RequestMethod.Put, this.domain, path, null, task);
+    const options = {
+      name: task.name,
+      /*TODO: change naming */
+      idList: task.list.id,
+      desc: task.desc,
+      idMembers: task.selectedMembers.map((s) => s.id),
+      due: task.date,
+    };
+    const path = `${task.id}`;
+    return this._httpService.generateRequest(RequestMethod.Put, this.domain, path, null, options);
   }
 
   getTaskByID(id :string): Observable<any> {
@@ -80,5 +88,23 @@ export class TaskService {
 
   getAllBoards(): Observable<any> {
     return this._httpService.generateRequest(RequestMethod.Get, this.domain, 'boards', null, null);
+  }
+
+  linkTask(email: any, task: any) {
+    const options = {
+      taskId : task.card.id
+    };
+    const path = `email/${email._id}/linkTask`;
+    return this._httpService.generateRequest(RequestMethod.Post, this.domain, path, null, options);
+  }
+
+  formatDate(date) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    return [year, month, day].join('-');
   }
 }

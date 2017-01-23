@@ -1,0 +1,29 @@
+<div fxFlex fxLayout="column">
+  <md-progress-bar *ngIf="sending" mode="indeterminate"></md-progress-bar>
+  <div md-dialog-title fxLayout="row">
+    <span fxFlex>Link Task to Mail</span>
+    <md-icon (click)="closeDialog()" class="pointer">close</md-icon>
+  </div>
+  <div>
+    <form fxFlex fxLayout="column">
+      <div fxLayout="row" class="selectList">
+        <md-icon fxFlex="3">dashboard</md-icon>
+        <md-select fxFlex="42" name="board-select" [(ngModel)]="task.board" required placeholder="Select a board..">
+          <md-option *ngFor="let board of boards; let b = index" [value]="board" (onSelect)="onSelectBoard(board)">
+            {{ board.name }}
+          </md-option>
+        </md-select>
+        <div fxFlex="10"></div>
+        <md-icon fxFlex="3" *ngIf="task.board">description</md-icon>
+        <md-select fxFlex="42" [(ngModel)]="task.card" name="list-select" *ngIf="task.board"  required placeholder="Select a task..">
+          <md-option *ngFor="let card of task.board.cards" [value]="card">
+            {{ card.name }}
+          </md-option>
+        </md-select>
+      </div>
+    </form>
+  </div>
+  <md-dialog-actions>
+    <button md-submit md-raised-button color="primary" [disabled]="sending" (click)="linkTask()">Link Task</button>
+  </md-dialog-actions>
+</div>

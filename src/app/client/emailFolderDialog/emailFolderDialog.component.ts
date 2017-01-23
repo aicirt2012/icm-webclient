@@ -20,7 +20,7 @@ export class EmailFolderDialogComponent {
   private selectedBoxName: string = '';
   private newBoxName: string = '';
   private parentBox: string = '';
-  
+
   constructor(public taskDialogRef: MdDialogRef<EmailFolderDialogComponent>, private snackBar: MdSnackBar, private _emailService: EmailService, public appState: AppState) {
   }
 
