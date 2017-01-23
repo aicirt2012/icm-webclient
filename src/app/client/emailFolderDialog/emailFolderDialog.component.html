@@ -8,33 +8,36 @@
   <div fxLayout="row">
     <div fxFlex="50" fxLayout="column">
     <md-card fxFlex>
-      <div fxLayout="column">
         <md-card-title>Create new box</md-card-title>
         <md-card-content>
+          <div fxLayout="column">
         <md-input-container fxFlex>
           <input fxFlex md-input placeholder="Name of new box..." type="text" [(ngModel)]="newBoxName">
         </md-input-container>
         <md-select *ngIf="newBoxName != ''" fxFlex [(ngModel)]="parentBox" placeholder="Nest under...">
           <md-option fxFlex *ngFor="let box of boxList; let b = index" [value]="box.name">
-            {{ box.shortName }}
+            <span [style.padding-left]="addPadding(box)"> {{ box.shortName }} </span>
           </md-option>
         </md-select>
+        </div>
         </md-card-content>
       <md-card-actions fxLayoutAlign="center center">
         <button  md-raised-button [disabled]="newBoxName == '' || updating" color="primary" (click)="onAddBox()"> Create Box</button>
       </md-card-actions>
-      </div>
+      
     </md-card>
   </div>
   <div fxFlex="50" fxLayout="column">
     <md-card fxFlex>
       <md-card-title>Delete box</md-card-title>
       <md-card-content>
+        <div fxLayout="column">
         <md-select fxFlex [(ngModel)]="selectedBoxName" placeholder="Select a box..">
-          <md-option *ngFor="let box of boxList; let b = index" [value]="box.name">
-            {{ box.shortName }}
+          <md-option fxFlex *ngFor="let box of boxList; let b = index" [value]="box.name">
+            <span [style.padding-left]="addPadding(box)"> {{ box.shortName }} </span>
           </md-option>
         </md-select>
+        </div>
       </md-card-content>
       <md-card-actions fxLayoutAlign="center center">
         <button [disabled]="selectedBoxName == '' || updating" md-raised-button color="primary" (click)="onDeleteBox()">Delete Box</button>

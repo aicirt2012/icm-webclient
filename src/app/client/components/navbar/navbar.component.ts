@@ -1,7 +1,10 @@
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import {MdDialog} from '@angular/material';
 import { DialogType } from '../../../shared/constants';
 import { AppState } from '../../../app.service';
+import { EmailDialogComponent } from '../../emailDialog';
+import { EmailFolderDialogComponent } from '../../emailFolderDialog';
 
 @Component({
   selector: 'navbar',  // <navbar></navbar>
@@ -12,24 +15,27 @@ import { AppState } from '../../../app.service';
 })
 export class NavBarComponent {
   private navbarItems: any[] = [];
-  @Input() boxList: any[];
   @Input() lastSync: Date;
   @Output() onRefresh = new EventEmitter<boolean>();
-  @Output() openDialog = new EventEmitter<any>();
-  @Output() onOpenEmailFolderDialog = new EventEmitter<any>();
+
   boxName: string;
+  boxList: any[];
 
-  constructor(public appState: AppState, public router: Router) {
-    this.navbarItems = this.boxList;
+  constructor(public appState: AppState, public router: Router, public dialog: MdDialog) {
   }
 
-  ngOnChanges() {
-    this.addDataToBoxes();
+  ngOnInit() {
+    this.appState.dataChange.subscribe((stateChange) => {
+      if (this.appState.get('boxList').length > 0) {
+        this.boxList = this.appState.get('boxList');
+        this.addDataToBoxes(this.appState.get('boxList'));
+      }
+    })
   }
 
-  addDataToBoxes() {
-    if (this.boxList.length > 0) {
-      this.navbarItems = this.boxList.map((box) => {
+  addDataToBoxes(boxList: any[]) {
+    if (boxList.length > 0) {
+      this.navbarItems = boxList.map((box) => {
         let icon;
         switch (box.shortName) { //TODO put in service
           case 'INBOX':
@@ -82,11 +88,18 @@ export class NavBarComponent {
   }
 
   openCreateEmailDialog() {
-    this.openDialog.emit(DialogType.email);
+    this.dialog.open(EmailDialogComponent, {
+      width: '80%',
+      height: '80%'
+    });
   }
 
   openEmailFolderDialog() {
-    this.onOpenEmailFolderDialog.emit();
-  }
+    let dialogRef = this.dialog.open(EmailFolderDialogComponent, {
+      width: '50%',
+      height: '50%'
+    });
 
+    dialogRef.componentInstance.boxList = this.boxList;
+  }
 }

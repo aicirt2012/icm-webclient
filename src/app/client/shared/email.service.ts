@@ -90,7 +90,7 @@ export class EmailService {
       @param: flags: string[] - array of flags to add to mail,
       @param: box: string - Boxname as string,
    */
-  addFlags(msgId: string, flags: string[], boxName: string): Observable<any> {
+  addFlags(msgId: number, flags: string[], boxName: string): Observable<any> {
       const body = {
         msgId: msgId,
         flags: flags,
@@ -104,7 +104,7 @@ export class EmailService {
       @param: flags: string[] - array of flags to be deleted from mail,
       @param: box: string - Boxname as string,
    */
-  delFlags(msgId: string, flags: string[], boxName: string): Observable<any> {
+  delFlags(msgId: number, flags: string[], boxName: string): Observable<any> {
       const body = {
         msgId: msgId,
         flags: flags,

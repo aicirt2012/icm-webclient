@@ -16,9 +16,9 @@ import { AppState } from '../../app.service';
 export class TasksComponent {
 
   @Input() email: any;
-  @Input() user: any;
   public errorTrello = false;
   public boards: any;
+  public user: any;
   public suggestedTasks: any = [];
   public linkedTasks: any = [];
   private dialogConfig = {
@@ -38,8 +38,13 @@ export class TasksComponent {
     this.linkedTasks = this.email.linkedTasks ? this.email.linkedTasks : [];
     this.appState.set('suggestedTasks', this.suggestedTasks);
     this.appState.set('linkedTasks', this.linkedTasks);
-    if (this.user.trello) this.getAllBoards();
-    else this.errorTrello = true;
+    this.user = this.appState.get('user');
+    if (this.user.trello) {
+      this.getAllBoards();
+    }
+    else {
+      this.errorTrello = true;
+    }
   }
 
   createTask(taskObject: any) {
