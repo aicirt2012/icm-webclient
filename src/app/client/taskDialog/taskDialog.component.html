@@ -21,8 +21,9 @@
         <div fxFlex="10"></div>
         <md-icon fxFlex="3" *ngIf="task.board">view_list</md-icon>
         <md-select fxFlex="42" [(ngModel)]="task.list" name="list-select" *ngIf="task.board" [disabled]="task.taskType == 'linked'" required placeholder="Select a list..">
-          <md-option *ngFor="let list of task.board.lists" [value]="task.taskType == 'suggested' ? list : task.list">
-            {{ list.name }}
+        <!--  <md-option *ngFor="let list of task.board.lists" [value]="task.taskType == 'suggested' ? list : task.list">-->
+             <md-option *ngFor="let list of task.board.lists" [value]="task.taskType == 'linked'? task.list : list">
+            {{ task.taskType == 'linked'? task.list.name : list.name }}
           </md-option>
         </md-select>
       </div>

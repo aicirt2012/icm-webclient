@@ -22,7 +22,6 @@ export class LinkTaskDialogComponent {
   public possibleMembers: any[] = [];
   public currMember = '';
   public index = '';
-  public selectedTask: any = {};
 
   constructor(public linkTaskDialogRef: MdDialogRef<LinkTaskDialogComponent>, private snackBar: MdSnackBar, private _taskService: TaskService, public appState: AppState) {
   }
@@ -36,7 +35,7 @@ export class LinkTaskDialogComponent {
     this.sending = true;
     this._taskService.linkTask(this.email, this.task)
       .subscribe((task: any) => {
-        this.linkedTasks.push(this.addLinkedTask());
+        this.linkedTasks.push(this.addLinkedTask(this.task));
         this.appState.set('linkedTasks', this.linkedTasks);
         this.sending = false;
         this.snackBar.open('Task successfully linked.', 'OK');
@@ -59,14 +58,15 @@ export class LinkTaskDialogComponent {
     this.task.selectedMembers = this.task.selectedMembers == undefined ? [] : this.task.selectedMembers;
   }
 
-  addLinkedTask() {
-    this.task.card['taskType'] = 'linked';
-    this.task.card['board'] = this.task.board;
-    this.task.card['possibleMembers'] = this.task.possibleMembers;
-    this.task.card['selectedMembers'] = this.task.board.members.length > 0 ? this.task.board.members.filter((member) => { if (this.task.card.idMembers.indexOf(member.id) > -1) return member }) : [];
-    this.task.card['list'] = this.task.card.board ? this.task.card.board.lists.filter((list) => { if(list.id == this.task.card.idList) return list })[0] : {};
-    this.task.board.cards = "";
-    return this.task.card;
+  addLinkedTask(task: any) {
+    /* this has to be done because of javascript circular reference error */
+    let newTask = task.card;
+    newTask['taskType'] = 'linked';
+    newTask['board'] = {'id' : task.board.id, 'lists': task.board.lists, 'name': task.board.name};
+    newTask['possibleMembers'] = task.possibleMembers;
+    newTask['selectedMembers'] = task.board.members.length > 0 ? task.board.members.filter((member) => { if (task.card.idMembers.indexOf(member.id) > -1) return member }) : [];
+    newTask['list'] = task.board ? task.board.lists.filter((list) => { if(list.id == task.card.idList) return list })[0] : {};
+    return newTask;
   }
 
 }
