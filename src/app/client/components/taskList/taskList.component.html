@@ -1,27 +1,4 @@
 <!--<md-tab-group>
-  <md-tab label="Trello">
-    <md-tab-group>
-      <md-tab label="Suggested Tasks"  title="Suggested Tasks">
-         <a fxFlex fxLayoutAlign="center center" class="tasks linkTaskBtn" md-raised-button (click)="openTaskDialog()"><md-icon>add</md-icon>Create Linked Task</a>
-        <div fxFlex fxLayout="column" class="tasks">
-              <task-list-item *ngFor="let suggestedTask of suggestedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="suggestedTask" [boards]="boards" [deleteTask]="deleteTask" [index]="i"> </task-list-item>
-        </div>
-      </md-tab>
-      <md-tab label="Linked Tasks" title="Linked Tasks">
-       <a fxFlex fxLayoutAlign="center center" class="tasks linkTaskBtn" md-raised-button (click)="openLinkTask()"><md-icon>add</md-icon>Link Task to Mail</a>
-        <div fxFlex fxLayout="column" class="tasks">
-          <task-list-item *ngFor="let linkedTask of linkedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="linkedTask" [boards]="boards" [deleteTask]="deleteTask" [index]="i"> </task-list-item>
-        </div>
-      </md-tab>
-    </md-tab-group>
-  </md-tab>
-  <md-tab label="Socio Cortex" class="full-height">
-    At the moment SocioCortex tasks are not available
-  </md-tab>
-</md-tab-group>
--->
-
-<md-tab-group>
   <md-tab label="Suggested Tasks"  title="Suggested Tasks">
      <a fxFlex fxLayoutAlign="center center" class="tasks linkTaskBtn" md-raised-button (click)="openTaskDialog()"><md-icon>add</md-icon>Create Linked Task</a>
     <div fxFlex fxLayout="column" class="tasks">
@@ -34,4 +11,31 @@
       <task-list-item *ngFor="let linkedTask of linkedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="linkedTask" [boards]="boards" [deleteTask]="deleteTask" [index]="i"> </task-list-item>
     </div>
   </md-tab>
-</md-tab-group>
+</md-tab-group>-->
+<div fxFlex fxLayout="row">
+  <button fxFlex="33" md-icon-button [mdMenuTriggerFor]="createTask">
+    <md-icon>add</md-icon>
+  </button>
+  <md-menu #createTask="mdMenu">
+    <button md-menu-item (click)="openTaskDialog()">
+      <md-icon>edit</md-icon>
+      <span>Create empty task</span>
+    </button>
+    <button md-menu-item (click)="openLinkTask()">
+      <md-icon>swap_horiz</md-icon>
+      <span>Link existing task</span>
+    </button>
+  </md-menu>
+  <section fxFlex class="section">
+        <md-checkbox fxFlex="33" class="example-margin" [(ngModel)]="showSuggested">Suggested</md-checkbox>
+        <md-checkbox fxFlex="33" class="example-margin" [(ngModel)]="showLinked">Linked</md-checkbox>
+  </section>
+</div>
+ <div fxFlex fxLayout="column" class="tasks">
+     <div *ngIf="showSuggested">
+       <task-list-item *ngFor="let suggestedTask of suggestedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="suggestedTask" [boards]="boards" [deleteTask]="deleteTask" [index]="i"> </task-list-item>
+      </div>
+     <div *ngIf="showLinked">
+     <task-list-item *ngFor="let linkedTask of linkedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="linkedTask" [boards]="boards" [deleteTask]="deleteTask" [index]="i"> </task-list-item>  
+     </div>
+</div>
