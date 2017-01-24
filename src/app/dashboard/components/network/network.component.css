@@ -9,5 +9,5 @@ md-radio-button {
 #network {
   height: 500px;
   width: 900px;
-  border: 1px solid grey;
+  background-color: #eee;
 }

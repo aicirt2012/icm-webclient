@@ -11,8 +11,10 @@ let cytoscape = require('../../../../../node_modules/cytoscape/dist/cytoscape');
 })
 export class NetworkComponent implements OnInit{
 
-  public topSender: any;
-  public topReceiver: any;
+  public topFrom: any;
+  public topTo: any;
+  public topCc: any;
+  public topBcc: any;
   public container:any;
 
   constructor(private _dashboardService: DashboardService, private rootElement: ElementRef) {}
@@ -21,8 +23,10 @@ export class NetworkComponent implements OnInit{
     this.container = $(this.rootElement.nativeElement).find('#network')[0];
     this._dashboardService.getNetwork().subscribe((network)=>{
       this.renderNetwork(network.graph);
-      this.topSender = network.topsender;
-      this.topReceiver = network.topreceiver;
+      this.topFrom = network.topfrom;
+      this.topTo = network.topto;
+      this.topCc = network.topcc;
+      this.topBcc = network.topbcc;
     });
   }
 
