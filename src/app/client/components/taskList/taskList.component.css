@@ -39,3 +39,7 @@
   -moz-box-shadow: 1px 1px 1px 0px rgba(90, 83, 83, 0.75);
   box-shadow: 1px 1px 1px 0px rgba(90, 83, 83, 0.75);
 }
+
+.section {
+  margin-top: 8px;
+}
