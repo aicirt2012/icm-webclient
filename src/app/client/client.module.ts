@@ -24,6 +24,9 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
     FlexLayoutModule.forRoot(),
     InfiniteScrollModule
   ],
+  exports: [
+    TaskItemEmailDialogComponent
+  ],
   declarations: [
     ClientComponent,
     //intelligent components

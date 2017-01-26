@@ -22,6 +22,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { ClientModule } from './client/client.module';
 import { LoginModule } from './login/login.module';
 import { SettingsModule } from './settings/settings.module';
+import { TaskOverviewModule } from './taskOverview/taskOverview.module';
 import { SharedModule } from './shared'; // all shared components
 
 
@@ -68,6 +69,7 @@ type StoreType = {
     LoginModule,
     ClientModule,
     SettingsModule,
+    TaskOverviewModule,
     SharedModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection

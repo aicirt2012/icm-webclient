@@ -1,0 +1,61 @@
+
+.card-content {
+  height:300px;
+}
+
+.card-actions {
+    height:50px;
+    border-top: 1px solid lightgrey;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 0;
+   
+}
+
+.card {
+    padding:8px 8px 0 8px;
+    margin: 10px;
+    width: 300px;
+    height: 350px;
+    -webkit-box-shadow: 0 1px 10px 0 #cfcfcf;
+    -moz-box-shadow: 0 1px 10px 0 #cfcfcf;
+    box-shadow: 0 1px 10px 0 #cfcfcf;
+    background-color: white;
+}
+
+.member-initials {
+  background-color: lightgrey;
+  height: 24px;
+  min-width: 25px;
+  font-size: 12px;
+  line-height: 24px;
+  text-align: center;
+  padding: 2px;
+  border-radius: 4px;
+  margin-right: 2px;
+}
+
+.task-list md-icon {
+    margin-right: 5px;
+}
+
+.text-overflow {
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.task-desc {
+    padding: 0 16px;
+    height:120px;
+    overflow-y: scroll;
+    
+}
+
+.no-scroll {
+    height: 120px;
+    overflow: hidden;
+}

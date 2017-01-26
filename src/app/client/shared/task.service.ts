@@ -78,16 +78,8 @@ export class TaskService {
     return this._httpService.generateRequest(RequestMethod.Get, this.domain, `/${id}`, null, null);
   }
 
-  getListsForBoard(boardID :string, boards :any[]): Observable<any> {
-    const options = {
-      provider: 'trello'
-    };
-    const path = `boards/${boardID}/lists`;
-    return this._httpService.generateRequest(RequestMethod.Get, this.domain, 'boards', null, null);
-  }
-
-  getAllBoards(): Observable<any> {
-    return this._httpService.generateRequest(RequestMethod.Get, this.domain, 'boards', null, null);
+  getAllBoards(params?: any): Observable<any> {
+    return this._httpService.generateRequest(RequestMethod.Get, this.domain, 'boards', params, null);
   }
 
   linkTask(email: any, task: any) {
@@ -99,7 +91,7 @@ export class TaskService {
   }
 
   formatDate(date) {
-    var d = new Date(date),
+    let d = new Date(date),
       month = '' + (d.getMonth() + 1),
       day = '' + d.getDate(),
       year = d.getFullYear();
