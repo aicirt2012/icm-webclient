@@ -19,7 +19,7 @@ export class TaskListComponent {
   @Output() deleteTask = new EventEmitter<any>();
   @Output() openLinkTaskDialog = new EventEmitter<any>();
   public showSuggested: boolean = true;
-  public showLinked: boolean = true;
+  public showLinked: boolean = false;
 
   constructor(public appState: AppState) {
   }
