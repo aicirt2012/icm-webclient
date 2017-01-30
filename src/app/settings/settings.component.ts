@@ -14,6 +14,11 @@ export class SettingsComponent {
   error = '';
   links = [
     {
+      name: 'Overview',
+      icon: 'home',
+      link: '/settings/overview'
+    },
+    {
       name: 'Email Settings',
       icon: 'email',
       link: '/settings/email'
@@ -24,9 +29,9 @@ export class SettingsComponent {
       link: '/settings/tasks'
     },
     {
-      name: 'Overview',
-      icon: 'home',
-      link: '/settings/overview'
+      name: 'Patterns',
+      icon: 'data_usage',
+      link: '/settings/patterns'
     },
     {
       name: 'Help',
@@ -39,27 +44,6 @@ export class SettingsComponent {
     private router: Router,
     private _auth: AuthService,
     public appState: AppState) { }
-
-  ngOnInit() {
-    // reset login status
-    console.log('Hello settings Component');
-    console.log(this.appState.get());
-  }
-
-  login() {
-    this.loading = true;
-    this._auth.login(this.model.username, this.model.password)
-      .subscribe(result => {
-        if (result === true) {
-          // login successful
-          this.router.navigate(['/']);
-        } else {
-          // login failed
-          this.error = 'Username or password is incorrect';
-          this.loading = false;
-        }
-      });
-  }
 
   getCurrentView(view: string): boolean {
     let currentURL = this.router.url;

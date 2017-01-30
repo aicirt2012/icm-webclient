@@ -13,6 +13,7 @@
         <div fxFlex layout="row">
                 <div fxFlex class="account-content">
                     <account fxFlex *ngIf="getCurrentView('email')"></account>
+                    <patterns fxFlex *ngIf="getCurrentView('patterns')"></patterns>
                     <task fxFlex *ngIf="getCurrentView('tasks')"></task>
                     <overview fxFlex *ngIf="getCurrentView('overview')"></overview>
                     <help fxFlex *ngIf="getCurrentView('help')"></help>
