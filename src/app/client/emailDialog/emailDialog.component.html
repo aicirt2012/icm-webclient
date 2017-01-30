@@ -1,69 +1,69 @@
 <div fxFlex fxLayout="column" class="full-height">
-  <md-progress-bar *ngIf="sending" mode="indeterminate"></md-progress-bar>
-  <div md-dialog-title fxLayout="row">
-    <span fxFlex>New Email</span>
-    <md-icon (click)="closeDialog()">close</md-icon>
-  </div>
-  <div fxFlex fxLayout="row">
-  <div fxFlex="70" fxLayout="column">
-    <form fxFlex fxLayout="column" (ngSubmit)="sendEmail()" novalidate>
-    <md-input-container>
-      <div fxFlex fxLayout="row">
-        <input md-input #inputTo (keyup.enter)="addAddress(inputTo,'to')" (blur)="searchCardsForMembers()" (change)="addAddress(inputTo,'to')" type="email" placeholder="To:" required/>
-      <span class="cc-tags" (click)="cc = !cc">CC</span>
-      <span class="cc-tags" (click)="bcc = !bcc">BCC</span>
+    <md-progress-bar *ngIf="sending" mode="indeterminate"></md-progress-bar>
+    <div md-dialog-title fxLayout="row">
+        <span fxFlex>New Email</span>
+        <md-icon (click)="closeDialog()">close</md-icon>
     </div>
-    <md-chip-list>
-      <md-chip *ngFor="let to of emailForm.to; let i = index">
-        <div fxLayout="row" fxLayoutAlign="start center">
-          <span>{{to}}</span>
-          <md-icon class="pointer" (click)="deleteAddress(i, 'to')">close</md-icon>
+    <div fxFlex fxLayout="row">
+        <div fxFlex="70" fxLayout="column">
+            <form fxFlex fxLayout="column" (ngSubmit)="sendEmail()" novalidate>
+                <md-input-container>
+                    <div fxFlex fxLayout="row">
+                        <input md-input #inputTo (keyup.enter)="addAddress(inputTo,'to')" (blur)="searchCardsForMembers()" (change)="addAddress(inputTo,'to')" type="email" placeholder="To:" required/>
+                        <span class="cc-tags" (click)="cc = !cc">CC</span>
+                        <span class="cc-tags" (click)="bcc = !bcc">BCC</span>
+                    </div>
+                    <md-chip-list>
+                        <md-chip *ngFor="let to of emailForm.to; let i = index">
+                            <div fxLayout="row" fxLayoutAlign="start center">
+                                <span>{{to}}</span>
+                                <md-icon class="pointer" (click)="deleteAddress(i, 'to')">close</md-icon>
+                            </div>
+                        </md-chip>
+                    </md-chip-list>
+                </md-input-container>
+                <md-input-container *ngIf="cc">
+                    <input md-input #inputCc (keyup.enter)="addAddress(inputCc,'cc')" (change)="addAddress(inputCc,'cc')" placeholder="CC:" type="email">
+                    <md-chip-list>
+                        <md-chip *ngFor="let cc of emailForm.cc; let i = index">
+                            <div fxLayout="row" fxLayoutAlign="start center">
+                                <span>{{cc}}</span>
+                                <md-icon class="pointer" (click)="deleteAddress(i, 'cc')">close</md-icon>
+                            </div>
+                        </md-chip>
+                    </md-chip-list>
+                </md-input-container>
+                <md-input-container *ngIf="bcc">
+                    <input md-input #inputBcc (keyup.enter)="addAddress(inputBcc,'bcc')" (change)="addAddress(inputBcc,'bcc')" placeholder="BCC:" type="email">
+                    <md-chip-list>
+                        <md-chip *ngFor="let bcc of emailForm.bcc; let i = index">
+                            <div fxLayout="row" fxLayoutAlign="start center">
+                                <span>{{bcc}}</span>
+                                <md-icon class="pointer" (click)="deleteAddress(i, 'bcc')">close</md-icon>
+                            </div>
+                        </md-chip>
+                    </md-chip-list>
+                </md-input-container>
+                <md-input-container>
+                    <input md-input placeholder="Subject:" type="text" name="subject" [(ngModel)]="emailForm.subject">
+                </md-input-container>
+
+                <md-input-container>
+                    <textarea md-input placeholder="Message" [(ngModel)]="emailForm.text" name="text" rows="10"></textarea>
+                </md-input-container>
+                <md-card-actions>
+                    <button type="submit" md-raised-button color="primary" [disabled]="sending">Send Email</button>
+                </md-card-actions>
+            </form>
+
         </div>
-      </md-chip>
-    </md-chip-list>
-    </md-input-container>
-    <md-input-container *ngIf="cc">
-        <input md-input #inputCc (keyup.enter)="addAddress(inputCc,'cc')" (change)="addAddress(inputCc,'cc')" placeholder="CC:" type="email">
-        <md-chip-list>
-          <md-chip *ngFor="let cc of emailForm.cc; let i = index">
-            <div fxLayout="row" fxLayoutAlign="start center">
-              <span>{{cc}}</span>
-              <md-icon class="pointer" (click)="deleteAddress(i, 'cc')">close</md-icon>
+        <div fxFlex="30" fxLayout="column" class="scrollable">
+            <h3 fxLayout="row" fxLayoutAlign="center center">Related Tasks:</h3>
+            <spinner *ngIf="searchForTasks" [loading]="searchForTasks"></spinner>
+            <div *ngIf="relatedTasks.length == 0" fxLayout="column" fxLayoutAlign="center center">No tasks found</div>
+            <div *ngIf="relatedTasks.length > 0">
+                <task-item-email-dialog *ngFor="let task of relatedTasks; let i = index;" [task]="task" (removeTask)="removeTask($event)"></task-item-email-dialog>
             </div>
-          </md-chip>
-        </md-chip-list>
-    </md-input-container>
-    <md-input-container *ngIf="bcc">
-        <input md-input #inputBcc (keyup.enter)="addAddress(inputBcc,'bcc')" (change)="addAddress(inputBcc,'bcc')" placeholder="BCC:" type="email">
-        <md-chip-list>
-          <md-chip *ngFor="let bcc of emailForm.bcc; let i = index">
-            <div fxLayout="row" fxLayoutAlign="start center">
-              <span>{{bcc}}</span>
-              <md-icon class="pointer" (click)="deleteAddress(i, 'bcc')">close</md-icon>
-            </div>
-          </md-chip>
-        </md-chip-list>
-    </md-input-container>
-      <md-input-container>
-          <input md-input placeholder="Subject:" type="text" name="subject" [(ngModel)]="emailForm.subject">
-      </md-input-container>
-
-      <md-input-container>
-        <textarea md-input placeholder="Message" [(ngModel)]="emailForm.text" name="text" rows="10"></textarea>
-      </md-input-container>
-      <md-card-actions>
-      <button type="submit" md-raised-button color="primary" [disabled]="sending">Send Email</button>
-    </md-card-actions>
-    </form>
-
-  </div>
-  <div fxFlex="30" fxLayout="column" class="scrollable">
-    <h3 fxLayout="row" fxLayoutAlign="center center">Related Tasks:</h3>
-    <spinner *ngIf="searchForTasks" [loading]="searchForTasks"></spinner>
-    <div *ngIf="relatedTasks.length == 0" fxLayout="column" fxLayoutAlign="center center">No tasks found</div>
-    <div *ngIf="relatedTasks.length > 0">
-      <task-item-email-dialog *ngFor="let task of relatedTasks; let i = index;" [task]="task"></task-item-email-dialog>
+        </div>
     </div>
-  </div>
-</div>
 </div>

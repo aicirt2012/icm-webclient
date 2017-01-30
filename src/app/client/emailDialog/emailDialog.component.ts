@@ -71,4 +71,8 @@ export class EmailDialogComponent {
       });
   }
 
+  removeTask(task: any) {
+    this.relatedTasks = this.relatedTasks.filter((relatedTask: any) => { if(relatedTask.id != task.id) return relatedTask });
+  }
+
 }
