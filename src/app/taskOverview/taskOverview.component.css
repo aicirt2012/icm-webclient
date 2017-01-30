@@ -4,3 +4,7 @@
 .task-overview-container {
     margin: 10px;
 }
+
+.md-tab-header {
+  overflow: auto !important;
+}

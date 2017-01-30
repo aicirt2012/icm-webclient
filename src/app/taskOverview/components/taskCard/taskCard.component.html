@@ -1,4 +1,4 @@
-<div class="card" fxLayout="column">
+<div class="card" [class.overdue]="overdue" fxLayout="column">
     <div class="card-content">
         <md-list class="task-list">
             <md-list-item>
@@ -18,13 +18,10 @@
                     <div *ngIf="assignedMembers.length < 1"><i>No person assigned</i></div>
                 </div>
             </md-list-item>
-            <!--<md-list-item>
-                <md-icon>short_text</md-icon>
-                <div>Description:</div>
-            </md-list-item>-->
         </md-list>
         <div class="no-scroll">
-            <div class="task-desc">{{task.desc ? task.desc : 'No description'}}</div>
+            <div *ngIf="task.desc !== ''" class="task-desc">{{task.desc}}</div>
+            <div *ngIf="task.desc == ''" class="task-desc" fxLayoutAlign="center center"><i>No description</i></div>
         </div>
 </div>
 <div class="card-actions" fxLayoutAlign="center center">

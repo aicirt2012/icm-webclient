@@ -59,3 +59,7 @@
     height: 120px;
     overflow: hidden;
 }
+
+.overdue {
+    background-color: rgba(255,0,0,.2);
+}

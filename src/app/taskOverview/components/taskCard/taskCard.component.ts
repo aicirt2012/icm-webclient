@@ -9,10 +9,14 @@ export class TaskCardComponent {
     @Input() task: any;
     @Input() members: any[];
     assignedMembers: any[] = [];
+    overdue: boolean = false;
 
     constructor() { }
 
     ngOnInit() {
+        
+        this.overdue = this.task.due ? (new Date(this.task.due) < new Date()) : false;
+    
         if(this.task.linkedEmail) {
              this.task.linkToEmail = `box/${this.task.linkedBox}/${this.task.linkedEmail}`;
         }
