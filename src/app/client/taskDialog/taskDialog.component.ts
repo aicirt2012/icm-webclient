@@ -58,11 +58,31 @@ export class TaskDialogComponent {
       .subscribe((task: any) => {
         this.sending=false;
         this.snackBar.open('Task successfully updated.', 'OK');
+        this.closeDialog();
       },
       error => {
         console.log(error);
         this.sending=false;
         this.snackBar.open('Error while updating task.', 'OK');
+      },
+      () => {});
+  }
+
+  unlinkTask() {
+    console.log(this.task);
+    this.sending = true;
+    this._taskService.unlinkTask(this.task)
+      .subscribe((task: any) => {
+        this.sending=false;
+        this.removeFromLinkedTasks(this.task);
+        this.appState.set('linkedTasks', this.linkedTasks);
+        this.snackBar.open('Task successfully unlinked.', 'OK');
+        this.closeDialog();
+      },
+      error => {
+        console.log(error);
+        this.sending=false;
+        this.snackBar.open('Error while unlinking task.', 'OK');
       },
       () => {});
   }
@@ -101,6 +121,10 @@ export class TaskDialogComponent {
   removeSuggestedTask(index) {
     this.suggestedTasks.splice(index,1);
     return this.suggestedTasks;
+  }
+
+  removeFromLinkedTasks(task:any) {
+    this.linkedTasks = this.linkedTasks.filter((linkedTask: any) => { if(linkedTask.id != task.id) return linkedTask });
   }
 
 }

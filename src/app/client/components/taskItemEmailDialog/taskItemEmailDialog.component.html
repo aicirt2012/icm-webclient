@@ -1,41 +1,20 @@
-<!--<md-card class="tasks-card">
-  <md-card-header fxLayout="row" fxLayoutAlign="start center">
-    <img md-card-avatar src="/assets/img/trello.gif">
-    <h5>{{task.name}}</h5>
-  </md-card-header>
-  <md-card-content>
-    <p>
-      Due: {{task.due | date:'short'}}
-    </p>
-    <p>
-      {{task.desc}}
-    </p>
-  </md-card-content>
-  <md-card-actions fxFlex fxLayout="row" fxLayoutAlign="center center">
-
-      <a md-button [href]="task.shortUrl" target="_blank">
-        <span>Go to card</span>
-      </a>
-
-  </md-card-actions>
-</md-card>-->
-
-<md-card class="tasks-card">
-  <md-card-header>
-    <div md-card-avatar class="header-image"></div>
-    <md-card-title class="card-title">{{task.name}}</md-card-title>
-  </md-card-header>
-  <md-card-content class="card-desc">
-    <p>
-        {{task.desc}}
-    </p>
-  </md-card-content>
-  <md-card-actions>
-    <button md-button>
-      <md-icon>crop_free</md-icon>
-    </button>
-    <button md-button>
-      <md-icon>close</md-icon>
-    </button>
-  </md-card-actions>
+<md-card (click)="open(task)" class="tasks-card pointer">
+    <md-card-header>
+        <div md-card-avatar class="header-image"></div>
+        <md-card-title class="card-title"><strong>{{task.name}}</strong></md-card-title>
+        <md-icon class="pointer close-icon" (click)="removeFromLinkedTasks(task)">close</md-icon>
+    </md-card-header>
+    <md-card-content class="cardContent">
+        <div fxFlex fxLayout="row" fxLayoutAlign="start end">
+            <div fxFlex="8">
+                <md-icon>date_range</md-icon>
+            </div>
+            <div fxFlex="27">{{task.due | date:'shortDate'}}</div>
+            <md-icon fxFlex="8">person</md-icon>
+            <div fxFlex="57">{{task.members ? getNames(task.members) : getNames(task.selectedMembers)}}</div>
+        </div>
+        <p>
+            {{task.desc}}
+        </p>
+    </md-card-content>
 </md-card>

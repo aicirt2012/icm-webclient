@@ -63,12 +63,17 @@ export class EmailDialogComponent {
       .sendMail(this.emailForm)
       .subscribe((data: any) => {
         this.sending = false;
-        this.snackBar.open('Message successfully send.', 'OK');
+        this.snackBar.open('Message successfully sent.', 'OK');
           this.closeDialog();
       }, (error) => {
+        console.log(error);
         this.sending = false;
         this.snackBar.open('Error while sending.', 'OK');
       });
+  }
+
+  removeTask(task: any) {
+    this.relatedTasks = this.relatedTasks.filter((relatedTask: any) => { if(relatedTask.id != task.id) return relatedTask });
   }
 
 }

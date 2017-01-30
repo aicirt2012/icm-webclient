@@ -13,29 +13,31 @@
   </md-tab>
 </md-tab-group>-->
 <div fxFlex fxLayout="row">
-  <button fxFlex="33" md-icon-button [mdMenuTriggerFor]="createTask">
-    <md-icon>add</md-icon>
-  </button>
-  <md-menu #createTask="mdMenu">
-    <button md-menu-item (click)="openTaskDialog()">
+    <button md-raised-button fxFlex="50" [mdMenuTriggerFor]="createTask">
+        <md-icon>add</md-icon>CREATE
+    </button>
+    <md-menu #createTask="mdMenu">
+        <button md-menu-item (click)="openTaskDialog()">
       <md-icon>edit</md-icon>
       <span>Create empty task</span>
     </button>
-    <button md-menu-item (click)="openLinkTask()">
+        <button md-menu-item (click)="openLinkTask()">
       <md-icon>swap_horiz</md-icon>
       <span>Link existing task</span>
     </button>
-  </md-menu>
-  <section fxFlex class="section">
-        <md-checkbox fxFlex="33" class="example-margin" [(ngModel)]="showSuggested">Suggested</md-checkbox>
-        <md-checkbox fxFlex="33" class="example-margin" [(ngModel)]="showLinked">Linked</md-checkbox>
-  </section>
+    </md-menu>
+    <div fxFlex="50" layout="column" fxLayoutAlign="center end">
+        <section fxFlex class="section">
+            <md-checkbox fxFlex="50" class="example-margin" [(ngModel)]="showSuggested">Suggested</md-checkbox>
+            <md-checkbox fxFlex="50" class="example-margin" [(ngModel)]="showLinked">Linked</md-checkbox>
+        </section>
+    </div>
 </div>
- <div fxFlex fxLayout="column" class="tasks">
-     <div *ngIf="showSuggested">
-       <task-list-item *ngFor="let suggestedTask of suggestedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="suggestedTask" [boards]="boards" [deleteTask]="deleteTask" [index]="i"> </task-list-item>
-      </div>
-     <div *ngIf="showLinked">
-     <task-list-item *ngFor="let linkedTask of linkedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="linkedTask" [boards]="boards" [deleteTask]="deleteTask" [index]="i"> </task-list-item>  
-     </div>
+<div fxFlex fxLayout="column" class="tasks">
+    <div *ngIf="showSuggested">
+        <task-list-item *ngFor="let suggestedTask of suggestedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="suggestedTask" [boards]="boards" [deleteTask]="deleteTask" [index]="i"> </task-list-item>
+    </div>
+    <div *ngIf="showLinked">
+        <task-list-item *ngFor="let linkedTask of linkedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="linkedTask" [boards]="boards" [deleteTask]="deleteTask" [index]="i"> </task-list-item>
+    </div>
 </div>
