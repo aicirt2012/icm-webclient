@@ -25,7 +25,6 @@ export class TaskListItemComponent {
   ngOnInit() {
     if(this.task.taskType == 'linked') {
       this.task.date = this._taskService.formatDate(this.task.due);
-      console.log(this.task);
     }
     else {
       this.task.date = this._taskService.formatDate(this.task.date);
@@ -64,17 +63,10 @@ export class TaskListItemComponent {
   getNames(members: any[]) {
     return members.map((member) => { return member.fullName}).join();
   }
-  
-  highlight(id: any) {
-    this.highlightSentence.emit(id);
-  }
 
-  @HostListener('mouseenter') onMouseEnter() {
-    this.highlight({id: this.task.task.id, highlight: true});
-    }
-
-  @HostListener('mouseleave') onMouseLeave() {
-    this.highlight({id: this.task.task.id, highlight: false});
+  highlight(id: any, highlight: boolean) {
+    if(highlight == false) console.log("its false");
+    this.highlightSentence.emit({id: id,highlight: highlight})
   }
 
 }
