@@ -11,7 +11,7 @@
     <md-chip-list>
       <md-chip *ngFor="let to of emailForm.to; let i = index">
         <div fxLayout="row" fxLayoutAlign="start center">
-          <span>{{to}}</span>
+          <span>{{to.name ? to.name : to.address}}</span>
           <md-icon class="pointer" (click)="deleteAddress(i, 'to')">close</md-icon>
         </div>
       </md-chip>
@@ -22,7 +22,7 @@
         <md-chip-list>
           <md-chip *ngFor="let cc of emailForm.cc; let i = index">
             <div fxLayout="row" fxLayoutAlign="start center">
-              <span>{{cc}}</span>
+              <span>{{cc.address}}</span>
               <md-icon class="pointer" (click)="deleteAddress(i, 'cc')">close</md-icon>
             </div>
           </md-chip>
@@ -33,7 +33,7 @@
         <md-chip-list>
           <md-chip *ngFor="let bcc of emailForm.bcc; let i = index">
             <div fxLayout="row" fxLayoutAlign="start center">
-              <span>{{bcc}}</span>
+              <span>{{bcc.address}}</span>
               <md-icon class="pointer" (click)="deleteAddress(i, 'bcc')">close</md-icon>
             </div>
           </md-chip>

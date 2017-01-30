@@ -5,7 +5,7 @@
     <div *ngIf="moving" fxFlex fxLayout="row" fxLayoutAlign="center center">
       <spinner [loading]="true"></spinner>
     </div>
-    <email-response class="email-detail-container" *ngIf="emailResponse.text" [emailForm]="emailResponse" (sendMail)="sendEmail($event)"></email-response>
+    <email-response class="email-detail-container" *ngIf="emailResponse.text" [emailForm]="emailResponse" [sending]="sending" (sendMail)="sendEmail($event)"></email-response>
   </div>
   <tasks [email]="email" fxFlex="30"></tasks>
 </div>

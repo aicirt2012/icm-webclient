@@ -115,8 +115,7 @@ export class EmailService {
 
   /*
   */
-  generateEmailForm(email: Email, type: string): any {
-    console.log('emailService,Email',email);
+  generateEmailForm(email: Email, type: string): any {    
     const bodyHeader = `
 -------------------------------------------
 From: ${email.from[0].address}
@@ -126,11 +125,15 @@ To:${email.to[0].address}
 ${email.text}`;
 
     if (type == 'reply') {
-      /* tag input requires an array as input */
-      /*let receivers = [];
-      receivers.push(email.from[0].address);*/
-      let receivers = email.from[0].address;
-      console.log('REPLY TYPE');
+      let receivers;
+      if(email.from[0].name) {
+        receivers = {
+          name: email.from[0].name,
+          address: email.from[0].address 
+        };
+      } else {
+        receivers = email.from[0].address;
+      }
       return {
         to: receivers,
         subject: `Re: ${email.subject}`,

@@ -9,6 +9,7 @@ import { MdInput } from '@angular/material';
 export class EmailResponseComponent {
 
   @Input() emailForm: any;
+  @Input() sending: boolean;
   @Output() sendMail = new EventEmitter<any>();
 
   constructor() {
@@ -19,6 +20,8 @@ export class EmailResponseComponent {
       let to = this.emailForm.to;
       this.emailForm.to = [];
       this.emailForm.to.push(to);
+    } else {
+      this.emailForm.to = [];
     }
     this.emailForm.cc = [];
     this.emailForm.bcc = [];
@@ -26,7 +29,9 @@ export class EmailResponseComponent {
 
   addAddress(address: MdInput, addressType: string): void {
     if (address.value && address.value.trim() != '') {
-      this.emailForm[addressType].push(address.value.trim());
+      this.emailForm[addressType].push({
+        address: address.value.trim()
+      });
       address.value = '';
     }
   }
