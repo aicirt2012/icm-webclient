@@ -65,7 +65,6 @@ export class TaskListItemComponent {
   }
 
   highlight(id: any, highlight: boolean) {
-    if(highlight == false) console.log("its false");
     this.highlightSentence.emit({id: id,highlight: highlight})
   }
 
