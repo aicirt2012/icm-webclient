@@ -1,47 +1,20 @@
-<!--<md-card class="tasks-card">
-  <md-card-header>
-    <md-card-title class="card-title">
-      <md-input-container >
-        <input md-input placeholder="Task Name" type="text" [disabled]="task.taskType == 'linked'" [(ngModel)]="task.name">
-      </md-input-container>
-    </md-card-title>
-    <img md-card-avatar src="/assets/img/trello.gif">
-  </md-card-header>
-  <md-card-content>
-    <div>
-      <p>
-        <md-input-container class="board-width">
-          <input md-input placeholder="Due Date" type="date" [(ngModel)]="task.date" [disabled]="true" value="task.date">
-        </md-input-container>
-      </p>
-      <p class="card-title">
-        {{task.desc}}
-      </p>
-    </div>
-  </md-card-content>
-  <md-card-actions fxFlex fxLayout="row">
-    <div fxFlex="50" fxLayoutAlign="center center">
-      <button (click)="openTaskDialog(task)" md-button>
-        <md-icon>mode_edit</md-icon>
-      </button>
-    </div>
-    <div fxFlex="50" fxLayoutAlign="center center">
-      <button (click)="removeTask(task)" md-button>
-        <md-icon>close</md-icon>
-      </button>
-    </div>
-  </md-card-actions>
-</md-card>-->
-
-<md-card (click)="openTaskDialog(task)" class="tasks-card">
-  <md-card-header>
-    <div md-card-avatar class="header-image"></div>
-    <md-card-title class="card-title">{{task.name}}</md-card-title>
-    <md-icon class="pointer" (click)="removeTask(task)">close</md-icon>
-  </md-card-header>
-  <md-card-content class="card-desc">
-    <p>
-        {{task.desc}}
-    </p>
-  </md-card-content>
+<md-card (click)="openTaskDialog(task)" class="tasks-card pointer">
+    <md-card-header>
+        <div md-card-avatar class="header-image"></div>
+        <md-card-title class="card-title"><strong>{{task.name}}</strong></md-card-title>
+        <md-icon class="pointer close-icon" (click)="removeTask(task)">close</md-icon>
+    </md-card-header>
+    <md-card-content class="cardContent">
+        <div *ngIf="task.taskType == 'linked'" fxFlex fxLayout="row" fxLayoutAlign="start end">
+            <div fxFlex="8">
+                <md-icon>date_range</md-icon>
+            </div>
+            <div fxFlex="27">{{task.date | date:'shortDate'}}</div>
+            <md-icon fxFlex="8">person</md-icon>
+            <div fxFlex="57">{{task.members ? getNames(task.members) : getNames(task.selectedMembers)}}</div>
+        </div>
+        <p>
+            {{task.desc}}
+        </p>
+    </md-card-content>
 </md-card>

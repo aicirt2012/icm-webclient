@@ -24,6 +24,7 @@ export class TaskListItemComponent {
   ngOnInit() {
     if(this.task.taskType == 'linked') {
       this.task.date = this._taskService.formatDate(this.task.due);
+      console.log(this.task);
     }
     else {
       this.task.date = this._taskService.formatDate(this.task.date);
@@ -57,6 +58,10 @@ export class TaskListItemComponent {
   removeTask(task:any) {
     task['index'] = this.index;
     this.deleteTask.emit(task);
+  }
+
+  getNames(members: any[]) {
+    return members.map((member) => { return member.fullName}).join();
   }
 
 }
