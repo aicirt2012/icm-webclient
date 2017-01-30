@@ -98,6 +98,11 @@ export class TaskService {
     return this._httpService.generateRequest(RequestMethod.Post, this.domain, path, null, options);
   }
 
+  unlinkTask(task: any) {
+    const path = `${task.id}/unlink`;
+     return this._httpService.generateRequest(RequestMethod.Put, this.domain, path, null, null);
+  }
+
   formatDate(date) {
     var d = new Date(date),
       month = '' + (d.getMonth() + 1),
