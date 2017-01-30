@@ -1,0 +1,18 @@
+<div fxLayout="column" fxFlex class="full-height">
+    <top-navbar></top-navbar>
+
+    <div class="scrollable full-height container">
+    <div *ngIf="fetching">
+    <spinner [loading]="true"></spinner>
+  </div>   
+    <div *ngIf="!fetching" fxFlex class="task-overview-container">
+        <md-tab-group style="overflow-y: auto">
+            <md-tab *ngFor="let board of boards" [label]="board.name">
+                <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start center">
+                    <task-card *ngFor="let card of board.cards" [task]="card" [members]="board.members"></task-card>
+                </div>
+            </md-tab>
+         </md-tab-group>
+    </div>
+    </div>
+</div>

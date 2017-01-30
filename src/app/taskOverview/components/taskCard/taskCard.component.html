@@ -1,0 +1,38 @@
+<div class="card" [class.overdue]="overdue" fxLayout="column">
+    <div class="card-content">
+        <md-list class="task-list">
+            <md-list-item>
+                <div class="text-overflow"><h4 class="text-overflow">{{task.name}}</h4></div>
+            </md-list-item>
+            <md-list-item>
+                <md-icon>date_range</md-icon>
+                <div *ngIf="task.due != null">Due {{task.due | date: 'medium'}}</div>
+                <div *ngIf="task.due == null"><i>No date set</i></div>
+            </md-list-item>
+            <md-list-item>
+                <md-icon>person</md-icon>
+                <div fxLayout="row">
+                    <div *ngFor="let member of assignedMembers" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
+                        <span>{{member.initials}}</span>
+                    </div>
+                    <div *ngIf="assignedMembers.length < 1"><i>No person assigned</i></div>
+                </div>
+            </md-list-item>
+        </md-list>
+        <div class="no-scroll">
+            <div *ngIf="task.desc !== ''" class="task-desc">{{task.desc}}</div>
+            <div *ngIf="task.desc == ''" class="task-desc" fxLayoutAlign="center center"><i>No description</i></div>
+        </div>
+</div>
+<div class="card-actions" fxLayoutAlign="center center">
+    <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+        <a fxFlex md-button [href]="task.shortUrl" target="_blank" title="Open task in Trello">
+            <md-icon>open_in_new</md-icon>
+        </a>
+        <a fxFlex="50" *ngIf="task.linkToEmail" md-button [href]="task.linkToEmail">
+            <md-icon>email</md-icon>
+        </a>
+    </div>
+</div>
+
+</div>

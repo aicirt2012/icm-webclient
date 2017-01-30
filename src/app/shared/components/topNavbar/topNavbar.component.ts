@@ -8,7 +8,11 @@ import { Router } from '@angular/router';
   styleUrls: ['topNavbar.component.css'],
 })
 export class TopNavbarComponent {
-  public items: any[] = [{ name: 'Settings', route: '/settings/email', icon: 'account_circle' }, { name: 'Logout', route: '/login', icon: 'exit_to_app' }];
+  public items: any[] = [
+    { name: 'Settings', route: '/settings/email', icon: 'account_circle' }, 
+    { name: 'Task Overview', route: '/task-overview', icon: 'format_list_numbered' },
+    { name: 'Logout', route: '/login', icon: 'exit_to_app' }
+    ];
 
   constructor() { }
 
