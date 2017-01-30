@@ -1,4 +1,4 @@
-<md-card (click)="openTaskDialog(task)" class="tasks-card pointer">
+<md-card (click)="openTaskDialog(task)" class="tasks-card pointer" [class.highlighted]="task.highlight">
     <md-card-header>
         <div md-card-avatar class="header-image"></div>
         <md-card-title class="card-title"><strong>{{task.name}}</strong></md-card-title>

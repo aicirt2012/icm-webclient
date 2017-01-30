@@ -26,4 +26,6 @@ export class Email {
       type: Date;
     }
   }];
+  suggestedTasks: any[];
+  linkedTasks: any[];
 }

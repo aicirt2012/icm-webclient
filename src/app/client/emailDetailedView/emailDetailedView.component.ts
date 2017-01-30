@@ -80,6 +80,7 @@ export class EmailDetailedViewComponent {
     this._emailService
       .getSingleMail(id)
       .subscribe((data: any) => {
+        data.sentences = data.sentences.map((s) => { s.highlighted = false; return s});
         this.appState.set('email', data);
       },
       error => {
@@ -171,6 +172,13 @@ export class EmailDetailedViewComponent {
       this.manuallyRemovedFlag = false;
     }, () => {
     });
+  }
+
+  highlightSentence(h: any) {
+    let suggestedTasks = this.email.suggestedTasks;
+    suggestedTasks.forEach((t) => { t.highlight = false });
+    suggestedTasks = suggestedTasks.map((t) => { if(t.task.id == h.id) t.highlight = h.highlight; return t} );  
+    this.appState.set('suggestedTasks', suggestedTasks);
   }
 
 }

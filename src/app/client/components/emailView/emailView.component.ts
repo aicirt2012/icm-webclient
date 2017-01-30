@@ -9,7 +9,13 @@ import { Email } from '../../shared';
 })
 export class EmailViewComponent {
   @Input() email: Email;
+  @Output() highlightSentence: EventEmitter<any> = new EventEmitter<any>();
+
   constructor() {
+  }
+
+  highlight(id: any, highlight: boolean) {
+    this.highlightSentence.emit({id: id,highlight: highlight})
   }
 
 }

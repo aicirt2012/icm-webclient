@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, Input, EventEmitter, Output, ViewChild, Optional, HostListener } from '@angular/core';
 import { TaskService } from '../../shared';
 import { MdSnackBar} from '@angular/material';
 
@@ -14,6 +14,7 @@ export class TaskListItemComponent {
   @Input() createTask: EventEmitter<any> = new EventEmitter<any>();
   @Input() openDialog: EventEmitter<any> = new EventEmitter<any>();
   @Input() deleteTask: EventEmitter<any> = new EventEmitter<any>();
+  @Input() highlightSentence: EventEmitter<any> = new EventEmitter<any>();
   public selectedMembers: any[] = [];
   public possibleMembers: any[] = [];
   public currMember = '';
@@ -62,6 +63,18 @@ export class TaskListItemComponent {
 
   getNames(members: any[]) {
     return members.map((member) => { return member.fullName}).join();
+  }
+  
+  highlight(id: any) {
+    this.highlightSentence.emit(id);
+  }
+
+  @HostListener('mouseenter') onMouseEnter() {
+    this.highlight({id: this.task.task.id, highlight: true});
+    }
+
+  @HostListener('mouseleave') onMouseLeave() {
+    this.highlight({id: this.task.task.id, highlight: false});
   }
 
 }

@@ -78,3 +78,7 @@
     position: absolute;
     right: 5px;
 }
+
+.highlighted {
+    background-color: yellow;
+}

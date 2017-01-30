@@ -1,47 +1,52 @@
 .evc-padding: {
-  padding: 8px 0 0 8px;
+    padding: 8px 0 0 8px;
 }
+
 .evc-from-circle {
-  border-radius: 50%;
-	width: 50px;
-	height: 50px;
-  background-color: lightblue;
-  font-size: 20px;
-  font-weight: bold;
-  margin: 8px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: lightblue;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 8px;
 }
 
 .evc-header {
-  border-top: 1px solid lightgrey;
-  border-bottom: 1px solid lightgrey;
-  margin-bottom: 5px;
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+    margin-bottom: 5px;
 }
 
 .evc-text-title {
-  font-weight: 600;
+    font-weight: 600;
 }
 
 .evc-text-subtitle {
-  font-weight: 500;
+    font-weight: 500;
 }
 
 .evc-text-caption {
-  font-size: 12px;
-  font-weight: 200;
+    font-size: 12px;
+    font-weight: 200;
 }
 
 .iframe-container {
-  position: relative;
-  padding-top: 100%;
-  height: 0;
-  width: 100%;
+    position: relative;
+    padding-top: 100%;
+    height: 0;
+    width: 100%;
 }
 
-.iframe-container > iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 0;
-  border: 0;
+.iframe-container>iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    border: 0;
+}
+
+.highlighted {
+    background-color: yellow;
 }

@@ -33,18 +33,21 @@ export class TasksComponent {
   constructor(private _taskService: TaskService, public dialog: MdDialog, public snackBar: MdSnackBar, public appState: AppState) {
   }
 
-  ngOnChanges() {
-    this.suggestedTasks = this.email.suggestedTasks ? this.email.suggestedTasks : [];
-    this.linkedTasks = this.email.linkedTasks ? this.email.linkedTasks : [];
-    this.appState.set('suggestedTasks', this.suggestedTasks);
-    this.appState.set('linkedTasks', this.linkedTasks);
-    this.user = this.appState.get('user');
+  ngOnInit() {
+     this.user = this.appState.get('user');
     if (this.user.trello) {
       this.getAllBoards();
     }
     else {
       this.errorTrello = true;
     }
+  }
+
+  ngOnChanges() {
+    this.suggestedTasks = this.email.suggestedTasks ? this.email.suggestedTasks : [];
+    this.linkedTasks = this.email.linkedTasks ? this.email.linkedTasks : [];
+    this.appState.set('suggestedTasks', this.suggestedTasks);
+    this.appState.set('linkedTasks', this.linkedTasks); 
   }
 
   createTask(taskObject: any) {
@@ -95,6 +98,13 @@ export class TasksComponent {
     linkTaskDialogRef.componentInstance.task = task;
     linkTaskDialogRef.componentInstance.email = this.email;
     linkTaskDialogRef.componentInstance.boards = this.boards;
+  }
+
+  highlightSentence(h: any) {
+    const sentence = this.email.sentences.find((s) => s.id == h.id);
+    this.email.sentences.forEach((s) => { s.highlighted = false });
+    sentence.highlighted = h.highlight;
+    this.appState.set('email', this.email);
   }
 
 }
