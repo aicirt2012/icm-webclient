@@ -15,7 +15,7 @@
             <span>{{mail.date | date:'shortDate'}} {{mail.date | date:'shortTime'}}</span>
           </h5>
         </div>
-        <h5 fxFlex="33"> {{mail.subject}} </h5>
+        <h5 fxFlex="33" class="text-overflow"> {{mail.subject}} </h5>
         <p fxFlex="33"> {{mail.text ? mail.text.substring(0,100): ''}} </p>
       </div>
     </div>

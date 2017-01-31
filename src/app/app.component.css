@@ -63,3 +63,11 @@ div.cdk-focus-trap-content {
   background: rgba(0,0,0,0.61);
   -webkit-border-radius: 100px;
 }
+
+
+.text-overflow {
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
