@@ -21,6 +21,8 @@ export class TasksComponent {
   public user: any;
   public suggestedTasks: any = [];
   public linkedTasks: any = [];
+  public suggestedTasks$: any;
+  public linkedTasks$: any = [];
   private dialogConfig = {
     width: "70%",
     height: '70%',
@@ -41,13 +43,27 @@ export class TasksComponent {
     else {
       this.errorTrello = true;
     }
+    this.suggestedTasks = this.email.suggestedTasks ? this.email.suggestedTasks : [];
+    this.linkedTasks = this.email.linkedTasks ? this.email.linkedTasks : [];
+    this.appState.set('suggestedTasks', this.suggestedTasks);
+    this.appState.set('linkedTasks', this.linkedTasks);
   }
 
   ngOnChanges() {
     this.suggestedTasks = this.email.suggestedTasks ? this.email.suggestedTasks : [];
     this.linkedTasks = this.email.linkedTasks ? this.email.linkedTasks : [];
-    this.appState.set('suggestedTasks', this.suggestedTasks);
-    this.appState.set('linkedTasks', this.linkedTasks); 
+    this.suggestedTasks$ = this.appState.dataChange.subscribe((res) => {
+      //console.log("suggestedTasks have changed");
+        //this.email = this.appState.get('email');
+        //this.suggestedTasks = this.email.suggestedTasks ? this.email.suggestedTasks : [];
+           
+        console.log("just overwrote suggestedTasks");
+        this.linkedTasks = this.email.linkedTasks ? this.email.linkedTasks : [];
+
+    });
+   
+    //this.appState.set('suggestedTasks', this.suggestedTasks);
+
   }
 
   createTask(taskObject: any) {
@@ -105,6 +121,15 @@ export class TasksComponent {
     this.email.sentences.forEach((s) => { s.highlighted = false });
     sentence.highlighted = h.highlight;
     this.appState.set('email', this.email);
+  }
+
+   hightlightTaskItem(h: any) {
+    let suggestedTasks = this.email.suggestedTasks;
+    suggestedTasks.forEach((t) => { t.highlight = false });
+    suggestedTasks = suggestedTasks.map((t) => { if(t.task.id == h.id) t.highlight = h.highlight; return t} );  
+    this.email.suggestedTasks = suggestedTasks;
+    this.appState.set('email', this.email);
+
   }
 
 }

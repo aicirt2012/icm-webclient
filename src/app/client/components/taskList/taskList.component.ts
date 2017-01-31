@@ -19,17 +19,17 @@ export class TaskListComponent {
   @Output() deleteTask = new EventEmitter<any>();
   @Output() openLinkTaskDialog = new EventEmitter<any>();
   @Output() highlightSentence = new EventEmitter<any>();
+  @Output() hightlightTaskItem = new EventEmitter<any>();
+  
   public showSuggested: boolean = true;
-  public showLinked: boolean = false;
+  public showLinked: boolean = true;
 
   constructor(public appState: AppState) {
   }
 
   ngOnInit() {
     this.suggestedTasks$ = this.appState.dataChange.subscribe((res) => {
-      console.log("suggestedTasks have changed");
       this.suggestedTasks = this.appState.get('suggestedTasks');
-      console.log(this.suggestedTasks);
     });
     this.linkedTasks$ = this.appState.dataChange.subscribe((res) => {
       this.linkedTasks = this.appState.get('linkedTasks');
@@ -43,5 +43,6 @@ export class TaskListComponent {
   openTaskDialog() {
       this.openDialog.emit({'taskType': 'suggested','status':'empty'});
   }
+
 
 }

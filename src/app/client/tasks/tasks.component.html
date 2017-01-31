@@ -1,6 +1,6 @@
 <div *ngIf="!errorTrello" fxLayout="column" fxFlex class="full-height task-sidebar">
     <task-list fxFlex class="scrollable" [boards]="boards" (createTask)="createTask($event)" (openDialog)="openDialog($event)" (openLinkTaskDialog)="openLinkTaskDialog($event)" (deleteTask)="deleteTask($event)" [linkedTasks]="linkedTasks" [suggestedTasks]="suggestedTasks"
-        (highlightSentence)="highlightSentence($event)"></task-list>
+        (highlightSentence)="highlightSentence($event)" (hightlightTaskItem)="hightlightTaskItem($event)"></task-list>
 </div>
 <div *ngIf="errorTrello">
     <a fxFlex fxLayoutAlign="center center" class="connect-btn" md-raised-button [routerLink]="'/settings/tasks'">Please connect to a Task Provider</a>

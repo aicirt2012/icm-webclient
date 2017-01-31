@@ -15,6 +15,7 @@ export class TaskListItemComponent {
   @Input() openDialog: EventEmitter<any> = new EventEmitter<any>();
   @Input() deleteTask: EventEmitter<any> = new EventEmitter<any>();
   @Input() highlightSentence: EventEmitter<any> = new EventEmitter<any>();
+  @Input() hightlightTaskItem: EventEmitter<any> = new EventEmitter<any>();
   public selectedMembers: any[] = [];
   public possibleMembers: any[] = [];
   public currMember = '';
@@ -65,7 +66,9 @@ export class TaskListItemComponent {
   }
 
   highlight(id: any, highlight: boolean) {
-    this.highlightSentence.emit({id: id,highlight: highlight})
+    this.highlightSentence.emit({id: id,highlight: highlight});
+
+    this.hightlightTaskItem.emit({id: id,highlight: highlight});
   }
 
 }
