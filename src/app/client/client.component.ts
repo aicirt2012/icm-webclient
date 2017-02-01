@@ -4,6 +4,8 @@ import { AppState } from '../app.service';
 import * as moment from 'moment';
 import { Email } from './shared';
 import { EmailService, TaskService } from './shared';
+import { SocketService } from '../shared/services/socket.service';
+
 /* TODO:move settingsservice to userservice */
 import { SettingsService } from '../settings/shared';
 import { Observable } from 'rxjs/Observable';
@@ -55,6 +57,8 @@ export class ClientComponent {
         this.noMailboxConnected = true;
       }
     })
+
+    let ss = new SocketService(null);
   }
 
   /* FETCHING BOX INFORMATION */

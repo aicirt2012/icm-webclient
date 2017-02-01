@@ -23,7 +23,8 @@
       "node",
       "source-map",
       "uglify-js",
-      "webpack"
+      "webpack",
+      "socket.io-client"
     ]
   },
   "exclude": [
