@@ -3,12 +3,13 @@ import {Observable} from 'rxjs/Observable';
 import {RequestMethod} from '@angular/http';
 import {Email} from './email.model';
 import {HttpService} from '../../shared';
+import {SocketService} from '../../shared/services/socket.service';
 
 @Injectable()
 export class EmailService {
   private domain: string = 'email';
 
-  constructor(private _httpService: HttpService) {
+  constructor(private _httpService: HttpService) {//, socketService: SocketService) {
   }
 
   /*
@@ -115,7 +116,7 @@ export class EmailService {
 
   /*
   */
-  generateEmailForm(email: Email, type: string): any {    
+  generateEmailForm(email: Email, type: string): any {
     const bodyHeader = `
 -------------------------------------------
 From: ${email.from[0].address}
@@ -129,7 +130,7 @@ ${email.text}`;
       if(email.from[0].name) {
         receivers = {
           name: email.from[0].name,
-          address: email.from[0].address 
+          address: email.from[0].address
         };
       } else {
         receivers = email.from[0].address;

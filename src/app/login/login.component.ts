@@ -3,7 +3,7 @@ import { AuthService } from '../shared';
 
 import { Router } from '@angular/router';
 import C from '../shared/constants';
-import { SocketService } from '../shared/services/socket.service';
+//import { SocketService } from '../shared/services/socket.service';
 
 @Component({
   selector: 'login',
@@ -23,7 +23,7 @@ export class LoginComponent {
   ngOnInit() {
     // reset login status
     this._auth.logout();
-    let ss = new SocketService(this._auth);
+    //let ss = new SocketService(this._auth);
   }
 
   login() {
