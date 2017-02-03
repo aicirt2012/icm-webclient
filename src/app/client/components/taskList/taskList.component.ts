@@ -30,8 +30,7 @@ export class TaskListComponent {
     this.suggestedTasks$ = this.appState.dataChange.subscribe((res) => {
       this.suggestedTasks = this.appState.get('suggestedTasks');
     });
-    this.linkedTasks$ = this.appState.dataChange.subscribe((res) => {
-      console.log("linked tasks overwritten");      
+    this.linkedTasks$ = this.appState.dataChange.subscribe((res) => {      
       this.linkedTasks = this.appState.get('linkedTasks');
     });
   }
