@@ -1,33 +1,33 @@
 <div fxFlex fxLayout="row">
-  <button md-raised-button fxFlex="50" [mdMenuTriggerFor]="createTask">
+    <div fxFlex="50" fxLayoutAlign="center start">
+        <button class="margin-btn" md-raised-button [mdMenuTriggerFor]="createTask">
         <md-icon>add</md-icon>CREATE
     </button>
-  <md-menu #createTask="mdMenu">
-    <button md-menu-item (click)="openTaskDialog()">
+        <md-menu #createTask="mdMenu">
+            <button md-menu-item (click)="openTaskDialog()">
       <md-icon>edit</md-icon>
       <span>Create empty task</span>
     </button>
-    <button md-menu-item (click)="openLinkTask()">
+            <button md-menu-item (click)="openLinkTask()">
       <md-icon>swap_horiz</md-icon>
       <span>Link existing task</span>
     </button>
-  </md-menu>
-  <div fxFlex="50" layout="column" fxLayoutAlign="center end">
-    <section fxFlex class="section">
-      <md-checkbox fxFlex="50" class="example-margin" [(ngModel)]="showLinked">Linked</md-checkbox>
-      <md-checkbox fxFlex="50" class="example-margin" [(ngModel)]="showSuggested">Suggested</md-checkbox>
-    </section>
-  </div>
+        </md-menu>
+    </div>
+    <div fxFlex="50" layout="column" fxLayoutAlign="center end">
+        <section fxFlex class="section">
+            <md-checkbox fxFlex="50" class="example-margin" [(ngModel)]="showLinked">Linked</md-checkbox>
+            <md-checkbox fxFlex="50" class="example-margin" [(ngModel)]="showSuggested">Suggested</md-checkbox>
+        </section>
+    </div>
 </div>
 <div fxFlex fxLayout="column" class="tasks">
-  <div *ngIf="showLinked">
-    <task-list-item *ngFor="let linkedTask of linkedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask"
-      [task]="linkedTask" [boards]="boards" [deleteTask]="deleteTask" [index]="i" [highlightSentence]="highlightSentence" [hightlightTaskItem]="hightlightTaskItem">
-    </task-list-item>
-  </div>
-  <div *ngIf="showSuggested">
-    <task-list-item *ngFor="let suggestedTask of suggestedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask"
-      [task]="suggestedTask" [boards]="boards" [deleteTask]="deleteTask" [index]="i" [highlightSentence]="highlightSentence"
-      [hightlightTaskItem]="hightlightTaskItem"> </task-list-item>
-  </div>
+    <div *ngIf="showLinked">
+        <task-list-item *ngFor="let linkedTask of linkedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="linkedTask" [boards]="boards" [deleteTask]="deleteTask" [index]="i" [highlightSentence]="highlightSentence" [hightlightTaskItem]="hightlightTaskItem">
+        </task-list-item>
+    </div>
+    <div *ngIf="showSuggested">
+        <task-list-item *ngFor="let suggestedTask of suggestedTasks; let i = index;" [openDialog]="openDialog" [createTask]="createTask" [task]="suggestedTask" [boards]="boards" [deleteTask]="deleteTask" [index]="i" [highlightSentence]="highlightSentence" [hightlightTaskItem]="hightlightTaskItem">
+        </task-list-item>
+    </div>
 </div>
