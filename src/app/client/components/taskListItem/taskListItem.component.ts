@@ -19,6 +19,7 @@ export class TaskListItemComponent {
   public selectedMembers: any[] = [];
   public possibleMembers: any[] = [];
   public currMember = '';
+  public overdue: boolean = false;
 
   constructor(private _taskService: TaskService,public snackBar: MdSnackBar) {
   }
@@ -30,6 +31,11 @@ export class TaskListItemComponent {
     else {
       this.task.date = this._taskService.formatDate(this.task.date);
     }
+    this.overdue = this.task.date ? (new Date(this.task.date) < new Date()) : false;
+  }
+
+  ngOnChanges() {
+     this.overdue = this.task.date ? (new Date(this.task.date) < new Date()) : false;
   }
 
   openTaskDialog(task: any) {

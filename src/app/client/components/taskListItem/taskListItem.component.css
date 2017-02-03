@@ -82,3 +82,10 @@
 .highlighted {
     background-color: yellow;
 }
+
+.alert-icon {
+    top: 5px;
+    position: absolute;
+    right: 30px;
+    color: #ce2424;
+}

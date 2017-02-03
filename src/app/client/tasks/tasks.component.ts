@@ -52,7 +52,7 @@ export class TasksComponent {
   ngOnChanges() {
     this.suggestedTasks = this.email.suggestedTasks ? this.email.suggestedTasks : [];
     this.linkedTasks = this.email.linkedTasks ? this.email.linkedTasks : [];
-    this.suggestedTasks$ = this.appState.dataChange.subscribe((res) => {
+    /*this.suggestedTasks$ = this.appState.dataChange.subscribe((res) => {
       //console.log("suggestedTasks have changed");
         //this.email = this.appState.get('email');
         //this.suggestedTasks = this.email.suggestedTasks ? this.email.suggestedTasks : [];
@@ -61,7 +61,7 @@ export class TasksComponent {
         this.linkedTasks = this.email.linkedTasks ? this.email.linkedTasks : [];
 
     });
-   
+   */
     //this.appState.set('suggestedTasks', this.suggestedTasks);
 
   }

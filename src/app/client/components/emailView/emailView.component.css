@@ -48,5 +48,8 @@
 }
 
 .highlighted {
-    background-color: yellow;
+    border-bottom: 1px solid rgba(0, 0, 255, 0.88);
+    border-bottom-width: initial;
+    font-size: 30px;
+    /*background-color: yellow;*/
 }
