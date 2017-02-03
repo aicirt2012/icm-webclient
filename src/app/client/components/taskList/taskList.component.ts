@@ -13,6 +13,8 @@ export class TaskListComponent {
   @Input() suggestedTasks: any;
   public suggestedTasks$: any = [];
   public linkedTasks$: any = [];
+  @Input() showSuggested: any;
+  @Input() showLinked: any;
   @Input() boards: any[];
   @Output() createTask = new EventEmitter<any>();
   @Output() openDialog = new EventEmitter<any>();
@@ -20,9 +22,6 @@ export class TaskListComponent {
   @Output() openLinkTaskDialog = new EventEmitter<any>();
   @Output() highlightSentence = new EventEmitter<any>();
   @Output() hightlightTaskItem = new EventEmitter<any>();
-  
-  public showSuggested: boolean = true;
-  public showLinked: boolean = true;
 
   constructor(public appState: AppState) {
   }
@@ -32,17 +31,16 @@ export class TaskListComponent {
       this.suggestedTasks = this.appState.get('suggestedTasks');
     });
     this.linkedTasks$ = this.appState.dataChange.subscribe((res) => {
+      console.log("linked tasks overwritten");      
       this.linkedTasks = this.appState.get('linkedTasks');
     });
   }
 
-  openLinkTask() {
-      this.openLinkTaskDialog.emit({'taskType': 'linked'});
+  setSuggestedFilters(checked: boolean) {
+    this.showSuggested = checked;
   }
-
-  openTaskDialog() {
-      this.openDialog.emit({'taskType': 'suggested','status':'empty'});
+  setLinkedFilters(checked: boolean) {
+    this.showLinked = checked;
   }
-
 
 }

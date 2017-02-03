@@ -8,7 +8,7 @@ import { LinkTaskDialogComponent } from '../linkTaskDialog';
 import { AppState } from '../../app.service';
 
 @Component({
-  selector: 'tasks',  // <taskList></taskList>
+  selector: 'tasks',  
   styleUrls: ['./tasks.component.css'],
   templateUrl: './tasks.component.html'
 })
@@ -16,6 +16,8 @@ import { AppState } from '../../app.service';
 export class TasksComponent {
 
   @Input() email: any;
+  @Output() setSuggestedFilters = new EventEmitter<any>();
+  @Output() setLinkedFilters = new EventEmitter<any>();
   public errorTrello = false;
   public boards: any;
   public user: any;
@@ -31,6 +33,8 @@ export class TasksComponent {
     width: '60%',
     height: '40%'
   }
+  public showSuggested: boolean = true;
+  public showLinked: boolean = true;
 
   constructor(private _taskService: TaskService, public dialog: MdDialog, public snackBar: MdSnackBar, public appState: AppState) {
   }
@@ -52,18 +56,6 @@ export class TasksComponent {
   ngOnChanges() {
     this.suggestedTasks = this.email.suggestedTasks ? this.email.suggestedTasks : [];
     this.linkedTasks = this.email.linkedTasks ? this.email.linkedTasks : [];
-    /*this.suggestedTasks$ = this.appState.dataChange.subscribe((res) => {
-      //console.log("suggestedTasks have changed");
-        //this.email = this.appState.get('email');
-        //this.suggestedTasks = this.email.suggestedTasks ? this.email.suggestedTasks : [];
-           
-        console.log("just overwrote suggestedTasks");
-        this.linkedTasks = this.email.linkedTasks ? this.email.linkedTasks : [];
-
-    });
-   */
-    //this.appState.set('suggestedTasks', this.suggestedTasks);
-
   }
 
   createTask(taskObject: any) {
@@ -129,7 +121,22 @@ export class TasksComponent {
     suggestedTasks = suggestedTasks.map((t) => { if(t.task.id == h.id) t.highlight = h.highlight; return t} );  
     this.email.suggestedTasks = suggestedTasks;
     this.appState.set('email', this.email);
+  }
 
+  openLinkTask() {
+      this.openLinkTaskDialog({'taskType': 'linked'});
+  }
+
+  openTaskDialog() {
+      this.openDialog({'taskType': 'suggested','status':'empty'});
+  }
+
+  setSuggestedFilter(checked: boolean) {
+    this.showSuggested = checked;
+  }
+
+  setLinkedFilter(checked: boolean) {
+    this.showLinked = checked;
   }
 
 }

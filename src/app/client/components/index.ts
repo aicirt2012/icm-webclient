@@ -8,3 +8,4 @@ export * from './emailResponse';
 export * from './searchBar';
 export * from './navbar';
 export * from './navbarListItem';
+export * from './taskActionBar';

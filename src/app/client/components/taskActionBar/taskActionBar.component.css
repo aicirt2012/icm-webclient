@@ -1,0 +1,13 @@
+.action-buttons button {
+    margin: 5px;
+}
+
+.action-buttons {
+    background-color: #F8F8F8;
+    height: 50px;
+}
+
+.section {
+    margin-top: 5px;
+    margin-left: 5px;
+}

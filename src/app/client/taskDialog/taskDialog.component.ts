@@ -58,6 +58,8 @@ export class TaskDialogComponent {
       .subscribe((task: any) => {
         this.sending=false;
         this.snackBar.open('Task successfully updated.', 'OK');
+        this.updateLinkedTasks(this.task);
+        /* we need to update here manually the linked tasks in appstate */
         this.closeDialog();
       },
       error => {
@@ -125,6 +127,19 @@ export class TaskDialogComponent {
 
   removeFromLinkedTasks(task:any) {
     this.linkedTasks = this.linkedTasks.filter((linkedTask: any) => { if(linkedTask.id != task.id) return linkedTask });
+  }
+
+  updateLinkedTasks(task:any) {
+    let l = this.linkedTasks;
+    l = l.map((t) => { 
+      if(t.id == task.id) {
+        return task;
+      }
+      else {
+        return t;
+      }
+      });
+    this.appState.set('linkedTasks',l);
   }
 
 }

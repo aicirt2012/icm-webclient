@@ -1,0 +1,23 @@
+<div fxFlex fxLayout="row">
+    <div fxFlex="50" class="action-buttons" fxLayoutAlign="center start">
+        <button class="action-buttons" class="margin-btn" md-raised-button [mdMenuTriggerFor]="createTask">
+        <md-icon>add</md-icon>CREATE
+    </button>
+        <md-menu #createTask="mdMenu">
+            <button md-menu-item (click)="openDialogTask()">
+      <md-icon>edit</md-icon>
+      <span>Create empty task</span>
+    </button>
+            <button md-menu-item (click)="openDialogLinkedTask()">
+      <md-icon>swap_horiz</md-icon>
+      <span>Link existing task</span>
+    </button>
+        </md-menu>
+    </div>
+    <div fxFlex="50" layout="column" fxLayoutAlign="center end">
+        <section fxFlex class="section">
+            <md-checkbox fxFlex="50" class="example-margin" [(ngModel)]="showLinked" (click)="clickLinkedFilter()">Linked</md-checkbox>
+            <md-checkbox fxFlex="50" class="example-margin" [(ngModel)]="showSuggested" (click)="clickSuggestedFilter()">Suggested</md-checkbox>
+        </section>
+    </div>
+</div>
