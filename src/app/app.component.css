@@ -41,7 +41,7 @@ div.cdk-focus-trap-content {
     -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
 }
-
+/*
 ::-webkit-scrollbar {
     width: 10px;
     background-color: rgba(0, 0, 0, 0);
@@ -64,7 +64,7 @@ div.cdk-focus-trap-content {
     background: rgba(0, 0, 0, 0.61);
     -webkit-border-radius: 100px;
 }
-
+*/
 .text-overflow {
     -ms-text-overflow: ellipsis;
     text-overflow: ellipsis;

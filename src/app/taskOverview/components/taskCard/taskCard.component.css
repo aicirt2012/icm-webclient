@@ -61,5 +61,14 @@
 }
 
 .overdue {
-    background-color: rgba(255,0,0,.2);
+    border: 1px solid #ce2424;
+}
+
+.overdue-text {
+    color: #ce2424;
+}
+
+.alert-icon {
+    color: #ce2424;
+    font-size: 30px;
 }
