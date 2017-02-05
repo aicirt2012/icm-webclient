@@ -12,7 +12,7 @@ export class Email {
   }];
   box: any;
   subject: string;
-  html: string;
+  html: any;
   text: string;
   date: Date;
   flags: string[];

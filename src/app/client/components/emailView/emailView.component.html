@@ -1,32 +1,4 @@
-<!--<div class="padding-side" fxLayout="column" fxFlex *ngIf="email">
-    <div>
-        <h2>{{email.subject}}</h2>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="start center">
-        <div class="evc-from-circle" fxLayout="column" fxLayoutAlign="center center" fxHide="false" fxHide.sm>
-            {{email.from[0].address | slice: 0:1 | uppercase}}
-        </div>
-        <div fxLayout="column">
-            <div class="evc-text-title"> {{email.from[0].name}} &lt;{{email.from[0].address}}&gt; </div>
-            <div class="evc-text-caption"> {{email.date | date:'medium'}}</div>
-            <div class="evc-text-caption"> To: {{email.to[0].address}} </div>
-        </div>
-    </div>
-    <div fxFlex *ngIf="email">
-        <div *ngIf="email.html" class="iframe-container">
-            <iframe srcdoc="{{email.html}}" onload="this.style.height=this.contentDocument.body.scrollHeight +'px';">
-      </iframe>
-        </div>
-        <div *ngIf="!email.html">
-            <span *ngFor="let s of email.sentences" [class.highlighted]="s.highlighted" (mouseenter)="highlight(s.id,true)" (mouseleave)="highlight(s.id,false)">
-                {{s.sentence}}
-            </span>
-        </div>
-    </div>
-</div>-->
-
-<md-card fxLayout="column" class="email-card" fxFlex *ngIf="email">
-
+<div #wrapper fxLayout="column" class="email-card" fxFlex *ngIf="email">
     <div fxLayout="row" fxLayoutAlign="start center">
         <div class="evc-from-circle" fxLayout="column" fxLayoutAlign="center center" fxHide="false" fxHide.sm>
             {{email.from[0].address | slice: 0:1 | uppercase}}
@@ -43,7 +15,7 @@
     </div>
     <div fxFlex *ngIf="email">
         <div *ngIf="email.html" class="iframe-container">
-            <iframe srcdoc="{{email.html}}" onload="this.style.height=this.contentDocument.body.scrollHeight +'px';">
+            <iframe #iframe [srcdoc]="email.html" (load)="adjustIframeSize(iframe)">
       </iframe>
         </div>
         <div *ngIf="!email.html">
@@ -52,4 +24,4 @@
             </span>
         </div>
     </div>
-</md-card>
+</div>
