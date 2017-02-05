@@ -13,7 +13,7 @@ export class LoginComponent {
   model: any = {};
   loading = false;
   error = '';
-  googleLoginLink = `${C.server}auth/google`;
+  googleLoginLink = `${C.server}/auth/google`;
 
   constructor(
     private router: Router,

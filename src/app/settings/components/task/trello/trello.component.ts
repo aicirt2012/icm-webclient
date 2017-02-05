@@ -8,7 +8,7 @@ import C from '../../../../shared/constants';
 })
 export class TrelloComponent {
 
-  public trelloURL = `${C.server}auth/trello`;
+  public trelloURL = `${C.server}/auth/trello`;
   @Input() trelloConfig: any;
 
   constructor() {}

@@ -16,7 +16,7 @@ export class HttpService {
     const options = new RequestOptions({ headers: headers, method: method, body: body });
     const pathEndpoint = endpoint ? `/${endpoint}` : '';
     const path = `${domain}${pathEndpoint}`;
-    return this._http.request(`${C.server}${path}${this.generateParams(params)}`, options)
+    return this._http.request(`${C.server}/${path}${this.generateParams(params)}`, options)
       .map((response: Response) => response.json());
   }
 
