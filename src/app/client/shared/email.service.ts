@@ -170,4 +170,26 @@ ${email.text}`;
     return this._httpService.generateRequest(RequestMethod.Post, this.domain, 'delBox', null, body);
   }
 
+  /*
+  @param: box: string - Boxname as string,
+  @param: args: {mailbox: Boxname },
+  @param: to: string - object,
+  @param: from: string,
+  @param: subject: string - Subject as string,
+  @param: msgData: string - Message Data as string,
+  */
+  appendMail(box: string, to: any, from: any, subject: string, msgData: string): Observable<any> {
+    console.log('start mail to draft');
+    const body = {
+      box: box,
+      args: {mailbox:'[Gmail]/Drafts'},
+      to: to ? to[0] : '',
+      from: from,
+      subject: subject ? subject : '',
+      msgData: msgData ? msgData : '',
+    };
+    console.log('appending mail to draft',body);
+    return this._httpService.generateRequest(RequestMethod.Post, this.domain, 'append', null, body);
+  }
+
 }

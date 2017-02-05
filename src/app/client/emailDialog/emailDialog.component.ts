@@ -31,8 +31,9 @@ export class EmailDialogComponent {
   ngOnInit() {
   }
 
-  closeDialog() {
-    this.emailDialogRef.close();
+  //param: sent: boolean   --> if false --> append mail to drafts
+  closeDialog(sent: boolean) {
+    this.emailDialogRef.close(sent ? "sent" : this.emailForm);
   }
 
   addAddress(address: MdInput, addressType: string): void {
@@ -64,7 +65,7 @@ export class EmailDialogComponent {
       .subscribe((data: any) => {
         this.sending = false;
         this.snackBar.open('Message successfully sent.', 'OK');
-          this.closeDialog();
+          this.closeDialog(true);
       }, (error) => {
         console.log(error);
         this.sending = false;
