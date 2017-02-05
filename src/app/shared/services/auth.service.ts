@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
+import C from '../constants';
 
 @Injectable()
 export class AuthService {
   public token: string;
-  private baseUrl: string = 'http://localhost:4000';
 
   constructor(private http: Http) {
     if (localStorage.getItem('email-jwt')) {
@@ -14,7 +14,7 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<boolean> {
-    return this.http.post(`${this.baseUrl}/api/auth/login`, { username: username, password: password })
+    return this.http.post(`${C.server}/auth/login`, { username: username, password: password })
       .map((response: Response) => {
         // login successful if there's a jwt token in the response
         let token = response.json() && response.json().token;
@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   signup(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/api/users`, { username: username, password: password });
+    return this.http.post(`${C.server}/users`, { username: username, password: password });
   }
 
   logout(): void {
