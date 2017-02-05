@@ -53,3 +53,13 @@
     font-size: 30px;
     /*background-color: yellow;*/
 }
+
+.email-card {
+    /*min-height: 100%;*/
+    margin: 5px;
+    margin-top: 0px;
+}
+
+.border {
+    border-top: 0.5px solid #888383;
+}
