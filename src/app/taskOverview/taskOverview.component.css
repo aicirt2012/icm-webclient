@@ -8,3 +8,7 @@
 .md-tab-header {
   overflow: auto !important;
 }
+
+.no-content {
+    margin: 100px;
+}
