@@ -11,6 +11,7 @@
                 <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start center">
                     <task-card *ngFor="let card of board.cards" [task]="card" [members]="board.members"></task-card>
                 </div>
+                <div fxFlex class="no-content" fxLayout="row" fxLayoutAlign="center center" *ngIf="board.cards.length < 1"><i>No tasks in this board.</i></div>
             </md-tab>
          </md-tab-group>
     </div>

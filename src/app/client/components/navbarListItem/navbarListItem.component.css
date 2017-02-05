@@ -1,6 +1,6 @@
 .route-active {
   background-color: #2f3649;
-  box-shadow:0px 0px 2px 1px #000 inset;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.5) inset;
 }
 
 .route-active a {
@@ -8,7 +8,7 @@
 }
 
 .navbar-list-item {
-  color: #d7e3ef; 
+  color: #d7e3ef;
 }
 
 .v-align-middle {
@@ -16,15 +16,15 @@
 }
 
 .unseen-counter {
-    background-color: #2f3649;
-    width: 18px;
-    color: white;
-    height: 18px;
-    font-size: 12px;
-    line-height: 18px;
-    text-align: center;
-    padding: 2px;
-    border-radius: 4px;
+  background-color: #2f3649;
+  width: 18px;
+  color: white;
+  height: 18px;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+  padding: 2px;
+  border-radius: 4px;
 }
 
 .route-active .unseen-counter {
