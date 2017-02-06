@@ -37,10 +37,13 @@ div.cdk-focus-trap-content {
 }
 
 .md-dialog-container {
-    -webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
-    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
+  max-width: none;
 }
+
+.md-dialog-content {
+    max-height: 75vh;
+}
+
 /*
 ::-webkit-scrollbar {
     width: 10px;

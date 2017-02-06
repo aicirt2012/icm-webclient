@@ -1,10 +1,11 @@
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import {MdDialog} from '@angular/material';
+import {MdDialog, MdDialogRef} from '@angular/material';
 import { DialogType } from '../../../shared/constants';
 import { AppState } from '../../../app.service';
 import { EmailDialogComponent } from '../../emailDialog';
 import { EmailFolderDialogComponent } from '../../emailFolderDialog';
+import { EmailService } from '../../shared';
 
 @Component({
   selector: 'navbar',  // <navbar></navbar>
@@ -20,8 +21,9 @@ export class NavBarComponent {
 
   boxName: string;
   boxList: any[];
+  user: any;
 
-  constructor(public appState: AppState, public router: Router, public dialog: MdDialog) {
+  constructor(public appState: AppState, public router: Router, public dialog: MdDialog, private _emailService: EmailService) {
   }
 
   ngOnInit() {
@@ -30,6 +32,7 @@ export class NavBarComponent {
         this.boxList = this.appState.get('boxList');
         this.addDataToBoxes(this.appState.get('boxList'));
       }
+      this.user = this.appState.get('user');
     })
   }
 
@@ -88,9 +91,26 @@ export class NavBarComponent {
   }
 
   openCreateEmailDialog() {
-    this.dialog.open(EmailDialogComponent, {
-      width: '80%',
-      height: '80%'
+    let emailDialogRef: MdDialogRef<EmailDialogComponent> = this.dialog.open(EmailDialogComponent, {
+      width: '100%',
+    height: '100%',
+    position: {
+      top: '',
+      bottom: '',
+      left: '',
+      right: ''
+    }
+    });
+    emailDialogRef.afterClosed().subscribe(result => {
+        if(result != "sent") {
+          this._emailService
+          .appendMail("[Gmail]/Drafts", result ? result.to : '', this.user ? this.user.email : '', result ? result.subject : '', result ? result.text : '')
+          .subscribe((data: any) => {
+            console.log("appending successful", data);
+          }, (error) => {
+            console.log(error);
+          });
+        }
     });
   }
 
