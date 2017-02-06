@@ -11,7 +11,7 @@
 
 
 
-<div fxLayout="column" class="email-form">
+<div fxLayout="column" fxFlex class="email-form">
 
         <div fxLayout="row" class="add-recipients" fxLayoutAlign="end">
             <span class="cc-tags" [class.add-recipients-selected]="cc" (click)="cc = !cc">CC</span>
@@ -60,14 +60,14 @@
         </md-input-container>
 
         <div class="email-form-actions" fxLayoutAlign="center center">
-            <button click="sendEmail()" md-raised-button color="primary" [disabled]="sending">Send Email</button>
-            <button click="saveDraft()" md-raised-button color="primary" [disabled]="sending">Save as Draft</button>
+            <button (click)="sendEmail()" md-raised-button color="primary" [disabled]="sending">Send Email</button>
+            <button (click)="saveDraft()" md-raised-button color="primary" [disabled]="sending">Save as Draft</button>
         </div>
        
    
    </div>
 
- <div fxLayout="column" class="task-container" fxLayoutAlign="center center">
+ <div fxLayout="column" class="task-container" fxFlex="25" fxLayoutAlign="center center">
         <spinner *ngIf="searchForTasks" [loading]="searchForTasks"></spinner>
         <div *ngIf="relatedTasks.length == 0" fxLayout="column" fxLayoutAlign="center center">No tasks found</div>
         <div *ngIf="relatedTasks.length > 0" class="vertical-scroll">

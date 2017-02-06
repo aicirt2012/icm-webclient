@@ -4,7 +4,6 @@
 }
 
 .task-container {
-  height: 28%;
   overflow: hidden;
 }
 
@@ -37,7 +36,6 @@
 }
 
 .email-form {
-  height: 72%;
   overflow: hidden;
   border-bottom: 2px solid #444C62;
   padding-bottom: 7px;
