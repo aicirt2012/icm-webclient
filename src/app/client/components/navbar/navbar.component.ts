@@ -92,8 +92,8 @@ export class NavBarComponent {
 
   openCreateEmailDialog() {
     let emailDialogRef: MdDialogRef<EmailDialogComponent> = this.dialog.open(EmailDialogComponent, {
-      width: '100%',
-      height: '100%',
+      width: '80%',
+      height: '95%',
       position: {
         top: '',
         bottom: '',

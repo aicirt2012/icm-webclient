@@ -1,10 +1,15 @@
-.form-title {
+.email-form-title {
   border-bottom: 5px solid #444C62;
   padding-bottom: 10px;
 }
 
 .task-container {
-  height: 300px;
+  height: 28%;
+  overflow: hidden;
+}
+
+.vertical-scroll {
+  overflow-x: scroll;
 }
 
 .cc-tags {
@@ -12,6 +17,7 @@
   font-size: 12px;
   color: rgba(0,0,0,0.54);
   margin-left: 4px;
+  margin-top: 5px;
   font-weight: bold;
   font-style: italic;
 }
@@ -31,8 +37,10 @@
 }
 
 .email-form {
-  max-height: 100%;
+  height: 72%;
   overflow: hidden;
+  border-bottom: 2px solid #444C62;
+  padding-bottom: 7px;
 }
 
 .address-tag {
@@ -46,14 +54,6 @@
    padding-left: 4px;
 }
 
-.md-dialog-container {
-  max-width: none;
-}
-
-.email-dialog-textarea {
-  resize: none;
-}
-
-.button-actions button{
-  margin: 5px;
+.email-form-actions button {
+  margin: 3px;
 }
