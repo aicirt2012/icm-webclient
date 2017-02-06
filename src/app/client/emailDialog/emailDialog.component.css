@@ -53,3 +53,7 @@
 .email-dialog-textarea {
   resize: vertical;
 }
+
+.button-actions button{
+  margin: 5px;
+}

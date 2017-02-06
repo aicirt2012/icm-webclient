@@ -38,16 +38,7 @@ export class EmailDialogComponent {
 
 
   //param: sent: boolean   --> if false --> append mail to drafts
-  closeDialog(sent: boolean) {
-    if (!sent) {
-      this._emailService
-        .appendMail("[Gmail]/Drafts", this.emailForm.to, this.user ? this.user.email : '', this.emailForm.subject, this.emailForm.text)
-        .subscribe((data: any) => {
-          console.log("appending successful", data);
-        }, (error) => {
-          console.log(error);
-        });
-    }
+  closeDialog() {
     this.emailDialogRef.close();
   }
 
@@ -80,11 +71,21 @@ export class EmailDialogComponent {
       .subscribe((data: any) => {
         this.sending = false;
         this.snackBar.open('Message successfully sent.', 'OK');
-        this.closeDialog(true);
+        this.closeDialog();
       }, (error) => {
         console.log(error);
         this.sending = false;
         this.snackBar.open('Error while sending.', 'OK');
+      });
+  }
+
+  saveDraft() {
+    this._emailService
+      .appendMail("[Gmail]/Drafts", this.emailForm.to, this.user ? this.user.email : '', this.emailForm.subject, this.emailForm.text)
+      .subscribe((data: any) => {
+        console.log("appending successful", data);
+      }, (error) => {
+        console.log(error);
       });
   }
 
