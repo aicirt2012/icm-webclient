@@ -123,7 +123,6 @@ export class EmailDetailedViewComponent {
       }
       return box;
     });
-    this.appState.set('email', this.email);
     this.appState.set('boxList', this.boxList);
     this.appState.set('emails', this.emails);
 
@@ -173,10 +172,15 @@ export class EmailDetailedViewComponent {
   }
 
   highlightSentence(h: any) {
-    let suggestedTasks = this.email.suggestedTasks;
-    suggestedTasks.forEach((t) => { t.highlight = false });
-    suggestedTasks = suggestedTasks.map((t) => { if (t.task.id == h.id) t.highlight = h.highlight; return t });
-    this.appState.set('suggestedTasks', suggestedTasks);
+    const sentence = this.email.sentences.find((s) => s.id == h.id);
+    this.email.sentences.forEach((s) => { s.highlighted = false });
+    this.email.suggestedTasks.forEach((t) => {
+      t.highlight = false;
+      if (t.task.id == h.id) {
+        sentence.highlighted = h.highlight;
+        t.highlight = h.highlight;
+      }
+    });
   }
 
 }

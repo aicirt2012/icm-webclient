@@ -1,0 +1,22 @@
+<div fxLayout="column">
+  <div fxLayout="row">
+    <span fxFlex>Analysis Details</span>
+    <md-icon class="pointer" (click)="emailDialogRef.close()">close</md-icon>
+  </div>
+  <div fxLayout="row">
+    <md-list>
+      <md-list-item>
+        <h3 class="sentence-dialog-heading" md-line>Sentence</h3>
+        <p md-line>{{sentence.sentence}}</p>
+      </md-list-item>
+      <md-list-item *ngFor="let type of task.task.analysis">
+        <h3 class="sentence-dialog-heading" md-line>Analysis Type</h3>
+        <p md-line>{{type}}</p>
+      </md-list-item>
+      <md-list-item>
+        <h3 class="sentence-dialog-heading" md-line>Classification</h3>
+        <p *ngFor="let c of sentence.classification" md-line>{{c.label}} - {{c.value | percent}}</p>
+      </md-list-item>
+    </md-list>
+  </div>
+</div>

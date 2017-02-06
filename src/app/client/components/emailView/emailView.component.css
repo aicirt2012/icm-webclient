@@ -47,10 +47,8 @@
 }
 
 .highlighted {
-    border-bottom: 1px solid rgba(0, 0, 255, 0.88);
-    border-bottom-width: initial;
+    color: #444c62;
     font-size: 30px;
-    /*background-color: yellow;*/
 }
 
 .email-card {
@@ -65,4 +63,9 @@
 
 .border {
     border-top: 0.5px solid #888383;
+}
+
+.contains-task {
+    color: #444c62;
+    cursor: pointer;
 }
