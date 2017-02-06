@@ -3,7 +3,7 @@
         <search-bar (searchEmailBox)="searchEmailBox($event)"></search-bar>
         <div fxFlex class="infinite-scroll-body email-list" infinite-scroll [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="scrollThrottle" [scrollWindow]="false" (scrolled)="onScroll()">
             <div fxFlex fxLayout="column" class="email-list-item" [routerLink]="mail.route" [class.route-active]="isActive(mail.route)" [class.unseen]="!isRead(mail)" *ngFor="let mail of emails; let i = index">
-                <div fxFlex="33" fxLayout="row">
+                <div *ngIf="mail.from.length > 0"  fxFlex="33" fxLayout="row">
                     <h4 fxFlex fxLayoutAlign="start center">
                         <span>{{mail.from[0].name ? mail.from[0].name : mail.from[0].address}}</span>
                     </h4>
@@ -13,7 +13,7 @@
                 </div>
                 <!--  <h5 fxFlex="33" class="text-overflow subject"> {{mail.subject}} </h5>-->
                 <p fxFlex="33" class="text-overflow subject"> {{mail.text ? mail.text.substring(0,100): ''}} </p>
-                <p fxFlex="33" class="font"> {{mail.text ? mail.text.substring(0,100): ''}} </p>
+                <p class="font"> {{mail.text ? mail.text.substring(0,100): ''}} </p>
             </div>
         </div>
         <div class="loading-list" *ngIf="loadingList" fxLayoutAlign="center center">Loading...</div>

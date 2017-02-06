@@ -33,15 +33,7 @@ export class EmailDetailedViewComponent {
     this.boxList = this.appState.get('boxList').length > 0 ? this.appState.get('boxList') : [];
 
     this.appState.dataChange.subscribe((stateChange) => {
-      switch (stateChange) {
-        case 'emails':
-          this[stateChange] = this.appState.get(stateChange);
-          break;
-        case 'boxList':
-          this[stateChange] = this.appState.get(stateChange);
-          break;
-        default: break;
-      }
+      this[stateChange] = this.appState.get(stateChange);
     });
 
     this.currentId = this.route.params.map(params => params['emailId'] || 'None');
@@ -81,13 +73,14 @@ export class EmailDetailedViewComponent {
     this._emailService
       .getSingleMail(id)
       .subscribe((data: any) => {
-        data.sentences = data.sentences.map((s) => { s.highlighted = false; return s });
+        if (data.sentences) {
+          data.sentences = data.sentences.map((s) => { s.highlighted = false; return s });
+        }
         this.email = data;
-        console.log(data);
         if (this.email.flags.indexOf('\\Seen') == -1) {
-          console.log('getSingleMail addFlag');
           this.addFlags(['\\Seen']);
         }
+
       },
       error => {
         console.log(error)

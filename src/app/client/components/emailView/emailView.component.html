@@ -1,55 +1,29 @@
-<!--<div class="padding-side" fxLayout="column" fxFlex *ngIf="email">
-    <div>
-        <h2>{{email.subject}}</h2>
-    </div>
+<div #wrapper fxLayout="column" class="email-card" fxFlex *ngIf="email">
+  <div #topSection>
     <div fxLayout="row" fxLayoutAlign="start center">
-        <div class="evc-from-circle" fxLayout="column" fxLayoutAlign="center center" fxHide="false" fxHide.sm>
-            {{email.from[0].address | slice: 0:1 | uppercase}}
-        </div>
-        <div fxLayout="column">
-            <div class="evc-text-title"> {{email.from[0].name}} &lt;{{email.from[0].address}}&gt; </div>
-            <div class="evc-text-caption"> {{email.date | date:'medium'}}</div>
-            <div class="evc-text-caption"> To: {{email.to[0].address}} </div>
-        </div>
-    </div>
-    <div fxFlex *ngIf="email">
-        <div *ngIf="email.html" class="iframe-container">
-            <iframe srcdoc="{{email.html}}" onload="this.style.height=this.contentDocument.body.scrollHeight +'px';">
-      </iframe>
-        </div>
-        <div *ngIf="!email.html">
-            <span *ngFor="let s of email.sentences" [class.highlighted]="s.highlighted" (mouseenter)="highlight(s.id,true)" (mouseleave)="highlight(s.id,false)">
-                {{s.sentence}}
-            </span>
-        </div>
-    </div>
-</div>-->
-
-<md-card fxLayout="column" class="email-card" fxFlex *ngIf="email">
-
-    <div fxLayout="row" fxLayoutAlign="start center">
-        <div class="evc-from-circle" fxLayout="column" fxLayoutAlign="center center" fxHide="false" fxHide.sm>
-            {{email.from[0].address | slice: 0:1 | uppercase}}
-        </div>
-        <div fxLayout="column">
-            <div class="evc-text-title"> {{email.from[0].name}} &lt;{{email.from[0].address}}&gt; </div>
-            <div class="evc-text-caption"> {{email.date | date:'medium'}}</div>
-            <div class="evc-text-caption"> To: {{email.to[0].address}} </div>
-        </div>
+      <div *ngIf="email.from.length > 0" class="evc-from-circle" fxLayout="column" fxLayoutAlign="center center" fxHide="false" fxHide.sm>
+        {{email.from[0].address | slice: 0:1 | uppercase}}
+      </div>
+      <div fxLayout="column">
+        <div class="evc-text-title" *ngIf="email.from.length > 0"> {{email.from[0].name}} &lt;{{email.from[0].address}}&gt; </div>
+        <div class="evc-text-caption" *ngIf="email.date"> {{email.date | date:'medium'}}</div>
+        <div class="evc-text-caption" *ngIf="email.to"> To: {{email.to[0].address}} </div>
+      </div>
     </div>
     <hr>
-    <div class="border">
-        <h4>{{email.subject}}</h4>
+    <div>
+      <h4>{{email.subject}}</h4>
     </div>
-    <div fxFlex *ngIf="email">
-        <div *ngIf="email.html" class="iframe-container">
-            <iframe srcdoc="{{email.html}}" onload="this.style.height=this.contentDocument.body.scrollHeight +'px';">
+  </div>
+  <div fxFlex *ngIf="email">
+    <div *ngIf="email.html" class="iframe-container">
+      <iframe #iframe [srcdoc]="email.html" (load)="adjustIframeSize(iframe, topSection)">
       </iframe>
-        </div>
-        <div *ngIf="!email.html">
-            <span *ngFor="let s of email.sentences" [class.highlighted]="s.highlighted" (mouseenter)="highlight(s.id,true)" (mouseleave)="highlight(s.id,false)">
+    </div>
+    <div *ngIf="!email.html">
+      <span *ngFor="let s of email.sentences" [class.highlighted]="s.highlighted" (mouseenter)="highlight(s.id,true)" (mouseleave)="highlight(s.id,false)">
                 {{s.sentence}}
             </span>
-        </div>
     </div>
-</md-card>
+  </div>
+</div>
