@@ -22,7 +22,7 @@ export class EmailService {
       page: page,
       limit: limit
     };
-    return this._httpService.generateRequest(RequestMethod.Get, this.domain, null, options, null);
+    return this._httpService.httpGET(this.domain, null, options, null);
   }
 
   /*
@@ -37,14 +37,14 @@ export class EmailService {
       page: page,
       limit: limit
     };
-    return this._httpService.generateRequest(RequestMethod.Get, this.domain, 'search', options, null);
+    return this._httpService.httpGET(this.domain, 'search', options, null);
   }
 
   /*
   @param: mail: any - Mailobject {} TODO
   */
   sendMail(mail: any): Observable<any> {
-    return this._httpService.generateRequest(RequestMethod.Post, this.domain, 'send', null, mail);
+    return this._httpService.httpPOST(this.domain, 'send', null, mail);
   }
 
   /*
@@ -59,14 +59,14 @@ export class EmailService {
       destBox: destBox
     };
     console.log('moving in service',body);
-    return this._httpService.generateRequest(RequestMethod.Post, this.domain, 'move', null, body);
+    return this._httpService.httpPOST(this.domain, 'move', null, body);
   }
 
   /*
    returns Object: {"boxlist": [{name: "INBOX", new: "2", total: "9"}]}
    */
   updateMailboxList(): Observable<any> {
-    return this._httpService.generateRequest(RequestMethod.Get, this.domain, 'init', null, null);
+    return this._httpService.httpGET(this.domain, 'init', null, null);
   }
 
   /*
@@ -74,7 +74,7 @@ export class EmailService {
    returns Array: [Emails...]
    */
   getEmails(boxes: string[]): Observable<any> {
-    return this._httpService.generateRequest(RequestMethod.Post, this.domain, 'sync', null, { boxes: boxes });
+    return this._httpService.httpPOST(this.domain, 'sync', null, { boxes: boxes });
   }
 
   /*
@@ -82,7 +82,7 @@ export class EmailService {
    returns Email
    */
   getSingleMail(id: string): Observable<any> {
-    return this._httpService.generateRequest(RequestMethod.Get, this.domain, `single/${id}`, null, null);
+    return this._httpService.httpGET(this.domain, `single/${id}`, null, null);
   }
 
   /*
@@ -96,7 +96,7 @@ export class EmailService {
         flags: flags,
         box: boxName
       };
-    return this._httpService.generateRequest(RequestMethod.Post, this.domain, `addFlags`, null, body);
+    return this._httpService.httpPOST(this.domain, `addFlags`, null, body);
   }
 
   /*
@@ -110,7 +110,7 @@ export class EmailService {
         flags: flags,
         box: boxName
       };
-    return this._httpService.generateRequest(RequestMethod.Post, this.domain, `delFlags`, null, body);
+    return this._httpService.httpPOST(this.domain, `delFlags`, null, body);
   }
 
   /*
@@ -156,7 +156,7 @@ ${email.text}`;
     const body = {
       boxName: boxName
     };
-    return this._httpService.generateRequest(RequestMethod.Post, this.domain, 'addBox', null, body);
+    return this._httpService.httpPOST(this.domain, 'addBox', null, body);
   }
 
   /*
@@ -167,7 +167,7 @@ ${email.text}`;
     const body = {
       boxName: boxName
     };
-    return this._httpService.generateRequest(RequestMethod.Post, this.domain, 'delBox', null, body);
+    return this._httpService.httpPOST(this.domain, 'delBox', null, body);
   }
 
   /*
@@ -189,7 +189,7 @@ ${email.text}`;
       msgData: msgData ? msgData : '',
     };
     console.log('appending mail to draft',body);
-    return this._httpService.generateRequest(RequestMethod.Post, this.domain, 'append', null, body);
+    return this._httpService.httpPOST(this.domain, 'append', null, body);
   }
 
 }
