@@ -31,7 +31,7 @@ export class EmailViewComponent {
   adjustIframeSize(iframe: HTMLIFrameElement, topSection: HTMLElement) {
     if (iframe) {
       iframe.style.height = 'inherit';
-      const height = iframe.contentDocument.body.clientHeight;
+      const height = iframe.contentDocument.body.scrollHeight;
       iframe.style.height = height + 'px';
       if (this.wrapper && height > this.wrapper.nativeElement.clientHeight) {
         this.wrapper.nativeElement.style.height = (height + topSection.clientHeight) + 'px';
