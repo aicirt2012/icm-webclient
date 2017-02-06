@@ -60,8 +60,8 @@ export class EmailActionBarComponent {
 
   openCreateEmailDialog() {
     let emailDialogRef: MdDialogRef<EmailDialogComponent> = this.dialog.open(EmailDialogComponent, {
-      width: '100%',
-      height: '100%',
+      width: '80%',
+      height: '95%',
       position: {
         top: '',
         bottom: '',
@@ -70,9 +70,9 @@ export class EmailActionBarComponent {
       }
     });
     emailDialogRef.componentInstance.emailForm = {
-      to: this.email.to,
-      cc: this.email.cc,
-      bcc: this.email.bcc,
+      to: this.email.to ? this.email.to.map((t) => `${t.name}<${t.address}>`) : [],
+      cc: this.email.cc ? this.email.cc.map((t) => `${t.name}<${t.address}>`) : [],
+      bcc: this.email.bcc ? this.email.bcc.map((t) => `${t.name}<${t.address}>`) : [],
       subject: this.email.subject,
       text: this.email.text
     };

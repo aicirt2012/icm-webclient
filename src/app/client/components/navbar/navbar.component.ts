@@ -17,6 +17,7 @@ import { EmailService } from '../../shared';
 export class NavBarComponent {
   private navbarItems: any[] = [];
   @Input() lastSync: Date;
+  @Input() syncing: Boolean;
   @Output() onRefresh = new EventEmitter<boolean>();
 
   boxName: string;
@@ -110,4 +111,5 @@ export class NavBarComponent {
     });
     dialogRef.componentInstance.boxList = this.boxList;
   }
+
 }

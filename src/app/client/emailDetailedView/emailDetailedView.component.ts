@@ -29,18 +29,18 @@ export class EmailDetailedViewComponent {
   }
 
   ngOnInit() {
-    
+
     this.emails = this.appState.get('emails').length > 0 ? this.appState.get('emails') : [];
     this.boxList = this.appState.get('boxList').length > 0 ? this.appState.get('boxList') : [];
-    
+
 
     this.appState.dataChange.subscribe((stateChange) => {
       this[stateChange] = this.appState.get(stateChange);
 
-      if(this.emails.length > 0 && this.boxList.length > 0 && this.email && this.email.flags && !(this.email.flags.indexOf('\\Seen') > -1) && !this.manuallyRemovedFlag) {
+      if (this.emails.length > 0 && this.boxList.length > 0 && this.email && this.email.flags && !(this.email.flags.indexOf('\\Seen') > -1) && !this.manuallyRemovedFlag) {
         this.addFlags(['\\Seen']);
       }
-      
+
     });
 
     this.currentId = this.route.params.map(params => params['emailId'] || 'None');
@@ -80,7 +80,9 @@ export class EmailDetailedViewComponent {
     this._emailService
       .getSingleMail(id)
       .subscribe((data: any) => {
-        data.sentences = data.sentences.map((s) => { s.highlighted = false; return s});
+        if (data.sentences) {
+          data.sentences = data.sentences.map((s) => { s.highlighted = false; return s });
+        }
         this.appState.set('email', data);
       },
       error => {
@@ -94,7 +96,7 @@ export class EmailDetailedViewComponent {
   emailMoveToBox(params: any) {
     this.moving = true;
     this._emailService.moveMail(params.msgId, params.srcBox, params.destBox).subscribe((res) => {
-      this.emails.splice(this.emails.findIndex((e)=>this.email._id==e._id),1);
+      this.emails.splice(this.emails.findIndex((e) => this.email._id == e._id), 1);
       this.emails.length > 0 ? this.appState.set('emails', this.emails) : this.appState.set('emails', []);
       this.snackBar.open(`Message successfully moved to ${params.destBox}.`, 'OK');
       this.router.navigate([`box/${this.appState.get('currentBox')}`]);
@@ -177,7 +179,7 @@ export class EmailDetailedViewComponent {
   highlightSentence(h: any) {
     let suggestedTasks = this.email.suggestedTasks;
     suggestedTasks.forEach((t) => { t.highlight = false });
-    suggestedTasks = suggestedTasks.map((t) => { if(t.task.id == h.id) t.highlight = h.highlight; return t} );  
+    suggestedTasks = suggestedTasks.map((t) => { if (t.task.id == h.id) t.highlight = h.highlight; return t });
     this.appState.set('suggestedTasks', suggestedTasks);
   }
 
