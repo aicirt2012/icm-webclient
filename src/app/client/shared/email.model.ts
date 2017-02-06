@@ -10,6 +10,14 @@ export class Email {
     address: string;
     name: string;
   }];
+  cc: [{
+    address: string;
+    name: string;
+  }];
+  bcc: [{
+    address: string;
+    name: string;
+  }];
   box: any;
   subject: string;
   html: any;

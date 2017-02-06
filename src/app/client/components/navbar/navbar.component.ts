@@ -1,6 +1,6 @@
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import {MdDialog, MdDialogRef} from '@angular/material';
+import { MdDialog, MdDialogRef } from '@angular/material';
 import { DialogType } from '../../../shared/constants';
 import { AppState } from '../../../app.service';
 import { EmailDialogComponent } from '../../emailDialog';
@@ -23,7 +23,7 @@ export class NavBarComponent {
   boxList: any[];
   user: any;
 
-  constructor(public appState: AppState, public router: Router, public dialog: MdDialog, private _emailService: EmailService) {
+  constructor(public appState: AppState, public router: Router, public dialog: MdDialog) {
   }
 
   ngOnInit() {
@@ -93,24 +93,13 @@ export class NavBarComponent {
   openCreateEmailDialog() {
     let emailDialogRef: MdDialogRef<EmailDialogComponent> = this.dialog.open(EmailDialogComponent, {
       width: '100%',
-    height: '100%',
-    position: {
-      top: '',
-      bottom: '',
-      left: '',
-      right: ''
-    }
-    });
-    emailDialogRef.afterClosed().subscribe(result => {
-        if(result != "sent") {
-          this._emailService
-          .appendMail("[Gmail]/Drafts", result ? result.to : '', this.user ? this.user.email : '', result ? result.subject : '', result ? result.text : '')
-          .subscribe((data: any) => {
-            console.log("appending successful", data);
-          }, (error) => {
-            console.log(error);
-          });
-        }
+      height: '100%',
+      position: {
+        top: '',
+        bottom: '',
+        left: '',
+        right: ''
+      }
     });
   }
 
@@ -119,7 +108,6 @@ export class NavBarComponent {
       width: '50%',
       height: '50%'
     });
-
     dialogRef.componentInstance.boxList = this.boxList;
   }
 }

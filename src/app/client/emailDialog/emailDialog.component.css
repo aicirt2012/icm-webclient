@@ -49,3 +49,7 @@
 .md-dialog-container {
   max-width: none;
 }
+
+.email-dialog-textarea {
+  resize: vertical;
+}

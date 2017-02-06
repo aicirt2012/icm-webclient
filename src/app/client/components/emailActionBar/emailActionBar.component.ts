@@ -1,3 +1,5 @@
+import { EmailDialogComponent } from './../../emailDialog/emailDialog.component';
+import { MdDialogRef, MdDialog } from '@angular/material';
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Email } from '../../shared';
 
@@ -17,7 +19,7 @@ export class EmailActionBarComponent {
   @Input() responseStatus: boolean;
   selectedBox: string;
 
-  constructor() {
+  constructor(public dialog: MdDialog) {
   }
 
   replyEmail() {
@@ -33,23 +35,48 @@ export class EmailActionBarComponent {
   }
 
   moveEmailToBox(destBox: string) {
-      if(destBox == 'Trash') {
-          destBox = this.boxList.find((b) => b.shortName == destBox).name;
+    if (destBox == 'Trash') {
+      destBox = this.boxList.find((b) => b.shortName == destBox).name;
+    }
+    const params = {
+      msgId: this.email.uid,
+      srcBox: this.email.box.name,
+      destBox: destBox
+    };
+    this.onEmailMoveToBox.emit(params);
+  }
+
+  addFlags(flags: string[]) {
+    this.onAddFlags.emit(flags);
+  }
+
+  deleteFlags(flags: string[]) {
+    this.onDeleteFlags.emit(flags);
+  }
+
+  showMailActions() {
+    return this.email.box.shortName != 'Drafts' &&  this.email.box.shortName != 'Sent Mails';
+  }
+
+  openCreateEmailDialog() {
+    let emailDialogRef: MdDialogRef<EmailDialogComponent> = this.dialog.open(EmailDialogComponent, {
+      width: '100%',
+      height: '100%',
+      position: {
+        top: '',
+        bottom: '',
+        left: '',
+        right: ''
       }
-      const params = {
-          msgId: this.email.uid,
-          srcBox: this.email.box.name,
-          destBox: destBox
-      };
-      this.onEmailMoveToBox.emit(params);
-  }
+    });
+    emailDialogRef.componentInstance.emailForm = {
+      to: this.email.to,
+      cc: this.email.cc,
+      bcc: this.email.bcc,
+      subject: this.email.subject,
+      text: this.email.text
+    };
 
-  addFlags(flags:string[]) {
-      this.onAddFlags.emit(flags);
-  }
-
-  deleteFlags(flags:string[]) {
-      this.onDeleteFlags.emit(flags);
   }
 
 }
