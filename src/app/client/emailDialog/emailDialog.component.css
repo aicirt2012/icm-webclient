@@ -8,3 +8,7 @@
 .pointer {
   cursor: pointer;
 }
+
+.email-textarea {
+  resize: vertical;
+}

@@ -20,7 +20,7 @@ export class EmailViewComponent {
 
   ngOnChanges() {
     if (this.email.html) {
-      this.email.html = this.sanitizer.bypassSecurityTrustHtml(this.email.html);
+      this.email.html = typeof this.email.html === 'string' ? this.sanitizer.bypassSecurityTrustHtml(this.email.html) : this.email.html;
     }
   }
 
