@@ -13,7 +13,7 @@
                 </div>
                 <!--  <h5 fxFlex="33" class="text-overflow subject"> {{mail.subject}} </h5>-->
                 <p fxFlex="33" class="text-overflow subject"> {{mail.text ? mail.text.substring(0,100): ''}} </p>
-                <p fxFlex="33" class="font"> {{mail.text ? mail.text.substring(0,100): ''}} </p>
+                <p class="font"> {{mail.text ? mail.text.substring(0,100): ''}} </p>
             </div>
         </div>
         <div class="loading-list" *ngIf="loadingList" fxLayoutAlign="center center">Loading...</div>
