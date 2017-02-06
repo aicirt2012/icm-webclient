@@ -28,13 +28,13 @@ export class EmailViewComponent {
     this.highlightSentence.emit({ id: id, highlight: highlight })
   }
 
-  adjustIframeSize(iframe: HTMLIFrameElement) {
+  adjustIframeSize(iframe: HTMLIFrameElement, topSection: HTMLElement) {
     if (iframe) {
       iframe.style.height = 'inherit';
-      const height = iframe.contentDocument.body.scrollHeight;
+      const height = iframe.contentDocument.body.clientHeight;
       iframe.style.height = height + 'px';
       if (this.wrapper && height > this.wrapper.nativeElement.clientHeight) {
-        this.wrapper.nativeElement.style.height = (height + 200) + 'px';
+        this.wrapper.nativeElement.style.height = (height + topSection.clientHeight) + 'px';
       } else if(this.wrapper) {
         this.wrapper.nativeElement.style.height = 'inherit';
       }
