@@ -36,7 +36,9 @@ export class EmailListComponent {
       this[stateChange] = this.appState.get(stateChange);
       if(!this.emptyBox && this.emails.length == 0 && this.boxList.length > 0) { 
           this.getEmailBox(this.boxList.filter((box) => box.id == this.activeRoute.snapshot.params['boxId'])[0]);
-
+      }
+      if(stateChange == 'synced') {
+        this.getEmailBox(this.boxList.filter((box) => box.id == this.activeRoute.snapshot.params['boxId'])[0], true);
       }
     });
 
@@ -48,8 +50,8 @@ export class EmailListComponent {
     });
   }
 
-  getEmailBox(box: any) {
-    this.loading = true;
+  getEmailBox(box: any, updating?: Boolean) {
+    this.loading = !!!updating;
     this._emailService
       .getEmailsWithPagination(box.name)
       .subscribe((data: any) => {

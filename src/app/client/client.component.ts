@@ -21,8 +21,12 @@ export class ClientComponent {
   private noMailboxConnected = false;
   private user: any;
   private syncing: boolean;
+  private updating: boolean = false;
 
   constructor(private _emailService: EmailService, public appState: AppState, private _settingsService: SettingsService) {
+    setInterval(() => {
+      this.syncBoxes([], true);
+    }, 1000 * 60);
   }
 
   /* INITIALIZE EMAIL APP */
@@ -66,13 +70,21 @@ export class ClientComponent {
     this.syncBoxes([]);
   }
 
-  syncBoxes(boxes: string[]) {
-    this.syncing = true;
-    this._emailService.updateMailboxList().subscribe((data) => {
-      this.appState.set('boxList', data);
-      this.boxList = data;
+  syncBoxes(boxes: string[], update?: boolean) {
+    if (update) {
+      this.updating = true;
+    } else {
+      this.syncing = true;
+    }
+    this._emailService.updateMailboxList().subscribe((boxes) => {
       this._emailService.getEmails([]).subscribe((data: any) => {
+        this.appState.set('boxList', boxes);
+        this.boxList = boxes;
         this.syncing = false;
+        this.updating = false;
+        this.user.lastSync = new Date();
+        this.appState.set('user', this.user);
+        this.appState.set('synced', !(!!this.appState.get('synced')));
       });
     });
   }
