@@ -36,14 +36,6 @@ div.cdk-focus-trap-content {
     min-width: 100px! important;
 }
 
-.md-dialog-container {
-  max-width: none;
-}
-
-.md-dialog-content {
-    max-height: 75vh;
-}
-
 /*
 ::-webkit-scrollbar {
     width: 10px;
