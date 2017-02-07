@@ -1,9 +1,9 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { Router, ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap';
 import { Email } from '../shared';
-import {AppState} from '../../app.service';
-import {EmailService} from '../shared';
+import { AppState } from '../../app.service';
+import { EmailService } from '../shared';
 
 @Component({
   selector: 'email-list',
@@ -34,17 +34,17 @@ export class EmailListComponent {
 
     this.appState.dataChange.subscribe((stateChange) => {
       this[stateChange] = this.appState.get(stateChange);
-      if(!this.emptyBox && this.emails.length == 0 && this.boxList.length > 0) { 
-          this.getEmailBox(this.boxList.filter((box) => box.id == this.activeRoute.snapshot.params['boxId'])[0]);
+      if (!this.emptyBox && this.emails.length == 0 && this.boxList.length > 0) {
+        this.getEmailBox(this.boxList.filter((box) => box.id == this.activeRoute.snapshot.params['boxId'])[0]);
       }
-      if(stateChange == 'synced') {
+      if (stateChange == 'synced') {
         this.getEmailBox(this.boxList.filter((box) => box.id == this.activeRoute.snapshot.params['boxId'])[0], true);
       }
     });
 
     this.currentBox = this.activeRoute.params.map(params => params['boxId'] || 'None');
     this.currentBox.subscribe((boxId) => {
-      if(this.boxList.length > 0) {
+      if (this.boxList.length > 0) {
         boxId === 'None' ? '' : this.getEmailBox(this.boxList.filter((box) => box.id == boxId)[0]);
       }
     });
@@ -61,7 +61,9 @@ export class EmailListComponent {
         });
         this.appState.set('currentBox', this.activeRoute.snapshot.params['boxId']);
         this.appState.set('emails', this.emails);
-        this.router.navigate([`/box/${box.id}/${this.emails[0]._id}`]);
+        if (!updating) {
+          this.router.navigate([`/box/${box.id}/${this.emails[0]._id}`]);
+        }
         this.emptyBox = this.emails.length == 0;
         this.loading = false;
       },
@@ -71,7 +73,7 @@ export class EmailListComponent {
       () => { console.log(`Mails successfully loaded`) });
   }
 
-  isActive(route:string): boolean {
+  isActive(route: string): boolean {
     return this.router.isActive(route, false);
   }
 
@@ -89,15 +91,15 @@ export class EmailListComponent {
         limit: this.limit
       };
       this.loadingList = true;
-    this._emailService.getEmailsWithPagination(params.box, params.page, params.limit).subscribe((res) => {
-      const moreEmails: Email[] = res.docs.map((email) => {
-        email.route = `/box/${email.box.id}/${email._id}`;
-        return email;
+      this._emailService.getEmailsWithPagination(params.box, params.page, params.limit).subscribe((res) => {
+        const moreEmails: Email[] = res.docs.map((email) => {
+          email.route = `/box/${email.box.id}/${email._id}`;
+          return email;
+        });
+        this.emails = this.emails.concat(moreEmails);
+        this.appState.set('emails', this.emails);
+        this.loadingList = false;
       });
-      this.emails = this.emails.concat(moreEmails);
-      this.appState.set('emails', this.emails);
-      this.loadingList = false;
-    });
     }
   }
 
