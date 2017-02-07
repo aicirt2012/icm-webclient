@@ -22,7 +22,7 @@
     </iframe>
   </div>
   <div *ngIf="!email.html">
-    <span *ngFor="let s of email.sentences" [class.contains-task]="sentenceContainsTask(s.id)" [class.highlighted]="s.highlighted"
+    <span class="line" *ngFor="let s of email.sentences" [class.contains-task]="sentenceContainsTask(s.id)" [class.highlighted]="s.highlighted"
       (mouseenter)="highlight(s.id,true)" (mouseleave)="highlight(s.id,false)">
       <span *ngIf="sentenceContainsTask(s.id)" (click)="openSentenceDialog(s)">{{s.sentence}}</span><span *ngIf="!sentenceContainsTask(s.id)">{{s.sentence}}</span>
       </span>

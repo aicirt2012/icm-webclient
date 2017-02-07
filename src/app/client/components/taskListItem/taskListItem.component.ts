@@ -87,16 +87,12 @@ export class TaskListItemComponent {
 
   onMouseEnter() {
     if(this.task.taskType != "linked") {
-      if (!!this.task.task.id) {
         this.highlight(this.task.task.id, true);
-      }
     }
   }
   onMouseLeave() {
     if(this.task.taskType != "linked") {
-      if (!!this.task.task.id) {
         this.highlight(this.task.task.id, false);
-      }
     }
   }
   onClick() {
