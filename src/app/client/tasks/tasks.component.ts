@@ -41,6 +41,7 @@ export class TasksComponent {
     this.user = this.appState.get('user');
     if (this.user.trello) {
       this.getAllBoards();
+      this.errorTrello = false;
     }
     else {
       this.errorTrello = true;
