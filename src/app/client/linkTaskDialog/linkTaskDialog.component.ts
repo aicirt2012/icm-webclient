@@ -22,6 +22,8 @@ export class LinkTaskDialogComponent {
   public possibleMembers: any[] = [];
   public currMember = '';
   public index = '';
+  public members = [];
+  public date: any;
 
   constructor(public linkTaskDialogRef: MdDialogRef<LinkTaskDialogComponent>, private snackBar: MdSnackBar, private _taskService: TaskService, public appState: AppState) {
   }
@@ -50,6 +52,11 @@ export class LinkTaskDialogComponent {
   onSelectBoard(board: any) {
     this.task.possibleMembers = [].concat(board.members);
     this.task.selectedMembers = this.task.selectedMembers == undefined ? [] : this.task.selectedMembers;
+  }
+
+  onSelectCard(card: any) {
+    this.members = this.task.board.members.length > 0 ? this.task.board.members.filter((member) => { if (card.idMembers.indexOf(member.id) > -1) return member }) : [];
+    this.date = this._taskService.formatDate(card.due);
   }
 
   addLinkedTask(task: any) {
