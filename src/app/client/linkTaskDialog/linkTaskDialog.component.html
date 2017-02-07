@@ -45,6 +45,6 @@
         </form>
     </div>
     <md-dialog-actions>
-        <button md-submit md-raised-button color="primary" [disabled]="sending" (click)="linkTask()">Link Task</button>
+        <button md-submit md-raised-button color="primary" [disabled]="sending || !task.card" (click)="linkTask()">Link Task</button>
     </md-dialog-actions>
 </div>
