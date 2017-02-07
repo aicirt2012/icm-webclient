@@ -26,7 +26,7 @@
 .email-list-item {
     padding: 15px;
     padding-right: 25px;
-    height: 100px;
+    height: 90px;
     border-bottom: 1px solid lightgray;
     border-left: 5px solid lightgray;
     padding-bottom: 5px;
@@ -87,4 +87,8 @@
     color: black !important;
     font-size: 14px;
     margin-bottom: -20px !important;
+}
+
+.subject-item {
+    margin-bottom: -5px;
 }

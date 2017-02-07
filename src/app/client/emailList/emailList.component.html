@@ -7,8 +7,8 @@
                     <div fxFlex fxLayoutAlign="start center">{{mail.from[0].name ? mail.from[0].name : mail.from[0].address}}</div>
                     <div fxFlex fxLayoutAlign="end center">{{mail.date | date:'shortDate'}} {{mail.date | date:'shortTime'}}</div>
                 </div>
-                <div fxFlex="33" class="text-overflow list-element"> {{mail.subject ? mail.subject.substring(0,60): ''}} </div>
-                <div class="first-lines list-element"> {{mail.text ? mail.text.substring(0,70): ''}} </div>
+                <div fxFlex="33" class="text-overflow list-element subject-item"> {{mail.subject ? mail.subject.substring(0,70): ''}} </div>
+                <div class="first-lines list-element text-overflow"> {{mail.text ? mail.text.substring(0,70): ''}} </div>
             </div>
         </div>
         <div class="loading-list" *ngIf="loadingList" fxLayoutAlign="center center">Loading...</div>
