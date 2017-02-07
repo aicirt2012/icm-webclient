@@ -77,7 +77,7 @@ export class TaskListItemComponent {
     return members.map((member) => { return member.fullName }).join();
   }
 
-  /* 
+  /*
    * Highlight sentence with id and highlight(bool)
    */
   highlight(id: any, highlight: boolean) {
@@ -86,13 +86,17 @@ export class TaskListItemComponent {
   }
 
   onMouseEnter() {
-    if (!!this.task.task.id) {
-      this.highlight(this.task.task.id, true);
+    if(this.task.taskType != "linked") {
+      if (!!this.task.task.id) {
+        this.highlight(this.task.task.id, true);
+      }
     }
   }
   onMouseLeave() {
-    if (!!this.task.task.id) {
-      this.highlight(this.task.task.id, false);
+    if(this.task.taskType != "linked") {
+      if (!!this.task.task.id) {
+        this.highlight(this.task.task.id, false);
+      }
     }
   }
   onClick() {
