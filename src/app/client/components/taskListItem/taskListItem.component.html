@@ -1,6 +1,4 @@
-<md-card class="tasks-card pointer" [class.highlighted]="task.highlight">
-    <div *ngIf="task.taskType == 'linked'" class="linked-icon"></div>
-    <div *ngIf="task.taskType == 'suggested'" class="suggested-icon"></div>
+<md-card [class]="task.taskType" [class.highlighted]="task.highlight">
     <md-card-header>
         <div md-card-avatar class="header-image"></div>
         <md-card-title *ngIf="task.taskType == 'linked'" class="card-title"><strong>{{task.name}}</strong></md-card-title>

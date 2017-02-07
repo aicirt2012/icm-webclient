@@ -3,13 +3,6 @@
     padding-top: 0px;
 }
 
-.tasks-card {
-    margin-bottom: 5px;
-    -webkit-box-shadow: 1px 1px 1px 0px rgba(90, 83, 83, 0.75);
-    -moz-box-shadow: 1px 1px 1px 0px rgba(90, 83, 83, 0.75);
-    box-shadow: 1px 1px 1px 0px rgba(90, 83, 83, 0.75);
-}
-
 .tasks {
     padding: 8px;
 }
@@ -102,24 +95,20 @@
     margin-right: 2px;
 }
 
-.linked-icon {
-    height: 24px;
-    width: 24px;
-    background-color: #ff4081;
-    border-radius: 50%;
-    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
-    position: absolute;
-    left: -2px;
-    top: -2px;
+.linked {
+    border-left: 5px solid #ff4081;
+    margin-bottom: 5px;
+    -webkit-box-shadow: 1px 1px 1px 0px rgba(90, 83, 83, 0.75);
+    -moz-box-shadow: 1px 1px 1px 0px rgba(90, 83, 83, 0.75);
+    box-shadow: 1px 1px 1px 0px rgba(90, 83, 83, 0.75);
+    cursor: pointer;
 }
 
-.suggested-icon {
-    height: 24px;
-    width: 24px;
-    background-color: #3f51b5;
-    border-radius: 50%;
-    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
-    position: absolute;
-    left: -2px;
-    top: -2px;
+.suggested {
+    border-left: 5px solid #3f51b5;
+    margin-bottom: 5px;
+    -webkit-box-shadow: 1px 1px 1px 0px rgba(90, 83, 83, 0.75);
+    -moz-box-shadow: 1px 1px 1px 0px rgba(90, 83, 83, 0.75);
+    box-shadow: 1px 1px 1px 0px rgba(90, 83, 83, 0.75);
+    cursor: pointer;
 }
