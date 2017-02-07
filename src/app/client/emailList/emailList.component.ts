@@ -61,6 +61,7 @@ export class EmailListComponent {
         });
         this.appState.set('currentBox', this.activeRoute.snapshot.params['boxId']);
         this.appState.set('emails', this.emails);
+        this.router.navigate([`/box/${box.id}/${this.emails[0]._id}`]);
         this.emptyBox = this.emails.length == 0;
         this.loading = false;
       },
