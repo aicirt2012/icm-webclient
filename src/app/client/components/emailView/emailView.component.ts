@@ -1,3 +1,5 @@
+import { MdDialog } from '@angular/material';
+import { SentenceDialogComponent } from './../sentenceDialog/sentenceDialog.component';
 import { Component, Input, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ModalDirective } from 'ng2-bootstrap';
@@ -15,7 +17,7 @@ export class EmailViewComponent {
   @ViewChild('wrapper') wrapper: ElementRef;
   @ViewChild('iframe') iframe: ElementRef;
 
-  constructor(private sanitizer: DomSanitizer) {
+  constructor(private sanitizer: DomSanitizer, public dialog: MdDialog) {
   }
 
   ngOnChanges() {
@@ -25,7 +27,7 @@ export class EmailViewComponent {
   }
 
   highlight(id: any, highlight: boolean) {
-    this.highlightSentence.emit({ id: id, highlight: highlight })
+    this.highlightSentence.emit({ id: id, highlight: highlight });
   }
 
   adjustIframeSize(iframe: HTMLIFrameElement, topSection: HTMLElement) {
@@ -39,6 +41,21 @@ export class EmailViewComponent {
         this.wrapper.nativeElement.style.height = 'inherit';
       }
     }
+  }
+
+  sentenceContainsTask(sentenceId: any) {
+    return this.email.suggestedTasks.find((t) => t.task.id == sentenceId);
+  }
+
+  openSentenceDialog(sentence: any) {
+
+    let dialogRef = this.dialog.open(SentenceDialogComponent, {
+      width: '30%',
+      height: '40%'
+    });
+    dialogRef.componentInstance.sentence = sentence;
+    dialogRef.componentInstance.task = this.email.suggestedTasks.find((t) => t.task.id == sentence.id);
+
   }
 
 }

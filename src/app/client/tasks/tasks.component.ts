@@ -2,13 +2,13 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { MdDialog, MdDialogRef, MdSnackBar } from '@angular/material';
 import { Email } from '../shared';
 import { TaskService } from '../shared';
-import { TaskDialogType, DialogType} from '../../shared/constants';
+import { TaskDialogType, DialogType } from '../../shared/constants';
 import { TaskDialogComponent } from '../taskDialog';
 import { LinkTaskDialogComponent } from '../linkTaskDialog';
 import { AppState } from '../../app.service';
 
 @Component({
-  selector: 'tasks',  
+  selector: 'tasks',
   styleUrls: ['./tasks.component.css'],
   templateUrl: './tasks.component.html'
 })
@@ -16,8 +16,6 @@ import { AppState } from '../../app.service';
 export class TasksComponent {
 
   @Input() email: any;
-  @Output() setSuggestedFilters = new EventEmitter<any>();
-  @Output() setLinkedFilters = new EventEmitter<any>();
   public errorTrello = false;
   public boards: any;
   public user: any;
@@ -40,22 +38,13 @@ export class TasksComponent {
   }
 
   ngOnInit() {
-     this.user = this.appState.get('user');
+    this.user = this.appState.get('user');
     if (this.user.trello) {
       this.getAllBoards();
     }
     else {
       this.errorTrello = true;
     }
-    this.suggestedTasks = this.email.suggestedTasks ? this.email.suggestedTasks : [];
-    this.linkedTasks = this.email.linkedTasks ? this.email.linkedTasks : [];
-    this.appState.set('suggestedTasks', this.suggestedTasks);
-    this.appState.set('linkedTasks', this.linkedTasks);
-  }
-
-  ngOnChanges() {
-    this.suggestedTasks = this.email.suggestedTasks ? this.email.suggestedTasks : [];
-    this.linkedTasks = this.email.linkedTasks ? this.email.linkedTasks : [];
   }
 
   createTask(taskObject: any) {
@@ -66,8 +55,7 @@ export class TasksComponent {
       error => {
         console.log(error);
         this.snackBar.open('Error while creating task.', 'OK');
-      },
-      () => { });
+      });
   }
 
   getAllBoards() {
@@ -77,9 +65,6 @@ export class TasksComponent {
       },
       error => {
         console.log(error)
-      },
-      () => {
-        console.log("all boards success")
       });
   }
 
@@ -92,12 +77,10 @@ export class TasksComponent {
 
   deleteTask(task: any) {
     if (task.taskType == 'suggested') {
-      this.suggestedTasks.splice(task.index, 1);
-      this.appState.set('suggestedTasks', this.suggestedTasks);
+      this.email.suggestedTasks.splice(task.index, 1);
     }
     else {
-      this.linkedTasks.splice(task.index, 1);
-      this.appState.set('linkedTasks', this.linkedTasks);
+      this.email.linkedTasks.splice(task.index, 1);
     }
   }
 
@@ -107,28 +90,28 @@ export class TasksComponent {
     linkTaskDialogRef.componentInstance.email = this.email;
     linkTaskDialogRef.componentInstance.boards = this.boards;
   }
-
+  /* change highlightstatus { sentenceId, highlight(true/false)}*/
   highlightSentence(h: any) {
     const sentence = this.email.sentences.find((s) => s.id == h.id);
     this.email.sentences.forEach((s) => { s.highlighted = false });
     sentence.highlighted = h.highlight;
-    this.appState.set('email', this.email);
   }
 
-   hightlightTaskItem(h: any) {
-    let suggestedTasks = this.email.suggestedTasks;
-    suggestedTasks.forEach((t) => { t.highlight = false });
-    suggestedTasks = suggestedTasks.map((t) => { if(t.task.id == h.id) t.highlight = h.highlight; return t} );  
-    this.email.suggestedTasks = suggestedTasks;
-    this.appState.set('email', this.email);
+  hightlightTaskItem(h: any) {
+    this.email.suggestedTasks.forEach((t) => {
+      t.highlight = false;
+      if (t.task.id == h.id) {
+        t.highlight = h.highlight;
+      }
+    });
   }
 
   openLinkTask() {
-      this.openLinkTaskDialog({'taskType': 'linked'});
+    this.openLinkTaskDialog({ 'taskType': 'linked' });
   }
 
   openTaskDialog() {
-      this.openDialog({'taskType': 'suggested','status':'empty'});
+    this.openDialog({ 'taskType': 'suggested', 'status': 'empty' });
   }
 
   setSuggestedFilter(checked: boolean) {

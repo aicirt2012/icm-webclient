@@ -80,7 +80,7 @@
 }
 
 .highlighted {
-    background-color: rgba(35, 63, 218, 0.2);
+    border: 3px solid #444c62;
 }
 
 .alert-icon {
