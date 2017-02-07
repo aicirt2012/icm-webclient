@@ -32,6 +32,7 @@
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    margin-left: -8px;
 }
 
 .cardContent {
@@ -111,4 +112,8 @@
     -moz-box-shadow: 1px 1px 1px 0px rgba(90, 83, 83, 0.75);
     box-shadow: 1px 1px 1px 0px rgba(90, 83, 83, 0.75);
     cursor: pointer;
+}
+
+.icon-margin {
+    margin-left: 10px;
 }

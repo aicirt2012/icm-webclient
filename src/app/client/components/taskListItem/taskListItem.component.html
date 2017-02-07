@@ -1,6 +1,6 @@
 <md-card [class]="task.taskType" [class.highlighted]="task.highlight">
     <md-card-header>
-        <div md-card-avatar class="header-image"></div>
+        <!--<div md-card-avatar class="header-image"></div>-->
         <md-card-title *ngIf="task.taskType == 'linked'" class="card-title"><strong>{{task.name}}</strong></md-card-title>
         <md-card-title *ngIf="task.taskType == 'suggested'" class="card-title"><strong>{{task.name}}</strong></md-card-title>
         <md-icon class="pointer alert-icon" *ngIf="overdue && task.taskType == 'linked'">add_alert</md-icon>
@@ -10,8 +10,8 @@
         <div *ngIf="task.taskType == 'linked'" fxFlex-gt-sm fxLayout="row" fxLayoutAlign="start end">
             <md-icon fxFlex-gt-sm="8">date_range</md-icon>
             <div fxFlex-gt-sm="27">{{task.date | date:'shortDate'}}</div>
-            <md-icon fxFlex-gt-sm="8">person</md-icon>
-            <div fxFlex-gt-sm="57" fxLayout="row">
+            <md-icon class="icon-margin" fxFlex-gt-sm="8">person</md-icon>
+            <div fxFlex-gt-sm="53" fxLayout="row">
                 <div *ngFor="let member of task.members" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
                     <span>{{member.initials}}</span>
                 </div>
