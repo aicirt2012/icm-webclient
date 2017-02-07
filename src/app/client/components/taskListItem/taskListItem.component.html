@@ -1,8 +1,7 @@
 <md-card [class]="task.taskType" [class.highlighted]="task.highlight">
     <md-card-header>
         <!--<div md-card-avatar class="header-image"></div>-->
-        <md-card-title *ngIf="task.taskType == 'linked'" class="card-title"><strong>{{task.name}}</strong></md-card-title>
-        <md-card-title *ngIf="task.taskType == 'suggested'" class="card-title"><strong>{{task.name}}</strong></md-card-title>
+        <md-card-title class="card-title"><strong>{{task.name}}</strong></md-card-title>
         <md-icon class="pointer alert-icon" *ngIf="overdue && task.taskType == 'linked'">add_alert</md-icon>
         <md-icon class="pointer close-icon" (click)="removeTask(task)">close</md-icon>
     </md-card-header>

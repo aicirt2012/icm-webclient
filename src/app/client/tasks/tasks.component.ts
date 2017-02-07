@@ -108,11 +108,27 @@ export class TasksComponent {
   }
 
   openLinkTask() {
-    this.openLinkTaskDialog({ 'taskType': 'linked' });
+    if(this.boards.length > 0) {
+      let b = this.boards[0];
+      this.openLinkTaskDialog({ 'taskType': 'linked', 'board': b, });
+    }
+    else {
+      this.openLinkTaskDialog({ 'taskType': 'linked' });
+    }
   }
 
-  openTaskDialog() {
-    this.openDialog({ 'taskType': 'suggested', 'status': 'empty' });
+  openTaskDialog() {   
+    if(this.boards.length > 0) {
+      let b = this.boards[0];
+      this.openDialog({ 'taskType': 'suggested', 'status': 'empty', 'board': b, 'name': this.email.subject});
+      /*if(b.lists.length > 0) {
+        let l = b.lists[0];
+        this.openDialog({ 'taskType': 'suggested', 'status': 'empty', 'board': b, 'list': l, 'name': this.email.subject});
+      }*/
+    }
+    else {
+      this.openDialog({ 'taskType': 'suggested', 'status': 'empty', 'name': this.email.subject});
+    }
   }
 
   setSuggestedFilter(checked: boolean) {
