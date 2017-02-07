@@ -106,6 +106,7 @@ export class TaskDialogComponent {
     task['list'] = this.task.list;
     task['possibleMembers'] = this.task.possibleMembers;
     task['selectedMembers'] = this.task.selectedMembers;
+    task['members'] = this.task.selectedMembers;
     task['taskType'] = 'linked';
     return task;
   }
