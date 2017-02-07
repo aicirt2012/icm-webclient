@@ -4,12 +4,6 @@
         <md-input-container fxFlex>
             <input md-input type="text" name="title" placeholder="Task Name" maxRows="3" [(ngModel)]="task.name" value="task.name">
         </md-input-container>
-        <!-- <span *ngIf="!editTitle && task.status != 'empty'" fxFlex>{{task.name}}</span>
-        <md-input-container fxFlex *ngIf="editTitle || task.status == 'empty'">
-            <input md-input type="text" name="title" placeholder="Task Name" maxRows="3" [(ngModel)]="task.name" value="task.name">
-        </md-input-container>
-        <md-icon *ngIf="!editTitle && task.status != 'empty'" (click)="editTitle = true">mode_edit</md-icon>
-        <md-icon *ngIf="editTitle" (click)="editTitle = false">done</md-icon>-->
         <md-icon (click)="closeDialog()" class="pointer">close</md-icon>
     </div>
     <div>

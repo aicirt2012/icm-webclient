@@ -7,7 +7,7 @@
         <md-icon class="pointer close-icon" (click)="removeTask(task)">close</md-icon>
     </md-card-header>
     <md-card-content class="cardContent">
-        <div *ngIf="task.taskType == 'linked'" fxFlex fxLayout="row" fxLayoutAlign="start end">
+        <div *ngIf="task.taskType == 'linked'" fxFlex-gt-sm fxLayout="row" fxLayoutAlign="start end">
             <md-icon fxFlex-gt-sm="8">date_range</md-icon>
             <div fxFlex-gt-sm="27">{{task.date | date:'shortDate'}}</div>
             <md-icon fxFlex-gt-sm="8">person</md-icon>
