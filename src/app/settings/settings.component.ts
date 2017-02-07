@@ -27,12 +27,12 @@ export class SettingsComponent {
       name: 'Overview',
       icon: 'home',
       link: '/settings/overview'
-    },
+    }/*,
     {
       name: 'Help',
       icon: 'help',
       link: '/settings/help'
-    }
+    }*/
   ]
 
   constructor(
