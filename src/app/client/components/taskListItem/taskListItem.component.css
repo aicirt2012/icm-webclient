@@ -74,7 +74,8 @@
 }
 
 .highlighted {
-    border: 3px solid #444c62;
+    /* border: 3px solid #444c62;*/
+    background-color: #e4e4e4;
 }
 
 .alert-icon {
