@@ -12,7 +12,7 @@ export class SettingsService {
   }
 
   getUserInfo(): Observable<any> {
-    return this._httpService.httpGET(this.domain, this._authService.parseToken(localStorage.getItem('email-jwt')).user._id, null, null);
+    return this._httpService.httpGET(this.domain, this._authService.parseToken(this._authService.token).user._id, null, null);
   }
 
   updateUserInfo(user: any): Observable<any> {
@@ -33,5 +33,9 @@ export class SettingsService {
     }
     body.sociocortex = scConfig;
     return this._httpService.httpPUT(this.domain, this._authService.parseToken(this._authService.token).user._id, null, body);
+  }
+
+  getPatterns(): Observable<any> {
+    return this._httpService.httpGET('pattern', '', null, null);
   }
 }

@@ -1,0 +1,18 @@
+<md-card fxFlex>
+  <md-card-title>Pattern Management</md-card-title>
+  <md-card-content>
+    <h3>Current Patterns</h3>
+    <md-list>
+      <md-list-item *ngFor="let p of patterns">
+        <h3 md-line> {{p.pattern}} </h3>
+        <p md-line *ngIf="p.isDefault">
+          <small>Default</small>
+        </p>
+      </md-list-item>
+    </md-list>
+  </md-card-content>
+  <md-card-actions>
+    <button md-button>LIKE</button>
+    <button md-button>SHARE</button>
+  </md-card-actions>
+</md-card>
