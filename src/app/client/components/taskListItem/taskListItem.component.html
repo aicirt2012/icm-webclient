@@ -1,4 +1,6 @@
-<md-card class="tasks-card pointer" [class.highlighted]="task.highlight" >
+<md-card class="tasks-card pointer" [class.highlighted]="task.highlight">
+    <div *ngIf="task.taskType == 'linked'" class="linked-icon"></div>
+    <div *ngIf="task.taskType == 'suggested'" class="suggested-icon"></div>
     <md-card-header>
         <div md-card-avatar class="header-image"></div>
         <md-card-title *ngIf="task.taskType == 'linked'" class="card-title"><strong>{{task.name}}</strong></md-card-title>
@@ -6,14 +8,18 @@
         <md-icon class="pointer alert-icon" *ngIf="overdue && task.taskType == 'linked'">add_alert</md-icon>
         <md-icon class="pointer close-icon" (click)="removeTask(task)">close</md-icon>
     </md-card-header>
-    <md-card-content class="cardContent" >
+    <md-card-content class="cardContent">
         <div *ngIf="task.taskType == 'linked'" fxFlex fxLayout="row" fxLayoutAlign="start end">
-            <div fxFlex-gt-sm="8">
-                <md-icon>date_range</md-icon>
-            </div>
+            <md-icon fxFlex-gt-sm="8">date_range</md-icon>
             <div fxFlex-gt-sm="27">{{task.date | date:'shortDate'}}</div>
             <md-icon fxFlex-gt-sm="8">person</md-icon>
-            <div fxFlex-gt-sm="57">{{task.members ? getNames(task.members) : getNames(task.selectedMembers)}}</div>
+            <div fxFlex-gt-sm="57" fxLayout="row">
+                <div *ngFor="let member of task.members" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
+                    <span>{{member.initials}}</span>
+                </div>
+                <div *ngIf="task.members.length < 1"><i>No person assigned</i></div>
+            </div>
+            <!--<div fxFlex-gt-sm="57">{{task.members ? getNames(task.members) : getNames(task.selectedMembers)}}</div>-->
         </div>
         <p>
             {{task.desc}}

@@ -89,3 +89,37 @@
     right: 30px;
     color: #ce2424;
 }
+
+.member-initials {
+    background-color: lightgrey;
+    height: 24px;
+    min-width: 25px;
+    font-size: 12px;
+    line-height: 24px;
+    text-align: center;
+    padding: 2px;
+    border-radius: 4px;
+    margin-right: 2px;
+}
+
+.linked-icon {
+    height: 24px;
+    width: 24px;
+    background-color: #ff4081;
+    border-radius: 50%;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    position: absolute;
+    left: -2px;
+    top: -2px;
+}
+
+.suggested-icon {
+    height: 24px;
+    width: 24px;
+    background-color: #3f51b5;
+    border-radius: 50%;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    position: absolute;
+    left: -2px;
+    top: -2px;
+}
