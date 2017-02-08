@@ -50,8 +50,8 @@ export class EmailViewComponent {
   openSentenceDialog(sentence: any) {
 
     let dialogRef = this.dialog.open(SentenceDialogComponent, {
-      width: '30%',
-      height: '40%'
+      width: '40%',
+      height: '50%'
     });
     dialogRef.componentInstance.sentence = sentence;
     dialogRef.componentInstance.task = this.email.suggestedTasks.find((t) => t.task.id == sentence.id);
