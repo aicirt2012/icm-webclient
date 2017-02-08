@@ -1,11 +1,11 @@
 * {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-family: 'Roboto', sans-serif;
 }
 
 html,
 body {
-    font-family: Roboto, 'Helvetica Neue', sans-serif;
     height: 100%;
     margin: 0;
     overflow: hidden;
