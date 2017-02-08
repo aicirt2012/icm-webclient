@@ -94,13 +94,17 @@ export class EmailDetailedViewComponent {
     this.moving = true;
     this._emailService.moveMail(params.msgId, params.srcBox, params.destBox).subscribe((res) => {
       this.emails.splice(this.emails.findIndex((e) => this.email._id == e._id), 1);
-      this.emails.length > 0 ? this.appState.set('emails', this.emails) : this.appState.set('emails', []);
+      this.appState.set('emails', this.emails);
       this.snackBar.open(`Message successfully moved to ${params.destBox}.`, 'OK');
-      this.router.navigate([`box/${this.appState.get('currentBox')}`]);
+      if (this.emails.length > 0) {
+        this.router.navigate([`box/${this.appState.get('currentBox')}/${this.emails[0]._id}`]);
+      } else {
+        this.router.navigate([`box/${this.appState.get('currentBox')}`]);
+      }
       this.moving = false;
     }, (err) => {
       console.log(err);
-      this.snackBar.open('Message successfully moved.', 'OK');
+      this.snackBar.open('Error when moving Message.', 'OK');
       this.moving = false;
     });
   }
