@@ -9,11 +9,13 @@ import { Router } from '@angular/router';
 export class TaskItemEmailDialogComponent {
   @Input() task: any;
   @Output() removeTask: EventEmitter<any> = new EventEmitter<any>();
+  overdue: boolean = false;
 
   constructor(public router: Router) {
   }
 
   ngOnInit() {
+    this.overdue = this.task.due ? (new Date(this.task.due) < new Date()) : false;
   }
 
    getNames(members: any[]) {
@@ -22,10 +24,6 @@ export class TaskItemEmailDialogComponent {
 
   open(task: any) {
     this.router.navigate(["/"]).then(result=>{window.open(task.shortUrl)});
-  }
-
-  removeFromLinkedTasks(task: any) {
-    this.removeTask.emit(task);
   }
 
 }

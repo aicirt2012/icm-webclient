@@ -58,6 +58,7 @@ export class EmailDialogComponent {
   searchCardsForMembers() {
     this.searchForTasks = true;
     this._taskService.searchCardsForMembers(this.emailForm.to).subscribe((data: any) => {
+      console.log(data);
       this.relatedTasks = data;
       this.searchForTasks = false;
     })
