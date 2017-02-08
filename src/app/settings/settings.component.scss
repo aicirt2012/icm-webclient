@@ -1,0 +1,7 @@
+@import '../../styles/_variables.scss';
+
+.route-active {
+  font-weight: bold;
+  color: $primary;
+  background: none repeat scroll 0 0 $light-grey-bg;
+}

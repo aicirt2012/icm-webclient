@@ -6,7 +6,7 @@ import { MdSnackBar, MdInput } from '@angular/material';
 @Component({
   selector: 'patterns',
   templateUrl: 'patterns.component.html',
-  styleUrls: ['patterns.component.css'],
+  styleUrls: ['patterns.component.scss'],
   providers: [MdSnackBar]
 })
 export class PatternsComponent {
