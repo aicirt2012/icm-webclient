@@ -4,10 +4,12 @@
 }
 
 .tasks-card {
-    margin-bottom: 5px;
-    -webkit-box-shadow: 1px 1px 1px 0px rgba(90, 83, 83, 0.75);
-    -moz-box-shadow: 1px 1px 1px 0px rgba(90, 83, 83, 0.75);
-    box-shadow: 1px 1px 1px 0px rgba(90, 83, 83, 0.75);
+    width: 200px;
+    height: 90px;
+}
+
+.tasks-card:hover {
+    background-color: lightgrey;
 }
 
 .tasks {
@@ -75,4 +77,13 @@
 
 .icon-margin {
     margin-left: 10px;
+}
+
+.overdue {
+    border: 1px solid #ce2424;
+}
+
+.overdue-text {
+    color: #ce2424;
+    font-weight: bold;
 }

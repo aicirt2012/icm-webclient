@@ -66,7 +66,6 @@ export class EmailDialogComponent {
   }
 
   sendEmail() {
-    alert();
     this.sending = true;
     this._emailService
       .sendMail(this.emailForm)

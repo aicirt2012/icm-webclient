@@ -1,25 +1,20 @@
-<div fxFlex fxLayout="column" class="full-height">
+<md-progress-bar class="progressbar-top" *ngIf="sending" mode="indeterminate"></md-progress-bar>
 
+<div fxFlex fxLayout="column" class="full-height">
 <div fxLayout="column" class="email-form-title">
     <div fxLayout="row">
         <span fxFlex>New Email</span>
         <md-icon (click)="closeDialog(false)">close</md-icon>
     </div>
     <div *ngIf="sending" fxFlex class="boarder-line"></div>
-    <md-progress-bar *ngIf="sending" mode="indeterminate"></md-progress-bar>
 </div>
 
 
 
 <div fxLayout="column" fxFlex class="email-form">
 
-        <div fxLayout="row" class="add-recipients" fxLayoutAlign="end">
-            <span class="cc-tags" [class.add-recipients-selected]="cc" (click)="cc = !cc">CC</span>
-            <span class="cc-tags" [class.add-recipients-selected]="bcc" (click)="bcc = !bcc">BCC</span>
-        </div>
-
-      
-            <md-input-container>
+        <div fxLayout="row" style="margin-top: 8px;" fxLayoutAlign="start center">
+            <md-input-container fxFlex>
                 <input md-input #inputTo (keyup.enter)="addAddress(inputTo,'to')" (blur)="searchCardsForMembers()" (change)="addAddress(inputTo,'to')"
                     type="email" placeholder="To:" required/>
                 <div fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap="wrap">
@@ -29,6 +24,12 @@
                     </div>
                 </div>
             </md-input-container>
+            <span class="cc-tags" [class.add-recipients-selected]="cc" (click)="cc = !cc">CC</span>
+            <span class="cc-tags" [class.add-recipients-selected]="bcc" (click)="bcc = !bcc">BCC</span>
+        </div>
+
+      
+            
                 <div fxLayout="row">
             <md-input-container *ngIf="cc" fxFlex style="margin-right: 1px;">
                 <input md-input #inputCc (keyup.enter)="addAddress(inputCc,'cc')" (change)="addAddress(inputCc,'cc')" placeholder="Cc:" type="email"
