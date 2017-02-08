@@ -1,7 +1,7 @@
 <div fxLayout="row" fxFlex class="full-height email-list-container">
     <div [fxShow]="!loading && !emptyBox" fxLayout="column" fxFlex="25">
         <search-bar (searchEmailBox)="searchEmailBox($event)"></search-bar>
-        <div fxFlex class="infinite-scroll-body email-list" infinite-scroll [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="scrollThrottle" [scrollWindow]="false" (scrolled)="onScroll()">
+        <div fxFlex class="infinite-scroll-body email-list" infinite-scroll [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="scrollThrottle" [scrollWindow]="false" (scrolled)="onScroll()" class="scrollable">
             <div fxFlex fxLayout="column" class="email-list-item" [routerLink]="mail.route" [class.route-active]="isActive(mail.route)" [class.unseen]="!isRead(mail)" *ngFor="let mail of emails; let i = index">
                 <div *ngIf="mail.from.length > 0" fxFlex="33" fxLayout="row">
                     <div fxFlex fxLayoutAlign="start center">{{mail.from[0].name ? mail.from[0].name : mail.from[0].address}}</div>
@@ -37,7 +37,7 @@
                         <span>{{mail.date | date:'shortDate'}} {{mail.date | date:'shortTime'}}</span>
                     </h5>
                 </div>
-              
+
                 <p fxFlex="33" class="text-overflow subject"> {{mail.text ? mail.text.substring(0,100): ''}} </p>
                 <p class="font"> {{mail.text ? mail.text.substring(0,100): ''}} </p>
             </div>
