@@ -9,6 +9,8 @@
 
 .vertical-scroll {
   overflow-x: scroll;
+  white-space: nowrap;
+  max-width: 100%;
 }
 
 .cc-tags {
