@@ -8,3 +8,19 @@
 .pointer {
   cursor: pointer;
 }
+
+.address-tag {
+  background-color: rgba(0,0,0,.54);
+  border-radius: 5px;
+  margin: 2px;
+  color: white;
+}
+
+.address-tag-span {
+   padding-left: 4px;
+}
+
+.add-recipients-selected {
+  color: rgba(0,0,0,1);
+  font-style: normal;
+}
