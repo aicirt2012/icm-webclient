@@ -38,4 +38,15 @@ export class SettingsService {
   getPatterns(): Observable<any> {
     return this._httpService.httpGET('pattern', '', null, null);
   }
+
+  createPattern(pattern: string): Observable<any> {
+    const body = {
+      pattern: pattern
+    };
+    return this._httpService.httpPOST('pattern', '', null, body);
+  }
+
+  deletePattern(pattern: any): Observable<any> {
+    return this._httpService.httpDELETE('pattern', pattern._id, null, null);
+  }
 }

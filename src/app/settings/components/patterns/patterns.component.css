@@ -1,8 +1,4 @@
-.radio-container {
-  margin: 0 0 8px 0;
-  padding: 0 0 16px 0;
+.pattern-action-bar-item {
+  margin:5px;
 }
 
-md-radio-button {
-  margin: 8px;
-}
