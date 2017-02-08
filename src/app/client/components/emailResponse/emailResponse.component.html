@@ -5,7 +5,7 @@
 
     <div fxLayout="row" style="margin-top: 8px;" fxLayoutAlign="start center">
             <md-input-container fxFlex>
-                <input md-input #inputTo (keyup.enter)="addAddress(inputTo,'to')" (blur)="searchCardsForMembers()" (change)="addAddress(inputTo,'to')"
+                <input md-input #inputTo (keyup.enter)="addAddress(inputTo,'to')" (change)="addAddress(inputTo,'to')"
                     type="email" placeholder="To:" required/>
                 <div fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap="wrap">
                     <div *ngFor="let to of emailForm.to; let i = index" class="address-tag" fxLayout="row" fxLayoutAlign="center center">

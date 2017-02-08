@@ -8,7 +8,7 @@
     <md-card-content class="cardContent">
         <div *ngIf="task.taskType == 'linked'" fxFlex-gt-sm fxLayout="row" fxLayoutAlign="start end" class="margin">
             <md-icon fxFlex-gt-sm="8">date_range</md-icon>
-            <div fxFlex-gt-sm="27">{{task.date | date:'shortDate'}}</div>
+            <div fxFlex-gt-sm="27" [class.overdue-text]="overdue && task.taskType == 'linked'" >{{task.date | date:'shortDate'}}</div>
             <md-icon class="icon-margin" fxFlex-gt-sm="8">person</md-icon>
             <div fxFlex-gt-sm="53" fxLayout="row">
                 <div *ngFor="let member of task.members" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
