@@ -9,8 +9,8 @@
       <md-nav-list>
         <navbar-list-item [item]="item" *ngFor="let item of navbarItems"></navbar-list-item>
       </md-nav-list>
-      <div fxLayoutAlign="center center">
-        <button md-raised-button fxLayout="row" fxLayoutAlign="center center" class="manage-folders" (click)="openEmailFolderDialog()">Manage Folders</button>
+      <div fxLayoutAlign="start center">
+        <button fxShow="false" fxShow.gt-md md-button fxFlex md-button fxLayout="row" fxLayoutAlign="start start" class="manage-folders" (click)="openEmailFolderDialog()">Manage Folders</button>
       </div>
     </div>
     <div fxLayoutAlign="center center">

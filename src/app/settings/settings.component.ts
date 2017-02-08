@@ -6,7 +6,7 @@ import { AppState } from '../app.service';
 @Component({
   selector: 'settings',
   templateUrl: 'settings.component.html',
-  styleUrls: ['settings.component.css'],
+  styleUrls: ['settings.component.scss'],
 })
 export class SettingsComponent {
   model: any = {};
