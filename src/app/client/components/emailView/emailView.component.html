@@ -5,10 +5,11 @@
         fxHide.sm>
         {{email.from[0].address | slice: 0:1 | uppercase}}
     </div>
+    
     <div fxLayout="column">
       <div class="evc-text-title" *ngIf="email.from.length > 0"> {{email.from[0].name}} &lt;{{email.from[0].address}}&gt; </div>
       <div class="evc-text-caption" *ngIf="email.date"> {{email.date | date:'medium'}}</div>
-      <div class="evc-text-caption" *ngIf="email.to"> To: {{email.to[0].address}} </div>
+      <div class="evc-text-caption" *ngIf="email.to"> To: {{email.box.shortName != 'Drafts' ? email.to[0].address : ''}} </div>
     </div>
   </div>
   <hr>
