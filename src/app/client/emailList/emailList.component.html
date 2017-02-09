@@ -4,11 +4,11 @@
         <div fxFlex class="infinite-scroll-body" infinite-scroll [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="scrollThrottle" [scrollWindow]="false" (scrolled)="onScroll()">
             <div fxFlex fxLayout="column" class="email-list-item" [routerLink]="mail.route" [class.route-active]="isActive(mail.route)" [class.unseen]="!isRead(mail)" *ngFor="let mail of emails; let i = index">
                 <div *ngIf="mail.from.length > 0" fxFlex="33" fxLayout="row">
-                    <div fxFlex fxLayoutAlign="start center">{{mail.from[0].name ? mail.from[0].name : mail.from[0].address}}</div>
-                    <div fxFlex fxLayoutAlign="end center">{{mail.date | date:'shortDate'}} {{mail.date | date:'shortTime'}}</div>
+                    <div fxFlex="60" fxLayoutAlign="start center" class="text-overflow">{{mail.from[0].name ? mail.from[0].name : mail.from[0].address}}</div>
+                    <div fxFlex="40" fxLayoutAlign="end center" class="text-overflow">{{mail.date | date:'shortDate'}} {{mail.date | date:'shortTime'}}</div>
                 </div>
-                <div fxFlex="33" class="text-overflow list-element subject-item"> {{mail.subject ? mail.subject.substring(0,70): ''}} </div>
-                <div class="first-lines list-element text-overflow"> {{mail.text ? mail.text.substring(0,70): ''}} </div>
+                <div fxFlex="33" class="text-overflow">{{mail.subject ? mail.subject.substring(0,70): ''}}</div>
+                <div fxFlex="33" class="first-lines text-overflow">{{mail.text ? mail.text.substring(0,70): ''}}</div>
             </div>
         </div>
         <div class="loading-list" *ngIf="loadingList" fxLayoutAlign="center center">Loading...</div>
@@ -23,34 +23,3 @@
         <router-outlet></router-outlet>
     </div>
 </div>
-
-<!--<div fxLayout="row" fxFlex class="full-height email-list-container">
-    <div [fxShow]="!loading && !emptyBox" fxLayout="column" fxFlex="25">
-        <search-bar (searchEmailBox)="searchEmailBox($event)"></search-bar>
-        <div fxFlex class="infinite-scroll-body email-list" infinite-scroll [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="scrollThrottle" [scrollWindow]="false" (scrolled)="onScroll()">
-            <div fxFlex fxLayout="column" class="email-list-item" [routerLink]="mail.route" [class.route-active]="isActive(mail.route)" [class.unseen]="!isRead(mail)" *ngFor="let mail of emails; let i = index">
-                <div *ngIf="mail.from.length > 0" fxFlex="33" fxLayout="row">
-                    <h5 fxFlex fxLayoutAlign="start center">
-                        <span>{{mail.from[0].name ? mail.from[0].name : mail.from[0].address}}</span>
-                    </h5>
-                    <h5 fxFlex fxLayoutAlign="end center">
-                        <span>{{mail.date | date:'shortDate'}} {{mail.date | date:'shortTime'}}</span>
-                    </h5>
-                </div>
-              
-                <p fxFlex="33" class="text-overflow subject"> {{mail.text ? mail.text.substring(0,100): ''}} </p>
-                <p class="font"> {{mail.text ? mail.text.substring(0,100): ''}} </p>
-            </div>
-        </div>
-        <div class="loading-list" *ngIf="loadingList" fxLayoutAlign="center center">Loading...</div>
-    </div>
-    <div [fxShow]="loading" fxFlex fxLayoutAlign="center center">
-        <spinner [loading]="true"></spinner>
-    </div>
-    <div [fxShow]="emptyBox" fxFlex fxLayoutAlign="center center">
-        This mailbox seems to be empty, please sync again or go to another box.
-    </div>
-    <div [fxShow]="!loading && !emptyBox" fxFlex="75">
-        <router-outlet></router-outlet>
-    </div>
-</div>-->
