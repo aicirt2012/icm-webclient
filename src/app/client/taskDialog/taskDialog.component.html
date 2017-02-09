@@ -45,7 +45,7 @@
                         </md-option>
                     </md-select>
                     <div fxLayout="row" fxLayoutAlign="start center">
-                        <div *ngFor="let member of task.selectedMembers; let i = index" [title]="member.fullName" fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="center center" class="member-initials">
+                        <div *ngFor="let member of task.selectedMembers; let i = index" [mdTooltip]="member.fullName" fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="center center" class="member-initials">
                             <span>{{member.initials}}</span>
                             <md-icon (click)="deleteMember(member, i)">close</md-icon>
                         </div>
@@ -59,7 +59,8 @@
     </div>
     <md-dialog-actions>
         <button md-submit md-raised-button color="primary" [disabled]="sending || !task.list" (click)="createTask()" *ngIf="task.taskType == 'suggested'">Create Task</button>
-        <button md-submit md-raised-button color="primary" (click)="updateTask()" *ngIf="task.taskType == 'linked'">Update Task</button>
-        <button md-submit md-raised-button color="primary" (click)="unlinkTask()" *ngIf="task.taskType == 'linked'">Unlink Task</button>
+        <button md-submit md-raised-button color="primary" [disabled]="sending" (click)="updateTask()" *ngIf="task.taskType == 'linked'">Update Task</button>
+        <button md-submit md-raised-button color="primary" [disabled]="sending" (click)="unlinkTask()" *ngIf="task.taskType == 'linked'">Unlink Task</button>
+        <button md-submit md-raised-button color="primary" [disabled]="sending" *ngIf="task.status != 'empty'" (click)="updateTask('close')">Archive Task</button>
     </md-dialog-actions>
 </div>

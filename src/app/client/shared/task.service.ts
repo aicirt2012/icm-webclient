@@ -69,6 +69,7 @@ export class TaskService {
       desc: task.desc,
       idMembers: task.selectedMembers.map((s) => s.id),
       due: task.date,
+      closed: task.closed
     };
     const path = `${task.id}`;
     return this._httpService.httpPUT(this.domain, path, null, options);

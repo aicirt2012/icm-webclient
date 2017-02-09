@@ -26,6 +26,10 @@ export class TaskDialogComponent {
   constructor(public taskDialogRef: MdDialogRef<TaskDialogComponent>, private snackBar: MdSnackBar, private _taskService: TaskService, public appState: AppState) {
   }
 
+  ngOnInit() {
+    console.log(this.task);
+  }
+
 
   createTask() {
     this.sending = true;
@@ -44,8 +48,12 @@ export class TaskDialogComponent {
       });
   }
 
-  updateTask() {
+  updateTask(close?: string) {
     this.sending = true;
+    this.task.closed = false;
+    if (close == 'close') {
+      this.task.closed = true;
+    }
     this._taskService.updateTask(this.task)
       .subscribe((task: any) => {
         this.sending = false;
