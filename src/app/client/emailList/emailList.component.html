@@ -4,12 +4,12 @@
         <div fxFlex class="infinite-scroll-body" infinite-scroll [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="scrollThrottle" [scrollWindow]="false" (scrolled)="onScroll()">
             <div fxFlex fxLayout="column" class="email-list-item" [routerLink]="mail.route" [class.route-active]="isActive(mail.route)" [class.unseen]="!isRead(mail)" *ngFor="let mail of emails; let i = index">
                 <div *ngIf="mail.from.length > 0" fxFlex="33" fxLayout="row">
-                    <div fxFlex="58" fxLayoutAlign="start center" class="text-overflow">{{mail.from[0].name ? mail.from[0].name : mail.from[0].address}}</div>
+                    <div fxFlex="58" fxLayoutAlign="start center" class="text-overflow padding">{{mail.from[0].name ? mail.from[0].name : mail.from[0].address}}</div>
                     <div fxFlex="2"></div>
-                    <div fxFlex="40" fxLayoutAlign="end center" class="text-overflow">{{mail.date | date:'shortDate'}} {{mail.date | date:'shortTime'}}</div>
+                    <div fxFlex="40" fxLayoutAlign="end center" class=" padding text-overflow">{{mail.date | date:'shortDate'}} {{mail.date | date:'shortTime'}}</div>
                 </div>
-                <div fxFlex="33" class="text-overflow">{{mail.subject ? mail.subject.substring(0,70): ''}}</div>
-                <div fxFlex="33" class="first-lines text-overflow">{{mail.text ? mail.text.substring(0,70): ''}}</div>
+                <div fxFlex="33" class=" padding text-overflow">{{mail.subject ? mail.subject.substring(0,70): ''}}</div>
+                <div fxFlex="33" class=" padding first-lines text-overflow">{{mail.text ? mail.text.substring(0,70): ''}}</div>
             </div>
         </div>
         <div class="loading-list" *ngIf="loadingList" fxLayoutAlign="center center">Loading...</div>

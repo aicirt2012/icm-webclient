@@ -6,8 +6,11 @@
             <md-icon class="pointer close-icon" (click)="removeTask(task)">close</md-icon>
         </div>
         <div *ngIf="task.taskType == 'linked'" fxFlex-gt-sm="33" fxLayout="row" fxLayoutAlign="start end" class="card-title">
+            <div fxLayoutAlign="start center">
             <md-icon fxFlex-gt-sm="8">date_range</md-icon>
+
             <div fxFlex-gt-sm="27" [class.overdue-text]="overdue && task.taskType == 'linked'">{{task.date | date:'shortDate'}}</div>
+            </div>
             <md-icon class="icon-margin" fxFlex-gt-sm="8">person</md-icon>
             <div fxFlex-gt-sm="53" fxLayout="row">
                 <div *ngFor="let member of task.members" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
@@ -16,8 +19,11 @@
                 <div *ngIf="task.members.length < 1"><i>No person assigned</i></div>
             </div>
         </div>
-        <div fxFlex="33" class="text-overflow">
+        <div *ngIf="task.desc" fxFlex="33" class="text-overflow">
             {{task.desc}}
+        </div>
+        <div *ngIf="!task.desc" fxFlex="33" class="text-overflow">
+            <i>No description</i>
         </div>
     </md-card-content>
 </md-card>

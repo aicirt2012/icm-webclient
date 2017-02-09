@@ -1,37 +1,39 @@
 <md-progress-bar color="accent" class="progressbar-top" *ngIf="sending" mode="indeterminate"></md-progress-bar>
 
 <div fxFlex fxLayout="column" class="full-height">
-    <div fxLayout="column" class="email-form-title">
-        <div fxLayout="row">
-            <span fxFlex>New Email</span>
-            <md-icon class="cursor-pointer" (click)="closeDialog(false)">close</md-icon>
-        </div>
-        <div *ngIf="sending" fxFlex class="boarder-line"></div>
+<div fxLayout="column" class="email-form-title">
+    <div fxLayout="row">
+        <span fxFlex>New Email</span>
+        <md-icon (click)="closeDialog(false)">close</md-icon>
     </div>
+    <div *ngIf="sending" fxFlex class="boarder-line"></div>
+</div>
 
 
 
-    <div fxLayout="column" fxFlex class="email-form">
+<div fxLayout="column" fxFlex class="email-form">
 
         <div fxLayout="row" style="margin-top: 8px;" fxLayoutAlign="start center">
             <md-input-container fxFlex>
-                <input md-input #inputTo (keyup.enter)="addAddress(inputTo,'to')" (blur)="searchCardsForMembers()" (change)="addAddress(inputTo,'to')" type="email" placeholder="To:" required/>
-                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap="wrap">
+                <input md-input #inputTo (keyup.enter)="addAddress(inputTo,'to'); searchCardsForMembers() " (blur)="searchCardsForMembers()" (change)="addAddress(inputTo,'to')"
+                    type="email" placeholder="To:" required/>
+            </md-input-container>
+            <div fxLayout="row" *ngIf="emailForm.to.length > 0" fxFlex="70" fxLayoutAlign="start center" fxLayoutWrap="wrap">
                     <div *ngFor="let to of emailForm.to; let i = index" class="address-tag" fxLayout="row" fxLayoutAlign="center center">
                         <span class="address-tag-span">{{to}}</span>
                         <md-icon class="pointer" (click)="deleteAddress(i, 'to')" fxLayoutAlign="center center">close</md-icon>
                     </div>
                 </div>
-            </md-input-container>
             <span class="cc-tags" [class.add-recipients-selected]="cc" (click)="cc = !cc">CC</span>
             <span class="cc-tags" [class.add-recipients-selected]="bcc" (click)="bcc = !bcc">BCC</span>
         </div>
 
-
-
-        <div fxLayout="row">
+      
+            
+                <div fxLayout="row">
             <md-input-container *ngIf="cc" fxFlex style="margin-right: 1px;">
-                <input md-input #inputCc (keyup.enter)="addAddress(inputCc,'cc')" (change)="addAddress(inputCc,'cc')" placeholder="Cc:" type="email" autofocus>
+                <input md-input #inputCc (keyup.enter)="addAddress(inputCc,'cc')" (change)="addAddress(inputCc,'cc')" placeholder="Cc:" type="email"
+                    autofocus>
                 <div fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap="wrap">
                     <div *ngFor="let cc of emailForm.cc; let i = index" class="address-tag" fxLayout="row" fxLayoutAlign="center center">
                         <span class="address-tag-span">{{cc}}</span>
@@ -40,7 +42,8 @@
                 </div>
             </md-input-container>
             <md-input-container *ngIf="bcc" fxFlex style="margin-left: 1px;">
-                <input md-input #inputBcc (keyup.enter)="addAddress(inputBcc,'bcc')" (change)="addAddress(inputBcc,'bcc')" placeholder="Bcc:" type="email" autofocus>
+                <input md-input #inputBcc (keyup.enter)="addAddress(inputBcc,'bcc')" (change)="addAddress(inputBcc,'bcc')" placeholder="Bcc:"
+                    type="email" autofocus>
                 <div fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap="wrap">
                     <div *ngFor="let bcc of emailForm.bcc; let i = index" class="address-tag" fxLayout="row" fxLayoutAlign="center center">
                         <span class="address-tag-span">{{bcc}}</span>
@@ -49,8 +52,8 @@
                 </div>
             </md-input-container>
         </div>
-
-        <md-input-container>
+    
+         <md-input-container>
             <input md-input placeholder="Subject:" type="text" name="subject" [(ngModel)]="emailForm.subject">
         </md-input-container>
 
@@ -62,15 +65,15 @@
             <button (click)="sendEmail()" md-raised-button color="primary" [disabled]="sending">Send Email</button>
             <button (click)="saveDraft()" md-raised-button color="primary" [disabled]="sending">Save as Draft</button>
         </div>
+       
+   
+   </div>
 
-
-    </div>
-
-    <div fxLayout="column" class="task-container" fxFlex="25" fxLayoutAlign="center center">
+ <div fxLayout="column" class="task-container" fxFlex="27" fxLayoutAlign="center center">
         <spinner *ngIf="searchForTasks" [loading]="searchForTasks"></spinner>
         <div *ngIf="relatedTasks.length == 0" fxLayout="column" fxLayoutAlign="center center">No tasks found</div>
         <div *ngIf="relatedTasks.length > 0" class="vertical-scroll" fxLayout="row">
             <task-item-email-dialog style="margin:5px;" *ngFor="let task of relatedTasks; let i = index;" [task]="task" (removeTask)="removeTask($event)"></task-item-email-dialog>
         </div>
     </div>
-</div>
+ </div>

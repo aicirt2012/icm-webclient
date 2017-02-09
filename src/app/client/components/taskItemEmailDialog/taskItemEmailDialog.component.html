@@ -1,23 +1,25 @@
-<md-card (click)="open(task)" [class.overdue]="overdue" class="tasks-card pointer">
-    <md-card-header>
-        <md-card-title class="card-title"><strong class="text-overflow">{{task.name}}</strong></md-card-title>
-        <div fxFlex fxLayoutAlign="end"><md-icon class="pointer alert-icon" *ngIf="overdue">add_alert</md-icon></div>
-        
-    </md-card-header>
-    <md-card-content class="cardContent">
-        <div fxFlex-gt-sm fxLayout="row" fxLayoutAlign="start center">
+<div (click)="open(task)" [class.overdue]="overdue" class="tasks-card pointer">
+    <div fxLayoutAlign="start center" class="title-container">
+        <div fxFlex class="title">{{task.name}}</div>
+        <md-icon class="pointer alert-icon" *ngIf="overdue">add_alert</md-icon>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="center">
+        <div fxLayout="row" fxLayoutAlign="start center">
             <md-icon fxFlex-gt-sm="8">date_range</md-icon>
             <div fxFlex-gt-sm="27" [class.overdue-text]="overdue" class="text-overflow">{{task.due | date:'shortDate'}}</div>
             <md-icon class="icon-margin" fxFlex-gt-sm="8">person</md-icon>
-            <div fxFlex-gt-sm="53" fxLayout="row">
-                <div *ngFor="let member of task.members" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
+            <div fxFlex-gt-sm="53" fxLayout="row" style="overflow: hidden">
+                <div *ngFor="let member of task.members" [mdTooltip]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
                     <span>{{member.initials}}</span>
                 </div>
                 <div *ngIf="task.members.length < 1"><i>No person assigned</i></div>
             </div>
         </div>
-        <p class="text-overflow">
+        <p *ngIf="task.desc" class="text-overflow">
             {{task.desc}}
         </p>
-    </md-card-content>
-</md-card>
+        <p *ngIf="!task.desc" class="text-overflow">
+            <i>No description</i>
+        </p>
+    </div>
+</div>
