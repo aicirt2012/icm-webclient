@@ -27,9 +27,7 @@ export class TaskDialogComponent {
   }
 
   ngOnInit() {
-    console.log(this.task);
   }
-
 
   createTask() {
     this.sending = true;
@@ -119,7 +117,7 @@ export class TaskDialogComponent {
   }
 
   removeFromLinkedTasks(task: any) {
-    this.email.linkedTasks = this.email.linkedTasks.splice(this.email.linkedTasks.findIndex((t) => t.id == task.id), 1);
+    this.email.linkedTasks.splice(this.email.linkedTasks.findIndex((t) => t.id == task.id), 1);
   }
 
   updateLinkedTasks(task: any) {
