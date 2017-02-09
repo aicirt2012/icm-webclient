@@ -25,11 +25,11 @@ export class TasksComponent {
   public linkedTasks$: any = [];
   private dialogConfig = {
     width: "70%",
-    height: '70%',
+    height: 'auto',
   }
   private linkTaskDialogConfig = {
     width: '70%',
-    height: '55%'
+    height: 'auto'
   }
   public showSuggested: boolean = true;
   public showLinked: boolean = true;

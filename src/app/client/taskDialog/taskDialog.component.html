@@ -7,30 +7,30 @@
     <div>
         <form fxFlex fxLayout="column">
             <md-input-container>
-            <input md-input type="text" name="title" placeholder="Task Name" maxRows="3" [(ngModel)]="task.name" value="task.name">
-        </md-input-container>
+                <input md-input type="text" name="title" placeholder="Task Name" maxRows="3" [(ngModel)]="task.name" value="task.name">
+            </md-input-container>
             <div fxLayout="row" class="selectList">
-                <div  fxFlex="45" fxLayoutAlign="start center">
-                <md-icon class="margin">dashboard</md-icon>
-                <md-select fxFlex name="board-select" [(ngModel)]="task.board" [disabled]="task.taskType == 'linked'" required placeholder="Select a board..">
-                    <md-option *ngFor="let board of boards; let b = index" [value]="task.taskType == 'suggested' ? board : task.board" (onSelect)="task.taskType == 'suggested' ? onSelectBoard(board): ''">
-                        {{ board.name }}
-                    </md-option>
-                </md-select>
+                <div fxFlex="45" fxLayoutAlign="start center">
+                    <md-icon class="margin">dashboard</md-icon>
+                    <md-select fxFlex name="board-select" [(ngModel)]="task.board" [disabled]="task.taskType == 'linked'" required placeholder="Select a board..">
+                        <md-option *ngFor="let board of boards; let b = index" [value]="task.taskType == 'suggested' ? board : task.board" (onSelect)="task.taskType == 'suggested' ? onSelectBoard(board): ''">
+                            {{ board.name }}
+                        </md-option>
+                    </md-select>
                 </div>
                 <div fxFlex="10"></div>
                 <div fxFlex="45" fxLayout="row" fxLayoutAlign="end center">
-                <md-icon class="margin" *ngIf="task.board">view_list</md-icon>
-                <md-select fxFlex [(ngModel)]="task.list" name="list-select" *ngIf="task.board" [disabled]="task.taskType == 'linked'" required placeholder="Select a list..">
-                    <md-option *ngFor="let list of task.board.lists" [value]="task.taskType == 'linked'? task.list : list">
-                        {{ task.taskType == 'linked'? task.list.name : list.name }}
-                    </md-option>
-                </md-select>
+                    <md-icon class="margin" *ngIf="task.board">view_list</md-icon>
+                    <md-select fxFlex [(ngModel)]="task.list" name="list-select" *ngIf="task.board" [disabled]="task.taskType == 'linked'" required placeholder="Select a list..">
+                        <md-option *ngFor="let list of task.board.lists" [value]="task.taskType == 'linked'? task.list : list">
+                            {{ task.taskType == 'linked'? task.list.name : list.name }}
+                        </md-option>
+                    </md-select>
                 </div>
             </div>
             <div fxLayout="row" *ngIf="task.board">
                 <div fxFlex="45" fxLayoutAlign="start center">
-                <md-icon class="margin">date_range</md-icon>
+                    <md-icon class="margin">date_range</md-icon>
                     <md-input-container fxFlex>
                         <input name="date" md-input placeholder="Due Date" type="date" required [(ngModel)]="task.date" value="task.date | date:'yyyy-MM-dd'">
                     </md-input-container>
@@ -44,7 +44,7 @@
                             {{ member.fullName }}
                         </md-option>
                     </md-select>
-                     <div fxLayout="row" fxLayoutAlign="start center">
+                    <div fxLayout="row" fxLayoutAlign="start center">
                         <div *ngFor="let member of task.selectedMembers; let i = index" [title]="member.fullName" fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="center center" class="member-initials">
                             <span>{{member.initials}}</span>
                             <md-icon (click)="deleteMember(member, i)">close</md-icon>
@@ -53,7 +53,7 @@
                 </div>
             </div>
             <md-input-container>
-                <textarea md-input type="text" class="text-area" name="task-description" placeholder="Task Description" maxRows="10" [(ngModel)]="task.desc" value="task.desc" rows="6"></textarea>
+                <textarea md-input type="text" class="text-area" name="task-description" placeholder="Task Description" maxRows="10" [(ngModel)]="task.desc" value="task.desc" rows="10"></textarea>
             </md-input-container>
         </form>
     </div>
