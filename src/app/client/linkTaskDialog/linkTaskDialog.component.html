@@ -1,5 +1,6 @@
+<md-progress-bar color="accent" class="progressbar-top" *ngIf="sending" mode="indeterminate"></md-progress-bar>
+
 <div fxFlex fxLayout="column">
-    <md-progress-bar *ngIf="sending" mode="indeterminate"></md-progress-bar>
     <div md-dialog-title fxLayout="row">
         <span fxFlex>Link Task to Mail</span>
         <md-icon (click)="closeDialog()" class="pointer">close</md-icon>

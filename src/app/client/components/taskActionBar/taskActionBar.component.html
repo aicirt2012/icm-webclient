@@ -1,7 +1,7 @@
-<div fxFlex fxLayout="row" class="task-action-top-bar">
+<div fxFlex fxLayout="row" class="task-action-top-bar" fxLayoutAlign="center center">
     <div fxFlex="50" class="action-buttons" fxLayoutAlign="center start">
-        <button class="action-buttons" class="margin-btn" md-raised-button [mdMenuTriggerFor]="createTask">
-        <md-icon>add</md-icon>CREATE
+        <button color="primary" md-mini-fab [mdMenuTriggerFor]="createTask" mdTooltip="Create Task">
+        <md-icon>add</md-icon>
     </button>
         <md-menu #createTask="mdMenu">
             <button md-menu-item (click)="openDialogTask()">

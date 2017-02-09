@@ -29,7 +29,6 @@ export class TaskDialogComponent {
 
   createTask() {
     this.sending = true;
-    console.log(this.task);
     this._taskService.createTask(this.email, this.task)
       .subscribe((task: any) => {
         this.sending = false;
