@@ -54,7 +54,12 @@
 .first-lines {
     color: #545252;
 }
+
 .padding {
     padding-top: 2px;
     padding-bottom: 2px;
+}
+
+.date {
+    font-size: 10px;
 }
