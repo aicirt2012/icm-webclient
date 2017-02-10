@@ -1,5 +1,7 @@
+@import '../../styles/_variables.scss';
+
 #login-wallpaper {
-    background-color: #496DDB;
+    background-color: $primary;
     background-image: url("/assets/img/login-background.jpeg") ;
     background-size: cover;
     background-repeat: no-repeat;
@@ -16,7 +18,7 @@
 }
 
 .copyrights {
-    color: gray;
+    color: $primary;
     margin-bottom: 20px;
     font-size: small;
 }
