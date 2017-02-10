@@ -2,7 +2,7 @@
     <div fxFlex="70" fxLayout="column">
         <email-action-bar [responseStatus]="responseStatus" (generateEmailResponseActionBar)="generateEmailResponse($event)" (discardEmailResponse)="discardEmailResponse($event)" [email]="email" (onEmailMoveToBox)="emailMoveToBox($event)" [boxList]="boxList"
             (onAddFlags)="addFlags($event)" (onDeleteFlags)="deleteFlags($event)"></email-action-bar>
-        <email-view class="email-detail-container scrollable" *ngIf="!emailResponse.text && !moving" [email]="email" (highlightSentence)="highlightSentence($event)" fxFlex></email-view>
+        <email-view class="scrollable" *ngIf="!emailResponse.text && !moving" [email]="email" (highlightSentence)="highlightSentence($event)" fxFlex></email-view>
         <div *ngIf="moving" fxFlex fxLayout="row" fxLayoutAlign="center center">
             <spinner [loading]="true"></spinner>
         </div>
