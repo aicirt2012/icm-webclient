@@ -40,11 +40,6 @@
     font-weight: bold !important;
 }
 
-.infinite-scroll-body {
-    max-height: 100%;
-    overflow: auto;
-}
-
 .loading-list {
     height: 30px;
     color: gray;
