@@ -18,11 +18,16 @@
         <p md-line>{{type}}</p>
       </md-list-item>
       <h3 md-subheader>Classification</h3>
-      <md-list-item>
+      <md-list-item *ngIf="sentence.classification && sentence.classification.length > 0">
         <md-icon md-list-avatar svgIcon="brain"></md-icon>
         <h3 class="sentence-dialog-heading" md-line>Naive Bayes</h3>
         <p md-line class="classification" [class.larger]="sentence.classification[0].value > sentence.classification[1].value">{{sentence.classification[0].label}} - {{sentence.classification[0].value | percent}}</p>
         <p md-line class="classification" [class.larger]="sentence.classification[1].value > sentence.classification[0].value">{{sentence.classification[1].label}} - {{sentence.classification[1].value | percent}}</p>
+      </md-list-item>
+      <md-list-item *ngIf="!sentence.classification || sentence.classification.length == 0">
+        <md-icon md-list-avatar svgIcon="brain"></md-icon>
+        <h3 class="sentence-dialog-heading" md-line>Naive Bayes</h3>
+        <p md-line>Please fill up your training data set to get classifications.</p>
       </md-list-item>
     </md-list>
   </div>
