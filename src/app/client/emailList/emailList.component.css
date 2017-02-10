@@ -58,3 +58,8 @@
 .date {
     font-size: 10px;
 }
+
+.scrollable {
+  max-height: 100%;
+  overflow-y: auto;
+}
