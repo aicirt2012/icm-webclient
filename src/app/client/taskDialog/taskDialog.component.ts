@@ -121,7 +121,12 @@ export class TaskDialogComponent {
   }
 
   updateLinkedTasks(task: any) {
-    this.email.linkedTasks[this.email.linkedTasks.findIndex((t) => t.id == task.id)] = task;
+    if (task.closed == true) {
+      this.removeFromLinkedTasks(task);
+    }
+    else {
+      this.email.linkedTasks[this.email.linkedTasks.findIndex((t) => t.id == task.id)] = task;
+    }
   }
 
 }
