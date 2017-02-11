@@ -1,0 +1,138 @@
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Roboto', sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.scrollable {
+  max-height: 100%;
+  overflow-y: scroll;
+}
+
+.padding-side {
+  padding: 0 10px;
+}
+
+div.cdk-focus-trap-content {
+  height: 100%;
+}
+
+.md-tab-label {
+  min-width: 0px;
+}
+
+.md-tab-list > div {
+  min-width: 100px ! important;
+}
+
+/*
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: rgba(0, 0, 0, 0);
+    -webkit-border-radius: 100px;
+}
+
+::-webkit-scrollbar:hover {
+    background-color: rgba(0, 0, 0, 0.09);
+}
+
+::-webkit-scrollbar-thumb:vertical {
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-border-radius: 100px;
+    background-clip: padding-box;
+    border: 2px solid rgba(0, 0, 0, 0);
+    min-height: 10px;
+}
+
+::-webkit-scrollbar-thumb:vertical:active {
+    background: rgba(0, 0, 0, 0.61);
+    -webkit-border-radius: 100px;
+}
+*/
+
+@mixin browser($browsers: Chrome) {
+  @each $browser in $browsers {
+    html[data-browser*="#{$browser}"] & {
+      @content;
+    }
+  }
+}
+
+::-webkit-scrollbar {
+  @include browser(Windows) {
+    background: transparent;
+    overflow: visible;
+    -webkit-border-radius: 100px;
+    width: 12px;
+  }
+}
+
+::-webkit-scrollbar-thumb {
+  @include browser(Windows) {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: solid #fff;
+  }
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @include browser(Windows) {
+    background: rgba(0, 0, 0, 0.8);
+  }
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+  @include browser(Windows) {
+    border-width: 4px 6px;
+    min-width: 40px;
+  }
+}
+
+::-webkit-scrollbar-thumb:vertical {
+  @include browser(Windows) {
+    border-width: 6px 4px;
+    min-height: 40px;
+  }
+}
+
+::-webkit-scrollbar-track-piece {
+  @include browser(Windows) {
+    background-color: #fff;
+  }
+}
+
+::-webkit-scrollbar-corner {
+  @include browser(Windows) {
+    background: transparent;
+  }
+}
+
+::-webkit-scrollbar-thumb {
+  @include browser(Windows) {
+    background-color: #ADADAD;
+    -webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,0.10),inset 0 -1px 0 rgba(0,0,0,0.07);
+  }
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @include browser(Windows) {
+    background-color: #999;
+  }
+}
+
+.text-overflow {
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

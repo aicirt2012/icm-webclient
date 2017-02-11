@@ -10,7 +10,7 @@ import { CookieService } from 'angular2-cookie/core';
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
   styleUrls: [
-    './app.component.css'
+    'app.component.scss'
   ],
   template: `
      <router-outlet></router-outlet>

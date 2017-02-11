@@ -1,0 +1,17 @@
+@import '../../../../styles/_variables.scss';
+
+.sentence-dialog-heading {
+  font-weight: 600;
+}
+.pointer {
+  cursor: pointer;
+}
+
+.classification {
+  color: $red-warn;
+}
+
+.larger {
+  font-weight: bold;
+  color: $light-green-accent;
+}

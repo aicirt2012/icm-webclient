@@ -1,5 +1,7 @@
+@import '../../styles/_variables.scss';
+
 #login-wallpaper {
-    background-color: #496DDB;
+    background-color: $primary;
     background-image: url("/assets/img/login-background.jpeg") ;
     background-size: cover;
     background-repeat: no-repeat;
@@ -11,12 +13,13 @@
     padding: 0;
     width: 301px;
     height: 77px;
+    background-size: 301px 77px;
     background-repeat: no-repeat;
-    background-image: url("/assets/img/taskBlueLogo.png");
+    background-image: url("/assets/img/taskBlack.png");
 }
 
 .copyrights {
-    color: gray;
+    color: $primary;
     margin-bottom: 20px;
     font-size: small;
 }

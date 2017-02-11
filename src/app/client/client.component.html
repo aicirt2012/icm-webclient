@@ -1,7 +1,7 @@
 <div class="flex-container full-height" fxLayout="column">
   <top-navbar></top-navbar>
   <div *ngIf="noMailboxConnected" fxFlex fxLayoutAlign="center center">
-    Please connect to a mailbox in <a routerLink="/settings/email">&nbsp;Settings</a>
+    Please connect to a mailbox in &nbsp;<a routerLink="/settings/email">Settings</a>.
   </div>
   <div *ngIf="syncing">
     <spinner [loading]="true"></spinner>

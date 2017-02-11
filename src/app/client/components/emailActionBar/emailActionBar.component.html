@@ -1,10 +1,10 @@
 <div fxLayout="row" fxLayoutAlign="center center" class="action-buttons" *ngIf="!responseStatus">
-  <button md-raised-button *ngIf="showMailActions() && !(email.flags.indexOf('\\Seen') > -1)" (click)="addFlags(['\\Seen'])"><md-icon>drafts</md-icon>Mark as read</button>
-  <button md-raised-button *ngIf=" showMailActions() && email.flags.indexOf('\\Seen') > -1" (click)="deleteFlags(['\\Seen'])"><md-icon>mail</md-icon>Mark as unread</button>
-  <button md-raised-button *ngIf="showMailActions()" (click)="replyEmail()"><md-icon>reply</md-icon>Reply</button>
-  <button md-raised-button *ngIf="showMailActions()" (click)="forwardEmail()"><md-icon>forward</md-icon>Forward</button>
-  <button md-raised-button *ngIf="!showMailActions()" (click)="openCreateEmailDialog()"><md-icon>edit</md-icon>Edit</button>
-  <button md-raised-button (click)="moveEmailToBox('Trash')"><md-icon>delete</md-icon>Delete</button>
+  <button md-raised-button *ngIf="showMailActions() && !(email.flags.indexOf('\\Seen') > -1)" (click)="addFlags(['\\Seen'])"><md-icon>drafts</md-icon><span> Mark as read</span></button>
+  <button md-raised-button *ngIf=" showMailActions() && email.flags.indexOf('\\Seen') > -1" (click)="deleteFlags(['\\Seen'])"><md-icon>mail</md-icon><span> Mark as unread</span></button>
+  <button md-raised-button *ngIf="showMailActions()" (click)="replyEmail()"><md-icon>reply</md-icon><span>Reply</span></button>
+  <button md-raised-button *ngIf="showMailActions()" (click)="forwardEmail()"><md-icon>forward</md-icon><span>Forward</span></button>
+  <button md-raised-button *ngIf="!showMailActions()" (click)="openCreateEmailDialog()"><md-icon>edit</md-icon><span>Edit</span></button>
+  <button md-raised-button (click)="moveEmailToBox('Trash')"><md-icon>delete</md-icon><span>Delete</span></button>
   <button md-raised-button *ngIf="showMailActions()" [mdMenuTriggerFor]="menu">
     <md-icon>more_vert</md-icon>
     <span>Move to</span>
@@ -16,5 +16,5 @@
   </md-menu>
 </div>
 <div fxLayout="row" fxLayoutAlign="center center" class="action-buttons" *ngIf="responseStatus">
-  <button md-raised-button (click)="emitDiscardEmailResponse()"><md-icon>close</md-icon>Discard</button>
+  <button md-raised-button (click)="emitDiscardEmailResponse()"><md-icon>close</md-icon><span>Discard</span></button>
 </div>
