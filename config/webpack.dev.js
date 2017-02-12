@@ -23,12 +23,14 @@ const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3000;
 const SERVER_HOST = process.env.SERVER_HOST || 'localhost';
 const SERVER_PORT = process.env.SERVER_HOST || 4000;
+const SERVER_PROT = process.env.SERVER_PROT || 'http';
 const HMR = helpers.hasProcessFlag('hot');
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
   host: HOST,
   port: PORT,
   server_host: SERVER_HOST,
   server_port: SERVER_PORT,
+  server_prot: SERVER_PROT,
   ENV: ENV,
   HMR: HMR
 });
@@ -141,6 +143,7 @@ module.exports = function (options) {
         'process.env': {
           'SERVER_HOST': JSON.stringify(METADATA.server_host),
           'SERVER_PORT': JSON.stringify(METADATA.server_port),
+          'SERVER_PROT': JSON.stringify(METADATA.server_prot),
           'ENV': JSON.stringify(METADATA.ENV),
           'NODE_ENV': JSON.stringify(METADATA.ENV),
           'HMR': METADATA.HMR,
