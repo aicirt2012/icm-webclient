@@ -39,8 +39,8 @@ module.exports = {
     { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/assets/icon/favicon-96x96.png' },
     { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/assets/icon/favicon-16x16.png' },
     */
-    { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/assets/icon/favicon96x96.png' },
-    { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/assets/icon/favicon16x16.png' },
+    { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/assets/img/favicon96x96.png' },
+    { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/assets/img/favicon16x16.png' },
     { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/assets/img/favicon32x32.png' },
 
     /** <link> tags for a Web App Manifest **/
