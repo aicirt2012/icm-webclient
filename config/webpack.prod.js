@@ -25,7 +25,7 @@ const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 const HOST = process.env.HOST || 'icm.in.tum.de';
 const PORT = process.env.PORT || 8081;
 const SERVER_HOST = process.env.SERVER_HOST || 'server.icm.in.tum.de';
-const SERVER_PORT = process.env.SERVER_HOST || 8082;
+const SERVER_PORT = process.env.SERVER_HOST || '';
 const SERVER_PROT = process.env.SERVER_PROT || 'https';
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
   host: HOST,
