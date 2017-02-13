@@ -26,7 +26,7 @@ export class ClientComponent {
   constructor(private _emailService: EmailService, public appState: AppState, private _settingsService: SettingsService) {
     setInterval(() => {
       this.syncBoxes([], true);
-    }, 1000 * 60);
+    }, 1000 * 30);
   }
 
   /* INITIALIZE EMAIL APP */
