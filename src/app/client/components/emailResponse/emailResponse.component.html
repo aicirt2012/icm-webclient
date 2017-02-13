@@ -1,5 +1,5 @@
 <div class="padding-side" fxFlex fxLayout="column">
-  <md-progress-bar *ngIf="sending" mode="indeterminate"></md-progress-bar>
+  <md-progress-bar *ngIf="sending" color="accent" mode="indeterminate"></md-progress-bar>
   <div>
     <form fxFlex fxLayout="column">
 
@@ -50,8 +50,10 @@
       <md-input-container>
         <textarea md-input placeholder="Message" [(ngModel)]="emailForm.text" name="text" rows="20" autofocus></textarea>
       </md-input-container>
-          <button md-submit md-raised-button color="primary" (click)="sendEmail()" [disabled]="sending">Send Email</button>
+        
 
     </form>
+            <button md-submit md-raised-button color="primary" (click)="sendEmail()" [disabled]="sending">Send Email</button>
+
   </div>
 </div>
