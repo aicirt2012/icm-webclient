@@ -23,6 +23,7 @@ export class EmailListComponent {
   loading: boolean;
   emptyBox: boolean = false;
   loadingList: boolean;
+  searchActive: boolean;
 
   constructor(public appState: AppState, public router: Router, public activeRoute: ActivatedRoute, private _emailService: EmailService) {
     this.page = 1;
@@ -35,17 +36,17 @@ export class EmailListComponent {
     this.appState.dataChange.subscribe((stateChange) => {
       this[stateChange] = this.appState.get(stateChange);
       if (!this.emptyBox && this.emails.length == 0 && this.boxList.length > 0) {
-        this.getEmailBox(this.boxList.filter((box) => box.id == this.activeRoute.snapshot.params['boxId'])[0]);
+        this.getEmailBox(this.boxList.find((box) => box.id == this.activeRoute.snapshot.params['boxId']));
       }
-      if (stateChange == 'synced') {
-        this.getEmailBox(this.boxList.filter((box) => box.id == this.activeRoute.snapshot.params['boxId'])[0], true);
+      if (stateChange == 'synced' && !this.searchActive) {
+        this.getEmailBox(this.boxList.find((box) => box.id == this.activeRoute.snapshot.params['boxId']), true);
       }
     });
 
     this.currentBox = this.activeRoute.params.map(params => params['boxId'] || 'None');
     this.currentBox.subscribe((boxId) => {
       if (this.boxList.length > 0) {
-        boxId === 'None' ? '' : this.getEmailBox(this.boxList.filter((box) => box.id == boxId)[0]);
+        boxId === 'None' ? '' : this.getEmailBox(this.boxList.find((box) => box.id == boxId));
       }
     });
   }
@@ -104,20 +105,24 @@ export class EmailListComponent {
   }
 
   searchEmailBox(query = '') {
-    const boxName = this.boxList.filter((box) => box.id == this.activeRoute.snapshot.params['boxId'])[0].name;
+    const box = this.boxList.find((box) => box.id == this.activeRoute.snapshot.params['boxId']);
+    if (query == '') {
+      this.getEmailBox(box);
+    }
     this._emailService
-      .searchEmailsWithPagination(boxName, query)
+      .searchEmailsWithPagination(box.name, query)
       .subscribe((data: any) => {
         this.emails = data.docs.map((email) => {
           email.route = `/box/${email.box.id}/${email._id}`;
           return email;
         });
         this.appState.set('emails', this.emails);
+        this.searchActive = true;
       },
       error => {
         console.log(error)
       },
-      () => { console.log(`Searched for mails in box ${boxName}`) });
+      () => { console.log(`Searched for mails in box ${box.name}`) });
   }
 
 }
