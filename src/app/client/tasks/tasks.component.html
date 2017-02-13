@@ -1,4 +1,4 @@
-<task-action-bar (openTaskDialog)="openTaskDialog($event)" (openLinkTask)="openLinkTask($event)" (setSuggestedFilter)="setSuggestedFilter($event)" (setLinkedFilter)="setLinkedFilter($event)">
+<task-action-bar *ngIf="!errorTrello" (openTaskDialog)="openTaskDialog($event)" (openLinkTask)="openLinkTask($event)" (setSuggestedFilter)="setSuggestedFilter($event)" (setLinkedFilter)="setLinkedFilter($event)">
 </task-action-bar>
 <div *ngIf="!errorTrello" fxLayout="column" fxFlex class="full-height task-sidebar">
     <task-list fxFlex class="scrollable" [boards]="boards" (createTask)="createTask($event)" (openDialog)="openDialog($event)" (openLinkTaskDialog)="openLinkTaskDialog($event)" (deleteTask)="deleteTask($event)" [linkedTasks]="email.linkedTasks" [suggestedTasks]="email.suggestedTasks"
