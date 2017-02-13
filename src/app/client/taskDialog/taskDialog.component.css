@@ -6,6 +6,19 @@
     position: absolute;
 }
 
+.check-icon {
+    color: #21C9A1;
+}
+
+.overdue-text {
+    color: #ce2424;
+    font-weight: bold;
+}
+
+.alert-icon {
+    color: #ce2424;
+}
+
 .selectList {
     margin-top: 15px;
     margin-bottom: 15px;

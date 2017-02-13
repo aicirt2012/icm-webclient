@@ -9,7 +9,7 @@
                     <div fxFlex="40" fxShow="false" fxShow.gt-md fxLayoutAlign="end center" class="padding text-overflow date">{{mail.date | date:'shortDate'}} {{mail.date | date:'shortTime'}}</div>
                     <div fxFlex="40" fxHide="false" fxHide.gt-md fxLayoutAlign="end center" class="padding text-overflow date">{{mail.date | date:'shortDate'}}</div>
                 </div>
-                <div fxFlex="33" class=" padding text-overflow">{{mail.subject ? mail.subject.substring(0,70): ''}}</div>
+                <div fxFlex="33" class=" padding text-overflow">{{mail.subject ? mail.subject : 'No subject'}}</div>
                 <div fxFlex="33" class=" padding first-lines text-overflow">{{mail.text ? mail.text.substring(0,70): ''}}</div>
             </div>
         </div>

@@ -101,4 +101,8 @@ export class TaskListItemComponent {
         return this.task.date ? (new Date(this.task.date) < new Date()) : false;
   }
 
+  isChecked() {
+    return  this.task.taskType == 'linked' ? this.task.stickers.find((sticker) => sticker.image === 'check') : false;
+  }
+
 }

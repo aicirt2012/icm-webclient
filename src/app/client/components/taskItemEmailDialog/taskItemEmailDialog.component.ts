@@ -10,12 +10,14 @@ export class TaskItemEmailDialogComponent {
   @Input() task: any;
   @Output() removeTask: EventEmitter<any> = new EventEmitter<any>();
   overdue: boolean = false;
+  sticker_check: boolean = false;
 
   constructor(public router: Router) {
   }
 
   ngOnInit() {
     this.overdue = this.task.due ? (new Date(this.task.due) < new Date()) : false;
+    this.sticker_check = this.task.stickers.find((sticker) => sticker.image === 'check') ? true : false;
   }
 
    getNames(members: any[]) {
@@ -25,5 +27,6 @@ export class TaskItemEmailDialogComponent {
   open(task: any) {
     this.router.navigate(["/"]).then(result=>{window.open(task.shortUrl)});
   }
+
 
 }

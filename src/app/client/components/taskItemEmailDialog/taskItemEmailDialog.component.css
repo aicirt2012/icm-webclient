@@ -17,6 +17,11 @@
     height: 50px;
 }
 
+.check-icon {
+    color: #21C9A1;
+    font-size: 30px;
+}
+
 .title {
     max-width: 160px;
     overflow: hidden;

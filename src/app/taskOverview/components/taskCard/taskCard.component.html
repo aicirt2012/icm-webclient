@@ -1,15 +1,16 @@
-<div class="card" [class.overdue]="overdue" fxLayout="column">
+<div class="card" [class.overdue]="overdue && !sticker_check" [class.sticker_check]="sticker_check"  fxLayout="column">
     <div class="card-content">
         <md-list class="task-list">
             <md-list-item>
                 <div fxFlex class="text-overflow" fxLayout="row" fxLayoutAlign="start center" >
                  <h4 fxFlex class="text-overflow">{{task.name}}</h4>
-                 <md-icon class="alert-icon" *ngIf="overdue">add_alert</md-icon>
+                 <md-icon class="alert-icon" *ngIf="overdue && !sticker_check">add_alert</md-icon>
+                 <md-icon class="check-icon" *ngIf="sticker_check">check</md-icon>
                 </div>
             </md-list-item>
             <md-list-item>
                 <md-icon>date_range</md-icon>
-                <div [class.overdue-text]="overdue" *ngIf="task.due != null"> <b>{{task.due | date: 'medium'}}</b></div>
+                <div [class.overdue-text]="overdue && !sticker_check" *ngIf="task.due != null"> {{task.due | date: 'medium'}}</div>
                 <div *ngIf="task.due == null"><i>No date set</i></div>
             </md-list-item>
             <md-list-item>

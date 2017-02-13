@@ -50,9 +50,8 @@
       <md-input-container>
         <textarea md-input placeholder="Message" [(ngModel)]="emailForm.text" name="text" rows="20" autofocus></textarea>
       </md-input-container>
+          <button md-submit md-raised-button color="primary" (click)="sendEmail()" [disabled]="sending">Send Email</button>
+
     </form>
   </div>
-  <md-dialog-actions>
-    <button md-submit md-raised-button color="primary" (click)="sendEmail()" [disabled]="sending">Send Email</button>
-  </md-dialog-actions>
 </div>

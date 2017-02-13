@@ -22,11 +22,17 @@ export class TaskDialogComponent {
   public possibleMembers: any[] = [];
   public currMember = '';
   public index = '';
+  overdue: boolean = false;
+  sticker_check: boolean = false;
 
   constructor(public taskDialogRef: MdDialogRef<TaskDialogComponent>, private snackBar: MdSnackBar, private _taskService: TaskService, public appState: AppState) {
   }
 
   ngOnInit() {
+    if(this.task.taskType == 'linked') {
+      this.sticker_check = this.task.stickers.find((sticker) => sticker.image === 'check') ? true : false;
+      this.overdue = this.task.date ? (new Date(this.task.date) < new Date()) : false;
+    }
   }
 
   createTask() {

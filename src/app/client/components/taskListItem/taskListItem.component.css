@@ -107,6 +107,18 @@
     color: #ce2424;
 }
 
+.check-icon {
+    color: #21C9A1;
+    font-size: 30px;
+    top: 3px;
+    position: absolute;
+    right: 30px;
+}
+
+.sticker_check {
+    border: 1px solid #21C9A1;
+}
+
 .suggested {
     border-left: 5px solid #20c9a1;
     margin-bottom: 5px;

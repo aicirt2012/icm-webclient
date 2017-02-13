@@ -10,12 +10,15 @@ export class TaskCardComponent {
     @Input() members: any[];
     assignedMembers: any[] = [];
     overdue: boolean = false;
+    sticker_check: boolean = false;
 
     constructor() { }
 
     ngOnInit() {
         
         this.overdue = this.task.due ? (new Date(this.task.due) < new Date()) : false;
+
+        this.sticker_check = this.task.stickers.find((sticker) => sticker.image === 'check') ? true : false;
     
         if(this.task.linkedEmail) {
              this.task.linkToEmail = `box/${this.task.linkedBox}/${this.task.linkedEmail}`;

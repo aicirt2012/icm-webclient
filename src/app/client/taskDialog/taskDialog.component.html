@@ -1,6 +1,8 @@
 <md-progress-bar color="accent" class="progressbar-top" *ngIf="sending" mode="indeterminate"></md-progress-bar>
 <div fxFlex fxLayout="column">
     <div md-dialog-title fxLayout="row" fxLayoutAlign="start center">
+        <md-icon mdTooltip="Overdue" *ngIf="overdue && !sticker_check && task.taskType == 'linked'" class="pointer alert-icon margin">add_alert</md-icon>
+        <md-icon mdTooltip="Completed" *ngIf="sticker_check && task.taskType == 'linked'" class="pointer check-icon margin">check</md-icon>
         <span fxFlex>{{ task.taskType == 'linked' ? 'Update Task' : 'Create Task' }}</span>
         <md-icon (click)="closeDialog()" class="pointer">close</md-icon>
     </div>
@@ -30,7 +32,7 @@
             </div>
             <div fxLayout="row" *ngIf="task.board">
                 <div fxFlex="45" fxLayoutAlign="start center">
-                    <md-icon class="margin">date_range</md-icon>
+                    <md-icon class="margin" [class.alert-icon]="overdue && !sticker_check && task.taskType == 'linked'">date_range</md-icon>
                     <md-input-container fxFlex>
                         <input name="date" md-input placeholder="Due Date" type="date" required [(ngModel)]="task.date" value="task.date | date:'yyyy-MM-dd'">
                     </md-input-container>
