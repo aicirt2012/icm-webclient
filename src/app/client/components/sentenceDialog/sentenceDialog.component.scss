@@ -7,11 +7,10 @@
   cursor: pointer;
 }
 
-.classification {
+.false {
   color: $red-warn;
 }
 
-.larger {
-  font-weight: bold;
+.true {
   color: $light-green-accent;
 }

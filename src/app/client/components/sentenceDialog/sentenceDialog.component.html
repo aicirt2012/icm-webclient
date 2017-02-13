@@ -21,8 +21,8 @@
       <md-list-item *ngIf="sentence.classification && sentence.classification.length > 0">
         <md-icon md-list-avatar svgIcon="brain"></md-icon>
         <h3 class="sentence-dialog-heading" md-line>Naive Bayes</h3>
-        <p md-line class="classification" [class.larger]="sentence.classification[0].value > sentence.classification[1].value">{{sentence.classification[0].label}} - {{sentence.classification[0].value | percent}}</p>
-        <p md-line class="classification" [class.larger]="sentence.classification[1].value > sentence.classification[0].value">{{sentence.classification[1].label}} - {{sentence.classification[1].value | percent}}</p>
+        <p md-line class="true" *ngIf="sentence.classification[0].value > sentence.classification[1].value">{{sentence.classification[0].label}}</p>
+        <p md-line class="false" *ngIf="sentence.classification[1].value > sentence.classification[0].value">{{sentence.classification[1].label}}</p>
       </md-list-item>
       <md-list-item *ngIf="!sentence.classification || sentence.classification.length == 0">
         <md-icon md-list-avatar svgIcon="brain"></md-icon>
