@@ -61,6 +61,6 @@
         <button md-submit md-raised-button color="primary" [disabled]="sending || !task.list" (click)="createTask()" *ngIf="task.taskType == 'suggested'">Create Task</button>
         <button md-submit md-raised-button color="primary" [disabled]="sending" (click)="updateTask()" *ngIf="task.taskType == 'linked'">Update Task</button>
         <button md-submit md-raised-button color="primary" [disabled]="sending" (click)="unlinkTask()" *ngIf="task.taskType == 'linked'">Unlink Task</button>
-        <button md-submit md-raised-button color="primary" [disabled]="sending" *ngIf="task.status != 'empty'" (click)="updateTask('close')">Archive Task</button>
+        <button md-submit md-raised-button color="primary" [disabled]="sending" *ngIf="task.status != 'empty' && task.taskType == 'linked'" (click)="updateTask('close')">Archive Task</button>
     </md-dialog-actions>
 </div>
