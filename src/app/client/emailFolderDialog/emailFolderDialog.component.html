@@ -2,7 +2,7 @@
   <md-progress-bar mode="indeterminate" *ngIf="updating"></md-progress-bar>
   <div md-dialog-title fxLayout="row" fxLayoutAlign="end center">
 
-    <md-icon (click)="closeDialog()">close</md-icon>
+    <md-icon class="pointer" (click)="closeDialog()">close</md-icon>
 
   </div>
   <div fxLayout="row">
@@ -24,7 +24,7 @@
       <md-card-actions fxLayoutAlign="center center">
         <button  md-raised-button [disabled]="newBoxName == '' || updating" color="primary" (click)="onAddBox()"> Create Box</button>
       </md-card-actions>
-      
+
     </md-card>
   </div>
   <div fxFlex="50" fxLayout="column">
