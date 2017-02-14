@@ -20,13 +20,13 @@
       <h3 md-subheader >BETA - Classification</h3>
       <md-list-item *ngIf="sentence.classification && sentence.classification.length > 0">
         <md-icon md-list-avatar svgIcon="brain"></md-icon>
-        <h3 class="sentence-dialog-heading" md-line>Naive Bayes</h3>
-        <p md-line class="true" *ngIf="sentence.classification[0].value > sentence.classification[1].value">{{sentence.classification[0].label}}</p>
-        <p md-line class="false" *ngIf="sentence.classification[1].value > sentence.classification[0].value">{{sentence.classification[1].label}}</p>
+        <h3 class="sentence-dialog-heading" md-line>Logistic Regression</h3>
+        <p md-line [class.larger]="sentence.classification[0].value > sentence.classification[1].value">{{sentence.classification[0].label}} - {{sentence.classification[0].value | percent}}</p>
+        <p md-line [class.larger]="sentence.classification[1].value > sentence.classification[0].value">{{sentence.classification[1].label}} - {{sentence.classification[1].value | percent}}</p>
       </md-list-item>
       <md-list-item *ngIf="!sentence.classification || sentence.classification.length == 0">
         <md-icon md-list-avatar svgIcon="brain"></md-icon>
-        <h3 class="sentence-dialog-heading" md-line>Naive Bayes</h3>
+        <h3 class="sentence-dialog-heading" md-line>Logistic Regression</h3>
         <p md-line>Please fill up your training data set to get classifications.</p>
       </md-list-item>
     </md-list>
