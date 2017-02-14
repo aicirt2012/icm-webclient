@@ -47,3 +47,10 @@
 .margin {
     margin-right: 5px;
 }
+
+.trello-icon {
+  height: 42px;
+  width: 52px;
+  right: 16%;
+  position: absolute;
+}

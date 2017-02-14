@@ -1,51 +1,54 @@
 <md-progress-bar color="accent" class="progressbar-top" *ngIf="sending" mode="indeterminate"></md-progress-bar>
 
 <div fxFlex fxLayout="column">
-    <div md-dialog-title fxLayout="row">
-        <span fxFlex>Link Task to Mail</span>
-        <md-icon (click)="closeDialog()" class="pointer">close</md-icon>
-    </div>
-    <div>
-        <form fxFlex fxLayout="column">
-            <div fxLayout="row" class="selectList">
-                <md-icon fxFlex="3">dashboard</md-icon>
-                <md-select fxFlex="42" name="board-select" [(ngModel)]="task.board" required placeholder="Select a board..">
-                    <md-option *ngFor="let board of boards; let b = index" [value]="board" (onSelect)="onSelectBoard(board)">
-                        {{ board.name }}
-                    </md-option>
-                </md-select>
-                <div fxFlex="10"></div>
-                <md-icon fxFlex="3" *ngIf="task.board">description</md-icon>
-                <md-select fxFlex="42" [(ngModel)]="task.card" name="list-select" *ngIf="task.board" required placeholder="Select a task..">
-                    <md-option *ngFor="let card of task.board.cards" [value]="card" (onSelect)="onSelectCard(card)">
-                        {{ card.name }}
-                    </md-option>
-                </md-select>
+  <div md-dialog-title fxLayout="row">
+    <span fxFlex>Link Task to Mail</span>
+    <md-icon (click)="closeDialog()" class="pointer">close</md-icon>
+  </div>
+  <div>
+    <form fxFlex fxLayout="column">
+      <div fxLayout="row" class="selectList">
+        <md-icon fxFlex="3">dashboard</md-icon>
+        <md-select fxFlex="42" name="board-select" [(ngModel)]="task.board" required placeholder="Select a board..">
+          <md-option *ngFor="let board of boards; let b = index" [value]="board" (onSelect)="onSelectBoard(board)">
+            {{ board.name }}
+          </md-option>
+        </md-select>
+        <div fxFlex="10"></div>
+        <md-icon fxFlex="3" *ngIf="task.board">description</md-icon>
+        <md-select fxFlex="42" [(ngModel)]="task.card" name="list-select" *ngIf="task.board" required placeholder="Select a task..">
+          <md-option *ngFor="let card of task.board.cards" [value]="card" (onSelect)="onSelectCard(card)">
+            {{ card.name }}
+          </md-option>
+        </md-select>
+      </div>
+      <div fxLayout="row" *ngIf="task.card">
+        <md-icon fxFlex="3">date_range</md-icon>
+        <div fxFlex="42">
+          <md-input-container fxFlex="20">
+            <input name="date" md-input placeholder="Due Date" type="date" [disabled]="true" required [(ngModel)]="date" value="date | date:'yyyy-MM-dd'">
+          </md-input-container>
+        </div>
+        <div fxFlex="10"></div>
+        <md-icon fxFlex="3">person</md-icon>
+        <div fxFlex="42" *ngIf="task.card">
+          <div fxLayout="row">
+            <div *ngFor="let member of members; let i = index" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
+              <span>{{member.initials}}</span>
             </div>
-            <div fxLayout="row" *ngIf="task.card">
-                <md-icon fxFlex="3">date_range</md-icon>
-                <div fxFlex="42">
-                    <md-input-container fxFlex="20">
-                        <input name="date" md-input placeholder="Due Date" type="date" [disabled]="true" required [(ngModel)]="date" value="date | date:'yyyy-MM-dd'">
-                    </md-input-container>
-                </div>
-                <div fxFlex="10"></div>
-                <md-icon fxFlex="3">person</md-icon>
-                <div fxFlex="42" *ngIf="task.card">
-                    <div fxLayout="row">
-                        <div *ngFor="let member of members; let i = index" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
-                            <span>{{member.initials}}</span>
-                        </div>
-                        <div *ngIf="members.length < 1"><i>No person assigned</i></div>
-                    </div>
-                </div>
+            <div *ngIf="members.length < 1">
+              <i>No person assigned</i>
             </div>
-            <md-input-container fxFlex *ngIf="task.card">
-                <textarea md-input type="text" [disabled]="true" class="text-area" name="task-description" placeholder="Task Description" maxRows="3" [(ngModel)]="task.card.desc" value="task.card.desc" rows="10"></textarea>
-            </md-input-container>
-        </form>
-    </div>
-    <md-dialog-actions>
-        <button md-submit md-raised-button color="primary" [disabled]="sending || !task.card" (click)="linkTask()">Link Task</button>
-    </md-dialog-actions>
+          </div>
+        </div>
+      </div>
+      <md-input-container fxFlex *ngIf="task.card">
+        <textarea md-input type="text" [disabled]="true" class="text-area" name="task-description" placeholder="Task Description" maxRows="3" [(ngModel)]="task.card.desc" value="task.card.desc" rows="10"></textarea>
+      </md-input-container>
+    </form>
+  </div>
+  <md-dialog-actions>
+    <button md-submit md-raised-button color="primary" [disabled]="sending || !task.card" (click)="linkTask()">Link Task</button>
+    <img src="/assets/img/trello.gif" class="trello-icon">
+  </md-dialog-actions>
 </div>
