@@ -1,6 +1,6 @@
 <div fxFlex fxLayout="column">
   <div class="task-action-top-bar" fxLayoutAlign="center center">
-    <button md-raised-button color="primary" [mdMenuTriggerFor]="createTask" mdTooltip="Create Task">
+    <button md-raised-button color="primary" [mdMenuTriggerFor]="createTask" mdTooltip="Create or link Task">
         <span>Task Actions</span>
         <md-icon>keyboard_arrow_down</md-icon>
       </button>
@@ -20,13 +20,3 @@
     <md-checkbox color="accent" [(ngModel)]="showSuggested" (click)="clickSuggestedFilter()">Suggested</md-checkbox>
   </div>
 </div>
-<!--
-<div fxFlex fxLayout="row" class="action-buttons" >
-    
-    
-  </div>
-  <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-    <div fxLayout="row">
-      
-    </div>
-  </div>-->
