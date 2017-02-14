@@ -1,17 +1,7 @@
-.action-buttons button {
+.action-buttons md-checkbox {
     margin: 5px;
 }
 
-.action-buttons {
-    background-color: #F8F8F8;
-    height: 50px;
-}
-
-.section {
-    margin-top: 5px;
-    margin-left: 5px;
-}
-
 .task-action-top-bar {
-    margin-bottom: 7px;
+    margin: 5px;
 }

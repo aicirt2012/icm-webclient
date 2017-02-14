@@ -1,23 +1,32 @@
-<div fxFlex fxLayout="row" class="task-action-top-bar" fxLayoutAlign="center center">
-    <div fxFlex="50" class="action-buttons" fxLayoutAlign="center start">
-        <button color="primary" md-mini-fab [mdMenuTriggerFor]="createTask" mdTooltip="Create Task">
-        <md-icon>add</md-icon>
-    </button>
-        <md-menu #createTask="mdMenu">
-            <button md-menu-item (click)="openDialogTask()">
+<div fxFlex fxLayout="column">
+  <div class="task-action-top-bar" fxLayoutAlign="center center">
+    <button md-raised-button color="primary" [mdMenuTriggerFor]="createTask" mdTooltip="Create Task">
+        <span>Task Actions</span>
+        <md-icon>keyboard_arrow_down</md-icon>
+      </button>
+    <md-menu #createTask="mdMenu">
+      <button md-menu-item (click)="openDialogTask()">
       <md-icon>edit</md-icon>
       <span>Create empty task</span>
     </button>
-            <button md-menu-item (click)="openDialogLinkedTask()">
+      <button md-menu-item (click)="openDialogLinkedTask()">
       <md-icon>swap_horiz</md-icon>
       <span>Link existing task</span>
     </button>
-        </md-menu>
-    </div>
-    <div fxFlex="50" layout="column" fxLayoutAlign="center end">
-        <section fxFlex>
-            <md-checkbox color="primary" fxFlex="50" [(ngModel)]="showLinked" (click)="clickLinkedFilter()">Linked</md-checkbox>
-            <md-checkbox color="accent" [(ngModel)]="showSuggested" (click)="clickSuggestedFilter()">Suggested</md-checkbox>
-        </section>
-    </div>
+    </md-menu>
+  </div>
+  <div class="task-action-top-bar action-buttons" fxLayoutAlign="center center">
+    <md-checkbox color="primary" [(ngModel)]="showLinked" (click)="clickLinkedFilter()">Linked</md-checkbox>
+    <md-checkbox color="accent" [(ngModel)]="showSuggested" (click)="clickSuggestedFilter()">Suggested</md-checkbox>
+  </div>
 </div>
+<!--
+<div fxFlex fxLayout="row" class="action-buttons" >
+    
+    
+  </div>
+  <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+    <div fxLayout="row">
+      
+    </div>
+  </div>-->
