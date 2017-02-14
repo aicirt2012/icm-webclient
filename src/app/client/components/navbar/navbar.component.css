@@ -73,8 +73,3 @@
     transform: rotate(360deg);
   }
 }
-
-.scrollable {
-  max-height: 100%;
-  overflow-y: auto;
-}
