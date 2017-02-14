@@ -14,15 +14,15 @@ import { EmailService } from '../shared';
 export class EmailListComponent {
   emails: Email[];
   page = 1;
+  pages: number;
   limit = 25;
   scrollDistance = 2;
   scrollThrottle = 300;
-  emailsCounter = 0;
   currentBox: any;
   boxList: any[];
   loading: boolean;
   emptyBox: boolean = false;
-  loadingList: boolean;
+  loadingList: boolean = false;
   searchActive: boolean;
 
   constructor(public appState: AppState, public router: Router, public activeRoute: ActivatedRoute, private _emailService: EmailService) {
@@ -60,6 +60,8 @@ export class EmailListComponent {
           email.route = `/box/${email.box.id}/${email._id}`;
           return email;
         });
+        this.page = data.page;
+        this.pages = data.pages;
         this.appState.set('currentBox', this.activeRoute.snapshot.params['boxId']);
         this.appState.set('emails', this.emails);
         if (!updating && this.emails.length > 0 && (this.router.url.match(/\//g).length < 3)) {
@@ -83,8 +85,7 @@ export class EmailListComponent {
   }
 
   onScroll() {
-    if (this.emailsCounter < this.emails.length) {
-      this.emailsCounter = this.emails.length;
+    if (this.page < this.pages && !this.loadingList) {
       this.page += 1;
       const params = {
         box: this.emails[0].box.name,
@@ -97,6 +98,8 @@ export class EmailListComponent {
           email.route = `/box/${email.box.id}/${email._id}`;
           return email;
         });
+        this.page = res.page;
+        this.pages = res.pages;
         this.emails = this.emails.concat(moreEmails);
         this.appState.set('emails', this.emails);
         this.loadingList = false;
