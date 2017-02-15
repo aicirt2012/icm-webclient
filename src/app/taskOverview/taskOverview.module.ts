@@ -10,12 +10,12 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { AuthService } from '../shared'; // all services
 import { TaskOverviewComponent } from './';
 import { ROUTES } from './taskOverview.routes';
-
+import { SortingPipe } from './filter.pipe';
 
 @NgModule({
-  declarations: [ TaskOverviewComponent, TaskCardComponent ],
-  imports: [CommonModule, FormsModule, RouterModule, MaterialModule.forRoot(), FlexLayoutModule.forRoot(),  
-  RouterModule.forRoot(ROUTES), SharedModule, ClientModule
+  declarations: [TaskOverviewComponent, TaskCardComponent, SortingPipe],
+  imports: [CommonModule, FormsModule, RouterModule, MaterialModule.forRoot(), FlexLayoutModule.forRoot(),
+    RouterModule.forRoot(ROUTES), SharedModule, ClientModule
   ],
   providers: [],
 })
