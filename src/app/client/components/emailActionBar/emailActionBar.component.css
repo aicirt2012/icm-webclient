@@ -1,8 +1,12 @@
 .action-buttons button {
-    margin: 5px;
+  margin: 5px;
 }
 
 .action-buttons {
-    background-color: #F8F8F8;
-    height: 50px;
+  background-color: #F8F8F8;
+  height: 50px;
+}
+
+.email-action-button {
+  min-width: 30px;
 }

@@ -15,7 +15,7 @@
     </button>
     </md-menu>
   </div>
-  <div class="task-action-top-bar action-buttons" fxLayoutAlign="center center">
+  <div class="task-action-top-bar action-buttons" fxLayout="column" fxLayout.gt-md="row" fxLayoutAlign="center start" fxLayoutAlign.gt-md="center center">
     <md-checkbox color="primary" [(ngModel)]="showLinked" (click)="clickLinkedFilter()">Linked</md-checkbox>
     <md-checkbox color="accent" [(ngModel)]="showSuggested" (click)="clickSuggestedFilter()">Suggested</md-checkbox>
   </div>
