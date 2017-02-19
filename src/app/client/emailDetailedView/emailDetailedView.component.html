@@ -7,8 +7,8 @@
             <spinner [loading]="true"></spinner>
         </div>
         <email-response class="email-detail-container scrollable" *ngIf="emailResponse.text" [emailForm]="emailResponse" [sending]="sending" (sendMail)="sendEmail($event)"></email-response>
-    </div>
-    <tasks [email]="email" fxFlex="30"></tasks>
+    </div>    
+    <context [email]="email" fxFlex="30"></context>
 </div>
 <div *ngIf="!email || !boxList" fxFlex fxLayout="row" fxLayoutAlign="center center" class="full-height">
     <spinner [loading]="true"></spinner>
