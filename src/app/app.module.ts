@@ -69,11 +69,8 @@ type StoreType = {
     LoginModule,
     ClientModule,
     SettingsModule,
-<<<<<<< HEAD
     TaskOverviewModule,
-=======
     DashboardModule,
->>>>>>> feature/dashboard
     SharedModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
