@@ -1,0 +1,14 @@
+.pattern-action-bar-item {
+  margin: 5px;
+}
+
+.pattern-list-item {
+  &>* {
+    margin: 5px;
+  }
+}
+
+.fab-icon {
+  color: white;
+}
+

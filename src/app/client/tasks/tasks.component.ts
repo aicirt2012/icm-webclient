@@ -2,13 +2,13 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { MdDialog, MdDialogRef, MdSnackBar } from '@angular/material';
 import { Email } from '../shared';
 import { TaskService } from '../shared';
-import { TaskDialogType, DialogType} from '../../shared/constants';
+import { TaskDialogType, DialogType } from '../../shared/constants';
 import { TaskDialogComponent } from '../taskDialog';
 import { LinkTaskDialogComponent } from '../linkTaskDialog';
 import { AppState } from '../../app.service';
 
 @Component({
-  selector: 'tasks',  // <taskList></taskList>
+  selector: 'tasks',
   styleUrls: ['./tasks.component.css'],
   templateUrl: './tasks.component.html'
 })
@@ -21,33 +21,31 @@ export class TasksComponent {
   public user: any;
   public suggestedTasks: any = [];
   public linkedTasks: any = [];
+  public suggestedTasks$: any;
+  public linkedTasks$: any = [];
   private dialogConfig = {
     width: "70%",
-    height: '70%',
+    height: 'auto',
   }
   private linkTaskDialogConfig = {
-    width: '60%',
-    height: '40%'
+    width: '70%',
+    height: 'auto'
   }
+  public showSuggested: boolean = true;
+  public showLinked: boolean = true;
 
   constructor(private _taskService: TaskService, public dialog: MdDialog, public snackBar: MdSnackBar, public appState: AppState) {
   }
 
   ngOnInit() {
-     this.user = this.appState.get('user');
+    this.user = this.appState.get('user');
     if (this.user.trello) {
       this.getAllBoards();
+      this.errorTrello = false;
     }
     else {
       this.errorTrello = true;
     }
-  }
-
-  ngOnChanges() {
-    this.suggestedTasks = this.email.suggestedTasks ? this.email.suggestedTasks : [];
-    this.linkedTasks = this.email.linkedTasks ? this.email.linkedTasks : [];
-    this.appState.set('suggestedTasks', this.suggestedTasks);
-    this.appState.set('linkedTasks', this.linkedTasks); 
   }
 
   createTask(taskObject: any) {
@@ -58,8 +56,7 @@ export class TasksComponent {
       error => {
         console.log(error);
         this.snackBar.open('Error while creating task.', 'OK');
-      },
-      () => { });
+      });
   }
 
   getAllBoards() {
@@ -69,9 +66,6 @@ export class TasksComponent {
       },
       error => {
         console.log(error)
-      },
-      () => {
-        console.log("all boards success")
       });
   }
 
@@ -84,12 +78,10 @@ export class TasksComponent {
 
   deleteTask(task: any) {
     if (task.taskType == 'suggested') {
-      this.suggestedTasks.splice(task.index, 1);
-      this.appState.set('suggestedTasks', this.suggestedTasks);
+      this.email.suggestedTasks.splice(task.index, 1);
     }
     else {
-      this.linkedTasks.splice(task.index, 1);
-      this.appState.set('linkedTasks', this.linkedTasks);
+      this.email.linkedTasks.splice(task.index, 1);
     }
   }
 
@@ -99,12 +91,48 @@ export class TasksComponent {
     linkTaskDialogRef.componentInstance.email = this.email;
     linkTaskDialogRef.componentInstance.boards = this.boards;
   }
-
+  /* change highlightstatus { sentenceId, highlight(true/false)}*/
   highlightSentence(h: any) {
     const sentence = this.email.sentences.find((s) => s.id == h.id);
     this.email.sentences.forEach((s) => { s.highlighted = false });
     sentence.highlighted = h.highlight;
-    this.appState.set('email', this.email);
+  }
+
+  hightlightTaskItem(h: any) {
+    this.email.suggestedTasks.forEach((t) => {
+      t.highlight = false;
+      if (t.task.id == h.id) {
+        t.highlight = h.highlight;
+      }
+    });
+  }
+
+  openLinkTask() {
+    if(this.boards.length > 0) {
+      let b = this.boards[0];
+      this.openLinkTaskDialog({ 'taskType': 'linked', 'board': b, });
+    }
+    else {
+      this.openLinkTaskDialog({ 'taskType': 'linked' });
+    }
+  }
+
+  openTaskDialog() {   
+    if(this.boards.length > 0) {
+      let b = this.boards[0];
+      this.openDialog({ 'taskType': 'suggested', 'status': 'empty', 'board': b, 'name': this.email.subject});
+    }
+    else {
+      this.openDialog({ 'taskType': 'suggested', 'status': 'empty', 'name': this.email.subject});
+    }
+  }
+
+  setSuggestedFilter(checked: boolean) {
+    this.showSuggested = checked;
+  }
+
+  setLinkedFilter(checked: boolean) {
+    this.showLinked = checked;
   }
 
 }

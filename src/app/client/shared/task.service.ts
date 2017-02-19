@@ -18,7 +18,7 @@ export class TaskService {
     const options = {
       idList: list
     };
-    return this._httpService.generateRequest(RequestMethod.Get, this.domain, '', options, null);
+    return this._httpService.httpGET(this.domain, '', options, null);
   }
 
   /*
@@ -29,7 +29,7 @@ export class TaskService {
     const options = {
       query: query
     };
-    return this._httpService.generateRequest(RequestMethod.Get, this.domain, 'search', options, null);
+    return this._httpService.httpGET(this.domain, 'search', options, null);
   }
 
   /*
@@ -40,7 +40,7 @@ export class TaskService {
     const body = {
       emailAddresses: emailAddresses
     }
-    return this._httpService.generateRequest(RequestMethod.Post, this.domain, 'cards', null, body);
+    return this._httpService.httpPOST(this.domain, 'cards', null, body);
   }
 
   /*
@@ -58,7 +58,7 @@ export class TaskService {
       sentenceId: task.task ? task.task.id : ""
     };
     const path = `email/${email._id}/addTask`;
-    return this._httpService.generateRequest(RequestMethod.Post, this.domain, path, null, options);
+    return this._httpService.httpPOST(this.domain, path, null, options);
   }
 
   updateTask(task: any): Observable<any> {
@@ -69,17 +69,18 @@ export class TaskService {
       desc: task.desc,
       idMembers: task.selectedMembers.map((s) => s.id),
       due: task.date,
+      closed: task.closed
     };
     const path = `${task.id}`;
-    return this._httpService.generateRequest(RequestMethod.Put, this.domain, path, null, options);
+    return this._httpService.httpPUT(this.domain, path, null, options);
   }
 
   getTaskByID(id :string): Observable<any> {
-    return this._httpService.generateRequest(RequestMethod.Get, this.domain, `/${id}`, null, null);
+    return this._httpService.httpGET(this.domain, `/${id}`, null, null);
   }
 
   getAllBoards(params?: any): Observable<any> {
-    return this._httpService.generateRequest(RequestMethod.Get, this.domain, 'boards', params, null);
+    return this._httpService.httpGET(this.domain, 'boards', params, null);
   }
 
   linkTask(email: any, task: any) {
@@ -87,12 +88,12 @@ export class TaskService {
       taskId : task.card.id
     };
     const path = `email/${email._id}/linkTask`;
-    return this._httpService.generateRequest(RequestMethod.Post, this.domain, path, null, options);
+    return this._httpService.httpPOST(this.domain, path, null, options);
   }
 
   unlinkTask(task: any) {
     const path = `${task.id}/unlink`;
-     return this._httpService.generateRequest(RequestMethod.Put, this.domain, path, null, null);
+     return this._httpService.httpPUT(this.domain, path, null, null);
   }
 
   formatDate(date) {

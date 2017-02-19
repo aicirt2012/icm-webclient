@@ -44,6 +44,7 @@ export class EmailFolderDialogComponent {
           this.parentBox = '';
           this.snackBar.open(`New box '${this.newBoxName}' was successfully created.`, 'OK');
           this.newBoxName = '';
+          this.closeDialog();
         }, () => {
            this.updating = false;
            this.snackBar.open('Error while creating new box.', 'OK');
@@ -59,18 +60,19 @@ export class EmailFolderDialogComponent {
           this.updating = false;
           this.snackBar.open(`Folder '${this.selectedBoxName}' successfully deleted.`, 'OK');
           this.selectedBoxName = '';
+          this.closeDialog();
         }, () => {
            this.updating = false;
            this.snackBar.open('Error while deleting folder.', 'OK');
         });
     });
-} 
+}
 
   addPadding(box:any) {
     let paddingLeft = `0`;
     if(box.level > 0) {
       paddingLeft = `${box.level*5}px`;
-    } 
+    }
     return paddingLeft;
   }
 

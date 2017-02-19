@@ -29,18 +29,11 @@ export class EmailDetailedViewComponent {
   }
 
   ngOnInit() {
-    
     this.emails = this.appState.get('emails').length > 0 ? this.appState.get('emails') : [];
     this.boxList = this.appState.get('boxList').length > 0 ? this.appState.get('boxList') : [];
-    
 
     this.appState.dataChange.subscribe((stateChange) => {
       this[stateChange] = this.appState.get(stateChange);
-
-      if(this.emails.length > 0 && this.boxList.length > 0 && this.email && this.email.flags && !(this.email.flags.indexOf('\\Seen') > -1) && !this.manuallyRemovedFlag) {
-        this.addFlags(['\\Seen']);
-      }
-      
     });
 
     this.currentId = this.route.params.map(params => params['emailId'] || 'None');
@@ -80,8 +73,14 @@ export class EmailDetailedViewComponent {
     this._emailService
       .getSingleMail(id)
       .subscribe((data: any) => {
-        data.sentences = data.sentences.map((s) => { s.highlighted = false; return s});
-        this.appState.set('email', data);
+        if (data.sentences) {
+          data.sentences = data.sentences.map((s) => { s.highlighted = false; return s });
+        }
+        this.email = data;
+        if (this.email.flags.indexOf('\\Seen') == -1) {
+          this.addFlags(['\\Seen']);
+        }
+
       },
       error => {
         console.log(error)
@@ -94,20 +93,24 @@ export class EmailDetailedViewComponent {
   emailMoveToBox(params: any) {
     this.moving = true;
     this._emailService.moveMail(params.msgId, params.srcBox, params.destBox).subscribe((res) => {
-      this.emails.splice(this.emails.findIndex((e)=>this.email._id==e._id),1);
-      this.emails.length > 0 ? this.appState.set('emails', this.emails) : this.appState.set('emails', []);
+      this.emails.splice(this.emails.findIndex((e) => this.email._id == e._id), 1);
+      this.appState.set('emails', this.emails);
       this.snackBar.open(`Message successfully moved to ${params.destBox}.`, 'OK');
-      this.router.navigate([`box/${this.appState.get('currentBox')}`]);
+      if (this.emails.length > 0) {
+        this.router.navigate([`box/${this.appState.get('currentBox')}/${this.emails[0]._id}`]);
+      } else {
+        this.router.navigate([`box/${this.appState.get('currentBox')}`]);
+      }
       this.moving = false;
     }, (err) => {
       console.log(err);
-      this.snackBar.open('Message successfully moved.', 'OK');
+      this.snackBar.open('Error when moving Message.', 'OK');
       this.moving = false;
     });
   }
 
   addFlags(flags: string[]) {
-    const oldEmail = this.appState.get('email');
+    const oldEmail = Object.assign(this.email);
     const oldEmails = this.appState.get('emails');
     const oldBoxList = this.appState.get('boxList');
 
@@ -124,12 +127,11 @@ export class EmailDetailedViewComponent {
       }
       return box;
     });
-    this.appState.set('email', this.email);
     this.appState.set('boxList', this.boxList);
     this.appState.set('emails', this.emails);
 
     this._emailService.addFlags(this.email.uid, flags, this.email.box.name).subscribe((res) => { }, (err) => {
-      this.appState.set('email', oldEmail);
+      this.email = Object.assign(oldEmail);
       this.appState.set('emails', oldEmails);
       this.appState.set('boxList', oldBoxList);
       this.snackBar.open('Error while setting email to READ.', 'OK');
@@ -138,47 +140,51 @@ export class EmailDetailedViewComponent {
   }
 
   deleteFlags(flags: string[]) {
-    const oldEmail = this.appState.get('email');
+    const oldEmail = Object.assign(this.email);
     const oldEmails = this.appState.get('emails');
     const oldBoxList = this.appState.get('boxList');
-    this.manuallyRemovedFlag = true;
 
     flags.forEach((f) => {
       this.email.flags.splice(this.email.flags.indexOf(f), 1);
     });
+
     this.emails.map((email) => {
       if (this.email._id == email._id) {
         email.flags = this.email.flags;
       }
       return email;
     });
+
     this.boxList.map((box) => {
       if (box.name == this.email.box.name) {
         box.unseen += 1;
       }
       return box;
     });
-    this.appState.set('email', this.email);
-    this.appState.set('boxList', this.boxList);
+
     this.appState.set('emails', this.emails);
+    this.appState.set('boxList', this.boxList);
 
     this._emailService.delFlags(this.email.uid, flags, this.email.box.name).subscribe((res) => {
-      this.manuallyRemovedFlag = false;
     }, (err) => {
-      this.appState.set('email', oldEmail);
+      this.email = Object.assign(oldEmail);
       this.appState.set('emails', oldEmails);
       this.appState.set('boxList', oldBoxList);
       this.snackBar.open('Error while setting email to READ.', 'OK');
-      this.manuallyRemovedFlag = false;
     }, () => {
-    });
+    })
   }
 
   highlightSentence(h: any) {
-    let suggestedTasks = this.email.suggestedTasks;
-    suggestedTasks.forEach((t) => { t.highlight = false });
-    suggestedTasks = suggestedTasks.map((t) => { if(t.task.id == h.id) t.highlight = h.highlight; return t} );  
-    this.appState.set('suggestedTasks', suggestedTasks);
+    const sentence = this.email.sentences.find((s) => s.id == h.id);
+    this.email.sentences.forEach((s) => { s.highlighted = false });
+    this.email.suggestedTasks.forEach((t) => {
+      t.highlight = false;
+      if (t.task.id == h.id) {
+        sentence.highlighted = h.highlight;
+        t.highlight = h.highlight;
+      }
+    });
   }
 
 }

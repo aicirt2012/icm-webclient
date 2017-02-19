@@ -1,13 +1,13 @@
 <div class="flex-container full-height" fxLayout="column">
   <top-navbar></top-navbar>
   <div *ngIf="noMailboxConnected" fxFlex fxLayoutAlign="center center">
-    Please connect to a mailbox in <a routerLink="/settings/email">&nbsp;Settings</a>
+    Please connect to a mailbox in &nbsp;<a routerLink="/settings/email">Settings</a>.
   </div>
   <div *ngIf="syncing">
     <spinner [loading]="true"></spinner>
   </div>
   <div [fxShow]="!syncing && !noMailboxConnected" fxLayout="row" fxFlex>
-    <navbar fxFlex="15" (onRefresh)="onRefresh($event)" [lastSync]="user?.lastSync"></navbar>
+    <navbar fxFlex="15" (onRefresh)="onRefresh($event)" [lastSync]="user?.lastSync" [syncing]="updating"></navbar>
     <router-outlet></router-outlet>
   </div>
 </div>

@@ -1,0 +1,37 @@
+<md-card class="viewPortContainer" fxFlex>
+    <md-card-title>Network</md-card-title>
+
+    <div id="network"></div>
+
+    <h3>Top From</h3>
+    <table>
+      <tr *ngFor="let s of topFrom">
+        <td>{{s.count}}</td>
+        <td>{{s.address}}</td>
+      </tr>
+    </table>
+
+    <h3>Top To</h3>
+    <table>
+      <tr *ngFor="let s of topTo">
+        <td>{{s.count}}</td>
+        <td>{{s.address}}</td>
+      </tr>
+    </table>
+
+    <h3>Top CC</h3>
+    <table>
+      <tr *ngFor="let s of topCc">
+        <td>{{s.count}}</td>
+        <td>{{s.address}}</td>
+      </tr>
+    </table>
+
+    <h3>Top BCC</h3>
+    <table>
+      <tr *ngFor="let s of topBcc">
+        <td>{{s.count}}</td>
+        <td>{{s.address}}</td>
+      </tr>
+    </table>
+</md-card>

@@ -1,64 +1,69 @@
+<md-progress-bar color="accent" class="progressbar-top" *ngIf="sending" mode="indeterminate"></md-progress-bar>
 <div fxFlex fxLayout="column">
-    <md-progress-bar *ngIf="sending" mode="indeterminate"></md-progress-bar>
-    <div md-dialog-title fxLayout="row">
-        <span *ngIf="!editTitle && task.status != 'empty'" fxFlex>{{task.name}}</span>
-        <md-input-container fxFlex *ngIf="editTitle || task.status == 'empty'">
-            <input md-input type="text" name="title" placeholder="Task Name" maxRows="3" [(ngModel)]="task.name" value="task.name">
-        </md-input-container>
-        <md-icon *ngIf="!editTitle && task.status != 'empty'" (click)="editTitle = true">mode_edit</md-icon>
-        <md-icon *ngIf="editTitle" (click)="editTitle = false">done</md-icon>
+    <div md-dialog-title fxLayout="row" fxLayoutAlign="start center">
+        <md-icon mdTooltip="Overdue" *ngIf="overdue && !sticker_check && task.taskType == 'linked'" class="pointer alert-icon margin">add_alert</md-icon>
+        <md-icon mdTooltip="Completed" *ngIf="sticker_check && task.taskType == 'linked'" class="pointer check-icon margin">check</md-icon>
+        <span fxFlex>{{ task.taskType == 'linked' ? 'Update Task' : 'Create Task' }}</span>
         <md-icon (click)="closeDialog()" class="pointer">close</md-icon>
     </div>
     <div>
         <form fxFlex fxLayout="column">
+            <md-input-container>
+                <input md-input type="text" name="title" placeholder="Task Name" maxRows="3" [(ngModel)]="task.name" value="task.name">
+            </md-input-container>
             <div fxLayout="row" class="selectList">
-                <md-icon fxFlex="3">dashboard</md-icon>
-                <md-select fxFlex="42" name="board-select" [(ngModel)]="task.board" [disabled]="task.taskType == 'linked'" required placeholder="Select a board..">
-                    <md-option *ngFor="let board of boards; let b = index" [value]="task.taskType == 'suggested' ? board : task.board" (onSelect)="task.taskType == 'suggested' ? onSelectBoard(board): ''">
-                        {{ board.name }}
-                    </md-option>
-                </md-select>
+                <div fxFlex="45" fxLayoutAlign="start center">
+                    <md-icon class="margin">dashboard</md-icon>
+                    <md-select fxFlex name="board-select" [(ngModel)]="task.board" [disabled]="task.taskType == 'linked'" required placeholder="Select a board..">
+                        <md-option *ngFor="let board of boards; let b = index" [value]="task.taskType == 'suggested' ? board : task.board" (onSelect)="task.taskType == 'suggested' ? onSelectBoard(board): ''">
+                            {{ board.name }}
+                        </md-option>
+                    </md-select>
+                </div>
                 <div fxFlex="10"></div>
-                <md-icon fxFlex="3" *ngIf="task.board">view_list</md-icon>
-                <md-select fxFlex="42" [(ngModel)]="task.list" name="list-select" *ngIf="task.board" [disabled]="task.taskType == 'linked'" required placeholder="Select a list..">
-                    <!--  <md-option *ngFor="let list of task.board.lists" [value]="task.taskType == 'suggested' ? list : task.list">-->
-                    <md-option *ngFor="let list of task.board.lists" [value]="task.taskType == 'linked'? task.list : list">
-                        {{ task.taskType == 'linked'? task.list.name : list.name }}
-                    </md-option>
-                </md-select>
+                <div fxFlex="45" fxLayout="row" fxLayoutAlign="end center">
+                    <md-icon class="margin" *ngIf="task.board">view_list</md-icon>
+                    <md-select fxFlex [(ngModel)]="task.list" name="list-select" *ngIf="task.board" [disabled]="task.taskType == 'linked'" required placeholder="Select a list..">
+                        <md-option *ngFor="let list of task.board.lists" [value]="task.taskType == 'linked'? task.list : list">
+                            {{ task.taskType == 'linked'? task.list.name : list.name }}
+                        </md-option>
+                    </md-select>
+                </div>
             </div>
             <div fxLayout="row" *ngIf="task.board">
-                <md-icon fxFlex="3">date_range</md-icon>
-                <div fxFlex="42">
-                    <md-input-container fxFlex="20">
+                <div fxFlex="45" fxLayoutAlign="start center">
+                    <md-icon class="margin" [class.alert-icon]="overdue && !sticker_check && task.taskType == 'linked'">date_range</md-icon>
+                    <md-input-container fxFlex>
                         <input name="date" md-input placeholder="Due Date" type="date" required [(ngModel)]="task.date" value="task.date | date:'yyyy-MM-dd'">
                     </md-input-container>
                 </div>
                 <div fxFlex="10"></div>
-                <md-icon fxFlex="3">person</md-icon>
-                <div fxFlex="42" *ngIf="task.board">
-                    <div fxLayout="row">
-                        <div *ngFor="let member of task.selectedMembers; let i = index" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
-                            <span>{{member.initials}}</span>
-                            <md-icon (click)="deleteMember(member, i)">close</md-icon>
-                        </div>
-                    </div>
-                    <md-select class="selectList board-width" placeholder="Delegate to.." [(ngModel)]="currMember" name="member" (onClose)="currMember = ''">
+                <div fxFlex="45" *ngIf="task.board" fxLayout="row" fxLayoutAlign="start center">
+                    <md-icon class="margin">person</md-icon>
+                    <md-select class="selectList margin" placeholder="Delegate to.." [(ngModel)]="currMember" name="member" (onClose)="currMember = ''">
                         <md-option [value]="''">Choose...</md-option>
                         <md-option *ngFor="let member of task.possibleMembers; let i = index" [value]="member" (onSelect)="addMember(member, i)">
                             {{ member.fullName }}
                         </md-option>
                     </md-select>
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <div *ngFor="let member of task.selectedMembers; let i = index" [mdTooltip]="member.fullName" fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="center center" class="member-initials">
+                            <span>{{member.initials}}</span>
+                            <md-icon (click)="deleteMember(member, i)">close</md-icon>
+                        </div>
+                    </div>
                 </div>
             </div>
             <md-input-container>
-                <textarea md-input type="text" name="task-description" placeholder="Task Description" maxRows="3" [(ngModel)]="task.desc" value="task.desc" rows="10"></textarea>
+                <textarea md-input type="text" class="text-area" name="task-description" placeholder="Task Description" maxRows="10" [(ngModel)]="task.desc" value="task.desc" rows="10"></textarea>
             </md-input-container>
         </form>
     </div>
     <md-dialog-actions>
-        <button md-submit md-raised-button color="primary" [disabled]="sending" (click)="createTask()" *ngIf="task.taskType == 'suggested'">Create Task</button>
-        <button md-submit md-raised-button color="primary" (click)="updateTask()" *ngIf="task.taskType == 'linked'">Update Task</button>
-        <button md-submit md-raised-button color="primary" (click)="unlinkTask()" *ngIf="task.taskType == 'linked'">Unlink Task</button>
+        <button md-submit md-raised-button color="primary" [disabled]="sending || !task.list" (click)="createTask()" *ngIf="task.taskType == 'suggested'">Create Task</button>
+        <button md-submit md-raised-button color="primary" [disabled]="sending" (click)="updateTask()" *ngIf="task.taskType == 'linked'">Update Task</button>
+        <button md-submit md-raised-button color="primary" [disabled]="sending" (click)="unlinkTask()" *ngIf="task.taskType == 'linked'">Unlink Task</button>
+        <button md-submit md-raised-button color="primary" [disabled]="sending" *ngIf="task.status != 'empty' && task.taskType == 'linked'" (click)="updateTask('close')">Archive Task</button>
+        <img src="/assets/img/trello.gif" class="trello-icon">
     </md-dialog-actions>
 </div>

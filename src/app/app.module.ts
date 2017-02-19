@@ -23,8 +23,8 @@ import { ClientModule } from './client/client.module';
 import { LoginModule } from './login/login.module';
 import { SettingsModule } from './settings/settings.module';
 import { TaskOverviewModule } from './taskOverview/taskOverview.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 import { SharedModule } from './shared'; // all shared components
-
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -70,6 +70,7 @@ type StoreType = {
     ClientModule,
     SettingsModule,
     TaskOverviewModule,
+    DashboardModule,
     SharedModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection

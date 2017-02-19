@@ -9,39 +9,23 @@ import { AppState } from '../../../app.service';
 })
 
 export class TaskListComponent {
-  @Input() linkedTasks: any;
-  @Input() suggestedTasks: any;
-  public suggestedTasks$: any = [];
-  public linkedTasks$: any = [];
+  @Input() linkedTasks: any[];
+  @Input() suggestedTasks: any[];
+  @Input() showSuggested: any;
+  @Input() showLinked: any;
   @Input() boards: any[];
   @Output() createTask = new EventEmitter<any>();
   @Output() openDialog = new EventEmitter<any>();
   @Output() deleteTask = new EventEmitter<any>();
   @Output() openLinkTaskDialog = new EventEmitter<any>();
   @Output() highlightSentence = new EventEmitter<any>();
-  public showSuggested: boolean = true;
-  public showLinked: boolean = false;
+  @Output() hightlightTaskItem = new EventEmitter<any>();
 
-  constructor(public appState: AppState) {
+  setSuggestedFilters(checked: boolean) {
+    this.showSuggested = checked;
   }
-
-  ngOnInit() {
-    this.suggestedTasks$ = this.appState.dataChange.subscribe((res) => {
-      console.log("suggestedTasks have changed");
-      this.suggestedTasks = this.appState.get('suggestedTasks');
-      console.log(this.suggestedTasks);
-    });
-    this.linkedTasks$ = this.appState.dataChange.subscribe((res) => {
-      this.linkedTasks = this.appState.get('linkedTasks');
-    });
-  }
-
-  openLinkTask() {
-      this.openLinkTaskDialog.emit({'taskType': 'linked'});
-  }
-
-  openTaskDialog() {
-      this.openDialog.emit({'taskType': 'suggested','status':'empty'});
+  setLinkedFilters(checked: boolean) {
+    this.showLinked = checked;
   }
 
 }

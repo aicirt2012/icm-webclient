@@ -11,12 +11,40 @@ export class HttpService {
   constructor(private _http: Http, private _auth: AuthService) {
   }
 
+  httpGET(domain: string, endpoint?: string, params?: any, body?: any): Observable<any> {
+    return this.generateRequest(RequestMethod.Get, domain, endpoint, params, body);
+  }
+
+  httpPOST(domain: string, endpoint?: string, params?: any, body?: any): Observable<any> {
+    return this.generateRequest(RequestMethod.Post, domain, endpoint, params, body);
+  }
+
+  httpPUT(domain: string, endpoint?: string, params?: any, body?: any): Observable<any> {
+    return this.generateRequest(RequestMethod.Put, domain, endpoint, params, body);
+  }
+
+  httpDELETE(domain: string, endpoint?: string, params?: any, body?: any): Observable<any> {
+    return this.generateRequest(RequestMethod.Delete, domain, endpoint, params, body);
+  }
+
+  httpOPTIONS(domain: string, endpoint?: string, params?: any, body?: any): Observable<any> {
+    return this.generateRequest(RequestMethod.Options, domain, endpoint, params, body);
+  }
+
+  httpHEAD(domain: string, endpoint?: string, params?: any, body?: any): Observable<any> {
+    return this.generateRequest(RequestMethod.Head, domain, endpoint, params, body);
+  }
+
+  httpPATCH(domain: string, endpoint?: string, params?: any, body?: any): Observable<any> {
+    return this.generateRequest(RequestMethod.Patch, domain, endpoint, params, body);
+  }
+
   generateRequest(method: RequestMethod, domain: string, endpoint?: string, params?: any, body?: any): Observable<any> {
     const headers = new Headers({ 'Authorization': `JWT ${this._auth.token}`, 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers, method: method, body: body });
     const pathEndpoint = endpoint ? `/${endpoint}` : '';
     const path = `${domain}${pathEndpoint}`;
-    return this._http.request(`${C.server}${path}${this.generateParams(params)}`, options)
+    return this._http.request(`${C.server}/${path}${this.generateParams(params)}`, options)
       .map((response: Response) => response.json());
   }
 

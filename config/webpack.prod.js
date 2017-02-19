@@ -22,11 +22,17 @@ const V8LazyParseWebpackPlugin = require('v8-lazy-parse-webpack-plugin');
  * Webpack Constants
  */
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
-const HOST = process.env.HOST || 'localhost';
-const PORT = process.env.PORT || 8080;
+const HOST = process.env.HOST || 'icm.in.tum.de';
+const PORT = process.env.PORT || 8081;
+const SERVER_HOST = process.env.SERVER_HOST || 'server.icm.in.tum.de';
+const SERVER_PORT = process.env.SERVER_HOST || '';
+const SERVER_PROT = process.env.SERVER_PROT || 'https';
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
   host: HOST,
   port: PORT,
+  server_host: SERVER_HOST,
+  server_port: SERVER_PORT,
+  server_prot: SERVER_PROT,
   ENV: ENV,
   HMR: false
 });
@@ -123,7 +129,7 @@ module.exports = function (env) {
 
       /**
        * Plugin: ExtractTextPlugin
-       * Description: Extracts imported CSS files into external stylesheet 
+       * Description: Extracts imported CSS files into external stylesheet
        *
        * See: https://github.com/webpack/extract-text-webpack-plugin
        */
@@ -151,6 +157,9 @@ module.exports = function (env) {
         'ENV': JSON.stringify(METADATA.ENV),
         'HMR': METADATA.HMR,
         'process.env': {
+          'SERVER_HOST': JSON.stringify(METADATA.server_host),
+          'SERVER_PORT': JSON.stringify(METADATA.server_port),
+          'SERVER_PROT': JSON.stringify(METADATA.server_prot),
           'ENV': JSON.stringify(METADATA.ENV),
           'NODE_ENV': JSON.stringify(METADATA.ENV),
           'HMR': METADATA.HMR,

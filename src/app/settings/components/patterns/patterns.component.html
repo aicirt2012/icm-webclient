@@ -1,0 +1,23 @@
+<md-card fxFlex>
+  <md-card-title>Pattern Management</md-card-title>
+  <md-card-content>
+    <h3>Current Patterns</h3>
+    <md-list>
+      <md-list-item *ngFor="let p of patterns">
+        <div fxFlex fxLayoutAlign="start center" class="pattern-list-item">
+          <md-icon>data_usage</md-icon>
+          <span>{{p.pattern}}</span><small>{{p.isDefault ? 'Default': 'User-defined'}}</small>
+        </div>
+        <div fxFlex *ngIf="!p.isDefault" fxLayoutAlign="end center">
+          <button md-mini-fab (click)="deletePattern(p)" class="pattern-action-bar-item"><md-icon class="fab-icon">delete</md-icon></button>
+        </div>
+      </md-list-item>
+    </md-list>
+  </md-card-content>
+  <md-card-actions fxFlex fxLayoutAlign="start center">
+    <button md-mini-fab (click)="addPattern()" class="pattern-action-bar-item"><md-icon class="fab-icon">add</md-icon></button>
+    <md-input-container class="pattern-action-bar-item">
+      <input md-input [(ngModel)]="newPattern" placeholder="New pattern, e.g. do * you">
+    </md-input-container>
+  </md-card-actions>
+</md-card>

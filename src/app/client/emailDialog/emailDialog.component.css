@@ -1,10 +1,70 @@
+.progressbar-top {
+    margin-top: -24px;
+    margin-bottom: 24px;
+    width: 80%;
+    margin-left: -24px;
+    position: absolute;
+}
+
+.email-form-title {
+  padding-bottom: 10px;
+}
+
+.task-container {
+  overflow: hidden;
+  margin-left: -24px;
+  margin-right: -24px;
+  margin-bottom: -24px;
+  background-color: rgba(68, 76, 98, .8);
+  color: white;
+}
+
+.vertical-scroll {
+  overflow-x: scroll;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
 .cc-tags {
   cursor:pointer;
-  padding: 4px;
   font-size: 12px;
   color: rgba(0,0,0,0.54);
+  margin-left: 4px;
+  margin-top: 5px;
+  font-weight: bold;
+  font-style: italic;
 }
 
 .pointer {
   cursor: pointer;
+  font-size: 18px;
+}
+
+.add-recipients {
+  margin-bottom: 15px;
+}
+
+.add-recipients-selected {
+  color: rgba(0,0,0,1);
+  font-style: normal;
+}
+
+.email-form {
+  overflow: hidden;
+  padding-bottom: 5px;
+}
+
+.address-tag {
+  background-color: rgba(0,0,0,.54);
+  border-radius: 5px;
+  margin: 2px;
+  color: white;
+}
+
+.address-tag-span {
+   padding-left: 4px;
+}
+
+.email-form-actions button {
+  margin: 3px;
 }

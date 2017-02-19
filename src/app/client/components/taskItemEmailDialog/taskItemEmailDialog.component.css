@@ -4,10 +4,34 @@
 }
 
 .tasks-card {
-    margin-bottom: 5px;
-    -webkit-box-shadow: 1px 1px 1px 0px rgba(90, 83, 83, 0.75);
-    -moz-box-shadow: 1px 1px 1px 0px rgba(90, 83, 83, 0.75);
-    box-shadow: 1px 1px 1px 0px rgba(90, 83, 83, 0.75);
+    width: 200px;
+    height: 115px;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    transition: box-shadow 280ms;
+    background-color: white;
+    padding: 8px;
+    color: black;
+}
+
+.title-container {
+    height: 50px;
+}
+
+.check-icon {
+    color: #21C9A1;
+    font-size: 30px;
+}
+
+.title {
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+.tasks-card:hover {
+    background-color: lightgrey;
 }
 
 .tasks {
@@ -34,19 +58,8 @@
     width: 80%;
 }
 
-.card-title {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-}
-
 .cardContent {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    margin-top: -15px;
+  height: 60px;
 }
 
 .header-image {
@@ -58,8 +71,31 @@
     width: 30px;
 }
 
-.close-icon {
-    top: 5px;
-    position: absolute;
-    right: 5px;
+.alert-icon {
+    color: #ce2424;
+}
+
+.member-initials {
+     background-color: lightgrey;
+  height: 24px;
+  min-width: 25px;
+  font-size: 12px;
+  line-height: 24px;
+  text-align: center;
+  padding: 2px;
+  border-radius: 4px;
+  margin-right: 2px;
+}
+
+.icon-margin {
+    margin-left: 10px;
+}
+
+.overdue {
+    border: 1px solid #ce2424;
+}
+
+.overdue-text {
+    color: #ce2424;
+    font-weight: bold;
 }

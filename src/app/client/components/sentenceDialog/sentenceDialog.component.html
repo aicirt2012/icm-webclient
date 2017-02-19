@@ -1,0 +1,34 @@
+<div fxLayout="column">
+  <div fxLayout="row">
+    <span fxFlex>Analysis Details</span>
+    <md-icon class="pointer" (click)="emailDialogRef.close()">close</md-icon>
+  </div>
+  <div fxLayout="row">
+    <md-list>
+      <h3 md-subheader>Sentence</h3>
+      <md-list-item>
+        <md-icon md-list-avatar>short_text</md-icon>
+        <h3 class="sentence-dialog-heading" md-line>Sentence</h3>
+        <p md-line>{{sentence.sentence}}</p>
+      </md-list-item>
+      <h3 md-subheader>Suggested by Analysis</h3>
+      <md-list-item *ngFor="let type of task.task.analysis">
+        <md-icon md-list-avatar>data_usage</md-icon>
+        <h3 class="sentence-dialog-heading" md-line>Analysis Type</h3>
+        <p md-line>{{type}}</p>
+      </md-list-item>
+      <h3 md-subheader >BETA - Classification</h3>
+      <md-list-item *ngIf="sentence.classification && sentence.classification.length > 0">
+        <md-icon md-list-avatar svgIcon="brain"></md-icon>
+        <h3 class="sentence-dialog-heading" md-line>Logistic Regression</h3>
+        <p md-line [class.larger]="sentence.classification[0].value > sentence.classification[1].value">{{sentence.classification[0].label}} - {{sentence.classification[0].value | percent}}</p>
+        <p md-line [class.larger]="sentence.classification[1].value > sentence.classification[0].value">{{sentence.classification[1].label}} - {{sentence.classification[1].value | percent}}</p>
+      </md-list-item>
+      <md-list-item *ngIf="!sentence.classification || sentence.classification.length == 0">
+        <md-icon md-list-avatar svgIcon="brain"></md-icon>
+        <h3 class="sentence-dialog-heading" md-line>Logistic Regression</h3>
+        <p md-line>Please fill up your training data set to get classifications.</p>
+      </md-list-item>
+    </md-list>
+  </div>
+</div>

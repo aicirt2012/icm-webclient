@@ -2,10 +2,6 @@
   padding: 8px;
 }
 
-.scrollable {
-  overflow-y: scroll;
-}
-
 .list-container {
     z-index: 999;
 }

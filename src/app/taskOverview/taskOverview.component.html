@@ -2,15 +2,19 @@
     <top-navbar></top-navbar>
 
     <div class="scrollable full-height container">
+        <div class="full-height" *ngIf="!user.trello" fxFlex fxLayout="row" fxLayoutAlign="center center">
+        Please connect to a task provider in &nbsp; <a routerLink="/settings/tasks">Settings</a>.
+        </div>
     <div *ngIf="fetching">
     <spinner [loading]="true"></spinner>
   </div>   
-    <div *ngIf="!fetching" fxFlex class="task-overview-container">
+    <div *ngIf="!fetching && user.trello" fxFlex class="task-overview-container">
         <md-tab-group style="overflow-y: auto">
             <md-tab *ngFor="let board of boards" [label]="board.name">
                 <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start center">
-                    <task-card *ngFor="let card of board.cards" [task]="card" [members]="board.members"></task-card>
+                    <task-card *ngFor="let card of board.cards | sort" [task]="card" [members]="board.members"></task-card>
                 </div>
+                <div fxFlex class="no-content" fxLayout="row" fxLayoutAlign="center center" *ngIf="board.cards.length < 1"><i>No tasks in this board.</i></div>
             </md-tab>
          </md-tab-group>
     </div>

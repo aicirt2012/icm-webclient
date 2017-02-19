@@ -12,16 +12,11 @@ export class SettingsService {
   }
 
   getUserInfo(): Observable<any> {
-    return this._httpService.generateRequest(RequestMethod.Get, this.domain, this._authService.parseToken(localStorage.getItem('email-jwt')).user._id, null, null);
+    return this._httpService.httpGET(this.domain, this._authService.parseToken(this._authService.token).user._id, null, null);
   }
 
   updateUserInfo(user: any): Observable<any> {
-    return this._httpService.generateRequest(
-      RequestMethod.Put,
-      this.domain,this._authService.parseToken(this._authService.token).user._id,
-      null,
-      user
-    );
+    return this._httpService.httpPUT(this.domain, this._authService.parseToken(this._authService.token).user._id, null, user);
   }
 
   updateEmailConfig(emailConfig: any): Observable<any> {
@@ -29,12 +24,7 @@ export class SettingsService {
       provider: {}
     }
     body.provider = emailConfig;
-    return this._httpService.generateRequest(
-      RequestMethod.Put,
-      this.domain,this._authService.parseToken(this._authService.token).user._id,
-      null,
-      body
-    );
+    return this._httpService.httpPUT(this.domain, this._authService.parseToken(this._authService.token).user._id, null, body);
   }
 
   updateScConfig(scConfig: any): Observable<any> {
@@ -42,11 +32,21 @@ export class SettingsService {
       sociocortex: {}
     }
     body.sociocortex = scConfig;
-    return this._httpService.generateRequest(
-      RequestMethod.Put,
-      this.domain,this._authService.parseToken(this._authService.token).user._id,
-      null,
-      body
-    );
+    return this._httpService.httpPUT(this.domain, this._authService.parseToken(this._authService.token).user._id, null, body);
+  }
+
+  getPatterns(): Observable<any> {
+    return this._httpService.httpGET('pattern', '', null, null);
+  }
+
+  createPattern(pattern: string): Observable<any> {
+    const body = {
+      pattern: pattern
+    };
+    return this._httpService.httpPOST('pattern', '', null, body);
+  }
+
+  deletePattern(pattern: any): Observable<any> {
+    return this._httpService.httpDELETE('pattern', pattern._id, null, null);
   }
 }

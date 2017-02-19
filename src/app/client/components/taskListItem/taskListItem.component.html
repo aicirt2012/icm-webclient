@@ -1,20 +1,30 @@
-<md-card (click)="openTaskDialog(task)" class="tasks-card pointer" [class.highlighted]="task.highlight">
-    <md-card-header>
-        <div md-card-avatar class="header-image"></div>
-        <md-card-title class="card-title" (mouseenter)="highlight(task.task.id,true)" (mouseleave)="highlight(task.task.id, false)"><strong>{{task.name}}</strong></md-card-title>
-        <md-icon class="pointer close-icon" (click)="removeTask(task)">close</md-icon>
-    </md-card-header>
-    <md-card-content class="cardContent">
-        <div *ngIf="task.taskType == 'linked'" fxFlex fxLayout="row" fxLayoutAlign="start end">
-            <div fxFlex="8">
-                <md-icon>date_range</md-icon>
-            </div>
-            <div fxFlex="27">{{task.date | date:'shortDate'}}</div>
-            <md-icon fxFlex="8">person</md-icon>
-            <div fxFlex="57">{{task.members ? getNames(task.members) : getNames(task.selectedMembers)}}</div>
+<md-card [class]="task.taskType" [class.highlighted]="task.highlight">
+    <md-card-content class="cardContent" fxFlex fxLayout="column">
+        <div fxFlex="33" fxLayout="row">
+            <div fxFlex="85" class="card-title text-overflow"><strong>{{task.name}}</strong></div>
+            <md-icon class="pointer alert-icon" *ngIf="isOverdue() && task.taskType == 'linked' && !isChecked()">add_alert</md-icon>
+            <md-icon class="pointer check-icon" *ngIf="isChecked()" mdTooltip="Completed">check</md-icon>
+            <md-icon class="pointer close-icon" (click)="removeTask(task)">close</md-icon>
         </div>
-        <p>
+        <div *ngIf="task.taskType == 'linked'" fxFlex-gt-sm="33" fxLayout="row" fxLayoutAlign="start end" class="card-title">
+            <div fxLayoutAlign="start center">
+            <md-icon fxFlex-gt-sm="8">date_range</md-icon>
+
+            <div fxFlex-gt-sm="27" [class.overdue-text]="isOverdue() && task.taskType == 'linked' && !isChecked()">{{task.date | date:'shortDate'}}</div>
+            </div>
+            <md-icon class="icon-margin" fxFlex-gt-sm="8">person</md-icon>
+            <div fxFlex-gt-sm="53" fxLayout="row">
+                <div *ngFor="let member of task.members" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
+                    <span>{{member.initials}}</span>
+                </div>
+                <div *ngIf="task.members.length < 1"><i>No person assigned</i></div>
+            </div>
+        </div>
+        <div *ngIf="task.desc" fxFlex="33" class="text-overflow">
             {{task.desc}}
-        </p>
+        </div>
+        <div *ngIf="!task.desc" fxFlex="33" class="text-overflow">
+            <i>No description</i>
+        </div>
     </md-card-content>
 </md-card>

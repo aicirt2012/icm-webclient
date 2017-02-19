@@ -1,10 +1,11 @@
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import {MdDialog} from '@angular/material';
+import { MdDialog, MdDialogRef } from '@angular/material';
 import { DialogType } from '../../../shared/constants';
 import { AppState } from '../../../app.service';
 import { EmailDialogComponent } from '../../emailDialog';
 import { EmailFolderDialogComponent } from '../../emailFolderDialog';
+import { EmailService } from '../../shared';
 
 @Component({
   selector: 'navbar',  // <navbar></navbar>
@@ -16,10 +17,12 @@ import { EmailFolderDialogComponent } from '../../emailFolderDialog';
 export class NavBarComponent {
   private navbarItems: any[] = [];
   @Input() lastSync: Date;
+  @Input() syncing: Boolean;
   @Output() onRefresh = new EventEmitter<boolean>();
 
   boxName: string;
   boxList: any[];
+  user: any;
 
   constructor(public appState: AppState, public router: Router, public dialog: MdDialog) {
   }
@@ -30,6 +33,7 @@ export class NavBarComponent {
         this.boxList = this.appState.get('boxList');
         this.addDataToBoxes(this.appState.get('boxList'));
       }
+      this.user = this.appState.get('user');
     })
   }
 
@@ -88,9 +92,15 @@ export class NavBarComponent {
   }
 
   openCreateEmailDialog() {
-    this.dialog.open(EmailDialogComponent, {
+    let emailDialogRef: MdDialogRef<EmailDialogComponent> = this.dialog.open(EmailDialogComponent, {
       width: '80%',
-      height: '80%'
+      height: '95%',
+      position: {
+        top: '',
+        bottom: '',
+        left: '',
+        right: ''
+      }
     });
   }
 
@@ -99,7 +109,7 @@ export class NavBarComponent {
       width: '50%',
       height: '50%'
     });
-
     dialogRef.componentInstance.boxList = this.boxList;
   }
+
 }

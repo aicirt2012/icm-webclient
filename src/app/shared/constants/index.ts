@@ -1,6 +1,6 @@
 export default {
-  server:'http://localhost:4000/api/',
-  socketUrl: 'http://localhost:4001'
+  server: `${process.env.SERVER_PROT}://${process.env.SERVER_HOST}:${process.env.SERVER_PORT}/api`,
+  socketUrl: `${process.env.SERVER_PROT}://${process.env.SERVER_HOST}:${process.env.SERVER_PORT+1}`
 };
 
 export enum TaskDialogType {

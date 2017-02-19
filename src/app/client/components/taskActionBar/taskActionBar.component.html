@@ -1,0 +1,22 @@
+<div fxFlex fxLayout="column">
+  <div class="task-action-top-bar" fxLayoutAlign="center center">
+    <button md-raised-button color="primary" [mdMenuTriggerFor]="createTask" mdTooltip="Create or link Task">
+        <span>Task Actions</span>
+        <md-icon>keyboard_arrow_down</md-icon>
+      </button>
+    <md-menu #createTask="mdMenu">
+      <button md-menu-item (click)="openDialogTask()">
+      <md-icon>edit</md-icon>
+      <span>Create empty task</span>
+    </button>
+      <button md-menu-item (click)="openDialogLinkedTask()">
+      <md-icon>swap_horiz</md-icon>
+      <span>Link existing task</span>
+    </button>
+    </md-menu>
+  </div>
+  <div class="task-action-top-bar action-buttons" fxLayout="column" fxLayout.gt-md="row" fxLayoutAlign="center start" fxLayoutAlign.gt-md="center center">
+    <md-checkbox color="primary" [(ngModel)]="showLinked" (click)="clickLinkedFilter()">Linked</md-checkbox>
+    <md-checkbox color="accent" [(ngModel)]="showSuggested" (click)="clickSuggestedFilter()">Suggested</md-checkbox>
+  </div>
+</div>

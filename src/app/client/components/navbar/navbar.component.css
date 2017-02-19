@@ -1,52 +1,75 @@
 .create-email {
-    margin:5px;
+  margin: 5px;
 }
 
 .create-email-btn {
-    background-color: #20c9a1;
-    color:white;
+  color: white;
 }
 
 .sidenav-boxes {
-    padding: 5px 0;
-    margin: 5px 0;
+  padding: 5px 0;
+  margin: 5px 0;
 }
 
 .navbar-list {
-    background-color: #444c62;
+  background-color: #444c62;
 }
 
 .button-row button {
-    margin:5px;
-    color:white;
+  margin: 5px;
+  color: white;
 }
 
 .btn-add-box {
-    background-color: #20c9a1;
+  background-color: #20c9a1;
 }
 
 .btn-delete-box {
-    background-color: #ec4b4e;
+  background-color: #ec4b4e;
 }
 
 .box-action-input {
-    margin:15px;
-    color:white;
+  margin: 15px;
+  color: white;
 }
 
 .refresh-btn {
-    color:white;
-    background-color: #2f3649;
-    padding: 0px 8px;
+  color: white;
+  background-color: #2f3649;
+  padding: 0px 8px;
 }
 
 .btn-close {
-    background-color:white;
-    color:black;
-    margin-left:2px;
+  background-color: white;
+  color: black;
+  margin-left: 2px;
 }
 
 .manage-folders {
-    color: #444c62;
-    background-color: #d7e3ef; 
+  color: #d7e3ef;
+}
+
+.rotate-icon {
+  -webkit-animation: spin 4s linear infinite;
+  -moz-animation: spin 4s linear infinite;
+  animation: spin 4s linear infinite;
+}
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }

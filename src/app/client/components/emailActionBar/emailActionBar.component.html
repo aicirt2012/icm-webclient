@@ -1,19 +1,24 @@
 <div fxLayout="row" fxLayoutAlign="center center" class="action-buttons" *ngIf="!responseStatus">
-  <button md-raised-button *ngIf="!(email.flags.indexOf('\\Seen') > -1)" (click)="addFlags(['\\Seen'])"><md-icon>drafts</md-icon>Mark as read</button>
-  <button md-raised-button *ngIf="email.flags.indexOf('\\Seen') > -1" (click)="deleteFlags(['\\Seen'])"><md-icon>mail</md-icon>Mark as unread</button>
-  <button md-raised-button (click)="replyEmail()"><md-icon>reply</md-icon>Reply</button>
-  <button md-raised-button (click)="forwardEmail()"><md-icon>forward</md-icon>Forward</button>
-  <button md-raised-button (click)="moveEmailToBox('Trash')"><md-icon>delete</md-icon>Delete</button>
-  <button md-raised-button [mdMenuTriggerFor]="menu">
+  <button md-raised-button *ngIf="showMailActions() && !(email.flags.indexOf('\\Seen') > -1)" (click)="addFlags(['\\Seen'])"
+    mdTooltip="Mark as Read" class="email-action-button">
+    <md-icon>drafts</md-icon><span> Read</span></button>
+    <button md-raised-button class="email-action-button" *ngIf=" showMailActions() && email.flags.indexOf('\\Seen') > -1" (click)="deleteFlags(['\\Seen'])"
+      mdTooltip="Mark as Unread">
+      <md-icon>mail</md-icon>
+      </button>
+      <button md-raised-button *ngIf="showMailActions()" class="email-action-button" (click)="replyEmail()" mdTooltip="Reply"><md-icon>reply</md-icon></button>
+      <button md-raised-button *ngIf="showMailActions()" class="email-action-button" (click)="forwardEmail()" mdTooltip="Forward"><md-icon>forward</md-icon></button>
+      <button md-raised-button *ngIf="!showMailActions()" class="email-action-button" (click)="openCreateEmailDialog()" mdTooltip="Edit"><md-icon>edit</md-icon></button>
+      <button md-raised-button (click)="moveEmailToBox('Trash')" mdTooltip="Move to Trash" class="email-action-button"><md-icon>delete</md-icon></button>
+      <button md-raised-button class="email-action-button" *ngIf="showMailActions()" [mdMenuTriggerFor]="menu" mdTooltip="Move to Box">
     <md-icon>more_vert</md-icon>
-    <span>Move to</span>
 </button>
-  <md-menu #menu="mdMenu">
-    <button (click)="moveEmailToBox(box.name)" md-menu-item *ngFor="let box of boxList">
+      <md-menu #menu="mdMenu">
+        <button (click)="moveEmailToBox(box.name)" md-menu-item *ngFor="let box of boxList">
         <span>{{box.shortName}}</span>
     </button>
-  </md-menu>
+      </md-menu>
 </div>
 <div fxLayout="row" fxLayoutAlign="center center" class="action-buttons" *ngIf="responseStatus">
-  <button md-raised-button (click)="emitDiscardEmailResponse()"><md-icon>close</md-icon>Discard</button>
+  <button md-raised-button (click)="emitDiscardEmailResponse()"><md-icon>close</md-icon><span>Discard</span></button>
 </div>
