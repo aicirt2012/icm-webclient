@@ -1,0 +1,21 @@
+<div fxLayout="column" fxFlex>
+    <top-navbar></top-navbar>
+
+    <div fxLayout="row">
+        <div fxFlex="15" fxFlex.sm="30" fxFlex.xs="30">
+          <md-nav-list fxFlex>
+            <md-list-item [routerLink]="link.link" *ngFor="let link of links" [routerLinkActive]="['route-active']">
+              <a md-line >{{link.name}}</a>
+                <md-icon>{{link.icon}}</md-icon>
+            </md-list-item>
+          </md-nav-list>
+        </div>
+        <div fxFlex layout="row">
+            <div fxFlex class="account-content">
+                <timeline fxFlex *ngIf="getCurrentView('timeline')"></timeline>
+                <network fxFlex *ngIf="getCurrentView('network')"></network>
+                <structure fxFlex *ngIf="getCurrentView('structure')"></structure>
+            </div>
+        </div>
+    </div>
+</div>

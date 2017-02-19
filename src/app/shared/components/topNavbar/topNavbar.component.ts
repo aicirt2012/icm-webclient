@@ -11,6 +11,7 @@ export class TopNavbarComponent {
   public items: any[] = [
     { name: 'Settings', route: '/settings/overview', icon: 'account_circle' }, 
     { name: 'Task Overview', route: '/task-overview', icon: 'format_list_numbered' },
+    { name: 'Dashboard', route: '/dashboard/timeline', icon: 'dashboard' },
     { name: 'Logout', route: '/login', icon: 'exit_to_app' }
     ];
 

@@ -1,0 +1,28 @@
+<md-card fxFlex>
+  <md-card-title>Structural Information</md-card-title>
+
+  <h3>Conversations</h3>
+  <table>
+    <tr>
+      <td>#MSG</td>
+      <td>#Conversations</td>
+    </tr>
+    <tr *ngFor="let c of converstations">
+      <td>{{c.nrmsg}}</td>
+      <td>{{c.nrthr}}</td>
+    </tr>
+  </table>
+
+  <h3>Labels</h3>
+  <table>
+    <tr>
+      <td>#MSG</td>
+      <td>Label</td>
+    </tr>
+    <tr *ngFor="let l of labels">
+      <td>{{l.count}}</td>
+      <td>{{l.label}}</td>
+    </tr>
+  </table>
+</md-card>
+
