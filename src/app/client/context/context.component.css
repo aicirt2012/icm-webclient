@@ -18,6 +18,7 @@
 }
 
 .ctxLabel{
-    background-color: red;
-    vertical-align: middle;
+    background-color: #444c62;
+    height: 100%;
+    border-top:1px solid #d7e3ef;
 }
