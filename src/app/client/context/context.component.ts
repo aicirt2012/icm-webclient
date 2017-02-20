@@ -1,5 +1,5 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { Email } from '../shared';
+import { ContextTabComponent } from '../contextTab/contextTab.component';
 import { AppState } from '../../app.service';
 
 @Component({
