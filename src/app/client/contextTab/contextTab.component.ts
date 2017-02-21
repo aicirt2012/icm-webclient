@@ -9,13 +9,23 @@ import { Component, Input, Output } from '@angular/core';
 export class ContextTabComponent {
 
   @Input() text: String;
-  @Input() svgHeight: Number;
+  @Input() svgHeight: number;
+  textY: string = "0";
+  rotateY: number;
 
   constructor() {
+     this.textY = "10";//this.svgHeight - 5;
+     this.rotateY =  70;    
+  }
+
+  getY() {
+    return this.textY;
   }
 
   ngOnInit() {
-    console.log('tab context here'+this.text)
+    this.rotateY =  70;  
+    console.log('tab context here'+this.svgHeight);
+    console.log(this.rotateY);
   }
 
 }
