@@ -1,15 +1,15 @@
 <div fxLayout="column" class="full-height">
   <div fxLayout="row" class="full-height">
-    <tasks [email]="email" fxFlex></tasks>
+    <tasks *ngIf="isOpenTab('tasks')" [email]="email" fxFlex></tasks>
     <div fxBasis="25px" fxGrow="0" fxShrink="0">
       <div fxLayout="column" fxLayoutAlign="space-between stretch" class="full-height">
-          <div class="ctxLabel" fxLayoutAlign="center center">
+          <div class="ctxLabel" fxLayoutAlign="center center" (click)="openTab('tasks')">
             <context-tab text="Tasks" svgHeight="50"></context-tab>
           </div>
-          <div class="ctxLabel" fxLayoutAlign="center center">
+          <div class="ctxLabel" fxLayoutAlign="center center" (click)="openTab('network')">
             <context-tab text="Person Network" svgHeight="120"></context-tab>
           </div>
-          <div class="ctxLabel" fxLayoutAlign="center center">
+          <div class="ctxLabel" fxLayoutAlign="center center" (click)="openTab('wiki')">
             <context-tab text="Wikipedia" svgHeight="80"></context-tab>
           </div>
       </div>

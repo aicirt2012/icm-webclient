@@ -11,12 +11,23 @@ import { AppState } from '../../app.service';
 export class ContextComponent {
 
   @Input() email: any;
+  currentTab:string;
 
   constructor(public appState: AppState) {
   }
 
   ngOnInit() {
     this.appState.get('user');
+  }
+
+  openTab(tab:string){
+    console.log(tab)
+    this.currentTab = tab;
+  }
+
+  isOpenTab(tab:string){
+    console.log('isOpenTab '+tab + ' '+ this.currentTab+' '+this.currentTab == tab);
+    return this.currentTab === tab;
   }
 
 }
