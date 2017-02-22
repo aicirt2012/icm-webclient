@@ -1,24 +1,10 @@
-
-.inner{
-    -webkit-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
-    -o-transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
-    transform: rotate(-90deg) translateX(-100%);
-    transform-origin: left left 0;
-    margin-top: 100%;
-}
-
-.outer{
-    text-align: center; 
-    vertical-align: middle;      
-    overflow: hidden;
-    display: inline-block;
-    height: 33%;
-}
-
-.ctxLabel{
+.ctxTab{
     background-color: #444c62;
     height: 100%;
     border-top:1px solid #d7e3ef;
+}
+
+.ctxTab:hover, .ctxTab.selected{
+    background-color: #F2F6FA;
+    cursor: pointer;
 }
