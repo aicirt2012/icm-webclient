@@ -13,11 +13,10 @@ export class ContextComponent {
   @Input() email: any;
   currentTab:string = 'tasks';
 
-  constructor(public appState: AppState) {
+  constructor() {
   }
 
   ngOnInit() {
-    this.appState.get('user');
   }
 
   openTab(tab:string){

@@ -1,4 +1,5 @@
 import { Component, Input, Output } from '@angular/core';
+import { WikiService } from '../shared/wiki.service'
 
 @Component({
   selector: 'wiki',
@@ -8,7 +9,8 @@ import { Component, Input, Output } from '@angular/core';
 
 export class WikiComponent {
  
-  constructor() {
+  constructor(ws: WikiService) {
+    ws.search('Ulm');
   }
 
   ngOnInit() {
