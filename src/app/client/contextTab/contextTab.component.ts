@@ -11,18 +11,14 @@ export class ContextTabComponent {
   @Input() text: String;
   @Input() svgHeight: number;
   textY: number;
-  rotateY: number;
+  transform: string;
 
   constructor() {
   }
 
-  getY() {
-    return this.textY;
-  }
-
   ngOnInit() {    
-    this.textY = this.svgHeight-5;
-    this.rotateY = this.svgHeight -10;  
+    this.textY = this.svgHeight-15;
+    this.transform = "rotate(-90 10, "+(this.svgHeight -20)+")";  
   }
 
 }
