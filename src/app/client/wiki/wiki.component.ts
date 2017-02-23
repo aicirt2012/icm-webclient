@@ -29,12 +29,13 @@ export class WikiComponent{
 
   addEvents() {
     const me = this;
-    me.element.nativeElement.querySelectorAll('.link').forEach((e)=> {      
+    me.element.nativeElement.querySelectorAll('.wiki-link').forEach((e)=> {      
       e.addEventListener('click', function(){              
         me.query = e.getAttribute('title');
         me.search();
       });
       e.removeAttribute('href','#');
+      e.setAttribute('style', 'color:#666;');
     });
   }
 
