@@ -23,13 +23,13 @@ export class WikiComponent{
       this.text = data.teaser;       
       window.setTimeout(()=>{
         this.addEvents();       
-      },100);
+      },10);
     });
   }
 
   addEvents() {
     const me = this;
-    me.element.nativeElement.querySelectorAll('a').forEach((e)=> {      
+    me.element.nativeElement.querySelectorAll('.link').forEach((e)=> {      
       e.addEventListener('click', function(){              
         me.query = e.getAttribute('title');
         me.search();

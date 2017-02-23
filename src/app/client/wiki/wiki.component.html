@@ -1,5 +1,5 @@
 <div fxLayout="column" class="full-height">
   <input type="text" [(ngModel)]="query" (keyup.enter)="search()"/>
   <button (click)="search()">Search</button>
-  <div #wikicontent class="wiki-content" [innerHTML]="text"></div>
+  <div class="wiki-content" [innerHTML]="text"></div>
 </div>

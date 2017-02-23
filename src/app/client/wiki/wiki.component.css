@@ -2,12 +2,7 @@
     font-size: 12px !important;
 }
 
-.wiki-content > a,
-.wiki-content > a:link, 
-.wiki-content > a:link, 
-.wiki-content > a:visited, 
-.wiki-content > a:hover, 
-.wiki-content > a:active {
+.wiki-content .link{
     color:red;
-    text-decoration: underline;
+    font-weight: bold;
 }
