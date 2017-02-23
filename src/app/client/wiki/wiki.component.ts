@@ -10,6 +10,7 @@ import { WikiService } from '../shared/wiki.service'
 export class WikiComponent {
  
   private text: any;
+  private query: string;
 
   constructor(private ws: WikiService) {
   }
@@ -18,10 +19,8 @@ export class WikiComponent {
   }
 
   search(){
-     this.ws.search('Ulm').subscribe(data=>{
-      console.log(data);
-      this.text = data.teaser;
-      
+    this.ws.search(this.query).subscribe(data=>{
+      this.text = data.teaser;  
     });
   }
 
