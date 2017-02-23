@@ -20,22 +20,21 @@ export class WikiComponent implements AfterViewInit{
   }
 
   search(){
+    const me = this;
     this.ws.search(this.query).subscribe(data=>{
       this.text = data.teaser;  
      
       window.setTimeout(()=>{
 
-        const x = this.element.nativeElement.querySelectorAll('a');
-        for (let i = 0; i < x.length; i++) {            
-            let e = x[i];
+        this.element.nativeElement.querySelectorAll('a').forEach((e)=> {     
             console.log(e);  
             e.addEventListener('click', function(){              
-              this.query = e.getAttribute('title');
-              console.log('say hallo'+this.query );
-              //this.search();
+              me.query = e.getAttribute('title');
+              console.log('say hallo'+me.query );
+              me.search();
             });
             e.removeAttribute('href','#');
-        }
+        });
         
       },100); 
     
@@ -43,8 +42,8 @@ export class WikiComponent implements AfterViewInit{
     });
   }
 
-  g(){
-    console.log('hallooooooooooooooooo');
+  addEvents() {
+    
   }
 
   ngAfterViewInit(){
