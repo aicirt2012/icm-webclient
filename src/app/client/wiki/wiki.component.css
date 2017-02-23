@@ -1,4 +1,7 @@
 .wiki-content{
     font-size: 12px !important;
+    text-align: justify;
+    padding: 10px;
+    overflow-y:auto; 
 }
 
