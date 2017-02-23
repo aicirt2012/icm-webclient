@@ -1,4 +1,4 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input, Output } from '@angular/core'; //ViewChild ElementRef
 import { WikiService } from '../shared/wiki.service'
 
 @Component({
@@ -9,6 +9,7 @@ import { WikiService } from '../shared/wiki.service'
 
 export class WikiComponent {
  
+ // @ViewChild('wiki-content') er: ElementRef;
   private text: any;
   private query: string;
 
@@ -20,7 +21,8 @@ export class WikiComponent {
 
   search(){
     this.ws.search(this.query).subscribe(data=>{
-      this.text = data.teaser;  
+      this.text = '<button (click)="search()">dd</button>'+data.teaser;  
+    // console.log(this.er.nativeElement.query('a'))
     });
   }
 

@@ -1,3 +1,13 @@
-wiki-content{
-    font-size: 10px !important;
+.wiki-content{
+    font-size: 12px !important;
+}
+
+.wiki-content > a,
+.wiki-content > a:link, 
+.wiki-content > a:link, 
+.wiki-content > a:visited, 
+.wiki-content > a:hover, 
+.wiki-content > a:active {
+    color:red;
+    text-decoration: underline;
 }
