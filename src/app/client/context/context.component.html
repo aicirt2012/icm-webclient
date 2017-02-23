@@ -5,13 +5,13 @@
     <div fxBasis="25px" fxGrow="0" fxShrink="0">
       <div fxLayout="column" fxLayoutAlign="space-between stretch" class="full-height">
           <div class="ctxTab" [class.selected]="isOpenTab('tasks')" fxLayoutAlign="center center" (click)="openTab('tasks')">
-            <context-tab text="Tasks" svgHeight="50"></context-tab>
+            <context-tab text="Tasks" svgHeight="50" [attr.selected]="isOpenTab('tasks')"></context-tab>
           </div>
           <div class="ctxTab" [class.selected]="isOpenTab('network')" fxLayoutAlign="center center" (click)="openTab('network')">
-            <context-tab text="Person Network" svgHeight="120"></context-tab>
+            <context-tab text="Person Network" svgHeight="120" [attr.selected]="isOpenTab('network')"></context-tab>
           </div>
           <div class="ctxTab" [class.selected]="isOpenTab('wiki')" fxLayoutAlign="center center" (click)="openTab('wiki')">
-            <context-tab text="Wikipedia" svgHeight="80"></context-tab>
+            <context-tab text="Wikipedia" svgHeight="80" [attr.selected]="isOpenTab('wiki')"></context-tab>
           </div>
       </div>
     </div>

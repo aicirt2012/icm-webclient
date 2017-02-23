@@ -15,10 +15,6 @@ export class WikiService {
     };
     return this.http.httpGET('wiki/search', null, options, null);
   }
-
-
-  
-
  
 
 }

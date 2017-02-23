@@ -8,6 +8,7 @@ import { Component, Input, Output } from '@angular/core';
 
 export class ContextTabComponent {
 
+  @Input() selected: boolean;
   @Input() text: String;
   @Input() svgHeight: number;
   textY: number;
