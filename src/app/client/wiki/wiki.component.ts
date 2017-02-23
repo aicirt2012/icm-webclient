@@ -1,4 +1,4 @@
-import { Component, Input, Output, ElementRef, ViewChild, AfterViewInit} from '@angular/core';
+import { Component, Input, ElementRef} from '@angular/core';
 import { WikiService } from '../shared/wiki.service'
 
 @Component({
@@ -7,9 +7,8 @@ import { WikiService } from '../shared/wiki.service'
   templateUrl: './wiki.component.html'
 })
 
-export class WikiComponent implements AfterViewInit{
+export class WikiComponent{
  
- // @ViewChild('wikicontent') er: ElementRef;
   private text: any;
   private query: string = 'Munich';
 
@@ -20,34 +19,24 @@ export class WikiComponent implements AfterViewInit{
   }
 
   search(){
-    const me = this;
     this.ws.search(this.query).subscribe(data=>{
-      this.text = data.teaser;  
-     
+      this.text = data.teaser;       
       window.setTimeout(()=>{
-
-        this.element.nativeElement.querySelectorAll('a').forEach((e)=> {     
-            console.log(e);  
-            e.addEventListener('click', function(){              
-              me.query = e.getAttribute('title');
-              console.log('say hallo'+me.query );
-              me.search();
-            });
-            e.removeAttribute('href','#');
-        });
-        
-      },100); 
-    
-  
+        this.addEvents();       
+      },100);
     });
   }
 
   addEvents() {
-    
+    const me = this;
+    me.element.nativeElement.querySelectorAll('a').forEach((e)=> {      
+      e.addEventListener('click', function(){              
+        me.query = e.getAttribute('title');
+        me.search();
+      });
+      e.removeAttribute('href','#');
+    });
   }
 
-  ngAfterViewInit(){
-    
-  }
 
 }
