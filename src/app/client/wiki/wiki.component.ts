@@ -21,22 +21,23 @@ export class WikiComponent implements AfterViewInit{
 
   search(){
     this.ws.search(this.query).subscribe(data=>{
-      this.text = '<button (click)="search()">dd</button>'+data.teaser;  
+      this.text = data.teaser;  
      
-     window.setTimeout(()=>{
-       this.element.nativeElement.querySelector('a').addEventListener('click', function(){
-         console.log('say hallo');
-       });
-       
-       const x = this.element.nativeElement.getElementsByTagName('a');
-       
-       var i;
-      for (i = 0; i < x.length; i++) {
-          console.log(x[i]);
-          x[i].removeAttribute('href','#');
-      }
-      
-     },100); 
+      window.setTimeout(()=>{
+
+        const x = this.element.nativeElement.querySelectorAll('a');
+        for (let i = 0; i < x.length; i++) {            
+            let e = x[i];
+            console.log(e);  
+            e.addEventListener('click', function(){              
+              this.query = e.getAttribute('title');
+              console.log('say hallo'+this.query );
+              //this.search();
+            });
+            e.removeAttribute('href','#');
+        }
+        
+      },100); 
     
   
     });
