@@ -24,12 +24,18 @@ export class WikiComponent implements AfterViewInit{
       this.text = '<button (click)="search()">dd</button>'+data.teaser;  
      
      window.setTimeout(()=>{
+       this.element.nativeElement.querySelector('a').addEventListener('click', function(){
+         console.log('say hallo');
+       });
+       
        const x = this.element.nativeElement.getElementsByTagName('a');
+       
        var i;
       for (i = 0; i < x.length; i++) {
           console.log(x[i]);
+          x[i].removeAttribute('href','#');
       }
-       
+      
      },100); 
     
   
