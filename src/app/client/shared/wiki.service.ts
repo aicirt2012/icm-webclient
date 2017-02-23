@@ -5,19 +5,15 @@ import {HttpService} from '../../shared';
 
 @Injectable()
 export class WikiService {
-  private domain: string = 'wiki/search';
 
-  constructor(private http: HttpService) {
-    console.log('wiki contsrutor');
-    this.search('Ulm');
+  constructor(private http: HttpService) {    
   }
-
  
   search(query: string): Observable<any> {
     const options = {
       query: query
     };
-    return this.http.httpGET(this.domain, null, options, null);
+    return this.http.httpGET('wiki/search', null, options, null);
   }
 
 

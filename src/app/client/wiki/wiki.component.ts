@@ -9,12 +9,16 @@ import { WikiService } from '../shared/wiki.service'
 
 export class WikiComponent {
  
-  constructor(ws: WikiService) {
-    ws.search('Ulm');
+  private data: any;
+
+  constructor(private ws: WikiService) {
   }
 
   ngOnInit() {
-   
+    this.ws.search('Ulm').subscribe(data=>{
+      console.log(data);
+      this.data = data;
+    });
   }
 
 }
