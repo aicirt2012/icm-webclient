@@ -2,7 +2,7 @@
 <div fxLayout="column" class="full-height wiki-content">
   <div fxLayout="row">
     <md-input-container fxFlex floatingPlaceholder="false">
-        <input md-input placeholder="Translate..." [(ngModel)]="query" (keyup.enter)="translate()">
+        <input md-input placeholder="Translate..." [(ngModel)]="word" (keyup.enter)="translate()">
     </md-input-container>
     <button md-icon-button (click)="translate()">
         <md-icon class="md-24">search</md-icon>

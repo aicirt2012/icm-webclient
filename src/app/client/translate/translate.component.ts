@@ -10,7 +10,7 @@ import { TranslateService } from '../shared/translate.service'
 export class TranslateComponent{
  
   private content: any;
-  private query: string = 'Tree';
+  private word: string = 'Tree';
 
   constructor(private ts: TranslateService) {
   }
@@ -19,8 +19,8 @@ export class TranslateComponent{
   }
 
   translate(){
-    this.ts.translate(this.query).subscribe(data=>{
-      
+    this.ts.translate(this.word).subscribe(data=>{
+      console.log(data);
 
     });
   }

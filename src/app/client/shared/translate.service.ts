@@ -9,9 +9,9 @@ export class TranslateService {
   constructor(private http: HttpService) {    
   }
  
-  translate(query: string): Observable<any> {
+  translate(word: string): Observable<any> {
     const options = {
-      query: query
+      word: word
     };
     return this.http.httpGET('translate', null, options, null);
   }
