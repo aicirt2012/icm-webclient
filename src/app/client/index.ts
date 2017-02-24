@@ -9,6 +9,7 @@ export * from './emailDetailedView';
 export * from './emailList';
 export * from './context';
 export * from './contextTab';
+export * from './translate';
 export * from './wiki';
 export * from './components';
 export * from './shared';
