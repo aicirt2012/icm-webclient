@@ -34,7 +34,6 @@ export class WikiComponent{
         me.query = e.getAttribute('title');
         me.search();
       });
-      e.removeAttribute('href','#');
       const baseStyle = 'color:#666;';
       const hoverStyle = 'color:red; cursor:pointer;';
       e.setAttribute('style', baseStyle);
