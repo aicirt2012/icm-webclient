@@ -1,5 +1,5 @@
 
-<div fxLayout="column" class="full-height">
+<div fxLayout="column" class="full-height wiki-content">
   <div fxLayout="row">
     <md-input-container fxFlex floatingPlaceholder="false">
         <input md-input placeholder="Search..." [(ngModel)]="query" (keyup.enter)="search()">
@@ -9,6 +9,6 @@
     </button>
   </div>
   <div fxLayout="row" fxFlex>
-    <div class="wiki-content" [innerHTML]="content"></div>
+    <div [innerHTML]="content"></div>
   </div>
 </div>
