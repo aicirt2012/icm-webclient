@@ -9,6 +9,14 @@
     </button>
   </div>
   <div fxLayout="row" fxFlex>
+    <div *ngFor="let c of content">
+      {{c.source}}
+      <div *ngFor="let word of c.target">
+      &nbsp;&nbsp;&nbsp;&nbsp;{{word}}
+      <br/>
+      </div>
+      <br/>
+    </div>
     
   </div>
 </div>
