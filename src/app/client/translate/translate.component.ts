@@ -10,7 +10,7 @@ import { TranslateService } from '../shared/translate.service'
 export class TranslateComponent{
  
   private content: any;
-  private query: string = 'Munich';
+  private query: string = 'Tree';
 
   constructor(private ts: TranslateService) {
   }
