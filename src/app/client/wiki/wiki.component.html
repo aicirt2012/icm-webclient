@@ -1,5 +1,14 @@
+
 <div fxLayout="column" class="full-height">
-  <input type="text" [(ngModel)]="query" (keyup.enter)="search()"/>
-  <button (click)="search()">Search</button>
-  <div class="wiki-content" [innerHTML]="content"></div>
+  <div fxLayout="row">
+    <md-input-container fxFlex floatingPlaceholder="false">
+        <input md-input placeholder="Search..." [(ngModel)]="query" (keyup.enter)="search()">
+    </md-input-container>
+    <button md-icon-button (click)="search()">
+        <md-icon class="md-24">search</md-icon>
+    </button>
+  </div>
+  <div fxLayout="row" fxFlex>
+    <div class="wiki-content" [innerHTML]="content"></div>
+  </div>
 </div>
