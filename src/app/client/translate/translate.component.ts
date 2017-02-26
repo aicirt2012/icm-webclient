@@ -20,9 +20,7 @@ export class TranslateComponent{
 
   translate(){
     this.ts.translate(this.word).subscribe(data=>{
-      console.log(JSON.stringify(data));
       this.content = data;
-
     });
   }
 
