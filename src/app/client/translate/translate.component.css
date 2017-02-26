@@ -1,0 +1,18 @@
+.translate{
+    font-size: 14px !important;
+    padding: 10px;
+    padding-top:0px;
+    overflow-y:auto; 
+}
+
+.translate .block{
+    margin-bottom: 15px;
+}
+
+.translate .block .source{
+    font-weight: bold;
+}
+
+.translate .block .target{
+    margin-left: 20px;
+}

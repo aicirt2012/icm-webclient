@@ -10,7 +10,7 @@ import { TranslateService } from '../shared/translate.service'
 export class TranslateComponent{
  
   private content: any;
-  private word: string = 'Tree';
+  private word: string = 'heft';
 
   constructor(private ts: TranslateService) {
   }

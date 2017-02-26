@@ -1,5 +1,5 @@
 
-<div fxLayout="column" class="full-height wiki-content">
+<div fxLayout="column" class="full-height translate">
   <div fxLayout="row">
     <md-input-container fxFlex floatingPlaceholder="false">
         <input md-input placeholder="Translate..." [(ngModel)]="word" (keyup.enter)="translate()">
@@ -8,11 +8,17 @@
         <md-icon class="md-24">search</md-icon>
     </button>
   </div>
-  <div fxLayout="row" *ngFor="let c of content">
-    {{c.source}}
-    <div fxLayout="column" *ngFor="let word of c.target">
-    &nbsp;&nbsp;&nbsp;&nbsp;{{word}} <br/>
-    </div>
+  <div fxLayout="row" *ngFor="let c of content" class="block">
+    <div>
+      <div class="source">
+        {{c.source}}
+      </div>
+      <div class="target">
+        <div *ngFor="let word of c.target">
+          {{word}} <br/>
+        </div>
+      </div>
+    </div>  
   </div>
     
 
