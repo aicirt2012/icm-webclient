@@ -1,0 +1,10 @@
+.ctxTab{
+    background-color: #444c62;
+    height: 100%;
+    border-top:1px solid #d7e3ef;
+}
+
+.ctxTab:hover, .ctxTab.selected{
+    background-color: #F2F6FA;
+    cursor: pointer;
+}

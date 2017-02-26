@@ -1,0 +1,25 @@
+
+<div fxLayout="column" class="full-height translate">
+  <div fxLayout="row">
+    <md-input-container fxFlex floatingPlaceholder="false">
+        <input md-input placeholder="Translate..." [(ngModel)]="word" (keyup.enter)="translate()">
+    </md-input-container>
+    <button md-icon-button (click)="translate()">
+        <md-icon class="md-24">search</md-icon>
+    </button>
+  </div>
+  <div fxLayout="row" *ngFor="let c of content" class="block">
+    <div>
+      <div class="source">
+        {{c.source}}
+      </div>
+      <div class="target">
+        <div *ngFor="let word of c.target">
+          {{word}} <br/>
+        </div>
+      </div>
+    </div>  
+  </div>
+    
+
+</div>
