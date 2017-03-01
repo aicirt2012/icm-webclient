@@ -19,7 +19,11 @@ export class SocketService {
     //TODO remove only for testing
     this.createEmail().subscribe((email:any)=>{
       console.log('create email: '+email.subject);
-    })
+    });
+        //TODO remove only for testing
+    this.updateEmail().subscribe((email:any)=>{
+      console.log('update email: '+email.subject);
+    });
   }
 
   createEmail(){
@@ -32,6 +36,19 @@ export class SocketService {
       };
     });
   }
+
+  updateEmail(){
+    return new Observable(observer => {
+      this.socket.on('update_email', (email) => {
+        observer.next(JSON.parse(email));
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+  }
+
+
 
 
 }
