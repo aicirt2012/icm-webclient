@@ -16,7 +16,8 @@ import { EmailFolderDialogComponent } from './emailFolderDialog';
 @Component({
   selector: 'client',
   styleUrls: ['./client.component.css'],
-  templateUrl: './client.component.html'
+  templateUrl: './client.component.html',
+  providers: [SocketService]
 })
 export class ClientComponent {
   public boxList: any = [];
@@ -25,7 +26,7 @@ export class ClientComponent {
   private syncing: boolean;
   private updating: boolean = false;
 
-  constructor(private _emailService: EmailService, public appState: AppState, private _settingsService: SettingsService) {
+  constructor(private _emailService: EmailService, public appState: AppState, private _settingsService: SettingsService, private ss: SocketService) { //, 
     setInterval(() => {
       this.syncBoxes([], true);
     }, 1000 * 60);
@@ -34,7 +35,7 @@ export class ClientComponent {
   /* INITIALIZE EMAIL APP */
   ngOnInit() {
     this.syncing = true;
-
+    this.ss.openSocketConnection();
     this.appState.dataChange.subscribe((stateChange) => {
       if (this.appState.get('boxList').length > 0) {
         this.boxList = this.appState.get('boxList');
@@ -62,7 +63,7 @@ export class ClientComponent {
       }
     })
 
-    let ss = new SocketService(null);
+    //let ss = new SocketService(null);
   }
 
   /* FETCHING BOX INFORMATION */

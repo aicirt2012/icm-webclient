@@ -10,7 +10,12 @@ export class SocketService {
 
   private socket : any;
 
-  constructor(authService: AuthService) {
+  constructor(private authService: AuthService) {
+   
+  }
+
+  openSocketConnection(){
+    console.log('is auth: '+this.authService.isAuthenticated());
     this.socket = io.connect(C.socketUrl, {query: "token=123"});//authService.token});
     this.socket.on('connect', function(){
       console.log('Socket connection established!');
