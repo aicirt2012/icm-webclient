@@ -20,9 +20,15 @@ export class SocketService {
     this.createEmail().subscribe((email:any)=>{
       console.log('create email: '+email.subject);
     });
-        //TODO remove only for testing
+    
+    //TODO remove only for testing
     this.updateEmail().subscribe((email:any)=>{
       console.log('update email: '+email.subject);
+    });
+
+    //TODO remove only for testing
+    this.deleteEmail().subscribe((email:any)=>{
+      console.log('delete email: '+email.subject);
     });
   }
 
@@ -36,6 +42,18 @@ export class SocketService {
       };
     });
   }
+
+  deleteEmail(){
+    return new Observable(observer => {
+      this.socket.on('delete_email', (email) => {
+        observer.next(JSON.parse(email));
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+  }
+
 
   updateEmail(){
     return new Observable(observer => {
