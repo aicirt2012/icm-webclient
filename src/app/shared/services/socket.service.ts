@@ -17,15 +17,15 @@ export class SocketService {
     });
 
     //TODO remove only for testing
-    this.createEmail().subscribe(email=>{
-      console.log('create email'+email);
+    this.createEmail().subscribe((email:any)=>{
+      console.log('create email: '+email.subject);
     })
   }
 
   createEmail(){
     return new Observable(observer => {
-      this.socket.on('message', (email) => {
-        observer.next(email);
+      this.socket.on('create_email', (email) => {
+        observer.next(JSON.parse(email));
       });
       return () => {
         this.socket.disconnect();
