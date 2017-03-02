@@ -29,11 +29,11 @@ export class NavBarComponent {
 
   ngOnInit() {
     this.appState.dataChange.subscribe((stateChange) => {
-      if (this.appState.get('boxList').length > 0) {
-        this.boxList = this.appState.get('boxList');
-        this.addDataToBoxes(this.appState.get('boxList'));
+      if (this.appState.getBoxList().length > 0) {
+        this.boxList = this.appState.getBoxList();
+        this.addDataToBoxes(this.appState.getBoxList());
       }
-      this.user = this.appState.get('user');
+      this.user = this.appState.getUser();
     })
   }
 

@@ -54,7 +54,7 @@ export class ClientComponent {
 
     this._settingsService.getUserInfo().subscribe((user) => {
       this.user = user;
-      this.appState.set('user', user);
+      this.appState.setUser(user);
       if (this.user.provider.name) {
         if (!(this.appState.getBoxList().length > 0)) {
           this.getBoxList().subscribe((data: any[]) => {
@@ -72,8 +72,6 @@ export class ClientComponent {
         this.noMailboxConnected = true;
       }
     })
-
-    //let ss = new SocketService(null);
   }
 
   /* FETCHING BOX INFORMATION */
@@ -93,13 +91,13 @@ export class ClientComponent {
     }
     this._emailService.updateMailboxList().subscribe((boxes) => {
       this._emailService.getEmails([]).subscribe((data: any) => {
-        this.appState.set('boxList', boxes);
+        this.appState.setBoxList(boxes);
         this.boxList = boxes;
         this.syncing = false;
         this.updating = false;
         this.user.lastSync = new Date();
-        this.appState.set('user', this.user);
-        this.appState.set('synced', !(!!this.appState.get('synced')));
+        this.appState.setUser(this.user);
+        this.appState.setSynced(!(!!this.appState.getSynced()));
       });
     });
   }

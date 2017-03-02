@@ -53,7 +53,6 @@ export class AppState {
   setBoxList(boxList:any){
     this.set('boxList', boxList);
   }
-
   getBoxList(){
     return this.get('boxList');
   }
@@ -61,7 +60,6 @@ export class AppState {
   setCurrentBox(currentBox: any){
     this.set('currentBox', currentBox);
   }
-
   getCurrentBox(){
     return this.get('currentBox');
   }
@@ -69,10 +67,24 @@ export class AppState {
   setEmails(emails: any){
     this.set('emails', emails);
   }
-
   getEmails(){
     return this.get('emails');
   }
+
+  setSynced(synced: any){
+    this.set('synced', synced);
+  }
+  getSynced(){
+    return this.get('synced');
+  }
+
+  setUser(user: any){
+    this.set('user', user);
+  }
+  getUser(){
+    return this.get('user');
+  }
+
 
 
 }
