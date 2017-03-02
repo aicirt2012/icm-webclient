@@ -15,26 +15,29 @@ export class SocketService {
   }
 
   openSocketConnection(){
-    console.log('is auth: '+this.authService.isAuthenticated());
-    this.socket = io.connect(C.socketUrl, {query: "token="+this.authService.token});//authService.token});
-    this.socket.on('connect', function(){
-      console.log('Socket connection established!');
-    });
+    if(this.authService.isAuthenticated()){
+      console.log('Could not create socket - not authenticated!');
+    }else{
+      this.socket = io.connect(C.socketUrl, {query: "token="+this.authService.token});
+      this.socket.on('connect', ()=>{
+        console.log('Socket connection established!');
+      });
 
-    //TODO remove only for testing
-    this.createEmail().subscribe((email:any)=>{
-      console.log('create email: '+email.subject);
-    });
-    
-    //TODO remove only for testing
-    this.updateEmail().subscribe((email:any)=>{
-      console.log('update email: '+email.subject);
-    });
+      //TODO remove only for testing
+      this.createEmail().subscribe((email:any)=>{
+        console.log('create email: '+email.subject);
+      });
+      
+      //TODO remove only for testing
+      this.updateEmail().subscribe((email:any)=>{
+        console.log('update email: '+email.subject);
+      });
 
-    //TODO remove only for testing
-    this.deleteEmail().subscribe((email:any)=>{
-      console.log('delete email: '+email.subject);
-    });
+      //TODO remove only for testing
+      this.deleteEmail().subscribe((email:any)=>{
+        console.log('delete email: '+email.subject);
+      });
+    }
   }
 
   createEmail(){
@@ -59,7 +62,6 @@ export class SocketService {
     });
   }
 
-
   updateEmail(){
     return new Observable(observer => {
       this.socket.on('update_email', (email) => {
@@ -70,8 +72,5 @@ export class SocketService {
       };
     });
   }
-
-
-
 
 }
