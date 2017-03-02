@@ -36,10 +36,10 @@ export class EmailListComponent {
     this.appState.dataChange.subscribe((stateChange) => {
       this[stateChange] = this.appState.get(stateChange);
       if (!this.emptyBox && this.emails.length == 0 && this.boxList.length > 0) {
-        this.getEmailBox(this.boxList.find((box) => box.id == this.activeRoute.snapshot.params['boxId']));
+        this.getEmailBox(this.boxList.find((box) => box.id == this.getBoxIdByURL()));
       }
       if (stateChange == 'synced' && !this.searchActive) {
-        this.getEmailBox(this.boxList.find((box) => box.id == this.activeRoute.snapshot.params['boxId']), true);
+        this.getEmailBox(this.boxList.find((box) => box.id == this.getBoxIdByURL()), true);
       }
     });
 
@@ -49,6 +49,10 @@ export class EmailListComponent {
         boxId === 'None' ? '' : this.getEmailBox(this.boxList.find((box) => box.id == boxId));
       }
     });
+  }
+
+  getBoxIdByURL(){
+    return this.activeRoute.snapshot.params['boxId'];
   }
 
   getEmailBox(box: any, updating?: Boolean) {
@@ -62,7 +66,7 @@ export class EmailListComponent {
         });
         this.page = data.page;
         this.pages = data.pages;
-        this.appState.setCurrentBox(this.activeRoute.snapshot.params['boxId']);
+        this.appState.setCurrentBox(this.getBoxIdByURL());
         this.appState.setEmails(this.emails);
         if (!updating && this.emails.length > 0 && (this.router.url.match(/\//g).length < 3)) {
           this.router.navigate([`/box/${box.id}/${this.emails[0]._id}`]);
@@ -108,7 +112,7 @@ export class EmailListComponent {
   }
 
   searchEmailBox(query = '') {
-    const box = this.boxList.find((box) => box.id == this.activeRoute.snapshot.params['boxId']);
+    const box = this.boxList.find((box) => box.id == this.getBoxIdByURL());
     if (query == '') {
       this.getEmailBox(box);
     }

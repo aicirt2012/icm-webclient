@@ -37,15 +37,18 @@ export class ClientComponent {
   /* INITIALIZE EMAIL APP */
   ngOnInit() {
     this.syncing = true;
+    
     this._socketService.openSocketConnection();
     this._socketService.updateEmail().subscribe((updatedEmail:any)=>{
       console.log('update email2: '+updatedEmail.subject, updatedEmail.date);
       let emails = this.appState.getEmails().map(email => {
         if(email._id == updatedEmail._id)
           email = updatedEmail;
+        return email;
       }); 
       this.appState.setEmails(emails);
     });
+
     this.appState.dataChange.subscribe((stateChange) => {
       if (this.appState.getBoxList().length > 0) {
         this.boxList = this.appState.getBoxList();
@@ -54,15 +57,21 @@ export class ClientComponent {
 
     this._settingsService.getUserInfo().subscribe((user) => {
       this.user = user;
+      console.log('user info: ', user)
       this.appState.setUser(user);
       if (this.user.provider.name) {
         if (!(this.appState.getBoxList().length > 0)) {
+          this.appState.setBoxList(user.boxList);
+          this.syncing = false;
+          //TODO update mechanism needed
+          /*
           this.getBoxList().subscribe((data: any[]) => {
             if (data.length > 0) {
               this.syncing = false;
               this.appState.setBoxList(data);
             }
           });
+          */
         } else {
           this.syncing = false;
           this.boxList = this.appState.getBoxList();
