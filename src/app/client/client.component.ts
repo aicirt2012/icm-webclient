@@ -26,19 +26,29 @@ export class ClientComponent {
   private syncing: boolean;
   private updating: boolean = false;
 
-  constructor(private _emailService: EmailService, public appState: AppState, private _settingsService: SettingsService, private ss: SocketService) { //, 
+  constructor(private _emailService: EmailService, public appState: AppState, private _settingsService: SettingsService, private _socketService: SocketService) {
+    /*
     setInterval(() => {
       this.syncBoxes([], true);
     }, 1000 * 60);
+    */
   }
 
   /* INITIALIZE EMAIL APP */
   ngOnInit() {
     this.syncing = true;
-    this.ss.openSocketConnection();
+    this._socketService.openSocketConnection();
+    this._socketService.updateEmail().subscribe((updatedEmail:any)=>{
+      console.log('update email2: '+updatedEmail.subject, updatedEmail.date);
+      let emails = this.appState.getEmails().map(email => {
+        if(email._id == updatedEmail._id)
+          email = updatedEmail;
+      }); 
+      this.appState.setEmails(emails);
+    });
     this.appState.dataChange.subscribe((stateChange) => {
-      if (this.appState.get('boxList').length > 0) {
-        this.boxList = this.appState.get('boxList');
+      if (this.appState.getBoxList().length > 0) {
+        this.boxList = this.appState.getBoxList();
       }
     });
 
@@ -46,16 +56,16 @@ export class ClientComponent {
       this.user = user;
       this.appState.set('user', user);
       if (this.user.provider.name) {
-        if (!(this.appState.get('boxList').length > 0)) {
+        if (!(this.appState.getBoxList().length > 0)) {
           this.getBoxList().subscribe((data: any[]) => {
             if (data.length > 0) {
               this.syncing = false;
-              this.appState.set('boxList', data);
+              this.appState.setBoxList(data);
             }
           });
         } else {
           this.syncing = false;
-          this.boxList = this.appState.get('boxList');
+          this.boxList = this.appState.getBoxList();
         }
       } else {
         this.syncing = false;

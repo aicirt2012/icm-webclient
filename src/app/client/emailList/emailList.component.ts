@@ -30,8 +30,8 @@ export class EmailListComponent {
   }
 
   ngOnInit() {
-    this.boxList = this.appState.get('boxList').length > 0 ? this.appState.get('boxList') : [];
-    this.emails = this.appState.get('emails').length > 0 ? this.appState.get('emails') : [];
+    this.boxList = this.appState.getBoxList().length > 0 ? this.appState.getBoxList() : [];
+    this.emails = this.appState.getEmails().length > 0 ? this.appState.getEmails() : [];
 
     this.appState.dataChange.subscribe((stateChange) => {
       this[stateChange] = this.appState.get(stateChange);
@@ -62,8 +62,8 @@ export class EmailListComponent {
         });
         this.page = data.page;
         this.pages = data.pages;
-        this.appState.set('currentBox', this.activeRoute.snapshot.params['boxId']);
-        this.appState.set('emails', this.emails);
+        this.appState.setCurrentBox(this.activeRoute.snapshot.params['boxId']);
+        this.appState.setEmails(this.emails);
         if (!updating && this.emails.length > 0 && (this.router.url.match(/\//g).length < 3)) {
           this.router.navigate([`/box/${box.id}/${this.emails[0]._id}`]);
         }
@@ -101,7 +101,7 @@ export class EmailListComponent {
         this.page = res.page;
         this.pages = res.pages;
         this.emails = this.emails.concat(moreEmails);
-        this.appState.set('emails', this.emails);
+        this.appState.setEmails(this.emails);
         this.loadingList = false;
       });
     }
@@ -119,7 +119,7 @@ export class EmailListComponent {
           email.route = `/box/${email.box.id}/${email._id}`;
           return email;
         });
-        this.appState.set('emails', this.emails);
+        this.appState.setEmails(this.emails);
         this.searchActive = true;
       },
       error => {

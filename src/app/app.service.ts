@@ -48,4 +48,31 @@ export class AppState {
     // simple object clone
     return JSON.parse(JSON.stringify(object));
   }
+
+
+  setBoxList(boxList:any){
+    this.set('boxList', boxList);
+  }
+
+  getBoxList(){
+    return this.get('boxList');
+  }
+
+  setCurrentBox(currentBox: any){
+    this.set('currentBox', currentBox);
+  }
+
+  getCurrentBox(){
+    return this.get('currentBox');
+  }
+
+  setEmails(emails: any){
+    this.set('emails', emails);
+  }
+
+  getEmails(){
+    return this.get('emails');
+  }
+
+
 }
