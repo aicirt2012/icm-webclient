@@ -15,7 +15,7 @@ export class SocketService {
   }
 
   openSocketConnection(){
-    if(this.authService.isAuthenticated()){
+    if(!this.authService.isAuthenticated()){
       console.log('Could not create socket - not authenticated!');
     }else{
       this.socket = io.connect(C.socketUrl, {query: "token="+this.authService.token});
