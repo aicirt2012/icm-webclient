@@ -70,6 +70,10 @@ export class EmailService {
     return this._httpService.httpGET(this.domain, 'init', null, null);
   }
 
+  getBoxList(): Observable<any> {
+    return this._httpService.httpGET(this.domain, 'box', null, null);
+  }
+
   /*
    @param: boxes: string[] - Boxnames as string array,
    returns Array: [Emails...]
