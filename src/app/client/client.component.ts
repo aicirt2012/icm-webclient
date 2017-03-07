@@ -37,17 +37,17 @@ export class ClientComponent {
   /* INITIALIZE EMAIL APP */
   ngOnInit() {
     this.syncing = true;
-    
+
     this._socketService.openSocketConnection();
-    this._socketService.updateEmail().subscribe((updatedEmail:any)=>{
+    /*this._socketService.updateEmail().subscribe((updatedEmail:any)=>{
       console.log('update email2: '+updatedEmail.subject, updatedEmail.date);
       let emails = this.appState.getEmails().map(email => {
         if(email._id == updatedEmail._id)
           email = updatedEmail;
         return email;
-      }); 
+      });
       this.appState.setEmails(emails);
-    });
+    });*/
 
     this.appState.dataChange.subscribe((stateChange) => {
       if (this.appState.getBoxList().length > 0) {
@@ -90,6 +90,8 @@ export class ClientComponent {
 
   onRefresh(refresh?: boolean) {
     this.syncBoxes([]);
+    this.syncBoxes2([]);
+    this.syncAll();
   }
 
   syncBoxes(boxes: string[], update?: boolean) {
@@ -110,4 +112,25 @@ export class ClientComponent {
       });
     });
   }
+
+  syncBoxes2(boxes: string[], update?: boolean) {
+    if (update) {
+      this.updating = true;
+    } else {
+      this.syncing = true;
+    }
+    this._emailService.getBoxList().subscribe((boxes) => {
+      console.log('boxes2 updated');
+      console.log(boxes);
+    });
+  }
+
+  syncAll() {
+    console.log('push sync everything...');
+    this._emailService.syncAll().subscribe((result) => {
+      console.log('sync everything...');
+      console.log(result);
+    });
+  }
+
 }

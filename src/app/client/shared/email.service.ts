@@ -67,11 +67,18 @@ export class EmailService {
    returns Object: {"boxlist": [{name: "INBOX", new: "2", total: "9"}]}
    */
   updateMailboxList(): Observable<any> {
+    console.log('HERE!!!');
     return this._httpService.httpGET(this.domain, 'init', null, null);
   }
 
   getBoxList(): Observable<any> {
+    console.log('getting boxlist via sockets');
     return this._httpService.httpGET(this.domain, 'box', null, null);
+  }
+
+  syncAll(): Observable<any> {
+    console.log('syncAll via sockets');
+    return this._httpService.httpGET(this.domain, 'syncAll', null, null);
   }
 
   /*
