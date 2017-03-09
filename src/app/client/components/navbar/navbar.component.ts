@@ -64,7 +64,8 @@ export class NavBarComponent {
             icon = 'home';
             break;
         };
-        box.route = `/box/${box.id}`;
+        // box.route = `/box/${box.boxId}`; old UI
+        box.route = `/box/${box.boxId}`;
         box.icon = icon;
         box.children = [];
         return box;
@@ -77,7 +78,8 @@ export class NavBarComponent {
     let removeableIndices = [];
     boxes.forEach((box, index) => {
       if (box.parent != null) {
-        let parent = boxes.filter((b) => b.id == box.parent.id)[0];
+        // let parent = boxes.filter((b) => b.id == box.parent.id)[0]; // old
+        let parent = boxes.filter((b) => b.boxId == box.parent.id)[0];
         parent.children.push(box);
         removeableIndices.push(index);
       }

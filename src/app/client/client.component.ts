@@ -61,17 +61,14 @@ export class ClientComponent {
       this.appState.setUser(user);
       if (this.user.provider.name) {
         if (!(this.appState.getBoxList().length > 0)) {
-          this.appState.setBoxList(user.boxList);
+          //this.appState.setBoxList(user.boxList);
           this.syncing = false;
-          //TODO update mechanism needed
-          /*
-          this.getBoxList().subscribe((data: any[]) => {
-            if (data.length > 0) {
+          this.getBoxList().subscribe((boxes: any[]) => {
+            if (boxes.length > 0) {
               this.syncing = false;
-              this.appState.setBoxList(data);
+              this.appState.setBoxList(boxes);
             }
           });
-          */
         } else {
           this.syncing = false;
           this.boxList = this.appState.getBoxList();
@@ -85,16 +82,18 @@ export class ClientComponent {
 
   /* FETCHING BOX INFORMATION */
   getBoxList() {
-    return this._emailService.updateMailboxList();
+    //return this._emailService.updateMailboxList();
+    return this._emailService.getBoxList();
   }
 
   onRefresh(refresh?: boolean) {
-    this.syncBoxes([]);
-    this.syncBoxes2([]);
+    //this.syncBoxes([]); old syncing mechanism
     this.syncAll();
+    this.syncBoxes2([]);
   }
 
   syncBoxes(boxes: string[], update?: boolean) {
+    console.log(boxes);
     if (update) {
       this.updating = true;
     } else {
@@ -122,6 +121,15 @@ export class ClientComponent {
     this._emailService.getBoxList().subscribe((boxes) => {
       console.log('boxes2 updated');
       console.log(boxes);
+      console.log('boxlist');
+      console.log(this.appState);
+      this.appState.setBoxList(boxes);
+      this.boxList = boxes;
+      this.syncing = false;
+      this.updating = false;
+      this.user.lastSync = new Date();
+      this.appState.setUser(this.user);
+      this.appState.setSynced(!(!!this.appState.getSynced()));
     });
   }
 

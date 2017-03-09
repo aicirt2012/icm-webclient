@@ -36,17 +36,20 @@ export class EmailListComponent {
     this.appState.dataChange.subscribe((stateChange) => {
       this[stateChange] = this.appState.get(stateChange);
       if (!this.emptyBox && this.emails.length == 0 && this.boxList.length > 0) {
-        this.getEmailBox(this.boxList.find((box) => box.id == this.getBoxIdByURL()));
+        // this.getEmailBox(this.boxList.find((box) => box.id == this.getBoxIdByURL())); // old UI
+        this.getEmailBox(this.boxList.find((box) => box.boxId == this.getBoxIdByURL()));
       }
       if (stateChange == 'synced' && !this.searchActive) {
-        this.getEmailBox(this.boxList.find((box) => box.id == this.getBoxIdByURL()), true);
+        // this.getEmailBox(this.boxList.find((box) => box.id == this.getBoxIdByURL()), true);
+        this.getEmailBox(this.boxList.find((box) => box.boxId == this.getBoxIdByURL()), true);
       }
     });
 
     this.currentBox = this.activeRoute.params.map(params => params['boxId'] || 'None');
     this.currentBox.subscribe((boxId) => {
       if (this.boxList.length > 0) {
-        boxId === 'None' ? '' : this.getEmailBox(this.boxList.find((box) => box.id == boxId));
+        //boxId === 'None' ? '' : this.getEmailBox(this.boxList.find((box) => box.id == boxId)); old
+        boxId === 'None' ? '' : this.getEmailBox(this.boxList.find((box) => box.boxId == boxId));
       }
     });
   }
@@ -61,7 +64,7 @@ export class EmailListComponent {
       .getEmailsWithPagination(box.name)
       .subscribe((data: any) => {
         this.emails = data.docs.map((email) => {
-          email.route = `/box/${email.box.id}/${email._id}`;
+          email.route = `/box/${email.box.id}/${email._id}`; // this box.id is gonna cause problems
           return email;
         });
         this.page = data.page;
