@@ -119,10 +119,6 @@ export class ClientComponent {
       this.syncing = true;
     }
     this._emailService.getBoxList().subscribe((boxes) => {
-      console.log('boxes2 updated');
-      console.log(boxes);
-      console.log('boxlist');
-      console.log(this.appState);
       this.appState.setBoxList(boxes);
       this.boxList = boxes;
       this.syncing = false;
@@ -134,9 +130,7 @@ export class ClientComponent {
   }
 
   syncAll() {
-    console.log('push sync everything...');
     this._emailService.syncAll().subscribe((result) => {
-      console.log('sync everything...');
       console.log(result);
     });
   }
