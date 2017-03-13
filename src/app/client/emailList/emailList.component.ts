@@ -36,20 +36,17 @@ export class EmailListComponent {
     this.appState.dataChange.subscribe((stateChange) => {
       this[stateChange] = this.appState.get(stateChange);
       if (!this.emptyBox && this.emails.length == 0 && this.boxList.length > 0) {
-        // this.getEmailBox(this.boxList.find((box) => box.id == this.getBoxIdByURL())); // old UI
-        this.getEmailBox(this.boxList.find((box) => box.boxId == this.getBoxIdByURL()));
+        this.getEmailBox(this.boxList.find((box) => box._id == this.getBoxIdByURL()));
       }
       if (stateChange == 'synced' && !this.searchActive) {
-        // this.getEmailBox(this.boxList.find((box) => box.id == this.getBoxIdByURL()), true);
-        this.getEmailBox(this.boxList.find((box) => box.boxId == this.getBoxIdByURL()), true);
+        this.getEmailBox(this.boxList.find((box) => box._id == this.getBoxIdByURL()), true);
       }
     });
 
     this.currentBox = this.activeRoute.params.map(params => params['boxId'] || 'None');
     this.currentBox.subscribe((boxId) => {
       if (this.boxList.length > 0) {
-        //boxId === 'None' ? '' : this.getEmailBox(this.boxList.find((box) => box.id == boxId)); old
-        boxId === 'None' ? '' : this.getEmailBox(this.boxList.find((box) => box.boxId == boxId));
+        boxId === 'None' ? '' : this.getEmailBox(this.boxList.find((box) => box._id == boxId));
       }
     });
   }
@@ -59,12 +56,13 @@ export class EmailListComponent {
   }
 
   getEmailBox(box: any, updating?: Boolean) {
+    const boxName = box ? box.name : 'None';
     this.loading = !!!updating;
     this._emailService
-      .getEmailsWithPagination(box.name)
+      .getEmailsWithPagination(boxName)
       .subscribe((data: any) => {
         this.emails = data.docs.map((email) => {
-          email.route = `/box/${email.box.id}/${email._id}`; // this box.id is gonna cause problems
+          email.route = `/box/${email.box._id}/${email._id}`;
           return email;
         });
         this.page = data.page;
@@ -72,7 +70,7 @@ export class EmailListComponent {
         this.appState.setCurrentBox(this.getBoxIdByURL());
         this.appState.setEmails(this.emails);
         if (!updating && this.emails.length > 0 && (this.router.url.match(/\//g).length < 3)) {
-          this.router.navigate([`/box/${box.id}/${this.emails[0]._id}`]);
+          this.router.navigate([`/box/${box._id}/${this.emails[0]._id}`]);
         }
         this.emptyBox = this.emails.length == 0;
         this.loading = false;
