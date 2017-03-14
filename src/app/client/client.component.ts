@@ -1,17 +1,17 @@
-import { Component, ViewChild, style, state, animate, transition, trigger } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { AppState } from '../app.service';
+import {Component, ViewChild, style, state, animate, transition, trigger} from '@angular/core';
+import {Router, ActivatedRoute, Params} from '@angular/router';
+import {AppState} from '../app.service';
 import * as moment from 'moment';
-import { Email } from './shared';
-import { EmailService, TaskService } from './shared';
-import { SocketService } from '../shared/services/socket.service';
+import {Email} from './shared';
+import {EmailService, TaskService} from './shared';
+import {SocketService} from '../shared/services/socket.service';
 
 /* TODO:move settingsservice to userservice */
-import { SettingsService } from '../settings/shared';
-import { Observable } from 'rxjs/Observable';
-import { MdDialog } from '@angular/material';
-import { EmailDialogComponent } from './emailDialog';
-import { EmailFolderDialogComponent } from './emailFolderDialog';
+import {SettingsService} from '../settings/shared';
+import {Observable} from 'rxjs/Observable';
+import {MdDialog} from '@angular/material';
+import {EmailDialogComponent} from './emailDialog';
+import {EmailFolderDialogComponent} from './emailFolderDialog';
 
 @Component({
   selector: 'client',
@@ -21,6 +21,7 @@ import { EmailFolderDialogComponent } from './emailFolderDialog';
 })
 export class ClientComponent {
   public boxList: any = [];
+  public emails: Email[] = [];
   private noMailboxConnected = false;
   private user: any;
   private syncing: boolean;
@@ -28,10 +29,10 @@ export class ClientComponent {
 
   constructor(private _emailService: EmailService, public appState: AppState, private _settingsService: SettingsService, private _socketService: SocketService) {
     /*
-    setInterval(() => {
-      this.syncBoxes([], true);
-    }, 1000 * 60);
-    */
+     setInterval(() => {
+     this.syncBoxes([], true);
+     }, 1000 * 60);
+     */
   }
 
   /* INITIALIZE EMAIL APP */
@@ -39,20 +40,18 @@ export class ClientComponent {
     this.syncing = true;
 
     this._socketService.openSocketConnection();
-    /*this._socketService.updateEmail().subscribe((updatedEmail:any)=>{
-      console.log('update email2: '+updatedEmail.subject, updatedEmail.date);
-      let emails = this.appState.getEmails().map(email => {
-        if(email._id == updatedEmail._id)
+    this._socketService.updateEmail().subscribe((updatedEmail: any) => {
+      console.log('update email2: ' + updatedEmail.subject, updatedEmail.date);
+
+      this.emails = this.appState.getEmails().map(email => {
+        if (email._id == updatedEmail._id) {
           email = updatedEmail;
+        }
+        email.route = `/box/${email.box._id}/${email._id}`;
         return email;
       });
-      this.appState.setEmails(emails);
-    });*/
 
-    this.appState.dataChange.subscribe((stateChange) => {
-      if (this.appState.getBoxList().length > 0) {
-        this.boxList = this.appState.getBoxList();
-      }
+      this.appState.setEmails(this.emails);
     });
 
     this._settingsService.getUserInfo().subscribe((user) => {

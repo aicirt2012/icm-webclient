@@ -78,7 +78,6 @@ export class EmailService {
     sync boxes and emails
   */
   syncAll(): Observable<any> {
-    console.log('syncAll via sockets');
     return this._httpService.httpGET(this.domain, 'syncAll', null, null);
   }
 
