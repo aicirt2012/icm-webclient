@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Observer} from 'rxjs/Observer';
 
@@ -22,10 +22,12 @@ export class AppState {
   getObservableState() {
     return this.dataChange;
   }
+
   // already return a clone of the current state
   get state() {
     return this._state = this._clone(this._state);
   }
+
   // never allow mutation
   set state(value) {
     throw new Error('do not mutate the `.state` directly');
@@ -50,41 +52,50 @@ export class AppState {
   }
 
 
-  setBoxList(boxList:any){
+  setBoxList(boxList: any) {
     this.set('boxList', boxList);
   }
-  getBoxList(){
+
+  getBoxList() {
     return this.get('boxList');
   }
 
-  setCurrentBox(currentBox: any){
+  setCurrentBox(currentBox: any) {
     this.set('currentBox', currentBox);
   }
-  getCurrentBox(){
+
+  getCurrentBox() {
     return this.get('currentBox');
   }
 
-  setEmails(emails: any){
+  setEmails(emails: any) {
+    emails.sort((a, b) => {
+      const dateA: any = new Date(a.date);
+      const dateB: any = new Date(b.date);
+      return dateB - dateA
+    });
     this.set('emails', emails);
   }
-  getEmails(){
+
+  getEmails() {
     return this.get('emails');
   }
 
-  setSynced(synced: any){
+  setSynced(synced: any) {
     this.set('synced', synced);
   }
-  getSynced(){
+
+  getSynced() {
     return this.get('synced');
   }
 
-  setUser(user: any){
+  setUser(user: any) {
     this.set('user', user);
   }
-  getUser(){
+
+  getUser() {
     return this.get('user');
   }
-
 
 
 }

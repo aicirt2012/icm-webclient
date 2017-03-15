@@ -21,7 +21,7 @@ import {EmailFolderDialogComponent} from './emailFolderDialog';
 })
 export class ClientComponent {
   public boxList: any = [];
-  public emails: Email[] = [];
+  private emails: Email[] = [];
   private noMailboxConnected = false;
   private user: any;
   private syncing: boolean;
@@ -41,17 +41,27 @@ export class ClientComponent {
 
     this._socketService.openSocketConnection();
     this._socketService.updateEmail().subscribe((updatedEmail: any) => {
-      console.log('update email2: ' + updatedEmail.subject, updatedEmail.date);
-
+      console.log('update email: ' + updatedEmail.subject, updatedEmail.date);
       this.emails = this.appState.getEmails().map(email => {
-        if (email._id == updatedEmail._id) {
-          email = updatedEmail;
-        }
-        email.route = `/box/${email.box._id}/${email._id}`;
+        email._id == updatedEmail._id ? email = updatedEmail : email;
+        email.route = this.setURLRoute(email);
         return email;
       });
-
       this.appState.setEmails(this.emails);
+    });
+
+    this._socketService.createEmail().subscribe((createdEmail: any) => {
+      console.log('create email: ' + createdEmail.subject, createdEmail.date);
+      console.log(createdEmail);
+      createdEmail.route = this.setURLRoute(createdEmail);
+      this.emails = this.appState.getEmails();
+      this.emails.push(createdEmail);
+      this.appState.setEmails(this.emails);
+    });
+
+    this._socketService.deleteEmail().subscribe((deletedEmail: any) => {
+      console.log('delete: ' + deletedEmail.subject, deletedEmail.date);
+      console.log(deletedEmail);
     });
 
     this._settingsService.getUserInfo().subscribe((user) => {
@@ -112,15 +122,10 @@ export class ClientComponent {
   }
 
   syncBoxes2(boxes: string[], update?: boolean) {
-    if (update) {
-      this.updating = true;
-    } else {
-      this.syncing = true;
-    }
+    this.updating = true;
     this._emailService.getBoxList().subscribe((boxes) => {
       this.appState.setBoxList(boxes);
       this.boxList = boxes;
-      this.syncing = false;
       this.updating = false;
       this.user.lastSync = new Date();
       this.appState.setUser(this.user);
@@ -132,6 +137,11 @@ export class ClientComponent {
     this._emailService.syncAll().subscribe((result) => {
       console.log(result);
     });
+  }
+
+  /* helpers */
+  setURLRoute(email) {
+    return email.route = `/box/${email.box._id}/${email._id}`;
   }
 
 }
