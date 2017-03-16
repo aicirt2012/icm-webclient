@@ -11,7 +11,7 @@ export class SocketService {
   private socket : any;
 
   constructor(private authService: AuthService) {
-   
+
   }
 
   openSocketConnection(){
@@ -27,7 +27,7 @@ export class SocketService {
       this.createEmail().subscribe((email:any)=>{
         console.log('create email: '+email.subject);
       });
-      
+
       //TODO remove only for testing
       this.updateEmail().subscribe((email:any)=>{
         console.log('update email: '+email.subject);
@@ -36,6 +36,11 @@ export class SocketService {
       //TODO remove only for testing
       this.deleteEmail().subscribe((email:any)=>{
         console.log('delete email: '+email.subject);
+      });
+
+      //TODO remove only for testing
+      this.updateBox().subscribe((box:any)=>{
+        console.log('update box: '+box.name);
       });
     }
   }
@@ -66,6 +71,17 @@ export class SocketService {
     return new Observable(observer => {
       this.socket.on('update_email', (email) => {
         observer.next(JSON.parse(email));
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+  }
+
+  updateBox(){
+    return new Observable(observer => {
+      this.socket.on('update_box', (box) => {
+        observer.next(JSON.parse(box));
       });
       return () => {
         this.socket.disconnect();

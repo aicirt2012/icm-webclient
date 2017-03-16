@@ -60,8 +60,18 @@ export class ClientComponent {
     });
 
     this._socketService.deleteEmail().subscribe((deletedEmail: any) => {
-      console.log('delete: ' + deletedEmail.subject, deletedEmail.date);
+      console.log('delete email: ' + deletedEmail.subject, deletedEmail.date);
       console.log(deletedEmail);
+    });
+
+    this._socketService.updateBox().subscribe((updatedBox: any) => {
+      console.log('update box: ' + updatedBox.name);
+      console.log(updatedBox);
+      this.boxList = this.appState.getBoxList().map(box => {
+        box._id == updatedBox._id ? box = updatedBox : box;
+        return box;
+      });
+      this.appState.setBoxList(this.boxList);
     });
 
     this._settingsService.getUserInfo().subscribe((user) => {
