@@ -80,18 +80,16 @@ export class NavBarComponent {
         }
       });
 
-      const rootBoxes = boxParentMap.get(null);
+      const rootBoxes = boxParentMap.get(null);   
 
-      console.log(boxParentMap);
-      console.log(rootBoxes);
-
-      this._populateBoxesTree(rootBoxes, boxParentMap);
+      this.navbarItems = this._populateBoxesTree(rootBoxes, boxParentMap);
+      console.log(JSON.stringify(this.navbarItems));
     }
   }
 
   _populateBoxesTree(boxes: any[], boxParentMap) {
     return boxes.map(box => {
-      if (boxParentMap.has(box._id)) {
+      if(boxParentMap.has(box._id)) {
         let children = boxParentMap.get(box._id);
         box.children.push(this._populateBoxesTree(children, boxParentMap));
       }
