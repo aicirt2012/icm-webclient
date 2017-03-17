@@ -69,15 +69,21 @@ export class NavBarComponent {
         box.children = [];
         return box;
       });
+      console.log(JSON.stringify(this.navbarItems));
       this._populateBoxesTree(this.navbarItems);
     }
   }
 
   _populateBoxesTree(boxes) {
     let removeableIndices = [];
+    const boxMap = new Map();
+    boxes.forEach(box=>{
+      boxMap.set(box._id, box);
+    });
     boxes.forEach((box, index) => {
-      if (box.parent != null) {
-        let parent = boxes.filter((b) => b._id == box.parent._id)[0];
+      if (box.parent != null) {       
+        //let parent = boxes.filter((b) => b._id == box.parent)[0];
+        let parent = boxMap.get(box.parent);
         parent.children.push(box);
         removeableIndices.push(index);
       }
