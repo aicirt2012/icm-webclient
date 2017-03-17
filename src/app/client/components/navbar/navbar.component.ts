@@ -1,16 +1,15 @@
-import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { MdDialog, MdDialogRef } from '@angular/material';
-import { DialogType } from '../../../shared/constants';
-import { AppState } from '../../../app.service';
-import { EmailDialogComponent } from '../../emailDialog';
-import { EmailFolderDialogComponent } from '../../emailFolderDialog';
-import { EmailService } from '../../shared';
+import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
+import {MdDialog, MdDialogRef} from '@angular/material';
+import {DialogType} from '../../../shared/constants';
+import {AppState} from '../../../app.service';
+import {EmailDialogComponent} from '../../emailDialog';
+import {EmailFolderDialogComponent} from '../../emailFolderDialog';
+import {EmailService} from '../../shared';
 
 @Component({
   selector: 'navbar',  // <navbar></navbar>
-  providers: [
-  ],
+  providers: [],
   styleUrls: ['./navbar.component.css'],
   templateUrl: './navbar.component.html'
 })
@@ -63,33 +62,40 @@ export class NavBarComponent {
           default:
             icon = 'home';
             break;
-        };
+        }
+        ;
         box.route = `/box/${box._id}`;
         box.icon = icon;
         box.children = [];
         return box;
       });
-      console.log(JSON.stringify(this.navbarItems));
-      this._populateBoxesTree(this.navbarItems);
+
+      const boxParentMap = new Map();
+
+      this.navbarItems.forEach(box => {
+        if (boxParentMap.has(box.parent)) {
+          boxParentMap.get(box.parent).push(box);
+        } else {
+          boxParentMap.set(box.parent, [box]);
+        }
+      });
+
+      const rootBoxes = boxParentMap.get(null);
+
+      console.log(boxParentMap);
+      console.log(rootBoxes);
+
+      this._populateBoxesTree(rootBoxes, boxParentMap);
     }
   }
 
-  _populateBoxesTree(boxes) {
-    let removeableIndices = [];
-    const boxMap = new Map();
-    boxes.forEach(box=>{
-      boxMap.set(box._id, box);
-    });
-    boxes.forEach((box, index) => {
-      if (box.parent != null) {       
-        //let parent = boxes.filter((b) => b._id == box.parent)[0];
-        let parent = boxMap.get(box.parent);
-        parent.children.push(box);
-        removeableIndices.push(index);
+  _populateBoxesTree(boxes: any[], boxParentMap) {
+    return boxes.map(box => {
+      if (boxParentMap.has(box._id)) {
+        let children = boxParentMap.get(box._id);
+        box.children.push(this._populateBoxesTree(children, boxParentMap));
       }
-    });
-    removeableIndices.reverse().forEach((i) => {
-      boxes.splice(i, 1);
+      return box;
     });
   }
 
