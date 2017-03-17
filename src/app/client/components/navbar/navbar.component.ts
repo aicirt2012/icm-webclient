@@ -89,7 +89,7 @@ export class NavBarComponent {
     return boxes.map(box => {
       if(boxParentMap.has(box._id)) {
         let children = boxParentMap.get(box._id);
-        box.children.push(this._populateBoxesTree(children, boxParentMap));
+        box.children = this._populateBoxesTree(children, boxParentMap);
       }
       return box;
     });
