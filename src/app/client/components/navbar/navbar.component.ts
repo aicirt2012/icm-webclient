@@ -38,7 +38,7 @@ export class NavBarComponent {
 
   addDataToBoxes(boxList: any[]) {
     if (boxList.length > 0) {
-      this.navbarItems = boxList.map((box) => {
+      boxList = boxList.map((box) => {
         let icon;
         switch (box.shortName) { //TODO put in service
           case 'INBOX':
@@ -62,8 +62,7 @@ export class NavBarComponent {
           default:
             icon = 'home';
             break;
-        }
-        ;
+        };
         box.route = `/box/${box._id}`;
         box.icon = icon;
         box.children = [];
@@ -71,15 +70,12 @@ export class NavBarComponent {
       });
 
       const boxParentMap = new Map();
-
-      this.navbarItems.forEach(box => {
-        if (boxParentMap.has(box.parent)) {
+      boxList.forEach(box => {
+        if(boxParentMap.has(box.parent)) 
           boxParentMap.get(box.parent).push(box);
-        } else {
+        else
           boxParentMap.set(box.parent, [box]);
-        }
       });
-
       const rootBoxes = boxParentMap.get(null);   
 
       this.navbarItems = this._populateBoxesTree(rootBoxes, boxParentMap);
@@ -88,6 +84,8 @@ export class NavBarComponent {
   }
 
   _populateBoxesTree(boxes: any[], boxParentMap) {
+    if(boxes == null)
+      return [];
     return boxes.map(box => {
       if(boxParentMap.has(box._id)) {
         let children = boxParentMap.get(box._id);
