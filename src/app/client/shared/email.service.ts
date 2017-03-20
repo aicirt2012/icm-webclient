@@ -104,13 +104,13 @@ export class EmailService {
   /*
       @param: msgId: string - msg id in box,
       @param: flags: string[] - array of flags to add to mail,
-      @param: box: string - Boxname as string,
+      @param: boxId: string - BoxId as string,
    */
-  addFlags(msgId: number, flags: string[], boxName: string): Observable<any> {
+  addFlags(msgId: number, flags: string[], boxId: string): Observable<any> {
       const body = {
         msgId: msgId,
         flags: flags,
-        box: boxName
+        boxId: boxId
       };
     return this._httpService.httpPOST(this.domain, `addFlags`, null, body);
   }
@@ -118,13 +118,13 @@ export class EmailService {
   /*
       @param: msgId: string - msg id in box,
       @param: flags: string[] - array of flags to be deleted from mail,
-      @param: box: string - Boxname as string,
+      @param: boxId: string - BoxId as string,
    */
-  delFlags(msgId: number, flags: string[], boxName: string): Observable<any> {
+  delFlags(msgId: number, flags: string[], boxId: string): Observable<any> {
       const body = {
         msgId: msgId,
         flags: flags,
-        box: boxName
+        boxId: boxId
       };
     return this._httpService.httpPOST(this.domain, `delFlags`, null, body);
   }

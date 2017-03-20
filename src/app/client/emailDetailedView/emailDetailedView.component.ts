@@ -122,7 +122,7 @@ export class EmailDetailedViewComponent {
       return email;
     });
     this.boxList = this.boxList.map((box) => {
-      if (box.name == this.email.box.name) {
+      if (box._id == this.email.box) {
         box.unseen -= 1;
       }
       return box;
@@ -130,7 +130,7 @@ export class EmailDetailedViewComponent {
     this.appState.set('boxList', this.boxList);
     this.appState.set('emails', this.emails);
 
-    this._emailService.addFlags(this.email.uid, flags, this.email.box.name).subscribe((res) => { }, (err) => {
+    this._emailService.addFlags(this.email.uid, flags, this.email.box).subscribe((res) => { }, (err) => {
       this.email = Object.assign(oldEmail);
       this.appState.set('emails', oldEmails);
       this.appState.set('boxList', oldBoxList);
@@ -156,7 +156,7 @@ export class EmailDetailedViewComponent {
     });
 
     this.boxList.map((box) => {
-      if (box.name == this.email.box.name) {
+      if (box._id == this.email.box) {
         box.unseen += 1;
       }
       return box;
@@ -165,7 +165,7 @@ export class EmailDetailedViewComponent {
     this.appState.set('emails', this.emails);
     this.appState.set('boxList', this.boxList);
 
-    this._emailService.delFlags(this.email.uid, flags, this.email.box.name).subscribe((res) => {
+    this._emailService.delFlags(this.email.uid, flags, this.email.box).subscribe((res) => {
     }, (err) => {
       this.email = Object.assign(oldEmail);
       this.appState.set('emails', oldEmails);

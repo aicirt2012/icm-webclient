@@ -62,7 +62,7 @@ export class EmailListComponent {
       .getEmailsWithPagination(boxName)
       .subscribe((data: any) => {
         this.emails = data.docs.map((email) => {
-          email.route = `/box/${email.box._id}/${email._id}`;
+          email.route = `/box/${email.box}/${email._id}`;
           return email;
         });
         this.page = data.page;
@@ -100,7 +100,7 @@ export class EmailListComponent {
       this.loadingList = true;
       this._emailService.getEmailsWithPagination(params.box, params.page, params.limit).subscribe((res) => {
         const moreEmails: Email[] = res.docs.map((email) => {
-          email.route = `/box/${email.box.id}/${email._id}`;
+          email.route = `/box/${email.box}/${email._id}`;
           return email;
         });
         this.page = res.page;
@@ -121,7 +121,7 @@ export class EmailListComponent {
       .searchEmailsWithPagination(box.name, query)
       .subscribe((data: any) => {
         this.emails = data.docs.map((email) => {
-          email.route = `/box/${email.box.id}/${email._id}`;
+          email.route = `/box/${email.box}/${email._id}`;
           return email;
         });
         this.appState.setEmails(this.emails);

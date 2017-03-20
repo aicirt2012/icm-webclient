@@ -151,7 +151,7 @@ export class ClientComponent {
 
   /* helpers */
   setURLRoute(email) {
-    return email.route = `/box/${email.box._id}/${email._id}`;
+    return email.route = `/box/${email.box}/${email._id}`;
   }
 
 }
