@@ -44,7 +44,6 @@ export class ClientComponent {
       console.log('update email: ' + updatedEmail.subject, updatedEmail.date);
       this.emails = this.appState.getEmails().map(email => {
         email._id == updatedEmail._id ? email = updatedEmail : email;
-        email.route = this.setURLRoute(email);
         return email;
       });
       this.appState.setEmails(this.emails);
@@ -53,7 +52,6 @@ export class ClientComponent {
     this._socketService.createEmail().subscribe((createdEmail: any) => {
       console.log('create email: ' + createdEmail.subject, createdEmail.date);
       console.log(createdEmail);
-      createdEmail.route = this.setURLRoute(createdEmail);
       this.emails = this.appState.getEmails();
       this.emails.push(createdEmail);
       this.appState.setEmails(this.emails);
@@ -101,16 +99,15 @@ export class ClientComponent {
 
   /* FETCHING BOX INFORMATION */
   getBoxList() {
-    //return this._emailService.updateMailboxList();
     return this._emailService.getBoxList();
   }
 
   onRefresh(refresh?: boolean) {
-    //this.syncBoxes([]); old syncing mechanism
     this.syncAll();
-    this.syncBoxes2([]);
+    this.syncBoxes([]);
   }
 
+  /*
   syncBoxes(boxes: string[], update?: boolean) {
     console.log(boxes);
     if (update) {
@@ -130,8 +127,9 @@ export class ClientComponent {
       });
     });
   }
+  */
 
-  syncBoxes2(boxes: string[], update?: boolean) {
+  syncBoxes(boxes: string[], update?: boolean) {
     this.updating = true;
     this._emailService.getBoxList().subscribe((boxes) => {
       this.appState.setBoxList(boxes);
@@ -147,11 +145,6 @@ export class ClientComponent {
     this._emailService.syncAll().subscribe((result) => {
       console.log(result);
     });
-  }
-
-  /* helpers */
-  setURLRoute(email) {
-    return email.route = `/box/${email.box}/${email._id}`;
   }
 
 }

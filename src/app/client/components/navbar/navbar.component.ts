@@ -71,15 +71,14 @@ export class NavBarComponent {
 
       const boxParentMap = new Map();
       boxList.forEach(box => {
-        if(boxParentMap.has(box.parent)) 
+        if(boxParentMap.has(box.parent))
           boxParentMap.get(box.parent).push(box);
         else
           boxParentMap.set(box.parent, [box]);
       });
-      const rootBoxes = boxParentMap.get(null);   
+      const rootBoxes = boxParentMap.get(null);
 
       this.navbarItems = this._populateBoxesTree(rootBoxes, boxParentMap);
-      console.log(JSON.stringify(this.navbarItems));
     }
   }
 

@@ -13,10 +13,10 @@ export class EmailService {
   }
 
   /*
-  @param: box: string - Boxname as string,
-  @param: params: any - {page:1, limit: 50}
-  returns Object: {"docs":[Emails...],"total": 3,"limit": 10,"page": 1,"pages": 1}
-  */
+   @param: box: string - Boxname as string,
+   @param: params: any - {page:1, limit: 50}
+   returns Object: {"docs":[Emails...],"total": 3,"limit": 10,"page": 1,"pages": 1}
+   */
   getEmailsWithPagination(box: string, page = 1, limit = 25): Observable<any> {
     const options = {
       box: box,
@@ -27,39 +27,52 @@ export class EmailService {
   }
 
   /*
-  @param: box: string - Boxname as string,
-  @param: params: any - {page:1, limit: 50, q: 'searchQuery'}
-  returns Object: {"docs":[Emails...],"total": 3,"limit": 10,"page": 1,"pages": 1}
-  */
-  searchEmailsWithPagination(box: string, query = '', page = 1, limit = 25): Observable<any> {
+   @param: sort: string - ASC or DESC
+   @param: boxId: string
+   @param: boxId: string
+   @param: search: string - a search query
+   @lastEmailDate: Date: pivot for pagination
+   */
+  getEmailsWithPagination2(boxId: string, sort = 'DESC', search = '', lastEmailDate = new Date()): Observable<any> {
+    return this.searchEmailsWithPagination(boxId, sort, search, lastEmailDate);
+  }
+
+  /*
+   @param: sort: string - ASC or DESC
+   @param: boxId: string
+   @param: boxId: string
+   @param: search: string - a search query
+   @lastEmailDate: Date: pivot for pagination
+   */
+  searchEmailsWithPagination(boxId: string, sort = 'DESC', search = '', lastEmailDate = new Date()): Observable<any> {
     const options = {
-      box: box,
-      q: query,
-      page: page,
-      limit: limit
+      boxId: boxId,
+      sort: sort,
+      search: search,
+      lastEmailDate: lastEmailDate
     };
     return this._httpService.httpGET(this.domain, 'search', options, null);
   }
 
   /*
-  @param: mail: any - Mailobject {} TODO
-  */
+   @param: mail: any - Mailobject {} TODO
+   */
   sendMail(mail: any): Observable<any> {
     return this._httpService.httpPOST(this.domain, 'send', null, mail);
   }
 
   /*
-  @param: msgId: string - msg id in box,
-  @param: srcBox: string - Boxname as string,
-  @param: destBox: string - Boxname as string,
-  */
+   @param: msgId: string - msg id in box,
+   @param: srcBox: string - Boxname as string,
+   @param: destBox: string - Boxname as string,
+   */
   moveMail(msgId: string, srcBox: string, destBox: string): Observable<any> {
     const body = {
       msgId: msgId,
       srcBox: srcBox,
       destBox: destBox
     };
-    console.log('moving in service',body);
+    console.log('moving in service', body);
     return this._httpService.httpPOST(this.domain, 'move', null, body);
   }
 
@@ -75,8 +88,8 @@ export class EmailService {
   }
 
   /*
-    sync boxes and emails
-  */
+   sync boxes and emails
+   */
   syncAll(): Observable<any> {
     return this._httpService.httpGET(this.domain, 'syncAll', null, null);
   }
@@ -86,11 +99,11 @@ export class EmailService {
    returns Array: [Emails...]
    */
   getEmails(boxes: string[]): Observable<any> {
-    return this._httpService.httpPOST(this.domain, 'sync', null, { boxes: boxes });
+    return this._httpService.httpPOST(this.domain, 'sync', null, {boxes: boxes});
   }
 
   getEmails2(boxes: string[]): Observable<any> {
-    return this._httpService.httpPOST(this.domain, 'sync2', null, { boxes: boxes });
+    return this._httpService.httpPOST(this.domain, 'sync2', null, {boxes: boxes});
   }
 
   /*
@@ -102,35 +115,35 @@ export class EmailService {
   }
 
   /*
-      @param: msgId: string - msg id in box,
-      @param: flags: string[] - array of flags to add to mail,
-      @param: boxId: string - BoxId as string,
+   @param: msgId: string - msg id in box,
+   @param: flags: string[] - array of flags to add to mail,
+   @param: boxId: string - BoxId as string,
    */
   addFlags(msgId: number, flags: string[], boxId: string): Observable<any> {
-      const body = {
-        msgId: msgId,
-        flags: flags,
-        boxId: boxId
-      };
+    const body = {
+      msgId: msgId,
+      flags: flags,
+      boxId: boxId
+    };
     return this._httpService.httpPOST(this.domain, `addFlags`, null, body);
   }
 
   /*
-      @param: msgId: string - msg id in box,
-      @param: flags: string[] - array of flags to be deleted from mail,
-      @param: boxId: string - BoxId as string,
+   @param: msgId: string - msg id in box,
+   @param: flags: string[] - array of flags to be deleted from mail,
+   @param: boxId: string - BoxId as string,
    */
   delFlags(msgId: number, flags: string[], boxId: string): Observable<any> {
-      const body = {
-        msgId: msgId,
-        flags: flags,
-        boxId: boxId
-      };
+    const body = {
+      msgId: msgId,
+      flags: flags,
+      boxId: boxId
+    };
     return this._httpService.httpPOST(this.domain, `delFlags`, null, body);
   }
 
   /*
-  */
+   */
   generateEmailForm(email: Email, type: string): any {
     const bodyHeader = `
 -------------------------------------------
@@ -142,7 +155,7 @@ ${email.text}`;
 
     if (type == 'reply') {
       let receivers;
-      if(email.from[0].name) {
+      if (email.from[0].name) {
         receivers = {
           name: email.from[0].name,
           address: email.from[0].address
@@ -187,24 +200,24 @@ ${email.text}`;
   }
 
   /*
-  @param: box: string - Boxname as string,
-  @param: args: {mailbox: Boxname },
-  @param: to: string - object,
-  @param: from: string,
-  @param: subject: string - Subject as string,
-  @param: msgData: string - Message Data as string,
-  */
+   @param: box: string - Boxname as string,
+   @param: args: {mailbox: Boxname },
+   @param: to: string - object,
+   @param: from: string,
+   @param: subject: string - Subject as string,
+   @param: msgData: string - Message Data as string,
+   */
   appendMail(box: string, to: any, from: any, subject: string, msgData: string): Observable<any> {
     console.log('start mail to draft');
     const body = {
       box: box,
-      args: {mailbox:'[Gmail]/Drafts'},
+      args: {mailbox: '[Gmail]/Drafts'},
       to: to ? to[0] : '',
       from: from,
       subject: subject ? subject : '',
       msgData: msgData ? msgData : '',
     };
-    console.log('appending mail to draft',body);
+    console.log('appending mail to draft', body);
     return this._httpService.httpPOST(this.domain, 'append', null, body);
   }
 

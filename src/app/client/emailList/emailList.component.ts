@@ -1,9 +1,9 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ng2-bootstrap';
-import { Email } from '../shared';
-import { AppState } from '../../app.service';
-import { EmailService } from '../shared';
+import {Component, Input, EventEmitter, Output} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import {ModalDirective} from 'ng2-bootstrap';
+import {Email} from '../shared';
+import {AppState} from '../../app.service';
+import {EmailService} from '../shared';
 
 @Component({
   selector: 'email-list',
@@ -51,34 +51,36 @@ export class EmailListComponent {
     });
   }
 
-  getBoxIdByURL(){
+  getBoxIdByURL() {
     return this.activeRoute.snapshot.params['boxId'];
   }
 
   getEmailBox(box: any, updating?: Boolean) {
-    const boxName = box ? box.name : 'None';
     this.loading = !!!updating;
     this._emailService
-      .getEmailsWithPagination(boxName)
-      .subscribe((data: any) => {
-        this.emails = data.docs.map((email) => {
-          email.route = `/box/${email.box}/${email._id}`;
-          return email;
+      .getEmailsWithPagination2(box._id)
+      .subscribe((emails: any) => {
+          console.log('inside getEmailBox');
+          console.log(emails);
+          this.emails = emails;
+          /*
+           this.page = emails.page;
+           this.pages = emails.pages;
+           */
+          this.appState.setCurrentBox(this.getBoxIdByURL());
+          this.appState.setEmails(this.emails);
+          if (!updating && this.emails.length > 0 && (this.router.url.match(/\//g).length < 3)) {
+            this.router.navigate([`/box/${box._id}/${this.emails[0]._id}`]);
+          }
+          this.emptyBox = this.emails.length == 0;
+          this.loading = false;
+        },
+        error => {
+          console.log(error);
+        },
+        () => {
+          console.log(`Mails successfully loaded`)
         });
-        this.page = data.page;
-        this.pages = data.pages;
-        this.appState.setCurrentBox(this.getBoxIdByURL());
-        this.appState.setEmails(this.emails);
-        if (!updating && this.emails.length > 0 && (this.router.url.match(/\//g).length < 3)) {
-          this.router.navigate([`/box/${box._id}/${this.emails[0]._id}`]);
-        }
-        this.emptyBox = this.emails.length == 0;
-        this.loading = false;
-      },
-      error => {
-        console.log(error);
-      },
-      () => { console.log(`Mails successfully loaded`) });
   }
 
   isActive(route: string): boolean {
@@ -100,7 +102,6 @@ export class EmailListComponent {
       this.loadingList = true;
       this._emailService.getEmailsWithPagination(params.box, params.page, params.limit).subscribe((res) => {
         const moreEmails: Email[] = res.docs.map((email) => {
-          email.route = `/box/${email.box}/${email._id}`;
           return email;
         });
         this.page = res.page;
@@ -113,24 +114,26 @@ export class EmailListComponent {
   }
 
   searchEmailBox(query = '') {
-    const box = this.boxList.find((box) => box.id == this.getBoxIdByURL());
+    const sort = 'DESC';
+    const box = this.boxList.find((box) => box._id == this.getBoxIdByURL());
+    const lastEmailDate = this.emails[this.emails.length - 1].date;
     if (query == '') {
       this.getEmailBox(box);
     }
     this._emailService
-      .searchEmailsWithPagination(box.name, query)
-      .subscribe((data: any) => {
-        this.emails = data.docs.map((email) => {
-          email.route = `/box/${email.box}/${email._id}`;
-          return email;
+      .searchEmailsWithPagination(box._id, sort, query, lastEmailDate)
+      .subscribe((emails: any) => {
+          console.log('searched emails');
+          console.log(emails)
+          this.appState.setEmails(emails);
+          this.searchActive = true;
+        },
+        error => {
+          console.log(error)
+        },
+        () => {
+          console.log(`Searched for mails in box ${box.name}`)
         });
-        this.appState.setEmails(this.emails);
-        this.searchActive = true;
-      },
-      error => {
-        console.log(error)
-      },
-      () => { console.log(`Searched for mails in box ${box.name}`) });
   }
 
 }

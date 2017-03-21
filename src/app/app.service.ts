@@ -69,6 +69,10 @@ export class AppState {
   }
 
   setEmails(emails: any) {
+    emails = emails.map(email => {
+      email.route = `/box/${email.box}/${email._id}`;
+      return email
+    });
     emails.sort((a, b) => {
       const dateA: any = new Date(a.date);
       const dateB: any = new Date(b.date);
