@@ -23,7 +23,7 @@ export class EmailListComponent {
   loading: boolean;
   emptyBox: boolean = false;
   loadingList: boolean = false;
-  searchActive: boolean;
+  searchActive: boolean = false;
 
   constructor(public appState: AppState, public router: Router, public activeRoute: ActivatedRoute, private _emailService: EmailService) {
     this.page = 1;
@@ -63,10 +63,6 @@ export class EmailListComponent {
           console.log('inside getEmailBox');
           console.log(emails);
           this.emails = emails;
-          /*
-           this.page = emails.page;
-           this.pages = emails.pages;
-           */
           this.appState.setCurrentBox(this.getBoxIdByURL());
           this.appState.setEmails(this.emails);
           if (!updating && this.emails.length > 0 && (this.router.url.match(/\//g).length < 3)) {
@@ -91,33 +87,36 @@ export class EmailListComponent {
     return email.flags.indexOf('\\Seen') > -1;
   }
 
-  onScroll() {
-    if (this.page < this.pages && !this.loadingList) {
-      this.page += 1;
-      const params = {
-        box: this.emails[0].box.name,
-        page: this.page,
-        limit: this.limit
-      };
-      this.loadingList = true;
-      this._emailService.getEmailsWithPagination(params.box, params.page, params.limit).subscribe((res) => {
-        const moreEmails: Email[] = res.docs.map((email) => {
-          return email;
-        });
-        this.page = res.page;
-        this.pages = res.pages;
-        this.emails = this.emails.concat(moreEmails);
-        this.appState.setEmails(this.emails);
+  onScrollDown() {
+    console.log('scrolled down');
+    if(!this.loadingList) {
+      if (this.emails.length > 0) {
+        this.loadingList = true;
+        const boxId = this.emails[this.emails.length - 1].box;
+        const sort = 'DESC'
+        const lastEmailDate = this.emails[this.emails.length - 1].date;
+        this._emailService.getEmailsWithPagination2(boxId, sort, '', lastEmailDate)
+          .subscribe((emails) => {
+            console.log(emails);
+            this.emails = this.emails.concat(emails);
+            this.appState.setEmails(this.emails);
+            this.loadingList = false;
+          });
+      } else {
         this.loadingList = false;
-      });
+      }
     }
   }
 
   searchEmailBox(query = '') {
+    console.log('inside searchEmailBox');
+    console.log(query);
     const sort = 'DESC';
     const box = this.boxList.find((box) => box._id == this.getBoxIdByURL());
-    const lastEmailDate = this.emails[this.emails.length - 1].date;
+    const lastEmailDate = new Date();
+
     if (query == '') {
+      console.log('there is no query');
       this.getEmailBox(box);
     }
     this._emailService
