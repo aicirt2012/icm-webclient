@@ -95,10 +95,10 @@ export class EmailService {
   /*
    @param: boxes: string[] - Boxnames as string array,
    returns Array: [Emails...]
-   */
   getEmails(boxes: string[]): Observable<any> {
     return this._httpService.httpPOST(this.domain, 'sync', null, {boxes: boxes});
   }
+   */
 
   getEmails2(boxes: string[]): Observable<any> {
     return this._httpService.httpPOST(this.domain, 'sync2', null, {boxes: boxes});
