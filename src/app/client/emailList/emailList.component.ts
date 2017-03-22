@@ -55,6 +55,12 @@ export class EmailListComponent {
 
   getEmailBox(box: any, updating?: Boolean) {
     this.loading = !!!updating;
+
+    // get emails on default box (first one in the list)
+    if (!box && this.boxList.length > 0) {
+      box = this.boxList[0];
+    }
+
     this._emailService
       .getEmailsWithPagination2(box._id)
       .subscribe((emails: any) => {
