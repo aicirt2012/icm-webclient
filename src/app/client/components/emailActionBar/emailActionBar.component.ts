@@ -39,9 +39,8 @@ export class EmailActionBarComponent {
       destBox = this.boxList.find((b) => b.shortName == destBox).name;
     }
     const params = {
-      msgId: this.email.uid,
-      srcBox: this.email.box.name,
-      destBox: destBox
+      emailId: this.email._id,
+      newBoxId: this.boxList.find((b) => b.name == destBox)._id
     };
     this.onEmailMoveToBox.emit(params);
   }

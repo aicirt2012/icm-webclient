@@ -62,15 +62,13 @@ export class EmailService {
   }
 
   /*
-   @param: msgId: string - msg id in box,
-   @param: srcBox: string - Boxname as string,
-   @param: destBox: string - Boxname as string,
+   @param: emailId: string
+   @param: newBoxId: string - destination box,
    */
-  moveMail(msgId: string, srcBox: string, destBox: string): Observable<any> {
+  moveMail(emailId: string, newBoxId: string): Observable<any> {
     const body = {
-      msgId: msgId,
-      srcBox: srcBox,
-      destBox: destBox
+      emailId: emailId,
+      newBoxId: newBoxId
     };
     console.log('moving in service', body);
     return this._httpService.httpPOST(this.domain, 'move', null, body);

@@ -92,10 +92,11 @@ export class EmailDetailedViewComponent {
 
   emailMoveToBox(params: any) {
     this.moving = true;
-    this._emailService.moveMail(params.msgId, params.srcBox, params.destBox).subscribe((res) => {
+    this._emailService.moveMail(params.emailId, params.newBoxId).subscribe((res) => {
       this.emails.splice(this.emails.findIndex((e) => this.email._id == e._id), 1);
       this.appState.set('emails', this.emails);
-      this.snackBar.open(`Message successfully moved to ${params.destBox}.`, 'OK');
+      const destBox = this.boxList.find((b) => b._id == params.newBoxId).shortName;
+      this.snackBar.open(`Message successfully moved to ${destBox}.`, 'OK');
       if (this.emails.length > 0) {
         this.router.navigate([`box/${this.appState.get('currentBox')}/${this.emails[0]._id}`]);
       } else {
