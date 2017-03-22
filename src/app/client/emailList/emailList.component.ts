@@ -33,7 +33,7 @@ export class EmailListComponent {
 
     this.appState.dataChange.subscribe((stateChange) => {
       this[stateChange] = this.appState.get(stateChange);
-      if (!this.emptyBox && this.emails.length == 0 && this.boxList.length > 0) {
+      if (!this.emptyBox && this.emails.length == 0 && this.boxList.length > 0 && this.searchTerm == '') {
         this.getEmailBox(this.boxList.find((box) => box._id == this.getBoxIdByURL()));
       }
       if (stateChange == 'synced' && !this.searchActive) {
@@ -125,6 +125,9 @@ export class EmailListComponent {
   }
 
   searchEmails(searchTerm = '') {
+    if (searchTerm == '') {
+      return;
+    }
     console.log('inside searchEmailBox');
     console.log(searchTerm);
     const boxId = 'NONE';
