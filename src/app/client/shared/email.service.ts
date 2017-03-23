@@ -76,10 +76,10 @@ export class EmailService {
 
   /*
    returns Object: {"boxlist": [{name: "INBOX", new: "2", total: "9"}]}
-   */
   updateMailboxList(): Observable<any> {
     return this._httpService.httpGET(this.domain, 'init', null, null);
   }
+   */
 
   getBoxList(): Observable<any> {
     return this._httpService.httpGET(this.domain, 'box', null, null);
