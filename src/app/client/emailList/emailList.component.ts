@@ -31,6 +31,14 @@ export class EmailListComponent {
     this.boxList = this.appState.getBoxList().length > 0 ? this.appState.getBoxList() : [];
     this.emails = this.appState.getEmails().length > 0 ? this.appState.getEmails() : [];
 
+    if (this.boxList.length == 0) {
+      this._emailService.getBoxList().subscribe((boxes: any[]) => {
+        if (boxes.length > 0) {
+          this.appState.setBoxList(boxes);
+        }
+      });
+    }
+
     this.appState.dataChange.subscribe((stateChange) => {
       this[stateChange] = this.appState.get(stateChange);
       if (!this.emptyBox && this.emails.length == 0 && this.boxList.length > 0 && this.searchTerm == '') {
