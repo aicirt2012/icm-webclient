@@ -19,19 +19,6 @@ export class EmailService {
    @param: search: string - a search query
    @lastEmailDate: Date: pivot for pagination
    */
-  /*
-  getEmailsWithPagination(boxId: string, sort = 'DESC', search = '', lastEmailDate = new Date()): Observable<any> {
-    return this.searchEmailsWithPagination(boxId, sort, search, lastEmailDate);
-  }
-  */
-
-  /*
-   @param: sort: string - ASC or DESC
-   @param: boxId: string
-   @param: boxId: string
-   @param: search: string - a search query
-   @lastEmailDate: Date: pivot for pagination
-   */
   searchEmailsWithPagination(boxId = 'NONE', sort = 'DESC', search = '', lastEmailDate = new Date()): Observable<any> {
     const options = {
       boxId: boxId,

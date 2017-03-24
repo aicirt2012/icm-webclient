@@ -80,7 +80,7 @@ export class ClientComponent {
         if (!(this.appState.getBoxList().length > 0)) {
           //this.appState.setBoxList(user.boxList);
           this.syncing = false;
-          this.getBoxList().subscribe((boxes: any[]) => {
+          this._emailService.getBoxList().subscribe((boxes: any[]) => {
             if (boxes.length > 0) {
               this.syncing = false;
               this.appState.setBoxList(boxes);
@@ -95,11 +95,6 @@ export class ClientComponent {
         this.noMailboxConnected = true;
       }
     })
-  }
-
-  /* FETCHING BOX INFORMATION */
-  getBoxList() {
-    return this._emailService.getBoxList();
   }
 
   onRefresh(refresh?: boolean) {
