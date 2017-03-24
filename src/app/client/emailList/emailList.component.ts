@@ -62,7 +62,7 @@ export class EmailListComponent {
     }
 
     this._emailService
-      .getEmailsWithPagination(box._id)
+      .searchEmailsWithPagination(box._id)
       .subscribe((emails: any) => {
           console.log('inside getEmailBox');
           console.log(emails);
@@ -108,7 +108,7 @@ export class EmailListComponent {
           boxId = 'NONE' // search over all boxes;
         }
 
-        this._emailService.getEmailsWithPagination(boxId, sort, this.searchTerm, lastEmailDate)
+        this._emailService.searchEmailsWithPagination(boxId, sort, this.searchTerm, lastEmailDate)
           .subscribe((emails) => {
             console.log(emails);
             this.paginationEnabled = emails.length > 0 ? true : false;
