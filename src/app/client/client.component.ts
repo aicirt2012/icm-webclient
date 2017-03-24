@@ -78,7 +78,6 @@ export class ClientComponent {
       this.appState.setUser(user);
       if (this.user.provider.name) {
         if (!(this.appState.getBoxList().length > 0)) {
-          //this.appState.setBoxList(user.boxList);
           this.syncing = false;
           this._emailService.getBoxList().subscribe((boxes: any[]) => {
             if (boxes.length > 0) {
