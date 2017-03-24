@@ -13,27 +13,13 @@ export class EmailService {
   }
 
   /*
-   @param: box: string - Boxname as string,
-   @param: params: any - {page:1, limit: 50}
-   returns Object: {"docs":[Emails...],"total": 3,"limit": 10,"page": 1,"pages": 1}
-  getEmailsWithPagination(box: string, page = 1, limit = 25): Observable<any> {
-    const options = {
-      box: box,
-      page: page,
-      limit: limit
-    };
-    return this._httpService.httpGET(this.domain, null, options, null);
-  }
-   */
-
-  /*
    @param: sort: string - ASC or DESC
    @param: boxId: string
    @param: boxId: string
    @param: search: string - a search query
    @lastEmailDate: Date: pivot for pagination
    */
-  getEmailsWithPagination2(boxId: string, sort = 'DESC', search = '', lastEmailDate = new Date()): Observable<any> {
+  getEmailsWithPagination(boxId: string, sort = 'DESC', search = '', lastEmailDate = new Date()): Observable<any> {
     return this.searchEmailsWithPagination(boxId, sort, search, lastEmailDate);
   }
 
