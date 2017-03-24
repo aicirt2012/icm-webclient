@@ -107,28 +107,6 @@ export class ClientComponent {
     this.syncBoxes([]);
   }
 
-  /*
-  syncBoxes(boxes: string[], update?: boolean) {
-    console.log(boxes);
-    if (update) {
-      this.updating = true;
-    } else {
-      this.syncing = true;
-    }
-    this._emailService.updateMailboxList().subscribe((boxes) => {
-      this._emailService.getEmails([]).subscribe((data: any) => {
-        this.appState.setBoxList(boxes);
-        this.boxList = boxes;
-        this.syncing = false;
-        this.updating = false;
-        this.user.lastSync = new Date();
-        this.appState.setUser(this.user);
-        this.appState.setSynced(!(!!this.appState.getSynced()));
-      });
-    });
-  }
-  */
-
   syncBoxes(boxes: string[], update?: boolean) {
     this.updating = true;
     this._emailService.getBoxList().subscribe((boxes) => {
