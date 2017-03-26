@@ -1,11 +1,10 @@
 {
-  "name": "angular2-webpack-starter",
+  "name": "Intelligent Contextual Mail",
   "version": "1.0.0",
-  "description": "EmailApp with contextual task support",
+  "description": "Email App with intelligent contextual task support",
   "keywords": [
-    "angular2",
-    "webpack",
-    "typescript"
+    "Mail",
+    "Task"
   ],
   "license": "MIT",
   "scripts": {

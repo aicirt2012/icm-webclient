@@ -1,4 +1,4 @@
-# EmailApp WebClient Angular 2
+# Intelligent Contextual Mail WebClient
 
 # install the repo with npm
 npm install
