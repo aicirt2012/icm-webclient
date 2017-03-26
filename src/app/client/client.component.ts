@@ -80,6 +80,15 @@ export class ClientComponent {
       this.appState.setBoxList(this.boxList);
     });
 
+    this._socketService.deleteBox().subscribe((deletedBox: any) => {
+      console.log('delete box: ' + deletedBox.name);
+      console.log(deletedBox);
+      this.boxList = this.appState.getBoxList().filter(box => {
+        return box._id != deletedBox._id
+      });
+      this.appState.setBoxList(this.boxList);
+    });
+
     this._settingsService.getUserInfo().subscribe((user) => {
       this.user = user;
       console.log('user info: ', user)
