@@ -64,7 +64,6 @@ export class ClientComponent {
 
     this._socketService.createBox().subscribe((createdBox: any) => {
       console.log('create box: ' + createdBox.name);
-      console.log(createdBox);
       this.boxList = this.appState.getBoxList();
       this.boxList.push(createdBox);
       this.appState.setBoxList(this.boxList);
@@ -72,7 +71,6 @@ export class ClientComponent {
 
     this._socketService.updateBox().subscribe((updatedBox: any) => {
       console.log('update box: ' + updatedBox.name);
-      console.log(updatedBox);
       this.boxList = this.appState.getBoxList().map(box => {
         box._id == updatedBox._id ? box = updatedBox : box;
         return box;
@@ -82,7 +80,6 @@ export class ClientComponent {
 
     this._socketService.deleteBox().subscribe((deletedBox: any) => {
       console.log('delete box: ' + deletedBox.name);
-      console.log(deletedBox);
       this.boxList = this.appState.getBoxList().filter(box => {
         return box._id != deletedBox._id
       });
