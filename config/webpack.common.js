@@ -27,7 +27,7 @@ const ngcWebpack = require('ngc-webpack');
 const HMR = helpers.hasProcessFlag('hot');
 const AOT = helpers.hasNpmFlag('aot');
 const METADATA = {
-  title: 'EmailApp',
+  title: 'Intelligent Contextual Mail',
   baseUrl: '/',
   isDevServer: helpers.isWebpackDevServer()
 };
