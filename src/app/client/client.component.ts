@@ -62,6 +62,14 @@ export class ClientComponent {
       console.log(deletedEmail);
     });
 
+    this._socketService.createBox().subscribe((createdBox: any) => {
+      console.log('create box: ' + createdBox.name);
+      console.log(createdBox);
+      this.boxList = this.appState.getBoxList();
+      this.boxList.push(createdBox);
+      this.appState.setBoxList(this.boxList);
+    });
+
     this._socketService.updateBox().subscribe((updatedBox: any) => {
       console.log('update box: ' + updatedBox.name);
       console.log(updatedBox);

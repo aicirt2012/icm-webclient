@@ -39,8 +39,18 @@ export class SocketService {
       });
 
       //TODO remove only for testing
+      this.createBox().subscribe((box:any)=>{
+        console.log('create box: '+box.name);
+      });
+
+      //TODO remove only for testing
       this.updateBox().subscribe((box:any)=>{
         console.log('update box: '+box.name);
+      });
+
+      //TODO remove only for testing
+      this.deleteBox().subscribe((box:any)=>{
+        console.log('delete box: '+box.name);
       });
     }
   }
@@ -78,9 +88,31 @@ export class SocketService {
     });
   }
 
+  createBox(){
+    return new Observable(observer => {
+      this.socket.on('create_box', (box) => {
+        observer.next(JSON.parse(box));
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+  }
+
   updateBox(){
     return new Observable(observer => {
       this.socket.on('update_box', (box) => {
+        observer.next(JSON.parse(box));
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+  }
+
+  deleteBox(){
+    return new Observable(observer => {
+      this.socket.on('delete_box', (box) => {
         observer.next(JSON.parse(box));
       });
       return () => {
