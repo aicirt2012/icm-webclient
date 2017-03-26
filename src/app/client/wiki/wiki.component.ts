@@ -11,6 +11,7 @@ export class WikiComponent{
  
   private content: any;
   private query: string = 'Munich';
+  private loading: boolean = false;
 
   constructor(private ws: WikiService, private element: ElementRef) {
   }
@@ -19,8 +20,10 @@ export class WikiComponent{
   }
 
   search(){
+    this.loading = true;
     this.ws.search(this.query).subscribe(data=>{
-      this.content = data.teaser;       
+      this.content = data.teaser;
+      this.loading = false;       
       window.setTimeout(()=>{
         this.addEvents();       
       },10);

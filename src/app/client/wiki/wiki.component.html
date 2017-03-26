@@ -9,6 +9,7 @@
     </button>
   </div>
   <div fxLayout="row" fxFlex>
-    <div [innerHTML]="content"></div>
+    <spinner *ngIf="loading" [loading]="loading"></spinner>
+    <div *ngIf="!loading" [innerHTML]="content"></div>
   </div>
 </div>
