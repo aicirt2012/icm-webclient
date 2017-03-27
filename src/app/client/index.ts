@@ -11,5 +11,6 @@ export * from './context';
 export * from './contextTab';
 export * from './translate';
 export * from './wiki';
+export * from './network';
 export * from './components';
 export * from './shared';
