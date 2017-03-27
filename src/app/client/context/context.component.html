@@ -1,6 +1,7 @@
 <div fxLayout="column" class="full-height">
   <div fxLayout="row" class="full-height">
     <tasks *ngIf="isOpenTab('tasks')" [email]="email" fxFlex></tasks>
+    <network *ngIf="isOpenTab('network')" fxFlex></network>
     <wiki *ngIf="isOpenTab('wiki')" fxFlex></wiki>
     <translate *ngIf="isOpenTab('translate')" fxFlex></translate>
     <div fxBasis="25px" fxGrow="0" fxShrink="0">

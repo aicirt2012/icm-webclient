@@ -1,5 +1,5 @@
 import { Component, Input} from '@angular/core';
-import { WikiService } from '../shared/wiki.service'
+import { NetworkService } from '../shared/network.service'
 
 @Component({
   selector: 'network',
@@ -10,10 +10,10 @@ import { WikiService } from '../shared/wiki.service'
 export class NetworkComponent{
  
   private content: any;
-  private query: string = 'Munich';
+  private query: string = 'Max Mustermann';
   private loading: boolean = false;
 
-  constructor(private ws: WikiService) {
+  constructor(private nt: NetworkService) {
   }
 
   ngOnInit() {
