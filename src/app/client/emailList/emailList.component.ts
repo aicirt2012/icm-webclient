@@ -78,7 +78,7 @@ export class EmailListComponent {
           this.appState.setCurrentBox(this.getBoxIdByURL());
           this.appState.setEmails(this.emails);
           if (!updating && this.emails.length > 0 && (this.router.url.match(/\//g).length < 3)) {
-            this.router.navigate([`/box/${box._id}/${this.emails[0]._id}`]);
+            this.router.navigate([`/box/${box._id}/${this.emails[0]._id}`]); // TODO
           }
           this.emptyBox = this.emails.length == 0;
           this.paginationEnabled = true;

@@ -37,16 +37,14 @@ export class EmailFolderDialogComponent {
     if (this.parentBox != '') {
       newBox = `${this.parentBox}/${this.newBoxName}`
     }
-    this._emailService.addBox(newBox).subscribe((boxList) => {
-      console.log('inside onAddBox');
-      console.log(boxList);
-      this.appState.set('boxList', boxList);
+    this._emailService.addBox(newBox).subscribe((msg) => {
       this.updating = false;
       this.parentBox = '';
       this.snackBar.open(`New box '${this.newBoxName}' was successfully created.`, 'OK');
       this.newBoxName = '';
       this.closeDialog();
-    }, () => {
+    }, (err) => {
+      console.log(err);
       this.updating = false;
       this.snackBar.open('Error while creating new box.', 'OK');
     });
@@ -54,15 +52,14 @@ export class EmailFolderDialogComponent {
 
   onDeleteBox() {
     this.updating = true;
-    this._emailService.delBox(this.selectedBoxName).subscribe((boxList) => {
+    this._emailService.delBox(this.selectedBoxName).subscribe((msg) => {
       console.log('inside onDeleteBox');
-      console.log(boxList);
-      this.appState.set('boxList', boxList);
       this.updating = false;
       this.snackBar.open(`Folder '${this.selectedBoxName}' successfully deleted.`, 'OK');
       this.selectedBoxName = '';
       this.closeDialog();
-    }, () => {
+    }, (err) => {
+      console.log(err);
       this.updating = false;
       this.snackBar.open('Error while deleting folder.', 'OK');
     });
