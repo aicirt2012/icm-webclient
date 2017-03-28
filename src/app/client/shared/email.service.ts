@@ -148,10 +148,10 @@ ${email.text}`;
   /*
    @param: boxName: string
    */
-  delBox(boxName: string): Observable<any> {
+  delBox(boxId: string): Observable<any> {
     console.log('removing box...');
     const body = {
-      boxName: boxName
+      boxId: boxId
     };
     return this._httpService.httpPOST(this.domain, 'delBox', null, body);
   }
