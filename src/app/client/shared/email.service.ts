@@ -157,6 +157,18 @@ ${email.text}`;
   }
 
   /*
+   @param: boxName: string
+   */
+  renameBox(oldBoxId: string, newBoxShortName: string): Observable<any> {
+    console.log('adding box...');
+    const body = {
+      oldBoxId: oldBoxId,
+      newBoxShortName: newBoxShortName
+    };
+    return this._httpService.httpPOST(this.domain, 'renameBox', null, body);
+  }
+
+  /*
    @param: box: string - Boxname as string,
    @param: args: {mailbox: Boxname },
    @param: to: string - object,

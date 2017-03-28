@@ -19,6 +19,7 @@ export class EmailFolderDialogComponent {
   public refreshBoxList: any;
   private selectedBoxName: string = '';
   private newBoxName: string = '';
+  private newBoxShortName: string = '';
   private parentBox: string = '';
 
   constructor(public taskDialogRef: MdDialogRef<EmailFolderDialogComponent>, private snackBar: MdSnackBar, private _emailService: EmailService, public appState: AppState) {
@@ -62,6 +63,23 @@ export class EmailFolderDialogComponent {
       console.log(err);
       this.updating = false;
       this.snackBar.open('Error while deleting folder.', 'OK');
+    });
+  }
+
+  onRenameBox() {
+    this.updating = true;
+    const oldBoxId = this.boxList.find((box) => box.name == this.selectedBoxName)._id;
+    this._emailService.renameBox(oldBoxId, this.newBoxShortName).subscribe((msg) => {
+      console.log('inside onDeleteBox');
+      this.updating = false;
+      this.snackBar.open(`Folder '${this.selectedBoxName}' successfully renamed.`, 'OK');
+      this.selectedBoxName = '';
+      this.newBoxShortName = '';
+      this.closeDialog();
+    }, (err) => {
+      console.log(err);
+      this.updating = false;
+      this.snackBar.open('Error while renaming folder.', 'OK');
     });
   }
 
