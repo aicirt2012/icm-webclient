@@ -64,9 +64,11 @@ export class EmailListComponent {
   getEmailBox(box: any, updating?: Boolean) {
     this.loading = !!!updating;
 
-    // get emails on default box (first one in the list)
-    if (!box && this.boxList.length > 0) {
-      box = this.boxList[0];
+    // in case empty box = box/0
+    if (!box) {
+      this.emptyBox = true;
+      this.loading = false;
+      return;
     }
 
     this._emailService
