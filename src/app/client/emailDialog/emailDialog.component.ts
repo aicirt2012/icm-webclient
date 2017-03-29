@@ -82,7 +82,7 @@ export class EmailDialogComponent {
 
   saveDraft() {
     this._emailService
-      .appendMail("[Gmail]/Drafts", this.emailForm.to, this.user ? this.user.email : '', this.emailForm.subject, this.emailForm.text)
+      .appendMail(this.emailForm.to, this.emailForm.subject, this.emailForm.text)
       .subscribe((data: any) => {
         console.log("appending successful", data);
       }, (error) => {
