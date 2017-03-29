@@ -34,11 +34,14 @@ export class EmailFolderDialogComponent {
 
   onAddBox() {
     this.updating = true;
-    let newBox: string = this.newBoxName;
+    let parentBoxId = 'NONE';
     if (this.parentBox != '') {
-      newBox = `${this.parentBox}/${this.newBoxName}`
+      console.log('inside onAddBox...');
+      console.log(this.boxList);
+      console.log(this.parentBox);
+      parentBoxId = this.boxList.find((box) => box.name == this.parentBox)._id;
     }
-    this._emailService.addBox(newBox).subscribe((msg) => {
+    this._emailService.addBox(this.newBoxName, parentBoxId).subscribe((msg) => {
       this.updating = false;
       this.parentBox = '';
       this.snackBar.open(`New box '${this.newBoxName}' was successfully created.`, 'OK');

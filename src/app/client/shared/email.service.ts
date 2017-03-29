@@ -137,10 +137,11 @@ ${email.text}`;
   /*
    @param: boxName: string
    */
-  addBox(boxName: string): Observable<any> {
+  addBox(boxName: string, parentBoxId: string): Observable<any> {
     console.log('adding box...');
     const body = {
-      boxName: boxName
+      boxName: boxName,
+      parentBoxId: parentBoxId
     };
     return this._httpService.httpPOST(this.domain, 'addBox', null, body);
   }
