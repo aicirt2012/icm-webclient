@@ -36,6 +36,8 @@ export class EmailListComponent {
         if (boxes.length > 0) {
           this.appState.setBoxList(boxes);
         }
+        this.emptyBox = true;
+        this.loading = false;
       });
     }
 

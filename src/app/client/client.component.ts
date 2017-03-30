@@ -42,18 +42,21 @@ export class ClientComponent {
     this._socketService.openSocketConnection();
     this._socketService.updateEmail().subscribe((updatedEmail: any) => {
       console.log('update email: ' + updatedEmail.subject, updatedEmail.date);
-      this.emails = this.appState.getEmails().map(email => {
-        email._id == updatedEmail._id ? email = updatedEmail : email;
-        return email;
-      });
-      this.appState.setEmails(this.emails);
+      if (this.appState.getEmails().length > 0) {
+        this.emails = this.appState.getEmails().map(email => {
+          email._id == updatedEmail._id ? email = updatedEmail : email;
+          return email;
+        });
+        this.appState.setEmails(this.emails);
+      }
     });
 
     this._socketService.createEmail().subscribe((createdEmail: any) => {
       console.log('create email: ' + createdEmail.subject, createdEmail.date);
-      console.log(createdEmail);
-      this.emails = this.appState.getEmails();
-      this.emails.push(createdEmail);
+      if (this.appState.getEmails().length > 0) {
+        this.emails = this.appState.getEmails();
+        this.emails.push(createdEmail);
+      }
       this.appState.setEmails(this.emails);
     });
 
@@ -64,26 +67,32 @@ export class ClientComponent {
 
     this._socketService.createBox().subscribe((createdBox: any) => {
       console.log('create box: ' + createdBox.name);
-      this.boxList = this.appState.getBoxList();
+      if (this.appState.getBoxList().length > 0) {
+        this.boxList = this.appState.getBoxList();
+      }
       this.boxList.push(createdBox);
       this.appState.setBoxList(this.boxList);
     });
 
     this._socketService.updateBox().subscribe((updatedBox: any) => {
       console.log('update box: ' + updatedBox.name);
-      this.boxList = this.appState.getBoxList().map(box => {
-        box._id == updatedBox._id ? box = updatedBox : box;
-        return box;
-      });
-      this.appState.setBoxList(this.boxList);
+      if (this.appState.getBoxList().length > 0) {
+        this.boxList = this.appState.getBoxList().map(box => {
+          box._id == updatedBox._id ? box = updatedBox : box;
+          return box;
+        });
+        this.appState.setBoxList(this.boxList);
+      }
     });
 
     this._socketService.deleteBox().subscribe((deletedBox: any) => {
       console.log('delete box: ' + deletedBox.name);
-      this.boxList = this.appState.getBoxList().filter(box => {
-        return box._id != deletedBox._id
-      });
-      this.appState.setBoxList(this.boxList);
+      if (this.appState.getBoxList().length > 0) {
+        this.boxList = this.appState.getBoxList().filter(box => {
+          return box._id != deletedBox._id
+        });
+        this.appState.setBoxList(this.boxList);
+      }
     });
 
     this._settingsService.getUserInfo().subscribe((user) => {
@@ -111,10 +120,13 @@ export class ClientComponent {
   }
 
   onRefresh(refresh?: boolean) {
-    this.syncAll();
-    this.syncBoxes([]);
+    //this.syncBoxes([]);
+    this._emailService.syncAll().subscribe((result) => {
+      console.log(result);
+    });
   }
 
+  /*
   syncBoxes(boxes: string[], update?: boolean) {
     this.updating = true;
     this._emailService.getBoxList().subscribe((boxes) => {
@@ -126,11 +138,6 @@ export class ClientComponent {
       this.appState.setSynced(!(!!this.appState.getSynced()));
     });
   }
-
-  syncAll() {
-    this._emailService.syncAll().subscribe((result) => {
-      console.log(result);
-    });
-  }
+  */
 
 }
