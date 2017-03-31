@@ -135,12 +135,12 @@ ${email.text}`;
   }
 
   /*
-   @param: boxName: string
+   @param: boxShortName: string
    */
-  addBox(boxName: string, parentBoxId: string): Observable<any> {
+  addBox(boxShortName: string, parentBoxId: string): Observable<any> {
     console.log('adding box...');
     const body = {
-      boxName: boxName,
+      boxName: boxShortName,
       parentBoxId: parentBoxId
     };
     return this._httpService.httpPOST(this.domain, 'addBox', null, body);
@@ -158,7 +158,7 @@ ${email.text}`;
   }
 
   /*
-   @param: boxName: string
+   @param: newBoxShortName: string
    */
   renameBox(oldBoxId: string, newBoxShortName: string): Observable<any> {
     console.log('adding box...');
