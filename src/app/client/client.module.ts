@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 
-import { ClientComponent, EmailDialogComponent, EmailFolderDialogComponent, TaskDialogComponent, LinkTaskDialogComponent, TasksComponent, ContextComponent, ContextTabComponent, WikiComponent, NetworkComponent, TranslateComponent, EmailDetailedViewComponent, EmailListComponent } from './'; // all intelligent components
+import { ClientComponent, EmailDialogComponent, EmailFolderDialogComponent, TaskDialogComponent, LinkTaskDialogComponent, TasksComponent, ContextComponent, ContextTabComponent, WikiComponent, NetworkComponent, TranslateComponent, EmailDetailedViewComponent, EmailListComponent, HighlightPipe } from './'; // all intelligent components
 import { NavBarComponent, NavBarListItemComponent, EmailFormComponent, SearchBarComponent, EmailActionBarComponent, EmailViewComponent, TaskListComponent, TaskListItemComponent, TaskItemEmailDialogComponent, EmailResponseComponent, TaskActionBarComponent } from './components'; // all dumb components
 import { EmailService, TaskService, WikiService, NetworkService, TranslateService} from './shared'; // all services
 import { Email, EmailForm } from './shared'; // all models from client
@@ -41,6 +41,7 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
     EmailFolderDialogComponent,
     EmailDetailedViewComponent,
     EmailListComponent,
+    HighlightPipe,
     //dumb components
     TaskDialogComponent,
     LinkTaskDialogComponent,
