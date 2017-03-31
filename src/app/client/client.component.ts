@@ -95,11 +95,12 @@ export class ClientComponent {
       }
     });
 
+
     this._settingsService.getUserInfo().subscribe((user) => {
       this.user = user;
       console.log('user info: ', user)
       this.appState.setUser(user);
-      if (this.user.provider.name) {
+      if (this.user.provider.name) { //TODO Paul check what is still needed an what could be removed
         if (!(this.appState.getBoxList().length > 0)) {
           this.syncing = false;
           this._emailService.getBoxList().subscribe((boxes: any[]) => {
@@ -117,7 +118,9 @@ export class ClientComponent {
         this.noMailboxConnected = true;
       }
     })
+    
   }
+
 
   onRefresh(refresh?: boolean) {
     //this.syncBoxes([]);
