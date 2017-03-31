@@ -4,13 +4,13 @@
         <div fxFlex class="scrollable" infinite-scroll [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="scrollThrottle" [scrollWindow]="false" (scrolled)="onScrollDown()">
             <div fxFlex fxLayout="column" class="email-list-item" [routerLink]="mail.route" [class.route-active]="isActive(mail.route)" [class.unseen]="!isRead(mail)" *ngFor="let mail of emails; let i = index">
                 <div *ngIf="mail.from.length > 0" fxFlex="33" fxLayout="row">
-                    <div fxFlex="58" fxLayoutAlign="start center" class="text-overflow padding">{{mail.from[0].name ? mail.from[0].name : mail.from[0].address}}</div>
+                    <div fxFlex="58" fxLayoutAlign="start center" class="text-overflow padding" [innerHTML]="(mail.from[0].name ? mail.from[0].name : mail.from[0].address) | highlight: searchTerm"></div>
                     <div fxFlex="2"></div>
                     <div fxFlex="40" fxShow="false" fxShow.gt-md fxLayoutAlign="end center" class="padding text-overflow date">{{mail.date | date:'shortDate'}} {{mail.date | date:'shortTime'}}</div>
                     <div fxFlex="40" fxHide="false" fxHide.gt-md fxLayoutAlign="end center" class="padding text-overflow date">{{mail.date | date:'shortDate'}}</div>
                 </div>
-                <span fxFlex="33" class=" padding text-overflow" [innerHTML]="(mail.subject ? mail.subject : 'No subject') | highlight: searchTerm"></span><!-- mail.subject ? mail.subject : 'No subject' | highlight: searchTerm  -->
-                <div fxFlex="33" class=" padding first-lines text-overflow">{{mail.text ? mail.text.substring(0,70): ''}}</div>
+                <div fxFlex="33" class=" padding text-overflow" [innerHTML]="(mail.subject ? mail.subject : 'No subject') | highlight: searchTerm"></div>
+                <div fxFlex="33" class=" padding first-lines text-overflow" [innerHTML]="(mail.text ? mail.text.substring(0,70): '') | highlight: searchTerm"></div>
             </div>
         </div>
         <div class="loading-list" *ngIf="loadingList" fxLayoutAlign="center center">Loading...</div>
