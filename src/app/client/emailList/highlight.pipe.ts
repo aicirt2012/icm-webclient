@@ -10,8 +10,7 @@ export class HighlightPipe implements PipeTransform {
     constructor(private sanitizer: DomSanitizer) {
     }
 
-    transform(text: string, [search]): any {
-        console.log('filter')
-        return search ? this.sanitizer.bypassSecurityTrustHtml(text.replace(new RegExp(search, 'i'), `<span style="color:red">${search}</span>`)) : text;
+    transform(text: string, search: string): any {
+        return search ? this.sanitizer.bypassSecurityTrustHtml(text.replace(new RegExp(search, 'ig'), `<span style="color:red">${search}</span>`)) : text;
     }
 }
