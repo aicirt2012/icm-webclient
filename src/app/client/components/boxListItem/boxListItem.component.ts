@@ -2,13 +2,13 @@ import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'box-list-item',  // <navbar></navbar>
+  selector: 'box-list-item', 
   providers: [
   ],
   styleUrls: ['./boxListItem.component.css'],
   templateUrl: './boxListItem.component.html'
 })
-export class NavBarListItemComponent {
+export class BoxListItemComponent {
   @Input() item: any;
 
   constructor(public router: Router) {

@@ -8,12 +8,12 @@ import {EmailFolderDialogComponent} from '../../emailFolderDialog';
 import {EmailService} from '../../shared';
 
 @Component({
-  selector: 'box-list',  // <navbar></navbar>
+  selector: 'box-list', 
   providers: [],
   styleUrls: ['./boxList.component.css'],
   templateUrl: './boxList.component.html'
 })
-export class NavBarComponent {
+export class BoxListComponent {
   private navbarItems: any[] = [];
   @Input() lastSync: Date;
   @Input() syncing: Boolean;
