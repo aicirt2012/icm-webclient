@@ -9,7 +9,7 @@
 </md-list-item>
 
 <md-nav-list class="no-padding padding-left" *ngIf="item.children.length > 0">
-    <navbar-list-item [item]="child" *ngFor="let child of item.children"></navbar-list-item>
+    <box-list-item [item]="child" *ngFor="let child of item.children"></box-list-item>
 </md-nav-list>
 
 
