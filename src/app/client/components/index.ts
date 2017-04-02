@@ -7,6 +7,6 @@ export * from './emailActionBar';
 export * from './emailView';
 export * from './emailResponse';
 export * from './searchBar';
-export * from './navbar';
+export * from './boxList';
 export * from './navbarListItem';
 export * from './taskActionBar';

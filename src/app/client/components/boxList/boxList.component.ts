@@ -8,10 +8,10 @@ import {EmailFolderDialogComponent} from '../../emailFolderDialog';
 import {EmailService} from '../../shared';
 
 @Component({
-  selector: 'navbar',  // <navbar></navbar>
+  selector: 'box-list',  // <navbar></navbar>
   providers: [],
-  styleUrls: ['./navbar.component.css'],
-  templateUrl: './navbar.component.html'
+  styleUrls: ['./boxList.component.css'],
+  templateUrl: './boxList.component.html'
 })
 export class NavBarComponent {
   private navbarItems: any[] = [];

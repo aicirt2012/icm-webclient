@@ -7,7 +7,7 @@
     <spinner [loading]="true"></spinner>
   </div>
   <div [fxShow]="!syncing && !noMailboxConnected" fxLayout="row" fxFlex>
-    <navbar fxFlex="15" (onRefresh)="onRefresh($event)" [lastSync]="user?.lastSync" [syncing]="updating"></navbar>
+    <box-list fxFlex="15" (onRefresh)="onRefresh($event)" [lastSync]="user?.lastSync" [syncing]="updating"></box-list>
     <router-outlet></router-outlet>
   </div>
 </div>
