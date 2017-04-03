@@ -1,9 +1,9 @@
 import { DomSanitizer } from '@angular/platform-browser';
-import { AppState } from './../../app.service';
+import { AppState } from './../../../../app.service';
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
-import { EmailService, TaskService } from '../shared';
+import { EmailService, TaskService } from '../../../shared';
 import { Observable } from 'rxjs/Observable';
-import { Email, EmailForm } from '../shared';
+import { Email, EmailForm } from '../../../shared';
 import { MdDialogRef, MdSnackBar, MdInput, MdIconRegistry } from '@angular/material';
 
 @Component({

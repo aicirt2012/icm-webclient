@@ -1,4 +1,3 @@
-import { SentenceDialogComponent } from './components/sentenceDialog/sentenceDialog.component';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -6,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 
-import { ClientComponent, EmailDialogComponent, EmailFolderDialogComponent, TaskDialogComponent, LinkTaskDialogComponent, TasksComponent, ContextComponent, ContextTabComponent, WikiComponent, NetworkComponent, TranslateComponent, EmailDetailedViewComponent, EmailListComponent, HighlightPipe, TaskListComponent, SearchBarComponent, EmailViewComponent, BoxListComponent, BoxListItemComponent, EmailActionBarComponent, EmailResponseComponent, TaskActionBarComponent, TaskListItemComponent, EmailFormComponent, TaskItemEmailDialogComponent} from './'; 
+import { ClientComponent, EmailDialogComponent, EmailFolderDialogComponent, TaskDialogComponent, LinkTaskDialogComponent, TasksComponent, ContextComponent, ContextTabComponent, WikiComponent, NetworkComponent, TranslateComponent, EmailDetailedViewComponent, EmailListComponent, HighlightPipe, TaskListComponent, SearchBarComponent, EmailViewComponent, BoxListComponent, BoxListItemComponent, EmailActionBarComponent, EmailResponseComponent, TaskActionBarComponent, TaskListItemComponent, EmailFormComponent, TaskItemEmailDialogComponent, SentenceDialogComponent} from './'; 
 import { EmailService, TaskService, WikiService, NetworkService, TranslateService} from './shared'; // all services
 import { Email, EmailForm } from './shared'; // all models from client
 import { SharedModule } from '../shared';

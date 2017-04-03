@@ -1,5 +1,5 @@
 import { MdDialog } from '@angular/material';
-import { SentenceDialogComponent } from './../../components/sentenceDialog/sentenceDialog.component';
+//import { SentenceDialogComponent } from './sentenceDialog'; //sentenceDialog.component';
 import { Component, Input, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ModalDirective } from 'ng2-bootstrap';
