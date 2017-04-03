@@ -6,8 +6,8 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 
-import { ClientComponent, EmailDialogComponent, EmailFolderDialogComponent, TaskDialogComponent, LinkTaskDialogComponent, TasksComponent, ContextComponent, ContextTabComponent, WikiComponent, NetworkComponent, TranslateComponent, EmailDetailedViewComponent, EmailListComponent, HighlightPipe, TaskListComponent, SearchBarComponent, EmailViewComponent, BoxListComponent, BoxListItemComponent, EmailActionBarComponent, EmailResponseComponent, TaskActionBarComponent} from './'; 
-import { EmailFormComponent, TaskListItemComponent, TaskItemEmailDialogComponent } from './components'; 
+import { ClientComponent, EmailDialogComponent, EmailFolderDialogComponent, TaskDialogComponent, LinkTaskDialogComponent, TasksComponent, ContextComponent, ContextTabComponent, WikiComponent, NetworkComponent, TranslateComponent, EmailDetailedViewComponent, EmailListComponent, HighlightPipe, TaskListComponent, SearchBarComponent, EmailViewComponent, BoxListComponent, BoxListItemComponent, EmailActionBarComponent, EmailResponseComponent, TaskActionBarComponent, TaskListItemComponent} from './'; 
+import { EmailFormComponent, TaskItemEmailDialogComponent } from './components'; 
 import { EmailService, TaskService, WikiService, NetworkService, TranslateService} from './shared'; // all services
 import { Email, EmailForm } from './shared'; // all models from client
 import { SharedModule } from '../shared';

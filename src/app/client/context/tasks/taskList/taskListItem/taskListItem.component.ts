@@ -1,5 +1,5 @@
 import { Component, Input, EventEmitter, Output, ViewChild, Optional, HostListener, ElementRef, ContentChild } from '@angular/core';
-import { TaskService } from '../../shared';
+import { TaskService } from '../../../../shared';
 import { MdSnackBar } from '@angular/material';
 
 @Component({
