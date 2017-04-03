@@ -2,8 +2,8 @@ import {Component, Input, EventEmitter, Output} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 import {MdDialogRef, MdSnackBar, MdInput} from '@angular/material';
-import {EmailService} from '../shared';
-import {AppState} from '../../app.service';
+import {EmailService} from '../../shared';
+import {AppState} from '../../../app.service';
 
 
 @Component({
