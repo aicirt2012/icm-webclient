@@ -1,6 +1,6 @@
 import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core';
-import {TaskDialogType} from '../../../shared';
-import { AppState } from '../../../app.service';
+import {TaskDialogType} from '../../../../../shared';
+import { AppState } from '../../../../../app.service';
 
 @Component({
   selector: 'task-list',
