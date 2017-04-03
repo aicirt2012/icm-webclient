@@ -1,15 +1,12 @@
 import {Component, ViewChild, style, state, animate, transition, trigger} from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
+import {MdDialog} from '@angular/material';
 import {AppState} from '../app.service';
 import * as moment from 'moment';
-import {Email} from './shared';
-import {EmailService, TaskService} from './shared';
+import {Email, EmailService, TaskService} from './shared';
 import {SocketService} from '../shared/services/socket.service';
-
-/* TODO:move settingsservice to userservice */
-import {SettingsService} from '../settings/shared';
+import {SettingsService} from '../settings/shared'; // TODO:move settingsservice to userservice
 import {Observable} from 'rxjs/Observable';
-import {MdDialog} from '@angular/material';
 import {EmailDialogComponent} from './emailDialog';
 import {EmailFolderDialogComponent} from './emailFolderDialog';
 
@@ -28,11 +25,6 @@ export class ClientComponent {
   private updating: boolean = false;
 
   constructor(private _emailService: EmailService, public appState: AppState, private _settingsService: SettingsService, private _socketService: SocketService) {
-    /*
-     setInterval(() => {
-     this.syncBoxes([], true);
-     }, 1000 * 60);
-     */
   }
 
   /* INITIALIZE EMAIL APP */

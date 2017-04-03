@@ -28,7 +28,6 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
   ],
   declarations: [
     ClientComponent,
-    //intelligent components
     TasksComponent,
     ContextComponent,
     ContextTabComponent,
@@ -40,7 +39,6 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
     EmailDetailedViewComponent,
     EmailListComponent,
     HighlightPipe,
-    //dumb components
     TaskDialogComponent,
     LinkTaskDialogComponent,
     EmailResponseComponent,
