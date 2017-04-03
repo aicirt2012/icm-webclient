@@ -1,5 +1,5 @@
 import { Component, Input} from '@angular/core';
-import { NetworkService } from '../shared/network.service'
+import { NetworkService } from '../../shared/network.service'
 
 @Component({
   selector: 'network',

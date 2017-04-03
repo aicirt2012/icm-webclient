@@ -1,5 +1,5 @@
 import { Component, Input, ElementRef} from '@angular/core';
-import { WikiService } from '../shared/wiki.service'
+import { WikiService } from '../../shared/wiki.service'
 
 @Component({
   selector: 'wiki',
