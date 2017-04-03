@@ -2,8 +2,8 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { MdDialogRef, MdSnackBar, MdInput } from '@angular/material';
-import { TaskService } from '../shared';
-import { AppState } from '../../app.service';
+import { TaskService } from '../../../shared';
+import { AppState } from '../../../../app.service';
 
 @Component({
   selector: 'task-dialog',

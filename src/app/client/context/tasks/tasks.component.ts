@@ -3,8 +3,8 @@ import { MdDialog, MdDialogRef, MdSnackBar } from '@angular/material';
 import { Email } from '../../shared';
 import { TaskService } from '../../shared';
 import { TaskDialogType, DialogType } from '../../../shared/constants';
-import { TaskDialogComponent } from '../../taskDialog';
-import { LinkTaskDialogComponent } from '../../linkTaskDialog';
+import { TaskDialogComponent } from './taskDialog';
+import { LinkTaskDialogComponent } from './linkTaskDialog';
 import { AppState } from '../../../app.service';
 
 @Component({
