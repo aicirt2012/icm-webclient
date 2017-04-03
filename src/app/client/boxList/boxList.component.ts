@@ -1,11 +1,11 @@
 import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {MdDialog, MdDialogRef} from '@angular/material';
-import {DialogType} from '../../../shared/constants';
-import {AppState} from '../../../app.service';
-import {EmailDialogComponent} from '../../emailDialog';
-import {EmailFolderDialogComponent} from '../../emailFolderDialog';
-import {EmailService} from '../../shared';
+import {DialogType} from '../../shared/constants';
+import {AppState} from '../../app.service';
+import {EmailDialogComponent} from '../emailDialog';
+import {EmailFolderDialogComponent} from '../emailFolderDialog';
+import {EmailService} from '../shared';
 
 @Component({
   selector: 'box-list', 
