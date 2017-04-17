@@ -140,6 +140,7 @@ export class EmailListComponent {
     if (searchTerm == '') {
       return;
     }
+    this.router.navigate([`/search/`+searchTerm]); 
     console.log('inside searchEmailBox');
     console.log(searchTerm);
     const boxId = 'NONE';

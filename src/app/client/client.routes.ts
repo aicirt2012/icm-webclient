@@ -6,11 +6,11 @@ import {EmailListComponent} from './emailList';
 
 export const ROUTES = [
   { path: 'box', component: ClientComponent, canActivate: [AuthGuard], children: [
-    {
-    path: ':boxId', component: EmailListComponent, children: [
+    { path: ':boxId', component: EmailListComponent, children: [
       { path: ':emailId', component: EmailDetailedViewComponent }
     ]
-  }
-  ] },
-  
+  }]},
+  { path: 'search', component: ClientComponent, canActivate: [AuthGuard], children: [
+    { path: ':searchTerm', component: EmailListComponent},
+  ]}  
 ];
