@@ -21,7 +21,7 @@ export class EmailListComponent {
   emptyBox: boolean = false;
   loadingList: boolean = false;
   searchActive: boolean = false;
-  searchTerm = '';
+  searchTerm: any = '';
   paginationEnabled: boolean = true;
 
   constructor(public appState: AppState, public router: Router, public activeRoute: ActivatedRoute, private _emailService: EmailService) {
@@ -42,19 +42,26 @@ export class EmailListComponent {
     }
 
     this.appState.dataChange.subscribe((stateChange) => {
+      console.log('change state 1');
       this[stateChange] = this.appState.get(stateChange);
       if (!this.emptyBox && this.emails.length == 0 && this.boxList.length > 0 && this.searchTerm == '') {
+        console.log('change state 1.1');
         this.getEmailBox(this.boxList.find((box) => box._id == this.getBoxIdByURL()));
       }
       if (stateChange == 'synced' && !this.searchActive) {
+        console.log('change state 1.2');
         this.getEmailBox(this.boxList.find((box) => box._id == this.getBoxIdByURL()), true);
       }
     });
 
-    this.currentBox = this.activeRoute.params.map(params => params['boxId'] || 'None');
+    this.currentBox = this.activeRoute.params.map(params => params['boxId'] || 'NONE');
+    this.searchTerm = this.activeRoute.snapshot.params['searchTerm'];
+    console.log('searchTerm: ' + this.searchTerm);
     this.currentBox.subscribe((boxId) => {
       if (this.boxList.length > 0) {
-        boxId === 'None' ? '' : this.getEmailBox(this.boxList.find((box) => box._id == boxId));
+        console.log('change state 2');
+        console.log('boxId: ' + boxId);
+        boxId === 'NONE' ? '' : this.getEmailBox(this.boxList.find((box) => box._id == boxId));
       }
     });
   }
@@ -140,7 +147,7 @@ export class EmailListComponent {
     if (searchTerm == '') {
       return;
     }
-    this.router.navigate([`/search/`+searchTerm]); 
+    this.router.navigate([`/search/` + searchTerm]);
     console.log('inside searchEmailBox');
     console.log(searchTerm);
     const boxId = 'NONE';
