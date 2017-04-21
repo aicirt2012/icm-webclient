@@ -87,52 +87,27 @@ export class ClientComponent {
       }
     });
 
-
     this._settingsService.getUserInfo().subscribe((user) => {
       this.user = user;
       console.log('user info: ', user)
       this.appState.setUser(user);
-      if (this.user.provider.name) { //TODO Paul check what is still needed an what could be removed
-        if (!(this.appState.getBoxList().length > 0)) {
-          this.syncing = false;
-          this._emailService.getBoxList().subscribe((boxes: any[]) => {
-            if (boxes.length > 0) {
-              this.syncing = false;
-              this.appState.setBoxList(boxes);
-            }
-          });
-        } else {
-          this.syncing = false;
+      if (this.user.provider.name) {
+        this._emailService.getBoxList().subscribe((boxes: any[]) => {
+          this.appState.setBoxList(boxes);
           this.boxList = this.appState.getBoxList();
-        }
+        });
       } else {
-        this.syncing = false;
         this.noMailboxConnected = true;
       }
+      this.syncing = false;
     })
-    
+
   }
 
-
   onRefresh(refresh?: boolean) {
-    //this.syncBoxes([]);
     this._emailService.syncAll().subscribe((result) => {
       console.log(result);
     });
   }
-
-  /*
-  syncBoxes(boxes: string[], update?: boolean) {
-    this.updating = true;
-    this._emailService.getBoxList().subscribe((boxes) => {
-      this.appState.setBoxList(boxes);
-      this.boxList = boxes;
-      this.updating = false;
-      this.user.lastSync = new Date();
-      this.appState.setUser(this.user);
-      this.appState.setSynced(!(!!this.appState.getSynced()));
-    });
-  }
-  */
 
 }

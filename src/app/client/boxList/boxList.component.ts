@@ -8,7 +8,7 @@ import {EmailFolderDialogComponent} from './emailFolderDialog';
 import {EmailService} from '../shared';
 
 @Component({
-  selector: 'box-list', 
+  selector: 'box-list',
   providers: [],
   styleUrls: ['./boxList.component.css'],
   templateUrl: './boxList.component.html'
@@ -27,6 +27,7 @@ export class BoxListComponent {
   }
 
   ngOnInit() {
+    console.log('inside the boxList component');
     this.appState.dataChange.subscribe((stateChange) => {
       if (this.appState.getBoxList().length > 0) {
         this.boxList = this.appState.getBoxList();

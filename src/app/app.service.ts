@@ -68,11 +68,21 @@ export class AppState {
     return this.get('currentBox');
   }
 
-  setEmails(emails: any) {
-    emails = emails.map(email => {
-      email.route = `/box/${email.box}/${email._id}`;
-      return email
-    });
+  setEmails(emails: any, customRoute = 'NONE') {
+    if (customRoute != 'NONE') {
+      console.log('this is a customRoute');
+      console.log(customRoute);
+      emails = emails.map(email => {
+        email.route = `/${customRoute}/${email._id}`;
+        return email
+      });
+      console.log(emails);
+    } else {
+      emails = emails.map(email => {
+        email.route = `/box/${email.box}/${email._id}`;
+        return email
+      });
+    }
     emails.sort((a, b) => {
       const dateA: any = new Date(a.date);
       const dateB: any = new Date(b.date);
