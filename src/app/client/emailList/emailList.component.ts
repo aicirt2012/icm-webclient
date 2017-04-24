@@ -1,4 +1,4 @@
-import {Component, Input, EventEmitter, Output} from '@angular/core';
+import {Component, Input, EventEmitter, Output, state} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ModalDirective} from 'ng2-bootstrap';
 import {Email} from '../shared';
@@ -15,12 +15,11 @@ export class EmailListComponent {
   emails: Email[];
   scrollDistance = 2;
   scrollThrottle = 300;
-  currentBox: any;
+  currentBox: any = '';
   boxList: any[];
   loading: boolean;
   emptyBox: boolean = false;
   loadingList: boolean = false;
-  searchActive: boolean = false;
   searchTerm: any = '';
   paginationEnabled: boolean = true;
 
@@ -28,64 +27,31 @@ export class EmailListComponent {
   }
 
   ngOnInit() {
-    //this.boxList = this.appState.getBoxList().length > 0 ? this.appState.getBoxList() : [];
-    //this.emails = this.appState.getEmails().length > 0 ? this.appState.getEmails() : [];
+    console.log('emailListComponent ngOnInit');
+
     this.boxList = [];
     this.emails = []
-
-    console.log('inside emailListComponent onInit');
-    console.log(this.boxList);
-
-    /*
-    if (this.boxList.length == 0) {
-      this._emailService.getBoxList().subscribe((boxes: any[]) => {
-        console.log('loading boxes');
-        console.log(boxes);
-        if (boxes.length > 0) {
-          this.appState.setBoxList(boxes);
-        }
-        this.emptyBox = true;
-        this.loading = false;
-      });
-    }
-    */
-
-    this.appState.dataChange.subscribe((stateChange) => {
-      console.log('change state 1');
-      console.log(this.appState.getBoxList());
-      this.boxList = this.appState.getBoxList();
-      if (!this.emptyBox && this.emails.length == 0 && this.boxList.length > 0 && this.searchTerm == '') {
-        console.log('change state 1.1');
-        this.getEmailBox(this.boxList.find((box) => box._id == this.getBoxIdByURL()));
-        this.loading = false;
-      }
-      //this.boxList = this.appState.getBoxList().length > 0 ? this.appState.getBoxList() : [];
-
-      //this.getEmailBox(this.boxList.find((box) => box._id == this.getBoxIdByURL()), true);
-      /*
-      this[stateChange] = this.appState.get(stateChange);
-      if (!this.emptyBox && this.emails.length == 0 && this.boxList.length > 0 && this.searchTerm == '') {
-        console.log('change state 1.1');
-        this.getEmailBox(this.boxList.find((box) => box._id == this.getBoxIdByURL()));
-      }
-      if (stateChange == 'synced' && !this.searchActive) {
-        console.log('change state 1.2');
-        this.getEmailBox(this.boxList.find((box) => box._id == this.getBoxIdByURL()), true);
-      }
-      */
-    });
-
     this.currentBox = this.activeRoute.params.map(params => params['boxId'] || 'NONE');
     this.searchTerm = this.activeRoute.snapshot.params['searchTerm'] || '';
-    console.log('searchTerm: ' + this.searchTerm);
 
+    this.appState.dataChange.subscribe(dataChanged => {
+      console.log('DATA CHANGE: ' + dataChanged);
+      if (this.boxList.length === 0 && dataChanged == 'boxList') { // first boxList loading
+        this.boxList = this.appState.getBoxList();
 
-    // TODO
-    this.currentBox.subscribe((boxId) => {
+        if (this.searchTerm == '') {  // route: box/boxId
+          const currentBoxId = this.activeRoute.snapshot.params['boxId'];
+          this.getEmailBox(this.boxList.find((box) => box._id == currentBoxId));
+        } else {                      // route: search/searchTerm
+          this.searchTerm = this.activeRoute.snapshot.params['searchTerm'] || '';
+          this.searchEmails(this.searchTerm);
+        }
+      }
+    })
+
+    this.currentBox.subscribe(boxId => {
       if (this.boxList.length > 0) {
-        console.log('change state 2');
-        console.log('boxId: ' + boxId);
-        boxId === 'NONE' ? '' : this.getEmailBox(this.boxList.find((box) => box._id == boxId));
+        this.getEmailBox(this.boxList.find((box) => box._id == boxId));
       }
     });
   }
@@ -95,11 +61,13 @@ export class EmailListComponent {
   }
 
   getEmailBox(box: any, updating?: Boolean) {
+
+    console.log('inside getEmailBox');
+    console.log(box);
+
     this.loading = !!!updating;
 
-    // in case empty box = box/0
-    if (!box) {
-      this.emptyBox = true;
+    if (!box || box === 'undefined') {
       this.loading = false;
       return;
     }
@@ -107,7 +75,7 @@ export class EmailListComponent {
     this._emailService
       .searchEmailsWithPagination(box._id)
       .subscribe((emails: any) => {
-          console.log('inside getEmailBox');
+          console.log('emails retrieved');
           console.log(emails);
           this.emails = emails;
           this.appState.setCurrentBox(this.getBoxIdByURL());
@@ -185,6 +153,7 @@ export class EmailListComponent {
       .subscribe((emails: any) => {
           console.log('searched emails');
           console.log(emails)
+          this.emails = emails;
           const searchRoute = `search/${searchTerm}`;
           this.appState.setEmails(emails, searchRoute);
         },

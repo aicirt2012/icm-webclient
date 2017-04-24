@@ -76,7 +76,6 @@ export class AppState {
         email.route = `/${customRoute}/${email._id}`;
         return email
       });
-      console.log(emails);
     } else {
       emails = emails.map(email => {
         email.route = `/box/${email.box}/${email._id}`;
