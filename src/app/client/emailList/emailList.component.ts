@@ -16,6 +16,7 @@ export class EmailListComponent {
   scrollDistance = 2;
   scrollThrottle = 300;
   currentBox: any = '';
+  currentBoxId: any = '';
   boxList: any[];
   loading: boolean;
   emptyBox: boolean = false;
@@ -32,26 +33,23 @@ export class EmailListComponent {
     this.boxList = [];
     this.emails = []
     this.currentBox = this.activeRoute.params.map(params => params['boxId'] || 'NONE');
+    this.currentBoxId = this.activeRoute.snapshot.params['boxId'] || 'NONE';
     this.searchTerm = this.activeRoute.snapshot.params['searchTerm'] || '';
 
     this.appState.dataChange.subscribe(dataChanged => {
       console.log('DATA CHANGE: ' + dataChanged);
       if (this.boxList.length === 0 && dataChanged == 'boxList') { // first boxList loading
         this.boxList = this.appState.getBoxList();
-
-        if (this.searchTerm == '') {  // route: box/boxId
-          const currentBoxId = this.activeRoute.snapshot.params['boxId'];
-          this.getEmailBox(this.boxList.find((box) => box._id == currentBoxId));
-        } else {                      // route: search/searchTerm
-          this.searchTerm = this.activeRoute.snapshot.params['searchTerm'] || '';
-          this.searchEmails(this.searchTerm);
-        }
       }
     })
 
     this.currentBox.subscribe(boxId => {
-      if (this.boxList.length > 0) {
-        this.getEmailBox(this.boxList.find((box) => box._id == boxId));
+      this.currentBoxId = boxId;
+      if (boxId == 0) {
+        this.emptyBox = true;
+        this.loading = false;
+      } else {
+        this.getEmailList(boxId);
       }
     });
   }
@@ -60,39 +58,35 @@ export class EmailListComponent {
     return this.activeRoute.snapshot.params['boxId'];
   }
 
-  getEmailBox(box: any, updating?: Boolean) {
-
-    console.log('inside getEmailBox');
-    console.log(box);
-
-    this.loading = !!!updating;
-
-    if (!box || box === 'undefined') {
-      this.loading = false;
-      return;
-    }
-
-    this._emailService
-      .searchEmailsWithPagination(box._id)
+  getEmailList(boxId = 'NONE', searchTerm = '', sort = 'DESC', lastEmailDate = new Date()) {
+    console.log('Inside getEmailList');
+    console.log(boxId);
+    console.log(searchTerm);
+    console.log('....')
+    this._emailService.searchEmailsWithPagination(boxId, sort, searchTerm, lastEmailDate)
       .subscribe((emails: any) => {
-          console.log('emails retrieved');
-          console.log(emails);
-          this.emails = emails;
-          this.appState.setCurrentBox(this.getBoxIdByURL());
-          this.appState.setEmails(this.emails);
-          if (!updating && this.emails.length > 0 && (this.router.url.match(/\//g).length < 3)) {
-            this.router.navigate([`/box/${box._id}/${this.emails[0]._id}`]); // TODO
-          }
-          this.emptyBox = this.emails.length == 0;
-          this.paginationEnabled = true;
-          this.loading = false;
-        },
-        error => {
-          console.log(error);
-        },
-        () => {
-          console.log(`Mails successfully loaded`)
-        });
+        console.log('emails retrieved');
+        console.log(emails);
+        this.emails = emails;
+        this.appState.setEmails(this.emails);
+        this.emptyBox = this.emails.length == 0;
+        this.paginationEnabled = this.emptyBox ? false : true;
+        this.loading = false;
+        if (this.emails.length > 0 && (this.router.url.match(/\//g).length < 3)) {
+          const customRoute = this.generateNavigationRoute(boxId, searchTerm, this.emails[0]._id);
+          this.router.navigate([customRoute]);
+        }
+      });
+  }
+
+  generateNavigationRoute(boxId, searchTerm, emailId) {
+    let fullRoute = '';
+    if (boxId != 'NONE') {
+      fullRoute = `/box/${boxId}/${emailId}`;
+    } else {
+      fullRoute = `/search/${searchTerm}/${emailId}`;
+    }
+    return fullRoute;
   }
 
   isActive(route: string): boolean {
@@ -139,7 +133,6 @@ export class EmailListComponent {
     if (searchTerm == '') {
       return;
     }
-    this.router.navigate([`/search/` + searchTerm]);
     console.log('inside searchEmailBox');
     console.log(searchTerm);
     const boxId = 'NONE';
@@ -147,6 +140,8 @@ export class EmailListComponent {
     const lastEmailDate = new Date();
     this.searchTerm = searchTerm;
     this.paginationEnabled = true;
+
+    this.getEmailList(boxId, this.searchTerm);
 
     this._emailService
       .searchEmailsWithPagination(boxId, sort, this.searchTerm, lastEmailDate)
