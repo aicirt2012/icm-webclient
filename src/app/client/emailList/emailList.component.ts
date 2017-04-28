@@ -14,87 +14,99 @@ import {EmailService} from '../shared';
 export class EmailListComponent {
   boxList: any[];
   emails: Email[];
-  currentBox: any;
+  currentRouteParams: any;
+  searchTerm: any = '';
+  paginationEnabled: boolean = true;
   scrollDistance = 2;
   scrollThrottle = 300;
   loading: boolean;
-  emptyBox: boolean = false;
   loadingList: boolean = false;
-  searchTerm: any = '';
-  paginationEnabled: boolean = true;
+  emptyBox: boolean = false;
 
   constructor(public appState: AppState, public router: Router, public activeRoute: ActivatedRoute, private _emailService: EmailService) {
   }
 
   ngOnInit() {
     console.log('emailListComponent ngOnInit');
-
     this.boxList = [];
     this.emails = []
-    console.log(this.activeRoute.params);
+    this.currentRouteParams = this.activeRoute.params;
 
-    this.currentBox = this.activeRoute.params;
-    console.log(this.currentBox);
-
+    /*
+     TODO: Refactor data change subscriptions
+     NOTE: dataChanged == 'emails' is used for detecting change in flags e.g: seen
+     */
     this.appState.dataChange.subscribe(dataChanged => {
       console.log('DATA CHANGE: ' + dataChanged);
       if (this.boxList.length === 0 && dataChanged == 'boxList') { // first boxList loading
         this.boxList = this.appState.getBoxList();
       }
+      if (dataChanged == 'emails') { // emails flags
+        this.emails = this.appState.getEmails();
+      }
     })
 
-    this.currentBox.subscribe(params => {
-      console.log('ROUTE CHANGE');
+    this.currentRouteParams.subscribe(params => {
       const boxId = params['boxId'] || 'NONE';
-      const searchTerm = params['searchTerm'] || '';
-      console.log('currentBox: ' + boxId);
-      console.log('currentSearch: ' + searchTerm);
+      this.searchTerm = params['searchTerm'] || '';
+      this.paginationEnabled = false;
       if (boxId == 0) {
-        //this.emptyBox = true;
+        this.emptyBox = true;
         this.loading = false;
       } else {
-        this.getEmailList(boxId, searchTerm);
+        this.getEmailList(boxId, this.searchTerm);
       }
     });
-
   }
 
-  getBoxIdByURL() {
-    return this.activeRoute.snapshot.params['boxId'];
+  searchEmails(searchTerm = '') {
+    this.searchTerm = searchTerm;
+    const customRoute = this.generateNavigationRoute('NONE', this.searchTerm);
+    this.router.navigate([customRoute]);
   }
 
   getEmailList(boxId = 'NONE', searchTerm = '', sort = 'DESC', lastEmailDate = new Date()) {
-    console.log('Inside getEmailList');
-    console.log(boxId);
-    console.log(searchTerm);
-    console.log('....')
     this._emailService.searchEmailsWithPagination(boxId, sort, searchTerm, lastEmailDate)
       .subscribe((emails: any) => {
-        console.log('emails retrieved');
-        console.log(emails);
-        this.emails = emails;
-        this.appState.setEmails(this.emails);
-        this.emptyBox = this.emails.length == 0;
-        this.paginationEnabled = this.emptyBox ? false : true;
-        this.loading = false;
-        /*
-        if (this.emails.length > 0) {
-          const customRoute = this.generateNavigationRoute(boxId, searchTerm, this.emails[0]._id);
-          this.router.navigate([customRoute]);
+        const customRoute = this.generateNavigationRoute(boxId, searchTerm);
+        if (this.paginationEnabled) {
+          this.appState.setEmails(this.emails.concat(emails), customRoute);
+        } else {
+          this.appState.setEmails(emails, customRoute);
         }
-        */
+        this.emails = this.appState.getEmails();
+        this.paginationEnabled = emails.length > 0;
+        if (this.emails.length != 0) {
+          this.emptyBox = false;
+          this.router.navigate([`${customRoute}/${this.emails[0]._id}`]);
+        }
+        this.loadingList = false;
+        this.loading = false;
       });
   }
 
-  generateNavigationRoute(boxId, searchTerm, emailId = '') {
+  generateNavigationRoute(boxId, searchTerm) {
     let fullRoute = '';
     if (searchTerm != '') {
-      fullRoute = `/search/${searchTerm}/${emailId}`;
+      fullRoute = `/search/${searchTerm}`;
     } else if (boxId != 0 && boxId != 'NONE') {
-      fullRoute = `/box/${boxId}/${emailId}`;
+      fullRoute = `/box/${boxId}`;
     }
-    console.log('new fullroute: ' + fullRoute);
     return fullRoute;
+  }
+
+  onScrollDown() {
+    if (!this.loadingList) {
+      if (this.emails.length > 0 && this.paginationEnabled) {
+        this.loadingList = true;
+        const boxId = this.searchTerm == '' ? this.emails[this.emails.length - 1].box : 'NONE';
+        const sort = 'DESC'
+        const lastEmailDate = this.emails[this.emails.length - 1].date;
+        this.getEmailList(boxId, this.searchTerm, sort, lastEmailDate);
+      } else {
+        this.loadingList = false;
+      }
+    }
   }
 
   isActive(route: string): boolean {
@@ -104,75 +116,5 @@ export class EmailListComponent {
   isRead(email) {
     return email.flags.indexOf('\\Seen') > -1;
   }
-
-  onScrollDown() {
-    console.log('scrolled down');
-    console.log('pagination enabled: ' + this.paginationEnabled);
-    if (!this.loadingList) {
-      if (this.emails.length > 0 && this.paginationEnabled) {
-        this.loadingList = true;
-        let boxId = this.emails[this.emails.length - 1].box;
-        const sort = 'DESC'
-        const lastEmailDate = this.emails[this.emails.length - 1].date;
-
-        console.log('search term:' + this.searchTerm);
-
-        if (this.searchTerm != '') {
-          boxId = 'NONE' // search over all boxes;
-        }
-
-        this._emailService.searchEmailsWithPagination(boxId, sort, this.searchTerm, lastEmailDate)
-          .subscribe((emails) => {
-            console.log(emails);
-            this.paginationEnabled = emails.length > 0 ? true : false;
-            if (this.paginationEnabled) {
-              this.emails = this.emails.concat(emails);
-            }
-            this.appState.setEmails(this.emails);
-            this.loadingList = false;
-          });
-      } else {
-        this.loadingList = false;
-      }
-    }
-  }
-
-  searchEmails(searchTerm = '') {
-    const customRoute = this.generateNavigationRoute('NONE', searchTerm);
-    this.router.navigate([customRoute]);
-  }
-
-  /*
-   searchEmails(searchTerm = '') {
-   if (searchTerm == '') {
-   return;
-   }
-   console.log('inside searchEmailBox');
-   console.log(searchTerm);
-   const boxId = 'NONE';
-   const sort = 'DESC';
-   const lastEmailDate = new Date();
-   this.searchTerm = searchTerm;
-   this.paginationEnabled = true;
-
-   this.getEmailList(boxId, this.searchTerm);
-
-   this._emailService
-   .searchEmailsWithPagination(boxId, sort, this.searchTerm, lastEmailDate)
-   .subscribe((emails: any) => {
-   console.log('searched emails');
-   console.log(emails)
-   this.emails = emails;
-   const searchRoute = `search/${searchTerm}`;
-   this.appState.setEmails(emails, searchRoute);
-   },
-   error => {
-   console.log(error)
-   },
-   () => {
-   console.log(`Searched mails for term : ${this.searchTerm}`);
-   });
-   }
-   */
 
 }

@@ -68,12 +68,11 @@ export class AppState {
     return this.get('currentBox');
   }
 
+  // customRoute: /root/rootId
   setEmails(emails: any, customRoute = 'NONE') {
     if (customRoute != 'NONE') {
-      console.log('this is a customRoute');
-      console.log(customRoute);
       emails = emails.map(email => {
-        email.route = `/${customRoute}/${email._id}`;
+        email.route = `${customRoute}/${email._id}`;
         return email
       });
     } else {
