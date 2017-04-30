@@ -7,7 +7,7 @@ import {Email} from './';
 @Injectable()
 export class TaskService {
 
-  constructor(private _httpService: HttpService) { }
+  constructor(private http: HttpService) { }
 
   /*
    @param: list: string ,
@@ -17,7 +17,7 @@ export class TaskService {
     const options = {
       idList: list
     };
-    return this._httpService.get('task', options, null);
+    return this.http.get('task', options, null);
   }
 
   /*
@@ -28,7 +28,7 @@ export class TaskService {
     const options = {
       query: query
     };
-    return this._httpService.get('task/search', options, null);
+    return this.http.get('task/search', options, null);
   }
 
   /*
@@ -39,7 +39,7 @@ export class TaskService {
     const body = {
       emailAddresses: emailAddresses
     }
-    return this._httpService.post('task/cards', null, body);
+    return this.http.post('task/cards', null, body);
   }
 
   /*
@@ -57,7 +57,7 @@ export class TaskService {
       sentenceId: task.task ? task.task.id : ""
     };
     const path = `task/email/${email._id}/addTask`;
-    return this._httpService.post(path, null, options);
+    return this.http.post(path, null, options);
   }
 
   updateTask(task: any): Observable<any> {
@@ -70,15 +70,15 @@ export class TaskService {
       due: task.date,
       closed: task.closed
     };
-    return this._httpService.put('task/'+task.id, null, options);
+    return this.http.put('task/'+task.id, null, options);
   }
 
   getTaskByID(id :string): Observable<any> {
-    return this._httpService.get('task/'+id, null, null);
+    return this.http.get('task/'+id, null, null);
   }
 
   getAllBoards(params?: any): Observable<any> {
-    return this._httpService.get('task/boards', params, null);
+    return this.http.get('task/boards', params, null);
   }
 
   linkTask(email: any, task: any) {
@@ -86,12 +86,12 @@ export class TaskService {
       taskId : task.card.id
     };
     const path = `task/email/${email._id}/linkTask`;
-    return this._httpService.post(path, null, options);
+    return this.http.post(path, null, options);
   }
 
   unlinkTask(task: any) {
     const path = `task/${task.id}/unlink`;
-     return this._httpService.put(path, null, null);
+     return this.http.put(path, null, null);
   }
 
   formatDate(date) {
