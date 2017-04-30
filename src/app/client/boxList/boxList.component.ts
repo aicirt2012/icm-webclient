@@ -45,7 +45,7 @@ export class BoxListComponent {
     });
   }
 
-  addDataToBoxes(boxList: any[]) {
+  private addDataToBoxes(boxList: any[]) {
     if (boxList.length > 0) {
       boxList = boxList.map((box) => {
         let icon;
@@ -77,26 +77,30 @@ export class BoxListComponent {
         return box;
       });
 
-      const boxParentMap = new Map();
-      boxList.forEach(box => {
-        if(boxParentMap.has(box.parent))
-          boxParentMap.get(box.parent).push(box);
-        else
-          boxParentMap.set(box.parent, [box]);
-      });
+      const boxParentMap = this.getBoxParentMap(boxList);
       const rootBoxes = boxParentMap.get(null);
-
-      this.navbarItems = this._populateBoxesTree(rootBoxes, boxParentMap);
+      this.navbarItems = this.populateBoxesTree(rootBoxes, boxParentMap);
     }
   }
 
-  _populateBoxesTree(boxes: any[], boxParentMap) {
+  private getBoxParentMap(boxList: any): Map<string,any>{
+    const boxParentMap = new Map<string,any>();
+    boxList.forEach(box => {
+      if(boxParentMap.has(box.parent))
+        boxParentMap.get(box.parent).push(box);
+      else
+        boxParentMap.set(box.parent, [box]);
+    });
+    return boxParentMap;
+  }
+
+  private populateBoxesTree(boxes: any[], boxParentMap) {
     if(boxes == null)
       return [];
     return boxes.map(box => {
       if(boxParentMap.has(box._id)) {
         let children = boxParentMap.get(box._id);
-        box.children = this._populateBoxesTree(children, boxParentMap);
+        box.children = this.populateBoxesTree(children, boxParentMap);
       }
       return box;
     });
