@@ -6,21 +6,19 @@ import {HttpService} from '../../shared';
 @Injectable()
 export class DashboardService {
 
-  private path = '/dashboard';
-
-  constructor(private _httpService: HttpService) {
+  constructor(private http: HttpService) {
   }
 
   getTimeline(): Observable<any> {
-    return this._httpService.generateRequest(RequestMethod.Get, this.path+'/timeline', null, null, null);
+    return this.http.get('dashboard/timeline', null, null);
   }
 
   getNetwork(): Observable<any> {
-    return this._httpService.generateRequest(RequestMethod.Get, this.path+'/network', null, null, null);
+    return this.http.get('dashboard/network', null, null);
   }
 
   getStructure(): Observable<any> {
-    return this._httpService.generateRequest(RequestMethod.Get, this.path+'/structure', null, null, null);
+    return this.http.get('dashboard/structure', null, null);
   }
 
 }

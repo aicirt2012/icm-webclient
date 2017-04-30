@@ -7,7 +7,6 @@ import {SocketService} from '../../shared/services/socket.service';
 
 @Injectable()
 export class EmailService {
-  private domain: string = 'email';
 
   constructor(private _httpService: HttpService) {
   }
@@ -26,14 +25,14 @@ export class EmailService {
       search: search,
       lastEmailDate: lastEmailDate
     };
-    return this._httpService.httpGET(this.domain, 'search', options, null);
+    return this._httpService.get('email/search', options, null);
   }
 
   /*
    @param: mail: any - Mailobject {} TODO
    */
   sendMail(mail: any): Observable<any> {
-    return this._httpService.httpPOST(this.domain, 'send', null, mail);
+    return this._httpService.post('email/send', null, mail);
   }
 
   /*
@@ -46,21 +45,21 @@ export class EmailService {
       newBoxId: newBoxId
     };
     console.log('moving in service', body);
-    return this._httpService.httpPOST(this.domain, 'move', null, body);
+    return this._httpService.post('email/move', null, body);
   }
 
   /*
     get all boxes
    */
   getBoxList(): Observable<any> {
-    return this._httpService.httpGET(this.domain, 'box', null, null);
+    return this._httpService.get('email/box', null, null);
   }
 
   /*
    sync boxes and emails
    */
   syncAll(): Observable<any> {
-    return this._httpService.httpGET(this.domain, 'syncAll', null, null);
+    return this._httpService.get('email/syncAll', null, null);
   }
 
   /*
@@ -68,7 +67,7 @@ export class EmailService {
    returns Email
    */
   getSingleMail(id: string): Observable<any> {
-    return this._httpService.httpGET(this.domain, `single/${id}`, null, null);
+    return this._httpService.get(`email/single/${id}`, null, null);
   }
 
   /*
@@ -82,7 +81,7 @@ export class EmailService {
       flags: flags,
       boxId: boxId
     };
-    return this._httpService.httpPOST(this.domain, `addFlags`, null, body);
+    return this._httpService.post(`email/addFlags`, null, body);
   }
 
   /*
@@ -96,7 +95,7 @@ export class EmailService {
       flags: flags,
       boxId: boxId
     };
-    return this._httpService.httpPOST(this.domain, `delFlags`, null, body);
+    return this._httpService.post(`email/delFlags`, null, body);
   }
 
   /*
@@ -143,7 +142,7 @@ ${email.text}`;
       boxName: boxShortName,
       parentBoxId: parentBoxId
     };
-    return this._httpService.httpPOST(this.domain, 'addBox', null, body);
+    return this._httpService.post('email/addBox', null, body);
   }
 
   /*
@@ -154,7 +153,7 @@ ${email.text}`;
     const body = {
       boxId: boxId
     };
-    return this._httpService.httpPOST(this.domain, 'delBox', null, body);
+    return this._httpService.post('email/delBox', null, body);
   }
 
   /*
@@ -166,7 +165,7 @@ ${email.text}`;
       oldBoxId: oldBoxId,
       newBoxShortName: newBoxShortName
     };
-    return this._httpService.httpPOST(this.domain, 'renameBox', null, body);
+    return this._httpService.post('email/renameBox', null, body);
   }
 
   /*
@@ -182,7 +181,7 @@ ${email.text}`;
       msgData: msgData ? msgData : '',
     };
     console.log('appending mail to draft', body);
-    return this._httpService.httpPOST(this.domain, 'append', null, body);
+    return this._httpService.post('email/append', null, body);
   }
 
 }

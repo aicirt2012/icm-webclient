@@ -13,7 +13,7 @@ export class NetworkService {
     const options = {
       query: query
     };
-    return this.http.httpGET('network/search', null, options, null);
+    return this.http.get('network/search', options, null);
   }
  
 

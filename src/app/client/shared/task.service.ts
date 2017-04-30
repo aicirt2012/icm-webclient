@@ -7,7 +7,6 @@ import {Email} from './';
 @Injectable()
 export class TaskService {
 
-  private domain: string = 'task';
   constructor(private _httpService: HttpService) { }
 
   /*
@@ -18,7 +17,7 @@ export class TaskService {
     const options = {
       idList: list
     };
-    return this._httpService.httpGET(this.domain, '', options, null);
+    return this._httpService.get('task', options, null);
   }
 
   /*
@@ -29,7 +28,7 @@ export class TaskService {
     const options = {
       query: query
     };
-    return this._httpService.httpGET(this.domain, 'search', options, null);
+    return this._httpService.get('task/search', options, null);
   }
 
   /*
@@ -40,7 +39,7 @@ export class TaskService {
     const body = {
       emailAddresses: emailAddresses
     }
-    return this._httpService.httpPOST(this.domain, 'cards', null, body);
+    return this._httpService.post('task/cards', null, body);
   }
 
   /*
@@ -57,8 +56,8 @@ export class TaskService {
       sentences: email.sentences ? email.sentences : [],
       sentenceId: task.task ? task.task.id : ""
     };
-    const path = `email/${email._id}/addTask`;
-    return this._httpService.httpPOST(this.domain, path, null, options);
+    const path = `task/email/${email._id}/addTask`;
+    return this._httpService.post(path, null, options);
   }
 
   updateTask(task: any): Observable<any> {
@@ -71,29 +70,28 @@ export class TaskService {
       due: task.date,
       closed: task.closed
     };
-    const path = `${task.id}`;
-    return this._httpService.httpPUT(this.domain, path, null, options);
+    return this._httpService.put('task/'+task.id, null, options);
   }
 
   getTaskByID(id :string): Observable<any> {
-    return this._httpService.httpGET(this.domain, `/${id}`, null, null);
+    return this._httpService.get('task/'+id, null, null);
   }
 
   getAllBoards(params?: any): Observable<any> {
-    return this._httpService.httpGET(this.domain, 'boards', params, null);
+    return this._httpService.get('task/boards', params, null);
   }
 
   linkTask(email: any, task: any) {
     const options = {
       taskId : task.card.id
     };
-    const path = `email/${email._id}/linkTask`;
-    return this._httpService.httpPOST(this.domain, path, null, options);
+    const path = `task/email/${email._id}/linkTask`;
+    return this._httpService.post(path, null, options);
   }
 
   unlinkTask(task: any) {
-    const path = `${task.id}/unlink`;
-     return this._httpService.httpPUT(this.domain, path, null, null);
+    const path = `task/${task.id}/unlink`;
+     return this._httpService.put(path, null, null);
   }
 
   formatDate(date) {

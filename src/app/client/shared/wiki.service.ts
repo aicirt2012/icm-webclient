@@ -13,7 +13,7 @@ export class WikiService {
     const options = {
       query: query
     };
-    return this.http.httpGET('wiki/search', null, options, null);
+    return this.http.get('wiki/search', options, null);
   }
  
 
