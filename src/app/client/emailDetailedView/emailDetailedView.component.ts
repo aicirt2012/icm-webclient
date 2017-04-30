@@ -33,7 +33,7 @@ export class EmailDetailedViewComponent {
     this.boxList = this.appState.getBoxList().length > 0 ? this.appState.getBoxList(): [];
 
     this.appState.dataChange.subscribe((stateChange) => {
-      this[stateChange] = this.appState.get(stateChange);
+      this[stateChange] = this.appState.get(stateChange); //TODO check if we need it?
     });
 
     this.currentId = this.route.params.map(params => params['emailId'] || 'None');

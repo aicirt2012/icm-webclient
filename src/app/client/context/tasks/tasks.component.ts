@@ -38,7 +38,7 @@ export class TasksComponent {
   }
 
   ngOnInit() {
-    this.user = this.appState.get('user');
+    this.user = this.appState.getUser();
     if (this.user.trello) {
       this.getAllBoards();
       this.errorTrello = false;
