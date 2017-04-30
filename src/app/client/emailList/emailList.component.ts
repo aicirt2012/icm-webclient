@@ -33,7 +33,7 @@ export class EmailListComponent {
     this.currentRouteParams = this.activeRoute.params;
 
     this.appState.boxList().subscribe(boxList => {
-      if (this.boxList.length === 0)
+      if (this.boxList.length === 0) //TODO do we really need this check
         this.boxList = boxList;
     });
 

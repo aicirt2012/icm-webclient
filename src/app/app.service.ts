@@ -63,6 +63,8 @@ export class AppState {
   private static EMAILS = 'emails';
   private static BOXLIST = 'boxList'; 
   private static CURRENTBOX = 'currentBox';
+  private static SYNCED = 'synced';
+  private static USER = 'user';
 
   
   /** BoxList */
@@ -121,22 +123,30 @@ export class AppState {
     return this.createObserver(AppState.EMAILS, this.getEmails);
   }
   
-
+  /** Synced Flag */
   setSynced(synced: any) {
-    this.set('synced', synced);
+    this.set(AppState.SYNCED, synced);
   }
 
   getSynced() {
-    return this.get('synced');
+    return this.get(AppState.SYNCED);
   }
 
+  synced(): Observable<any>{
+    return this.createObserver(AppState.SYNCED, this.getSynced);
+  }
+
+  /** User */
   setUser(user: any) {
-    this.set('user', user);
+    this.set(AppState.USER, user);
   }
 
   getUser() {
-    return this.get('user');
+    return this.get(AppState.USER);
   }
 
+  user(): Observable<any>{
+    return this.createObserver(AppState.USER, this.getUser);
+  }
 
 }
