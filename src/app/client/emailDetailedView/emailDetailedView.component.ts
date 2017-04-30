@@ -32,10 +32,13 @@ export class EmailDetailedViewComponent {
     this.emails = this.appState.getEmails().length > 0 ? this.appState.getEmails(): [];
     this.boxList = this.appState.getBoxList().length > 0 ? this.appState.getBoxList(): [];
 
-    //TODO check if could be removed!
-    //this.appState.dataChange.subscribe((stateChange) => {
-    //  this[stateChange] = this.appState.get(stateChange); //TODO check if we need it?
-    //});
+    this.appState.boxList().subscribe(boxList=>{
+      this.boxList = boxList;
+    });
+
+    this.appState.emails().subscribe(emails=>{
+      this.emails = emails;
+    });
 
     this.currentId = this.route.params.map(params => params['emailId'] || 'None');
     this.currentId.subscribe((emailId) => {
