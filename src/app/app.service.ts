@@ -51,9 +51,21 @@ export class AppState {
     return JSON.parse(JSON.stringify(object));
   }
 
+  private createObserver(prop, getMethod): Observable<any>{
+    return new Observable(observer => { 
+      this.dataChange.subscribe(dataChanged=>{   
+        if(dataChanged == prop)     
+          observer.next(getMethod.apply(this));  
+      });          
+    });
+  }
 
+  private static EMAILS = 'emails';
   private static BOXLIST = 'boxList'; 
+  private static CURRENTBOX = 'currentBox';
 
+  
+  /** BoxList */
   setBoxList(boxList: any) {
     this.set(AppState.BOXLIST, boxList);
   }
@@ -62,23 +74,24 @@ export class AppState {
     return this.get(AppState.BOXLIST);
   }
 
-  boxList(){
-    return new Observable(observer => {    
-      this.dataChange.subscribe(dataChanged=>{   
-        if(dataChanged == AppState.BOXLIST)     
-          observer.next(this.getBoxList());  
-      });          
-    });
+  boxList(): Observable<any>{
+    return this.createObserver(AppState.BOXLIST, this.getBoxList);
   }
 
+  /** CurrentBox */
   setCurrentBox(currentBox: any) {
-    this.set('currentBox', currentBox);
+    this.set(AppState.CURRENTBOX, currentBox);
   }
 
   getCurrentBox() {
-    return this.get('currentBox');
+    return this.get(AppState.CURRENTBOX);
   }
 
+  currentBox(): Observable<any>{
+    return this.createObserver(AppState.CURRENTBOX, this.getCurrentBox);
+  }
+
+  /** Emails */
   // customRoute: /root/rootId
   setEmails(emails: any, customRoute = 'NONE') {
     if (customRoute != 'NONE') {
@@ -97,25 +110,17 @@ export class AppState {
       const dateB: any = new Date(b.date);
       return dateB - dateA
     });
-    this.set('emails', emails);
+    this.set(AppState.EMAILS, emails);
   }
 
   getEmails() {
-    return this.get('emails');
+    return this.get(AppState.EMAILS);
   }
 
-  emails(){
-    return this.createObserver('emails', this.getEmails)
+  emails(): Observable<any>{
+    return this.createObserver(AppState.EMAILS, this.getEmails);
   }
-
-  private createObserver(prop, getMethod){
-    return new Observable(observer => { 
-      this.dataChange.subscribe(dataChanged=>{   
-        if(dataChanged == prop)     
-          observer.next(getMethod.apply(this));  
-      });          
-    });
-  }
+  
 
   setSynced(synced: any) {
     this.set('synced', synced);
