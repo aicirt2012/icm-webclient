@@ -31,9 +31,9 @@ export class EmailDialogComponent {
   }
 
   ngOnInit() {
-    this.appState.dataChange.subscribe((stateChange) => {
-      this.user = this.appState.getUser();
-    })
+    this.appState.user().subscribe(user => {
+      this.user = user;
+    });
   }
 
 

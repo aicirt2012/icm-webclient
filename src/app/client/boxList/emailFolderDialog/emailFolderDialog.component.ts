@@ -26,9 +26,8 @@ export class EmailFolderDialogComponent {
   }
 
   ngOnInit() {
-    this.boxList$ = this.appState.dataChange.subscribe((res) => {
-      console.log(res);
-      this.boxList = this.appState.getBoxList();
+    this.boxList$ = this.appState.boxList().subscribe(boxList => {
+      this.boxList = boxList;
     });
   }
 

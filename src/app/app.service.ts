@@ -10,7 +10,7 @@ export type InternalStateType = {
 @Injectable()
 export class AppState {
   _state: InternalStateType = {};
-  dataChange: Observable<any>;
+  private dataChange: Observable<any>;
   private dataChangeObserver: Observer<any>[] = [];
 
   constructor() {

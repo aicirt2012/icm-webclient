@@ -28,13 +28,14 @@ export class BoxListComponent {
 
   ngOnInit() {
     console.log('inside the boxList component');
-    this.appState.dataChange.subscribe((stateChange) => {
-      if (this.appState.getBoxList().length > 0) {
-        this.boxList = this.appState.getBoxList();
-        this.addDataToBoxes(this.appState.getBoxList());
-      }
-      this.user = this.appState.getUser();
-    })
+    this.appState.boxList().subscribe(boxList=>{
+      if(boxList.length > 0)
+        this.boxList = boxList;
+        this.addDataToBoxes(boxList);
+    });
+    this.appState.user().subscribe(user=>{      
+      this.user = user;
+    });
   }
 
   addDataToBoxes(boxList: any[]) {
