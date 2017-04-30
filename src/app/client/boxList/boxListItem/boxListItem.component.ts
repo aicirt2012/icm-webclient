@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'box-list-item', 
-  providers: [
-  ],
+  providers: [],
   styleUrls: ['./boxListItem.component.css'],
   templateUrl: './boxListItem.component.html'
 })

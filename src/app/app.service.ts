@@ -59,6 +59,7 @@ export class AppState {
     });
   }
 
+  /** Custom States */
   private static EMAILS = 'emails';
   private static BOXLIST = 'boxList'; 
   private static CURRENTBOX = 'currentBox';

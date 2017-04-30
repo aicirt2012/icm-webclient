@@ -29,8 +29,7 @@ export class EmailListComponent {
   ngOnInit() {
     console.log('emailListComponent ngOnInit');
     this.boxList = [];
-    this.emails = []
-    this.currentRouteParams = this.activeRoute.params;
+    this.emails = [];
 
     this.appState.boxList().subscribe(boxList => {
       if (this.boxList.length === 0) //TODO do we really need this check
@@ -41,7 +40,7 @@ export class EmailListComponent {
       this.emails = emails;
     });
 
-    this.currentRouteParams.subscribe(params => {
+    this.activeRoute.params.subscribe(params => {
       const boxId = params['boxId'] || 'NONE';
       this.searchTerm = params['searchTerm'] || '';
       this.paginationEnabled = false;
