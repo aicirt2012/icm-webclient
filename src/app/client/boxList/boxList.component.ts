@@ -27,8 +27,6 @@ export class BoxListComponent {
   }
 
   ngOnInit() {
-    console.log('inside the boxList component');
-
     this.appState.boxList().subscribe(boxList=>{
       if(boxList.length > 0){
         this.boxList = boxList;
