@@ -28,7 +28,7 @@ export class BoxListComponent {
 
   ngOnInit() {
     console.log('inside the boxList component');
-    
+
     this.appState.boxList().subscribe(boxList=>{
       if(boxList.length > 0){
         this.boxList = boxList;
@@ -72,7 +72,6 @@ export class BoxListComponent {
             icon = 'home';
             break;
         };
-        box.route = `/box/${box._id}`;
         box.icon = icon;
         box.children = [];
         return box;

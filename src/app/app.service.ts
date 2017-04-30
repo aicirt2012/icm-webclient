@@ -69,6 +69,10 @@ export class AppState {
   
   /** BoxList */
   setBoxList(boxList: any) {
+    boxList = boxList.map(box => {
+      box.route = '/box/'+box._id;
+      return box
+    });
     this.set(AppState.BOXLIST, boxList);
   }
 
