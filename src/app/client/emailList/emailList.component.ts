@@ -81,11 +81,10 @@ export class EmailListComponent {
 
   generateNavigationRoute(boxId, searchTerm) {
     let fullRoute = '';
-    if (searchTerm != '') {
+    if (searchTerm != '')
       fullRoute = `/search/${searchTerm}`;
-    } else if (boxId != 0 && boxId != 'NONE') {
+    else if (boxId != 'NONE') 
       fullRoute = `/box/${boxId}`;
-    }
     return fullRoute;
   }
 

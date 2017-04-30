@@ -9,7 +9,7 @@ import {SocketService} from '../../shared/services/socket.service';
 export class EmailService {
   private domain: string = 'email';
 
-  constructor(private _httpService: HttpService) {//, socketService: SocketService) {
+  constructor(private _httpService: HttpService) {
   }
 
   /*
