@@ -33,13 +33,13 @@ export class AppState {
     throw new Error('do not mutate the `.state` directly');
   }
 
-  get(prop?: any) {
+  private get(prop?: any) {
     // use our state getter for the clone
     const state = this.state;
     return state.hasOwnProperty(prop) ? state[prop] : state;
   }
 
-  set(prop: string, value: any) {
+  private set(prop: string, value: any) {
     this._state[prop] = value;
     this.dataChangeObserver.forEach((observer) => {
       observer.next(prop);
