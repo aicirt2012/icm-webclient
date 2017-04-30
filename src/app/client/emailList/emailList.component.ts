@@ -32,25 +32,12 @@ export class EmailListComponent {
     this.emails = []
     this.currentRouteParams = this.activeRoute.params;
 
-    /*
-     TODO: Refactor data change subscriptions
-     NOTE: dataChanged == 'emails' is used for detecting change in flags e.g: seen
-     */
-    this.appState.dataChange.subscribe(dataChanged => {
-      console.log('DATA CHANGE: ' + dataChanged);
-      if (this.boxList.length === 0 && dataChanged == 'boxList') { // first boxList loading
-        this.boxList = this.appState.getBoxList();
-      }
-      /*
-      if (dataChanged == 'emails') { // emails flags
-        this.emails = this.appState.getEmails();
-      }*/
-
-    })
+    this.appState.boxList().subscribe(boxList => {
+      if (this.boxList.length === 0)
+        this.boxList = boxList;
+    });
 
     this.appState.emails().subscribe((emails:Email[]) => {
-      console.log('emails changeddddddddddddddddddddddddddddd');
-      console.log(emails);
       this.emails = emails;
     });
 
