@@ -19,22 +19,22 @@ export class AppState {
     });
   }
 
-  getObservableState() {
+  private getObservableState() {
     return this.dataChange;
   }
 
-  // already return a clone of the current state
+  /** already return a clone of the current state */
   get state() {
     return this._state = this._clone(this._state);
   }
 
-  // never allow mutation
+  /** never allow mutation */
   set state(value) {
     throw new Error('do not mutate the `.state` directly');
   }
 
+  /** use our state getter for the clone */
   private get(prop?: any) {
-    // use our state getter for the clone
     const state = this.state;
     return state.hasOwnProperty(prop) ? state[prop] : state;
   }
@@ -47,7 +47,6 @@ export class AppState {
   }
 
   private _clone(object: InternalStateType) {
-    // simple object clone
     return JSON.parse(JSON.stringify(object));
   }
 
