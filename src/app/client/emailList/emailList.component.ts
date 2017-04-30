@@ -41,10 +41,17 @@ export class EmailListComponent {
       if (this.boxList.length === 0 && dataChanged == 'boxList') { // first boxList loading
         this.boxList = this.appState.getBoxList();
       }
+      /*
       if (dataChanged == 'emails') { // emails flags
         this.emails = this.appState.getEmails();
-      }
+      }*/
+
     })
+
+    this.appState.emails().subscribe((emails:Email[]) => {
+      console.log('emails changeddddddddddddddddddddddddddddd');
+      this.emails = emails;
+    });
 
     this.currentRouteParams.subscribe(params => {
       const boxId = params['boxId'] || 'NONE';

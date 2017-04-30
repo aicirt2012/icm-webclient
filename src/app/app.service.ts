@@ -11,7 +11,7 @@ export type InternalStateType = {
 export class AppState {
   _state: InternalStateType = {};
   dataChange: Observable<any>;
-  dataChangeObserver: Observer<any>[] = [];
+  private dataChangeObserver: Observer<any>[] = [];
 
   constructor() {
     this.dataChange = new Observable((observer) => {
@@ -52,12 +52,23 @@ export class AppState {
   }
 
 
+  private static BOXLIST = 'boxList'; 
+
   setBoxList(boxList: any) {
-    this.set('boxList', boxList);
+    this.set(AppState.BOXLIST, boxList);
   }
 
   getBoxList() {
-    return this.get('boxList');
+    return this.get(AppState.BOXLIST);
+  }
+
+  boxList(){
+    return new Observable(observer => {    
+      this.dataChange.subscribe(dataChanged=>{   
+        if(dataChanged == AppState.BOXLIST)     
+          observer.next(this.getBoxList());  
+      });          
+    });
   }
 
   setCurrentBox(currentBox: any) {
@@ -91,6 +102,15 @@ export class AppState {
 
   getEmails() {
     return this.get('emails');
+  }
+
+  emails(){
+    return new Observable(observer => {    
+      this.dataChange.subscribe(dataChanged=>{   
+        if(dataChanged == 'emails')     
+          observer.next(this.getEmails());  
+      });          
+    });
   }
 
   setSynced(synced: any) {
