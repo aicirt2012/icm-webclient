@@ -50,6 +50,7 @@ export class EmailListComponent {
 
     this.appState.emails().subscribe((emails:Email[]) => {
       console.log('emails changeddddddddddddddddddddddddddddd');
+      console.log(emails);
       this.emails = emails;
     });
 

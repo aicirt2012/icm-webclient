@@ -105,10 +105,14 @@ export class AppState {
   }
 
   emails(){
-    return new Observable(observer => {    
+    return this.createObserver('emails', this.getEmails)
+  }
+
+  private createObserver(prop, getMethod){
+    return new Observable(observer => { 
       this.dataChange.subscribe(dataChanged=>{   
-        if(dataChanged == 'emails')     
-          observer.next(this.getEmails());  
+        if(dataChanged == prop)     
+          observer.next(getMethod.apply(this));  
       });          
     });
   }
