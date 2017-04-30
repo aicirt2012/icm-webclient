@@ -28,11 +28,18 @@ export class BoxListComponent {
 
   ngOnInit() {
     console.log('inside the boxList component');
+    
     this.appState.boxList().subscribe(boxList=>{
-      if(boxList.length > 0)
+      if(boxList.length > 0){
         this.boxList = boxList;
         this.addDataToBoxes(boxList);
+        if(this.router.url == '/box'){
+          this.appState.setCurrentBox(boxList[0]);
+          this.router.navigate(['box/'+boxList[0]._id]);
+        }       
+      }
     });
+
     this.appState.user().subscribe(user=>{      
       this.user = user;
     });
