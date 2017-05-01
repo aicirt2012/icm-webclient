@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SettingsService } from '../../shared';
+import { UserService } from '../../shared';
 import { MdSnackBar, MdInput } from '@angular/material';
 
 
@@ -14,17 +14,17 @@ export class PatternsComponent {
   patterns: any[];
   newPattern: string = '';
 
-  constructor(private _settingsService: SettingsService, private snackBar: MdSnackBar) { }
+  constructor(private userService: UserService, private snackBar: MdSnackBar) { }
 
   ngOnInit() {
-    this._settingsService.getPatterns().subscribe((patterns: any) => {
+    this.userService.getPatterns().subscribe((patterns: any) => {
       this.patterns = patterns;
     })
   }
 
   addPattern() {
     if (this.newPattern != '')  {
-      this._settingsService.createPattern(this.newPattern).subscribe((pattern: any) => {
+      this.userService.createPattern(this.newPattern).subscribe((pattern: any) => {
         this.patterns.push(pattern);
         this.newPattern = '';
       });
@@ -32,7 +32,7 @@ export class PatternsComponent {
   }
 
   deletePattern(pattern: any) {
-    this._settingsService.deletePattern(pattern).subscribe(() => {
+    this.userService.deletePattern(pattern).subscribe(() => {
       this.patterns.splice(this.patterns.findIndex((p) => p._id == pattern._id), 1);
     });
   }

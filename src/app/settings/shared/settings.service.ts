@@ -4,7 +4,7 @@ import {RequestMethod} from '@angular/http';
 import {HttpService, AuthService} from '../../shared';
 
 @Injectable()
-export class SettingsService {
+export class UserService {
 
   constructor(private http: HttpService, private authService: AuthService) {
   }

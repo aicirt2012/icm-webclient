@@ -22,7 +22,7 @@ export class EmailDetailedViewComponent {
   private manuallyRemovedFlag = false;
   private moving = false;
 
-  constructor(private _emailService: EmailService, public snackBar: MdSnackBar,
+  constructor(private emailService: EmailService, public snackBar: MdSnackBar,
     public route: ActivatedRoute, public appState: AppState, public router: Router) {
     this.emailResponse = {};
     this.responseStatus = false;
@@ -48,7 +48,7 @@ export class EmailDetailedViewComponent {
 
   generateEmailResponse(type: string) {
     this.responseStatus = true;
-    this.emailResponse = this._emailService.generateEmailForm(this.email, type);
+    this.emailResponse = this.emailService.generateEmailForm(this.email, type);
   }
 
   discardEmailResponse() {
@@ -58,7 +58,7 @@ export class EmailDetailedViewComponent {
 
   sendEmail(mail: any) {
     this.sending = true;
-    this._emailService
+    this.emailService
       .sendMail(mail)
       .subscribe((data: any) => {
         this.sending = false;
@@ -74,7 +74,7 @@ export class EmailDetailedViewComponent {
   }
 
   getSingleMail(id: string) {
-    this._emailService
+    this.emailService
       .getSingleMail(id)
       .subscribe((data: any) => {
         if (data.sentences) {
@@ -96,7 +96,7 @@ export class EmailDetailedViewComponent {
 
   emailMoveToBox(params: any) {
     this.moving = true;
-    this._emailService.moveMail(params.emailId, params.newBoxId).subscribe((res) => {
+    this.emailService.moveMail(params.emailId, params.newBoxId).subscribe((res) => {
       this.emails.splice(this.emails.findIndex((e) => this.email._id == e._id), 1);
       this.appState.setEmails(this.emails);
       const destBox = this.boxList.find((b) => b._id == params.newBoxId).shortName;
@@ -136,7 +136,7 @@ export class EmailDetailedViewComponent {
     this.appState.setBoxList(this.boxList);
     this.appState.setEmails(this.emails);
 
-    this._emailService.addFlags(this.email.uid, flags, this.email.box).subscribe((res) => { }, (err) => {
+    this.emailService.addFlags(this.email.uid, flags, this.email.box).subscribe((res) => { }, (err) => {
       this.email = Object.assign(oldEmail);
       this.appState.setEmails(oldEmails);
       this.appState.setBoxList(oldBoxList);
@@ -171,7 +171,7 @@ export class EmailDetailedViewComponent {
     this.appState.setEmails(this.emails);
     this.appState.setBoxList(this.boxList);
 
-    this._emailService.delFlags(this.email.uid, flags, this.email.box).subscribe((res) => {
+    this.emailService.delFlags(this.email.uid, flags, this.email.box).subscribe((res) => {
     }, (err) => {
       this.email = Object.assign(oldEmail);
       this.appState.setEmails(oldEmails);

@@ -9,7 +9,7 @@ import { AccountComponent, OverviewComponent, TaskComponent, HelpComponent, Soci
 import { SharedModule } from '../shared';
 import { ROUTES } from './settings.routes';
 import { AuthGuard } from '../app.authGuard';
-import { SettingsService } from './shared';
+import { UserService } from './shared';
 
 @NgModule({
   imports: [
@@ -33,7 +33,7 @@ import { SettingsService } from './shared';
   ],
   providers: [
       AuthGuard,
-      SettingsService
+      UserService
   ],
   exports: [
   ]

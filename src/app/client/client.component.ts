@@ -5,7 +5,7 @@ import {AppState} from '../app.service';
 import * as moment from 'moment';
 import {Email, EmailService, TaskService} from './shared';
 import {SocketService} from '../shared/services/socket.service';
-import {SettingsService} from '../settings/shared'; // TODO:move settingsservice to userservice
+import {UserService} from '../settings/shared'; // TODO:move settingsservice to userservice
 import {Observable} from 'rxjs/Observable';
 import {EmailDialogComponent} from './emailDialog';
 import {EmailFolderDialogComponent} from './emailFolderDialog';
@@ -24,15 +24,15 @@ export class ClientComponent {
   private syncing: boolean;
   private updating: boolean = false;
 
-  constructor(private emailService: EmailService, public appState: AppState, private _settingsService: SettingsService, private _socketService: SocketService) {
+  constructor(private emailService: EmailService, public appState: AppState, private userService: UserService, private socketService: SocketService) {
   }
 
 
   ngOnInit() {
     this.syncing = true;
 
-    this._socketService.openSocketConnection();
-    this._socketService.updateEmail().subscribe((updatedEmail: any) => {
+    this.socketService.openSocketConnection();
+    this.socketService.updateEmail().subscribe((updatedEmail: any) => {
       console.log('update email: ' + updatedEmail.subject, updatedEmail.date);
       if (this.appState.getEmails().length > 0) {
         this.emails = this.appState.getEmails().map(email => {
@@ -43,7 +43,7 @@ export class ClientComponent {
       }
     });
 
-    this._socketService.createEmail().subscribe((createdEmail: any) => {
+    this.socketService.createEmail().subscribe((createdEmail: any) => {
       console.log('create email: ' + createdEmail.subject, createdEmail.date);
       if (this.appState.getEmails().length > 0) {
         this.emails = this.appState.getEmails();
@@ -52,12 +52,12 @@ export class ClientComponent {
       this.appState.setEmails(this.emails);
     });
 
-    this._socketService.deleteEmail().subscribe((deletedEmail: any) => {
+    this.socketService.deleteEmail().subscribe((deletedEmail: any) => {
       console.log('delete email: ' + deletedEmail.subject, deletedEmail.date);
       console.log(deletedEmail);
     });
 
-    this._socketService.createBox().subscribe((createdBox: any) => {
+    this.socketService.createBox().subscribe((createdBox: any) => {
       console.log('create box: ' + createdBox.name);
       if (this.appState.getBoxList().length > 0) {
         this.boxList = this.appState.getBoxList();
@@ -66,7 +66,7 @@ export class ClientComponent {
       this.appState.setBoxList(this.boxList);
     });
 
-    this._socketService.updateBox().subscribe((updatedBox: any) => {
+    this.socketService.updateBox().subscribe((updatedBox: any) => {
       console.log('update box: ' + updatedBox.name);
       if (this.appState.getBoxList().length > 0) {
         this.boxList = this.appState.getBoxList().map(box => {
@@ -77,7 +77,7 @@ export class ClientComponent {
       }
     });
 
-    this._socketService.deleteBox().subscribe((deletedBox: any) => {
+    this.socketService.deleteBox().subscribe((deletedBox: any) => {
       console.log('delete box: ' + deletedBox.name);
       if (this.appState.getBoxList().length > 0) {
         this.boxList = this.appState.getBoxList().filter(box => {
@@ -87,7 +87,7 @@ export class ClientComponent {
       }
     });
 
-    this._settingsService.getUserInfo().subscribe((user) => {
+    this.userService.getUserInfo().subscribe((user) => {
       this.user = user;
       console.log('user info: ', user)
       this.appState.setUser(user);

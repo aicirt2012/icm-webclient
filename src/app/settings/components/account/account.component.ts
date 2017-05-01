@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SettingsService } from '../../shared';
+import { UserService } from '../../shared';
 import { MdSnackBar, MdInput } from '@angular/material';
 
 
@@ -22,10 +22,10 @@ public emailConfig = {
   smtpDomains: ['gmail.com', 'googlemail.com']
 };
 
-  constructor(private _settingsService: SettingsService, private snackBar: MdSnackBar) {}
+  constructor(private userService: UserService, private snackBar: MdSnackBar) {}
 
   ngOnInit() {
-    this._settingsService.getUserInfo().subscribe((data: any) => {
+    this.userService.getUserInfo().subscribe((data: any) => {
       if(data.provider.name) {
         this.emailConfig = data.provider;
       }
@@ -46,7 +46,7 @@ public emailConfig = {
   }
 
   updateEmailConfig() {
-    this._settingsService.updateEmailConfig(this.emailConfig)
+    this.userService.updateEmailConfig(this.emailConfig)
     .subscribe((data: any) => {
       this.emailConfig = data.provider;
       this.snackBar.open('Update successful', 'OK');

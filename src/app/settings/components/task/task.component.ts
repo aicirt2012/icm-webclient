@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SettingsService } from '../../shared';
+import { UserService } from '../../shared';
 import { MdSnackBar } from '@angular/material';
 
 @Component({
@@ -20,10 +20,10 @@ export class TaskComponent {
     password: ''
   };
 
-    constructor(private _settingsService: SettingsService, private snackBar:  MdSnackBar) {}
+    constructor(private userService: UserService, private snackBar:  MdSnackBar) {}
 
     ngOnInit() {
-      this._settingsService.getUserInfo().subscribe((data) => {
+      this.userService.getUserInfo().subscribe((data) => {
         if(data.trello) {
           this.trelloConfig = data.trello;
         }
@@ -34,14 +34,14 @@ export class TaskComponent {
     }
 
     updateUserWithScConfig() {
-      this._settingsService.updateScConfig(this.scConfig)
-      .subscribe((data: any) => {
-        this.scConfig = data.sociocortex;
-        this.snackBar.open('Update successful.', 'OK');
-      }, (error) => {
-        this.snackBar.open('Error while updating. Try again.', 'OK');
+      this.userService.updateScConfig(this.scConfig)
+        .subscribe((data: any) => {
+          this.scConfig = data.sociocortex;
+          this.snackBar.open('Update successful.', 'OK');
+        }, (error) => {
+          this.snackBar.open('Error while updating. Try again.', 'OK');
 
-      });
+        });
     }
 
 }

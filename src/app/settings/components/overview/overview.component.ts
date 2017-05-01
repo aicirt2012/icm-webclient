@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {SettingsService } from '../../shared';
+import {UserService } from '../../shared';
 import { MdSnackBar } from '@angular/material';
 
 
@@ -14,16 +14,16 @@ export class OverviewComponent {
   public editSettings: boolean = false;
   public user = {};
 
-  constructor(private _settingsService: SettingsService, private snackBar: MdSnackBar) { }
+  constructor(private userService: UserService, private snackBar: MdSnackBar) { }
 
   ngOnInit() {
-    this._settingsService.getUserInfo().subscribe( (data) => {
+    this.userService.getUserInfo().subscribe( (data) => {
       this.user = data;
     });
   }
 
   updateUser() {
-    this._settingsService.updateUserInfo(this.user).subscribe( (data) => {
+    this.userService.updateUserInfo(this.user).subscribe( (data) => {
       this.user = data;
       this.snackBar.open('Update successful.', 'OK');
     }, (error) => {
