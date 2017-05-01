@@ -3,14 +3,13 @@
   <div md-line>
     <md-icon class="v-align-middle">{{item.icon}}</md-icon>
     <a class="v-align-middle">{{item.shortName}}</a>
-      <div *ngIf="simpleDrop">Item was dropped here</div>
   </div>
   <div *ngIf="item.unseen > 0" class="unseen-counter"><a>{{item.unseen}}</a></div>
 
 </md-list-item>
 
 <md-nav-list class="no-padding padding-left" *ngIf="item.children.length > 0">
-    <box-list-item [item]="child" *ngFor="let child of item.children"></box-list-item>
+    <box-list-item [item]="child" *ngFor="let child of item.children" (onMoveEmailToBox)="moveEmailToBox($event)"></box-list-item>
 </md-nav-list>
 
 

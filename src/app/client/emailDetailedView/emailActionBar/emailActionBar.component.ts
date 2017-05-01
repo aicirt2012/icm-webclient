@@ -4,7 +4,7 @@ import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core
 import { Email } from '../../shared';
 
 @Component({
-  selector: 'email-action-bar',  // <detailedView></detailedView>
+  selector: 'email-action-bar',  
   styleUrls: ['./emailActionBar.component.css'],
   templateUrl: './emailActionBar.component.html'
 })

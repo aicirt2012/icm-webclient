@@ -18,7 +18,8 @@ export class BoxListComponent {
   @Input() lastSync: Date;
   @Input() syncing: Boolean;
   @Output() onRefresh = new EventEmitter<boolean>();
-
+  @Output() onMoveEmailToBox = new EventEmitter<any>();
+  
   boxName: string;
   boxList: any[];
   user: any;
@@ -41,6 +42,11 @@ export class BoxListComponent {
     this.appState.user().subscribe(user=>{      
       this.user = user;
     });
+  }
+
+  moveEmailToBox(data){
+    console.log('recursive event emit to parent');
+    this.onMoveEmailToBox.emit(data);
   }
 
   private addDataToBoxes(boxList: any[]) {

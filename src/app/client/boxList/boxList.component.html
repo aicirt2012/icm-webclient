@@ -7,7 +7,7 @@
     </div>
     <div fxFlex class="sidenav-boxes scrollable">
       <md-nav-list>
-        <box-list-item [item]="item" *ngFor="let item of navbarItems"></box-list-item>
+        <box-list-item [item]="item" *ngFor="let item of navbarItems" (onMoveEmailToBox)="moveEmailToBox($event)"></box-list-item>
       </md-nav-list>
       <div fxLayoutAlign="start center">
         <button fxFlex md-button fxLayout="row" fxLayoutAlign="start start" class="manage-folders" (click)="openEmailFolderDialog()">Manage Folders</button>

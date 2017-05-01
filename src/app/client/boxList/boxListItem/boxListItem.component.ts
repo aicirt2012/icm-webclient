@@ -9,11 +9,18 @@ import { Router } from '@angular/router';
 })
 export class BoxListItemComponent {
   @Input() item: any;
-  simpleDrop: any = null;
+  @Output() onMoveEmailToBox = new EventEmitter<any>();
 
   dropEmailEvent(event){
     console.log(event.dragData);
+    this.onMoveEmailToBox.emit({email: event.dragData, newBoxId: this.item._id});
   }
+
+  moveEmailToBox(data){
+    console.log('recursive event emit to parent');
+    this.onMoveEmailToBox.emit(data);
+  }
+
 
   constructor(public router: Router) {
   }
@@ -21,5 +28,6 @@ export class BoxListItemComponent {
   isActive(route: string): boolean {
     return this.router.isActive(route, false);
   }
+
 
 }

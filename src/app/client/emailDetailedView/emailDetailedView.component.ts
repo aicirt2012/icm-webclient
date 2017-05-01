@@ -93,6 +93,7 @@ export class EmailDetailedViewComponent {
       });
   }
 
+  //TODO remove here
   emailMoveToBox(params: any) {
     this.moving = true;
     this.emailService.moveEmail(params.emailId, params.newBoxId).subscribe((res) => {

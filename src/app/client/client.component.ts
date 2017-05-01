@@ -1,6 +1,6 @@
 import {Component, ViewChild, style, state, animate, transition, trigger} from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
-import {MdDialog} from '@angular/material';
+import {MdDialog, MdSnackBar} from '@angular/material';
 import {AppState} from '../app.service';
 import * as moment from 'moment';
 import {Email, EmailService, BoxService, TaskService} from './shared';
@@ -24,7 +24,7 @@ export class ClientComponent {
   private syncing: boolean;
   private updating: boolean = false;
 
-  constructor(private emailService: EmailService, private boxService: BoxService, public appState: AppState, private userService: UserService, private socketService: SocketService) {
+  constructor(private emailService: EmailService, private boxService: BoxService, public appState: AppState, private userService: UserService, private socketService: SocketService, public snackBar: MdSnackBar) {
   }
 
 
@@ -109,5 +109,19 @@ export class ClientComponent {
       console.log(result);
     });
   }
+
+  moveEmailToBox(emailId: string, newBoxId: string) {
+    console.log('reach client');
+    this.emailService.moveEmail(emailId, newBoxId).subscribe(res => {
+      this.emails.splice(this.emails.findIndex(e => emailId == e._id), 1);
+      this.appState.setEmails(this.emails);
+      const destBox = this.boxList.find(b => b._id == newBoxId).shortName;
+      this.snackBar.open(`Message successfully moved to ${destBox}.`, 'OK');
+    }, err => {
+      console.log(err);
+      this.snackBar.open('Error when moving Message.', 'OK');
+    });
+  }
+  
 
 }
