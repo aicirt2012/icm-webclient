@@ -23,7 +23,7 @@ export class EmailListComponent {
   loadingList: boolean = false;
   emptyBox: boolean = false;
 
-  constructor(public appState: AppState, public router: Router, public activeRoute: ActivatedRoute, private _emailService: EmailService) {
+  constructor(public appState: AppState, public router: Router, public activeRoute: ActivatedRoute, private emailService: EmailService) {
   }
 
   ngOnInit() {
@@ -66,7 +66,7 @@ export class EmailListComponent {
   }
 
   getEmailList(boxId = 'NONE', searchTerm = '', sort = 'DESC', lastEmailDate = new Date()) {
-    this._emailService.searchEmailsWithPagination(boxId, sort, searchTerm, lastEmailDate)
+    this.emailService.searchEmailsWithPagination(boxId, sort, searchTerm, lastEmailDate)
       .subscribe((emails: any) => {
         const customRoute = this.generateNavigationRoute(boxId, searchTerm);
         if (this.paginationEnabled) {

@@ -12,7 +12,7 @@ import { SharedModule } from '../shared';
 import { ROUTES } from './client.routes';
 import { AuthGuard } from '../app.authGuard';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
-import {DndModule} from 'ng2-dnd';
+import { DndModule } from 'ng2-dnd';
 
 @NgModule({
   imports: [

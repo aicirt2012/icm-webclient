@@ -12,7 +12,7 @@ export class BoxListItemComponent {
   simpleDrop: any = null;
 
   dropEmailEvent(event){
-    console.log(event);
+    console.log(event.dragData);
   }
 
   constructor(public router: Router) {
