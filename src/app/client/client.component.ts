@@ -105,7 +105,7 @@ export class ClientComponent {
   }
 
   onRefresh(refresh?: boolean) {
-    this.emailService.syncAll().subscribe((result) => {
+    this.boxService.syncAll().subscribe((result) => {
       console.log(result);
     });
   }

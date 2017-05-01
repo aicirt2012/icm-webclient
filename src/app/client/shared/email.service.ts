@@ -42,20 +42,9 @@ export class EmailService {
    * @param: newBoxId: string - destination box
    */
   moveMail(emailId: string, newBoxId: string): Observable<any> {
-    const body = {
-      newBoxId: newBoxId
-    };
-    console.log('moving in service', body);
-    return this.http.post('email/'+emailId+'/move', null, body);
+    return this.http.post('email/'+emailId+'/move', null, {newBoxId: newBoxId});
   }
  
-  /**
-   * Sync boxes and emails via IMAP
-   */
-  syncAll(): Observable<any> {
-    return this.http.get('email/syncAll', null, null);
-  }
-
   /**
    * Returns a single email
    * @param: id: string

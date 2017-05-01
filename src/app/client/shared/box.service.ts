@@ -57,5 +57,14 @@ export class BoxService {
     return this.http.post('box/'+boxId+'/rename', null, body);
   }
 
+  /**
+   * Sync boxes and emails via IMAP
+   */
+  syncAll(): Observable<any> {
+    return this.http.get('box/syncAll', null, null);
+  }
+  
+  
+
 
 }
