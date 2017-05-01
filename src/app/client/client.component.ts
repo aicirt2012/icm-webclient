@@ -24,10 +24,10 @@ export class ClientComponent {
   private syncing: boolean;
   private updating: boolean = false;
 
-  constructor(private _emailService: EmailService, public appState: AppState, private _settingsService: SettingsService, private _socketService: SocketService) {
+  constructor(private emailService: EmailService, public appState: AppState, private _settingsService: SettingsService, private _socketService: SocketService) {
   }
 
-  /* INITIALIZE EMAIL APP */
+
   ngOnInit() {
     this.syncing = true;
 
@@ -92,7 +92,7 @@ export class ClientComponent {
       console.log('user info: ', user)
       this.appState.setUser(user);
       if (this.user.provider.name) {
-        this._emailService.getBoxList().subscribe((boxes: any[]) => {
+        this.emailService.getBoxList().subscribe((boxes: any[]) => {
           this.appState.setBoxList(boxes);
           this.boxList = this.appState.getBoxList();
         });
@@ -105,7 +105,7 @@ export class ClientComponent {
   }
 
   onRefresh(refresh?: boolean) {
-    this._emailService.syncAll().subscribe((result) => {
+    this.emailService.syncAll().subscribe((result) => {
       console.log(result);
     });
   }
