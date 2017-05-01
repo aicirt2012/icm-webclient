@@ -74,7 +74,7 @@ export class EmailListComponent {
         this.paginationEnabled = emails.length > 0;
         if (this.emails.length != 0) {
           this.emptyBox = false;
-          this.router.navigate([`${customRoute}/${this.emails[0]._id}`]);
+          this.router.navigate([this.emails[0].route]);
         }
         this.loadingList = false;
         this.loading = false;
