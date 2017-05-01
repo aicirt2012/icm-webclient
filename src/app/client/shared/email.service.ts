@@ -48,7 +48,6 @@ export class EmailService {
     console.log('moving in service', body);
     return this.http.post('email/'+emailId+'/move', null, body);
   }
-
  
   /**
    * Sync boxes and emails via IMAP
@@ -66,9 +65,9 @@ export class EmailService {
   }
 
   /**
-   * @param: msgId: string - msg id in box,
-   * @param: flags: string[] - array of flags to add to mail,
-   * @param: boxId: string - BoxId as string,
+   * @param: msgId: string
+   * @param: flags: string[] e.g. //seen
+   * @param: boxId: string 
    */
   addFlags(msgId: number, flags: string[], boxId: string): Observable<any> {
     const body = {
@@ -80,9 +79,9 @@ export class EmailService {
   }
 
   /**
-   * @param: msgId: string - msg id in box,
-   * @param: flags: string[] - array of flags to be deleted from mail,
-   * @param: boxId: string - BoxId as string,
+   * @param: msgId: string
+   * @param: flags: string[] e.g. //seen
+   * @param: boxId: string 
    */
   delFlags(msgId: number, flags: string[], boxId: string): Observable<any> {
     const body = {
