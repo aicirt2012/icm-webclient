@@ -10,13 +10,13 @@ import {ModalDirective} from 'ng2-bootstrap';
 })
 
 export class SearchBarComponent {
-  @Output() searchEmailBox = new EventEmitter<string>();
+  @Output() searchEmails = new EventEmitter<string>();
   query: string = this.activeRoute.snapshot.params['searchTerm'];
 
   constructor(public router: Router, public activeRoute: ActivatedRoute,) {
   }
 
   search() {
-    this.searchEmailBox.emit(this.query);
+    this.searchEmails.emit(this.query);
   }
 }

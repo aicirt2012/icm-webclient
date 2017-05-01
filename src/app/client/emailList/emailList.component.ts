@@ -44,7 +44,7 @@ export class EmailListComponent {
       const boxId = params['boxId'] || 'NONE';
       this.searchTerm = params['searchTerm'] || '';
       this.paginationEnabled = false;
-      if (boxId == 0) {
+      if (boxId == 0) { //TODO this needs to be changed
         this.emptyBox = true;
         this.loading = false;
       } else {

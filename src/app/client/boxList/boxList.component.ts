@@ -31,7 +31,7 @@ export class BoxListComponent {
       if(boxList.length > 0){
         this.boxList = boxList;
         this.addDataToBoxes(boxList);
-        if(this.router.url == '/box'){
+        if(this.router.url == '/box'){ //TODO my subscribe on route
           this.appState.setCurrentBox(boxList[0]);
           this.router.navigate(['box/'+boxList[0]._id]);
         }       
