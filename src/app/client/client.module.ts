@@ -12,6 +12,7 @@ import { SharedModule } from '../shared';
 import { ROUTES } from './client.routes';
 import { AuthGuard } from '../app.authGuard';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
+import {DndModule} from 'ng2-dnd';
 
 @NgModule({
   imports: [
@@ -21,10 +22,12 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
     SharedModule,
     MaterialModule.forRoot(),
     FlexLayoutModule.forRoot(),
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    DndModule.forRoot()
   ],
   exports: [
-    TaskItemEmailDialogComponent
+    TaskItemEmailDialogComponent,
+    DndModule
   ],
   declarations: [
     ClientComponent,

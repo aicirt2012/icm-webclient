@@ -1,8 +1,9 @@
-<md-list-item class="navbar-list-item" [class.route-active]="isActive(item.route)" [routerLink]="item.route">
+<md-list-item class="navbar-list-item" [class.route-active]="isActive(item.route)" [routerLink]="item.route" dnd-droppable (onDropSuccess)="simpleDrop=$event">
   
   <div md-line>
     <md-icon class="v-align-middle">{{item.icon}}</md-icon>
     <a class="v-align-middle">{{item.shortName}}</a>
+      <div *ngIf="simpleDrop">Item was dropped here</div>
   </div>
   <div *ngIf="item.unseen > 0" class="unseen-counter"><a>{{item.unseen}}</a></div>
 

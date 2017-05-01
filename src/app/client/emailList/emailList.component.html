@@ -2,7 +2,7 @@
     <div [fxShow]="!loading" fxLayout="column" fxFlex="25" class="email-list">
         <search-bar (searchEmails)="searchEmails($event)"></search-bar>
         <div fxFlex class="scrollable" infinite-scroll [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="scrollThrottle" [scrollWindow]="false" (scrolled)="onScrollDown()">
-            <div fxFlex fxLayout="column" class="email-list-item" [routerLink]="mail.route" [class.route-active]="isActive(mail.route)" [class.unseen]="!isRead(mail)" *ngFor="let mail of emails; let i = index">
+            <div fxFlex fxLayout="column" class="email-list-item" [routerLink]="mail.route" [class.route-active]="isActive(mail.route)" [class.unseen]="!isRead(mail)" *ngFor="let mail of emails; let i = index" dnd-draggable [dragEnabled]="true">
                 <div *ngIf="mail.from.length > 0" fxFlex="33" fxLayout="row">
                     <div fxFlex="58" fxLayoutAlign="start center" class="text-overflow padding" [innerHTML]="(mail.from[0].name ? mail.from[0].name : mail.from[0].address) | highlight: searchTerm"></div>
                     <div fxFlex="2"></div>

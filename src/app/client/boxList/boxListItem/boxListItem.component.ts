@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class BoxListItemComponent {
   @Input() item: any;
+  simpleDrop: any = null;
 
   constructor(public router: Router) {
   }
