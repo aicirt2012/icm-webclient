@@ -1,4 +1,4 @@
-<md-list-item class="navbar-list-item" [class.route-active]="isActive(item.route)" [routerLink]="item.route">
+<md-list-item class="navbar-list-item" [class.route-active]="isActive(item.route)" [routerLink]="item.route" [contextmenu]="[contextmenu, {item: item}]">
   
   <div md-line>
     <md-icon class="v-align-middle">{{item.icon}}</md-icon>
@@ -12,4 +12,22 @@
     <box-list-item [item]="child" *ngFor="let child of item.children"></box-list-item>
 </md-nav-list>
 
+<!--
+<ul class="list-group">
+  <li class="list-group-item"
+    [contextmenu]="[contextmenu, {item: item}]"
+    *ngFor="let item of list; let i = index;" class="list-group-item">
+    {{item.label}} ({{item.id}})
+  </li>
+</ul>
+-->
 
+<contextmenu #contextmenu style="background-color: red;">
+  <div class="dropdown open">
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="#">{{contextmenu.get('item._id')}} -> {{contextmenu.get('item.label')}}</a>
+      <a class="dropdown-item" href="#">Another action</a>
+      <a class="dropdown-item" href="#">Something else here</a>
+    </div>
+  </div>
+</contextmenu>

@@ -12,6 +12,7 @@ import { SharedModule } from '../shared';
 import { ROUTES } from './client.routes';
 import { AuthGuard } from '../app.authGuard';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
+import { ContextmenuModule } from 'ng2-contextmenu';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
     SharedModule,
     MaterialModule.forRoot(),
     FlexLayoutModule.forRoot(),
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    ContextmenuModule
   ],
   exports: [
     TaskItemEmailDialogComponent
