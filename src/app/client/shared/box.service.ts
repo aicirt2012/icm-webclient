@@ -42,16 +42,16 @@ export class BoxService {
     return this.http.post('box/delBox', null, body);
   }
 
-  /*
-   @param: newBoxShortName: string
+  /**
+   * @param boxId
+   * @param newBoxShortName: string
    */
-  renameBox(oldBoxId: string, newBoxShortName: string): Observable<any> {
-    console.log('adding box...');
+  renameBox(boxId: string, newBoxShortName: string): Observable<any> {
+    console.log('rename box...');
     const body = {
-      oldBoxId: oldBoxId,
       newBoxShortName: newBoxShortName
     };
-    return this.http.post('box/renameBox', null, body);
+    return this.http.post('box/'+boxId+'/rename', null, body);
   }
 
 
