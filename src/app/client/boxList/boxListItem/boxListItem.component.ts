@@ -11,6 +11,10 @@ export class BoxListItemComponent {
   @Input() item: any;
   simpleDrop: any = null;
 
+  dropEmailEvent(event){
+    console.log(event);
+  }
+
   constructor(public router: Router) {
   }
 

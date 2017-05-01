@@ -1,4 +1,4 @@
-<md-list-item class="navbar-list-item" [class.route-active]="isActive(item.route)" [routerLink]="item.route" dnd-droppable (onDropSuccess)="simpleDrop=$event">
+<md-list-item class="navbar-list-item" [class.route-active]="isActive(item.route)" [routerLink]="item.route" dnd-droppable (onDropSuccess)="dropEmailEvent($event)">
   
   <div md-line>
     <md-icon class="v-align-middle">{{item.icon}}</md-icon>
