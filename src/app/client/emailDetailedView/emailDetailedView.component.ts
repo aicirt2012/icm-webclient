@@ -101,11 +101,12 @@ export class EmailDetailedViewComponent {
       this.appState.setEmails(this.emails);
       const destBox = this.boxList.find((b) => b._id == params.newBoxId).shortName;
       this.snackBar.open(`Message successfully moved to ${destBox}.`, 'OK');
+      /*
       if (this.emails.length > 0) {
         this.router.navigate([`box/${this.appState.getCurrentBox()}/${this.emails[0]._id}`]);
       } else {
         this.router.navigate([`box/${this.appState.getCurrentBox()}`]);
-      }
+      }*/
       this.moving = false;
     }, (err) => {
       console.log(err);

@@ -15,7 +15,7 @@ export class HttpService {
     return this.generateRequest(RequestMethod.Get, path, params, body);
   }
 
-  post(path: string, string, params?: any, body?: any): Observable<any> {
+  post(path: string, params?: any, body?: any): Observable<any> {
     return this.generateRequest(RequestMethod.Post, path, params, body);
   }
 
