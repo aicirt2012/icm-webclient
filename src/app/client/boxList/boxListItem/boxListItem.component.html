@@ -1,4 +1,4 @@
-<md-list-item class="navbar-list-item" [class.route-active]="isActive(item.route)" [routerLink]="item.route">
+<md-list-item class="navbar-list-item" [class.route-active]="isActive(item.route)" [routerLink]="item.route" [contextMenu]="basicMenu" [contextMenuSubject]="item">Right Click: {{item?.name}}>
   
   <div md-line>
     <md-icon class="v-align-middle">{{item.icon}}</md-icon>
@@ -13,3 +13,9 @@
 </md-nav-list>
 
 
+<context-menu>
+  <ng-template contextMenuItem divider="true"></ng-template>
+  <ng-template contextMenuItem passive="true">
+    Input something: <input type="text">
+  </ng-template>
+</context-menu>

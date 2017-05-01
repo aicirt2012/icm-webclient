@@ -1,5 +1,6 @@
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { ContextMenuService, ContextMenuComponent } from '../lib';
 
 @Component({
   selector: 'box-list-item', 
