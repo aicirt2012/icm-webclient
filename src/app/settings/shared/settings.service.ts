@@ -6,15 +6,15 @@ import {HttpService, AuthService} from '../../shared';
 @Injectable()
 export class SettingsService {
 
-  constructor(private http: HttpService, private _authService: AuthService) {
+  constructor(private http: HttpService, private authService: AuthService) {
   }
 
   getUserInfo(): Observable<any> {
-    return this.http.get('users/'+this._authService.parseToken(this._authService.token).user._id, null, null);
+    return this.http.get('users/'+this.authService.getUserId(), null, null);
   }
 
   updateUserInfo(user: any): Observable<any> {
-    return this.http.put('users/'+this._authService.parseToken(this._authService.token).user._id, null, user);
+    return this.http.put('users/'+this.authService.getUserId(), null, user);
   }
 
   updateEmailConfig(emailConfig: any): Observable<any> {
@@ -22,7 +22,7 @@ export class SettingsService {
       provider: {}
     }
     body.provider = emailConfig;
-    return this.http.put('users/'+this._authService.parseToken(this._authService.token).user._id, null, body);
+    return this.http.put('users/'+this.authService.getUserId(), null, body);
   }
 
   updateScConfig(scConfig: any): Observable<any> {
@@ -30,7 +30,7 @@ export class SettingsService {
       sociocortex: {}
     }
     body.sociocortex = scConfig;
-    return this.http.put('users/'+this._authService.parseToken(this._authService.token).user._id, null, body);
+    return this.http.put('users/'+this.authService.getUserId(), null, body);
   }
 
   getPatterns(): Observable<any> {
