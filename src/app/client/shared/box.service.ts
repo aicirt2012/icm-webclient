@@ -12,15 +12,17 @@ export class BoxService {
   }
 
   
-  /*
-    get all boxes
+  /**
+   * Returns a list of all boxes
    */
   getBoxList(): Observable<any> {
-    return this.http.get('box/box', null, null);
+    return this.http.get('box', null, null);
   }
 
-  /*
-   @param: boxShortName: string
+  /**
+   * Add box with short name and parentBoxId
+   * @param boxShortName: string
+   * @param parentBoxId: string
    */
   addBox(boxShortName: string, parentBoxId: string): Observable<any> {
     console.log('adding box...');
@@ -28,21 +30,23 @@ export class BoxService {
       boxName: boxShortName,
       parentBoxId: parentBoxId
     };
-    return this.http.post('box/addBox', null, body);
-  }
-
-  /*
-   @param: boxName: string
-   */
-  delBox(boxId: string): Observable<any> {
-    console.log('removing box...');
-    const body = {
-      boxId: boxId
-    };
-    return this.http.post('box/delBox', null, body);
+    return this.http.post('box', null, body);
   }
 
   /**
+   * Delete box by boxId
+   * @param boxId: string
+   */
+  delBox(boxId: string): Observable<any> {
+    console.log('delete box...');
+    const body = {
+      boxId: boxId
+    };
+    return this.http.delete('box/'+boxId, null, body);
+  }
+
+  /**
+   * Rename box by boxId and new short name 
    * @param boxId
    * @param newBoxShortName: string
    */
