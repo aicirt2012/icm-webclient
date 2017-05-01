@@ -2,7 +2,7 @@ import {Component, Input, EventEmitter, Output} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 import {MdDialogRef, MdSnackBar, MdInput} from '@angular/material';
-import {EmailService} from '../../shared';
+import {BoxService} from '../../shared';
 import {AppState} from '../../../app.service';
 
 
@@ -22,7 +22,7 @@ export class EmailFolderDialogComponent {
   private newBoxShortName: string = '';
   private parentBox: string = '';
 
-  constructor(public taskDialogRef: MdDialogRef<EmailFolderDialogComponent>, private snackBar: MdSnackBar, private _emailService: EmailService, public appState: AppState) {
+  constructor(public taskDialogRef: MdDialogRef<EmailFolderDialogComponent>, private snackBar: MdSnackBar, private boxService: BoxService, public appState: AppState) {
   }
 
   ngOnInit() {
@@ -40,7 +40,7 @@ export class EmailFolderDialogComponent {
       console.log(this.parentBox);
       parentBoxId = this.boxList.find((box) => box.name == this.parentBox)._id;
     }
-    this._emailService.addBox(this.newBoxName, parentBoxId).subscribe((msg) => {
+    this.boxService.addBox(this.newBoxName, parentBoxId).subscribe((msg) => {
       this.updating = false;
       this.parentBox = '';
       this.snackBar.open(`New box '${this.newBoxName}' was successfully created.`, 'OK');
@@ -56,7 +56,7 @@ export class EmailFolderDialogComponent {
   onDeleteBox() {
     this.updating = true;
     const boxId = this.boxList.find((box) => box.name == this.selectedBoxName)._id;
-    this._emailService.delBox(boxId).subscribe((msg) => {
+    this.boxService.delBox(boxId).subscribe((msg) => {
       console.log('inside onDeleteBox');
       this.updating = false;
       this.snackBar.open(`Folder '${this.selectedBoxName}' successfully deleted.`, 'OK');
@@ -72,7 +72,7 @@ export class EmailFolderDialogComponent {
   onRenameBox() {
     this.updating = true;
     const oldBoxId = this.boxList.find((box) => box.name == this.selectedBoxName)._id;
-    this._emailService.renameBox(oldBoxId, this.newBoxShortName).subscribe((msg) => {
+    this.boxService.renameBox(oldBoxId, this.newBoxShortName).subscribe((msg) => {
       console.log('inside onDeleteBox');
       this.updating = false;
       this.snackBar.open(`Folder '${this.selectedBoxName}' successfully renamed.`, 'OK');

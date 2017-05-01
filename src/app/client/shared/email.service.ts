@@ -50,9 +50,11 @@ export class EmailService {
   /*
     get all boxes
    */
+  /*
   getBoxList(): Observable<any> {
     return this.http.get('email/box', null, null);
   }
+  */
 
   /*
    sync boxes and emails
@@ -135,6 +137,7 @@ ${email.text}`;
   /*
    @param: boxShortName: string
    */
+  /*
   addBox(boxShortName: string, parentBoxId: string): Observable<any> {
     console.log('adding box...');
     const body = {
@@ -142,22 +145,24 @@ ${email.text}`;
       parentBoxId: parentBoxId
     };
     return this.http.post('email/addBox', null, body);
-  }
+  }*/
 
   /*
    @param: boxName: string
    */
+  /*
   delBox(boxId: string): Observable<any> {
     console.log('removing box...');
     const body = {
       boxId: boxId
     };
     return this.http.post('email/delBox', null, body);
-  }
+  }*/
 
   /*
    @param: newBoxShortName: string
-   */
+   */ 
+  /*
   renameBox(oldBoxId: string, newBoxShortName: string): Observable<any> {
     console.log('adding box...');
     const body = {
@@ -166,6 +171,7 @@ ${email.text}`;
     };
     return this.http.post('email/renameBox', null, body);
   }
+  */
 
   /*
    @param: to: string - object,

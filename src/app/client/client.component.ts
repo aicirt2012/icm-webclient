@@ -3,7 +3,7 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 import {MdDialog} from '@angular/material';
 import {AppState} from '../app.service';
 import * as moment from 'moment';
-import {Email, EmailService, TaskService} from './shared';
+import {Email, EmailService, BoxService, TaskService} from './shared';
 import {SocketService} from '../shared/services/socket.service';
 import {UserService} from '../settings/shared'; // TODO:move settingsservice to userservice
 import {Observable} from 'rxjs/Observable';
@@ -24,7 +24,7 @@ export class ClientComponent {
   private syncing: boolean;
   private updating: boolean = false;
 
-  constructor(private emailService: EmailService, public appState: AppState, private userService: UserService, private socketService: SocketService) {
+  constructor(private emailService: EmailService, private boxService: BoxService, public appState: AppState, private userService: UserService, private socketService: SocketService) {
   }
 
 
@@ -92,7 +92,7 @@ export class ClientComponent {
       console.log('user info: ', user)
       this.appState.setUser(user);
       if (this.user.provider.name) {
-        this.emailService.getBoxList().subscribe((boxes: any[]) => {
+        this.boxService.getBoxList().subscribe((boxes: any[]) => {
           this.appState.setBoxList(boxes);
           this.boxList = this.appState.getBoxList();
         });
