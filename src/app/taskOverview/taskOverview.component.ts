@@ -1,4 +1,4 @@
-import { UserService } from './../settings/shared/settings.service';
+import { UserService } from './../settings/shared/user.service';
 import { User } from './../shared/models/user.model';
 import { AppState } from './../app.service';
 import { TaskService } from './../client/shared/task.service';
