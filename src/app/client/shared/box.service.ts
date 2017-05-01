@@ -10,7 +10,6 @@ export class BoxService {
 
   constructor(private http: HttpService) {
   }
-
   
   /**
    * Returns a list of all boxes
