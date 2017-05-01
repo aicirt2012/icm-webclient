@@ -73,13 +73,13 @@ export class EmailService {
    * Generates a new email
    */
   generateEmailForm(email: Email, type: string): any {
-    const bodyHeader = `
--------------------------------------------
-From: ${email.from[0].address}
-Date: ${email.date}
-Subject: ${email.subject}
-To:${email.to[0].address}
-${email.text}`;
+    const bodyHeader = 
+      '-------------------------------------------\n'+
+      'From: '+ email.from[0].address+'\n'+
+      'Date: '+ email.date+'\n'+
+      'Subject: '+ email.subject+'\n'+
+      'To: '+ email.to[0].address+'\n\n'+
+       email.text;
 
     if (type == 'reply') {
       let receivers;
