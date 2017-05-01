@@ -110,8 +110,10 @@ export class ClientComponent {
     });
   }
 
-  moveEmailToBox(emailId: string, newBoxId: string) {
-    console.log('reach client');
+  moveEmailToBox(data: any) {
+    const emailId = data.emailId;
+    const newBoxId = data.newBoxId;
+    console.log('reach client' + emailId + " "+newBoxId);
     this.emailService.moveEmail(emailId, newBoxId).subscribe(res => {
       this.emails.splice(this.emails.findIndex(e => emailId == e._id), 1);
       this.appState.setEmails(this.emails);

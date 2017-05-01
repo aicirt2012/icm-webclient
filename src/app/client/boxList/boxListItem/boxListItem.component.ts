@@ -13,11 +13,12 @@ export class BoxListItemComponent {
 
   dropEmailEvent(event){
     console.log(event.dragData);
-    this.onMoveEmailToBox.emit({email: event.dragData, newBoxId: this.item._id});
+    this.onMoveEmailToBox.emit({emailId: event.dragData._id, newBoxId: this.item._id});
   }
 
   moveEmailToBox(data){
     console.log('recursive event emit to parent');
+    console.log(data);
     this.onMoveEmailToBox.emit(data);
   }
 
