@@ -10,10 +10,7 @@ export class NetworkService {
   }
  
   search(query: string): Observable<any> {
-    const options = {
-      query: query
-    };
-    return this.http.get('network/search', options, null);
+    return this.http.get('network/search', {query: query}, null);
   }
  
 
