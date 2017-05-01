@@ -12,9 +12,8 @@ export class EmailService {
   }
 
   /*
-   @param: sort: string - ASC or DESC
    @param: boxId: string
-   @param: boxId: string
+   @param: sort: string - ASC or DESC   
    @param: search: string - a search query
    @lastEmailDate: Date: pivot for pagination
    */
@@ -29,10 +28,10 @@ export class EmailService {
   }
 
   /*
-   @param: mail: any - Mailobject {} TODO
+   @param: email: any - Mailobject {} TODO
    */
-  sendMail(mail: any): Observable<any> {
-    return this.http.post('email/send', null, mail);
+  sendMail(email: any): Observable<any> {
+    return this.http.post('email/send', null, email);
   }
 
   /*
