@@ -38,10 +38,7 @@ export class BoxService {
    */
   delBox(boxId: string): Observable<any> {
     console.log('delete box...');
-    const body = {
-      boxId: boxId
-    };
-    return this.http.delete('box/'+boxId, null, body);
+    return this.http.delete('box/'+boxId, null, {boxId: boxId});
   }
 
   /**
@@ -51,10 +48,7 @@ export class BoxService {
    */
   renameBox(boxId: string, newBoxShortName: string): Observable<any> {
     console.log('rename box...');
-    const body = {
-      newBoxShortName: newBoxShortName
-    };
-    return this.http.post('box/'+boxId+'/rename', null, body);
+    return this.http.post('box/'+boxId+'/rename', null, {newBoxShortName: newBoxShortName});
   }
 
   /**
