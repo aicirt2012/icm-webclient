@@ -11,11 +11,12 @@ export class EmailService {
   constructor(private http: HttpService) {
   }
 
-  /*
-   @param: boxId: string
-   @param: sort: string - ASC or DESC   
-   @param: search: string - a search query
-   @lastEmailDate: Date: pivot for pagination
+  /**
+   * Search for emails with pagination
+   * @param: boxId: string
+   * @param: sort: string - ASC or DESC   
+   * @param: search: string - a search query
+   * @lastEmailDate: Date: pivot for pagination   
    */
   searchEmailsWithPagination(boxId = 'NONE', sort = 'DESC', search = '', lastEmailDate = new Date()): Observable<any> {
     const options = {
@@ -27,46 +28,47 @@ export class EmailService {
     return this.http.get('email/search', options, null);
   }
 
-  /*
-   @param: email: any - Mailobject {} TODO
+  /**
+   * Send a new mail
+   * @param: email: any - Mailobject
    */
   sendMail(email: any): Observable<any> {
     return this.http.post('email/send', null, email);
   }
 
-  /*
-   @param: emailId: string
-   @param: newBoxId: string - destination box,
+  /**
+   * Move email to an other box
+   * @param: emailId: string
+   * @param: newBoxId: string - destination box
    */
   moveMail(emailId: string, newBoxId: string): Observable<any> {
     const body = {
-      emailId: emailId,
       newBoxId: newBoxId
     };
     console.log('moving in service', body);
-    return this.http.post('email/move', null, body);
+    return this.http.post('email/'+emailId+'/move', null, body);
   }
 
  
-  /*
-   sync boxes and emails
+  /**
+   * Sync boxes and emails via IMAP
    */
   syncAll(): Observable<any> {
     return this.http.get('email/syncAll', null, null);
   }
 
-  /*
-   @param: id: string
-   returns Email
+  /**
+   * Returns a single email
+   * @param: id: string
    */
   getSingleMail(id: string): Observable<any> {
     return this.http.get(`email/single/${id}`, null, null);
   }
 
-  /*
-   @param: msgId: string - msg id in box,
-   @param: flags: string[] - array of flags to add to mail,
-   @param: boxId: string - BoxId as string,
+  /**
+   * @param: msgId: string - msg id in box,
+   * @param: flags: string[] - array of flags to add to mail,
+   * @param: boxId: string - BoxId as string,
    */
   addFlags(msgId: number, flags: string[], boxId: string): Observable<any> {
     const body = {
@@ -77,10 +79,10 @@ export class EmailService {
     return this.http.post(`email/addFlags`, null, body);
   }
 
-  /*
-   @param: msgId: string - msg id in box,
-   @param: flags: string[] - array of flags to be deleted from mail,
-   @param: boxId: string - BoxId as string,
+  /**
+   * @param: msgId: string - msg id in box,
+   * @param: flags: string[] - array of flags to be deleted from mail,
+   * @param: boxId: string - BoxId as string,
    */
   delFlags(msgId: number, flags: string[], boxId: string): Observable<any> {
     const body = {
