@@ -61,8 +61,8 @@ export class EmailService {
    * Returns a single email
    * @param: id: string
    */
-  getSingleMail(id: string): Observable<any> {
-    return this.http.get(`email/single/${id}`, null, null);
+  getSingleMail(emailId: string): Observable<any> {
+    return this.http.get('email/'+emailId, null, null);
   }
 
   /**
