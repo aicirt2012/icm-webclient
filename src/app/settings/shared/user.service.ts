@@ -19,17 +19,15 @@ export class UserService {
 
   updateEmailConfig(emailConfig: any): Observable<any> {
     let body = {
-      provider: {}
+      provider: emailConfig
     }
-    body.provider = emailConfig;
     return this.http.put('users/'+this.authService.getUserId(), null, body);
   }
 
   updateScConfig(scConfig: any): Observable<any> {
     let body = {
-      sociocortex: {}
+      sociocortex: scConfig
     }
-    body.sociocortex = scConfig;
     return this.http.put('users/'+this.authService.getUserId(), null, body);
   }
 
