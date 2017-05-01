@@ -18,21 +18,21 @@ export class EmailService {
    * @param: search: string - a search query
    * @lastEmailDate: Date: pivot for pagination   
    */
-  searchEmailsWithPagination(boxId = 'NONE', sort = 'DESC', search = '', lastEmailDate = new Date()): Observable<any> {
-    const options = {
+  searchEmailsWithPagination(boxId = 'NONE', sort = 'DESC', search = '', lastEmailDate = new Date()): Observable<Email[]> {
+    const params = {
       boxId: boxId,
       sort: sort,
       search: search,
       lastEmailDate: lastEmailDate
     };
-    return this.http.get('email/search', options, null);
+    return this.http.get('email/search', params, null);
   }
 
   /**
    * Send a new mail
    * @param: email: any - Mailobject
    */
-  sendMail(email: any): Observable<any> {
+  sendEmail(email: any): Observable<any> {
     return this.http.post('email/send', null, email);
   }
 
@@ -41,7 +41,7 @@ export class EmailService {
    * @param: emailId: string
    * @param: newBoxId: string - destination box
    */
-  moveMail(emailId: string, newBoxId: string): Observable<any> {
+  moveEmail(emailId: string, newBoxId: string): Observable<any> {
     return this.http.post('email/'+emailId+'/move', null, {newBoxId: newBoxId});
   }
  
@@ -49,7 +49,7 @@ export class EmailService {
    * Returns a single email
    * @param: id: string
    */
-  getSingleMail(emailId: string): Observable<any> {
+  getEmail(emailId: string): Observable<Email> {
     return this.http.get('email/'+emailId, null, null);
   }
 
@@ -110,7 +110,7 @@ ${email.text}`;
    * @param: subject: string - Subject as string,
    * @param: msgData: string - Message Data as string,
    */
-  appendMail(to: any, subject: string, msgData: string): Observable<any> {
+  appendEmail(to: any, subject: string, msgData: string): Observable<any> {
     console.log('start mail to draft');
     const body = {
       to: to ? to[0] : '',

@@ -68,7 +68,7 @@ export class EmailDialogComponent {
   sendEmail() {
     this.sending = true;
     this._emailService
-      .sendMail(this.emailForm)
+      .sendEmail(this.emailForm)
       .subscribe((data: any) => {
         this.sending = false;
         this.snackBar.open('Message successfully sent.', 'OK');
@@ -82,7 +82,7 @@ export class EmailDialogComponent {
 
   saveDraft() {
     this._emailService
-      .appendMail(this.emailForm.to, this.emailForm.subject, this.emailForm.text)
+      .appendEmail(this.emailForm.to, this.emailForm.subject, this.emailForm.text)
       .subscribe((data: any) => {
         console.log("appending successful", data);
       }, (error) => {

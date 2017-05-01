@@ -59,7 +59,7 @@ export class EmailDetailedViewComponent {
   sendEmail(mail: any) {
     this.sending = true;
     this.emailService
-      .sendMail(mail)
+      .sendEmail(mail)
       .subscribe((data: any) => {
         this.sending = false;
         this.emailResponse = {};
@@ -73,9 +73,8 @@ export class EmailDetailedViewComponent {
       });
   }
 
-  getSingleMail(id: string) {
-    this.emailService
-      .getSingleMail(id)
+  getSingleMail(emailId: string) {
+    this.emailService.getEmail(emailId)
       .subscribe((data: any) => {
         if (data.sentences) {
           data.sentences = data.sentences.map((s) => { s.highlighted = false; return s });
@@ -90,23 +89,17 @@ export class EmailDetailedViewComponent {
         console.log(error)
       },
       () => {
-        console.log(`Message with ID: ${id} has been successfully loaded`)
+        console.log(`Message with ID: ${emailId} has been successfully loaded`)
       });
   }
 
   emailMoveToBox(params: any) {
     this.moving = true;
-    this.emailService.moveMail(params.emailId, params.newBoxId).subscribe((res) => {
+    this.emailService.moveEmail(params.emailId, params.newBoxId).subscribe((res) => {
       this.emails.splice(this.emails.findIndex((e) => this.email._id == e._id), 1);
       this.appState.setEmails(this.emails);
       const destBox = this.boxList.find((b) => b._id == params.newBoxId).shortName;
       this.snackBar.open(`Message successfully moved to ${destBox}.`, 'OK');
-      /*
-      if (this.emails.length > 0) {
-        this.router.navigate([`box/${this.appState.getCurrentBox()}/${this.emails[0]._id}`]);
-      } else {
-        this.router.navigate([`box/${this.appState.getCurrentBox()}`]);
-      }*/
       this.moving = false;
     }, (err) => {
       console.log(err);
