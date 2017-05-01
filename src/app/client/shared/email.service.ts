@@ -72,7 +72,7 @@ export class EmailService {
    */
   addFlags(msgId: number, flags: string[], boxId: string): Observable<any> {
     const body = {
-      msgId: msgId,
+      msgId: msgId, //TODO Paul refactor that this paramter isnt needed anymore
       flags: flags,
       boxId: boxId
     };
@@ -86,14 +86,15 @@ export class EmailService {
    */
   delFlags(msgId: number, flags: string[], boxId: string): Observable<any> {
     const body = {
-      msgId: msgId,
+      msgId: msgId, //TODO Paul refactor that this paramter isnt needed anymore
       flags: flags,
       boxId: boxId
     };
     return this.http.post(`email/delFlags`, null, body);
   }
 
-  /*
+  /**
+   * Generates a new email
    */
   generateEmailForm(email: Email, type: string): any {
     const bodyHeader = `
@@ -125,13 +126,13 @@ ${email.text}`;
         text: bodyHeader
       }
     }
-
   } 
 
-  /*
-   @param: to: string - object,
-   @param: subject: string - Subject as string,
-   @param: msgData: string - Message Data as string,
+  /**
+   * Creates a new draft email
+   * @param: to: string - object,
+   * @param: subject: string - Subject as string,
+   * @param: msgData: string - Message Data as string,
    */
   appendMail(to: any, subject: string, msgData: string): Observable<any> {
     console.log('start mail to draft');
