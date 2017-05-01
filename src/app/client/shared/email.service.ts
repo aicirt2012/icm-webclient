@@ -79,17 +79,14 @@ export class EmailService {
   }
 
   /**
-   * @param: msgId: string
+   * @param: emailId: string
    * @param: flags: string[] e.g. //seen
-   * @param: boxId: string 
    */
-  delFlags(msgId: number, flags: string[], boxId: string): Observable<any> {
+  delFlags(emailId: string, flags: string[]): Observable<any> {
     const body = {
-      msgId: msgId, //TODO Paul refactor that this paramter isnt needed anymore - use the real emailId instead
-      flags: flags,
-      boxId: boxId //TODO Paul remove this parmeter
+      flags: flags
     };
-    return this.http.post(`email/delFlags`, null, body);
+    return this.http.delete('email/'+emailId+'/flags', null, body);
   }
 
   /**

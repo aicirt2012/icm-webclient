@@ -171,7 +171,7 @@ export class EmailDetailedViewComponent {
     this.appState.setEmails(this.emails);
     this.appState.setBoxList(this.boxList);
 
-    this.emailService.delFlags(this.email.uid, flags, this.email.box).subscribe((res) => {
+    this.emailService.delFlags(this.email._id, flags).subscribe((res) => {
     }, (err) => {
       this.email = Object.assign(oldEmail);
       this.appState.setEmails(oldEmails);
