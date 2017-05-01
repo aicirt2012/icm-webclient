@@ -8,45 +8,46 @@ import C from '../constants';
 
 @Injectable()
 export class HttpService {
-  constructor(private _http: Http, private _auth: AuthService) {
+  
+  constructor(private http: Http, private auth: AuthService) {
   }
 
-  get(path: string, params?: any, body?: any): Observable<any> {
+  public get(path: string, params?: any, body?: any): Observable<any> {
     return this.generateRequest(RequestMethod.Get, path, params, body);
   }
 
-  post(path: string, params?: any, body?: any): Observable<any> {
+  public post(path: string, params?: any, body?: any): Observable<any> {
     return this.generateRequest(RequestMethod.Post, path, params, body);
   }
 
-  put(path: string, params?: any, body?: any): Observable<any> {
+  public put(path: string, params?: any, body?: any): Observable<any> {
     return this.generateRequest(RequestMethod.Put, path, params, body);
   }
 
-  delete(path: string, params?: any, body?: any): Observable<any> {
+  public delete(path: string, params?: any, body?: any): Observable<any> {
     return this.generateRequest(RequestMethod.Delete, path, params, body);
   }
 
-  options(path: string, params?: any, body?: any): Observable<any> {
+  public options(path: string, params?: any, body?: any): Observable<any> {
     return this.generateRequest(RequestMethod.Options, path, params, body);
   }
 
-  head(path: string, params?: any, body?: any): Observable<any> {
+  public head(path: string, params?: any, body?: any): Observable<any> {
     return this.generateRequest(RequestMethod.Head, path, params, body);
   }
 
-  patch(path: string, params?: any, body?: any): Observable<any> {
+  public patch(path: string, params?: any, body?: any): Observable<any> {
     return this.generateRequest(RequestMethod.Patch, path, params, body);
   }
 
-  generateRequest(method: RequestMethod, path: string, params?: any, body?: any): Observable<any> {
-    const headers = new Headers({ 'Authorization': `JWT ${this._auth.token}`, 'Content-Type': 'application/json' });
+  private generateRequest(method: RequestMethod, path: string, params?: any, body?: any): Observable<any> {
+    const headers = new Headers({ 'Authorization': `JWT ${this.auth.token}`, 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers, method: method, body: body });
-    return this._http.request(`${C.server}/${path}${this.generateParams(params)}`, options)
+    return this.http.request(`${C.server}/${path}${this.generateParams(params)}`, options)
       .map((response: Response) => response.json());
   }
 
-  generateParams(params?: any) {
+  private generateParams(params?: any) {
     let queryString = '?';
     if (params) {
       Object.keys(params).forEach((key) => {
