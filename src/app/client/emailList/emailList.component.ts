@@ -54,9 +54,11 @@ export class EmailListComponent {
   }
 
   searchEmails(searchTerm = '') {
-    this.searchTerm = searchTerm;
-    const customRoute = this.generateNavigationRoute('NONE', this.searchTerm);
-    this.router.navigate([customRoute]);
+    if(searchTerm != ''){
+      this.searchTerm = searchTerm;
+      const customRoute = this.generateNavigationRoute('NONE', this.searchTerm);
+      this.router.navigate([customRoute]);
+    }
   }
 
   getEmailList(boxId = 'NONE', searchTerm = '', sort = 'DESC', lastEmailDate = new Date()) {
