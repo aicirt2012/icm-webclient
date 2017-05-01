@@ -16,7 +16,7 @@ export class BoxService {
     get all boxes
    */
   getBoxList(): Observable<any> {
-    return this.http.get('email/box', null, null);
+    return this.http.get('box/box', null, null);
   }
 
   /*
@@ -28,7 +28,7 @@ export class BoxService {
       boxName: boxShortName,
       parentBoxId: parentBoxId
     };
-    return this.http.post('email/addBox', null, body);
+    return this.http.post('box/addBox', null, body);
   }
 
   /*
@@ -39,7 +39,7 @@ export class BoxService {
     const body = {
       boxId: boxId
     };
-    return this.http.post('email/delBox', null, body);
+    return this.http.post('box/delBox', null, body);
   }
 
   /*
@@ -51,7 +51,7 @@ export class BoxService {
       oldBoxId: oldBoxId,
       newBoxShortName: newBoxShortName
     };
-    return this.http.post('email/renameBox', null, body);
+    return this.http.post('box/renameBox', null, body);
   }
 
 
