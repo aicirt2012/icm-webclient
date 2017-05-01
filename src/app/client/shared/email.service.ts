@@ -8,7 +8,7 @@ import {SocketService} from '../../shared/services/socket.service';
 @Injectable()
 export class EmailService {
 
-  constructor(private _httpService: HttpService) {
+  constructor(private http: HttpService) {
   }
 
   /*
@@ -25,14 +25,14 @@ export class EmailService {
       search: search,
       lastEmailDate: lastEmailDate
     };
-    return this._httpService.get('email/search', options, null);
+    return this.http.get('email/search', options, null);
   }
 
   /*
    @param: mail: any - Mailobject {} TODO
    */
   sendMail(mail: any): Observable<any> {
-    return this._httpService.post('email/send', null, mail);
+    return this.http.post('email/send', null, mail);
   }
 
   /*
@@ -45,21 +45,21 @@ export class EmailService {
       newBoxId: newBoxId
     };
     console.log('moving in service', body);
-    return this._httpService.post('email/move', null, body);
+    return this.http.post('email/move', null, body);
   }
 
   /*
     get all boxes
    */
   getBoxList(): Observable<any> {
-    return this._httpService.get('email/box', null, null);
+    return this.http.get('email/box', null, null);
   }
 
   /*
    sync boxes and emails
    */
   syncAll(): Observable<any> {
-    return this._httpService.get('email/syncAll', null, null);
+    return this.http.get('email/syncAll', null, null);
   }
 
   /*
@@ -67,7 +67,7 @@ export class EmailService {
    returns Email
    */
   getSingleMail(id: string): Observable<any> {
-    return this._httpService.get(`email/single/${id}`, null, null);
+    return this.http.get(`email/single/${id}`, null, null);
   }
 
   /*
@@ -81,7 +81,7 @@ export class EmailService {
       flags: flags,
       boxId: boxId
     };
-    return this._httpService.post(`email/addFlags`, null, body);
+    return this.http.post(`email/addFlags`, null, body);
   }
 
   /*
@@ -95,7 +95,7 @@ export class EmailService {
       flags: flags,
       boxId: boxId
     };
-    return this._httpService.post(`email/delFlags`, null, body);
+    return this.http.post(`email/delFlags`, null, body);
   }
 
   /*
@@ -142,7 +142,7 @@ ${email.text}`;
       boxName: boxShortName,
       parentBoxId: parentBoxId
     };
-    return this._httpService.post('email/addBox', null, body);
+    return this.http.post('email/addBox', null, body);
   }
 
   /*
@@ -153,7 +153,7 @@ ${email.text}`;
     const body = {
       boxId: boxId
     };
-    return this._httpService.post('email/delBox', null, body);
+    return this.http.post('email/delBox', null, body);
   }
 
   /*
@@ -165,7 +165,7 @@ ${email.text}`;
       oldBoxId: oldBoxId,
       newBoxShortName: newBoxShortName
     };
-    return this._httpService.post('email/renameBox', null, body);
+    return this.http.post('email/renameBox', null, body);
   }
 
   /*
@@ -181,7 +181,7 @@ ${email.text}`;
       msgData: msgData ? msgData : '',
     };
     console.log('appending mail to draft', body);
-    return this._httpService.post('email/append', null, body);
+    return this.http.post('email/append', null, body);
   }
 
 }
