@@ -53,6 +53,10 @@ export class EmailListComponent {
     });
   }
 
+  isEmptyResult(){
+    return this.emails.length < 1;
+  }
+
   searchEmails(searchTerm = '') {
     if(searchTerm != ''){
       this.searchTerm = searchTerm;
