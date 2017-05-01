@@ -65,28 +65,19 @@ export class EmailService {
   }
 
   /**
-   * @param: msgId: string
+   * @param: emailId: string
    * @param: flags: string[] e.g. //seen
-   * @param: boxId: string 
    */
-  addFlags(msgId: number, flags: string[], boxId: string): Observable<any> {
-    const body = {
-      msgId: msgId, //TODO Paul refactor that this paramter isnt needed anymore - use the real emailId instead
-      flags: flags,
-      boxId: boxId //TODO Paul remove this parmeter
-    };
-    return this.http.post(`email/addFlags`, null, body);
+  addFlags(emailId: string, flags: string[]): Observable<any> {
+    return this.http.post('email/'+emailId+'/flags', null, {flags: flags});
   }
 
   /**
    * @param: emailId: string
    * @param: flags: string[] e.g. //seen
    */
-  delFlags(emailId: string, flags: string[]): Observable<any> {
-    const body = {
-      flags: flags
-    };
-    return this.http.delete('email/'+emailId+'/flags', null, body);
+  delFlags(emailId: string, flags: string[]): Observable<any> {    
+    return this.http.delete('email/'+emailId+'/flags', null, {flags: flags});
   }
 
   /**
