@@ -71,9 +71,9 @@ export class EmailService {
    */
   addFlags(msgId: number, flags: string[], boxId: string): Observable<any> {
     const body = {
-      msgId: msgId, //TODO Paul refactor that this paramter isnt needed anymore
+      msgId: msgId, //TODO Paul refactor that this paramter isnt needed anymore - use the real emailId instead
       flags: flags,
-      boxId: boxId
+      boxId: boxId //TODO Paul remove this parmeter
     };
     return this.http.post(`email/addFlags`, null, body);
   }
@@ -85,9 +85,9 @@ export class EmailService {
    */
   delFlags(msgId: number, flags: string[], boxId: string): Observable<any> {
     const body = {
-      msgId: msgId, //TODO Paul refactor that this paramter isnt needed anymore
+      msgId: msgId, //TODO Paul refactor that this paramter isnt needed anymore - use the real emailId instead
       flags: flags,
-      boxId: boxId
+      boxId: boxId //TODO Paul remove this parmeter
     };
     return this.http.post(`email/delFlags`, null, body);
   }
