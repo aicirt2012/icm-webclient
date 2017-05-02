@@ -55,7 +55,7 @@ export class EmailListComponent {
   searchEmails(searchTerm = '') {
     if(searchTerm != ''){
       this.searchTerm = searchTerm;
-      const customRoute = this.generateNavigationRoute('NONE', this.searchTerm);
+      const customRoute = this.generateNavigationRoute(this.searchTerm);
       this.router.navigate([customRoute]);
     }
   }
@@ -63,7 +63,7 @@ export class EmailListComponent {
   getEmailList(boxId = 'NONE', searchTerm = '', sort = 'DESC', lastEmailDate = new Date()) {
     this.emailService.searchEmailsWithPagination(boxId, sort, searchTerm, lastEmailDate)
       .subscribe((emails: any) => {
-        const customRoute = this.generateNavigationRoute(boxId, searchTerm);
+        const customRoute = this.generateNavigationRoute(searchTerm);
         if (this.paginationEnabled) {
           this.appState.setEmails(this.emails.concat(emails), customRoute);
         } else {
@@ -80,13 +80,8 @@ export class EmailListComponent {
       });
   }
 
-  generateNavigationRoute(boxId, searchTerm) {
-    let fullRoute = '';
-    if (searchTerm != '')
-      fullRoute = `/search/${searchTerm}`;
-    else if (boxId != 'NONE')
-      fullRoute = `/box/${boxId}`;
-    return fullRoute;
+  generateNavigationRoute(searchTerm) {
+    return searchTerm != '' ? `/search/${searchTerm}` : 'NONE';
   }
 
   onScrollDown() {
