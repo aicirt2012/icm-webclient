@@ -32,7 +32,6 @@ export class EmailListComponent {
     this.emails = [];
 
     this.appState.boxList().subscribe(boxList => {
-      if (this.boxList.length === 0) //TODO do we really need this check
         this.boxList = boxList;
     });
 
@@ -44,12 +43,8 @@ export class EmailListComponent {
       const boxId = params['boxId'] || 'NONE';
       this.searchTerm = params['searchTerm'] || '';
       this.paginationEnabled = false;
-      if (boxId == 0) { //TODO this needs to be changed
-        this.emptyBox = true;
-        this.loading = false;
-      } else {
-        this.getEmailList(boxId, this.searchTerm);
-      }
+      this.getEmailList(boxId, this.searchTerm);
+      // this.emptyBox = true; // TODO distinguish between emptyBox and emptySearch
     });
   }
 
@@ -89,7 +84,7 @@ export class EmailListComponent {
     let fullRoute = '';
     if (searchTerm != '')
       fullRoute = `/search/${searchTerm}`;
-    else if (boxId != 'NONE') 
+    else if (boxId != 'NONE')
       fullRoute = `/box/${boxId}`;
     return fullRoute;
   }
