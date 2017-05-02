@@ -87,18 +87,19 @@ export class ClientComponent {
       }
     });
 
+    if(this.appState.getBoxList() != null)
+      this.boxList = this.appState.getBoxList();
+    this.boxService.getBoxList().subscribe((boxes: any[]) => {
+      this.appState.setBoxList(boxes);
+      this.boxList = this.appState.getBoxList();
+    }); 
+
     this.userService.getUserInfo().subscribe((user) => {
       this.user = user;
       console.log('user info: ', user)
       this.appState.setUser(user);
-      if (this.user.provider.name) {
-        this.boxService.getBoxList().subscribe((boxes: any[]) => {
-          this.appState.setBoxList(boxes);
-          this.boxList = this.appState.getBoxList();
-        });
-      } else {
+      if (!this.user.provider.name) 
         this.noMailboxConnected = true;
-      }
       this.syncing = false;
     })
 
