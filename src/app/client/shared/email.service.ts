@@ -14,9 +14,9 @@ export class EmailService {
   /**
    * Search for emails with pagination
    * @param: boxId: string
-   * @param: sort: string - ASC or DESC   
+   * @param: sort: string - ASC or DESC
    * @param: search: string - a search query
-   * @param: lastEmailDate: Date: pivot for pagination   
+   * @param: lastEmailDate: Date: pivot for pagination
    */
   searchEmailsWithPagination(boxId = 'NONE', sort = 'DESC', search = '', lastEmailDate = new Date()): Observable<Email[]> {
     const params = {
@@ -44,7 +44,7 @@ export class EmailService {
   moveEmail(emailId: string, newBoxId: string): Observable<any> {
     return this.http.post('email/'+emailId+'/move', null, {newBoxId: newBoxId});
   }
- 
+
   /**
    * Returns a single email
    * @param: id: string
@@ -65,7 +65,7 @@ export class EmailService {
    * @param: emailId: string
    * @param: flags: string[] e.g. //seen
    */
-  delFlags(emailId: string, flags: string[]): Observable<any> {    
+  delFlags(emailId: string, flags: string[]): Observable<any> {
     return this.http.delete('email/'+emailId+'/flags', null, {flags: flags});
   }
 
@@ -73,7 +73,7 @@ export class EmailService {
    * Generates a new email
    */
   generateEmailForm(email: Email, type: string): any {
-    const bodyHeader = 
+    const bodyHeader =
       '-------------------------------------------\n'+
       'From: '+ email.from[0].address+'\n'+
       'Date: '+ email.date+'\n'+
@@ -102,7 +102,7 @@ export class EmailService {
         text: bodyHeader
       }
     }
-  } 
+  }
 
   /**
    * Creates a new draft email
@@ -113,7 +113,7 @@ export class EmailService {
   appendEmail(to: any, subject: string, msgData: string): Observable<any> {
     console.log('start mail to draft');
     const body = {
-      to: to ? to[0] : '',
+      to: to,
       subject: subject ? subject : '',
       msgData: msgData ? msgData : '',
     };
