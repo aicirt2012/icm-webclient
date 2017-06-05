@@ -4,7 +4,7 @@ import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core
 import { Email } from '../../shared';
 
 @Component({
-  selector: 'email-action-bar',  
+  selector: 'email-action-bar',
   styleUrls: ['./emailActionBar.component.css'],
   templateUrl: './emailActionBar.component.html'
 })
@@ -35,12 +35,20 @@ export class EmailActionBarComponent {
   }
 
   moveEmailToBox(destBox: string) {
+    console.log('here we are...');
+    console.log(destBox);
+    console.log(this.boxList);
     if (destBox == 'Trash') {
-      destBox = this.boxList.find((b) => b.shortName == destBox).name;
+      // TODO: refactor this destBox
+      destBox = this.boxList.find((b) => b.shortName == destBox) ? '[Gmail]/Trash' : 'Deleted Items';
+      console.log('if...');
+      console.log(destBox);
     }
     const params = {
       emailId: this.email._id,
-      newBoxId: this.boxList.find((b) => b.name == destBox)._id
+      // TODO: this could affect Gmail
+      // newBoxId: this.boxList.find((b) => b.name == destBox)._id
+      newBoxId: this.boxList.find((b) => b.shortName == destBox)._id
     };
     this.onEmailMoveToBox.emit(params);
   }
