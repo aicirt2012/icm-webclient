@@ -5,8 +5,8 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 
-import { ClientComponent, EmailDialogComponent, EmailFolderDialogComponent, TaskDialogComponent, LinkTaskDialogComponent, TasksComponent, ContextComponent, ContextTabComponent, WikiComponent, NetworkComponent, TranslateComponent, EmailDetailedViewComponent, EmailListComponent, HighlightPipe, TaskListComponent, SearchBarComponent, EmailViewComponent, BoxListComponent, BoxListItemComponent, EmailActionBarComponent, EmailResponseComponent, TaskActionBarComponent, TaskListItemComponent, EmailFormComponent, TaskItemEmailDialogComponent, SentenceDialogComponent} from './'; 
-import { EmailService, BoxService, TaskService, WikiService, NetworkService, TranslateService} from './shared'; // all services
+import { ClientComponent, EmailDialogComponent, EmailFolderDialogComponent, TaskDialogComponent, LinkTaskDialogComponent, TasksComponent, ContextComponent, ContextTabComponent, WikiComponent, NetworkComponent, TranslateComponent, EmailDetailedViewComponent, EmailListComponent, HighlightPipe, TaskListComponent, SearchBarComponent, EmailViewComponent, BoxListComponent, BoxListItemComponent, EmailActionBarComponent, EmailResponseComponent, TaskActionBarComponent, TaskListItemComponent, EmailFormComponent, TaskItemEmailDialogComponent, SentenceDialogComponent} from './';
+import { EmailService, BoxService, TaskService, WikiService, NetworkService, TranslateService, AttachmentService} from './shared'; // all services
 import { Email, EmailForm } from './shared'; // all models from client
 import { SharedModule } from '../shared';
 import { ROUTES } from './client.routes';
@@ -60,6 +60,7 @@ import { DndModule } from 'ng2-dnd';
   providers: [
     EmailService,
     BoxService,
+    AttachmentService,
     TaskService,
     WikiService,
     NetworkService,

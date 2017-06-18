@@ -6,3 +6,4 @@ export * from './emailForm.model';
 export * from './wiki.service';
 export * from './network.service';
 export * from './translate.service';
+export * from './attachment.service';

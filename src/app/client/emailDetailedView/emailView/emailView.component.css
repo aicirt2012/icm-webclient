@@ -89,3 +89,9 @@
   position: relative;
   padding: 3px;
 }
+
+.attachment-download {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
