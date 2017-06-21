@@ -72,6 +72,8 @@ export class EmailService {
   /**
    * Generates a new email
    */
+  // TODO when replying this breaks exchange sendEmail
+  // [receivers format]
   generateEmailForm(email: Email, type: string): any {
     const bodyHeader =
       '-------------------------------------------\n'+

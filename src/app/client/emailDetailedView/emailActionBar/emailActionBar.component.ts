@@ -35,19 +35,16 @@ export class EmailActionBarComponent {
   }
 
   moveEmailToBox(destBox: string) {
-    console.log('here we are...');
-    console.log(destBox);
+    // TODO: Hack for Exchange
+    console.log('here in moveEmailToBox');
     console.log(this.boxList);
+    console.log(destBox);
+
     if (destBox == 'Trash') {
-      // TODO: refactor this destBox
-      destBox = this.boxList.find((b) => b.shortName == destBox) ? '[Gmail]/Trash' : 'Deleted Items';
-      console.log('if...');
-      console.log(destBox);
+      destBox = this.boxList.find((b) => b.shortName == destBox) ? 'Trash' : 'Deleted Items';
     }
     const params = {
       emailId: this.email._id,
-      // TODO: this could affect Gmail
-      // newBoxId: this.boxList.find((b) => b.name == destBox)._id
       newBoxId: this.boxList.find((b) => b.shortName == destBox)._id
     };
     this.onEmailMoveToBox.emit(params);
