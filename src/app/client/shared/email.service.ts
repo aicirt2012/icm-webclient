@@ -108,13 +108,15 @@ export class EmailService {
 
   /**
    * Creates a new draft email
+   * @param: box: string - object,
    * @param: to: string - object,
    * @param: subject: string - Subject as string,
    * @param: msgData: string - Message Data as string,
    */
-  appendEmail(to: any, subject: string, msgData: string): Observable<any> {
+  appendEmail(boxId: any, to: any, subject: string, msgData: string): Observable<any> {
     console.log('start mail to draft');
     const body = {
+      boxId: boxId,
       to: to,
       subject: subject ? subject : '',
       msgData: msgData ? msgData : '',

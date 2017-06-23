@@ -81,8 +81,10 @@ export class EmailDialogComponent {
   }
 
   saveDraft() {
+    const boxId = this.appState.getBoxList().find((b) => b.shortName == 'Drafts')._id;
+
     this._emailService
-      .appendEmail(this.emailForm.to, this.emailForm.subject, this.emailForm.text)
+      .appendEmail(boxId, this.emailForm.to, this.emailForm.subject, this.emailForm.text)
       .subscribe((data: any) => {
         console.log("appending successful", data);
       }, (error) => {
