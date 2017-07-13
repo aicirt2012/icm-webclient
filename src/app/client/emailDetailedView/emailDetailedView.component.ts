@@ -93,7 +93,20 @@ export class EmailDetailedViewComponent {
       });
   }
 
-  //TODO remove here
+  emailMoveToTrash(emailId: any) {
+    this.moving = true;
+    this.emailService.moveEmailToTrash(emailId).subscribe((res) => {
+      this.emails.splice(this.emails.findIndex((e) => this.email._id == e._id), 1);
+      this.appState.setEmails(this.emails);
+      this.snackBar.open(`Message successfully moved to Trash`, 'OK');
+      this.moving = false;
+    }, (err) => {
+      console.log(err);
+      this.snackBar.open('Error when moving Message to Trash', 'OK');
+      this.moving = false;
+    });
+  }
+
   emailMoveToBox(params: any) {
     this.moving = true;
     this.emailService.moveEmail(params.emailId, params.newBoxId).subscribe((res) => {

@@ -11,6 +11,7 @@ import { Email } from '../../shared';
 export class EmailActionBarComponent {
   @Input() boxList: any[];
   @Input() email: Email;
+  @Output() onEmailMoveToTrash = new EventEmitter<any>();
   @Output() onEmailMoveToBox = new EventEmitter<any>();
   @Output() onAddFlags = new EventEmitter<any>();
   @Output() onDeleteFlags = new EventEmitter<any>();
@@ -35,19 +36,15 @@ export class EmailActionBarComponent {
   }
 
   moveEmailToBox(destBox: string) {
-    // TODO: Hack for Exchange
-    console.log('here in moveEmailToBox');
-    console.log(this.boxList);
-    console.log(destBox);
-
-    if (destBox == 'Trash') {
-      destBox = this.boxList.find((b) => b.shortName == destBox) ? 'Trash' : 'Deleted Items';
-    }
     const params = {
       emailId: this.email._id,
       newBoxId: this.boxList.find((b) => b.shortName == destBox)._id
     };
     this.onEmailMoveToBox.emit(params);
+  }
+
+  moveEmailToTrash() {
+    this.onEmailMoveToTrash.emit(this.email._id);
   }
 
   addFlags(flags: string[]) {

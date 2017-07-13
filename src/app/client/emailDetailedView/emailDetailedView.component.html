@@ -1,15 +1,25 @@
 <div *ngIf="email && boxList" fxFlex fxLayout="row" class="full-height">
-    <div fxFlex="70" fxLayout="column">
-        <email-action-bar [responseStatus]="responseStatus" (generateEmailResponseActionBar)="generateEmailResponse($event)" (discardEmailResponse)="discardEmailResponse($event)" [email]="email" (onEmailMoveToBox)="emailMoveToBox($event)" [boxList]="boxList"
-            (onAddFlags)="addFlags($event)" (onDeleteFlags)="deleteFlags($event)"></email-action-bar>
-        <email-view class="scrollable" *ngIf="!emailResponse.text && !moving" [email]="email" (highlightSentence)="highlightSentence($event)" fxFlex></email-view>
-        <div *ngIf="moving" fxFlex fxLayout="row" fxLayoutAlign="center center">
-            <spinner [loading]="true"></spinner>
-        </div>
-        <email-response class="email-detail-container scrollable" *ngIf="emailResponse.text" [emailForm]="emailResponse" [sending]="sending" (sendMail)="sendEmail($event)"></email-response>
-    </div>    
-    <context [email]="email" fxFlex="30"></context>
+  <div fxFlex="70" fxLayout="column">
+    <email-action-bar [responseStatus]="responseStatus"
+                      (generateEmailResponseActionBar)="generateEmailResponse($event)"
+                      (discardEmailResponse)="discardEmailResponse($event)"
+                      [email]="email"
+                      (onEmailMoveToTrash)="emailMoveToTrash($event)"
+                      (onEmailMoveToBox)="emailMoveToBox($event)"
+                      [boxList]="boxList"
+                      (onAddFlags)="addFlags($event)"
+                      (onDeleteFlags)="deleteFlags($event)">
+    </email-action-bar>
+    <email-view class="scrollable" *ngIf="!emailResponse.text && !moving" [email]="email"
+                (highlightSentence)="highlightSentence($event)" fxFlex></email-view>
+    <div *ngIf="moving" fxFlex fxLayout="row" fxLayoutAlign="center center">
+      <spinner [loading]="true"></spinner>
+    </div>
+    <email-response class="email-detail-container scrollable" *ngIf="emailResponse.text" [emailForm]="emailResponse"
+                    [sending]="sending" (sendMail)="sendEmail($event)"></email-response>
+  </div>
+  <context [email]="email" fxFlex="30"></context>
 </div>
 <div *ngIf="!email || !boxList" fxFlex fxLayout="row" fxLayoutAlign="center center" class="full-height">
-    <spinner [loading]="true"></spinner>
+  <spinner [loading]="true"></spinner>
 </div>

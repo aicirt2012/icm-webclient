@@ -46,6 +46,14 @@ export class EmailService {
   }
 
   /**
+   * Move email to trash
+   * @param: emailId: string
+   */
+  moveEmailToTrash(emailId: string): Observable<any> {
+    return this.http.post('email/'+emailId+'/trash', null, {newBoxId: 0});
+  }
+
+  /**
    * Returns a single email
    * @param: id: string
    */
