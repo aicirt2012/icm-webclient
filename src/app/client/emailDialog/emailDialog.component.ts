@@ -82,13 +82,18 @@ export class EmailDialogComponent {
 
   saveDraft() {
     const boxId = this.appState.getBoxList().find((b) => b.shortName == 'Drafts')._id;
+    this.sending = true;
 
     this._emailService
       .appendEmail(boxId, this.emailForm.to, this.emailForm.subject, this.emailForm.text)
       .subscribe((data: any) => {
-        console.log("appending successful", data);
+        this.sending = false;
+        this.snackBar.open('Message saved as a Draft.', 'OK');
+        this.closeDialog();
       }, (error) => {
         console.log(error);
+        this.sending = false;
+        this.snackBar.open('Error while saving Message as a Draft.', 'OK');
       });
   }
 
