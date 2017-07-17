@@ -42,7 +42,7 @@ export class EmailService {
    * @param: newBoxId: string - destination box
    */
   moveEmail(emailId: string, newBoxId: string): Observable<any> {
-    return this.http.post('email/'+emailId+'/move', null, {newBoxId: newBoxId});
+    return this.http.post('email/' + emailId + '/move', null, {newBoxId: newBoxId});
   }
 
   /**
@@ -50,7 +50,7 @@ export class EmailService {
    * @param: emailId: string
    */
   moveEmailToTrash(emailId: string): Observable<any> {
-    return this.http.post('email/'+emailId+'/trash', null, {newBoxId: 0});
+    return this.http.post('email/' + emailId + '/trash', null, {newBoxId: 0});
   }
 
   /**
@@ -58,7 +58,7 @@ export class EmailService {
    * @param: id: string
    */
   getEmail(emailId: string): Observable<Email> {
-    return this.http.get('email/'+emailId, null, null);
+    return this.http.get('email/' + emailId, null, null);
   }
 
   /**
@@ -66,7 +66,7 @@ export class EmailService {
    * @param: flags: string[] e.g. //seen
    */
   addFlags(emailId: string, flags: string[]): Observable<any> {
-    return this.http.post('email/'+emailId+'/flags', null, {flags: flags});
+    return this.http.post('email/' + emailId + '/flags', null, {flags: flags});
   }
 
   /**
@@ -74,7 +74,7 @@ export class EmailService {
    * @param: flags: string[] e.g. //seen
    */
   delFlags(emailId: string, flags: string[]): Observable<any> {
-    return this.http.delete('email/'+emailId+'/flags', null, {flags: flags});
+    return this.http.delete('email/' + emailId + '/flags', null, {flags: flags});
   }
 
   /**
@@ -84,25 +84,19 @@ export class EmailService {
   // [receivers format]
   generateEmailForm(email: Email, type: string): any {
     const bodyHeader =
-      '-------------------------------------------\n'+
-      'From: '+ email.from[0].address+'\n'+
-      'Date: '+ email.date+'\n'+
-      'Subject: '+ email.subject+'\n'+
-      'To: '+ email.to[0].address+'\n\n'+
-       email.text;
+      '-------------------------------------------\n' +
+      'From: ' + email.from[0].address + '\n' +
+      'Date: ' + email.date + '\n' +
+      'Subject: ' + email.subject + '\n' +
+      'To: ' + email.to[0].address + '\n\n' +
+      email.text;
 
     if (type == 'reply') {
-      let receivers;
-      if (email.from[0].name) {
-        receivers = {
-          name: email.from[0].name,
-          address: email.from[0].address
-        };
-      } else {
-        receivers = email.from[0].address;
-      }
       return {
-        to: receivers,
+        to: {
+          name: email.from[0].name ? email.from[0].name : '',
+          address: email.from[0].address
+        },
         subject: `Re: ${email.subject}`,
         text: bodyHeader
       }
