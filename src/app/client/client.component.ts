@@ -45,6 +45,7 @@ export class ClientComponent {
 
     this.socketService.createEmail().subscribe((createdEmail: any) => {
       console.log('create email: ' + createdEmail.subject, createdEmail.date);
+      //TODO add only emails of selected box @Paul
       if (this.appState.getEmails().length > 0) {
         this.emails = this.appState.getEmails();
         this.emails.push(createdEmail);

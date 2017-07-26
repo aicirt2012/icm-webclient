@@ -21,6 +21,10 @@ export class NetworkComponent{
 
   search(){
     this.loading = true;
+    this.nt.list().subscribe(data=>{
+      console.log(data);
+      this.loading = false;       
+    });
   }
 
 

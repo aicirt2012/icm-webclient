@@ -12,6 +12,10 @@ export class NetworkService {
   search(query: string): Observable<any> {
     return this.http.get('network/search', {query: query}, null);
   }
+
+  list(): Observable<any> {
+    return this.http.get('contacts', null, null);
+  }
  
 
 }
