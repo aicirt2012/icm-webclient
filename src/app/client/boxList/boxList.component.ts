@@ -19,7 +19,7 @@ export class BoxListComponent {
   @Input() syncing: Boolean;
   @Output() onRefresh = new EventEmitter<boolean>();
   @Output() onMoveEmailToBox = new EventEmitter<any>();
-  
+
   boxName: string;
   boxList: any[];
   user: any;
@@ -35,11 +35,11 @@ export class BoxListComponent {
         if(this.router.url == '/box'){ //TODO my subscribe on route
           this.appState.setCurrentBox(boxList[0]);
           this.router.navigate(['box/'+boxList[0]._id]);
-        }       
+        }
       }
     });
 
-    this.appState.user().subscribe(user=>{      
+    this.appState.user().subscribe(user=>{
       this.user = user;
     });
   }
@@ -115,6 +115,10 @@ export class BoxListComponent {
   }
 
   openCreateEmailDialog() {
+    console.log('inside openCreateEmailDialog');
+    const customRoute = this.router.url.match(/(\/box\/|\/search\/)[a-zA-Z\u00C0-\u017F0-9 ]*\//)[0] + 'new';
+    this.router.navigate([customRoute]);
+    /*
     let emailDialogRef: MdDialogRef<EmailDialogComponent> = this.dialog.open(EmailDialogComponent, {
       width: '80%',
       height: '95%',
@@ -125,6 +129,7 @@ export class BoxListComponent {
         right: ''
       }
     });
+    */
   }
 
   openEmailFolderDialog() {

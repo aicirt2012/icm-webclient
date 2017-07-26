@@ -15,7 +15,7 @@
     <div *ngIf="moving" fxFlex fxLayout="row" fxLayoutAlign="center center">
       <spinner [loading]="true"></spinner>
     </div>
-    <email-response class="email-detail-container scrollable" *ngIf="emailResponse.text" [emailForm]="emailResponse"
+    <email-response class="email-detail-container scrollable" *ngIf="emailResponse.type" [emailForm]="emailResponse"
                     [sending]="sending" (sendMail)="sendEmail($event)"></email-response>
   </div>
   <context [email]="email" fxFlex="30"></context>

@@ -42,9 +42,17 @@ export class EmailDetailedViewComponent {
 
     this.currentId = this.route.params.map(params => params['emailId'] || 'None');
     this.currentId.subscribe((emailId) => {
-      emailId === 'None' ? '' : this.getSingleMail(emailId);
+      console.log('get single email...');
+      emailId !== 'None' ? emailId === 'new' ? this.createNewEmailDraft() : this.getSingleMail(emailId) : '';
     });
   }
+
+  createNewEmailDraft() {
+    console.log('creating a new email draft');
+    this.responseStatus = true;
+    this.generateEmailResponse('new');
+  }
+
 
   generateEmailResponse(type: string) {
     this.responseStatus = true;
@@ -54,6 +62,8 @@ export class EmailDetailedViewComponent {
   discardEmailResponse() {
     this.responseStatus = false;
     this.emailResponse = {};
+    const customRoute = this.router.url.match(/(\/box\/|\/search\/)[a-zA-Z\u00C0-\u017F0-9 ]*\//)[0] + this.email._id;
+    this.router.navigate([customRoute]);
   }
 
   sendEmail(mail: any) {

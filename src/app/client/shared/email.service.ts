@@ -83,6 +83,15 @@ export class EmailService {
   // TODO when replying this breaks exchange sendEmail
   // [receivers format]
   generateEmailForm(email: Email, type: string): any {
+    console.log('inside generate Email form');
+
+    if (type === 'new') {
+      console.log('here');
+      return {
+        type: type
+      }
+    }
+
     const bodyHeader =
       '-------------------------------------------\n' +
       'From: ' + email.from[0].address + '\n' +
@@ -91,19 +100,21 @@ export class EmailService {
       'To: ' + email.to[0].address + '\n\n' +
       email.text;
 
-    if (type == 'reply') {
+    if (type === 'reply') {
       return {
         to: {
           name: email.from[0].name ? email.from[0].name : '',
           address: email.from[0].address
         },
         subject: `Re: ${email.subject}`,
-        text: bodyHeader
+        text: bodyHeader,
+        type: type
       }
-    } else if (type == 'forward') {
+    } else if (type === 'forward') {
       return {
         subject: `Fw: ${email.subject}`,
-        text: bodyHeader
+        text: bodyHeader,
+        type: type
       }
     }
   }
@@ -127,4 +138,8 @@ export class EmailService {
     return this.http.post('email/append', null, body);
   }
 
+  /* FOR ENRON*/
+  appendEnron(): Observable<any> {
+   return this.http.post('email/appendEnron', null, null);
+  }
 }

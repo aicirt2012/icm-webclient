@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {UserService } from '../../shared';
+import {EmailService} from '../../../client/shared';
 import { MdSnackBar } from '@angular/material';
 
 
@@ -14,7 +15,7 @@ export class OverviewComponent {
   public editSettings: boolean = false;
   public user = {};
 
-  constructor(private userService: UserService, private snackBar: MdSnackBar) { }
+  constructor(private userService: UserService, private emailService: EmailService, private snackBar: MdSnackBar) { }
 
   ngOnInit() {
     this.userService.getUserInfo().subscribe( (data) => {
@@ -30,6 +31,12 @@ export class OverviewComponent {
       this.snackBar.open('Error while updating. Try again.', 'OK');
 
     });
+  }
+
+  appendEnron() {
+    this.emailService.appendEnron().subscribe((data) => {
+      console.log(data);
+    })
   }
 
 }
