@@ -1,8 +1,9 @@
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppState } from "../../../app.service";
 
 @Component({
-  selector: 'box-list-item', 
+  selector: 'box-list-item',
   providers: [],
   styleUrls: ['./boxListItem.component.css'],
   templateUrl: './boxListItem.component.html'
@@ -23,12 +24,17 @@ export class BoxListItemComponent {
   }
 
 
-  constructor(public router: Router) {
+  constructor(public router: Router, public appState: AppState) {
   }
 
   isActive(route: string): boolean {
     return this.router.isActive(route, false);
   }
 
+  setCurrentBox() {
+    console.log('setting currentBox from BoxListItem...');
+    console.log(this.item);
+    this.appState.setCurrentBox(this.item);
+  }
 
 }

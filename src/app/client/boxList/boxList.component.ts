@@ -28,23 +28,31 @@ export class BoxListComponent {
   }
 
   ngOnInit() {
-    this.appState.boxList().subscribe(boxList=>{
-      if(boxList.length > 0){
+    this.appState.boxList().subscribe(boxList => {
+      if (boxList.length > 0) {
         this.boxList = boxList;
         this.addDataToBoxes(boxList);
-        if(this.router.url == '/box'){ //TODO my subscribe on route
+        const currentBoxURL = this.router.url.match(/(\/box\/)([a-zA-Z\u00C0-\u017F0-9 ]*)/);
+
+        if (currentBoxURL !== null) {
+          const currentBoxId = currentBoxURL[2];
+          const currentBox = boxList.find(x => x._id === currentBoxId);
+          this.appState.setCurrentBox(currentBox);
+
+        } else if (this.router.url == '/box') {
           this.appState.setCurrentBox(boxList[0]);
-          this.router.navigate(['box/'+boxList[0]._id]);
+          this.router.navigate(['box/' + boxList[0]._id]);
         }
+
       }
     });
 
-    this.appState.user().subscribe(user=>{
+    this.appState.user().subscribe(user => {
       this.user = user;
     });
   }
 
-  moveEmailToBox(data){
+  moveEmailToBox(data) {
     console.log('recursive event emit to parent');
     this.onMoveEmailToBox.emit(data);
   }
@@ -75,22 +83,24 @@ export class BoxListComponent {
           default:
             icon = 'home';
             break;
-        };
+        }
+        ;
         box.icon = icon;
         box.children = [];
         return box;
       });
 
+      /* measure times */
       const boxParentMap = this.getBoxParentMap(boxList);
       const rootBoxes = boxParentMap.get(null);
       this.navbarItems = this.populateBoxesTree(rootBoxes, boxParentMap);
     }
   }
 
-  private getBoxParentMap(boxList: any): Map<string,any>{
-    const boxParentMap = new Map<string,any>();
+  private getBoxParentMap(boxList: any): Map<string, any> {
+    const boxParentMap = new Map<string, any>();
     boxList.forEach(box => {
-      if(boxParentMap.has(box.parent))
+      if (boxParentMap.has(box.parent))
         boxParentMap.get(box.parent).push(box);
       else
         boxParentMap.set(box.parent, [box]);
@@ -99,10 +109,10 @@ export class BoxListComponent {
   }
 
   private populateBoxesTree(boxes: any[], boxParentMap) {
-    if(boxes == null)
+    if (boxes == null)
       return [];
     return boxes.map(box => {
-      if(boxParentMap.has(box._id)) {
+      if (boxParentMap.has(box._id)) {
         let children = boxParentMap.get(box._id);
         box.children = this.populateBoxesTree(children, boxParentMap);
       }

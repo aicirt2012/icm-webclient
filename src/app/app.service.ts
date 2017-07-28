@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Observer} from 'rxjs/Observer';
 
-
 export type InternalStateType = {
   [key: string]: any
 };
@@ -51,22 +50,22 @@ export class AppState {
   }
 
   private createObserver(prop, getMethod): Observable<any>{
-    return new Observable(observer => { 
-      this.dataChange.subscribe(dataChanged=>{   
-        if(dataChanged == prop)     
-          observer.next(getMethod.apply(this));  
-      });          
+    return new Observable(observer => {
+      this.dataChange.subscribe(dataChanged=>{
+        if(dataChanged == prop)
+          observer.next(getMethod.apply(this));
+      });
     });
   }
 
   /** Custom States */
   private static EMAILS = 'emails';
-  private static BOXLIST = 'boxList'; 
+  private static BOXLIST = 'boxList';
   private static CURRENTBOX = 'currentBox';
   private static SYNCED = 'synced';
   private static USER = 'user';
 
-  
+
   /** BoxList */
   setBoxList(boxList: any) {
     boxList = boxList.map(box => {
@@ -93,6 +92,7 @@ export class AppState {
     return this.get(AppState.CURRENTBOX);
   }
 
+  // ensure this is working all the time
   currentBox(): Observable<any>{
     return this.createObserver(AppState.CURRENTBOX, this.getCurrentBox);
   }
@@ -100,23 +100,42 @@ export class AppState {
   /** Emails */
   // customRoute: /root/rootId
   setEmails(emails: any, customRoute = 'NONE') {
-    if (customRoute != 'NONE') {
-      emails = emails.map(email => {
-        email.route = `${customRoute}/${email._id}`;
-        return email
-      });
-    } else {
-      emails = emails.map(email => {
-        email.route = `/box/${email.box}/${email._id}`;
-        return email
-      });
-    }
-    emails.sort((a, b) => {
-      const dateA: any = new Date(a.date);
-      const dateB: any = new Date(b.date);
-      return dateB - dateA
+    // append a timestamp
+    // then compare numbers instead of new Date
+    // Or use a structure
+
+    emails = emails.map(email => {
+      email.route = customRoute !== 'NONE' ? `${customRoute}/${email._id}` : `/box/${email.box}/${email._id}`;
+      //email.timestamp = new Date(email.date);
+      return email
     });
-    this.set(AppState.EMAILS, emails);
+
+    console.log('is this a number');
+    console.log(emails);
+
+    //TODO
+    const emailsMap = new Map<number, any>();
+    emails.forEach((e) => {
+      emailsMap.set(e.timestamp, e);
+    });
+
+    let keys = Array.from(emailsMap.keys());
+
+    keys.sort((a, b) => {return a - b});
+
+    /*
+    emails.sort((a, b) => {
+      return b.timestamp - a.timestamp
+    });
+    */
+
+    const newEmails = [];
+
+    keys.forEach((k) => {
+      newEmails.push(emailsMap.get(k));
+    });
+
+    this.set(AppState.EMAILS, newEmails);
   }
 
   getEmails() {
@@ -126,7 +145,7 @@ export class AppState {
   emails(): Observable<any>{
     return this.createObserver(AppState.EMAILS, this.getEmails);
   }
-  
+
   /** Synced Flag */
   setSynced(synced: any) {
     this.set(AppState.SYNCED, synced);

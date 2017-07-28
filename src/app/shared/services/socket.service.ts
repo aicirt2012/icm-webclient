@@ -23,6 +23,7 @@ export class SocketService {
         console.log('Socket connection established!');
       });
 
+      /*
       //TODO remove only for testing
       this.createEmail().subscribe((email:any)=>{
         console.log('create email: '+email.subject);
@@ -52,6 +53,7 @@ export class SocketService {
       this.deleteBox().subscribe((box:any)=>{
         console.log('delete box: '+box.name);
       });
+      */
     }
   }
 
@@ -91,7 +93,7 @@ export class SocketService {
   createBox(){
     return new Observable(observer => {
       this.socket.on('create_box', (box) => {
-        observer.next(JSON.parse(box));
+        // observer.next(JSON.parse(box));
       });
       return () => {
         this.socket.disconnect();
@@ -102,7 +104,7 @@ export class SocketService {
   updateBox(){
     return new Observable(observer => {
       this.socket.on('update_box', (box) => {
-        observer.next(JSON.parse(box));
+        // observer.next(JSON.parse(box));
       });
       return () => {
         this.socket.disconnect();

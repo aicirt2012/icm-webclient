@@ -35,11 +35,16 @@ export class ClientComponent {
     this.socketService.updateEmail().subscribe((updatedEmail: any) => {
       console.log('update email: ' + updatedEmail.subject, updatedEmail.date);
       if (this.appState.getEmails().length > 0) {
-        this.emails = this.appState.getEmails().map(email => {
-          email._id == updatedEmail._id ? email = updatedEmail : email;
-          return email;
-        });
-        this.appState.setEmails(this.emails);
+
+        if (updatedEmail.box === this.appState.getCurrentBox()._id) {
+          console.log('this email belong to current box... pushing');
+
+          this.emails = this.appState.getEmails().map(email => {
+            email._id == updatedEmail._id ? email = updatedEmail : email;
+            return email;
+          });
+          this.appState.setEmails(this.emails);
+        }
       }
     });
 
@@ -47,10 +52,15 @@ export class ClientComponent {
       console.log('create email: ' + createdEmail.subject, createdEmail.date);
       //TODO add only emails of selected box @Paul
       if (this.appState.getEmails().length > 0) {
-        this.emails = this.appState.getEmails();
-        this.emails.push(createdEmail);
+        // check if this is a search
+        if (createdEmail.box === this.appState.getCurrentBox()._id) {
+          console.log('this email belong to current box... pushing');
+          this.emails = this.appState.getEmails();
+          // append emails method
+          this.emails.push(createdEmail);
+          this.appState.setEmails(this.emails);
+        }
       }
-      this.appState.setEmails(this.emails);
     });
 
     this.socketService.deleteEmail().subscribe((deletedEmail: any) => {
@@ -88,18 +98,18 @@ export class ClientComponent {
       }
     });
 
-    if(this.appState.getBoxList() != null)
+    if (this.appState.getBoxList() != null)
       this.boxList = this.appState.getBoxList();
     this.boxService.getBoxList().subscribe((boxes: any[]) => {
       this.appState.setBoxList(boxes);
       this.boxList = this.appState.getBoxList();
-    }); 
+    });
 
     this.userService.getUserInfo().subscribe((user) => {
       this.user = user;
       console.log('user info: ', user)
       this.appState.setUser(user);
-      if (!this.user.provider.name) 
+      if (!this.user.provider.name)
         this.noMailboxConnected = true;
       this.syncing = false;
     })
@@ -115,7 +125,7 @@ export class ClientComponent {
   moveEmailToBox(data: any) {
     const emailId = data.emailId;
     const newBoxId = data.newBoxId;
-    console.log('reach client' + emailId + " "+newBoxId);
+    console.log('reach client' + emailId + " " + newBoxId);
     this.emailService.moveEmail(emailId, newBoxId).subscribe(res => {
       this.emails.splice(this.emails.findIndex(e => emailId == e._id), 1);
       this.appState.setEmails(this.emails);
@@ -126,6 +136,6 @@ export class ClientComponent {
       this.snackBar.open('Error when moving Message.', 'OK');
     });
   }
-  
+
 
 }
