@@ -34,17 +34,10 @@ export class ClientComponent {
     this.socketService.openSocketConnection();
     this.socketService.updateEmail().subscribe((updatedEmail: any) => {
       console.log('update email: ' + updatedEmail.subject, updatedEmail.date);
-      if (this.appState.getEmails().length > 0) {
-
-        if (updatedEmail.box === this.appState.getCurrentBox()._id) {
-          console.log('this email belong to current box... pushing');
-
-          this.emails = this.appState.getEmails().map(email => {
-            email._id == updatedEmail._id ? email = updatedEmail : email;
-            return email;
-          });
-          this.appState.setEmails(this.emails);
-        }
+      if (updatedEmail.box === this.appState.getCurrentBox()._id) {
+        console.log('this email belong to current box... pushing');
+        this.appState.updateEmail(updatedEmail);
+        this.emails = this.appState.getEmails();
       }
     });
 
@@ -55,17 +48,16 @@ export class ClientComponent {
         // check if this is a search
         if (createdEmail.box === this.appState.getCurrentBox()._id) {
           console.log('this email belong to current box... pushing');
+          this.appState.createEmail(createdEmail);
           this.emails = this.appState.getEmails();
-          // append emails method
-          this.emails.push(createdEmail);
-          this.appState.setEmails(this.emails);
         }
       }
     });
 
     this.socketService.deleteEmail().subscribe((deletedEmail: any) => {
       console.log('delete email: ' + deletedEmail.subject, deletedEmail.date);
-      console.log(deletedEmail);
+      this.appState.deleteEmail(deletedEmail);
+      this.emails = this.appState.getEmails();
     });
 
     this.socketService.createBox().subscribe((createdBox: any) => {

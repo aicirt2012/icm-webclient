@@ -100,42 +100,44 @@ export class AppState {
   /** Emails */
   // customRoute: /root/rootId
   setEmails(emails: any, customRoute = 'NONE') {
-    // append a timestamp
-    // then compare numbers instead of new Date
-    // Or use a structure
-
     emails = emails.map(email => {
       email.route = customRoute !== 'NONE' ? `${customRoute}/${email._id}` : `/box/${email.box}/${email._id}`;
-      //email.timestamp = new Date(email.date);
       return email
     });
+    this.set(AppState.EMAILS, emails);
+  }
 
-    console.log('is this a number');
-    console.log(emails);
+  createEmail(newEmail: any) {
+    let emails = this.getEmails();
+    newEmail.timestamp = new Date(newEmail.date).getTime();
 
-    //TODO
-    const emailsMap = new Map<number, any>();
-    emails.forEach((e) => {
-      emailsMap.set(e.timestamp, e);
+    for(let i = 0; i < emails.length; i++) {
+      if(emails[i].timestamp < newEmail.timestamp) {
+        emails.splice(i, 0, newEmail);
+        break;
+      }
+    }
+    this.setEmails(emails);
+  }
+
+  updateEmail(modifiedEmail: any) {
+    let emails = this.getEmails().map(email => {
+      email._id == modifiedEmail._id ? email = modifiedEmail : email;
+      return email;
     });
+    this.setEmails(emails);
+  }
 
-    let keys = Array.from(emailsMap.keys());
+  deleteEmail(email: any) {
+    let emails = this.getEmails();
 
-    keys.sort((a, b) => {return a - b});
-
-    /*
-    emails.sort((a, b) => {
-      return b.timestamp - a.timestamp
-    });
-    */
-
-    const newEmails = [];
-
-    keys.forEach((k) => {
-      newEmails.push(emailsMap.get(k));
-    });
-
-    this.set(AppState.EMAILS, newEmails);
+    for(let i = 0; i < emails.length; i++) {
+      if(emails[i]._id < email._id) {
+        emails.splice(i, 1);
+        break;
+      }
+    }
+    this.setEmails(emails);
   }
 
   getEmails() {
