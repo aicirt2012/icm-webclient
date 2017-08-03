@@ -21,7 +21,7 @@ export class EmailListComponent {
   scrollThrottle = 300;
   loading: boolean;
   loadingList: boolean = false;
-  emptyBox: boolean = false;
+  // emptyBox: boolean = false;
 
   constructor(public appState: AppState, public router: Router, public activeRoute: ActivatedRoute, private emailService: EmailService) {
   }
@@ -44,12 +44,19 @@ export class EmailListComponent {
       this.searchTerm = params['searchTerm'] || '';
       this.paginationEnabled = false;
       this.getEmailList(boxId, this.searchTerm);
-      // this.emptyBox = true; // TODO distinguish between emptyBox and emptySearch
     });
   }
 
   isEmptyResult(){
     return this.emails.length < 1;
+  }
+
+  isBoxRoute() {
+    return /^(\/box\/)/.test(this.router.url);
+  }
+
+  isSearchRoute() {
+    return /^(\/search\/)/.test(this.router.url);
   }
 
   searchEmails(searchTerm = '') {
@@ -72,7 +79,7 @@ export class EmailListComponent {
         this.emails = this.appState.getEmails();
         this.paginationEnabled = emails.length > 0;
         if (this.emails.length != 0) {
-          this.emptyBox = false;
+          // this.emptyBox = false;
           this.router.navigate([this.emails[0].route]);
         }
         this.loadingList = false;

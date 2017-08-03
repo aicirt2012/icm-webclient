@@ -10,7 +10,7 @@ export class BoxService {
 
   constructor(private http: HttpService) {
   }
-  
+
   /**
    * Returns a list of all boxes
    */
@@ -38,17 +38,17 @@ export class BoxService {
    */
   delBox(boxId: string): Observable<any> {
     console.log('delete box...');
-    return this.http.delete('box/'+boxId, null, {boxId: boxId});
+    return this.http.delete('box/' + boxId, null, {boxId: boxId});
   }
 
   /**
-   * Rename box by boxId and new short name 
+   * Rename box by boxId and new short name
    * @param boxId
    * @param newBoxShortName: string
    */
   renameBox(boxId: string, newBoxShortName: string): Observable<any> {
     console.log('rename box...');
-    return this.http.post('box/'+boxId+'/rename', null, {newBoxShortName: newBoxShortName});
+    return this.http.post('box/' + boxId + '/rename', null, {newBoxShortName: newBoxShortName});
   }
 
   /**
@@ -57,8 +57,44 @@ export class BoxService {
   syncAll(): Observable<any> {
     return this.http.get('box/syncAll', null, null);
   }
-  
-  
 
+  /**
+   * Add default boxes
+   */
+  addDefaultBoxes(boxList: any[]): any[] {
+
+    boxList = boxList.map((box) => {
+      let icon;
+      switch (box.shortName) {
+        case 'INBOX':
+          icon = 'home';
+          break;
+        case 'Sent Mail':
+          icon = 'send';
+          break;
+        case 'Drafts':
+          icon = 'drafts';
+          break;
+        case 'Starred':
+          icon = 'star';
+          break;
+        case 'Spam':
+          icon = 'error';
+          break;
+        case 'Trash':
+          icon = 'delete';
+          break;
+        default:
+          icon = 'home';
+          break;
+      }
+      ;
+      box.icon = icon;
+      box.children = [];
+      return box;
+    });
+
+    return boxList;
+  }
 
 }

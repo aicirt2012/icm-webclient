@@ -1,28 +1,43 @@
 <div fxLayout="row" fxFlex class="full-height email-list-container">
-    <div [fxShow]="!loading" fxLayout="column" fxFlex="25" class="email-list">
-        <search-bar (searchEmails)="searchEmails($event)"></search-bar>
-        <div fxFlex class="scrollable" infinite-scroll [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="scrollThrottle" [scrollWindow]="false" (scrolled)="onScrollDown()">
-            <div fxFlex fxLayout="column" class="email-list-item" [routerLink]="mail.route" [class.route-active]="isActive(mail.route)" [class.unseen]="!isRead(mail)" *ngFor="let mail of emails; let i = index" dnd-draggable [dragEnabled]="true" [dragData]="mail">
-                <div *ngIf="mail.from.length > 0" fxFlex="33" fxLayout="row">
-                    <div fxFlex="58" fxLayoutAlign="start center" class="text-overflow padding" [innerHTML]="(mail.from[0].name ? mail.from[0].name : mail.from[0].address) | highlight: searchTerm"></div>
-                    <div fxFlex="2"></div>
-                    <div fxFlex="40" fxShow="false" fxShow.gt-md fxLayoutAlign="end center" class="padding text-overflow date">{{mail.date | date:'shortDate'}} {{mail.date | date:'shortTime'}}</div>
-                    <div fxFlex="40" fxHide="false" fxHide.gt-md fxLayoutAlign="end center" class="padding text-overflow date">{{mail.date | date:'shortDate'}}</div>
-                </div>
-                <div fxFlex="33" class=" padding text-overflow" [innerHTML]="(mail.subject ? mail.subject : 'No subject') | highlight: searchTerm"></div>
-                <div fxFlex="33" class=" padding first-lines text-overflow" [innerHTML]="(mail.text ? mail.text : '') | highlight: searchTerm"></div>
-            </div>
+  <div [fxShow]="!loading" fxLayout="column" fxFlex="25" class="email-list">
+    <search-bar (searchEmails)="searchEmails($event)"></search-bar>
+    <div fxFlex class="scrollable" infinite-scroll [infiniteScrollDistance]="scrollDistance"
+         [infiniteScrollThrottle]="scrollThrottle" [scrollWindow]="false" (scrolled)="onScrollDown()">
+      <div fxFlex fxLayout="column" class="email-list-item" [routerLink]="mail.route"
+           [class.route-active]="isActive(mail.route)" [class.unseen]="!isRead(mail)"
+           *ngFor="let mail of emails; let i = index" dnd-draggable [dragEnabled]="true" [dragData]="mail">
+        <div *ngIf="mail.from.length > 0" fxFlex="33" fxLayout="row">
+          <div fxFlex="58" fxLayoutAlign="start center" class="text-overflow padding"
+               [innerHTML]="(mail.from[0].name ? mail.from[0].name : mail.from[0].address) | highlight: searchTerm"></div>
+          <div fxFlex="2"></div>
+          <div fxFlex="40" fxShow="false" fxShow.gt-md fxLayoutAlign="end center" class="padding text-overflow date">
+            {{mail.date | date:'shortDate'}} {{mail.date | date:'shortTime'}}
+          </div>
+          <div fxFlex="40" fxHide="false" fxHide.gt-md fxLayoutAlign="end center" class="padding text-overflow date">
+            {{mail.date | date:'shortDate'}}
+          </div>
         </div>
-        <div class="loading-list" *ngIf="loadingList" fxLayoutAlign="center center">Loading...</div>
-        <div [fxShow]="!loadingList && isEmptyResult()" fxFlex fxLayoutAlign="center center">No Emails found!</div>
+        <div fxFlex="33" class=" padding text-overflow"
+             [innerHTML]="(mail.subject ? mail.subject : 'No subject') | highlight: searchTerm"></div>
+        <div fxFlex="33" class=" padding first-lines text-overflow"
+             [innerHTML]="(mail.text ? mail.text : '') | highlight: searchTerm"></div>
+      </div>
     </div>
-    <div [fxShow]="loading" fxFlex fxLayoutAlign="center center">
-        <spinner [loading]="true"></spinner>
-    </div>
-    <div [fxShow]="isEmptyResult()" fxFlex fxLayoutAlign="center center">
-        This mailbox seems to be empty, please sync again or go to another box.
-    </div>
-    <div [fxShow]="!loading && !isEmptyResult()" fxFlex="75">
-        <router-outlet></router-outlet>
-    </div>
+    <div class="loading-list" *ngIf="loadingList" fxLayoutAlign="center center">Loading...</div>
+    <div [fxShow]="!loadingList && isEmptyResult()" fxFlex fxLayoutAlign="center center">No Emails found!</div>
+  </div>
+  <div [fxShow]="loading" fxFlex fxLayoutAlign="center center">
+    <spinner [loading]="true"></spinner>
+  </div>
+  <div [fxShow]="isEmptyResult()" fxFlex fxLayoutAlign="center center">
+    <ng-container *ngIf="isBoxRoute()">
+      This mailbox seems to be empty, please sync again or go to another box.
+    </ng-container>
+    <ng-container *ngIf="isSearchRoute()">
+      The current search returned no results.
+    </ng-container>
+  </div>
+  <div [fxShow]="!loading && !isEmptyResult()" fxFlex="75">
+    <router-outlet></router-outlet>
+  </div>
 </div>

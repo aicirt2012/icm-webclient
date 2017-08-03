@@ -43,7 +43,6 @@ export class ClientComponent {
 
     this.socketService.createEmail().subscribe((createdEmail: any) => {
       console.log('create email: ' + createdEmail.subject, createdEmail.date);
-      //TODO add only emails of selected box @Paul
       if (this.appState.getEmails().length > 0) {
         // check if this is a search
         if (createdEmail.box === this.appState.getCurrentBox()._id) {

@@ -1,11 +1,13 @@
 import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {MdDialog, MdDialogRef} from '@angular/material';
-import {DialogType} from '../../shared/constants';
 import {AppState} from '../../app.service';
-import {EmailDialogComponent} from '../emailDialog';
 import {EmailFolderDialogComponent} from './emailFolderDialog';
-import {EmailService} from '../shared';
+import {BoxService} from "../shared/box.service";
+import {MdDialog} from '@angular/material';
+// import {EmailDialogComponent} from '../emailDialog';
+// import {MdDialog, MdDialogRef} from '@angular/material';
+// import {DialogType} from '../../shared/constants';
+// import {EmailService} from '../shared';
 
 @Component({
   selector: 'box-list',
@@ -24,7 +26,10 @@ export class BoxListComponent {
   boxList: any[];
   user: any;
 
-  constructor(public appState: AppState, public router: Router, public dialog: MdDialog) {
+  constructor(public appState: AppState,
+              public router: Router,
+              public dialog: MdDialog,
+              public boxService: BoxService) {
   }
 
   ngOnInit() {
@@ -59,38 +64,8 @@ export class BoxListComponent {
 
   private addDataToBoxes(boxList: any[]) {
     if (boxList.length > 0) {
-      boxList = boxList.map((box) => {
-        let icon;
-        switch (box.shortName) { //TODO put in service
-          case 'INBOX':
-            icon = 'home';
-            break;
-          case 'Sent Mail':
-            icon = 'send';
-            break;
-          case 'Drafts':
-            icon = 'drafts';
-            break;
-          case 'Starred':
-            icon = 'star';
-            break;
-          case 'Spam':
-            icon = 'error';
-            break;
-          case 'Trash':
-            icon = 'delete';
-            break;
-          default:
-            icon = 'home';
-            break;
-        }
-        ;
-        box.icon = icon;
-        box.children = [];
-        return box;
-      });
 
-      /* measure times */
+      boxList = this.boxService.addDefaultBoxes(boxList);
       const boxParentMap = this.getBoxParentMap(boxList);
       const rootBoxes = boxParentMap.get(null);
       this.navbarItems = this.populateBoxesTree(rootBoxes, boxParentMap);

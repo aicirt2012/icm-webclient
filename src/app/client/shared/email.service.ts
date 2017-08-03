@@ -80,10 +80,7 @@ export class EmailService {
   /**
    * Generates a new email
    */
-  // TODO when replying this breaks exchange sendEmail
-  // [receivers format]
   generateEmailForm(email: Email, type: string): any {
-    console.log('inside generate Email form');
 
     if (type === 'new') {
       console.log('here');

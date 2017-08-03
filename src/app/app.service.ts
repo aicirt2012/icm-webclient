@@ -108,8 +108,7 @@ export class AppState {
   }
 
   createEmail(newEmail: any) {
-    let emails = this.getEmails();
-    newEmail.timestamp = new Date(newEmail.date).getTime();
+    const emails = this.getEmails();
 
     for(let i = 0; i < emails.length; i++) {
       if(emails[i].timestamp < newEmail.timestamp) {
@@ -121,7 +120,7 @@ export class AppState {
   }
 
   updateEmail(modifiedEmail: any) {
-    let emails = this.getEmails().map(email => {
+    const emails = this.getEmails().map(email => {
       email._id == modifiedEmail._id ? email = modifiedEmail : email;
       return email;
     });
@@ -129,7 +128,7 @@ export class AppState {
   }
 
   deleteEmail(email: any) {
-    let emails = this.getEmails();
+    const emails = this.getEmails();
 
     for(let i = 0; i < emails.length; i++) {
       if(emails[i]._id < email._id) {
