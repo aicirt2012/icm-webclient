@@ -1,6 +1,7 @@
-import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { AppState } from "../../../app.service";
+import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
+import {AppState} from "../../../app.service";
+import {ContextMenuComponent} from 'ngx-contextmenu';
 
 @Component({
   selector: 'box-list-item',
@@ -11,13 +12,14 @@ import { AppState } from "../../../app.service";
 export class BoxListItemComponent {
   @Input() item: any;
   @Output() onMoveEmailToBox = new EventEmitter<any>();
+  @ViewChild(ContextMenuComponent) public basicMenu: ContextMenuComponent;
 
-  dropEmailEvent(event){
+  dropEmailEvent(event) {
     console.log(event.dragData);
     this.onMoveEmailToBox.emit({emailId: event.dragData._id, newBoxId: this.item._id});
   }
 
-  moveEmailToBox(data){
+  moveEmailToBox(data) {
     console.log('recursive event emit to parent');
     console.log(data);
     this.onMoveEmailToBox.emit(data);
@@ -35,6 +37,10 @@ export class BoxListItemComponent {
     console.log('setting currentBox from BoxListItem...');
     console.log(this.item);
     this.appState.setCurrentBox(this.item);
+  }
+
+  showMessage(event) {
+    console.log(event);
   }
 
 }

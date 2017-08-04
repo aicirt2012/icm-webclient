@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {MaterialModule} from '@angular/material';
 import {FlexLayoutModule} from "@angular/flex-layout";
+import {ContextMenuModule} from 'ngx-contextmenu';
 
 import {
   ClientComponent,
@@ -58,6 +59,7 @@ import {DndModule} from 'ng2-dnd';
     MaterialModule.forRoot(),
     FlexLayoutModule.forRoot(),
     InfiniteScrollModule,
+    ContextMenuModule,
     DndModule.forRoot()
   ],
   exports: [

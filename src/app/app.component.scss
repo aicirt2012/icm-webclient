@@ -120,7 +120,7 @@ div.cdk-focus-trap-content {
 ::-webkit-scrollbar-thumb {
   @include browser(Windows) {
     background-color: #ADADAD;
-    -webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,0.10),inset 0 -1px 0 rgba(0,0,0,0.07);
+    -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.10), inset 0 -1px 0 rgba(0, 0, 0, 0.07);
   }
 }
 
@@ -135,4 +135,34 @@ div.cdk-focus-trap-content {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+/* ngx Contextual Menu */
+.ngx-contextmenu .dropdown-menu {
+  border: 0;
+  background-color: whitesmoke;
+  box-shadow: 1px 1px 3px #888888;
+  padding: 0;
+}
+
+.ngx-contextmenu li {
+  display: block;
+  text-align: left;
+  font-size: small;
+}
+
+.ngx-contextmenu li:first-child {
+  border-top: none;
+}
+
+.ngx-contextmenu a {
+  color: grey;
+  display: block;
+  padding: 5px 10px;
+  text-underline: none;
+}
+
+.ngx-contextmenu a:hover {
+  color: black;
+  background-color: darkgray;
 }
