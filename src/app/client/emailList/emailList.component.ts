@@ -70,11 +70,11 @@ export class EmailListComponent {
   getEmailList(boxId = 'NONE', searchTerm = '', sort = 'DESC', lastEmailDate = new Date()) {
     this.emailService.searchEmailsWithPagination(boxId, sort, searchTerm, lastEmailDate)
       .subscribe((emails: any) => {
-        const customRoute = this.generateNavigationRoute(searchTerm);
+        const searchRoute = this.generateNavigationRoute(searchTerm);
         if (this.paginationEnabled) {
-          this.appState.setEmails(this.emails.concat(emails), customRoute);
+          this.appState.setEmails(this.emails.concat(emails), searchRoute, boxId);
         } else {
-          this.appState.setEmails(emails, customRoute);
+          this.appState.setEmails(emails, searchRoute, boxId);
         }
         this.emails = this.appState.getEmails();
         this.paginationEnabled = emails.length > 0;
@@ -87,6 +87,7 @@ export class EmailListComponent {
       });
   }
 
+  // TODO: move this into the service
   generateNavigationRoute(searchTerm) {
     return searchTerm != '' ? `/search/${searchTerm}` : 'NONE';
   }

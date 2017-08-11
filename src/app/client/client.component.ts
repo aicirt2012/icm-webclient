@@ -2,13 +2,13 @@ import {Component, ViewChild, style, state, animate, transition, trigger} from '
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import {MdDialog, MdSnackBar} from '@angular/material';
 import {AppState} from '../app.service';
-import * as moment from 'moment';
 import {Email, EmailService, BoxService, TaskService} from './shared';
 import {SocketService} from '../shared/services/socket.service';
 import {UserService} from '../settings/shared'; // TODO:move settingsservice to userservice
 import {Observable} from 'rxjs/Observable';
 import {EmailDialogComponent} from './emailDialog';
 import {EmailFolderDialogComponent} from './emailFolderDialog';
+import _ from 'lodash';
 
 @Component({
   selector: 'client',
@@ -34,7 +34,8 @@ export class ClientComponent {
     this.socketService.openSocketConnection();
     this.socketService.updateEmail().subscribe((updatedEmail: any) => {
       console.log('update email: ' + updatedEmail.subject, updatedEmail.date);
-      if (updatedEmail.box === this.appState.getCurrentBox()._id) {
+      console.log(updatedEmail.boxes);
+      if (_.includes(updatedEmail.boxes, this.appState.getCurrentBox()._id)) {
         console.log('this email belong to current box... pushing');
         this.appState.updateEmail(updatedEmail);
         this.emails = this.appState.getEmails();
@@ -44,9 +45,8 @@ export class ClientComponent {
     this.socketService.createEmail().subscribe((createdEmail: any) => {
       console.log('create email: ' + createdEmail.subject, createdEmail.date);
       if (this.appState.getEmails().length > 0) {
-        // check if this is a search
-        if (createdEmail.box === this.appState.getCurrentBox()._id) {
-          console.log('this email belong to current box... pushing');
+        if (_.includes(createdEmail.boxes, this.appState.getCurrentBox()._id)) {
+          console.log('this email belong to current box... pushing create');
           this.appState.createEmail(createdEmail);
           this.emails = this.appState.getEmails();
         }

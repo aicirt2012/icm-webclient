@@ -99,9 +99,9 @@ export class AppState {
 
   /** Emails */
   // customRoute: /root/rootId
-  setEmails(emails: any, customRoute = 'NONE') {
+  setEmails(emails: any, searchRoute = 'NONE', boxId = '0') {
     emails = emails.map(email => {
-      email.route = customRoute !== 'NONE' ? `${customRoute}/${email._id}` : `/box/${email.box}/${email._id}`;
+      email.route = searchRoute !== 'NONE' ? `${searchRoute}/${email._id}` : `/box/${boxId}/${email._id}`;
       return email
     });
     this.set(AppState.EMAILS, emails);
