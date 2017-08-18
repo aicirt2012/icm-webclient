@@ -33,12 +33,12 @@ export class AppState {
   }
 
   /** use our state getter for the clone */
-  private get(prop?: any) {
+  private get (prop?: any) {
     const state = this.state;
     return state.hasOwnProperty(prop) ? state[prop] : state;
   }
 
-  private set(prop: string, value: any) {
+  private set (prop: string, value: any) {
     this._state[prop] = value;
     this.dataChangeObserver.forEach((observer) => {
       observer.next(prop);
@@ -49,10 +49,10 @@ export class AppState {
     return JSON.parse(JSON.stringify(object));
   }
 
-  private createObserver(prop, getMethod): Observable<any>{
+  private createObserver(prop, getMethod): Observable<any> {
     return new Observable(observer => {
-      this.dataChange.subscribe(dataChanged=>{
-        if(dataChanged == prop)
+      this.dataChange.subscribe(dataChanged => {
+        if (dataChanged == prop)
           observer.next(getMethod.apply(this));
       });
     });
@@ -69,7 +69,7 @@ export class AppState {
   /** BoxList */
   setBoxList(boxList: any) {
     boxList = boxList.map(box => {
-      box.route = '/box/'+box._id;
+      box.route = '/box/' + box._id;
       return box
     });
     this.set(AppState.BOXLIST, boxList);
@@ -79,7 +79,7 @@ export class AppState {
     return this.get(AppState.BOXLIST);
   }
 
-  boxList(): Observable<any>{
+  boxList(): Observable<any> {
     return this.createObserver(AppState.BOXLIST, this.getBoxList);
   }
 
@@ -93,7 +93,7 @@ export class AppState {
   }
 
   // ensure this is working all the time
-  currentBox(): Observable<any>{
+  currentBox(): Observable<any> {
     return this.createObserver(AppState.CURRENTBOX, this.getCurrentBox);
   }
 
@@ -110,8 +110,8 @@ export class AppState {
   createEmail(newEmail: any) {
     const emails = this.getEmails();
 
-    for(let i = 0; i < emails.length; i++) {
-      if(emails[i].timestamp < newEmail.timestamp) {
+    for (let i = 0; i < emails.length; i++) {
+      if (emails[i].timestamp < newEmail.timestamp) {
         emails.splice(i, 0, newEmail);
         break;
       }
@@ -120,18 +120,33 @@ export class AppState {
   }
 
   updateEmail(modifiedEmail: any) {
-    const emails = this.getEmails().map(email => {
-      email._id == modifiedEmail._id ? email = modifiedEmail : email;
-      return email;
-    });
-    this.setEmails(emails);
+    const emails = this.getEmails();
+
+    let found = false;
+    let i = 0;
+
+    while (i < emails.length) {
+      if (emails[i]._id === modifiedEmail._id) {
+        emails[i] = modifiedEmail;
+        this.setEmails(emails);
+        found = true;
+        break;
+      }
+      i++;
+    }
+
+    if (!found) {
+      console.log('found');
+      this.createEmail(modifiedEmail);
+    }
+
   }
 
   deleteEmail(email: any) {
     const emails = this.getEmails();
 
-    for(let i = 0; i < emails.length; i++) {
-      if(emails[i]._id < email._id) {
+    for (let i = 0; i < emails.length; i++) {
+      if (emails[i]._id < email._id) {
         emails.splice(i, 1);
         break;
       }
@@ -143,7 +158,7 @@ export class AppState {
     return this.get(AppState.EMAILS);
   }
 
-  emails(): Observable<any>{
+  emails(): Observable<any> {
     return this.createObserver(AppState.EMAILS, this.getEmails);
   }
 
@@ -156,7 +171,7 @@ export class AppState {
     return this.get(AppState.SYNCED);
   }
 
-  synced(): Observable<any>{
+  synced(): Observable<any> {
     return this.createObserver(AppState.SYNCED, this.getSynced);
   }
 
@@ -169,7 +184,7 @@ export class AppState {
     return this.get(AppState.USER);
   }
 
-  user(): Observable<any>{
+  user(): Observable<any> {
     return this.createObserver(AppState.USER, this.getUser);
   }
 
