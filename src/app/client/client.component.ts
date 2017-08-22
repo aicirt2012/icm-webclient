@@ -35,11 +35,27 @@ export class ClientComponent {
     this.socketService.updateEmail().subscribe((updatedEmail: any) => {
       console.log('update email: ' + updatedEmail.subject, updatedEmail.date);
       console.log(updatedEmail.boxes);
+
+      let isDeletable = false;
+
+      if (_.find(this.appState.getEmails(), {'_id': updatedEmail._id})) {
+        console.log('email already in the list...');
+        isDeletable = true; // already in the emailList
+      }
+
       if (_.includes(updatedEmail.boxes, this.appState.getCurrentBox()._id)) {
         console.log('this email belong to current box... pushing');
         this.appState.updateEmail(updatedEmail);
         this.emails = this.appState.getEmails();
+        isDeletable = false;
       }
+
+      if (isDeletable) { // already in the emailList but does not belong to the box anymore
+        console.log('this email should be removed from the email list... deleting');
+        this.appState.deleteEmail(updatedEmail);
+        this.emails = this.appState.getEmails();
+      }
+
     });
 
     this.socketService.createEmail().subscribe((createdEmail: any) => {

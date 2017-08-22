@@ -19,6 +19,7 @@ export class Email {
     name: string;
   }];
   box: any;
+  boxes: string[];
   subject: string;
   html: any;
   text: string;

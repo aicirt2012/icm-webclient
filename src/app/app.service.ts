@@ -146,7 +146,7 @@ export class AppState {
     const emails = this.getEmails();
 
     for (let i = 0; i < emails.length; i++) {
-      if (emails[i]._id < email._id) {
+      if (emails[i]._id === email._id) {
         emails.splice(i, 1);
         break;
       }
