@@ -120,23 +120,25 @@ export class AppState {
   }
 
   updateEmail(modifiedEmail: any) {
+
     const emails = this.getEmails();
 
     let found = false;
     let i = 0;
 
+    // iterate emailList, if no email to update then create
     while (i < emails.length) {
       if (emails[i]._id === modifiedEmail._id) {
         emails[i] = modifiedEmail;
-        this.setEmails(emails);
         found = true;
         break;
       }
       i++;
     }
 
-    if (!found) {
-      console.log('found');
+    if (found) {
+      this.setEmails(emails);
+    } else {
       this.createEmail(modifiedEmail);
     }
 
