@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgModule, ApplicationRef } from '@angular/core';
@@ -26,6 +27,8 @@ import { AppComponent } from './app.component';
 import { AppState, InternalStateType } from './app.service';
 import { AuthGuard } from './app.authGuard';
 
+import 'hammerjs';
+
 import '../styles/styles.scss';
 import '../styles/headings.css';
 
@@ -50,6 +53,7 @@ type StoreType = {
   ],
   imports: [ // import Angular's modules
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot(ROUTES, { useHash: false }),
