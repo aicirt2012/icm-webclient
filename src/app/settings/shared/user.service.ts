@@ -32,17 +32,17 @@ export class UserService {
   }
 
   getPatterns(): Observable<any> {
-    return this.http.get('pattern', null, null);
+    return this.http.get('patterns', null, null);
   }
 
   createPattern(pattern: string): Observable<any> {
     const body = {
       pattern: pattern
     };
-    return this.http.post('pattern', null, body);
+    return this.http.post('patterns', null, body);
   }
 
   deletePattern(pattern: any): Observable<any> {
-    return this.http.delete('pattern/'+pattern._id, null, null);
+    return this.http.delete('patterns/'+pattern._id, null, null);
   }
 }

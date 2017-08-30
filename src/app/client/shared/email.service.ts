@@ -25,7 +25,7 @@ export class EmailService {
       search: search,
       lastEmailDate: lastEmailDate
     };
-    return this.http.get('email/search', params, null);
+    return this.http.get('emails/search', params, null);
   }
 
   /**
@@ -33,7 +33,7 @@ export class EmailService {
    * @param: email: any - Mailobject
    */
   sendEmail(email: any): Observable<any> {
-    return this.http.post('email/send', null, email);
+    return this.http.post('emails/send', null, email);
   }
 
   /**
@@ -42,7 +42,7 @@ export class EmailService {
    * @param: newBoxId: string - destination box
    */
   moveEmail(emailId: string, newBoxId: string): Observable<any> {
-    return this.http.post('email/' + emailId + '/move', null, {newBoxId: newBoxId});
+    return this.http.post('emails/' + emailId + '/move', null, {newBoxId: newBoxId});
   }
 
   /**
@@ -50,7 +50,7 @@ export class EmailService {
    * @param: emailId: string
    */
   moveEmailToTrash(emailId: string): Observable<any> {
-    return this.http.post('email/' + emailId + '/trash', null, {newBoxId: 0});
+    return this.http.post('emails/' + emailId + '/trash', null, {newBoxId: 0});
   }
 
   /**
@@ -58,7 +58,7 @@ export class EmailService {
    * @param: id: string
    */
   getEmail(emailId: string): Observable<Email> {
-    return this.http.get('email/' + emailId, null, null);
+    return this.http.get('emails/' + emailId, null, null);
   }
 
   /**
@@ -66,7 +66,7 @@ export class EmailService {
    * @param: flags: string[] e.g. //seen
    */
   addFlags(emailId: string, flags: string[]): Observable<any> {
-    return this.http.post('email/' + emailId + '/flags', null, {flags: flags});
+    return this.http.post('emails/' + emailId + '/flags', null, {flags: flags});
   }
 
   /**
@@ -74,7 +74,7 @@ export class EmailService {
    * @param: flags: string[] e.g. //seen
    */
   delFlags(emailId: string, flags: string[]): Observable<any> {
-    return this.http.delete('email/' + emailId + '/flags', null, {flags: flags});
+    return this.http.delete('emails/' + emailId + '/flags', null, {flags: flags});
   }
 
   /**
@@ -132,11 +132,11 @@ export class EmailService {
       msgData: msgData ? msgData : '',
     };
     console.log('appending mail to draft', body);
-    return this.http.post('email/append', null, body);
+    return this.http.post('emails/append', null, body);
   }
 
   /* FOR ENRON*/
   appendEnron(): Observable<any> {
-   return this.http.post('email/appendEnron', null, null);
+   return this.http.post('emails/appendEnron', null, null);
   }
 }

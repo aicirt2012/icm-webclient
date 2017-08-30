@@ -11,7 +11,7 @@ export class AttachmentService {
   }
 
   downloadFile(id): Observable<Blob> {
-    return this.http.getBlob('attachment/' + id + '/download');
+    return this.http.getBlob('attachments/' + id + '/download');
   }
 
 }

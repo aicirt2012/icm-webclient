@@ -10,7 +10,7 @@ export class WikiService {
   }
  
   search(query: string): Observable<any> {
-    return this.http.get('wiki/search', {query: query}, null);
+    return this.http.get('wikis/search', {query: query}, null);
   }
  
 

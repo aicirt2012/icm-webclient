@@ -10,15 +10,15 @@ export class DashboardService {
   }
 
   getTimeline(): Observable<any> {
-    return this.http.get('dashboard/timeline', null, null);
+    return this.http.get('dashboards/timeline', null, null);
   }
 
   getNetwork(): Observable<any> {
-    return this.http.get('dashboard/network', null, null);
+    return this.http.get('dashboards/network', null, null);
   }
 
   getStructure(): Observable<any> {
-    return this.http.get('dashboard/structure', null, null);
+    return this.http.get('dashboards/structure', null, null);
   }
 
 }

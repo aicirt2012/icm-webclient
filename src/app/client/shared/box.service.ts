@@ -15,7 +15,7 @@ export class BoxService {
    * Returns a list of all boxes
    */
   getBoxList(): Observable<any> {
-    return this.http.get('box', null, null);
+    return this.http.get('boxes', null, null);
   }
 
   /**
@@ -29,7 +29,7 @@ export class BoxService {
       boxName: boxShortName,
       parentBoxId: parentBoxId
     };
-    return this.http.post('box', null, body);
+    return this.http.post('boxes', null, body);
   }
 
   /**
@@ -38,7 +38,7 @@ export class BoxService {
    */
   delBox(boxId: string): Observable<any> {
     console.log('delete box...');
-    return this.http.delete('box/' + boxId, null, {boxId: boxId});
+    return this.http.delete('boxes/' + boxId, null, {boxId: boxId});
   }
 
   /**
@@ -48,14 +48,14 @@ export class BoxService {
    */
   renameBox(boxId: string, newBoxShortName: string): Observable<any> {
     console.log('rename box...');
-    return this.http.post('box/' + boxId + '/rename', null, {newBoxShortName: newBoxShortName});
+    return this.http.post('boxes/' + boxId + '/rename', null, {newBoxShortName: newBoxShortName});
   }
 
   /**
    * Sync boxes and emails via IMAP
    */
   syncAll(): Observable<any> {
-    return this.http.get('box/syncAll', null, null);
+    return this.http.get('boxes/syncAll', null, null);
   }
 
   /**
