@@ -1,7 +1,26 @@
 <md-card fxFlex>
 <md-tab-group>
   <md-tab label="SocioCortex">
-    <socioCortexContact (updateUserWithScConfig)="updateUserWithScConfig($event)" [scConfig]="scConfig"></socioCortexContact>
+    <md-card fxFlex>
+      <form fxFlex>
+        <div fxFlex fxfxLayout="column">
+          <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+            <md-checkbox [(ngModel)]="socioCortex.isEnabled">Enable</md-checkbox>
+          </div>
+          <md-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
+            <input md-input name="email" type="text" [(ngModel)]="socioCortex.email" placeholder="Email" autofocus required>
+          </md-input-container>
+          <md-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
+            <input md-input fxFlex="45" name="password" type="password" [(ngModel)]="socioCortex.password" placeholder="password" required>
+          </md-input-container>
+          <md-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
+            <input md-input fxFlex="45" name="baseURL" type="text" [(ngModel)]="socioCortex.baseURL" placeholder="base url" required>
+          </md-input-container>
+        </div>
+          <button md-raised-button color="primary" (click)="updateSocioCortex()">Save Configuration</button>
+      </form>
+    </md-card>
+    
   </md-tab>
 </md-tab-group>
 </md-card>

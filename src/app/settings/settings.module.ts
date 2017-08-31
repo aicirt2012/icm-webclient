@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { SettingsComponent } from './';
-import { AccountComponent, OverviewComponent, TaskComponent, HelpComponent, SocioCortexComponent, TrelloComponent, PatternsComponent, ContactComponent, SocioCortexContactComponent } from './components'; // all settings components
+import { AccountComponent, OverviewComponent, TaskComponent, HelpComponent, SocioCortexComponent, TrelloComponent, PatternsComponent, ContactComponent } from './components'; // all settings components
 import { SharedModule } from '../shared';
 import { ROUTES } from './settings.routes';
 import { AuthGuard } from '../app.authGuard';
@@ -30,8 +30,7 @@ import { UserService } from './shared';
     TrelloComponent,
     SocioCortexComponent,
     PatternsComponent,
-    ContactComponent,
-    SocioCortexComponent
+    ContactComponent
   ],
   providers: [
       AuthGuard,

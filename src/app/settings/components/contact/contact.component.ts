@@ -10,27 +10,26 @@ import { MdSnackBar } from '@angular/material';
 })
 export class ContactComponent {
 
-  private scConfig = {
+  private socioCortex = {
+    isEnabled: false,
     email: '',
     password: '',
     baseURL: ''
   };
 
-  constructor(private userService: UserService, private snackBar:  MdSnackBar) {}
+  constructor(private userService: UserService, private snackBar: MdSnackBar) {}
 
-  ngOnInit() {
-    this.userService.getUserInfo().subscribe((data) => {
-      console.log(data)
-      if(data.sociocortex) {
-        this.scConfig = data.sociocortex;
-      }
-    })
+  public ngOnInit() {
+    this.userService.getUserInfo().subscribe((user) => {
+      this.socioCortex = user.contactProvider.socioCortex;
+    });
   }
 
-  updateUserWithScConfig() {
-    this.userService.updateScConfig(this.scConfig)
+  public updateSocioCortex() {
+    console.log('her',this.socioCortex);
+    this.userService.updateContactProviderSocioCortex(this.socioCortex)
       .subscribe((data: any) => {
-        this.scConfig = data.sociocortex;
+        this.socioCortex = data.contactProvider.socioCortex;
         this.snackBar.open('Update successful.', 'OK');
       }, (error) => {
         this.snackBar.open('Error while updating. Try again.', 'OK');
