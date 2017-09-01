@@ -10,6 +10,11 @@
   </div>
   <div fxLayout="row" fxFlex>
     <spinner *ngIf="loading" [loading]="loading"></spinner>
-    <div *ngIf="!loading" [innerHTML]="content"></div>
+    <div *ngIf="!loading">
+      <span *ngIf="contacts != null && contacts.length == 0">No contacts found!</span>
+      <div *ngFor="let contact of contacts">
+        {{contact.firstName}} {{contact.lastName}}
+      </div>
+    </div>
   </div>
 </div>

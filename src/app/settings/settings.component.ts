@@ -24,6 +24,11 @@ export class SettingsComponent {
       link: '/settings/email'
     },
     {
+      name: 'Contact Settings',
+      icon: 'account_circle',
+      link: '/settings/contacts'
+    },
+    {
       name: 'Task Settings',
       icon: 'check_circle',
       link: '/settings/tasks'

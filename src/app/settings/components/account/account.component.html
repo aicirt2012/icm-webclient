@@ -5,9 +5,9 @@
       <div fxLayout="row" fxLayoutAlign="start center" class="radio-container">
         <div>Provider:</div>
         <md-radio-group name="radio1" [(ngModel)]="emailConfig.name">
-        <md-radio-button value="Gmail">Gmail</md-radio-button>
-        <md-radio-button value="Exchange">Exchange</md-radio-button>
-      </md-radio-group>
+            <md-radio-button value="Gmail">Gmail</md-radio-button>
+            <md-radio-button value="Exchange">Exchange</md-radio-button>
+        </md-radio-group>
       </div>
       <md-input-container>
           <input md-input placeholder="Email Address" type="email" name="email" [(ngModel)]="emailConfig.user" autofocus required>

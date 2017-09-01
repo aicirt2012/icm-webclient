@@ -8,26 +8,28 @@ import { NetworkService } from '../../shared/network.service'
 })
 
 export class NetworkComponent{
- 
-  private content: any;
+
+  private contacts: any;
   private query: string = 'Max Mustermann';
   private loading: boolean = false;
 
   constructor(private nt: NetworkService) {
   }
 
-  ngOnInit() {
-  }
-
-  search(){
-    this.loading = true;
-    this.nt.list().subscribe(data=>{
-      console.log(data);
-      this.loading = false;       
+  public ngOnInit() {
+    this.nt.list().subscribe((contacts)=>{
+      this.contacts = contacts;
+      this.loading = false;
     });
   }
 
-
-
+  public search(){
+    this.loading = true;
+    this.nt.search(this.query).subscribe((contacts)=>{
+      console.log(contacts);
+      this.contacts = contacts;
+      this.loading = false;
+    });
+  }
 
 }

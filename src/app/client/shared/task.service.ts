@@ -17,7 +17,7 @@ export class TaskService {
     const options = {
       idList: list
     };
-    return this.http.get('task', options, null);
+    return this.http.get('tasks', options, null);
   }
 
   /*
@@ -28,7 +28,7 @@ export class TaskService {
     const options = {
       query: query
     };
-    return this.http.get('task/search', options, null);
+    return this.http.get('tasks/search', options, null);
   }
 
   /*
@@ -39,7 +39,7 @@ export class TaskService {
     const body = {
       emailAddresses: emailAddresses
     }
-    return this.http.post('task/cards', null, body);
+    return this.http.post('tasks/cards', null, body);
   }
 
   /*
@@ -56,7 +56,7 @@ export class TaskService {
       sentences: email.sentences ? email.sentences : [],
       sentenceId: task.task ? task.task.id : ""
     };
-    const path = `task/email/${email._id}/addTask`;
+    const path = `tasks/email/${email._id}/addTask`;
     return this.http.post(path, null, options);
   }
 
@@ -70,27 +70,27 @@ export class TaskService {
       due: task.date,
       closed: task.closed
     };
-    return this.http.put('task/'+task.id, null, options);
+    return this.http.put('tasks/'+task.id, null, options);
   }
 
   getTaskByID(id :string): Observable<any> {
-    return this.http.get('task/'+id, null, null);
+    return this.http.get('tasks/'+id, null, null);
   }
 
   getAllBoards(params?: any): Observable<any> {
-    return this.http.get('task/boards', params, null);
+    return this.http.get('tasks/boards', params, null);
   }
 
   linkTask(email: any, task: any) {
     const options = {
       taskId : task.card.id
     };
-    const path = `task/email/${email._id}/linkTask`;
+    const path = `tasks/email/${email._id}/linkTask`;
     return this.http.post(path, null, options);
   }
 
   unlinkTask(task: any) {
-    const path = `task/${task.id}/unlink`;
+    const path = `tasks/${task.id}/unlink`;
      return this.http.put(path, null, null);
   }
 
