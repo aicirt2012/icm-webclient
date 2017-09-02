@@ -1,9 +1,11 @@
 import { Component, Input, EventEmitter, Output, ViewChild, state } from '@angular/core';
 import { Email } from '../shared';
 import { EmailService } from '../shared';
+import { WindowRef } from '../shared/window.ref.service';
 import { MdSnackBar } from '@angular/material';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AppState } from '../../app.service';
+
 
 @Component({
   selector: 'email-detailed-view',
@@ -23,7 +25,8 @@ export class EmailDetailedViewComponent {
   private moving = false;
 
   constructor(private emailService: EmailService, public snackBar: MdSnackBar,
-    public route: ActivatedRoute, public appState: AppState, public router: Router) {
+    public route: ActivatedRoute, public appState: AppState, public router: Router,
+    public windowRef: WindowRef) {
     this.emailResponse = {};
     this.responseStatus = false;
   }
@@ -32,11 +35,11 @@ export class EmailDetailedViewComponent {
     this.emails = this.appState.getEmails().length > 0 ? this.appState.getEmails(): [];
     this.boxList = this.appState.getBoxList().length > 0 ? this.appState.getBoxList(): [];
 
-    this.appState.boxList().subscribe(boxList=>{
+    this.appState.boxList().subscribe(boxList => {
       this.boxList = boxList;
     });
 
-    this.appState.emails().subscribe(emails=>{
+    this.appState.emails().subscribe(emails => {
       this.emails = emails;
     });
 
@@ -45,28 +48,36 @@ export class EmailDetailedViewComponent {
       console.log('get single email...');
       emailId !== 'None' ? emailId === 'new' ? this.createNewEmailDraft() : this.getSingleMail(emailId) : '';
     });
+
+    this.currentSelectedText();
   }
 
-  createNewEmailDraft() {
+  private currentSelectedText() {
+    const self = this;
+    setInterval(() => {
+      console.log(self.windowRef.nativeWindow.getSelection().toString());
+    }, 300);
+  }
+
+  private createNewEmailDraft() {
     console.log('creating a new email draft');
     this.responseStatus = true;
     this.generateEmailResponse('new');
   }
 
-
-  generateEmailResponse(type: string) {
+  private generateEmailResponse(type: string) {
     this.responseStatus = true;
     this.emailResponse = this.emailService.generateEmailForm(this.email, type);
   }
 
-  discardEmailResponse() {
+  private discardEmailResponse() {
     this.responseStatus = false;
     this.emailResponse = {};
     const customRoute = this.router.url.match(/(\/box\/|\/search\/)[a-zA-Z\u00C0-\u017F0-9 ]*\//)[0] + this.email._id;
     this.router.navigate([customRoute]);
   }
 
-  sendEmail(mail: any) {
+  private sendEmail(mail: any) {
     this.sending = true;
     this.emailService
       .sendEmail(mail)
@@ -83,7 +94,7 @@ export class EmailDetailedViewComponent {
       });
   }
 
-  getSingleMail(emailId: string) {
+  private getSingleMail(emailId: string) {
     this.emailService.getEmail(emailId)
       .subscribe((data: any) => {
         if (data.sentences) {
@@ -103,7 +114,7 @@ export class EmailDetailedViewComponent {
       });
   }
 
-  emailMoveToTrash(emailId: any) {
+  private emailMoveToTrash(emailId: any) {
     this.moving = true;
     this.emailService.moveEmailToTrash(emailId).subscribe((res) => {
       this.emails.splice(this.emails.findIndex((e) => this.email._id == e._id), 1);
@@ -117,7 +128,7 @@ export class EmailDetailedViewComponent {
     });
   }
 
-  emailMoveToBox(params: any) {
+  private emailMoveToBox(params: any) {
     this.moving = true;
     this.emailService.moveEmail(params.emailId, params.newBoxId).subscribe((res) => {
       this.emails.splice(this.emails.findIndex((e) => this.email._id == e._id), 1);
@@ -132,7 +143,7 @@ export class EmailDetailedViewComponent {
     });
   }
 
-  addFlags(flags: string[]) {
+  private addFlags(flags: string[]) {
     const oldEmail = Object.assign(this.email);
     const oldEmails = this.appState.getEmails();
     const oldBoxList = this.appState.getBoxList();
@@ -153,7 +164,7 @@ export class EmailDetailedViewComponent {
     this.appState.setBoxList(this.boxList);
     this.appState.setEmails(this.emails);
 
-    this.emailService.addFlags(this.email._id, flags).subscribe((res) => { }, (err) => {
+    this.emailService.addFlags(this.email._id, flags).subscribe((res) => {}, (err) => {
       this.email = Object.assign(oldEmail);
       this.appState.setEmails(oldEmails);
       this.appState.setBoxList(oldBoxList);
@@ -162,7 +173,7 @@ export class EmailDetailedViewComponent {
     });
   }
 
-  deleteFlags(flags: string[]) {
+  private deleteFlags(flags: string[]) {
     const oldEmail = Object.assign(this.email);
     const oldEmails = this.appState.getEmails();
     const oldBoxList = this.appState.getBoxList();
@@ -198,7 +209,7 @@ export class EmailDetailedViewComponent {
     })
   }
 
-  highlightSentence(h: any) {
+  private highlightSentence(h: any) {
     const sentence = this.email.sentences.find((s) => s.id == h.id);
     this.email.sentences.forEach((s) => { s.highlighted = false });
     this.email.suggestedTasks.forEach((t) => {

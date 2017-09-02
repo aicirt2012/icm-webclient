@@ -26,7 +26,6 @@ export class NetworkComponent{
   public search(){
     this.loading = true;
     this.nt.search(this.query).subscribe((contacts)=>{
-      console.log(contacts);
       this.contacts = contacts;
       this.loading = false;
     });

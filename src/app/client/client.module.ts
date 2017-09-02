@@ -41,7 +41,8 @@ import {
   WikiService,
   NetworkService,
   TranslateService,
-  AttachmentService
+  AttachmentService,
+  WindowRef
 } from './shared'; // all services
 import {Email, EmailForm} from './shared'; // all models from client
 import {SharedModule} from '../shared';
@@ -102,7 +103,8 @@ import {DndModule} from 'ng2-dnd';
     WikiService,
     NetworkService,
     TranslateService,
-    AuthGuard
+    AuthGuard,
+    WindowRef,
   ],
   entryComponents: [
     EmailDialogComponent,
