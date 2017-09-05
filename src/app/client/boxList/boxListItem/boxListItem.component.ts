@@ -10,8 +10,10 @@ import {ContextMenuComponent} from 'ngx-contextmenu';
   templateUrl: './boxListItem.component.html'
 })
 export class BoxListItemComponent {
+
   @Input() item: any;
   @Output() onMoveEmailToBox = new EventEmitter<any>();
+  @Output() onRenameBox = new EventEmitter<any>();
   @ViewChild(ContextMenuComponent) public basicMenu: ContextMenuComponent;
 
   dropEmailEvent(event) {
@@ -39,8 +41,9 @@ export class BoxListItemComponent {
     this.appState.setCurrentBox(this.item);
   }
 
-  showMessage(event) {
-    console.log(event);
+  renameBox(id) {
+    console.log(id);
+    this.onRenameBox.emit(id);
   }
 
 }

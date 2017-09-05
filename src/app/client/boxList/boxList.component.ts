@@ -3,9 +3,9 @@ import {Router} from '@angular/router';
 import {AppState} from '../../app.service';
 import {EmailFolderDialogComponent} from './emailFolderDialog';
 import {BoxService} from "../shared/box.service";
-import {MdDialog} from '@angular/material';
+import {MdDialog, MdDialogRef} from '@angular/material';
+import {BoxDialogComponent} from './boxListItem/boxDialog/boxDialog.component';
 // import {EmailDialogComponent} from '../emailDialog';
-// import {MdDialog, MdDialogRef} from '@angular/material';
 // import {DialogType} from '../../shared/constants';
 // import {EmailService} from '../shared';
 
@@ -93,6 +93,23 @@ export class BoxListComponent {
       }
       return box;
     });
+  }
+
+  renameBox(id) {
+    console.log('inside renameBox Dialog');
+    console.log(id);
+
+    let boxDialogRef: MdDialogRef<BoxDialogComponent> = this.dialog.open(BoxDialogComponent,
+      {
+        width: '25%',
+        height: '50%',
+        position: {
+          top: '',
+          bottom: '',
+          left: '',
+          right: ''
+        }
+      });
   }
 
   refresh() {

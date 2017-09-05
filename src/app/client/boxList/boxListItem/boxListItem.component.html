@@ -19,11 +19,11 @@
 </md-nav-list>
 
 <context-menu>
-  <ng-template contextMenuItem (execute)="showMessage('Box route: ' + $event.item.route)">
-    Show route in console
+  <ng-template contextMenuItem (execute)="renameBox(item._id)">
+    Rename
   </ng-template>
   <ng-template contextMenuItem divider="true"></ng-template>
-  <ng-template contextMenuItem let-item (execute)="showMessage('Box route: ' + $event.item.route + ' said: ' + $event.item.shortName)">
+  <ng-template contextMenuItem let-item (execute)="renameBox('Box route: ' + $event.item.route + ' said: ' + $event.item.shortName)">
     Show route and name in console
   </ng-template>
 </context-menu>
