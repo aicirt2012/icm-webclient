@@ -8,7 +8,7 @@
   <div fxLayout="row">
     <div fxFlex fxLayout="column">
       <md-card fxFlex>
-        <md-card-title>Rename box</md-card-title>
+        <md-card-title>Rename box {{boxId}}</md-card-title>
         <md-card-content>
           <div fxLayout="column">
             <md-input-container fxFlex>
@@ -17,7 +17,7 @@
           </div>
         </md-card-content>
         <md-card-actions fxLayoutAlign="center center">
-          <button [disabled]="selectedBoxName == '' || updating" md-raised-button color="primary"
+          <button [disabled]="newBoxShortName == '' || updating" md-raised-button color="primary"
                   (click)="onRenameBox()">Rename Box
           </button>
         </md-card-actions>

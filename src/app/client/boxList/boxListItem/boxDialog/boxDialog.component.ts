@@ -12,12 +12,10 @@ import {AppState} from '../../../../app.service';
 })
 export class BoxDialogComponent {
 
+  public boxId: any;
   public boxList: any = {};
-  public boxList$: any = {};
   private updating: boolean = false;
-  public refreshBoxList: any;
   private selectedBoxName: string = '';
-  private newBoxName: string = '';
   private newBoxShortName: string = '';
   private parentBox: string = '';
 
@@ -27,9 +25,11 @@ export class BoxDialogComponent {
   }
 
   ngOnInit() {
+    /*
     this.boxList$ = this.appState.boxList().subscribe(boxList => {
       this.boxList = boxList;
     });
+    */
   }
 
   onRenameBox() {

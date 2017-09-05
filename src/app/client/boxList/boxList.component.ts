@@ -1,4 +1,4 @@
-import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, Input, EventEmitter, Output, ViewChild, Inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {AppState} from '../../app.service';
 import {EmailFolderDialogComponent} from './emailFolderDialog';
@@ -95,9 +95,10 @@ export class BoxListComponent {
     });
   }
 
-  renameBox(id) {
+  renameBox(boxId) {
     console.log('inside renameBox Dialog');
-    console.log(id);
+    console.log(boxId);
+
 
     let boxDialogRef: MdDialogRef<BoxDialogComponent> = this.dialog.open(BoxDialogComponent,
       {
@@ -108,8 +109,11 @@ export class BoxListComponent {
           bottom: '',
           left: '',
           right: ''
-        }
-      });
+        },
+      }
+    );
+
+    boxDialogRef.componentInstance.boxId = boxId;
   }
 
   refresh() {
