@@ -1,6 +1,4 @@
 <div fxFlex fxLayout="column">
-  <md-progress-bar mode="indeterminate" *ngIf="updating"></md-progress-bar>
-
   <div md-dialog-title fxLayout="row" fxLayoutAlign="end center">
     <md-icon class="pointer" (click)="closeDialog()">close</md-icon>
   </div>
@@ -8,7 +6,7 @@
   <div fxLayout="row">
     <div fxFlex fxLayout="column">
       <md-card fxFlex>
-        <md-card-title>Rename box {{boxId}}</md-card-title>
+        <md-card-title>Rename box: {{box.shortName}}</md-card-title>
         <md-card-content>
           <div fxLayout="column">
             <md-input-container fxFlex>

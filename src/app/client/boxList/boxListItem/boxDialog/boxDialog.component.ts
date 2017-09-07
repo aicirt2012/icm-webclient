@@ -12,12 +12,11 @@ import {AppState} from '../../../../app.service';
 })
 export class BoxDialogComponent {
 
+  public box: any;
   public boxId: any;
   public boxList: any = {};
-  private updating: boolean = false;
   private selectedBoxName: string = '';
   private newBoxShortName: string = '';
-  private parentBox: string = '';
 
   constructor(public taskDialogRef: MdDialogRef<BoxDialogComponent>,
               private snackBar: MdSnackBar,
@@ -25,26 +24,19 @@ export class BoxDialogComponent {
   }
 
   ngOnInit() {
-    /*
-    this.boxList$ = this.appState.boxList().subscribe(boxList => {
-      this.boxList = boxList;
-    });
-    */
+    this.box = this.appState.getBox(this.boxId);
+    console.log(this.box);
   }
 
   onRenameBox() {
-    this.updating = true;
     const oldBoxId = this.boxList.find((box) => box.name == this.selectedBoxName)._id;
     this.boxService.renameBox(oldBoxId, this.newBoxShortName).subscribe((msg) => {
       console.log('inside onRenameBox');
-      this.updating = false;
       this.snackBar.open(`Folder '${this.selectedBoxName}' successfully renamed.`, 'OK');
-      this.selectedBoxName = '';
       this.newBoxShortName = '';
       this.closeDialog();
     }, (err) => {
       console.log(err);
-      this.updating = false;
       this.snackBar.open('Error while renaming folder.', 'OK');
     });
   }

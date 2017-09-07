@@ -33,12 +33,12 @@ export class AppState {
   }
 
   /** use our state getter for the clone */
-  private get (prop?: any) {
+  private get(prop?: any) {
     const state = this.state;
     return state.hasOwnProperty(prop) ? state[prop] : state;
   }
 
-  private set (prop: string, value: any) {
+  private set(prop: string, value: any) {
     this._state[prop] = value;
     this.dataChangeObserver.forEach((observer) => {
       observer.next(prop);
@@ -90,6 +90,10 @@ export class AppState {
 
   getCurrentBox() {
     return this.get(AppState.CURRENTBOX);
+  }
+
+  getBox(boxId) {
+    return this.getBoxList().find(box => box._id === boxId);
   }
 
   // ensure this is working all the time
