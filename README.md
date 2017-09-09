@@ -33,7 +33,6 @@ angular2-webpack-starter/
  ├──config/                    * our configuration
  |   ├──helpers.js             * helper functions for our configuration files
  |   ├──spec-bundle.js         * ignore this magic that sets up our angular 2 testing environment
- |   ├──karma.conf.js          * karma config for our unit tests
  │   ├──webpack.dev.js         * our development webpack config
  │   ├──webpack.prod.js        * our production webpack config
  │   └──webpack.test.js        * our testing webpack config
@@ -78,7 +77,6 @@ What you need to run this app:
 Once you have those, you should install these globals with `npm install --global`:
 * `webpack` (`npm install --global webpack`)
 * `webpack-dev-server` (`npm install --global webpack-dev-server`)
-* `karma` (`npm install --global karma-cli`)
 * `typescript` (`npm install --global typescript`)
 
 ## Installing
@@ -147,7 +145,7 @@ npm run build:docker
 ```
 
 # Configuration
-Configuration files live in `config/` we are currently using webpack and karma for different stages of your application
+Configuration files live in `config/` we are currently using webpack for different stages of your application
 
 # Contributing
 You can include more examples as components but they must introduce a new concept such as `Home` component (separate folders), and Todo (services). I'll accept pretty much everything so feel free to open a Pull-Request
