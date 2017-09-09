@@ -147,9 +147,6 @@ npm run build:docker
 # Configuration
 Configuration files live in `config/` we are currently using webpack for different stages of your application
 
-# Contributing
-You can include more examples as components but they must introduce a new concept such as `Home` component (separate folders), and Todo (services). I'll accept pretty much everything so feel free to open a Pull-Request
-
 # TypeScript
 > To take full advantage of TypeScript with autocomplete you would have to install it globally and use an editor with the correct TypeScript plugins.
 
@@ -162,11 +159,7 @@ npm install --global typescript
 
 ## Use a TypeScript-aware editor
 We have good experience using these editors:
-
 * [Visual Studio Code](https://code.visualstudio.com/)
-* [Webstorm 10](https://www.jetbrains.com/webstorm/download/)
-* [Atom](https://atom.io/) with [TypeScript plugin](https://atom.io/packages/atom-typescript)
-* [Sublime Text](http://www.sublimetext.com/3) with [Typescript-Sublime-Plugin](https://github.com/Microsoft/Typescript-Sublime-plugin#installation)
 
 ### Visual Studio Code + Debugger for Chrome
 > Install [Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome) and see docs for instructions to launch Chrome 
