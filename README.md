@@ -77,7 +77,7 @@ Once you have those, you should install these globals with `npm install --global
 ## Installing
 * `clone` this repo
 * `npm install webpack-dev-server rimraf webpack -g` to install required global dependencies
-* `npm install` to install all dependencies or `yarn`
+* `npm install` to install all dependencies
 * `npm run server` to start the dev server in another tab
 
 ## Running the app
