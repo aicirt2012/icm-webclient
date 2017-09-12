@@ -2,7 +2,7 @@
   <div fxLayout="row" class="create-email" fxLayoutAlign="center center">
     <button
       md-raised-button color="accent" class="create-email-btn"
-      (click)="openCreateEmailDialog()"
+      (click)="openCreateEmail()"
     >
       <md-icon>create</md-icon>
       <span>New Email</span>
@@ -13,6 +13,7 @@
       <box-list-item [item]="item" *ngFor="let item of navbarItems"
                      (onMoveEmailToBox)="moveEmailToBox($event)"
                      (onRenameBox)="renameBox($event)"
+                     (onMoveBox)="moveBox($event)"
       ></box-list-item>
     </md-nav-list>
     <div fxLayoutAlign="start center">

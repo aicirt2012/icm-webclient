@@ -14,7 +14,8 @@ export class BoxDialogComponent {
 
   public box: any;
   public boxId: any;
-  public boxList: any = {};
+  public dialogType: any; // RENAME or MOVE
+  public boxList: any;
   private selectedBoxName: string = '';
   private newBoxShortName: string = '';
 
@@ -25,12 +26,12 @@ export class BoxDialogComponent {
 
   ngOnInit() {
     this.box = this.appState.getBox(this.boxId);
-    console.log(this.box);
+    this.boxList = this.appState.getBoxList().filter(box => !box.static).slice();
+    console.log(this.boxList);
   }
 
   onRenameBox() {
-    const oldBoxId = this.boxList.find((box) => box.name == this.selectedBoxName)._id;
-    this.boxService.renameBox(oldBoxId, this.newBoxShortName).subscribe((msg) => {
+    this.boxService.renameBox(this.boxId, this.newBoxShortName).subscribe((msg) => {
       console.log('inside onRenameBox');
       this.snackBar.open(`Folder '${this.selectedBoxName}' successfully renamed.`, 'OK');
       this.newBoxShortName = '';
@@ -41,10 +42,24 @@ export class BoxDialogComponent {
     });
   }
 
+  onMoveBox() {
+    const boxId = this.boxList.find((box) => box.name == this.selectedBoxName)._id;
+    /*
+    this.boxService.moveBox(boxId).subscribe((msg) => {
+      this.snackBar.open(`Folder '${this.selectedBoxName}' successfully moved to: `, 'OK');
+      this.selectedBoxName = '';
+      this.closeDialog();
+    }, (err) => {
+      console.log(err);
+      this.snackBar.open('Error while deleting folder.', 'OK');
+    });
+    */
+  }
+
   addPadding(box: any) {
     let paddingLeft = `0`;
     if (box.level > 0) {
-      paddingLeft = `${box.level * 5}px`;
+      paddingLeft = `${box.level * 10}px`;
     }
     return paddingLeft;
   }

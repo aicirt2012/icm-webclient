@@ -2,6 +2,8 @@ import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {AppState} from "../../../app.service";
 import {ContextMenuComponent} from 'ngx-contextmenu';
+import {MdDialog, MdDialogRef} from "@angular/material";
+import {BoxDialogComponent} from '../boxListItem/boxDialog/boxDialog.component';
 
 @Component({
   selector: 'box-list-item',
@@ -13,6 +15,7 @@ export class BoxListItemComponent {
 
   @Input() item: any;
   @Output() onMoveEmailToBox = new EventEmitter<any>();
+  @Output() onMoveBox = new EventEmitter<any>();
   @Output() onRenameBox = new EventEmitter<any>();
   @ViewChild(ContextMenuComponent) public basicMenu: ContextMenuComponent;
 
@@ -28,7 +31,7 @@ export class BoxListItemComponent {
   }
 
 
-  constructor(public router: Router, public appState: AppState) {
+  constructor(public router: Router, public appState: AppState, public dialog: MdDialog) {
   }
 
   isActive(route: string): boolean {
@@ -41,9 +44,48 @@ export class BoxListItemComponent {
     this.appState.setCurrentBox(this.item);
   }
 
-  renameBox(id) {
-    console.log(id);
-    this.onRenameBox.emit(id);
+  renameBox(boxId) {
+    console.log('inside renameBox Dialog');
+    console.log(boxId);
+
+
+    let boxDialogRef: MdDialogRef<BoxDialogComponent> = this.dialog.open(BoxDialogComponent,
+      {
+        width: '25%',
+        height: '300px',
+        position: {
+          top: '',
+          bottom: '',
+          left: '',
+          right: ''
+        },
+      }
+    );
+
+    boxDialogRef.componentInstance.boxId = boxId;
+    boxDialogRef.componentInstance.dialogType = 'RENAME';
+  }
+
+  moveBox(boxId) {
+    console.log('inside moveBox Dialog');
+    console.log(boxId);
+
+
+    let boxDialogRef: MdDialogRef<BoxDialogComponent> = this.dialog.open(BoxDialogComponent,
+      {
+        width: '25%',
+        height: '300px',
+        position: {
+          top: '',
+          bottom: '',
+          left: '',
+          right: ''
+        },
+      }
+    );
+
+    boxDialogRef.componentInstance.boxId = boxId;
+    boxDialogRef.componentInstance.dialogType = 'MOVE';
   }
 
 }

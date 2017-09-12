@@ -24,7 +24,7 @@
   </ng-template>
   <ng-template [visible]="!item.static" contextMenuItem divider="true"></ng-template>
   <ng-template [visible]="!item.static" contextMenuItem let-item
-               (execute)="moveBox">
+               (execute)="moveBox(item._id)">
     Move to
   </ng-template>
 </context-menu>
