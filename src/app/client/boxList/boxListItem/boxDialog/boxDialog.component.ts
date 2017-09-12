@@ -16,7 +16,7 @@ export class BoxDialogComponent {
   public boxId: any;
   public dialogType: any; // RENAME or MOVE
   public boxList: any;
-  private selectedBoxName: string = '';
+  private newParentBoxId: string = '';
   private newBoxShortName: string = '';
 
   constructor(public taskDialogRef: MdDialogRef<BoxDialogComponent>,
@@ -26,14 +26,14 @@ export class BoxDialogComponent {
 
   ngOnInit() {
     this.box = this.appState.getBox(this.boxId);
-    this.boxList = this.appState.getBoxList().filter(box => !box.static).slice();
+    this.boxList = this.appState.getBoxList().filter(box => !box.static && box._id != this.boxId).slice();
     console.log(this.boxList);
   }
 
   onRenameBox() {
     this.boxService.renameBox(this.boxId, this.newBoxShortName).subscribe((msg) => {
       console.log('inside onRenameBox');
-      this.snackBar.open(`Folder '${this.selectedBoxName}' successfully renamed.`, 'OK');
+      this.snackBar.open(`Folder '${this.newBoxShortName}' successfully renamed.`, 'OK');
       this.newBoxShortName = '';
       this.closeDialog();
     }, (err) => {
@@ -43,17 +43,14 @@ export class BoxDialogComponent {
   }
 
   onMoveBox() {
-    const boxId = this.boxList.find((box) => box.name == this.selectedBoxName)._id;
-    /*
-    this.boxService.moveBox(boxId).subscribe((msg) => {
-      this.snackBar.open(`Folder '${this.selectedBoxName}' successfully moved to: `, 'OK');
-      this.selectedBoxName = '';
+    this.boxService.moveBox(this.boxId, this.newParentBoxId).subscribe((msg) => {
+      this.snackBar.open(`Folder successfully moved`, 'OK');
+      this.newParentBoxId = '';
       this.closeDialog();
     }, (err) => {
       console.log(err);
-      this.snackBar.open('Error while deleting folder.', 'OK');
+      this.snackBar.open('Error while moving folder.', 'OK');
     });
-    */
   }
 
   addPadding(box: any) {
