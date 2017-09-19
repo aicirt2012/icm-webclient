@@ -12,7 +12,9 @@ installdependencies:
   stage: installdependencies
   script:
     - npm install
-    - npm run build:prod
+    - npm install -g yarn
+    - yarn build
+#    - npm run build:prod
   artifacts:
     paths:
       - node_modules/
