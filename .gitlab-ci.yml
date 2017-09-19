@@ -1,0 +1,33 @@
+image: node:latest
+
+cache: 
+  paths:
+    - node_modules/
+
+stages:
+  - install_dependencies
+  - docker_build
+
+install_dependencies:
+  stage: install_dependencies
+  script:
+    - npm install
+    - npm run build:prod
+  artifacts:
+    paths:
+      - node_modules/
+      - dist/
+
+# greift auf Dockerfile zu
+dockerbuild:
+  image: docker:latest
+  services:
+    - docker:dind
+  stage: dockerbuild
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+    - docker build --pull -t registry.gitlab.com/tum.icm/icm-webclient/testing:latest .
+    - docker push registry.gitlab.com/tum.icm/icm-webclient/testing:latest
+  artifacts:
+    paths:
+      - node_modules/
