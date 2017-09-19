@@ -3,6 +3,7 @@ import {FormControl} from '@angular/forms';
 import {MdDialogRef, MdSnackBar, MdInput} from '@angular/material';
 import {BoxService} from '../../../shared';
 import {AppState} from '../../../../app.service';
+import _ from 'lodash';
 
 
 @Component({
@@ -14,6 +15,7 @@ export class BoxDialogComponent {
 
   public box: any;
   public boxId: any;
+  public allChildren: any;
   public dialogType: any; // RENAME or MOVE
   public boxList: any;
   private newParentBoxId: string = '';
@@ -26,8 +28,11 @@ export class BoxDialogComponent {
 
   ngOnInit() {
     this.box = this.appState.getBox(this.boxId);
-    this.boxList = this.appState.getBoxList().filter(box => !box.static && box._id != this.boxId).slice();
-    console.log(this.boxList);
+    this.allChildren = this.appState.getAllLevelsChildren(this.boxId);
+    this.boxList = this.appState.getBoxList().filter(box =>
+      !box.static && box._id != this.boxId &&
+      !_.find(this.allChildren, {'_id': box._id})
+      ).slice();
   }
 
   onRenameBox() {

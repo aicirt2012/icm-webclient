@@ -101,6 +101,19 @@ export class AppState {
     return this.createObserver(AppState.CURRENTBOX, this.getCurrentBox);
   }
 
+  getAllLevelsChildren(boxId) {
+    const box = this.getBox(boxId);
+    return this.getChildren(box, []);
+  }
+
+  getChildren(box, children) {
+    box.children.forEach(child => {
+      children.push(child);
+      this.getChildren(child, children);
+    });
+    return children;
+  }
+
   /** Emails */
   // customRoute: /root/rootId
   setEmails(emails: any, searchRoute = 'NONE', boxId = '0') {
