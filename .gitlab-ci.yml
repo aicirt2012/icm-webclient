@@ -5,11 +5,11 @@ cache:
     - node_modules/
 
 stages:
-  - install_dependencies
-  - docker_build
+  - installdependencies
+  - dockerbuild
 
-install_dependencies:
-  stage: install_dependencies
+installdependencies:
+  stage: installdependencies
   script:
     - npm install
     - npm run build:prod
