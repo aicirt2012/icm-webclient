@@ -1,13 +1,9 @@
-import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, Input, EventEmitter, Output, ViewChild, Inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {AppState} from '../../app.service';
 import {EmailFolderDialogComponent} from './emailFolderDialog';
 import {BoxService} from "../shared/box.service";
 import {MdDialog} from '@angular/material';
-// import {EmailDialogComponent} from '../emailDialog';
-// import {MdDialog, MdDialogRef} from '@angular/material';
-// import {DialogType} from '../../shared/constants';
-// import {EmailService} from '../shared';
 
 @Component({
   selector: 'box-list',
@@ -68,7 +64,7 @@ export class BoxListComponent {
       boxList = this.boxService.addDefaultBoxes(boxList);
       const boxParentMap = this.getBoxParentMap(boxList);
       const rootBoxes = boxParentMap.get(null);
-      this.navbarItems = this.populateBoxesTree(rootBoxes, boxParentMap);
+      this.navbarItems = this.populateBoxesTree(rootBoxes, boxParentMap, 0);
     }
   }
 
@@ -83,14 +79,15 @@ export class BoxListComponent {
     return boxParentMap;
   }
 
-  private populateBoxesTree(boxes: any[], boxParentMap) {
+  private populateBoxesTree(boxes: any[], boxParentMap, level: number = 0) {
     if (boxes == null)
       return [];
     return boxes.map(box => {
       if (boxParentMap.has(box._id)) {
         let children = boxParentMap.get(box._id);
-        box.children = this.populateBoxesTree(children, boxParentMap);
+        box.children = this.populateBoxesTree(children, boxParentMap, level + 1);
       }
+      box.level = level;
       return box;
     });
   }
@@ -99,22 +96,10 @@ export class BoxListComponent {
     this.onRefresh.emit(true);
   }
 
-  openCreateEmailDialog() {
+  openCreateEmail() {
     console.log('inside openCreateEmailDialog');
     const customRoute = this.router.url.match(/(\/box\/|\/search\/)[a-zA-Z\u00C0-\u017F0-9 ]*\//)[0] + 'new';
     this.router.navigate([customRoute]);
-    /*
-    let emailDialogRef: MdDialogRef<EmailDialogComponent> = this.dialog.open(EmailDialogComponent, {
-      width: '80%',
-      height: '95%',
-      position: {
-        top: '',
-        bottom: '',
-        left: '',
-        right: ''
-      }
-    });
-    */
   }
 
   openEmailFolderDialog() {

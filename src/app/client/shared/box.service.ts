@@ -52,6 +52,16 @@ export class BoxService {
   }
 
   /**
+   * Move box - nest under another box
+   * @param boxId
+   * @param newParentBoxId
+   */
+  moveBox(boxId: string, newParentBoxId: string) {
+    console.log('move box under...');
+    return this.http.post('boxes/' + boxId + '/move', null, {newParentBoxId: newParentBoxId});
+  }
+
+  /**
    * Sync boxes and emails via IMAP
    */
   syncAll(): Observable<any> {

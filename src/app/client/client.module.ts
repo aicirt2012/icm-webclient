@@ -10,6 +10,7 @@ import {
   ClientComponent,
   EmailDialogComponent,
   EmailFolderDialogComponent,
+  BoxDialogComponent,
   TaskDialogComponent,
   LinkTaskDialogComponent,
   TasksComponent,
@@ -77,6 +78,7 @@ import {DndModule} from 'ng2-dnd';
     TranslateComponent,
     EmailDialogComponent,
     EmailFolderDialogComponent,
+    BoxDialogComponent,
     EmailDetailedViewComponent,
     EmailListComponent,
     HighlightPipe,
@@ -108,6 +110,7 @@ import {DndModule} from 'ng2-dnd';
   ],
   entryComponents: [
     EmailDialogComponent,
+    BoxDialogComponent,
     TaskDialogComponent,
     LinkTaskDialogComponent,
     EmailFolderDialogComponent,

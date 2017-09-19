@@ -1,25 +1,41 @@
 <div fxLayout="column" class="full-height navbar-list">
-    <div fxLayout="row" class="create-email" fxLayoutAlign="center center">
-      <button md-raised-button color="accent" class="create-email-btn" (click)="openCreateEmailDialog()">
-        <md-icon>create</md-icon>
-        <span>New Email</span>
+  <div fxLayout="row" class="create-email" fxLayoutAlign="center center">
+    <button
+      md-raised-button color="accent" class="create-email-btn"
+      (click)="openCreateEmail()"
+    >
+      <md-icon>create</md-icon>
+      <span>New Email</span>
+    </button>
+  </div>
+  <div fxFlex class="sidenav-boxes scrollable">
+    <md-nav-list>
+      <box-list-item [item]="item" *ngFor="let item of navbarItems"
+                     (onMoveEmailToBox)="moveEmailToBox($event)"
+                     (onRenameBox)="renameBox($event)"
+                     (onMoveBox)="moveBox($event)"
+      ></box-list-item>
+    </md-nav-list>
+    <div fxLayoutAlign="start center">
+      <button fxFlex md-button fxLayout="row" fxLayoutAlign="start start" class="manage-folders"
+              (click)="openEmailFolderDialog()"
+      >
+        Manage Folders
       </button>
     </div>
-    <div fxFlex class="sidenav-boxes scrollable">
-      <md-nav-list>
-        <box-list-item [item]="item" *ngFor="let item of navbarItems" (onMoveEmailToBox)="moveEmailToBox($event)"></box-list-item>
-      </md-nav-list>
-      <div fxLayoutAlign="start center">
-        <button fxFlex md-button fxLayout="row" fxLayoutAlign="start start" class="manage-folders" (click)="openEmailFolderDialog()">Manage Folders</button>
-      </div>
-    </div>
-    <div fxLayoutAlign="center center">
-        <button fxShow="false" fxShow.gt-md md-button fxFlex class="refresh-btn" (click)="refresh()" fxLayoutAlign="center center">
-            Synced: <small>{{lastSync | date:'short'}}</small>
-        <md-icon [class.rotate-icon]="syncing" class="md-24">sync</md-icon>
-        </button>
-         <button  fxLayoutAlign="center center" fxHide="false" fxHide.gt-md md-button fxFlex class="refresh-btn" (click)="refresh()">
-        <md-icon [class.rotate-icon]="syncing" class="md-24">sync</md-icon>
-        </button>
-    </div>
+  </div>
+  <div fxLayoutAlign="center center">
+    <button fxShow="false" fxShow.gt-md md-button fxFlex class="refresh-btn"
+            (click)="refresh()"
+            fxLayoutAlign="center center"
+    >
+      Synced:
+      <small>{{lastSync | date:'short'}}</small>
+      <md-icon [class.rotate-icon]="syncing" class="md-24">sync</md-icon>
+    </button>
+    <button fxLayoutAlign="center center" fxHide="false" fxHide.gt-md md-button fxFlex class="refresh-btn"
+            (click)="refresh()">
+      <md-icon [class.rotate-icon]="syncing" class="md-24">sync</md-icon>
+    </button>
+  </div>
 </div>
