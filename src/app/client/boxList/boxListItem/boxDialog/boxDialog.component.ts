@@ -33,6 +33,7 @@ export class BoxDialogComponent {
       !box.static && box._id != this.boxId &&
       !_.find(this.allChildren, {'_id': box._id})
       ).slice();
+    this.boxList.unshift({_id: 'ROOT', shortName: 'ROOT'});
   }
 
   onRenameBox() {
