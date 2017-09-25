@@ -4,6 +4,7 @@ import {ModalDirective} from 'ng2-bootstrap';
 import {Email} from '../shared';
 import {AppState} from '../../app.service';
 import {EmailService} from '../shared';
+import _ from 'lodash';
 
 @Component({
   selector: 'email-list',
@@ -57,6 +58,15 @@ export class EmailListComponent {
 
   isSearchRoute() {
     return /^(\/search\/)/.test(this.router.url);
+  }
+
+  anyNonInlineAttachment(email) {
+    console.log(email.attachments);
+    if (email.attachments.length > 0) {
+      return _.find(email.attachments, {'contentDispositionInline': false});
+    } else {
+      false
+    };
   }
 
   searchEmails(searchTerm = '') {

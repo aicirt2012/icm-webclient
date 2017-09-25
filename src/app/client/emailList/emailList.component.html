@@ -10,7 +10,7 @@
           <div fxFlex="58" fxLayoutAlign="start center" class="text-overflow padding"
                [innerHTML]="(mail.from[0].name ? mail.from[0].name : mail.from[0].address) | highlight: searchTerm"></div>
           <div fxFlex="2"></div>
-          <div fxFlex="10" [fxShow]="mail.attachments.length > 0" fxLayoutAlign="end center" class="padding text-overflow date">
+          <div fxFlex="10" *ngIf="anyNonInlineAttachment(mail)" fxLayoutAlign="end center" class="padding text-overflow date">
             <md-icon>attachment</md-icon>
           </div>
           <div fxFlex="40" fxShow="false" fxShow.gt-md fxLayoutAlign="end center" class="padding text-overflow date">
