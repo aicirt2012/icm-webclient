@@ -11,7 +11,7 @@ stages:
 installdependencies:
   stage: installdependencies
   script:
-    - npm install
+    - npm install --unsafe-perm
     - npm install -g yarn
     - yarn build
 #    - npm run build:prod
