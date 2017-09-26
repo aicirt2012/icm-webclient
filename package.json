@@ -1,6 +1,9 @@
 {
   "name": "IntelligentContextualMail",
   "version": "1.0.0",
+  "config": {
+    "unsafe-perm":true
+  },
   "description": "Email App with intelligent contextual task support",
   "keywords": [
     "Mail",
