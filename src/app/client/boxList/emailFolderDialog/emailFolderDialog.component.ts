@@ -8,8 +8,8 @@ import {AppState} from '../../../app.service';
 
 @Component({
   selector: 'email-folder-dialog',
-  styleUrls: ['./EmailFolderDialog.component.css'],
-  templateUrl: './EmailFolderDialog.component.html'
+  styleUrls: ['./emailFolderDialog.component.css'],
+  templateUrl: './emailFolderDialog.component.html'
 })
 export class EmailFolderDialogComponent {
 

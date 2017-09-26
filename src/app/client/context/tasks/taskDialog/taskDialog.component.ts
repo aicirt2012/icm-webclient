@@ -7,8 +7,8 @@ import { AppState } from '../../../../app.service';
 
 @Component({
   selector: 'task-dialog',
-  styleUrls: ['./TaskDialog.component.css'],
-  templateUrl: './TaskDialog.component.html'
+  styleUrls: ['./taskDialog.component.css'],
+  templateUrl: './taskDialog.component.html'
 })
 export class TaskDialogComponent {
 
