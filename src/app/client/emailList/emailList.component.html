@@ -1,9 +1,9 @@
 <div fxLayout="row" fxFlex class="full-height email-list-container">
   <div [fxShow]="!loading" fxLayout="column" fxFlex="25" class="email-list">
     <search-bar (searchEmails)="searchEmails($event)"></search-bar>
-    <div fxFlex class="scrollable" infinite-scroll [infiniteScrollDistance]="scrollDistance"
+    <div fxFlex fxLayout="column" class="scrollable" infinite-scroll [infiniteScrollDistance]="scrollDistance"
          [infiniteScrollThrottle]="scrollThrottle" [scrollWindow]="false" (scrolled)="onScrollDown()">
-      <div fxFlex fxLayout="column" class="email-list-item" [routerLink]="mail.route"
+      <div fxFlex="100px" fxLayout="column" class="email-list-item" [routerLink]="mail.route"
            [class.route-active]="isActive(mail.route)" [class.unseen]="!isRead(mail)"
            *ngFor="let mail of emails; let i = index" dnd-draggable [dragEnabled]="true" [dragData]="mail">
         <div *ngIf="mail.from.length > 0" fxFlex="33" fxLayout="row">
