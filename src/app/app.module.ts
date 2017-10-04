@@ -6,7 +6,27 @@ import { NgModule, ApplicationRef } from '@angular/core';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
-import { MaterialModule } from '@angular/material';
+import {
+  MdAutocompleteModule,
+  MdButtonModule,
+  MdButtonToggleModule,
+  MdCheckboxModule,
+  MdDialogModule,
+  MdIconModule,
+  MdInputModule,
+  MdListModule,
+  MdMenuModule,
+  MdSliderModule,
+  MdSlideToggleModule,
+  MdToolbarModule,
+  MdTooltipModule,
+  MdSelectModule,
+  MdCardModule,
+  MdChipsModule,
+  MdTabsModule,
+  MdFormFieldModule,
+  MdSnackBarModule
+} from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 
 // Self-written modules
@@ -57,8 +77,28 @@ type StoreType = {
     FormsModule,
     HttpModule,
     RouterModule.forRoot(ROUTES, { useHash: false }),
-    MaterialModule.forRoot(),
-    FlexLayoutModule.forRoot(),
+    // angular material
+    MdAutocompleteModule,
+    MdButtonModule,
+    MdButtonToggleModule,
+    MdCheckboxModule,
+    MdDialogModule,
+    MdIconModule,
+    MdInputModule,
+    MdListModule,
+    MdMenuModule,
+    MdSliderModule,
+    MdSlideToggleModule,
+    MdToolbarModule,
+    MdTooltipModule,
+    MdSelectModule,
+    MdCardModule,
+    MdChipsModule,
+    MdTabsModule,
+    MdFormFieldModule,
+    MdSnackBarModule,
+    //
+    FlexLayoutModule,
     // custom modules
     LoginModule,
     ClientModule,

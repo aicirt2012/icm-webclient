@@ -8,18 +8,18 @@
               <md-checkbox name="isEnabled" [(ngModel)]="socioCortex.isEnabled">Enable</md-checkbox>
             </div>
             <md-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
-              <input md-input name="email" type="text" [(ngModel)]="socioCortex.email" placeholder="Email" autofocus required disabled="{{!socioCortex.isEnabled}}">
+              <input mdInput name="email" type="text" [(ngModel)]="socioCortex.email" placeholder="Email" autofocus required disabled="{{!socioCortex.isEnabled}}">
             </md-input-container>
             <md-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
-              <input md-input fxFlex="45" name="password" type="password" [(ngModel)]="socioCortex.password" placeholder="Password" required disabled="{{!socioCortex.isEnabled}}">
+              <input mdInput fxFlex="45" name="password" type="password" [(ngModel)]="socioCortex.password" placeholder="Password" required disabled="{{!socioCortex.isEnabled}}">
             </md-input-container>
             <md-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
-              <input md-input fxFlex="100" name="baseURL" type="text" [(ngModel)]="socioCortex.baseURL" placeholder="Base URL" required disabled="{{!socioCortex.isEnabled}}">
+              <input mdInput fxFlex="100" name="baseURL" type="text" [(ngModel)]="socioCortex.baseURL" placeholder="Base URL" required disabled="{{!socioCortex.isEnabled}}">
             </md-input-container>
           </div>
           <button md-raised-button color="primary" (click)="updateSocioCortex()">Save Configuration</button>
         </form>
-      </md-card>      
+      </md-card>
     </md-tab>
   </md-tab-group>
 </md-card>

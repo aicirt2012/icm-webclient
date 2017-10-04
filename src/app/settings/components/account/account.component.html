@@ -10,25 +10,25 @@
         </md-radio-group>
       </div>
       <md-input-container>
-          <input md-input placeholder="Email Address" type="email" name="email" [(ngModel)]="emailConfig.user" autofocus required>
+          <input mdInput placeholder="Email Address" type="email" name="email" [(ngModel)]="emailConfig.user" autofocus required>
       </md-input-container>
       <md-input-container>
-          <input md-input placeholder="Password" type="password" name="password" [(ngModel)]="emailConfig.password" required>
+          <input mdInput placeholder="Password" type="password" name="password" [(ngModel)]="emailConfig.password" required>
       </md-input-container>
       <md-input-container>
-          <input md-input placeholder="Host" type="text" name="host" [(ngModel)]="emailConfig.host" required>
+          <input mdInput placeholder="Host" type="text" name="host" [(ngModel)]="emailConfig.host" required>
       </md-input-container>
       <md-input-container>
-          <input md-input placeholder="Port" type="number" name="port" [(ngModel)]="emailConfig.port" required>
+          <input mdInput placeholder="Port" type="number" name="port" [(ngModel)]="emailConfig.port" required>
       </md-input-container>
       <md-input-container>
-          <input md-input placeholder="SMTP Host" type="text" name="smtphost" [(ngModel)]="emailConfig.smtpHost" required>
+          <input mdInput placeholder="SMTP Host" type="text" name="smtphost" [(ngModel)]="emailConfig.smtpHost" required>
       </md-input-container>
       <md-input-container>
-          <input md-input placeholder="SMTP Port" type="number" name="smtpport" [(ngModel)]="emailConfig.smtpPort" required>
+          <input mdInput placeholder="SMTP Port" type="number" name="smtpport" [(ngModel)]="emailConfig.smtpPort" required>
       </md-input-container>
       <md-input-container>
-          <input md-input #inputSmtpDomains (keyup.enter)="addDomain(inputSmtpDomains)" (change)="addDomain(inputSmtpDomains)"  type="text" placeholder="SMTP Domains:" required/>
+          <input mdInput #inputSmtpDomains (keyup.enter)="addDomain(inputSmtpDomains)" (change)="addDomain(inputSmtpDomains)"  type="text" placeholder="SMTP Domains:" required/>
           <md-chip-list>
             <md-chip *ngFor="let domain of emailConfig.smtpDomains; let i = index">
               <div fxLayout="row" fxLayoutAlign="start center">

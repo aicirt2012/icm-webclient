@@ -12,7 +12,7 @@
         <md-card-content>
           <div fxLayout="column">
             <md-input-container fxFlex>
-              <input fxFlex md-input placeholder="Name of new box..." type="text" [(ngModel)]="newBoxName">
+              <input fxFlex mdInput placeholder="Name of new box..." type="text" [(ngModel)]="newBoxName">
             </md-input-container>
             <md-select *ngIf="newBoxName != ''" fxFlex [(ngModel)]="parentBox" placeholder="Nest under...">
               <md-option fxFlex *ngFor="let box of boxList; let b = index" [value]="box.name">
@@ -59,7 +59,7 @@
               </md-option>
             </md-select>
             <md-input-container fxFlex>
-              <input fxFlex md-input placeholder="Rename box..." type="text" [(ngModel)]="newBoxShortName">
+              <input fxFlex mdInput placeholder="Rename box..." type="text" [(ngModel)]="newBoxShortName">
             </md-input-container>
           </div>
         </md-card-content>

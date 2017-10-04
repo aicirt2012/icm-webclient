@@ -2,10 +2,10 @@
   <form fxFlex>
     <div fxFlex fxfxLayout="column">
       <md-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
-        <input md-input name="username" type="text" [(ngModel)]="scConfig.username" placeholder="Username" autofocus required>
+        <input mdInput name="username" type="text" [(ngModel)]="scConfig.username" placeholder="Username" autofocus required>
       </md-input-container>
       <md-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
-        <input md-input fxFlex="45" name="password" type="password" [(ngModel)]="scConfig.password" placeholder="password" required>
+        <input mdInput fxFlex="45" name="password" type="password" [(ngModel)]="scConfig.password" placeholder="password" required>
       </md-input-container>
     </div>
       <button md-raised-button color="primary" (click)="updateUser()">Save SC Configuration</button>

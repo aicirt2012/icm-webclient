@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {Email} from '../../client';
 import {AuthService} from './auth.service';
 import C from '../constants';
+import 'rxjs/Rx';
 
 
 @Injectable()

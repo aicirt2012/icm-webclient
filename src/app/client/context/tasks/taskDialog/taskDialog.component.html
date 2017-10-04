@@ -9,7 +9,7 @@
     <div>
         <form fxFlex fxLayout="column">
             <md-input-container>
-                <input md-input type="text" name="title" placeholder="Task Name" maxRows="3" [(ngModel)]="task.name" value="task.name">
+                <input mdInput type="text" name="title" placeholder="Task Name" maxRows="3" [(ngModel)]="task.name" value="task.name">
             </md-input-container>
             <div fxLayout="row" class="selectList">
                 <div fxFlex="45" fxLayoutAlign="start center">
@@ -34,7 +34,7 @@
                 <div fxFlex="45" fxLayoutAlign="start center">
                     <md-icon class="margin" [class.alert-icon]="overdue && !sticker_check && task.taskType == 'linked'">date_range</md-icon>
                     <md-input-container fxFlex>
-                        <input name="date" md-input placeholder="Due Date" type="date" required [(ngModel)]="task.date" value="task.date | date:'yyyy-MM-dd'">
+                        <input name="date" mdInput placeholder="Due Date" type="date" required [(ngModel)]="task.date" value="task.date | date:'yyyy-MM-dd'">
                     </md-input-container>
                 </div>
                 <div fxFlex="10"></div>
@@ -55,7 +55,7 @@
                 </div>
             </div>
             <md-input-container>
-                <textarea md-input type="text" class="text-area" name="task-description" placeholder="Task Description" maxRows="10" [(ngModel)]="task.desc" value="task.desc" rows="10"></textarea>
+                <textarea mdInput type="text" class="text-area" name="task-description" placeholder="Task Description" maxRows="10" [(ngModel)]="task.desc" value="task.desc" rows="10"></textarea>
             </md-input-container>
         </form>
     </div>
