@@ -40,7 +40,7 @@
       The current search returned no results.
     </ng-container>
   </div>
-  <div [fxShow]="!loading && !isEmptyResult()" fxFlex="75">
+  <div [fxShow]="!loading && !isEmptyResult()" fxFlex="75" fxLayout="row" fxLayoutAlign="start stretch">
     <router-outlet></router-outlet>
   </div>
 </div>
