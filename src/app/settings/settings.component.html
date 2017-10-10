@@ -11,7 +11,7 @@
           </md-nav-list>
         </div>
         <div fxFlex layout="row">
-                <div fxFlex class="account-content">
+                <div fxFlex fxLayout="row" class="account-content">
                     <account fxFlex *ngIf="getCurrentView('email')"></account>
                     <patterns fxFlex *ngIf="getCurrentView('patterns')"></patterns>
                     <contact fxFlex *ngIf="getCurrentView('contacts')"></contact>
