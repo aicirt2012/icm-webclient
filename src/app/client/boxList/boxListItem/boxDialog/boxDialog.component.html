@@ -8,7 +8,7 @@
       <md-card fxFlex>
         <md-card-title>Rename box '{{box.shortName}}' to:</md-card-title>
         <md-card-content>
-          <div fxLayout="column">
+          <div fxLayout="row" fxLayoutAlign="start center">
             <md-input-container fxFlex>
               <input fxFlex mdInput placeholder="New box name..." type="text" [(ngModel)]="newBoxShortName">
             </md-input-container>

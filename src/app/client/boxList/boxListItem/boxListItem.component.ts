@@ -59,11 +59,9 @@ export class BoxListItemComponent {
           left: '',
           right: ''
         },
+        data: {boxId, dialogType: 'RENAME'}
       }
     );
-
-    boxDialogRef.componentInstance.boxId = boxId;
-    boxDialogRef.componentInstance.dialogType = 'RENAME';
   }
 
   moveBox(boxId) {
@@ -81,11 +79,9 @@ export class BoxListItemComponent {
           left: '',
           right: ''
         },
+        data: {boxId, dialogType: 'MOVE'}
       }
     );
-
-    boxDialogRef.componentInstance.boxId = boxId;
-    boxDialogRef.componentInstance.dialogType = 'MOVE';
   }
 
 }

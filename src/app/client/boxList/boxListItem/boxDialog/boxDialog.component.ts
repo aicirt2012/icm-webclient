@@ -1,6 +1,6 @@
-import {Component, Input, EventEmitter, Output} from '@angular/core';
+import {Component, Input, EventEmitter, Output, Inject} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {MdDialogRef, MdSnackBar, MdInput} from '@angular/material';
+import {MdDialogRef, MD_DIALOG_DATA, MdSnackBar, MdInput} from '@angular/material';
 import {BoxService} from '../../../shared';
 import {AppState} from '../../../../app.service';
 import _ from 'lodash';
@@ -23,7 +23,11 @@ export class BoxDialogComponent {
 
   constructor(public taskDialogRef: MdDialogRef<BoxDialogComponent>,
               private snackBar: MdSnackBar,
+              @Inject(MD_DIALOG_DATA) public data: any,
               private boxService: BoxService, public appState: AppState) {
+
+    this.boxId = data.boxId;
+    this.dialogType = data.dialogType;
   }
 
   ngOnInit() {
