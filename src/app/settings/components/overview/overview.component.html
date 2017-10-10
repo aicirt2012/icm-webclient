@@ -1,5 +1,5 @@
-<md-card fxFlex fxLayout="column">
-  <md-card-title>TASK User Credentials</md-card-title>
+<md-card fxFlex="1 0 auto" fxLayout="column">
+  <md-card-title fxFlex>TASK User Credentials</md-card-title>
   <div fxFlex fxLayout="row">
     <md-input-container fxFlex>
       <input mdInput name="username" type="text" [(ngModel)]="user.username" placeholder="Username" [disabled]="true">
@@ -20,7 +20,7 @@
   </div>
 </md-card>
 
-<md-card fxFlex>
+<md-card fxFlex="1 0 auto">
   <md-card-title>Connection Overview</md-card-title>
   <md-list>
     <md-list-item [class.not-connected]="user.provider && !user.provider.name">
@@ -51,7 +51,7 @@
   </md-list>
 </md-card>
 
-<md-card fxFlex>
+<md-card fxFlex="1 0 auto">
   <md-card-title>Enron</md-card-title>
   <form>
     <button md-raised-button color="primary" (click)="appendEnron()">Add enron users</button>

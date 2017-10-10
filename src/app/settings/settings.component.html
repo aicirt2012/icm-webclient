@@ -1,24 +1,22 @@
-<div fxLayout="column" fxFlex>
-    <top-navbar></top-navbar>
+<div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
+  <top-navbar fxFlex="50px"></top-navbar>
 
-    <div fxLayout="row">
-        <div fxFlex="15" fxFlex.sm="30" fxFlex.xs="30">
-          <md-nav-list fxFlex>
-            <md-list-item [routerLink]="link.link" *ngFor="let link of links" [routerLinkActive]="['route-active']">
-              <a md-line >{{link.name}}</a>
-                <md-icon>{{link.icon}}</md-icon>
-            </md-list-item>
-          </md-nav-list>
-        </div>
-        <div fxFlex layout="row">
-                <div fxFlex fxLayout="row" class="account-content">
-                    <account fxFlex *ngIf="getCurrentView('email')"></account>
-                    <patterns fxFlex *ngIf="getCurrentView('patterns')"></patterns>
-                    <contact fxFlex *ngIf="getCurrentView('contacts')"></contact>
-                    <task fxFlex *ngIf="getCurrentView('tasks')"></task>
-                    <overview fxFlex *ngIf="getCurrentView('overview')"></overview>
-                    <!--<help fxFlex *ngIf="getCurrentView('help')"></help>-->
-                </div>
-        </div>
+  <div fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start stretch">
+    <div fxFlex="15">
+      <md-nav-list fxFlex>
+        <md-list-item [routerLink]="link.link" *ngFor="let link of links" [routerLinkActive]="['route-active']">
+          <a md-line>{{link.name}}</a>
+          <md-icon>{{link.icon}}</md-icon>
+        </md-list-item>
+      </md-nav-list>
     </div>
+    <div fxFlex fxLayout="row" fxLayoutAlign="start stretch">
+      <account fxFlex *ngIf="getCurrentView('email')"></account>
+      <patterns fxFlex *ngIf="getCurrentView('patterns')"></patterns>
+      <contact fxFlex *ngIf="getCurrentView('contacts')"></contact>
+      <task fxFlex *ngIf="getCurrentView('tasks')"></task>
+      <overview fxFlex fxLayout="row" fxLayoutAlign="start stretch" *ngIf="getCurrentView('overview')"></overview>
+      <!--<help fxFlex *ngIf="getCurrentView('help')"></help>-->
+    </div>
+  </div>
 </div>

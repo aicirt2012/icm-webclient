@@ -21,7 +21,8 @@ import {
   MdChipsModule,
   MdTabsModule,
   MdFormFieldModule,
-  MdSnackBarModule
+  MdSnackBarModule,
+  MdRadioModule
 } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { SettingsComponent } from './';
@@ -55,6 +56,7 @@ import { UserService } from './shared';
     MdTabsModule,
     MdFormFieldModule,
     MdSnackBarModule,
+    MdRadioModule,
     //
     FlexLayoutModule,
     RouterModule.forRoot(ROUTES),
