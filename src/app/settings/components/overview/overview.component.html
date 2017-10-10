@@ -1,28 +1,28 @@
-<md-card fxFlex="1 0 auto" fxLayout="column">
-  <md-card-title fxFlex>TASK User Credentials</md-card-title>
-  <div fxFlex fxLayout="row">
+<md-card fxFlex fxLayout="column" fxLayoutAlign="start stretch">
+  <md-card-title fxFlex="5">TASK User Credentials</md-card-title>
+  <div fxFlex="10" fxLayout="row">
     <md-input-container fxFlex>
       <input mdInput name="username" type="text" [(ngModel)]="user.username" placeholder="Username" [disabled]="true">
     </md-input-container>
   </div>
-  <div fxFlex fxLayout="row">
+  <div fxFlex="10" fxLayout="row">
     <md-input-container fxFlex>
       <input mdInput name="email" type="email" [(ngModel)]="user.email" placeholder="Email" autofocus>
     </md-input-container>
   </div>
-  <div fxFlex fxLayout="row">
+  <div fxFlex="10" fxLayout="row">
     <md-input-container fxFlex>
       <input mdInput name="password" type="password" [(ngModel)]="user.password" placeholder="Password" required>
     </md-input-container>
   </div>
-  <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="10" fxLayout="row" fxLayoutAlign="start center">
     <button md-raised-button color="primary" (click)="updateUser()">Update User Credentials</button>
   </div>
 </md-card>
 
-<md-card fxFlex="1 0 auto">
-  <md-card-title>Connection Overview</md-card-title>
-  <md-list>
+<md-card fxFlex fxLayout="column" fxLayoutAlign="start stretch">
+  <md-card-title fxFlex="5">Connection Overview</md-card-title>
+  <md-list fxFlex fxLayout="column" fxLayoutAlign="start stretch">
     <md-list-item [class.not-connected]="user.provider && !user.provider.name">
       <span md-list-avatar *ngIf="user.provider && user.provider.name=='Gmail'" class="fa-3x fa fa-google"></span>
       <span md-list-avatar *ngIf="user.provider && user.provider.name=='Exchange'" class="fa-3x fa fa-windows"></span>
@@ -51,9 +51,9 @@
   </md-list>
 </md-card>
 
-<md-card fxFlex="1 0 auto">
-  <md-card-title>Enron</md-card-title>
-  <form>
+<md-card fxFlex fxLayout="column" fxLayoutAlign="start stretch">
+  <md-card-title fxFlex="5">Enron</md-card-title>
+  <form fxFlex>
     <button md-raised-button color="primary" (click)="appendEnron()">Add enron users</button>
   </form>
 </md-card>
