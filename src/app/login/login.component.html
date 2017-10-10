@@ -1,32 +1,36 @@
 <div class="flex-container full-height" fxLayout.gt-sm="row" fxLayout="column">
   <div fxFlex fxHide="false" fxHide.sm fxHide.xs id="login-wallpaper"></div>
-  <div fxFlex fxFlex.gt-sm="30" fxLayout="column">
+  <div fxFlex fxFlex.gt-sm="30" fxLayout="column" fxLayoutAlign="space-between stretch">
     <div fxFlex="10" fxLayoutAlign="center center">
       <span class="pointer" id="logo"></span>
     </div>
-    <div fxFlex fxLayoutAlign="center center" fxLayout="row">
-      <md-card fxFlex="80">
-        <md-card-content>
-          <form fxLayout="column">
-            <md-input-container>
-              <input mdInput placeholder="Username" type="text" name="username" [(ngModel)]="model.username" autofocus required>
+    <div fxFlex="1 1 30" fxLayout="column" fxLayoutAlign="center stretch">
+      <div fxFlex="1 0 270px" fxLayout="row" fxLayoutAlign="center stretch">
+        <md-card fxFlex="80" fxLayout="column" fxLayoutAlign="space-around stretch">
+          <div fxFlex fxLayout="row" fxLayoutAlign="start stretch">
+            <md-input-container fxFlex fxLayout="column" fxFlexAlign="center stretch">
+              <input mdInput placeholder="Username" type="text" name="username" [(ngModel)]="model.username" autofocus
+                     required>
             </md-input-container>
-            <md-input-container>
-              <input mdInput placeholder="Password" type="password" name="password" [(ngModel)]="model.password" required>
+          </div>
+          <div fxFlex fxLayout="row" fxLayoutAlign="start stretch">
+            <md-input-container fxFlex fxLayout="column" fxFlexAlign="center stretch">
+              <input mdInput placeholder="Password" type="password" name="password" [(ngModel)]="model.password"
+                     required>
             </md-input-container>
-          </form>
-        </md-card-content>
-        <md-card-actions fxLayoutAlign="center center">
-          <button md-raised-button color="primary" [disabled]="loading" (click)="login()">Login</button>
-          <button md-raised-button [disabled]="loading" (click)="signup()">Signup</button>
-        </md-card-actions>
-        <div fxLayoutAlign="center center">
-          <a md-raised-button [href]="googleLoginLink">
-            <md-icon svgIcon="google"></md-icon>
-            Sign in with Google
-          </a>
-        </div>
-      </md-card>
+          </div>
+          <div fxFlex fxLayoutAlign="center center">
+            <button md-raised-button color="primary" [disabled]="loading" (click)="login()">Login</button>
+            <button md-raised-button [disabled]="loading" (click)="signup()">Signup</button>
+          </div>
+          <div fxFlex fxLayoutAlign="center center">
+            <a md-raised-button [href]="googleLoginLink">
+              <md-icon svgIcon="google"></md-icon>
+              Sign in with Google
+            </a>
+          </div>
+        </md-card>
+      </div>
     </div>
     <div fxFlex="10" fxLayoutAlign="center center">
       <span class="copyrights">&copy; 2017 Sebis</span>
