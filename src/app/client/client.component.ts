@@ -124,8 +124,10 @@ export class ClientComponent {
   }
 
   onRefresh(refresh?: boolean) {
+    this.updating = true;
     this.boxService.syncAll().subscribe((result) => {
       console.log(result);
+      this.updating = false;
     });
   }
 
