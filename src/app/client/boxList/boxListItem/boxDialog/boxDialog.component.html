@@ -1,45 +1,47 @@
-<div fxFlex fxLayout="column">
-  <div md-dialog-title fxLayout="row" fxLayoutAlign="end center">
+<div fxFlex fxLayout="column" fxLayoutAlign="start stretch" *ngIf="dialogType==='RENAME'">
+  <div fxFlex="20" md-dialog-title fxLayout="row" fxLayoutAlign="space-between stretch">
+    <md-card-title>Rename box '{{box.shortName}}'</md-card-title>
     <md-icon class="pointer" (click)="closeDialog()">close</md-icon>
   </div>
 
-  <div *ngIf="dialogType==='RENAME'" fxLayout="row">
-    <div fxFlex fxLayout="column">
-      <md-card fxFlex>
-        <md-card-title>Rename box '{{box.shortName}}' to:</md-card-title>
-        <md-card-content>
-          <div fxLayout="row" fxLayoutAlign="start center">
-            <md-input-container fxFlex>
-              <input fxFlex mdInput placeholder="New box name..." type="text" [(ngModel)]="newBoxShortName">
-            </md-input-container>
-          </div>
-        </md-card-content>
-        <md-card-actions fxLayoutAlign="center center">
-          <button [disabled]="newBoxShortName == '' || updating" md-raised-button color="primary"
-                  (click)="onRenameBox()">Rename Box
-          </button>
-        </md-card-actions>
-      </md-card>
+  <div fxFlex="60" fxLayout="column" fxLayoutAlign="space-between stretch">
+    <div fxLayout="row" fxLayoutAlign="start center" >
+      <md-input-container fxFlex>
+        <input fxFlex mdInput placeholder="New box name..." type="text" [(ngModel)]="newBoxShortName">
+      </md-input-container>
     </div>
   </div>
-  <div *ngIf="dialogType==='MOVE'" fxLayout="row">
-    <div fxFlex fxLayout="column">
-      <md-card fxFlex>
-        <md-card-title>Move box '{{box.shortName}}'</md-card-title>
-        <md-card-content fxLayoutAlign="center stretch">
-          <md-select fxFlex [(ngModel)]="newParentBoxId" placeholder="Nest under...">
-            <md-option fxFlex *ngFor="let box of boxList; let b = index" [value]="box._id">
-              <span [style.padding-left]="addPadding(box)"> {{ box.shortName }} </span>
-            </md-option>
-          </md-select>
-        </md-card-content>
-        <md-card-actions fxLayoutAlign="center center">
-          <button [disabled]="selectedBoxId === ''" md-raised-button color="primary"
-                  (click)="onMoveBox(selectedBoxId)">Move Box
-          </button>
-        </md-card-actions>
-      </md-card>
+
+  <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
+    <button
+      [disabled]="newBoxShortName === '' || updating" md-raised-button color="primary"
+      (click)="onRenameBox()">Rename Box
+    </button>
+  </div>
+
+</div>
+
+<div fxFlex fxLayout="column" fxLayoutAlign="start stretch" *ngIf="dialogType==='MOVE'">
+  <div fxFlex="20" md-dialog-title fxLayout="row" fxLayoutAlign="space-between stretch">
+    <md-card-title>Move box '{{box.shortName}}'</md-card-title>
+    <md-icon class="pointer" (click)="closeDialog()">close</md-icon>
+  </div>
+
+  <div fxFlex="60" fxLayout="column" fxLayoutAlign="space-between stretch">
+    <div fxLayout="row" fxLayoutAlign="start center" >
+      <md-select fxFlex [(ngModel)]="newParentBoxId" placeholder="Nest under...">
+        <md-option fxFlex *ngFor="let box of boxList; let b = index" [value]="box._id">
+          <span [style.padding-left]="addPadding(box)"> {{ box.shortName }} </span>
+        </md-option>
+      </md-select>
     </div>
+  </div>
+
+  <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
+    <button
+      [disabled]="newParentBoxId === ''" md-raised-button color="primary"
+      (click)="onMoveBox(selectedBoxId)">Move Box
+    </button>
   </div>
 
 </div>

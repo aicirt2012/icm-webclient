@@ -7,7 +7,13 @@
     <spinner [loading]="true"></spinner>
   </div>
   <div [fxShow]="!syncing && !noMailboxConnected" fxLayout="row" fxFlex>
-    <box-list fxFlex="15" (onRefresh)="onRefresh($event)" [lastSync]="user?.lastSync" [syncing]="updating" (onMoveEmailToBox)="moveEmailToBox($event)"></box-list>
+    <box-list fxFlex="15"
+              (onRefresh)="onRefresh($event)"
+              [lastSync]="user?.lastSync"
+              [syncing]="updating"
+              (onMoveEmailToBox)="moveEmailToBox($event)"
+    >
+    </box-list>
     <router-outlet></router-outlet>
   </div>
 </div>
