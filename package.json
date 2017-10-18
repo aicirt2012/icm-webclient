@@ -89,6 +89,7 @@
     "@types/file-saver": "0.0.1",
     "@types/lodash": "^4.14.72",
     "@types/socket.io-client": "^1.4.29",
+    "angular-resizable-element": "^1.2.3",
     "angular2-cookie": "1.2.5",
     "angular2-infinite-scroll": "0.2.9",
     "core-js": "2.4.1",

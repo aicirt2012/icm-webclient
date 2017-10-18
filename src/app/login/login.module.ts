@@ -54,7 +54,7 @@ import {LoginComponent} from './';
     MdTabsModule,
     MdFormFieldModule,
     MdSnackBarModule,
-    MatTabsModule
+    MatTabsModule,
     //
     FlexLayoutModule
   ],

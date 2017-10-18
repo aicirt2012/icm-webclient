@@ -1,9 +1,10 @@
-import {Component, Input, EventEmitter, Output, state} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {ModalDirective} from 'ng2-bootstrap';
-import {Email} from '../shared';
-import {AppState} from '../../app.service';
-import {EmailService} from '../shared';
+import { Component, Input, EventEmitter, Output, state } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ModalDirective } from 'ng2-bootstrap';
+import { Email } from '../shared';
+import { AppState } from '../../app.service';
+import { EmailService } from '../shared';
+import { ResizeEvent } from 'angular-resizable-element';
 import _ from 'lodash';
 
 @Component({
@@ -22,6 +23,9 @@ export class EmailListComponent {
   scrollThrottle = 300;
   loading: boolean;
   loadingList: boolean = false;
+  emailListFlex = 25;
+  emailDetailedViewFlex = 75;
+
   // emptyBox: boolean = false;
 
   constructor(public appState: AppState, public router: Router, public activeRoute: ActivatedRoute, private emailService: EmailService) {
@@ -33,10 +37,10 @@ export class EmailListComponent {
     this.emails = [];
 
     this.appState.boxList().subscribe(boxList => {
-        this.boxList = boxList;
+      this.boxList = boxList;
     });
 
-    this.appState.emails().subscribe((emails:Email[]) => {
+    this.appState.emails().subscribe((emails: Email[]) => {
       this.emails = emails;
     });
 
@@ -48,7 +52,7 @@ export class EmailListComponent {
     });
   }
 
-  isEmptyResult(){
+  isEmptyResult() {
     return this.emails.length < 1;
   }
 
@@ -66,11 +70,12 @@ export class EmailListComponent {
       return _.find(email.attachments, {'contentDispositionInline': false});
     } else {
       false
-    };
+    }
+    ;
   }
 
   searchEmails(searchTerm = '') {
-    if(searchTerm != ''){
+    if (searchTerm != '') {
       this.searchTerm = searchTerm;
       const customRoute = this.generateNavigationRoute(this.searchTerm);
       this.router.navigate([customRoute]);
@@ -122,6 +127,12 @@ export class EmailListComponent {
 
   isRead(email) {
     return email.flags.indexOf('\\Seen') > -1;
+  }
+
+  onResizeEnd(event: ResizeEvent): void {
+    console.log('Element was resized', event);
+    this.emailListFlex = 50;
+    this.emailDetailedViewFlex = 50;
   }
 
 }

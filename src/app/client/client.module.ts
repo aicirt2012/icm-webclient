@@ -25,6 +25,7 @@ import {
 } from '@angular/material';
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {ContextMenuModule} from 'ngx-contextmenu';
+import { ResizableModule } from "angular-resizable-element";
 
 import {
   ClientComponent,
@@ -102,6 +103,7 @@ import {DndModule} from 'ng2-dnd';
     FlexLayoutModule,
     InfiniteScrollModule,
     ContextMenuModule,
+    ResizableModule,
     DndModule.forRoot()
   ],
   exports: [

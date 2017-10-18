@@ -28,6 +28,7 @@ import {
   MdSnackBarModule
 } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { ResizableModule } from "angular-resizable-element";
 
 // Self-written modules
 import { ClientModule } from './client/client.module';
@@ -67,7 +68,7 @@ type StoreType = {
  * `AppModule` is the main entry point into Angular2's bootstraping process
  */
 @NgModule({
-  bootstrap: [ AppComponent ],
+  bootstrap: [AppComponent],
   declarations: [
     AppComponent,
   ],
@@ -76,7 +77,7 @@ type StoreType = {
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES, { useHash: false }),
+    RouterModule.forRoot(ROUTES, {useHash: false}),
     // angular material
     MdAutocompleteModule,
     MdButtonModule,
@@ -99,13 +100,14 @@ type StoreType = {
     MdSnackBarModule,
     //
     FlexLayoutModule,
+    ResizableModule,
     // custom modules
     LoginModule,
     ClientModule,
     SettingsModule,
     TaskOverviewModule,
     DashboardModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
@@ -118,12 +120,11 @@ type StoreType = {
 })
 export class AppModule {
 
-  constructor(
-    public appRef: ApplicationRef,
-    public appState: AppState
-  ) {}
+  constructor(public appRef: ApplicationRef,
+              public appState: AppState) {
+  }
 
-hmrOnInit(store: StoreType) {
+  hmrOnInit(store: StoreType) {
     if (!store || !store.state) return;
     console.log('HMR store', JSON.stringify(store, null, 2));
     // set state

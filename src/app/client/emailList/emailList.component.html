@@ -1,5 +1,5 @@
 <div fxLayout="row" fxFlex class="full-height email-list-container">
-  <div [fxShow]="!loading" fxLayout="column" fxFlex="25" class="email-list">
+  <div [fxShow]="!loading" fxLayout="column" [fxFlex]="emailListFlex" class="email-list">
     <search-bar (searchEmails)="searchEmails($event)"></search-bar>
     <div fxFlex fxLayout="column" class="scrollable" infinite-scroll [infiniteScrollDistance]="scrollDistance"
          [infiniteScrollThrottle]="scrollThrottle" [scrollWindow]="false" (scrolled)="onScrollDown()">
@@ -40,7 +40,11 @@
       The current search returned no results.
     </ng-container>
   </div>
-  <div [fxShow]="!loading && !isEmptyResult()" fxFlex="75" fxLayout="row" fxLayoutAlign="start stretch">
+  <div [fxShow]="!loading && !isEmptyResult()" [fxFlex]="emailDetailedViewFlex" fxLayout="row" fxLayoutAlign="start stretch"
+       mwlResizable
+       [resizeEdges]="{bottom: false, right: false, top: false, left: true}"
+       (resizing)="onResizeEnd($event)"
+  >
     <router-outlet></router-outlet>
   </div>
 </div>
