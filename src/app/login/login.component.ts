@@ -1,9 +1,10 @@
-import { DomSanitizer } from '@angular/platform-browser';
-import { Component } from '@angular/core';
-import { AuthService } from '../shared';
-import { MdIconRegistry } from '@angular/material';
-import { Router } from '@angular/router';
+import {DomSanitizer} from '@angular/platform-browser';
+import {Component} from '@angular/core';
+import {AuthService} from '../shared';
+import {MdIconRegistry} from '@angular/material';
+import {Router} from '@angular/router';
 import C from '../shared/constants';
+
 //import { SocketService } from '../shared/services/socket.service';
 
 @Component({
@@ -17,13 +18,16 @@ export class LoginComponent {
   error = '';
   googleLoginLink = `${C.server}/auth/google`;
 
-  constructor(
-    private router: Router,
-    private _auth: AuthService, iconRegistry: MdIconRegistry, sanitizer: DomSanitizer) {
-      iconRegistry.addSvgIcon(
-        'google',
-        sanitizer.bypassSecurityTrustResourceUrl('assets/img/google.svg'));
-    }
+  constructor(private router: Router,
+              private _auth: AuthService, iconRegistry: MdIconRegistry, sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIcon(
+      'google',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/img/google.svg'));
+
+    iconRegistry.addSvgIcon(
+      'exchange',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/img/exchange.svg'));
+  }
 
   ngOnInit() {
     // reset login status

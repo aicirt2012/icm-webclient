@@ -25,13 +25,13 @@
 }
 
 .login-box {
-  min-height: 400px;
+  min-height: 450px;
   overflow-y: visible;
 }
 
 .separator {
-  margin-top: 25px;
-  margin-bottom: 25px;
+  margin-top: 30px;
+  margin-bottom: 15px;
   height: 0;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #fff;
@@ -48,3 +48,10 @@
   text-transform: uppercase;
   top: -7px;
 }
+
+md-card {
+  padding: 5px;
+  margin: 0;
+}
+
+
