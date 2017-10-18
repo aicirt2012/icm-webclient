@@ -1,69 +1,127 @@
-<md-card fxFlex fxLayout="row" fxLayoutAlign="start stretch">
-  <div fxFlex="0 0 30" fxLayout="column" fxLayoutAlign="start stretch">
+<md-card class="scrollable">
 
-    <div fxFlex="5">
-      <md-card-title>Email Provider Configuration</md-card-title>
-    </div>
-    <div fxFlex fxLayout="row" fxLayoutAlign="start center" class="radio-container">
-      <div>Provider:</div>
-      <md-radio-group name="radio1" [(ngModel)]="emailConfig.name">
-        <md-radio-button value="Gmail">Gmail</md-radio-button>
-        <md-radio-button value="Exchange">Exchange</md-radio-button>
-      </md-radio-group>
-    </div>
-    <div fxFlex fxLayout="row">
-      <md-input-container fxFlex>
-        <input mdInput placeholder="Email Address" type="email" name="email" [(ngModel)]="emailConfig.user" autofocus
-               required>
-      </md-input-container>
-    </div>
-    <div fxFlex fxLayout="row">
-      <md-input-container fxFlex>
-        <input mdInput placeholder="Password" type="password" name="password" [(ngModel)]="emailConfig.password"
-               required>
-      </md-input-container>
-    </div>
-    <div fxFlex fxLayout="row">
-      <md-input-container fxFlex>
-        <input mdInput placeholder="Host" type="text" name="host" [(ngModel)]="emailConfig.host" required>
-      </md-input-container>
-    </div>
-    <div fxFlex fxLayout="row">
-      <md-input-container fxFlex>
-        <input mdInput placeholder="Port" type="number" name="port" [(ngModel)]="emailConfig.port" required>
-      </md-input-container>
-    </div>
-    <div fxFlex fxLayout="row">
-      <md-input-container fxFlex>
-        <input mdInput placeholder="SMTP Host" type="text" name="smtphost" [(ngModel)]="emailConfig.smtpHost"
-               required>
-      </md-input-container>
-    </div>
-    <div fxFlex fxLayout="row">
-      <md-input-container fxFlex>
-        <input mdInput placeholder="SMTP Port" type="number" name="smtpport" [(ngModel)]="emailConfig.smtpPort"
-               required>
-      </md-input-container>
-    </div>
-    <div fxFlex fxLayout="row">
-      <md-input-container fxFlex>
-        <input mdInput #inputSmtpDomains (keyup.enter)="addDomain(inputSmtpDomains)"
-               (change)="addDomain(inputSmtpDomains)" type="text" placeholder="SMTP Domains:" required/>
-      </md-input-container>
-    </div>
-    <div fxFlex fxLayout="row">
-      <md-chip-list fxFlex>
-        <md-chip *ngFor="let domain of emailConfig.smtpDomains; let i = index">
-          <div fxLayout="row" fxLayoutAlign="start center">
-            <span>{{domain}}</span>
-            <md-icon class="pointer" (click)="deleteDomain(i)">close</md-icon>
-          </div>
-        </md-chip>
-      </md-chip-list>
-    </div>
-    <div fxFlex fxLayout="row" fxLayoutAlign="start center">
-      <button md-raised-button color="primary" (click)="updateEmailConfig()">Save Configuration</button>
-    </div>
-  </div>
+  <md-card-header>
+    <md-card-title>Email Provider Configuration</md-card-title>
+  </md-card-header>
+
+  <md-card-content>
+    <div>Provider:</div>
+    <md-radio-group name="radio1" [(ngModel)]="emailConfig.name">
+      <md-radio-button value="Gmail">Gmail</md-radio-button>
+      <md-radio-button value="Exchange">Exchange</md-radio-button>
+    </md-radio-group>
+  </md-card-content>
+
+  <md-card-content>
+    <md-input-container>
+      <input mdInput placeholder="Email Address" type="email" name="email" [(ngModel)]="emailConfig.user" autofocus
+             required>
+    </md-input-container>
+  </md-card-content>
+
+  <md-card-content>
+    <md-input-container>
+      <input mdInput placeholder="Password" type="password" name="password" [(ngModel)]="emailConfig.password"
+             required>
+    </md-input-container>
+  </md-card-content>
+
+  <md-card-content>
+    <md-input-container>
+      <input mdInput placeholder="Host" type="text" name="host" [(ngModel)]="emailConfig.host" required>
+    </md-input-container>
+  </md-card-content>
+
+  <md-card-content>
+    <md-input-container>
+      <input mdInput placeholder="Port" type="number" name="port" [(ngModel)]="emailConfig.port" required>
+    </md-input-container>
+  </md-card-content>
+
+  <md-card-content>
+    <md-input-container>
+      <input mdInput placeholder="SMTP Host" type="text" name="smtphost" [(ngModel)]="emailConfig.smtpHost"
+             required>
+    </md-input-container>
+  </md-card-content>
+
+  <md-card-content>
+    <md-input-container>
+      <input mdInput placeholder="SMTP Port" type="number" name="smtpport" [(ngModel)]="emailConfig.smtpPort"
+             required>
+    </md-input-container>
+  </md-card-content>
+
+  <md-card-content>
+    <md-input-container>
+      <input mdInput #inputSmtpDomains (keyup.enter)="addDomain(inputSmtpDomains)"
+             (change)="addDomain(inputSmtpDomains)" type="text" placeholder="SMTP Domains:" required/>
+    </md-input-container>
+  </md-card-content>
+
+
+  <md-card-content>
+    <md-chip-list>
+      <md-chip *ngFor="let domain of emailConfig.smtpDomains; let i = index">
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <span>{{domain}}</span>
+          <md-icon class="pointer" (click)="deleteDomain(i)">close</md-icon>
+        </div>
+      </md-chip>
+    </md-chip-list>
+  </md-card-content>
+
+  <md-card-actions>
+    <button md-raised-button color="primary" (click)="updateEmailConfig()">Save Configuration</button>
+  </md-card-actions>
+
+
+  <md-card-content>
+    <md-input-container>
+      <input mdInput placeholder="Email Address" type="email" name="email" [(ngModel)]="emailConfig.user" autofocus
+             required>
+    </md-input-container>
+  </md-card-content>
+
+  <md-card-content>
+    <md-input-container>
+      <input mdInput placeholder="Password" type="password" name="password" [(ngModel)]="emailConfig.password"
+             required>
+    </md-input-container>
+  </md-card-content>
+
+  <md-card-content>
+    <md-input-container>
+      <input mdInput placeholder="Host" type="text" name="host" [(ngModel)]="emailConfig.host" required>
+    </md-input-container>
+  </md-card-content>
+
+  <md-card-content>
+    <md-input-container>
+      <input mdInput placeholder="Port" type="number" name="port" [(ngModel)]="emailConfig.port" required>
+    </md-input-container>
+  </md-card-content>
+
+  <md-card-content>
+    <md-input-container>
+      <input mdInput placeholder="SMTP Host" type="text" name="smtphost" [(ngModel)]="emailConfig.smtpHost"
+             required>
+    </md-input-container>
+  </md-card-content>
+
+  <md-card-content>
+    <md-input-container>
+      <input mdInput placeholder="SMTP Port" type="number" name="smtpport" [(ngModel)]="emailConfig.smtpPort"
+             required>
+    </md-input-container>
+  </md-card-content>
+
+  <md-card-content>
+    <md-input-container>
+      <input mdInput #inputSmtpDomains (keyup.enter)="addDomain(inputSmtpDomains)"
+             (change)="addDomain(inputSmtpDomains)" type="text" placeholder="SMTP Domains:" required/>
+    </md-input-container>
+  </md-card-content>
+
 
 </md-card>

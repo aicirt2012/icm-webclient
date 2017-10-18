@@ -21,7 +21,8 @@ import {
   MdChipsModule,
   MdTabsModule,
   MdFormFieldModule,
-  MdSnackBarModule
+  MdSnackBarModule,
+  MatTabsModule
 } from '@angular/material';
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {AuthService} from '../shared'; // all services
@@ -53,6 +54,7 @@ import {LoginComponent} from './';
     MdTabsModule,
     MdFormFieldModule,
     MdSnackBarModule,
+    MatTabsModule
     //
     FlexLayoutModule
   ],
