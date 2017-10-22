@@ -1,8 +1,6 @@
-<div fxLayout="row" fxFlex class="search-bar">
-    <md-input-container fxFlex floatingPlaceholder="false">
-        <input mdInput placeholder="Search..." [(ngModel)]="query" (blur)="search()" (keyup.enter)="search()">
-    </md-input-container>
-    <button md-icon-button (click)="search()">
-        <md-icon class="md-24">search</md-icon>
-    </button>
-</div>
+<md-input-container fxFlex="90" floatingPlaceholder="false">
+  <input mdInput placeholder="Search..." [(ngModel)]="query" (blur)="search()" (keyup.enter)="search()">
+</md-input-container>
+<button md-button fxFlex (click)="search()">
+  <md-icon>search</md-icon>
+</button>

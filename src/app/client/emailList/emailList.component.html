@@ -1,5 +1,5 @@
-<div [fxShow]="!loading" fxLayout="column" fxFlex class="email-list">
-  <search-bar (searchEmails)="searchEmails($event)"></search-bar>
+<div [fxShow]="!loading" fxFlex fxLayout="column" fxLayoutAlign="start stretch" class="email-list">
+  <search-bar fxFlex="46px" (searchEmails)="searchEmails($event)"></search-bar>
   <div fxFlex fxLayout="column" class="scrollable" infinite-scroll [infiniteScrollDistance]="scrollDistance"
        [infiniteScrollThrottle]="scrollThrottle" [scrollWindow]="false" (scrolled)="onScrollDown()">
     <div fxFlex="70px" fxLayout="column" class="email-list-item"

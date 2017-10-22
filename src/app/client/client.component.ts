@@ -8,6 +8,7 @@ import { UserService } from '../settings/shared'; // TODO:move settingsservice t
 import { Observable } from 'rxjs/Observable';
 import { EmailDialogComponent } from './emailDialog';
 import { EmailFolderDialogComponent } from './emailFolderDialog';
+import { ResizeEvent } from 'angular-resizable-element';
 import _ from 'lodash';
 
 @Component({
@@ -23,6 +24,8 @@ export class ClientComponent {
   private user: any;
   private syncing: boolean;
   private updating: boolean = false;
+  private boxListFlex = 15;
+  private emailListFlex = 20;
 
   constructor(private emailService: EmailService, private boxService: BoxService,
               public appState: AppState,
@@ -150,5 +153,13 @@ export class ClientComponent {
     });
   }
 
+  onResizeEnd(event: ResizeEvent): void {
+    console.log('Element was resized', event);
+    if(event.edges.left < 0) {
+      this.emailListFlex = 0;
+    } else {
+      this.emailListFlex = 20;
+    }
+  }
 
 }

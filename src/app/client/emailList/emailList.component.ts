@@ -4,7 +4,6 @@ import { ModalDirective } from 'ng2-bootstrap';
 import { Email } from '../shared';
 import { AppState } from '../../app.service';
 import { EmailService } from '../shared';
-import { ResizeEvent } from 'angular-resizable-element';
 import _ from 'lodash';
 
 @Component({

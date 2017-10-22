@@ -7,7 +7,7 @@
     <spinner [loading]="true"></spinner>
   </div>
   <div [fxShow]="!syncing && !noMailboxConnected" fxLayout="row" fxFlex>
-    <box-list fxFlex="15"
+    <box-list [fxFlex]="boxListFlex"
               (onRefresh)="onRefresh($event)"
               [lastSync]="user?.lastSync"
               [syncing]="updating"
@@ -15,10 +15,15 @@
     >
     </box-list>
     <router-outlet fxFlex="0"></router-outlet>
-    <div fxFlex="20">
+    <div [fxFlex]="emailListFlex">
       <router-outlet fxFlex="0" name="boxId"></router-outlet>
     </div>
-    <div fxFlex>
+    <div [fxFlex]="100 - boxListFlex - emailListFlex"
+         class="resizableBox"
+         mwlResizable
+         [resizeEdges]="{bottom: false, right: false, top: false, left: true}"
+         (resizeEnd)="onResizeEnd($event)"
+    >
       <router-outlet fxFlex="0" name="emailId"></router-outlet>
     </div>
   </div>
