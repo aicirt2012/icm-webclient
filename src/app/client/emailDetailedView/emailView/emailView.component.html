@@ -1,4 +1,4 @@
-<div #wrapper fxLayout="column" class="email-card" fxFlex *ngIf="email">
+<div #wrapper fxFlex fxLayout="column" class="email-card" fxFlex *ngIf="email">
   <div #topSection>
     <div fxLayout="row" fxLayoutAlign="start center">
       <div *ngIf="email.from.length > 0" class="evc-from-circle" fxLayout="column" fxLayoutAlign="center center"
@@ -28,7 +28,7 @@
       <h4>{{email.subject}}</h4>
     </div>
   </div>
-  <div fxFlex *ngIf="email">
+  <div fxFlex fxLayout="row" fxLayoutAlign="center stretch" *ngIf="email">
     <div *ngIf="email.html" class="iframe-container">
       <iframe #iframe [srcdoc]="email.html" (load)="adjustIframeSize(iframe, topSection)">
       </iframe>

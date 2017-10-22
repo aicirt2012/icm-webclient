@@ -1,16 +1,17 @@
-<div fxLayout="row" fxFlex class="full-height email-list-container">
+<div fxFlex fxLayout="row" class="full-height email-list-container">
   <div [fxShow]="!loading" fxLayout="column" [fxFlex]="emailListFlex" class="email-list">
     <search-bar (searchEmails)="searchEmails($event)"></search-bar>
     <div fxFlex fxLayout="column" class="scrollable" infinite-scroll [infiniteScrollDistance]="scrollDistance"
          [infiniteScrollThrottle]="scrollThrottle" [scrollWindow]="false" (scrolled)="onScrollDown()">
-      <div fxFlex="100px" fxLayout="column" class="email-list-item" [routerLink]="mail.route"
+      <div fxFlex="70px" fxLayout="column" class="email-list-item" [routerLink]="mail.route"
            [class.route-active]="isActive(mail.route)" [class.unseen]="!isRead(mail)"
            *ngFor="let mail of emails; let i = index" dnd-draggable [dragEnabled]="true" [dragData]="mail">
         <div *ngIf="mail.from.length > 0" fxFlex="33" fxLayout="row">
           <div fxFlex="58" fxLayoutAlign="start center" class="text-overflow padding"
                [innerHTML]="(mail.from[0].name ? mail.from[0].name : mail.from[0].address) | highlight: searchTerm"></div>
           <div fxFlex="2"></div>
-          <div fxFlex="10" *ngIf="false" fxLayoutAlign="end center" class="padding text-overflow date">
+          <div fxFlex="10" *ngIf="mail.nonInlineAttachments" fxLayoutAlign="end center"
+               class="padding text-overflow date">
             <md-icon>attachment</md-icon>
           </div>
           <div fxFlex="40" fxShow="false" fxShow.gt-md fxLayoutAlign="end center" class="padding text-overflow date">
@@ -21,9 +22,11 @@
           </div>
         </div>
         <div fxFlex="33" class=" padding text-overflow"
-             [innerHTML]="(mail.subject ? mail.subject : 'No subject') | highlight: searchTerm"></div>
+             [innerHTML]="(mail.subject ? mail.subject : 'No subject') | highlight: searchTerm">
+        </div>
         <div fxFlex="33" class=" padding first-lines text-overflow"
-             [innerHTML]="(mail.text ? mail.text : '') | highlight: searchTerm"></div>
+             [innerHTML]="(mail.text ? mail.text : '') | highlight: searchTerm">
+        </div>
       </div>
     </div>
     <div class="loading-list" *ngIf="loadingList" fxLayoutAlign="center center">Loading...</div>
@@ -40,11 +43,12 @@
       The current search returned no results.
     </ng-container>
   </div>
-  <div [fxShow]="!loading && !isEmptyResult()" [fxFlex]="emailDetailedViewFlex" fxLayout="row" fxLayoutAlign="start stretch"
+  <div [fxShow]="!loading && !isEmptyResult()" [fxFlex]="emailDetailedViewFlex" fxLayout="row"
+       fxLayoutAlign="start stretch"
        mwlResizable
        [resizeEdges]="{bottom: false, right: false, top: false, left: true}"
        (resizing)="onResizeEnd($event)"
   >
-    <router-outlet></router-outlet>
+    <router-outlet fxFlex="0"></router-outlet>
   </div>
 </div>

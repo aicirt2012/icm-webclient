@@ -17,3 +17,12 @@ md-card {
   min-height: 100%;
   overflow-y: scroll;
 }
+
+md-input-container {
+  min-width: 400px;
+}
+
+.mat-card-title {
+  font-size: 24px;
+  font-weight: 400;
+}

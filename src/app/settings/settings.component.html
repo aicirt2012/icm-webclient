@@ -15,7 +15,7 @@
       <patterns fxFlex *ngIf="getCurrentView('patterns')"></patterns>
       <contact fxFlex *ngIf="getCurrentView('contacts')"></contact>
       <task fxFlex *ngIf="getCurrentView('tasks')"></task>
-      <overview fxFlex fxLayout="row" fxLayoutAlign="start stretch" *ngIf="getCurrentView('overview')"></overview>
+      <overview *ngIf="getCurrentView('overview')"></overview>
       <!--<help fxFlex *ngIf="getCurrentView('help')"></help>-->
     </div>
   </div>

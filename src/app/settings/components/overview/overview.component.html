@@ -1,59 +1,68 @@
-<md-card fxFlex fxLayout="column" fxLayoutAlign="start stretch">
-  <md-card-title fxFlex="5">TASK User Credentials</md-card-title>
-  <div fxFlex="10" fxLayout="row">
-    <md-input-container fxFlex>
-      <input mdInput name="username" type="text" [(ngModel)]="user.username" placeholder="Username" [disabled]="true">
-    </md-input-container>
-  </div>
-  <div fxFlex="10" fxLayout="row">
-    <md-input-container fxFlex>
+<md-card>
+  <md-card-header>
+    <md-card-title>TASK User Credentials</md-card-title>
+  </md-card-header>
+  <md-card-content>
+      <md-input-container>
+        <input mdInput name="username" type="text" [(ngModel)]="user.username" placeholder="Username" [disabled]="true">
+      </md-input-container>
+  </md-card-content>
+  <md-card-content>
+    <md-input-container>
       <input mdInput name="email" type="email" [(ngModel)]="user.email" placeholder="Email" autofocus>
     </md-input-container>
-  </div>
-  <div fxFlex="10" fxLayout="row">
-    <md-input-container fxFlex>
+  </md-card-content>
+  <md-card-content>
+    <md-input-container>
       <input mdInput name="password" type="password" [(ngModel)]="user.password" placeholder="Password" required>
     </md-input-container>
-  </div>
-  <div fxFlex="10" fxLayout="row" fxLayoutAlign="start center">
+  </md-card-content>
+  <md-card-actions>
     <button md-raised-button color="primary" (click)="updateUser()">Update User Credentials</button>
-  </div>
+  </md-card-actions>
 </md-card>
 
-<md-card fxFlex fxLayout="column" fxLayoutAlign="start stretch">
-  <md-card-title fxFlex="5">Connection Overview</md-card-title>
-  <md-list fxFlex fxLayout="column" fxLayoutAlign="start stretch">
-    <md-list-item [class.not-connected]="user.provider && !user.provider.name">
-      <span md-list-avatar *ngIf="user.provider && user.provider.name=='Gmail'" class="fa-3x fa fa-google"></span>
-      <span md-list-avatar *ngIf="user.provider && user.provider.name=='Exchange'" class="fa-3x fa fa-windows"></span>
-      <span md-list-avatar *ngIf="user.provider && !user.provider.name" class="fa-3x fa fa-envelope"></span>
-      <h4 md-line>{{user.provider && user.provider.name ? user.provider.name : 'Email Provider'}}</h4>
-      <p md-line>
-        <span [class.connected]="user.provider && user.provider.name">{{user.provider && user.provider.name ? 'Connected' : 'Not Connected'}}</span>
-      </p>
-    </md-list-item>
-    <md-divider></md-divider>
-    <md-list-item [class.not-connected]="!user.trello">
-      <span md-list-avatar class="fa-3x fa fa-trello"></span>
-      <h4 md-line>Trello</h4>
-      <p md-line>
-        <span [class.connected]="user.trello">{{user.trello ? 'Connected' : 'Not Connected'}}</span>
-      </p>
-    </md-list-item>
-    <md-divider></md-divider>
-    <md-list-item [class.not-connected]="!user.sociocortex">
-      <span md-list-avatar class="fa-3x fa fa-circle"></span>
-      <h4 md-line>SocioCortex</h4>
-      <p md-line>
-        <span [class.connected]="user.sociocortex">{{user.sociocortex ? 'Connected' : 'Not Connected'}}</span>
-      </p>
-    </md-list-item>
-  </md-list>
+<md-card>
+  <md-card-header>
+    <md-card-title fxFlex="5">Connection Overview</md-card-title>
+  </md-card-header>
+  <md-card-content>
+
+    <md-list>
+      <md-list-item [class.not-connected]="user.provider && !user.provider.name">
+        <span md-list-avatar *ngIf="user.provider && user.provider.name=='Gmail'" class="fa-3x fa fa-google"></span>
+        <span md-list-avatar *ngIf="user.provider && user.provider.name=='Exchange'" class="fa-3x fa fa-windows"></span>
+        <span md-list-avatar *ngIf="user.provider && !user.provider.name" class="fa-3x fa fa-envelope"></span>
+        <h4 md-line>{{user.provider && user.provider.name ? user.provider.name : 'Email Provider'}}</h4>
+        <p md-line>
+          <span [class.connected]="user.provider && user.provider.name">{{user.provider && user.provider.name ? 'Connected' : 'Not Connected'}}</span>
+        </p>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item [class.not-connected]="!user.trello">
+        <span md-list-avatar class="fa-3x fa fa-trello"></span>
+        <h4 md-line>Trello</h4>
+        <p md-line>
+          <span [class.connected]="user.trello">{{user.trello ? 'Connected' : 'Not Connected'}}</span>
+        </p>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item [class.not-connected]="!user.sociocortex">
+        <span md-list-avatar class="fa-3x fa fa-circle"></span>
+        <h4 md-line>SocioCortex</h4>
+        <p md-line>
+          <span [class.connected]="user.sociocortex">{{user.sociocortex ? 'Connected' : 'Not Connected'}}</span>
+        </p>
+      </md-list-item>
+    </md-list>
+
+  </md-card-content>
 </md-card>
 
-<md-card fxFlex fxLayout="column" fxLayoutAlign="start stretch">
+
+<!--<md-card>
   <md-card-title fxFlex="5">Enron</md-card-title>
-  <form fxFlex>
+  <md-card-actions>
     <button md-raised-button color="primary" (click)="appendEnron()">Add enron users</button>
-  </form>
-</md-card>
+  </md-card-actions>
+</md-card>-->
