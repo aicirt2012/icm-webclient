@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {Observer} from 'rxjs/Observer';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
 
 export type InternalStateType = {
   [key: string]: any
@@ -69,7 +69,8 @@ export class AppState {
   /** BoxList */
   setBoxList(boxList: any) {
     boxList = boxList.map(box => {
-      box.route = '/box/' + box._id;
+      box.route = ['/box', {outlets: {'boxId': [box._id]}}];
+      box.routeStr = `/box/(boxId:${box._id})`;
       return box
     });
     this.set(AppState.BOXLIST, boxList);
@@ -118,7 +119,9 @@ export class AppState {
   // customRoute: /root/rootId
   setEmails(emails: any, searchRoute = 'NONE', boxId = '0') {
     emails = emails.map(email => {
-      email.route = searchRoute !== 'NONE' ? `${searchRoute}/${email._id}` : `/box/${boxId}/${email._id}`;
+      // email.route = searchRoute !== 'NONE' ? `${searchRoute}/${email._id}` : `/box/${boxId}/${email._id}`;
+      email.route = ['/box', {outlets: {'boxId': [boxId], 'emailId': [email._id]}}];
+      email.routeStr = `/box/(boxId:${boxId}//emailId:${email._id})`;
       return email
     });
     this.set(AppState.EMAILS, emails);

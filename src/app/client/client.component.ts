@@ -1,13 +1,13 @@
-import {Component, ViewChild, style, state, animate, transition, trigger} from '@angular/core';
-import {Router, ActivatedRoute, Params} from '@angular/router';
-import {MdDialog, MdSnackBar} from '@angular/material';
-import {AppState} from '../app.service';
-import {Email, EmailService, BoxService, TaskService} from './shared';
-import {SocketService} from '../shared/services/socket.service';
-import {UserService} from '../settings/shared'; // TODO:move settingsservice to userservice
-import {Observable} from 'rxjs/Observable';
-import {EmailDialogComponent} from './emailDialog';
-import {EmailFolderDialogComponent} from './emailFolderDialog';
+import { Component, ViewChild, style, state, animate, transition, trigger } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { MdDialog, MdSnackBar } from '@angular/material';
+import { AppState } from '../app.service';
+import { Email, EmailService, BoxService, TaskService } from './shared';
+import { SocketService } from '../shared/services/socket.service';
+import { UserService } from '../settings/shared'; // TODO:move settingsservice to userservice
+import { Observable } from 'rxjs/Observable';
+import { EmailDialogComponent } from './emailDialog';
+import { EmailFolderDialogComponent } from './emailFolderDialog';
 import _ from 'lodash';
 
 @Component({
@@ -24,7 +24,11 @@ export class ClientComponent {
   private syncing: boolean;
   private updating: boolean = false;
 
-  constructor(private emailService: EmailService, private boxService: BoxService, public appState: AppState, private userService: UserService, private socketService: SocketService, public snackBar: MdSnackBar) {
+  constructor(private emailService: EmailService, private boxService: BoxService,
+              public appState: AppState,
+              private userService: UserService,
+              private socketService: SocketService,
+              public snackBar: MdSnackBar) {
   }
 
 

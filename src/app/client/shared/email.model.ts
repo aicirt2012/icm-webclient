@@ -37,5 +37,6 @@ export class Email {
   }];
   suggestedTasks: any[];
   linkedTasks: any[];
-  route: string; // used for ui routing
+  route: any[]; // used for ui routing
+  routeStr: String; // user for ui routing comparison
 }

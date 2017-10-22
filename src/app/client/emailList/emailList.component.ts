@@ -23,8 +23,6 @@ export class EmailListComponent {
   scrollThrottle = 300;
   loading: boolean;
   loadingList: boolean = false;
-  emailListFlex = 25;
-  emailDetailedViewFlex = 75;
 
   // emptyBox: boolean = false;
 
@@ -95,7 +93,7 @@ export class EmailListComponent {
         this.paginationEnabled = emails.length > 0;
         if (this.emails.length != 0) {
           // this.emptyBox = false;
-          this.router.navigate([this.emails[0].route]);
+          this.router.navigate(this.emails[0].route);
         }
         this.loadingList = false;
         this.loading = false;
@@ -127,12 +125,6 @@ export class EmailListComponent {
 
   isRead(email) {
     return email.flags.indexOf('\\Seen') > -1;
-  }
-
-  onResizeEnd(event: ResizeEvent): void {
-    console.log('Element was resized', event);
-    this.emailListFlex = 50;
-    this.emailDetailedViewFlex = 50;
   }
 
 }

@@ -1,5 +1,5 @@
 <md-list-item class="navbar-list-item" dnd-droppable
-              [class.route-active]="isActive(item.route)"
+              [class.route-active]="isActive(item.routeStr)"
               [routerLink]="item.route"
               (click)="setCurrentBox()"
               (onDropSuccess)="dropEmailEvent($event)"
