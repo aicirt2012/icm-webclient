@@ -21,6 +21,7 @@
     <div [fxFlex]="100 - boxListFlex - emailListFlex"
          class="resizableBox"
          mwlResizable
+         [resizeCursorPrecision]="10"
          [resizeEdges]="{bottom: false, right: false, top: false, left: true}"
          (resizeEnd)="onResizeEnd($event)"
     >

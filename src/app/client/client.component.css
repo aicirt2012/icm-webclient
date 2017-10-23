@@ -23,5 +23,10 @@ mwlResizable {
 }
 
 .resizableBox {
-  border-left: 20px solid #EEE;
+}
+
+.resize-left-hover {
+}
+
+.resize-active {
 }

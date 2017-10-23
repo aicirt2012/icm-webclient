@@ -156,9 +156,9 @@ export class ClientComponent {
   onResizeEnd(event: ResizeEvent): void {
     console.log('Element was resized', event);
     if(event.edges.left < 0) {
-      this.emailListFlex = 0;
+      this.emailListFlex = this.emailListFlex - 1;
     } else {
-      this.emailListFlex = 20;
+      this.emailListFlex = this.emailListFlex + 1;
     }
   }
 
