@@ -117,11 +117,26 @@ export class AppState {
 
   /** Emails */
   // customRoute: /root/rootId
-  setEmails(emails: any, searchRoute = 'NONE', boxId = '0') {
+  setEmails(emails: any, searchTerm = 'NONE', boxId = '0') {
     emails = emails.map(email => {
-      // email.route = searchRoute !== 'NONE' ? `${searchRoute}/${email._id}` : `/box/${boxId}/${email._id}`;
-      email.route = ['/box', {outlets: {'boxId': [boxId], 'emailId': [email._id]}}];
-      email.routeStr = `/box/(boxId:${boxId}//emailId:${email._id})`;
+      if (searchTerm !== '') {
+        email.route = ['/search', {
+          outlets: {
+            'searchTerm': [searchTerm],
+            'emailId': [email._id],
+            'context': ['context']
+          }
+        }];
+      } else {
+        email.route = ['/box', {
+          outlets: {
+            'boxId': [boxId],
+            'emailId': [email._id],
+            'context': ['context']
+          }
+        }];
+      }
+      email.routeStr = `/box/(boxId:${boxId}//emailId:${email._id}//context:context)`;
       return email
     });
     this.set(AppState.EMAILS, emails);

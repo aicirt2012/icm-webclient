@@ -61,32 +61,20 @@ export class EmailListComponent {
     return /^(\/search\/)/.test(this.router.url);
   }
 
-  anyNonInlineAttachment(email) {
-    console.log(email.attachments);
-    if (email.attachments.length > 0) {
-      return _.find(email.attachments, {'contentDispositionInline': false});
-    } else {
-      false
-    }
-    ;
-  }
-
   searchEmails(searchTerm = '') {
     if (searchTerm != '') {
       this.searchTerm = searchTerm;
-      const customRoute = this.generateNavigationRoute(this.searchTerm);
-      this.router.navigate([customRoute]);
+      this.router.navigate(['/search', {outlets: {'searchTerm': [this.searchTerm]}}]);
     }
   }
 
   getEmailList(boxId = 'NONE', searchTerm = '', sort = 'DESC', lastEmailDate = new Date()) {
     this.emailService.searchEmailsWithPagination(boxId, sort, searchTerm, lastEmailDate)
       .subscribe((emails: any) => {
-        const searchRoute = this.generateNavigationRoute(searchTerm);
         if (this.paginationEnabled) {
-          this.appState.setEmails(this.emails.concat(emails), searchRoute, boxId);
+          this.appState.setEmails(this.emails.concat(emails), searchTerm, boxId);
         } else {
-          this.appState.setEmails(emails, searchRoute, boxId);
+          this.appState.setEmails(emails, searchTerm, boxId);
         }
         this.emails = this.appState.getEmails();
         this.paginationEnabled = emails.length > 0;
@@ -97,11 +85,6 @@ export class EmailListComponent {
         this.loadingList = false;
         this.loading = false;
       });
-  }
-
-  // TODO: move this into the service
-  generateNavigationRoute(searchTerm) {
-    return searchTerm != '' ? `/search/${searchTerm}` : 'NONE';
   }
 
   onScrollDown() {

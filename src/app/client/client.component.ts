@@ -26,6 +26,7 @@ export class ClientComponent {
   private updating: boolean = false;
   private boxListFlex = 15;
   private emailListFlex = 20;
+  private contextFlex = 20;
 
   constructor(private emailService: EmailService, private boxService: BoxService,
               public appState: AppState,
@@ -156,9 +157,9 @@ export class ClientComponent {
   onResizeEnd(event: ResizeEvent): void {
     console.log('Element was resized', event);
     if(event.edges.left < 0) {
-      this.emailListFlex = this.emailListFlex - 1;
+      this.emailListFlex = 0;
     } else {
-      this.emailListFlex = this.emailListFlex + 1;
+      this.emailListFlex = 20;
     }
   }
 

@@ -1,3 +1,7 @@
+:host {
+  width:100%;
+}
+
 .ctxTab{
     background-color: #444c62;
     height: 100%;

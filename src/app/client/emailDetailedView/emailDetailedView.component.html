@@ -1,5 +1,5 @@
 <div *ngIf="email && boxList" fxFlex fxLayout="row" class="full-height">
-  <div fxFlex="70" fxLayout="column" fxLayoutAlign="start stretch">
+  <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
     <email-action-bar
       fxFlex="50px"
       [responseStatus]="responseStatus"
@@ -35,7 +35,6 @@
     >
     </email-response>
   </div>
-  <context [email]="email" fxFlex="30"></context>
 </div>
 <div *ngIf="!email || !boxList" fxFlex fxLayout="row" fxLayoutAlign="center center" class="full-height">
   <spinner [loading]="true"></spinner>
