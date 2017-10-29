@@ -1,6 +1,6 @@
 image: node:latest
 
-cache: 
+cache:
   paths:
     - node_modules/
 
@@ -11,6 +11,7 @@ stages:
 installdependencies:
   stage: installdependencies
   script:
+    - rm -fR node_modules
     - npm install --unsafe-perm
     - npm install -g yarn
     - yarn build

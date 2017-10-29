@@ -42,6 +42,7 @@ export class EmailListComponent {
     });
 
     this.activeRoute.params.subscribe(params => {
+      console.log('a change from email List');
       const boxId = params['boxId'] || 'NONE';
       this.searchTerm = params['searchTerm'] || '';
       this.paginationEnabled = false;

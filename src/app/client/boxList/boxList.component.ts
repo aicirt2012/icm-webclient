@@ -1,9 +1,9 @@
-import {Component, Input, EventEmitter, Output, ViewChild, Inject} from '@angular/core';
-import {Router} from '@angular/router';
-import {AppState} from '../../app.service';
-import {EmailFolderDialogComponent} from './emailFolderDialog';
-import {BoxService} from "../shared/box.service";
-import {MdDialog} from '@angular/material';
+import { Component, Input, EventEmitter, Output, ViewChild, Inject } from '@angular/core';
+import { Router, ActivatedRoute} from '@angular/router';
+import { AppState } from '../../app.service';
+import { EmailFolderDialogComponent } from './emailFolderDialog';
+import { BoxService } from "../shared/box.service";
+import { MdDialog } from '@angular/material';
 
 @Component({
   selector: 'box-list',
@@ -18,14 +18,29 @@ export class BoxListComponent {
   @Output() onRefresh = new EventEmitter<boolean>();
   @Output() onMoveEmailToBox = new EventEmitter<any>();
 
+  currentId: any;
+
   boxName: string;
   boxList: any[];
   user: any;
 
+  boxId: string;
+  searchTerm: string;
+  params;
+
+
   constructor(public appState: AppState,
               public router: Router,
+              public activatedRoute: ActivatedRoute,
               public dialog: MdDialog,
               public boxService: BoxService) {
+
+    this.params = this.activatedRoute.params.subscribe((params) => {
+      console.log('a change Helloo.....');
+      console.log(params);
+    })
+
+
   }
 
   ngOnInit() {
@@ -51,6 +66,7 @@ export class BoxListComponent {
     this.appState.user().subscribe(user => {
       this.user = user;
     });
+
   }
 
   moveEmailToBox(data) {
@@ -96,10 +112,23 @@ export class BoxListComponent {
     this.onRefresh.emit(true);
   }
 
-  openCreateEmail() {
+  createNewEmail() {
     console.log('inside openCreateEmailDialog');
-    const customRoute = this.router.url.match(/(\/box\/|\/search\/)[a-zA-Z\u00C0-\u017F0-9 ]*\//)[0] + 'new';
-    this.router.navigate([customRoute]);
+    // const customRoute = this.router.url.match(/(\/box\/|\/search\/)[a-zA-Z\u00C0-\u017F0-9 ]*\//)[0] + 'new';
+
+    this.params = this.activatedRoute.params.subscribe((params) => {
+      console.log('another change');
+      console.log(params);
+    })
+
+    /*
+    this.activatedRoute.snapshot.params.subscribe(params => {
+      console.log('change');
+      console.log(params);
+    });
+    */
+
+    // this.router.navigate([customRoute]);
   }
 
   openEmailFolderDialog() {

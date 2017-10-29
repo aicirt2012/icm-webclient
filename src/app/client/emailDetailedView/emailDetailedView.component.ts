@@ -25,8 +25,8 @@ export class EmailDetailedViewComponent {
   private moving = false;
 
   constructor(private emailService: EmailService, public snackBar: MdSnackBar,
-    public route: ActivatedRoute, public appState: AppState, public router: Router,
-    public windowRef: WindowRef) {
+              public activatedRoute: ActivatedRoute, public appState: AppState, public router: Router,
+              public windowRef: WindowRef) {
     this.emailResponse = {};
     this.responseStatus = false;
   }
@@ -43,7 +43,7 @@ export class EmailDetailedViewComponent {
       this.emails = emails;
     });
 
-    this.currentId = this.route.params.map(params => params['emailId'] || 'None');
+    this.currentId = this.activatedRoute.params.map(params => params['emailId'] || 'None');
     this.currentId.subscribe((emailId) => {
       console.log('get single email...');
       emailId !== 'None' ? emailId === 'new' ? this.createNewEmailDraft() : this.getSingleMail(emailId) : '';
