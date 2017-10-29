@@ -1,4 +1,4 @@
-import {MdDialog} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {SentenceDialogComponent} from './sentenceDialog'; //sentenceDialog.component';
 import {Component, Input, EventEmitter, Output, ViewChild, ElementRef} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -19,7 +19,7 @@ export class EmailViewComponent {
   @ViewChild('wrapper') wrapper: ElementRef;
   @ViewChild('iframe') iframe: ElementRef;
 
-  constructor(private sanitizer: DomSanitizer, public dialog: MdDialog, private attachmentService: AttachmentService) {
+  constructor(private sanitizer: DomSanitizer, public dialog: MatDialog, private attachmentService: AttachmentService) {
   }
 
   ngOnChanges() {

@@ -1,5 +1,5 @@
 import { EmailDialogComponent } from './../../emailDialog/emailDialog.component';
-import { MdDialogRef, MdDialog } from '@angular/material';
+import { MatDialogRef, MatDialog } from '@angular/material';
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Email } from '../../shared';
 
@@ -20,7 +20,7 @@ export class EmailActionBarComponent {
   @Input() responseStatus: boolean;
   selectedBox: string;
 
-  constructor(public dialog: MdDialog) {
+  constructor(public dialog: MatDialog) {
   }
 
   replyEmail() {
@@ -60,7 +60,7 @@ export class EmailActionBarComponent {
   }
 
   openCreateEmailDialog() {
-    let emailDialogRef: MdDialogRef<EmailDialogComponent> = this.dialog.open(EmailDialogComponent, {
+    let emailDialogRef: MatDialogRef<EmailDialogComponent> = this.dialog.open(EmailDialogComponent, {
       width: '80%',
       height: '95%',
       position: {

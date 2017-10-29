@@ -6,23 +6,23 @@
     </div>
     <div fxFlex="1 1 60" fxLayout="row" fxLayoutAlign="center stretch">
 
-      <md-tab-group fxFlex="70" fxLayout="column" fxLayoutAlign="start stretch">
+      <mat-tab-group fxFlex="70" fxLayout="column" fxLayoutAlign="start stretch">
 
-        <md-tab fxFlex fxLayout="column" fxLayoutAlign="start stretch"
+        <mat-tab fxFlex fxLayout="column" fxLayoutAlign="start stretch"
                 label="Log in">
 
-          <md-card class="login-box">
+          <mat-card class="login-box">
             <div fxFlex fxLayout="column" fxLayoutAlign="center stretch">
 
               <div fxFlex fxLayout="column" fxLayoutAlign="center stretch">
-                <a md-raised-button [href]="googleLoginLink">
-                  <md-icon svgIcon="google"></md-icon>
+                <a mat-raised-button [href]="googleLoginLink">
+                  <mat-icon svgIcon="google"></mat-icon>
                  Log in with Google Account
                 </a>
               </div>
               <div fxFlex fxLayout="column" fxLayoutAlign="center stretch">
-                <a md-raised-button [href]="googleLoginLink">
-                  <md-icon svgIcon="exchange"></md-icon>
+                <a mat-raised-button [href]="googleLoginLink">
+                  <mat-icon svgIcon="exchange"></mat-icon>
                   Log in with Exchange Account
                 </a>
               </div>
@@ -32,44 +32,44 @@
               </div>
 
               <div fxFlex fxLayout="row" fxLayoutAlign="start stretch">
-                <md-input-container fxFlex fxLayout="column" fxFlexAlign="center stretch">
-                  <input mdInput placeholder="Username" type="text" name="username" [(ngModel)]="model.username"
+                <mat-input-container fxFlex fxLayout="column" fxFlexAlign="center stretch">
+                  <input matInput placeholder="Username" type="text" name="username" [(ngModel)]="model.username"
                          autofocus
                          required>
-                </md-input-container>
+                </mat-input-container>
               </div>
               <div fxFlex fxLayout="row" fxLayoutAlign="start stretch">
-                <md-input-container fxFlex fxLayout="column" fxFlexAlign="center stretch">
-                  <input mdInput placeholder="Password" type="password" name="password" [(ngModel)]="model.password"
+                <mat-input-container fxFlex fxLayout="column" fxFlexAlign="center stretch">
+                  <input matInput placeholder="Password" type="password" name="password" [(ngModel)]="model.password"
                          required>
-                </md-input-container>
+                </mat-input-container>
               </div>
               <div fxFlex fxLayout="column" fxLayoutAlign="center stretch">
-                <button md-raised-button color="primary" [disabled]="loading" (click)="login()">Log in</button>
+                <button mat-raised-button color="primary" [disabled]="loading" (click)="login()">Log in</button>
               </div>
               <div fxFlex fxLayout="row" fxLayoutAlign="center center">
                 <span>Forgot your password?</span>
               </div>
             </div>
-          </md-card>
+          </mat-card>
 
-        </md-tab>
-        <md-tab fxFlex fxLayout="column" fxLayoutAlign="start stretch"
+        </mat-tab>
+        <mat-tab fxFlex fxLayout="column" fxLayoutAlign="start stretch"
                 label="Sign up">
 
-          <md-card class="login-box">
+          <mat-card class="login-box">
             <div fxFlex fxLayout="column" fxLayoutAlign="center stretch">
 
               <div fxFlex fxLayout="column" fxLayoutAlign="center stretch">
-                <a md-raised-button [href]="googleLoginLink">
-                  <md-icon svgIcon="google"></md-icon>
+                <a mat-raised-button [href]="googleLoginLink">
+                  <mat-icon svgIcon="google"></mat-icon>
                   Sign up with Google Account
                 </a>
               </div>
 
               <div fxFlex fxLayout="column" fxLayoutAlign="center stretch">
-                <a md-raised-button [href]="googleLoginLink">
-                  <md-icon svgIcon="exchange"></md-icon>
+                <a mat-raised-button [href]="googleLoginLink">
+                  <mat-icon svgIcon="exchange"></mat-icon>
                   Log in with Exchange Account
                 </a>
               </div>
@@ -79,26 +79,26 @@
               </div>
 
               <div fxFlex fxLayout="row" fxLayoutAlign="start stretch">
-                <md-input-container fxFlex fxLayout="column" fxFlexAlign="center stretch">
-                  <input mdInput placeholder="Username" type="text" name="username" [(ngModel)]="model.username"
+                <mat-input-container fxFlex fxLayout="column" fxFlexAlign="center stretch">
+                  <input matInput placeholder="Username" type="text" name="username" [(ngModel)]="model.username"
                          autofocus
                          required>
-                </md-input-container>
+                </mat-input-container>
               </div>
               <div fxFlex fxLayout="row" fxLayoutAlign="start stretch">
-                <md-input-container fxFlex fxLayout="column" fxFlexAlign="center stretch">
-                  <input mdInput placeholder="Password" type="password" name="password" [(ngModel)]="model.password"
+                <mat-input-container fxFlex fxLayout="column" fxFlexAlign="center stretch">
+                  <input matInput placeholder="Password" type="password" name="password" [(ngModel)]="model.password"
                          required>
-                </md-input-container>
+                </mat-input-container>
               </div>
               <div fxFlex fxLayout="column" fxLayoutAlign="center stretch">
-                <button md-raised-button color="primary" [disabled]="loading" (click)="signup()">Create My Account</button>
+                <button mat-raised-button color="primary" [disabled]="loading" (click)="signup()">Create My Account</button>
               </div>
             </div>
-          </md-card>
+          </mat-card>
 
-        </md-tab>
-      </md-tab-group>
+        </mat-tab>
+      </mat-tab-group>
 
     </div>
 

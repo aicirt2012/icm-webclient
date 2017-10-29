@@ -1,6 +1,6 @@
 import { Component, ViewChild, style, state, animate, transition, trigger } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { MdDialog, MdSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { AppState } from '../app.service';
 import { Email, EmailService, BoxService, TaskService } from './shared';
 import { SocketService } from '../shared/services/socket.service';
@@ -32,7 +32,7 @@ export class ClientComponent {
               public appState: AppState,
               private userService: UserService,
               private socketService: SocketService,
-              public snackBar: MdSnackBar) {
+              public snackBar: MatSnackBar) {
   }
 
 

@@ -1,7 +1,7 @@
 import {DomSanitizer} from '@angular/platform-browser';
 import {Component} from '@angular/core';
 import {AuthService} from '../shared';
-import {MdIconRegistry} from '@angular/material';
+import {MatIconRegistry} from '@angular/material';
 import {Router} from '@angular/router';
 import C from '../shared/constants';
 
@@ -19,7 +19,7 @@ export class LoginComponent {
   googleLoginLink = `${C.server}/auth/google`;
 
   constructor(private router: Router,
-              private _auth: AuthService, iconRegistry: MdIconRegistry, sanitizer: DomSanitizer) {
+              private _auth: AuthService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
       'google',
       sanitizer.bypassSecurityTrustResourceUrl('assets/img/google.svg'));

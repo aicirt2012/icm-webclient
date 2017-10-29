@@ -1,6 +1,6 @@
 import { Component, Input, EventEmitter, Output, ViewChild, Optional, HostListener, ElementRef, ContentChild } from '@angular/core';
 import { TaskService } from '../../../../shared';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'task-list-item',
@@ -25,7 +25,7 @@ export class TaskListItemComponent {
   public possibleMembers: any[] = [];
   public currMember = '';
 
-  constructor(private _taskService: TaskService, public snackBar: MdSnackBar) {
+  constructor(private _taskService: TaskService, public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {

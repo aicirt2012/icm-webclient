@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../shared';
-import { MdSnackBar, MdInput } from '@angular/material';
+import { MatSnackBar, MatInput } from '@angular/material';
 
 
 @Component({
   selector: 'patterns',
   templateUrl: 'patterns.component.html',
   styleUrls: ['patterns.component.scss'],
-  providers: [MdSnackBar]
+  providers: [MatSnackBar]
 })
 export class PatternsComponent {
 
   patterns: any[];
   newPattern: string = '';
 
-  constructor(private userService: UserService, private snackBar: MdSnackBar) { }
+  constructor(private userService: UserService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.userService.getPatterns().subscribe((patterns: any) => {

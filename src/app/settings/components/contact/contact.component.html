@@ -1,25 +1,25 @@
-<md-card fxFlex>
-  <md-tab-group>
-    <md-tab label="SocioCortex">
-      <md-card fxFlex>
+<mat-card fxFlex>
+  <mat-tab-group>
+    <mat-tab label="SocioCortex">
+      <mat-card fxFlex>
         <form fxFlex>
           <div fxFlex fxfxLayout="column">
             <div fxFlex fxLayout="row" fxLayoutAlign="start center" style="margin-bottom:15px;">
-              <md-checkbox name="isEnabled" [(ngModel)]="socioCortex.isEnabled">Enable</md-checkbox>
+              <mat-checkbox name="isEnabled" [(ngModel)]="socioCortex.isEnabled">Enable</mat-checkbox>
             </div>
-            <md-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
-              <input mdInput name="email" type="text" [(ngModel)]="socioCortex.email" placeholder="Email" autofocus required disabled="{{!socioCortex.isEnabled}}">
-            </md-input-container>
-            <md-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
-              <input mdInput fxFlex="45" name="password" type="password" [(ngModel)]="socioCortex.password" placeholder="Password" required disabled="{{!socioCortex.isEnabled}}">
-            </md-input-container>
-            <md-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
-              <input mdInput fxFlex="100" name="baseURL" type="text" [(ngModel)]="socioCortex.baseURL" placeholder="Base URL" required disabled="{{!socioCortex.isEnabled}}">
-            </md-input-container>
+            <mat-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
+              <input matInput name="email" type="text" [(ngModel)]="socioCortex.email" placeholder="Email" autofocus required disabled="{{!socioCortex.isEnabled}}">
+            </mat-input-container>
+            <mat-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
+              <input matInput fxFlex="45" name="password" type="password" [(ngModel)]="socioCortex.password" placeholder="Password" required disabled="{{!socioCortex.isEnabled}}">
+            </mat-input-container>
+            <mat-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
+              <input matInput fxFlex="100" name="baseURL" type="text" [(ngModel)]="socioCortex.baseURL" placeholder="Base URL" required disabled="{{!socioCortex.isEnabled}}">
+            </mat-input-container>
           </div>
-          <button md-raised-button color="primary" (click)="updateSocioCortex()">Save Configuration</button>
+          <button mat-raised-button color="primary" (click)="updateSocioCortex()">Save Configuration</button>
         </form>
-      </md-card>
-    </md-tab>
-  </md-tab-group>
-</md-card>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>

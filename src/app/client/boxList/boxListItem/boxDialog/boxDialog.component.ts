@@ -1,6 +1,6 @@
 import {Component, Input, EventEmitter, Output, Inject} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {MdDialogRef, MD_DIALOG_DATA, MdSnackBar, MdInput} from '@angular/material';
+import {MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatInput} from '@angular/material';
 import {BoxService} from '../../../shared';
 import {AppState} from '../../../../app.service';
 import _ from 'lodash';
@@ -21,9 +21,9 @@ export class BoxDialogComponent {
   private newParentBoxId: string = '';
   private newBoxShortName: string = '';
 
-  constructor(public taskDialogRef: MdDialogRef<BoxDialogComponent>,
-              private snackBar: MdSnackBar,
-              @Inject(MD_DIALOG_DATA) public data: any,
+  constructor(public taskDialogRef: MatDialogRef<BoxDialogComponent>,
+              private snackBar: MatSnackBar,
+              @Inject(MAT_DIALOG_DATA) public data: any,
               private boxService: BoxService, public appState: AppState) {
 
     this.boxId = data.boxId;

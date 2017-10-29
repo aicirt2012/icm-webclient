@@ -13,12 +13,12 @@
         <div fxFlex="2"></div>
         <div fxFlex="10" *ngIf="mail.nonInlineAttachments" fxLayoutAlign="end center"
              class="padding text-overflow date">
-          <md-icon>attachment</md-icon>
+          <mat-icon>attachment</mat-icon>
         </div>
-        <div fxFlex="40" fxShow="false" fxShow.gt-md fxLayoutAlign="end center" class="padding text-overflow date">
+        <div fxFlex="40" fxShow="false" fxShow.gt-mat fxLayoutAlign="end center" class="padding text-overflow date">
           {{mail.date | date:'shortDate'}} {{mail.date | date:'shortTime'}}
         </div>
-        <div fxFlex="40" fxHide="false" fxHide.gt-md fxLayoutAlign="end center" class="padding text-overflow date">
+        <div fxFlex="40" fxHide="false" fxHide.gt-mat fxLayoutAlign="end center" class="padding text-overflow date">
           {{mail.date | date:'shortDate'}}
         </div>
       </div>

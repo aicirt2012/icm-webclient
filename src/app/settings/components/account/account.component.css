@@ -9,16 +9,16 @@
   padding: 0 0 16px 0;
 }
 
-md-radio-button {
+mat-radio-button {
   margin: 8px;
 }
 
-md-card {
+mat-card {
   min-height: 100%;
   overflow-y: scroll;
 }
 
-md-input-container {
+mat-input-container {
   min-width: 400px;
 }
 

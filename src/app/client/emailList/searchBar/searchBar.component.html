@@ -1,6 +1,6 @@
-<md-input-container fxFlex="90" floatingPlaceholder="false">
-  <input mdInput placeholder="Search..." [(ngModel)]="query" (blur)="search()" (keyup.enter)="search()">
-</md-input-container>
-<button md-button fxFlex (click)="search()">
-  <md-icon>search</md-icon>
+<mat-input-container fxFlex="90" floatingPlaceholder="false">
+  <input matInput placeholder="Search..." [(ngModel)]="query" (blur)="search()" (keyup.enter)="search()">
+</mat-input-container>
+<button mat-button fxFlex (click)="search()">
+  <mat-icon>search</mat-icon>
 </button>

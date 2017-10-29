@@ -2,7 +2,7 @@ import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {AppState} from "../../../app.service";
 import {ContextMenuComponent} from 'ngx-contextmenu';
-import {MdDialog, MdDialogRef} from "@angular/material";
+import {MatDialog, MatDialogRef} from "@angular/material";
 import {BoxDialogComponent} from '../boxListItem/boxDialog/boxDialog.component';
 
 @Component({
@@ -31,7 +31,7 @@ export class BoxListItemComponent {
   }
 
 
-  constructor(public router: Router, public appState: AppState, public dialog: MdDialog) {
+  constructor(public router: Router, public appState: AppState, public dialog: MatDialog) {
   }
 
   isActive(route: string): boolean {
@@ -49,7 +49,7 @@ export class BoxListItemComponent {
     console.log(boxId);
 
 
-    let boxDialogRef: MdDialogRef<BoxDialogComponent> = this.dialog.open(BoxDialogComponent,
+    let boxDialogRef: MatDialogRef<BoxDialogComponent> = this.dialog.open(BoxDialogComponent,
       {
         width: '25%',
         height: '300px',
@@ -69,7 +69,7 @@ export class BoxListItemComponent {
     console.log(boxId);
 
 
-    let boxDialogRef: MdDialogRef<BoxDialogComponent> = this.dialog.open(BoxDialogComponent,
+    let boxDialogRef: MatDialogRef<BoxDialogComponent> = this.dialog.open(BoxDialogComponent,
       {
         width: '25%',
         height: '300px',

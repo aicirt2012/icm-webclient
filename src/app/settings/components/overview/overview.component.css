@@ -16,7 +16,7 @@
   color: rgba(0, 0, 0, 0.54);
 }
 
-md-input-container {
+mat-input-container {
   min-width: 400px;
 }
 

@@ -3,12 +3,12 @@
 
   <div fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start stretch">
     <div fxFlex="15">
-      <md-nav-list fxFlex>
-        <md-list-item [routerLink]="link.link" *ngFor="let link of links" [routerLinkActive]="['route-active']">
-          <a md-line>{{link.name}}</a>
-          <md-icon>{{link.icon}}</md-icon>
-        </md-list-item>
-      </md-nav-list>
+      <mat-nav-list fxFlex>
+        <mat-list-item [routerLink]="link.link" *ngFor="let link of links" [routerLinkActive]="['route-active']">
+          <a mat-line>{{link.name}}</a>
+          <mat-icon>{{link.icon}}</mat-icon>
+        </mat-list-item>
+      </mat-nav-list>
     </div>
     <div fxFlex fxLayout="row" fxLayoutAlign="start stretch">
       <account *ngIf="getCurrentView('email')"></account>

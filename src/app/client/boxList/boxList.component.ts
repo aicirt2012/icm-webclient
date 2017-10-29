@@ -3,7 +3,7 @@ import { Router, ActivatedRoute} from '@angular/router';
 import { AppState } from '../../app.service';
 import { EmailFolderDialogComponent } from './emailFolderDialog';
 import { BoxService } from "../shared/box.service";
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'box-list',
@@ -32,7 +32,7 @@ export class BoxListComponent {
   constructor(public appState: AppState,
               public router: Router,
               public activatedRoute: ActivatedRoute,
-              public dialog: MdDialog,
+              public dialog: MatDialog,
               public boxService: BoxService) {
 
     this.params = this.activatedRoute.params.subscribe((params) => {

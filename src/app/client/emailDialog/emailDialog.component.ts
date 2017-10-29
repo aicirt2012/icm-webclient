@@ -3,7 +3,7 @@ import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core
 import { EmailService, TaskService } from '../shared';
 import { Observable } from 'rxjs/Observable';
 import { Email, EmailForm } from '../shared';
-import { MdDialogRef, MdSnackBar, MdInput } from '@angular/material';
+import { MatDialogRef, MatSnackBar, MatInput } from '@angular/material';
 
 
 @Component({
@@ -27,7 +27,7 @@ export class EmailDialogComponent {
   public relatedTasks: any = [];
   public user: any;
 
-  constructor(public appState: AppState, private _emailService: EmailService, public emailDialogRef: MdDialogRef<EmailDialogComponent>, private snackBar: MdSnackBar, private _taskService: TaskService) {
+  constructor(public appState: AppState, private _emailService: EmailService, public emailDialogRef: MatDialogRef<EmailDialogComponent>, private snackBar: MatSnackBar, private _taskService: TaskService) {
   }
 
   ngOnInit() {
@@ -42,7 +42,7 @@ export class EmailDialogComponent {
     this.emailDialogRef.close();
   }
 
-  addAddress(address: MdInput, addressType: string): void {
+  addAddress(address: MatInput, addressType: string): void {
     if (address.value && address.value.trim() != '') {
       this.emailForm[addressType].push(address.value.trim());
       address.value = '';

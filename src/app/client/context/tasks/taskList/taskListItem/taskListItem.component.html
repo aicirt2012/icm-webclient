@@ -1,18 +1,18 @@
-<md-card [class]="task.taskType" [class.highlighted]="task.highlight">
-    <md-card-content class="cardContent" fxFlex fxLayout="column">
+<mat-card [class]="task.taskType" [class.highlighted]="task.highlight">
+    <mat-card-content class="cardContent" fxFlex fxLayout="column">
         <div fxFlex="33" fxLayout="row">
             <div fxFlex="85" class="card-title text-overflow"><strong>{{task.name}}</strong></div>
-            <md-icon class="pointer alert-icon" *ngIf="isOverdue() && task.taskType == 'linked' && !isChecked()">add_alert</md-icon>
-            <md-icon class="pointer check-icon" *ngIf="isChecked()" mdTooltip="Completed">check</md-icon>
-            <md-icon class="pointer close-icon" (click)="removeTask(task)">close</md-icon>
+            <mat-icon class="pointer alert-icon" *ngIf="isOverdue() && task.taskType == 'linked' && !isChecked()">add_alert</mat-icon>
+            <mat-icon class="pointer check-icon" *ngIf="isChecked()" matTooltip="Completed">check</mat-icon>
+            <mat-icon class="pointer close-icon" (click)="removeTask(task)">close</mat-icon>
         </div>
         <div *ngIf="task.taskType == 'linked'" fxFlex-gt-sm="33" fxLayout="row" fxLayoutAlign="start end" class="card-title">
             <div fxLayoutAlign="start center">
-            <md-icon fxFlex-gt-sm="8">date_range</md-icon>
+            <mat-icon fxFlex-gt-sm="8">date_range</mat-icon>
 
             <div fxFlex-gt-sm="27" [class.overdue-text]="isOverdue() && task.taskType == 'linked' && !isChecked()">{{task.date | date:'shortDate'}}</div>
             </div>
-            <md-icon class="icon-margin" fxFlex-gt-sm="8">person</md-icon>
+            <mat-icon class="icon-margin" fxFlex-gt-sm="8">person</mat-icon>
             <div fxFlex-gt-sm="53" fxLayout="row">
                 <div *ngFor="let member of task.members" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
                     <span>{{member.initials}}</span>
@@ -26,5 +26,5 @@
         <div *ngIf="!task.desc" fxFlex="33" class="text-overflow">
             <i>No description</i>
         </div>
-    </md-card-content>
-</md-card>
+    </mat-card-content>
+</mat-card>

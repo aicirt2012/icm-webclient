@@ -1,7 +1,7 @@
 import {Component, Input, EventEmitter, Output} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
-import {MdDialogRef, MdSnackBar, MdInput} from '@angular/material';
+import {MatDialogRef, MatSnackBar, MatInput} from '@angular/material';
 import {BoxService} from '../../shared';
 import {AppState} from '../../../app.service';
 
@@ -22,7 +22,7 @@ export class EmailFolderDialogComponent {
   private newBoxShortName: string = '';
   private parentBox: string = '';
 
-  constructor(public taskDialogRef: MdDialogRef<EmailFolderDialogComponent>, private snackBar: MdSnackBar, private boxService: BoxService, public appState: AppState) {
+  constructor(public taskDialogRef: MatDialogRef<EmailFolderDialogComponent>, private snackBar: MatSnackBar, private boxService: BoxService, public appState: AppState) {
   }
 
   ngOnInit() {

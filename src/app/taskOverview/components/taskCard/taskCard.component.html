@@ -1,28 +1,28 @@
 <div class="card" [class.overdue]="overdue && !sticker_check" [class.sticker_check]="sticker_check"  fxLayout="column">
     <div class="card-content">
-        <md-list class="task-list">
-            <md-list-item>
+        <mat-list class="task-list">
+            <mat-list-item>
                 <div fxFlex class="text-overflow" fxLayout="row" fxLayoutAlign="start center" >
                  <h4 fxFlex class="text-overflow">{{task.name}}</h4>
-                 <md-icon class="alert-icon" *ngIf="overdue && !sticker_check">add_alert</md-icon>
-                 <md-icon class="check-icon" *ngIf="sticker_check">check</md-icon>
+                 <mat-icon class="alert-icon" *ngIf="overdue && !sticker_check">add_alert</mat-icon>
+                 <mat-icon class="check-icon" *ngIf="sticker_check">check</mat-icon>
                 </div>
-            </md-list-item>
-            <md-list-item>
-                <md-icon>date_range</md-icon>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon>date_range</mat-icon>
                 <div [class.overdue-text]="overdue && !sticker_check" *ngIf="task.due != null"> {{task.due | date: 'medium'}}</div>
                 <div *ngIf="task.due == null"><i>No date set</i></div>
-            </md-list-item>
-            <md-list-item>
-                <md-icon>person</md-icon>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon>person</mat-icon>
                 <div fxLayout="row">
                     <div *ngFor="let member of assignedMembers" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
                         <span>{{member.initials}}</span>
                     </div>
                     <div *ngIf="assignedMembers.length < 1"><i>No person assigned</i></div>
                 </div>
-            </md-list-item>
-        </md-list>
+            </mat-list-item>
+        </mat-list>
         <div class="no-scroll">
             <div *ngIf="task.desc !== ''" class="task-desc">{{task.desc}}</div>
             <div *ngIf="task.desc == ''" class="task-desc" fxLayoutAlign="center center"><i>No description</i></div>
@@ -30,11 +30,11 @@
 </div>
 <div class="card-actions" fxLayoutAlign="center center">
     <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-        <a fxFlex md-button [href]="task.shortUrl" target="_blank" title="Open task in Trello">
-            <md-icon>open_in_new</md-icon>
+        <a fxFlex mat-button [href]="task.shortUrl" target="_blank" title="Open task in Trello">
+            <mat-icon>open_in_new</mat-icon>
         </a>
-        <a fxFlex="50" *ngIf="task.linkToEmail" md-button [href]="task.linkToEmail">
-            <md-icon>email</md-icon>
+        <a fxFlex="50" *ngIf="task.linkToEmail" mat-button [href]="task.linkToEmail">
+            <mat-icon>email</mat-icon>
         </a>
     </div>
 </div>

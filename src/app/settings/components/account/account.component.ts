@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../shared';
-import { MdSnackBar, MdInput } from '@angular/material';
+import { MatSnackBar, MatInput } from '@angular/material';
 
 
 @Component({
   selector: 'account',
   templateUrl: 'account.component.html',
   styleUrls: ['account.component.css'],
-  providers: [MdSnackBar]
+  providers: [MatSnackBar]
 })
 export class AccountComponent {
 
@@ -22,7 +22,7 @@ public emailConfig = {
   smtpDomains: ['gmail.com', 'googlemail.com']
 };
 
-  constructor(private userService: UserService, private snackBar: MdSnackBar) {}
+  constructor(private userService: UserService, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.userService.getUserInfo().subscribe((data: any) => {
@@ -32,7 +32,7 @@ public emailConfig = {
     })
   }
 
-  addDomain(domain: MdInput): void {
+  addDomain(domain: MatInput): void {
     if (domain.value && domain.value.trim() != '') {
       this.emailConfig['smtpDomains'].push(domain.value.trim());
       domain.value = '';

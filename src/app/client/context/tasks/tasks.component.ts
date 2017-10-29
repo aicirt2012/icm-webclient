@@ -1,5 +1,5 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { MdDialog, MdDialogRef, MdSnackBar } from '@angular/material';
+import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { Email } from '../../shared';
 import { TaskService } from '../../shared';
 import { TaskDialogType, DialogType } from '../../../shared/constants';
@@ -34,7 +34,7 @@ export class TasksComponent {
   public showSuggested: boolean = true;
   public showLinked: boolean = true;
 
-  constructor(private _taskService: TaskService, public dialog: MdDialog, public snackBar: MdSnackBar, public appState: AppState) {
+  constructor(private _taskService: TaskService, public dialog: MatDialog, public snackBar: MatSnackBar, public appState: AppState) {
   }
 
   ngOnInit() {
@@ -70,7 +70,7 @@ export class TasksComponent {
   }
 
   openDialog(task: any) {
-    let taskDialogRef: MdDialogRef<TaskDialogComponent> = this.dialog.open(TaskDialogComponent, this.dialogConfig);
+    let taskDialogRef: MatDialogRef<TaskDialogComponent> = this.dialog.open(TaskDialogComponent, this.dialogConfig);
     taskDialogRef.componentInstance.task = task;
     taskDialogRef.componentInstance.email = this.email;
     taskDialogRef.componentInstance.boards = this.boards;
@@ -86,7 +86,7 @@ export class TasksComponent {
   }
 
   openLinkTaskDialog(task: any) {
-    let linkTaskDialogRef: MdDialogRef<LinkTaskDialogComponent> = this.dialog.open(LinkTaskDialogComponent, this.linkTaskDialogConfig);
+    let linkTaskDialogRef: MatDialogRef<LinkTaskDialogComponent> = this.dialog.open(LinkTaskDialogComponent, this.linkTaskDialogConfig);
     linkTaskDialogRef.componentInstance.task = task;
     linkTaskDialogRef.componentInstance.email = this.email;
     linkTaskDialogRef.componentInstance.boards = this.boards;

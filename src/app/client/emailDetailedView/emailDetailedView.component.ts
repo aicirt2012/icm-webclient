@@ -2,7 +2,7 @@ import { Component, Input, EventEmitter, Output, ViewChild, state } from '@angul
 import { Email } from '../shared';
 import { EmailService } from '../shared';
 import { WindowRef } from '../shared/window.ref.service';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AppState } from '../../app.service';
 
@@ -24,7 +24,7 @@ export class EmailDetailedViewComponent {
   private manuallyRemovedFlag = false;
   private moving = false;
 
-  constructor(private emailService: EmailService, public snackBar: MdSnackBar,
+  constructor(private emailService: EmailService, public snackBar: MatSnackBar,
               public activatedRoute: ActivatedRoute, public appState: AppState, public router: Router,
               public windowRef: WindowRef) {
     this.emailResponse = {};

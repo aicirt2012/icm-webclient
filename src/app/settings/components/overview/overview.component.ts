@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
 import {UserService } from '../../shared';
 import {EmailService} from '../../../client/shared';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 
 @Component({
   selector: 'overview',
   templateUrl: 'overview.component.html',
   styleUrls: ['overview.component.css'],
-  providers: [MdSnackBar]
+  providers: [MatSnackBar]
 })
 export class OverviewComponent {
 
   public editSettings: boolean = false;
   public user = {};
 
-  constructor(private userService: UserService, private emailService: EmailService, private snackBar: MdSnackBar) { }
+  constructor(private userService: UserService, private emailService: EmailService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.userService.getUserInfo().subscribe( (data) => {

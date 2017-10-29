@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../shared';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'contact',
   templateUrl: 'contact.component.html',
   styleUrls: ['contact.component.css'],
-  providers: [MdSnackBar]
+  providers: [MatSnackBar]
 })
 export class ContactComponent {
 
@@ -17,7 +17,7 @@ export class ContactComponent {
     baseURL: ''
   };
 
-  constructor(private userService: UserService, private snackBar: MdSnackBar) {}
+  constructor(private userService: UserService, private snackBar: MatSnackBar) {}
 
   public ngOnInit() {
     this.userService.getUserInfo().subscribe((user) => {
