@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {RouterModule} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -22,11 +22,10 @@ import {
   MatTabsModule,
   MatFormFieldModule,
   MatSnackBarModule,
-  MatTabsModule
 } from '@angular/material';
-import {FlexLayoutModule} from "@angular/flex-layout";
-import {AuthService} from '../shared'; // all services
-import {LoginComponent} from './';
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { AuthService } from '../shared'; // all services
+import { LoginComponent } from './';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -54,7 +53,6 @@ import {LoginComponent} from './';
     MatTabsModule,
     MatFormFieldModule,
     MatSnackBarModule,
-    MatTabsModule,
     //
     FlexLayoutModule
   ],
