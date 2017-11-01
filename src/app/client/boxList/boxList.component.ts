@@ -43,7 +43,7 @@ export class BoxListComponent {
       if (boxList.length > 0) {
         this.boxList = boxList;
         this.addDataToBoxes(boxList);
-        
+
         // TODO
         const currentBoxURL = this.router.url.match(/(\/box\/)([a-zA-Z\u00C0-\u017F0-9 ]*)/);
 

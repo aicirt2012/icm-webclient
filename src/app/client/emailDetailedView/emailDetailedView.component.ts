@@ -75,9 +75,17 @@ export class EmailDetailedViewComponent {
   private discardEmailResponse() {
     this.responseStatus = false;
     this.emailResponse = {};
-    const customRoute = this.router.url.match(/(\/box\/|\/search\/)[a-zA-Z\u00C0-\u017F0-9 ]*\//)[0] + this.email._id;
-    // TODO
-    this.router.navigate([customRoute]);
+
+    const url = this.activatedRoute.parent.url.value[0].path;
+    const outlets = {}
+
+    this.activatedRoute.parent.children.forEach((child) => {
+      Object.assign(outlets, child.snapshot.params);
+    });
+
+    outlets['emailId'] = this.email._id;
+
+    this.router.navigate([url, {outlets}]);
   }
 
   private sendEmail(mail: any) {
