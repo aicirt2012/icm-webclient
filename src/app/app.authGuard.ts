@@ -11,6 +11,7 @@ export class AuthGuard implements CanActivate {
     if (route.queryParams['jwt'] != null) {
       localStorage.setItem('email-jwt', route.queryParams['jwt']);
       this.auth.token = route.queryParams['jwt'];
+      // TODO change this
       this.router.navigate(['/box/0'], { queryParams: {} });
     }
     if (this.auth.isAuthenticated()) {

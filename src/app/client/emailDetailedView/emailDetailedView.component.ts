@@ -54,9 +54,11 @@ export class EmailDetailedViewComponent {
 
   private currentSelectedText() {
     const self = this;
+    /*
     setInterval(() => {
       console.log(self.windowRef.nativeWindow.getSelection().toString());
     }, 300);
+    */
   }
 
   private createNewEmailDraft() {
@@ -74,6 +76,7 @@ export class EmailDetailedViewComponent {
     this.responseStatus = false;
     this.emailResponse = {};
     const customRoute = this.router.url.match(/(\/box\/|\/search\/)[a-zA-Z\u00C0-\u017F0-9 ]*\//)[0] + this.email._id;
+    // TODO
     this.router.navigate([customRoute]);
   }
 
