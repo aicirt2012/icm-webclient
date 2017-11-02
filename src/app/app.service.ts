@@ -62,6 +62,7 @@ export class AppState {
   private static EMAILS = 'emails';
   private static BOXLIST = 'boxList';
   private static CURRENTBOX = 'currentBox';
+  private static CURRENTEMAIL = 'currentEmail';
   private static SYNCED = 'synced';
   private static USER = 'user';
 
@@ -197,6 +198,14 @@ export class AppState {
 
   emails(): Observable<any> {
     return this.createObserver(AppState.EMAILS, this.getEmails);
+  }
+
+  setCurrentEmail(currentEmail: any) {
+    this.set(AppState.CURRENTEMAIL, currentEmail);
+  }
+
+  getCurrentEmail() {
+    return this.get(AppState.CURRENTEMAIL);
   }
 
   /** Synced Flag */

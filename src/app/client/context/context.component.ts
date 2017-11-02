@@ -17,15 +17,18 @@ export class ContextComponent {
   email: any;
   currentTab: string = 'tasks';
 
-  constructor(public route: ActivatedRoute, private emailService: EmailService) {
+  constructor(public route: ActivatedRoute,
+              private emailService: EmailService,
+              private appState: AppState) {
   }
 
   ngOnInit() {
-    this.currentId = this.route.params.map(params => params['emailId'] || 'None');
+    this.currentId = this.route.params.map(params => params['emailId'] || 'NONE');
     this.currentId.subscribe((emailId) => {
-      console.log('get single email...');
-      if (emailId !== 'None') {
-        this.getSingleMail(emailId);
+      console.log('get single email from context...');
+      if (emailId !== 'NONE') {
+        this.email = this.appState.getCurrentEmail();
+        console.log(this.email);
       }
     });
   }
@@ -36,29 +39,6 @@ export class ContextComponent {
 
   isOpenTab(tab: string) {
     return this.currentTab === tab;
-  }
-
-  private getSingleMail(emailId: string) {
-    this.emailService.getEmail(emailId)
-      .subscribe((data: any) => {
-          if (data.sentences) {
-            data.sentences = data.sentences.map((s) => {
-              s.highlighted = false;
-              return s
-            });
-          }
-          this.email = data;
-          if (this.email.flags.indexOf('\\Seen') == -1) {
-            // this.addFlags(['\\Seen']);
-          }
-
-        },
-        error => {
-          console.log(error)
-        },
-        () => {
-          console.log(`Message with ID: ${emailId} has been successfully loaded`)
-        });
   }
 
 }

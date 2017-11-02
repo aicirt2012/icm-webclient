@@ -53,8 +53,6 @@ export class BoxListComponent {
         });
 
         if (url === 'box' && (_.size(outlets) > 0) && (outlets['boxId'] !== '0')) {
-          console.log('hey hey');
-          console.log(outlets)
           this.appState.setCurrentBox(outlets['boxId']);
         } else if (url === 'box') {
           this.appState.setCurrentBox(boxList[0]);

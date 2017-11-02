@@ -116,6 +116,7 @@ export class EmailDetailedViewComponent {
           this.addFlags(['\\Seen']);
         }
 
+        this.appState.setCurrentEmail(this.email);
       },
       error => {
         console.log(error)
