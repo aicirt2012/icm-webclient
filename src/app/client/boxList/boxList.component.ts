@@ -6,6 +6,7 @@ import { BoxService } from "../shared/box.service";
 import { MatDialog } from '@angular/material';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
+import _ from 'lodash';
 
 @Component({
   selector: 'box-list',
@@ -44,17 +45,20 @@ export class BoxListComponent {
         this.boxList = boxList;
         this.addDataToBoxes(boxList);
 
-        // TODO
-        const currentBoxURL = this.router.url.match(/(\/box\/)([a-zA-Z\u00C0-\u017F0-9 ]*)/);
+        const url = this.activatedRoute.url.value[0].path;
+        const outlets = {}
 
-        if (currentBoxURL !== null) {
-          const currentBoxId = currentBoxURL[2];
-          const currentBox = boxList.find(x => x._id === currentBoxId);
-          this.appState.setCurrentBox(currentBox);
+        this.activatedRoute.children.forEach((child) => {
+          Object.assign(outlets, child.snapshot.params);
+        });
 
-        } else if (this.router.url == '/box') {
+        if (url === 'box' && (_.size(outlets) > 0) && (outlets['boxId'] !== '0')) {
+          console.log('hey hey');
+          console.log(outlets)
+          this.appState.setCurrentBox(outlets['boxId']);
+        } else if (url === 'box') {
           this.appState.setCurrentBox(boxList[0]);
-          this.router.navigate(['box/' + boxList[0]._id]);
+          this.router.navigate(['/box', {outlets: {boxId: [boxList[0]._id]}}]);
         }
 
       }
@@ -110,8 +114,6 @@ export class BoxListComponent {
   }
 
   createNewEmail() {
-    console.log('inside openCreateEmailDialog');
-
     const url = this.activatedRoute.url.value[0].path;
     const outlets = {}
 
