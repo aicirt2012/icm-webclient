@@ -3,6 +3,7 @@ import { ContextTabComponent } from '../contextTab/contextTab.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { EmailService } from '../shared/email.service';
 import { AppState } from '../../app.service';
+import { Email } from '../shared/email.model';
 
 @Component({
   selector: 'context',
@@ -12,9 +13,7 @@ import { AppState } from '../../app.service';
 
 export class ContextComponent {
 
-  // @Input() email: any;
-  currentId: any;
-  email: any;
+  email: Email;
   currentTab: string = 'tasks';
 
   constructor(public route: ActivatedRoute,
@@ -23,14 +22,9 @@ export class ContextComponent {
   }
 
   ngOnInit() {
-    this.currentId = this.route.params.map(params => params['emailId'] || 'NONE');
-    this.currentId.subscribe((emailId) => {
-      console.log('get single email from context...');
-      if (emailId !== 'NONE') {
-        this.email = this.appState.getCurrentEmail();
-        console.log(this.email);
-      }
-    });
+    this.appState.currentEmail().subscribe((email) => {
+      this.email = email;
+    })
   }
 
   openTab(tab: string) {

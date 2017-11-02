@@ -208,6 +208,10 @@ export class AppState {
     return this.get(AppState.CURRENTEMAIL);
   }
 
+  currentEmail(): Observable<any> {
+    return this.createObserver(AppState.CURRENTEMAIL, this.getCurrentEmail);
+  }
+
   /** Synced Flag */
   setSynced(synced: any) {
     this.set(AppState.SYNCED, synced);
