@@ -1,7 +1,6 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { ContextTabComponent } from '../contextTab/contextTab.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { EmailService } from '../shared/email.service';
 import { AppState } from '../../app.service';
 import { Email } from '../shared/email.model';
 
@@ -17,7 +16,6 @@ export class ContextComponent {
   currentTab: string = 'tasks';
 
   constructor(public route: ActivatedRoute,
-              private emailService: EmailService,
               private appState: AppState) {
   }
 
