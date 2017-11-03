@@ -2,6 +2,7 @@ import { EmailDialogComponent } from './../../emailDialog/emailDialog.component'
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Email } from '../../shared';
+import { AppState } from '../../../app.service';
 
 @Component({
   selector: 'email-action-bar',
@@ -18,9 +19,8 @@ export class EmailActionBarComponent {
   @Output() generateEmailResponseActionBar = new EventEmitter<any>();
   @Output() discardEmailResponse = new EventEmitter<any>();
   @Input() responseStatus: boolean;
-  selectedBox: string;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private appState: AppState) {
   }
 
   replyEmail() {
@@ -56,10 +56,13 @@ export class EmailActionBarComponent {
   }
 
   showMailActions() {
-    return this.email.box.shortName != 'Drafts' &&  this.email.box.shortName != 'Sent Mails';
+    console.log('here');
+    const currentBox = this.appState.getCurrentBox();
+    console.log(currentBox);
+    return currentBox.shortName != 'Drafts' &&  currentBox.shortName != 'Sent Mails';
   }
 
-  openCreateEmailDialog() {
+  editEmail() {
     let emailDialogRef: MatDialogRef<EmailDialogComponent> = this.dialog.open(EmailDialogComponent, {
       width: '80%',
       height: '95%',
@@ -77,7 +80,6 @@ export class EmailActionBarComponent {
       subject: this.email.subject,
       text: this.email.text
     };
-
   }
 
 }

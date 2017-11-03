@@ -79,6 +79,7 @@ export class EmailDetailedViewComponent {
     const url = this.activatedRoute.parent.url.value[0].path;
     const outlets = {}
 
+    // The parent root of the component is the /box
     this.activatedRoute.parent.children.forEach((child) => {
       Object.assign(outlets, child.snapshot.params);
     });

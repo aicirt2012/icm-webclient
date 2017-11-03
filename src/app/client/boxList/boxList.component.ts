@@ -53,7 +53,8 @@ export class BoxListComponent {
         });
 
         if (url === 'box' && (_.size(outlets) > 0) && (outlets['boxId'] !== '0')) {
-          this.appState.setCurrentBox(outlets['boxId']);
+          const currentBox = this.appState.getBox(outlets['boxId']);
+          this.appState.setCurrentBox(currentBox);
         } else if (url === 'box') {
           this.appState.setCurrentBox(boxList[0]);
           this.router.navigate(['/box', {outlets: {boxId: [boxList[0]._id]}}]);

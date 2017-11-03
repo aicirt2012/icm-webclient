@@ -1,24 +1,42 @@
 <div fxLayout="row" fxLayoutAlign="center center" class="action-buttons" *ngIf="!responseStatus">
-  <button mat-raised-button *ngIf="showMailActions() && !(email.flags.indexOf('\\Seen') > -1)" (click)="addFlags(['\\Seen'])"
-    matTooltip="Mark as Read" class="email-action-button">
-    <mat-icon>drafts</mat-icon><span> Read</span></button>
-    <button mat-raised-button class="email-action-button" *ngIf=" showMailActions() && email.flags.indexOf('\\Seen') > -1" (click)="deleteFlags(['\\Seen'])"
-      matTooltip="Mark as Unread">
-      <mat-icon>mail</mat-icon>
-      </button>
-      <button mat-raised-button *ngIf="showMailActions()" class="email-action-button" (click)="replyEmail()" matTooltip="Reply"><mat-icon>reply</mat-icon></button>
-      <button mat-raised-button *ngIf="showMailActions()" class="email-action-button" (click)="forwardEmail()" matTooltip="Forward"><mat-icon>forward</mat-icon></button>
-      <button mat-raised-button *ngIf="!showMailActions()" class="email-action-button" (click)="openCreateEmail()" matTooltip="Edit"><mat-icon>edit</mat-icon></button>
-      <button mat-raised-button (click)="moveEmailToTrash()" matTooltip="Move to Trash" class="email-action-button"><mat-icon>delete</mat-icon></button>
-      <button mat-raised-button class="email-action-button" *ngIf="showMailActions()" [matMenuTriggerFor]="menu" matTooltip="Move to Box">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button (click)="moveEmailToBox(box.shortName)" mat-menu-item *ngFor="let box of boxList">
-        <span>{{box.shortName}}</span>
+  <button mat-raised-button matTooltip="Mark as Read" class="email-action-button"
+          *ngIf="showMailActions() && !(email.flags.indexOf('\\Seen') > -1)"
+          (click)="addFlags(['\\Seen'])">
+    <mat-icon>drafts</mat-icon>
+    <span> Read</span>
+  </button>
+  <button mat-raised-button matTooltip="Mark as Unread" class="email-action-button"
+          *ngIf=" showMailActions() && email.flags.indexOf('\\Seen') > -1"
+          (click)="deleteFlags(['\\Seen'])">
+    <mat-icon>mail</mat-icon>
+  </button>
+  <button mat-raised-button *ngIf="showMailActions()" class="email-action-button" (click)="replyEmail()"
+          matTooltip="Reply">
+    <mat-icon>reply</mat-icon>
+  </button>
+  <button mat-raised-button *ngIf="showMailActions()" class="email-action-button" (click)="forwardEmail()"
+          matTooltip="Forward">
+    <mat-icon>forward</mat-icon>
+  </button>
+  <button mat-raised-button (click)="moveEmailToTrash()" matTooltip="Move to Trash" class="email-action-button">
+    <mat-icon>delete</mat-icon>
+  </button>
+  <button mat-raised-button *ngIf="!showMailActions()" class="email-action-button" (click)="editEmail()"
+          matTooltip="Edit">
+    <mat-icon>edit</mat-icon>
+  </button>
+  <button mat-raised-button class="email-action-button" *ngIf="showMailActions()" [matMenuTriggerFor]="menu"
+          matTooltip="Move to Box">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button (click)="moveEmailToBox(box.shortName)" mat-menu-item *ngFor="let box of boxList">
+      <span>{{box.shortName}}</span>
     </button>
-      </mat-menu>
+  </mat-menu>
 </div>
 <div fxLayout="row" fxLayoutAlign="center center" class="action-buttons" *ngIf="responseStatus">
-  <button mat-raised-button (click)="emitDiscardEmailResponse()"><mat-icon>close</mat-icon><span>Discard</span></button>
+  <button mat-raised-button (click)="emitDiscardEmailResponse()">
+    <mat-icon>close</mat-icon>
+    <span>Discard</span></button>
 </div>
