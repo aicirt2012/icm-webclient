@@ -56,9 +56,7 @@ export class EmailActionBarComponent {
   }
 
   showMailActions() {
-    console.log('here');
     const currentBox = this.appState.getCurrentBox();
-    console.log(currentBox);
     return currentBox.shortName != 'Drafts' &&  currentBox.shortName != 'Sent Mails';
   }
 
