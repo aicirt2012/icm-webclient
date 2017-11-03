@@ -36,7 +36,7 @@ export class BoxService {
    * Delete box by boxId
    * @param boxId: string
    */
-  delBox(boxId: string): Observable<any> {
+  deleteBox(boxId: string): Observable<any> {
     console.log('delete box...');
     return this.http.delete('boxes/' + boxId, null, {boxId: boxId});
   }

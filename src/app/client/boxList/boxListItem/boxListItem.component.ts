@@ -84,4 +84,25 @@ export class BoxListItemComponent {
     );
   }
 
+
+  deleteBox(boxId) {
+    console.log('inside moveBox Dialog');
+    console.log(boxId);
+
+
+    let boxDialogRef: MatDialogRef<BoxDialogComponent> = this.dialog.open(BoxDialogComponent,
+      {
+        width: '25%',
+        height: '200px',
+        position: {
+          top: '',
+          bottom: '',
+          left: '',
+          right: ''
+        },
+        data: {boxId, dialogType: 'DELETE'}
+      }
+    );
+  }
+
 }

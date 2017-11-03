@@ -56,7 +56,7 @@ export class EmailFolderDialogComponent {
   onDeleteBox() {
     this.updating = true;
     const boxId = this.boxList.find((box) => box.name == this.selectedBoxName)._id;
-    this.boxService.delBox(boxId).subscribe((msg) => {
+    this.boxService.deleteBox(boxId).subscribe((msg) => {
       console.log('inside onDeleteBox');
       this.updating = false;
       this.snackBar.open(`Folder '${this.selectedBoxName}' successfully deleted.`, 'OK');
