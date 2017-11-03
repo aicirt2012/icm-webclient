@@ -60,6 +60,7 @@ export class EmailActionBarComponent {
     return currentBox.shortName != 'Drafts' &&  currentBox.shortName != 'Sent Mails';
   }
 
+  // TODO: Use detailed emailview edit instead of dialog
   editEmail() {
     let emailDialogRef: MatDialogRef<EmailDialogComponent> = this.dialog.open(EmailDialogComponent, {
       width: '80%',

@@ -13,15 +13,13 @@ import { AppState } from '../../app.service';
   templateUrl: './emailDetailedView.component.html'
 })
 export class EmailDetailedViewComponent {
-  currentBox: string;
-  email: Email;
-  emails: Email[];
-  currentId: any;
-  boxList: any[];
+  public email: Email;
+  public emails: Email[];
+  public boxList: any[];
+  public routeEmailId: any;
   public responseStatus: boolean;
   private emailResponse: any;
   private sending = false;
-  private manuallyRemovedFlag = false;
   private moving = false;
 
   constructor(private emailService: EmailService, public snackBar: MatSnackBar,
@@ -43,10 +41,10 @@ export class EmailDetailedViewComponent {
       this.emails = emails;
     });
 
-    this.currentId = this.activatedRoute.params.map(params => params['emailId'] || 'None');
-    this.currentId.subscribe((emailId) => {
-      console.log('get single email...');
-      emailId !== 'None' ? emailId === 'new' ? this.createNewEmailDraft() : this.getSingleMail(emailId) : '';
+    this.routeEmailId = this.activatedRoute.params.map(params => params['emailId'] || 'NONE');
+    this.routeEmailId.subscribe((emailId) => {
+      console.log('get single email from emailDetailedView...');
+      emailId !== 'NONE' ? emailId === 'new' ? this.createNewEmailDraft() : this.getSingleMail(emailId) : '';
     });
 
     this.currentSelectedText();

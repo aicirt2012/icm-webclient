@@ -80,6 +80,7 @@ export class EmailService {
   /**
    * Generates a new email
    */
+  // TODO: improve address handling
   generateEmailForm(email: Email, type: string): any {
 
     if (type === 'new') {
@@ -89,19 +90,22 @@ export class EmailService {
       }
     }
 
+    console.log('from generate email form');
+    console.log(email);
+
     const bodyHeader =
       '-------------------------------------------\n' +
-      'From: ' + email.from[0].address + '\n' +
+      'From: ' + (email.from.length > 0 ? email.from[0].address : '') + '\n' +
       'Date: ' + email.date + '\n' +
       'Subject: ' + email.subject + '\n' +
-      'To: ' + email.to[0].address + '\n\n' +
+      'To: ' + (email.to.length > 0 ? email.to[0].address : '') + '\n\n' +
       email.text;
 
     if (type === 'reply') {
       return {
         to: {
           name: email.from[0].name ? email.from[0].name : '',
-          address: email.from[0].address
+          address: email.from.length > 0 ? email.from[0].address : ''
         },
         subject: `Re: ${email.subject}`,
         text: bodyHeader,
