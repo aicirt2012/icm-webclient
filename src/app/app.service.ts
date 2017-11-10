@@ -118,7 +118,7 @@ export class AppState {
 
   /** Emails */
   // customRoute: /root/rootId
-  setEmails(emails: any, searchTerm = 'NONE', boxId = '0') {
+  setEmails(emails: any, searchTerm = 'EMPTY', boxId = 'EMPTY') {
     emails = emails.map(email => {
       if (searchTerm !== '') {
         email.route = ['/search', {

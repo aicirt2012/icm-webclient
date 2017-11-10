@@ -41,10 +41,10 @@ export class EmailDetailedViewComponent {
       this.emails = emails;
     });
 
-    this.routeEmailId = this.activatedRoute.params.map(params => params['emailId'] || 'NONE');
+    this.routeEmailId = this.activatedRoute.params.map(params => params['emailId'] || 'EMPTY');
     this.routeEmailId.subscribe((emailId) => {
       console.log('get single email from emailDetailedView...');
-      emailId !== 'NONE' ? emailId === 'new' ? this.createNewEmailDraft() : this.getSingleMail(emailId) : '';
+      emailId !== 'EMPTY' ? emailId === 'new' ? this.createNewEmailDraft() : this.getSingleMail(emailId) : '';
     });
 
     this.currentSelectedText();

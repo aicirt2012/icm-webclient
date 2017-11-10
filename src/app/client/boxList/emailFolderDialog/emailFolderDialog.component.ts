@@ -33,7 +33,7 @@ export class EmailFolderDialogComponent {
 
   onAddBox() {
     this.updating = true;
-    let parentBoxId = 'NONE';
+    let parentBoxId = 'EMPTY';
     if (this.parentBox != '') {
       console.log('inside onAddBox...');
       console.log(this.boxList);
