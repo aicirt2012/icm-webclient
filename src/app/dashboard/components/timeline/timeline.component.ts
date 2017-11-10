@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { DashboardService } from '../../shared';
 let Punchcard = require('../../../../../node_modules/d3-punchcard/dist/d3-punchcard.min.js');
-import * as CalendarHeatmap from '../../../../../node_modules/calendar-heatmap-graph/src/calendar-heatmap.js'
+import * as CalendarHeatmap from '../../../../../node_modules/calendar-heatmap/src/calendar-heatmap.js'
 
 @Component({
   selector: 'timeline',
   templateUrl: 'timeline.component.html',
-  styleUrls: ['timeline.component.css', '../../../../../node_modules/calendar-heatmap-graph/src/calendar-heatmap.css'],
+  styleUrls: ['timeline.component.css', '../../../../../node_modules/calendar-heatmap/src/calendar-heatmap.css'],
   providers: []
 })
 export class TimelineComponent {
