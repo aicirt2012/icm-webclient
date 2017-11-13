@@ -117,8 +117,8 @@ export class AppState {
   }
 
   /** Emails */
-  // customRoute: /root/rootId
-  setEmails(emails: any, searchTerm = 'EMPTY', boxId = 'EMPTY') {
+  setEmails(emails: any, searchTerm = '', boxId = 'EMPTY') {
+    console.log('set email');
     emails = emails.map(email => {
       if (searchTerm !== '') {
         email.route = ['/search', {
@@ -131,7 +131,7 @@ export class AppState {
       } else {
         email.route = ['/box', {
           outlets: {
-            'boxId': [boxId],
+            'boxId': [this.getCurrentBox()._id],
             'emailId': [email._id],
             'context': ['context']
           }
