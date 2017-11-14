@@ -25,16 +25,12 @@
     </div>
   </div>
   <div fxLayoutAlign="center center">
-    <button fxShow="false" fxShow.gt-mat mat-button fxFlex class="refresh-btn"
+    <button fxShow.gt-mat mat-button fxFlex class="refresh-btn"
             (click)="refresh()"
             fxLayoutAlign="center center"
     >
       Synced:
       <small>{{lastSync | date:'short'}}</small>
-      <mat-icon [class.rotate-icon]="syncing" class="mat-24">sync</mat-icon>
-    </button>
-    <button fxLayoutAlign="center center" fxHide="false" fxHide.gt-mat mat-button fxFlex class="refresh-btn"
-            (click)="refresh()">
       <mat-icon [class.rotate-icon]="syncing" class="mat-24">sync</mat-icon>
     </button>
   </div>

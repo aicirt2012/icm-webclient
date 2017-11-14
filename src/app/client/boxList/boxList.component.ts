@@ -21,9 +21,6 @@ export class BoxListComponent {
   @Output() onRefresh = new EventEmitter<boolean>();
   @Output() onMoveEmailToBox = new EventEmitter<any>();
 
-  currentId: any;
-
-  boxName: string;
   boxList: any[];
   user: any;
 
