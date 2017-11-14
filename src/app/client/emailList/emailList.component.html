@@ -1,6 +1,6 @@
 <div [fxShow]="!loading" fxFlex fxLayout="column" fxLayoutAlign="start stretch" class="email-list">
   <search-bar fxFlex="46px" (searchEmails)="searchEmails($event)"></search-bar>
-  <div *ngIf="!loadingList && !isEmptyResult(); else emptyList">
+  <div fxFlex fxLayout="column" *ngIf="!isEmptyResult(); else emptyList">
     <div fxFlex fxLayout="column" class="scrollable" infinite-scroll [infiniteScrollDistance]="scrollDistance"
          [infiniteScrollThrottle]="scrollThrottle" [scrollWindow]="false" (scrolled)="onScrollDown()">
       <div fxFlex="70px" fxLayout="column" class="email-list-item"
@@ -31,7 +31,7 @@
         </div>
       </div>
     </div>
-    <div class="loading-list" *ngIf="loadingList" fxLayoutAlign="center center">Loading...</div>
+    <div fxFlex="30px" *ngIf="loadingList" fxLayoutAlign="center center">Loading...</div>
   </div>
   <ng-template #emptyList>
     <div fxFlex fxLayoutAlign="center center">
