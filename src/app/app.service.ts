@@ -117,7 +117,7 @@ export class AppState {
   }
 
   /** Emails */
-  setEmails(emails: any, searchTerm = '', boxId = 'EMPTY') {
+  setEmails(emails: any, searchTerm = '', boxId = 'NONE') {
     console.log('set email');
     emails = emails.map(email => {
       if (searchTerm !== '') {

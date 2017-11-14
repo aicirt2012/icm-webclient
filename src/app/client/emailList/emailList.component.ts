@@ -43,7 +43,7 @@ export class EmailListComponent {
 
     this.activeRoute.params.subscribe(params => {
       console.log('a change from email List');
-      const boxId = params['boxId'] || 'EMPTY';
+      const boxId = params['boxId'] || 'NONE';
       this.searchTerm = params['searchTerm'] || '';
       this.paginationEnabled = false;
       if (boxId !== '0') {
@@ -71,7 +71,7 @@ export class EmailListComponent {
     }
   }
 
-  getEmailList(boxId = 'EMPTY', searchTerm = '', sort = 'DESC', lastEmailDate = new Date()) {
+  getEmailList(boxId = 'NONE', searchTerm = '', sort = 'DESC', lastEmailDate = new Date()) {
     this.emailService.searchEmailsWithPagination(boxId, sort, searchTerm, lastEmailDate)
       .subscribe((emails: any) => {
         if (this.paginationEnabled) {
@@ -94,7 +94,7 @@ export class EmailListComponent {
     if (!this.loadingList) {
       if (this.emails.length > 0 && this.paginationEnabled) {
         this.loadingList = true;
-        const boxId = this.searchTerm == '' ? this.emails[this.emails.length - 1].box : 'EMPTY';
+        const boxId = this.searchTerm == '' ? this.emails[this.emails.length - 1].box : 'NONE';
         const sort = 'DESC'
         const lastEmailDate = this.emails[this.emails.length - 1].date;
         this.getEmailList(boxId, this.searchTerm, sort, lastEmailDate);

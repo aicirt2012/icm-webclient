@@ -49,7 +49,7 @@ export class BoxListComponent {
           Object.assign(outlets, child.snapshot.params);
         });
 
-        if (url === 'box' && (_.size(outlets) > 0) && (outlets['boxId'] !== 'EMPTY')) {
+        if (url === 'box' && (_.size(outlets) > 0) && (outlets['boxId'] !== 'NONE')) {
           const currentBox = this.appState.getBox(outlets['boxId']);
           this.appState.setCurrentBox(currentBox);
         } else if (url === 'box') {

@@ -41,7 +41,7 @@ export class LoginComponent {
       .subscribe(result => {
         if (result === true) {
           // login successful
-          this.router.navigate(['/box', {outlets: {boxId: ['EMPTY']}}]);
+          this.router.navigate(['/box', {outlets: {boxId: ['NONE']}}]);
         } else {
           // login failed
           this.error = 'Username or password is incorrect';
