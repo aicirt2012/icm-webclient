@@ -47,6 +47,11 @@ export class EmailViewComponent {
     this.highlightSentence.emit({id: id, highlight: highlight});
   }
 
+  onIframeLoad(iframe: HTMLIFrameElement, topSection: HTMLElement) {
+    this.adjustIframeSize(iframe, topSection);
+    this.applyAnnotationFramework(iframe);
+  }
+
   adjustIframeSize(iframe: HTMLIFrameElement, topSection: HTMLElement) {
     if (iframe) {
       iframe.style.height = 'inherit';
@@ -58,6 +63,11 @@ export class EmailViewComponent {
         this.wrapper.nativeElement.style.height = 'inherit';
       }
     }
+  }
+
+  applyAnnotationFramework(iframe: HTMLIFrameElement) {
+    iframe.contentDocument.head.appendChild(iframe.contentDocument.createComment("annotation-test-head"));
+    iframe.contentDocument.body.appendChild(iframe.contentDocument.createComment("annotation-test-body"));
   }
 
   sentenceContainsTask(sentenceId: any) {
