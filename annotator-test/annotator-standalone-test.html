@@ -1,8 +1,5 @@
 <html>
 <head>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-  <script src="http://assets.annotateit.org/annotator/v1.2.10/annotator-full.min.js"></script>
-  <link rel="stylesheet" href="http://assets.annotateit.org/annotator/v1.2.10/annotator.min.css">
 </head>
 <body style="margin: 0; padding: 0;" bgcolor="#FFFFFF">
 <table width="100%" height="100%" style="min-width: 348px;" border="0" cellspacing="0" cellpadding="0">
@@ -161,6 +158,7 @@
   </tr>
   <tr height="32px"></tr>
 </table>
+<script src="annotator.min.js"></script>
 <script type="text/javascript">
   var annotations = [
     {
@@ -280,9 +278,13 @@
       "offset": 1
     }
   ];
-  jQuery(function ($) {
-    $('.body').annotator();
-  });
+  var app = new annotator.App();
+  app.include(annotator.ui.main);
+  app
+    .start()
+    .then(function () {
+      app.annotations.load();
+    });
 </script>
 </body>
 </html>
