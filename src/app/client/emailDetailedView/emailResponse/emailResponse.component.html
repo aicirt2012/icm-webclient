@@ -2,23 +2,32 @@
   <mat-progress-bar *ngIf="sending" color="accent" mode="indeterminate"></mat-progress-bar>
   <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
 
-    <div fxLayout="row" fxLayoutAlign="start center">
-      <mat-input-container fxFlex>
-        <input matInput #inputTo (keyup.enter)="addAddress(inputTo,'to')" (change)="addAddress(inputTo,'to')"
-               type="email" placeholder="To:" required/>
-        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap="wrap">
-          <div *ngFor="let to of emailForm.to; let i = index" class="address-tag" fxLayout="row"
-               fxLayoutAlign="center center">
-            <span class="address-tag-span">{{to.address}}</span>
-            <mat-icon class="pointer" (click)="deleteAddress(i, 'to')" fxLayoutAlign="center center">close</mat-icon>
+    <div fxFlex="10" fxLayout="row" fxLayoutAlign="space-between stretch">
+      <div fxFlex="10" fxLayoutAlign="start center">
+        <label>To:</label>
+      </div>
+      <div fxFlex fxLayout="row" fxLayoutAlign="center stretch">
+        <mat-input-container fxFlex>
+          <div fxFlex fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap="wrap">
+            <div *ngFor="let to of emailForm.to; let i = index" class="address-tag" fxLayout="row"
+                 fxLayoutAlign="center center">
+              <span class="address-tag-span">{{to.address}}</span>
+              <mat-icon class="pointer" (click)="deleteAddress(i, 'to')" fxLayoutAlign="center center">close</mat-icon>
+            </div>
           </div>
-        </div>
-      </mat-input-container>
-      <span class="cc-tags" [class.add-recipients-selected]="cc" (click)="cc = !cc">CC</span>
-      <span class="cc-tags" [class.add-recipients-selected]="bcc" (click)="bcc = !bcc">BCC</span>
+          <input fxFlex matInput #inputTo
+                 (keyup.enter)="addAddress(inputTo,'to')"
+                 (change)="addAddress(inputTo,'to')"
+                 type="email" required/>
+        </mat-input-container>
+      </div>
+      <div fxFlex="10" fxLayoutAlign="center center">
+        <span class="cc-tags" [class.add-recipients-selected]="cc" (click)="cc = !cc">CC</span>
+        <span class="cc-tags" [class.add-recipients-selected]="bcc" (click)="bcc = !bcc">BCC</span>
+      </div>
     </div>
 
-    <div fxLayout="row">
+    <div [fxFlex]="cc || bcc ? 10 : 0" fxLayout="row">
 
       <mat-input-container fxFlex *ngIf="cc">
         <input matInput #inputCc (keyup.enter)="addAddress(inputCc,'cc')" (change)="addAddress(inputCc,'cc')"
@@ -47,20 +56,27 @@
       </mat-input-container>
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="start center">
+    <div fxFlex="10" fxLayout="row" fxLayoutAlign="space-between stretch">
+      <div fxFlex="10" fxLayoutAlign="start center">
+        <label>Subject:</label>
+      </div>
+      <div fxFlex="90" fxLayout="row" fxLayoutAlign="center stretch">
+        <mat-input-container fxFlex>
+          <input matInput type="text" name="subject" [(ngModel)]="emailForm.subject">
+        </mat-input-container>
+      </div>
+    </div>
+
+    <div fxFlex fxLayout="row" fxLayoutAlign="start center">
       <mat-input-container fxFlex>
-        <input matInput placeholder="Subject:" type="text" name="subject" [(ngModel)]="emailForm.subject">
+        <textarea matInput placeholder [(ngModel)]="emailForm.text" name="text" rows="20"
+                  autofocus></textarea>
       </mat-input-container>
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="start center">
-      <mat-input-container fxFlex>
-        <textarea matInput placeholder="Message" [(ngModel)]="emailForm.text" name="text" rows="20" autofocus></textarea>
-      </mat-input-container>
-    </div>
-
-    <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-      <button mat-submit mat-raised-button color="primary" (click)="sendEmail()" [disabled]="sending">Send Email</button>
+    <div fxFlex="10" fxLayout="row" fxLayoutAlign="center center">
+      <button mat-submit mat-raised-button color="primary" (click)="sendEmail()" [disabled]="sending">Send Email
+      </button>
     </div>
 
   </div>
