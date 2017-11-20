@@ -1,74 +1,33 @@
-<div fxFlex fxLayout="column">
-  <mat-progress-bar mode="indeterminate" *ngIf="updating"></mat-progress-bar>
-  <div mat-dialog-title fxLayout="row" fxLayoutAlign="end center">
-
+<div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
+  <div fxFlex="20" mat-dialog-title fxLayout="row" fxLayoutAlign="space-between stretch">
+    <mat-card-title>Create new box</mat-card-title>
     <mat-icon class="pointer" (click)="closeDialog()">close</mat-icon>
-
   </div>
-  <div fxLayout="row">
-    <div fxFlex="50" fxLayout="column">
-      <mat-card fxFlex>
-        <mat-card-title>Create new box</mat-card-title>
-        <mat-card-content>
-          <div fxLayout="column">
-            <mat-input-container fxFlex>
-              <input fxFlex matInput placeholder="Name of new box..." type="text" [(ngModel)]="newBoxName">
-            </mat-input-container>
-            <mat-select *ngIf="newBoxName != ''" fxFlex [(ngModel)]="parentBox" placeholder="Nest under...">
-              <mat-option fxFlex *ngFor="let box of boxList; let b = index" [value]="box.name">
-                <span [style.padding-left]="addPadding(box)"> {{ box.shortName }} </span>
-              </mat-option>
-            </mat-select>
-          </div>
-        </mat-card-content>
-        <mat-card-actions fxLayoutAlign="center center">
-          <button mat-raised-button [disabled]="newBoxName == '' || updating" color="primary" (click)="onAddBox()">
-            Create Box
-          </button>
-        </mat-card-actions>
 
-      </mat-card>
+  <div fxFlex="60" fxLayout="column" fxLayoutAlign="space-between stretch">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <mat-input-container fxFlex>
+        <input fxFlex matInput placeholder="Name of new box..." type="text" [(ngModel)]="newBoxName">
+      </mat-input-container>
     </div>
-    <div fxFlex="50" fxLayout="column">
-      <mat-card fxFlex>
-        <mat-card-title>Delete box</mat-card-title>
-        <mat-card-content>
-          <div fxLayout="column">
-            <mat-select fxFlex [(ngModel)]="selectedBoxId" placeholder="Select a box..">
-              <mat-option fxFlex *ngFor="let box of boxList; let b = index" [value]="box.name">
-                <span [style.padding-left]="addPadding(box)"> {{ box.shortName }} </span>
-              </mat-option>
-            </mat-select>
-          </div>
-        </mat-card-content>
-        <mat-card-actions fxLayoutAlign="center center">
-          <button [disabled]="selectedBoxId == '' || updating" mat-raised-button color="primary"
-                  (click)="onDeleteBox()">Delete Box
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-    <div fxFlex="50" fxLayout="column">
-      <mat-card fxFlex>
-        <mat-card-title>Rename box</mat-card-title>
-        <mat-card-content>
-          <div fxLayout="column">
-            <mat-select fxFlex [(ngModel)]="selectedBoxId" placeholder="Select a box..">
-              <mat-option fxFlex *ngFor="let box of boxList; let b = index" [value]="box.name">
-                <span [style.padding-left]="addPadding(box)"> {{ box.shortName }} </span>
-              </mat-option>
-            </mat-select>
-            <mat-input-container fxFlex>
-              <input fxFlex matInput placeholder="Rename box..." type="text" [(ngModel)]="newBoxShortName">
-            </mat-input-container>
-          </div>
-        </mat-card-content>
-        <mat-card-actions fxLayoutAlign="center center">
-          <button [disabled]="selectedBoxId == '' || updating" mat-raised-button color="primary"
-                  (click)="onRenameBox()">Rename Box
-          </button>
-        </mat-card-actions>
-      </mat-card>
+    <div fxLayout="row" fxLayoutAlign="start center" *ngIf="newBoxName != ''" >
+      <mat-form-field fxFlex>
+        <mat-select fxFlex
+                    [(value)]="parentBox"
+                    placeholder="Nest under...">
+          <mat-option fxFlex *ngFor="let box of boxList; let b = index" [value]="box.shortName">
+            <span [style.padding-left]="addPadding(box)"> {{ box.shortName }} </span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </div>
+
+  <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
+    <button
+      [disabled]="newBoxName === '' || updating" mat-raised-button color="primary"
+      (click)="onAddBox()">Add Box
+    </button>
+  </div>
+
 </div>

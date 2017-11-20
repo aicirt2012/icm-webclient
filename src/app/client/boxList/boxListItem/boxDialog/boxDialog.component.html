@@ -29,11 +29,13 @@
 
   <div fxFlex="60" fxLayout="column" fxLayoutAlign="space-between stretch">
     <div fxLayout="row" fxLayoutAlign="start center">
-      <mat-select fxFlex [(ngModel)]="newParentBoxId" placeholder="Nest under...">
-        <mat-option fxFlex *ngFor="let box of boxList; let b = index" [value]="box._id">
-          <span [style.padding-left]="addPadding(box)"> {{ box.shortName }} </span>
-        </mat-option>
-      </mat-select>
+      <mat-form-field fxFlex>
+        <mat-select fxFlex [(value)]="newParentBoxId" placeholder="Nest under...">
+          <mat-option fxFlex *ngFor="let box of boxList; let b = index" [value]="box._id">
+            <span [style.padding-left]="addPadding(box)"> {{ box.shortName }} </span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </div>
 

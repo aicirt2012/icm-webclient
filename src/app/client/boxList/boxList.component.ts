@@ -123,10 +123,17 @@ export class BoxListComponent {
 
   openEmailFolderDialog() {
     let dialogRef = this.dialog.open(EmailFolderDialogComponent, {
-      width: '50%',
-      height: '50%'
+      width: '25%',
+      height: '300px',
+      position: {
+        top: '',
+        bottom: '',
+        left: '',
+        right: ''
+      },
     });
     dialogRef.componentInstance.boxList = this.boxList;
+
   }
 
 }
