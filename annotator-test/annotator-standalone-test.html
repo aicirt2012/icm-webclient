@@ -160,7 +160,7 @@
 </table>
 <script src="annotator.min.js"></script>
 <script type="text/javascript">
-  var annotations = [
+  var backendAnnotations = [
     {
       "value": "Google",
       "type": "ORGANISATION",
@@ -278,8 +278,35 @@
       "offset": 1
     }
   ];
+
+  function injectAnnotations() {
+    return {
+      annotationsLoaded: function (annotations) {
+        console.log("Annotations loaded!");
+        var testann = {
+          quote: "Google",
+          text: "test-organisation",
+          ranges: [{
+            end: "/table[1]/tbody[1]/tr[2]/td[2]/table[1]/tbody[1]/tr[4]/td[1]/table[1]/tbody[1]/tr[2]/td[1]/table[1]/tbody[1]/tr[2]/td[1]",
+            endOffset: 89,
+            start: "/table[1]/tbody[1]/tr[2]/td[2]/table[1]/tbody[1]/tr[4]/td[1]/table[1]/tbody[1]/tr[2]/td[1]/table[1]/tbody[1]/tr[2]/td[1]",
+            startOffset: 83
+          }]
+        };
+        annotations.push(testann);
+        console.log(annotations);
+      },
+      beforeAnnotationCreated: function (annotation) {
+        console.log("before annotation created!");
+        console.log(annotation);
+      }
+    };
+  }
+
   var app = new annotator.App();
   app.include(annotator.ui.main);
+  app.include(annotator.storage.http);
+  app.include(injectAnnotations);
   app
     .start()
     .then(function () {
