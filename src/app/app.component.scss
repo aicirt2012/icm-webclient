@@ -166,3 +166,33 @@ div.cdk-focus-trap-content {
   color: black;
   background-color: darkgray;
 }
+
+/* Tiny MCE */
+
+/*Container, container body, iframe*/
+.mce-tinymce, .mce-container-body, #code_ifr {
+  min-height: 100% !important;
+}
+/*Container body*/
+.mce-container-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+/*Editing area*/
+.mce-container-body .mce-edit-area {
+  position: absolute;
+  top: 40px;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  overflow-y: scroll;
+}
+/*Footer*/
+.mce-tinymce .mce-statusbar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

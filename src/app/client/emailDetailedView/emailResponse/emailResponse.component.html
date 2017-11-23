@@ -72,12 +72,18 @@
 
     </div>
 
-    <div fxFlex fxLayout="row" fxLayoutAlign="start center">
-      <mat-input-container fxFlex>
-        <textarea matInput placeholder [(ngModel)]="emailForm.text" name="text" rows="20"
-                  autofocus></textarea>
-      </mat-input-container>
-    </div>
+    <!--    <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+          <mat-input-container fxFlex>
+            <textarea matInput placeholder [(ngModel)]="emailForm.text" name="text" rows="20"
+                      autofocus></textarea>
+          </mat-input-container>
+        </div>-->
+
+    <app-tinymce
+      fxFlex
+      [(ngModel)]='emailForm.text'
+    >
+    </app-tinymce>
 
     <div fxFlex="10" fxLayout="row" fxLayoutAlign="center center">
       <button mat-submit mat-raised-button color="primary" (click)="sendEmail()" [disabled]="sending">Send Email

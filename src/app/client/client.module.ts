@@ -1,7 +1,7 @@
-import {NgModule, ModuleWithProviders} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {RouterModule} from '@angular/router';
+import { NgModule, ModuleWithProviders } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -23,8 +23,8 @@ import {
   MatFormFieldModule,
   MatSnackBarModule
 } from '@angular/material';
-import {FlexLayoutModule} from "@angular/flex-layout";
-import {ContextMenuModule} from 'ngx-contextmenu';
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { ContextMenuModule } from 'ngx-contextmenu';
 import { ResizableModule } from "angular-resizable-element";
 
 import {
@@ -66,12 +66,13 @@ import {
   AttachmentService,
   WindowRef
 } from './shared'; // all services
-import {Email, EmailForm} from './shared'; // all models from client
-import {SharedModule} from '../shared';
-import {ROUTES} from './client.routes';
-import {AuthGuard} from '../app.authGuard';
-import {InfiniteScrollModule} from 'angular2-infinite-scroll';
-import {DndModule} from 'ng2-dnd';
+import { Email, EmailForm } from './shared'; // all models from client
+import { SharedModule } from '../shared';
+import { ROUTES } from './client.routes';
+import { AuthGuard } from '../app.authGuard';
+import { InfiniteScrollModule } from 'angular2-infinite-scroll';
+import { DndModule } from 'ng2-dnd';
+import { TinymceModule } from 'angular2-tinymce';
 
 @NgModule({
   imports: [
@@ -104,7 +105,13 @@ import {DndModule} from 'ng2-dnd';
     InfiniteScrollModule,
     ContextMenuModule,
     ResizableModule,
-    DndModule.forRoot()
+    DndModule.forRoot(),
+    TinymceModule.withConfig({
+      selector: 'textarea',
+      plugins: ['autoresize'],
+      menubar: false,
+      statusbar: false,
+    })
   ],
   exports: [
     TaskItemEmailDialogComponent,
