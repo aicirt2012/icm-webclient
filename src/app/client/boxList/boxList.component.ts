@@ -42,7 +42,7 @@ export class BoxListComponent {
         this.boxList = boxList;
         this.addDataToBoxes(boxList);
 
-        const url = this.activatedRoute.url.value[0].path;
+        const url = this.activatedRoute.url["value"][0].path;
         const outlets = {}
 
         this.activatedRoute.children.forEach((child) => {
@@ -110,7 +110,7 @@ export class BoxListComponent {
   }
 
   createNewEmail() {
-    const url = this.activatedRoute.url.value[0].path;
+    const url = this.activatedRoute.url["value"][0].path;
     const outlets = {}
 
     this.activatedRoute.children.forEach((child) => {

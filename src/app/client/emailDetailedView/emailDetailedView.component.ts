@@ -74,7 +74,7 @@ export class EmailDetailedViewComponent {
     this.responseStatus = false;
     this.emailResponse = {};
 
-    const url = this.activatedRoute.parent.url.value[0].path;
+    const url = this.activatedRoute.parent.url["value"][0].path;
     const outlets = {}
 
     // The parent root of the component is the /box
