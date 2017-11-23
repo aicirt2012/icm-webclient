@@ -62,6 +62,7 @@ export class AppState {
   private static EMAILS = 'emails';
   private static BOXLIST = 'boxList';
   private static CURRENTBOX = 'currentBox';
+  private static CURRENTEMAIL = 'currentEmail';
   private static SYNCED = 'synced';
   private static USER = 'user';
 
@@ -116,8 +117,8 @@ export class AppState {
   }
 
   /** Emails */
-  // customRoute: /root/rootId
-  setEmails(emails: any, searchTerm = 'NONE', boxId = '0') {
+  setEmails(emails: any, searchTerm = '', boxId = 'NONE') {
+    console.log('set email');
     emails = emails.map(email => {
       if (searchTerm !== '') {
         email.route = ['/search', {
@@ -130,7 +131,7 @@ export class AppState {
       } else {
         email.route = ['/box', {
           outlets: {
-            'boxId': [boxId],
+            'boxId': [this.getCurrentBox()._id],
             'emailId': [email._id],
             'context': ['context']
           }
@@ -197,6 +198,18 @@ export class AppState {
 
   emails(): Observable<any> {
     return this.createObserver(AppState.EMAILS, this.getEmails);
+  }
+
+  setCurrentEmail(currentEmail: any) {
+    this.set(AppState.CURRENTEMAIL, currentEmail);
+  }
+
+  getCurrentEmail() {
+    return this.get(AppState.CURRENTEMAIL);
+  }
+
+  currentEmail(): Observable<any> {
+    return this.createObserver(AppState.CURRENTEMAIL, this.getCurrentEmail);
   }
 
   /** Synced Flag */

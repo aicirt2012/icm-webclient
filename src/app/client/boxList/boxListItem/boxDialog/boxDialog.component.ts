@@ -16,7 +16,7 @@ export class BoxDialogComponent {
   public box: any;
   public boxId: any;
   public allChildren: any;
-  public dialogType: any; // RENAME or MOVE
+  public dialogType: any; // RENAME or MOVE or DELETE
   public boxList: any;
   private newParentBoxId: string = '';
   private newBoxShortName: string = '';
@@ -62,6 +62,16 @@ export class BoxDialogComponent {
     }, (err) => {
       console.log(err);
       this.snackBar.open('Error while moving folder.', 'OK');
+    });
+  }
+
+  onDeleteBox() {
+    this.boxService.deleteBox(this.boxId).subscribe((msg) => {
+      this.snackBar.open(`Folder successfully deleted`, 'OK');
+      this.closeDialog();
+    }, (err) => {
+      console.log(err);
+      this.snackBar.open('Error while deleting folder.', 'OK');
     });
   }
 

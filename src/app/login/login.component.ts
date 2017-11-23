@@ -1,8 +1,8 @@
-import {DomSanitizer} from '@angular/platform-browser';
-import {Component} from '@angular/core';
-import {AuthService} from '../shared';
-import {MatIconRegistry} from '@angular/material';
-import {Router} from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Component } from '@angular/core';
+import { AuthService } from '../shared';
+import { MatIconRegistry } from '@angular/material';
+import { Router } from '@angular/router';
 import C from '../shared/constants';
 
 //import { SocketService } from '../shared/services/socket.service';
@@ -41,7 +41,7 @@ export class LoginComponent {
       .subscribe(result => {
         if (result === true) {
           // login successful
-          this.router.navigate(['/box/0']);
+          this.router.navigate(['/box', {outlets: {boxId: ['NONE']}}]);
         } else {
           // login failed
           this.error = 'Username or password is incorrect';

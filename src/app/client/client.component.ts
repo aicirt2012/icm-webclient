@@ -20,6 +20,7 @@ import _ from 'lodash';
 export class ClientComponent {
   public boxList: any = [];
   private emails: Email[] = [];
+  private email: Email;
   private noMailboxConnected = false;
   private user: any;
   private syncing: boolean;

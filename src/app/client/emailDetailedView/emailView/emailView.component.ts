@@ -36,7 +36,7 @@ export class EmailViewComponent {
     if (iframe) {
       iframe.style.height = 'inherit';
       const height = iframe.contentDocument.body.scrollHeight;
-      iframe.style.height = height + 'px';
+      iframe.style.height = height + 100 + 'px';
       if (this.wrapper && height > this.wrapper.nativeElement.clientHeight) {
         this.wrapper.nativeElement.style.height = (height + topSection.clientHeight) + 'px';
       } else if (this.wrapper) {

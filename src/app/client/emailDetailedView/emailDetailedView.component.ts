@@ -13,15 +13,13 @@ import { AppState } from '../../app.service';
   templateUrl: './emailDetailedView.component.html'
 })
 export class EmailDetailedViewComponent {
-  currentBox: string;
-  email: Email;
-  emails: Email[];
-  currentId: any;
-  boxList: any[];
+  public email: Email;
+  public emails: Email[];
+  public boxList: any[];
+  public routeEmailId: any;
   public responseStatus: boolean;
   private emailResponse: any;
   private sending = false;
-  private manuallyRemovedFlag = false;
   private moving = false;
 
   constructor(private emailService: EmailService, public snackBar: MatSnackBar,
@@ -43,10 +41,10 @@ export class EmailDetailedViewComponent {
       this.emails = emails;
     });
 
-    this.currentId = this.activatedRoute.params.map(params => params['emailId'] || 'None');
-    this.currentId.subscribe((emailId) => {
-      console.log('get single email...');
-      emailId !== 'None' ? emailId === 'new' ? this.createNewEmailDraft() : this.getSingleMail(emailId) : '';
+    this.routeEmailId = this.activatedRoute.params.map(params => params['emailId'] || 'NONE');
+    this.routeEmailId.subscribe((emailId) => {
+      console.log('get single email from emailDetailedView...');
+      emailId !== 'NONE' ? emailId === 'new' ? this.createNewEmailDraft() : this.getSingleMail(emailId) : '';
     });
 
     this.currentSelectedText();
@@ -54,9 +52,11 @@ export class EmailDetailedViewComponent {
 
   private currentSelectedText() {
     const self = this;
+    /*
     setInterval(() => {
       console.log(self.windowRef.nativeWindow.getSelection().toString());
     }, 300);
+    */
   }
 
   private createNewEmailDraft() {
@@ -73,8 +73,18 @@ export class EmailDetailedViewComponent {
   private discardEmailResponse() {
     this.responseStatus = false;
     this.emailResponse = {};
-    const customRoute = this.router.url.match(/(\/box\/|\/search\/)[a-zA-Z\u00C0-\u017F0-9 ]*\//)[0] + this.email._id;
-    this.router.navigate([customRoute]);
+
+    const url = this.activatedRoute.parent.url.value[0].path;
+    const outlets = {}
+
+    // The parent root of the component is the /box
+    this.activatedRoute.parent.children.forEach((child) => {
+      Object.assign(outlets, child.snapshot.params);
+    });
+
+    outlets['emailId'] = this.email._id;
+
+    this.router.navigate([url, {outlets}]);
   }
 
   private sendEmail(mail: any) {
@@ -105,6 +115,7 @@ export class EmailDetailedViewComponent {
           this.addFlags(['\\Seen']);
         }
 
+        this.appState.setCurrentEmail(this.email);
       },
       error => {
         console.log(error)

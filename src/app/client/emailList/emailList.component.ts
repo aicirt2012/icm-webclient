@@ -46,7 +46,9 @@ export class EmailListComponent {
       const boxId = params['boxId'] || 'NONE';
       this.searchTerm = params['searchTerm'] || '';
       this.paginationEnabled = false;
-      this.getEmailList(boxId, this.searchTerm);
+      if (boxId !== '0') {
+        this.getEmailList(boxId, this.searchTerm);
+      }
     });
   }
 
@@ -79,7 +81,7 @@ export class EmailListComponent {
         }
         this.emails = this.appState.getEmails();
         this.paginationEnabled = emails.length > 0;
-        if (this.emails.length != 0) {
+        if (this.emails.length !== 0) {
           // this.emptyBox = false;
           this.router.navigate(this.emails[0].route);
         }

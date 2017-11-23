@@ -1,10 +1,10 @@
 <mat-list-item class="navbar-list-item" dnd-droppable
-              [class.route-active]="isActive(item.routeStr)"
-              [routerLink]="item.route"
-              (click)="setCurrentBox()"
-              (onDropSuccess)="dropEmailEvent($event)"
-              [contextMenu]="basicMenu"
-              [contextMenuSubject]="item">
+               [class.route-active]="isActive(item.routeStr)"
+               [routerLink]="item.route"
+               (click)="setCurrentBox()"
+               (onDropSuccess)="dropEmailEvent($event)"
+               [contextMenu]="basicMenu"
+               [contextMenuSubject]="item">
   <div mat-line>
     <mat-icon class="v-align-middle">{{item.icon}}</mat-icon>
     <a class="v-align-middle">{{item.shortName}}</a>
@@ -19,12 +19,18 @@
 </mat-nav-list>
 
 <context-menu>
-  <ng-template [visible]="!item.static" contextMenuItem (execute)="renameBox(item._id)">
+  <ng-template [visible]="!item.static" contextMenuItem
+               (execute)="renameBox(item._id)">
     Rename
   </ng-template>
   <ng-template [visible]="!item.static" contextMenuItem divider="true"></ng-template>
   <ng-template [visible]="!item.static" contextMenuItem let-item
                (execute)="moveBox(item._id)">
     Move to
+  </ng-template>
+  <ng-template [visible]="!item.static" contextMenuItem divider="true"></ng-template>
+  <ng-template [visible]="!item.static" contextMenuItem let-item
+               (execute)="deleteBox(item._id)">
+    Delete
   </ng-template>
 </context-menu>
