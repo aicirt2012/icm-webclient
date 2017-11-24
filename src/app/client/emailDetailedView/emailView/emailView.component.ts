@@ -69,17 +69,17 @@ export class EmailViewComponent {
     let scriptElement, linkElement;
 
     // head
-    scriptElement = iframe.contentDocument.createElement("script");
-    scriptElement.setAttribute("src", "http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js");
-    iframe.contentDocument.head.appendChild(scriptElement);
-    scriptElement = iframe.contentDocument.createElement("script");
-    scriptElement.setAttribute("src", "http://assets.annotateit.org/annotator/v1.2.10/annotator-full.min.js");
-    iframe.contentDocument.head.appendChild(scriptElement);
-    // FIXME annotator.js produces jQuery not found error when integrated into ICM
-    linkElement = iframe.contentDocument.createElement("link");
-    linkElement.setAttribute("rel", "stylesheet");
-    linkElement.setAttribute("href", "http://assets.annotateit.org/annotator/v1.2.10/annotator.min.css");
-    iframe.contentDocument.head.appendChild(linkElement);
+    // scriptElement = iframe.contentDocument.createElement("script");
+    // scriptElement.setAttribute("src", "http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js");
+    // iframe.contentDocument.head.appendChild(scriptElement);
+    // scriptElement = iframe.contentDocument.createElement("script");
+    // scriptElement.setAttribute("src", "http://assets.annotateit.org/annotator/v1.2.10/annotator-full.min.js");
+    // iframe.contentDocument.head.appendChild(scriptElement);
+    // // FIXME annotator.js produces jQuery not found error when integrated into ICM
+    // linkElement = iframe.contentDocument.createElement("link");
+    // linkElement.setAttribute("rel", "stylesheet");
+    // linkElement.setAttribute("href", "http://assets.annotateit.org/annotator/v1.2.10/annotator.min.css");
+    // iframe.contentDocument.head.appendChild(linkElement);
 
     // body
     // scriptElement = iframe.contentDocument.createElement("script");
@@ -88,6 +88,10 @@ export class EmailViewComponent {
     //   "    $('.body').annotator();\n" +
     //   "});");
     // iframe.contentDocument.body.appendChild(scriptElement);
+    scriptElement = iframe.contentDocument.createElement("script");
+    scriptElement.setAttribute("type", "text/javascript");
+    scriptElement.innerHTML = "console.log(\"test!\");";
+    iframe.contentDocument.body.appendChild(scriptElement);
 
   }
 
