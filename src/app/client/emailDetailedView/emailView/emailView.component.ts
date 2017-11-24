@@ -66,33 +66,33 @@ export class EmailViewComponent {
   }
 
   applyAnnotationFramework(iframe: HTMLIFrameElement) {
-    let scriptElement, linkElement;
+    // include annotator framework
+    let scriptElement = iframe.contentDocument.createElement("script");
+    scriptElement.setAttribute("src", "annotator.min.js");
+    iframe.contentDocument.head.appendChild(scriptElement);
 
-    // head
+    // include annotator custom extensions
     // scriptElement = iframe.contentDocument.createElement("script");
-    // scriptElement.setAttribute("src", "http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js");
+    // scriptElement.setAttribute("src", "annotator.extensions.js");
     // iframe.contentDocument.head.appendChild(scriptElement);
-    // scriptElement = iframe.contentDocument.createElement("script");
-    // scriptElement.setAttribute("src", "http://assets.annotateit.org/annotator/v1.2.10/annotator-full.min.js");
-    // iframe.contentDocument.head.appendChild(scriptElement);
-    // // FIXME annotator.js produces jQuery not found error when integrated into ICM
-    // linkElement = iframe.contentDocument.createElement("link");
-    // linkElement.setAttribute("rel", "stylesheet");
-    // linkElement.setAttribute("href", "http://assets.annotateit.org/annotator/v1.2.10/annotator.min.css");
-    // iframe.contentDocument.head.appendChild(linkElement);
 
-    // body
-    // scriptElement = iframe.contentDocument.createElement("script");
-    // scriptElement.setAttribute("type", "text/javascript");
-    // scriptElement.setAttribute("innerHTML", "jQuery(function ($) {\n" +
-    //   "    $('.body').annotator();\n" +
-    //   "});");
-    // iframe.contentDocument.body.appendChild(scriptElement);
+    // initialize annotator framework
     scriptElement = iframe.contentDocument.createElement("script");
     scriptElement.setAttribute("type", "text/javascript");
-    scriptElement.innerHTML = "console.log(\"test!\");";
+    scriptElement.innerHTML =
+      "function logAnnotations() {\n" +
+      "  return {\n" +
+      "    beforeAnnotationCreated: function (annotation) {\n" +
+      "      console.log(annotation);\n" +
+      "    }\n" +
+      "  };\n" +
+      "}" +
+      "var app = new annotator.App();\n" +
+      "app.include(annotator.ui.main);\n" +
+      "app.include(annotator.storage.debug);\n" +
+      "app.include(logAnnotations);\n" +
+      "app.start()";
     iframe.contentDocument.body.appendChild(scriptElement);
-
   }
 
   sentenceContainsTask(sentenceId: any) {
