@@ -158,24 +158,15 @@
   </tr>
   <tr height="32px"></tr>
 </table>
-<script src="annotator.min.js"></script>
+<script src="annotator.js"></script>
 <script type="text/javascript">
-  function logAnnotations() {
-    return {
-      beforeAnnotationCreated: function (annotation) {
-        console.log(annotation);
-      }
-    };
-  }
-
   var app = new annotator.App();
   app.include(annotator.ui.main);
-  app.include(annotator.storage.debug);
-  app.include(logAnnotations);
+  app.include(annotator.storage.parentwindow);
   app
     .start()
     .then(function () {
-      app.annotations.load();
+      app.annotations.load({});
     });
 </script>
 </body>
