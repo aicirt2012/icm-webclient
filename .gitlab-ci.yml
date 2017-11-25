@@ -14,8 +14,8 @@ installdependencies:
     - rm -fR node_modules
     - npm install --unsafe-perm
     - npm install -g yarn
-    - yarn build
-#    - npm run build:prod
+#    - yarn build
+    - npm run build:prod
   artifacts:
     paths:
       - node_modules/
