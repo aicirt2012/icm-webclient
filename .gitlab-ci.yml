@@ -13,13 +13,13 @@ installdependencies:
   script:
     - rm -fR node_modules
     - npm install --unsafe-perm
-    - npm install -g yarn
+#    - npm install -g yarn
 #    - yarn build
     - npm run build:prod
-  artifacts:
-    paths:
-      - node_modules/
-      - dist/
+#  artifacts:
+#    paths:
+#      - node_modules/
+#      - dist/
 
 # greift auf Dockerfile zu
 dockerbuild:
@@ -31,6 +31,6 @@ dockerbuild:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     - docker build --pull -t registry.gitlab.com/tum.icm/icm-webclient:latest .
     - docker push registry.gitlab.com/tum.icm/icm-webclient:latest
-  artifacts:
-    paths:
-      - node_modules/
+#  artifacts:
+#    paths:
+#      - node_modules/
