@@ -17,8 +17,8 @@ installdependencies:
 #    - yarn build
     - npm run build:prod
   artifacts:
-    untracked: true
-#    paths:
+    paths:
+       - "*"
 #      - node_modules/
 #      - dist/
 
