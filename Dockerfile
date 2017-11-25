@@ -15,4 +15,4 @@ RUN npm run build:prod
 # Build on every container restart in oder to ensure 
 # bindings of docker compose environement variables
 # c = cache time in s; -c-1 => disabled 
-CMD npm run build:prod && http-server dist -p $PORT -c3600 --cors
+CMD npm run build:prod && http-server dist -p $PORT -c3600 --cors --gzip
