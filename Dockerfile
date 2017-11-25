@@ -1,11 +1,17 @@
 FROM node:latest
 
+# Deepcopy of repo
 COPY . /repo
-#COPY dist/ /usr/share/nginx/html
 WORKDIR /repo
+
+# Install dependencies
 RUN npm install --unsafe-perm
 RUN npm install http-server -g
-RUN npm run build:prod
-#WORKDIR /dist
-#COPY ./repo/dist .
+
+# Build once to ensure build is working correct 
+# If it is not possible to build it should fail here!
+RUN npm run build:prod 
+
+# Build on every container restart in oder to ensure 
+# bindings of docker compose environement variables
 CMD npm run build:prod && http-server dist -p $PORT -c-1 --cors
