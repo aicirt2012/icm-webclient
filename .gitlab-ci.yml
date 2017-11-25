@@ -5,22 +5,22 @@ cache:
     - node_modules/
 
 stages:
-  - installdependencies
+#  - installdependencies
   - dockerbuild
-
-installdependencies:
-  stage: installdependencies
-  script:
-    - rm -fR node_modules
-    - npm install --unsafe-perm
-#    - npm install -g yarn
-#    - yarn build
-    - npm run build:prod
-  artifacts:
-    paths:
-       - "*"
-#      - node_modules/
-#      - dist/
+#
+#installdependencies:
+#  stage: installdependencies
+#  script:
+#    - rm -fR node_modules
+#    - npm install --unsafe-perm
+##    - npm install -g yarn
+##    - yarn build
+#    - npm run build:prod
+#  artifacts:
+#    paths:
+#       - "*"
+##      - node_modules/
+##      - dist/
 
 # greift auf Dockerfile zu
 dockerbuild:
