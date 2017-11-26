@@ -25,6 +25,11 @@ const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 const HOST = process.env.HOST || 'icm.in.tum.de';
 const PORT = process.env.PORT || 8081;
 const SERVER_API_URL = process.env.SERVER_API_URL || 'https://server.icm.in.tum.de/api';
+console.log('SET ENVS HERE')
+console.log(process.env)
+console.log(process.env.SERVER_API_URL )
+console.log(process.env.SERVER_API_URL || 'https://server.icm.in.tum.de/api')
+//throw new Error("stop here");
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
   host: HOST,
   port: PORT,
