@@ -21,13 +21,16 @@ const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3000;
-const SERVER_API_URL = process.env.SERVER_API_URL || 'http://localhost:4000/api';
-const SERVER_SOCKET_URL = process.env.SERVER_API_URL || 'http://localhost:4001'
+const SERVER_API_URL = process.env.SERVER_API_URL || 'http://localhost:4000';
+const SERVER_SOCKET_URL = process.env.SERVER_SOCKET_URL || 'http://localhost:4001';
+
+//throw new Error('web pack dev');
 const HMR = helpers.hasProcessFlag('hot');
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
   host: HOST,
   port: PORT,
-  server_api_url: SERVER_API_URL,
+  SERVER_API_URL: SERVER_API_URL,
+  SERVER_SOCKET_URL: SERVER_SOCKET_URL,
   ENV: ENV,
   HMR: HMR
 });
@@ -137,8 +140,9 @@ module.exports = function (options) {
       new DefinePlugin({
         'ENV': JSON.stringify(METADATA.ENV),
         'HMR': METADATA.HMR,
+        'SERVER_API_URL': JSON.stringify(METADATA.SERVER_API_URL),
+        'SERVER_SOCKET_URL': JSON.stringify(METADATA.SERVER_SOCKET_URL),
         'process.env': {
-          'SERVER_API_URL': JSON.stringify(METADATA.server_api_url),
           'ENV': JSON.stringify(METADATA.ENV),
           'NODE_ENV': JSON.stringify(METADATA.ENV),
           'HMR': METADATA.HMR,

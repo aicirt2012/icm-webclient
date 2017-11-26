@@ -24,19 +24,15 @@ const V8LazyParseWebpackPlugin = require('v8-lazy-parse-webpack-plugin');
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 const HOST = process.env.HOST || 'icm.in.tum.de';
 const PORT = process.env.PORT || 8081;
-const SERVER_API_URL = process.env.SERVER_API_URL || 'https://server.icm.in.tum.de:80/api';
+const SERVER_API_URL = process.env.SERVER_API_URL || 'https://server.icm.in.tum.de:80';
 const SERVER_SOCKET_URL = process.env.SERVER_SOCKET_URL || 'https://server.icm.in.tum.de:81';
 
-//TODO REMOVE THIS BLOCK
-console.log('SET ENVS HERE')
-console.log(process.env)
-console.log(process.env.SERVER_API_URL )
-console.log(process.env.SERVER_API_URL || 'https://server.icm.in.tum.de/api')
 //throw new Error("stop here");
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
   host: HOST,
   port: PORT,
-  server_api_url: SERVER_API_URL,
+  SERVER_API_URL: SERVER_API_URL,
+  SERVER_SOCKET_URL: SERVER_SOCKET_URL,
   ENV: ENV,
   HMR: false
 });
@@ -160,8 +156,9 @@ module.exports = function (env) {
       new DefinePlugin({
         'ENV': JSON.stringify(METADATA.ENV),
         'HMR': METADATA.HMR,
+        'SERVER_API_URL': JSON.stringify(METADATA.SERVER_API_URL),
+        'SERVER_SOCKET_URL': JSON.stringify(METADATA.SERVER_SOCKET_URL),
         'process.env': {
-          'SERVER_API_URL': JSON.stringify(METADATA.server_api_url),
           'ENV': JSON.stringify(METADATA.ENV),
           'NODE_ENV': JSON.stringify(METADATA.ENV),
           'HMR': METADATA.HMR,
