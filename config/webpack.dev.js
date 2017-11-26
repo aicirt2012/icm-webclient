@@ -21,16 +21,12 @@ const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3000;
-const SERVER_HOST = process.env.SERVER_HOST || 'localhost';
-const SERVER_PORT = process.env.SERVER_HOST || 4000;
-const SERVER_PROT = process.env.SERVER_PROT || 'http';
+const SERVER_API_URL = process.env.SERVER_API_URL || 'http://localhost:4000/api';
 const HMR = helpers.hasProcessFlag('hot');
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
   host: HOST,
   port: PORT,
-  server_host: SERVER_HOST,
-  server_port: SERVER_PORT,
-  server_prot: SERVER_PROT,
+  server_api_url: SERVER_API_URL,
   ENV: ENV,
   HMR: HMR
 });
@@ -141,9 +137,7 @@ module.exports = function (options) {
         'ENV': JSON.stringify(METADATA.ENV),
         'HMR': METADATA.HMR,
         'process.env': {
-          'SERVER_HOST': JSON.stringify(METADATA.server_host),
-          'SERVER_PORT': JSON.stringify(METADATA.server_port),
-          'SERVER_PROT': JSON.stringify(METADATA.server_prot),
+          'SERVER_API_URL': JSON.stringify(METADATA.server_api_url),
           'ENV': JSON.stringify(METADATA.ENV),
           'NODE_ENV': JSON.stringify(METADATA.ENV),
           'HMR': METADATA.HMR,
