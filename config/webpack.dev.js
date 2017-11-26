@@ -22,7 +22,7 @@ const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3000;
 const SERVER_API_URL = process.env.SERVER_API_URL || 'http://localhost:4000/api';
-const SERVER_SOCKET_URL = "" //TODO
+const SERVER_SOCKET_URL = process.env.SERVER_API_URL || 'http://localhost:4001'
 const HMR = helpers.hasProcessFlag('hot');
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
   host: HOST,
