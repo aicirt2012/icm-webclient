@@ -66,33 +66,31 @@ export class EmailViewComponent {
   }
 
   applyAnnotationFramework(iframe: HTMLIFrameElement) {
-    // include annotator framework
+    // append annotator framework initialization routine
     let scriptElement = iframe.contentDocument.createElement("script");
-    scriptElement.setAttribute("src", "annotator.min.js");
-    iframe.contentDocument.head.appendChild(scriptElement);
+    scriptElement.setAttribute("type", "text/javascript");
+    scriptElement.innerHTML =
+      "function initAnnotator() {\n" +
+      "   var app = new annotator.App();\n" +
+      "   app.include(annotator.ui.main);\n" +
+      "   app.include(annotator.storage.parentwindow);\n" +
+      "   app.start()\n" +
+      "      .then(function () {\n" +
+      "        app.annotations.load({});\n" +
+      "      });\n" +
+      "}";
+    iframe.contentDocument.body.appendChild(scriptElement);
+
+    // include annotator framework
+    scriptElement = iframe.contentDocument.createElement("script");
+    scriptElement.setAttribute("src", "assets/js/annotator.js");
+    scriptElement.setAttribute("onload", "initAnnotator();");   // call init routine after loading
+    iframe.contentDocument.body.appendChild(scriptElement);
 
     // include annotator custom extensions
     // scriptElement = iframe.contentDocument.createElement("script");
-    // scriptElement.setAttribute("src", "annotator.extensions.js");
+    // scriptElement.setAttribute("src", "assets/js/annotator.extensions.js");
     // iframe.contentDocument.head.appendChild(scriptElement);
-
-    // initialize annotator framework
-    scriptElement = iframe.contentDocument.createElement("script");
-    scriptElement.setAttribute("type", "text/javascript");
-    scriptElement.innerHTML =
-      "function logAnnotations() {\n" +
-      "  return {\n" +
-      "    beforeAnnotationCreated: function (annotation) {\n" +
-      "      console.log(annotation);\n" +
-      "    }\n" +
-      "  };\n" +
-      "}" +
-      "var app = new annotator.App();\n" +
-      "app.include(annotator.ui.main);\n" +
-      "app.include(annotator.storage.debug);\n" +
-      "app.include(logAnnotations);\n" +
-      "app.start()";
-    iframe.contentDocument.body.appendChild(scriptElement);
   }
 
   sentenceContainsTask(sentenceId: any) {
