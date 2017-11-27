@@ -67,6 +67,7 @@ export class EmailViewComponent {
 
   applyAnnotationFramework(iframe: HTMLIFrameElement) {
     // append annotator framework initialization routine
+    // TODO move this logic into the custom extensions file once it is in use and working
     let scriptElement = iframe.contentDocument.createElement("script");
     scriptElement.setAttribute("type", "text/javascript");
     scriptElement.innerHTML =
