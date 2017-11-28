@@ -12515,7 +12515,7 @@ exports.debug = function () {
 
       query: function (queryObj) {
         trace('query', queryObj);
-        return {
+        var result = {
           meta: {total: 1},
           results: [
             {
@@ -12524,21 +12524,21 @@ exports.debug = function () {
               "ranges": [
                 {
                   "end": "/table[1]/tbody[1]/tr[2]/td[2]/table[1]/tbody[1]/tr[4]/td[1]/table[1]/tbody[1]/tr[2]/td[1]/table[1]/tbody[1]/tr[2]/td[1]",
-                  "endOffset": 89,
+                  "endOffset": 64,
                   "start": "/table[1]/tbody[1]/tr[2]/td[2]/table[1]/tbody[1]/tr[4]/td[1]/table[1]/tbody[1]/tr[2]/td[1]/table[1]/tbody[1]/tr[2]/td[1]",
-                  "startOffset": 83
+                  "startOffset": 58
                 },
                 {
                   "end": "/table[1]/tbody[1]/tr[2]/td[2]/table[1]/tbody[1]/tr[4]/td[1]/table[1]/tbody[1]/tr[2]/td[1]/table[1]/tbody[1]/tr[2]/td[1]",
-                  "endOffset": 499,
+                  "endOffset": 234,
                   "start": "/table[1]/tbody[1]/tr[2]/td[2]/table[1]/tbody[1]/tr[4]/td[1]/table[1]/tbody[1]/tr[2]/td[1]/table[1]/tbody[1]/tr[2]/td[1]",
-                  "startOffset": 493
+                  "startOffset": 228
                 },
                 {
                   "end": "/table[1]/tbody[1]/tr[2]/td[2]/table[1]/tbody[1]/tr[4]/td[1]/table[1]/tbody[1]/tr[2]/td[1]/table[1]/tbody[1]/tr[3]/td[1]",
-                  "endOffset": 35,
+                  "endOffset": 10,
                   "start": "/table[1]/tbody[1]/tr[2]/td[2]/table[1]/tbody[1]/tr[4]/td[1]/table[1]/tbody[1]/tr[2]/td[1]/table[1]/tbody[1]/tr[3]/td[1]",
-                  "startOffset": 29
+                  "startOffset": 4
                 },
                 {
                   "end": "/table[1]/tbody[1]/tr[2]/td[2]/table[1]/tbody[1]/tr[4]/td[1]/table[1]/tbody[1]/tr[2]/td[1]/table[1]/tbody[1]/tr[5]/td[1]/table[1]/tbody[1]/tr[2]/td[1]/a[1]",
@@ -12554,14 +12554,16 @@ exports.debug = function () {
                 },
                 {
                   "end": "/table[1]/tbody[1]/tr[2]/td[2]/table[1]/tbody[1]/tr[7]/td[1]/table[1]/tbody[1]/tr[1]/td[1]",
-                  "endOffset": 125,
+                  "endOffset": 107,
                   "start": "/table[1]/tbody[1]/tr[2]/td[2]/table[1]/tbody[1]/tr[7]/td[1]/table[1]/tbody[1]/tr[1]/td[1]",
-                  "startOffset": 119
+                  "startOffset": 101
                 }
               ]
             }
           ]
         };
+        trace("query result", result);
+        return result;
       },
 
       configure: function (registry) {
