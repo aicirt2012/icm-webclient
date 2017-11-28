@@ -66,32 +66,16 @@ export class EmailViewComponent {
   }
 
   applyAnnotationFramework(iframe: HTMLIFrameElement) {
-    // append annotator framework initialization routine
-    // TODO move this logic into the custom extensions file once it is in use and working
+    // include annotator custom extensions
     let scriptElement = iframe.contentDocument.createElement("script");
-    scriptElement.setAttribute("type", "text/javascript");
-    scriptElement.innerHTML =
-      "function initAnnotator() {\n" +
-      "   var app = new annotator.App();\n" +
-      "   app.include(annotator.ui.main);\n" +
-      "   app.include(annotator.storage.parentwindow);\n" +
-      "   app.start()\n" +
-      "      .then(function () {\n" +
-      "        app.annotations.load({});\n" +
-      "      });\n" +
-      "}";
+    scriptElement.setAttribute("src", "assets/js/annotator.custom-extensions.js");
     iframe.contentDocument.body.appendChild(scriptElement);
 
-    // include annotator framework
+    // include annotator framework and initialize
     scriptElement = iframe.contentDocument.createElement("script");
     scriptElement.setAttribute("src", "assets/js/annotator.js");
-    scriptElement.setAttribute("onload", "initAnnotator();");   // call init routine after loading
+    scriptElement.setAttribute("onload", "annotatorCustomExtensions.initAnnotator();");   // call init routine after loading
     iframe.contentDocument.body.appendChild(scriptElement);
-
-    // include annotator custom extensions
-    // scriptElement = iframe.contentDocument.createElement("script");
-    // scriptElement.setAttribute("src", "assets/js/annotator.extensions.js");
-    // iframe.contentDocument.head.appendChild(scriptElement);
   }
 
   sentenceContainsTask(sentenceId: any) {
