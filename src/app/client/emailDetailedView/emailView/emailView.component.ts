@@ -49,7 +49,7 @@ export class EmailViewComponent {
 
   onIframeLoad(iframe: HTMLIFrameElement, topSection: HTMLElement) {
     this.adjustIframeSize(iframe, topSection);
-    this.applyAnnotationFramework(iframe);
+    this.injectAnnotationFramework(iframe);
   }
 
   adjustIframeSize(iframe: HTMLIFrameElement, topSection: HTMLElement) {
@@ -65,7 +65,7 @@ export class EmailViewComponent {
     }
   }
 
-  applyAnnotationFramework(iframe: HTMLIFrameElement) {
+  injectAnnotationFramework(iframe: HTMLIFrameElement) {
     // include annotator custom extensions
     let scriptElement = iframe.contentDocument.createElement("script");
     scriptElement.setAttribute("src", "assets/js/annotator.custom-extensions.js");
@@ -83,11 +83,9 @@ export class EmailViewComponent {
   }
 
   openSentenceDialog(sentence: any) {
-
     let dialogRef = this.dialog.open(SentenceDialogComponent);
     dialogRef.componentInstance.sentence = sentence;
     dialogRef.componentInstance.task = this.email.suggestedTasks.find((t) => t.task.id == sentence.id);
-
   }
 
   downloadFile(id: any, filename: string) {

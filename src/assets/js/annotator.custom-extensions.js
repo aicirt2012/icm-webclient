@@ -3,7 +3,7 @@ var annotatorCustomExtensions = {};
 /**
  * function:: initAnnotator()
  *
- * Used to initialize the annotator framework with the custom extensions
+ * Used to initialize the annotator framework with the custom extensions included
  *
  * Use as an extension module::
  *     app.include(annotatorCustomExtensions.parentwindow);
