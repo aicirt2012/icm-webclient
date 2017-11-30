@@ -37,8 +37,10 @@ export class EmailViewComponent {
   }
 
   replaceInlineAttachmentsURL() {
-    this.email.html = this.email.html.replace(`ATTACHMENT_POINT/`, `${C.server}/attachments/`);
-    this.email.html = this.email.html.replace(`TOKEN_POINT`, this.authService.token);
+    if (typeof this.email.html === 'string') {
+      this.email.html = this.email.html.replace(`ATTACHMENT_POINT/`, `${C.server}/attachments/`);
+      this.email.html = this.email.html.replace(`TOKEN_POINT`, this.authService.token);
+    }
   }
 
   highlight(id: any, highlight: boolean) {
