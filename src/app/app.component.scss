@@ -29,11 +29,17 @@ div.cdk-focus-trap-content {
 }
 
 .mat-tab-label {
-  min-width: 0px;
+  min-width: 0px !important;
 }
 
 .mat-tab-list > div {
   min-width: 100px ! important;
+}
+
+/deep/.mat-tab-label, /deep/.mat-tab-label-active{
+  min-width: 0!important;
+  padding: 3px!important;
+  margin: 3px!important;
 }
 
 /*
