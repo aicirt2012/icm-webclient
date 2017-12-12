@@ -1,11 +1,13 @@
-import {MatDialog} from '@angular/material';
-import {SentenceDialogComponent} from './sentenceDialog'; //sentenceDialog.component';
-import {Component, Input, EventEmitter, Output, ViewChild, ElementRef} from '@angular/core';
-import {DomSanitizer} from '@angular/platform-browser';
-import {ModalDirective} from 'ng2-bootstrap';
-import {Email} from '../../shared';
-import {AttachmentService} from '../../shared';
-import {saveAs as importedSaveAs} from "file-saver";
+import { MatDialog } from '@angular/material';
+import { SentenceDialogComponent } from './sentenceDialog'; //sentenceDialog.component';
+import { Component, Input, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ModalDirective } from 'ng2-bootstrap';
+import { Email } from '../../shared';
+import { AttachmentService } from '../../shared';
+import { saveAs as importedSaveAs } from "file-saver";
+import { AuthService } from '../../../shared/services/auth.service';
+import C from '../../../shared/constants';
 
 @Component({
   selector: 'email-view',
@@ -19,12 +21,25 @@ export class EmailViewComponent {
   @ViewChild('wrapper') wrapper: ElementRef;
   @ViewChild('iframe') iframe: ElementRef;
 
-  constructor(private sanitizer: DomSanitizer, public dialog: MatDialog, private attachmentService: AttachmentService) {
+  constructor(
+    private sanitizer: DomSanitizer,
+    public dialog: MatDialog,
+    private attachmentService: AttachmentService,
+    private authService: AuthService
+    ) {
   }
 
   ngOnChanges() {
     if (this.email.html) {
+      this.replaceInlineAttachmentsURL();
       this.email.html = typeof this.email.html === 'string' ? this.sanitizer.bypassSecurityTrustHtml(this.email.html) : this.email.html;
+    }
+  }
+
+  replaceInlineAttachmentsURL() {
+    if (typeof this.email.html === 'string') {
+      this.email.html = this.email.html.replace(`ATTACHMENT_POINT/`, `${C.server}/attachments/`);
+      this.email.html = this.email.html.replace(`TOKEN_POINT`, this.authService.token);
     }
   }
 
