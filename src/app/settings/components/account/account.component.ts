@@ -13,14 +13,14 @@ export class AccountComponent {
 
   // TODO: default configuration
   public emailConfig = {
-    name: 'Gmail',
-    user: 'sebisng2@gmail.com',
-    password: 's3b1sng2',
-    host: 'imap.gmail.com',
-    port: 993,
-    smtpHost: 'smtp.gmail.com',
-    smtpPort: 465,
-    smtpDomains: ['gmail.com', 'googlemail.com']
+    name: '',
+    user: '',
+    password: '',
+    host: '',
+    port: 0,
+    smtpHost: '',
+    smtpPort: 0,
+    smtpDomains: []
   };
 
   constructor(private userService: UserService, private snackBar: MatSnackBar) {
@@ -33,8 +33,7 @@ export class AccountComponent {
   }
 
   updateData(data) {
-    if (data.provider && data.emailProvider) {
-      let emailProviderName = data.provider.name;
+      let emailProviderName = data.provider || 'Gmail';
       this.emailConfig.name = emailProviderName;
       emailProviderName = emailProviderName.toLowerCase();
       this.emailConfig.user = data.emailProvider[emailProviderName].user;
@@ -44,7 +43,6 @@ export class AccountComponent {
       this.emailConfig.smtpHost = data.emailProvider[emailProviderName].smtpHost;
       this.emailConfig.smtpPort = data.emailProvider[emailProviderName].smtpPort;
       this.emailConfig.smtpDomains = data.emailProvider[emailProviderName].smtpDomains;
-    }
   }
 
   addDomain(domain: MatInput): void {
