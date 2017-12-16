@@ -13745,6 +13745,7 @@ var Editor = exports.Editor = Widget.extend({
     //
     // Returns nothing
     _onSaveClick: function (event) {
+      preventEventDefault(event);
 
         var translateEvent = new CustomEvent("OnTranslationClick",{"detail":this.annotation.quote});
         window.dispatchEvent(translateEvent);
@@ -13754,9 +13755,10 @@ var Editor = exports.Editor = Widget.extend({
     //
     // Returns nothing
     _onCancelClick: function (event) {
+      preventEventDefault(event);
+
       var wikiSearchEvent = new CustomEvent("OnWikiSearchClick",{"detail":this.annotation.quote});
-      document.dispatchEvent(wikiSearchEvent);
-      debugger;
+      window.dispatchEvent(wikiSearchEvent);
     },
 
     // Event callback: called when a user mouses over the editor's cancel
