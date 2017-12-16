@@ -13498,25 +13498,37 @@ var Editor = exports.Editor = Widget.extend({
         this.fields = [];
         this.annotation = {};
 
+      if (this.options.defaultFields) {
+        this.addField({
+          type: 'textarea',
+          label: _t('Comments') + '\u2026',
+          load: function (field, annotation) {
+            $(field).find('textarea').val(annotation.text || '');
+          },
+          submit: function (field, annotation) {
+            annotation.text = $(field).find('textarea').val();
+          }
+        });
+      }
 
         var self = this;
 
         this.element
-            .on("submit." + NS, 'form', function (e) {
-                self._onFormSubmit(e);
-            })
+            // .on("submit." + NS, 'form', function (e) {
+            //     self._onFormSubmit(e);
+            // })
             .on("click." + NS, '.annotator-translate', function (e) {
                 self._onTranslateClick(e);
             })
             .on("click." + NS, '.annotator-search', function (e) {
                 self._onSearchClick(e);
-            })
-            .on("mouseover." + NS, '.annotator-cancel', function (e) {
-                self._onCancelMouseover(e);
-            })
-            .on("keydown." + NS, 'textarea', function (e) {
-                self._onTextareaKeydown(e);
             });
+            // .on("mouseover." + NS, '.annotator-cancel', function (e) {
+            //     self._onCancelMouseover(e);
+            // })
+            // .on("keydown." + NS, 'textarea', function (e) {
+            //     self._onTextareaKeydown(e);
+            // });
     },
 
     destroy: function () {
@@ -13729,17 +13741,17 @@ var Editor = exports.Editor = Widget.extend({
         this.submit();
     },
 
-    // Event callback: called when a user clicks the editor's save button.
+    // Event callback: called when a user clicks the translate button.
     //
     // Returns nothing
     _onTranslateClick: function (event) {
       preventEventDefault(event);
-       document.dispatchEvent(new CustomEvent("OnTranslationClick",{"detail":this.annotation.quote}));
-      this.hide();
+        document.dispatchEvent(new CustomEvent("OnTranslationClick",{"detail":this.annotation.quote}));
+       this.cancel();
 
     },
 
-    // Event callback: called when a user clicks the editor's cancel button.
+    // Event callback: called when a user clicks the search button.
     //
     // Returns nothing
     _onSearchClick: function (event) {
@@ -13747,7 +13759,8 @@ var Editor = exports.Editor = Widget.extend({
 
       var wikiSearchEvent = new CustomEvent("OnSearchClick",{"detail":this.annotation.quote});
       document.dispatchEvent(wikiSearchEvent);
-      this.hide();
+      this.cancel();
+
     },
 
     // Event callback: called when a user mouses over the editor's cancel
@@ -13832,8 +13845,8 @@ Editor.template = [
     '  <form class="annotator-widget">',
     '    <ul class="annotator-listing"></ul>',
     '    <div class="annotator-controls">',
-    '     <a href="#cancel" class="annotator-search">' + _t('Search in Wikipedia') + '</a>',
-    '      <a href="#save"  class="annotator-translate annotator-focus">' + _t('Translate') + '</a>',
+    '     <a href="#cancel" class="annotator-search  ">' + _t('Search in Wikipedia') + '</a>',
+    '      <a href="#save"  class="annotator-translate   ">' + _t('Translate') + '</a>',
     '    </div>',
     '  </form>',
     '</div>'
