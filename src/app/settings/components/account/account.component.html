@@ -32,44 +32,45 @@
     </mat-input-container>
   </mat-card-content>
 
-  <mat-card-content>
-    <mat-input-container>
-      <input matInput placeholder="Port" type="number" name="port" [(ngModel)]="emailConfig.port" required>
-    </mat-input-container>
-  </mat-card-content>
+  <div *ngIf="emailConfig.name === 'Gmail'">
+    <mat-card-content>
+      <mat-input-container>
+        <input matInput placeholder="Port" type="number" name="port" [(ngModel)]="emailConfig.port" required>
+      </mat-input-container>
+    </mat-card-content>
 
-  <mat-card-content>
-    <mat-input-container>
-      <input matInput placeholder="SMTP Host" type="text" name="smtphost" [(ngModel)]="emailConfig.smtpHost"
-             required>
-    </mat-input-container>
-  </mat-card-content>
+    <mat-card-content>
+      <mat-input-container>
+        <input matInput placeholder="SMTP Host" type="text" name="smtphost" [(ngModel)]="emailConfig.smtpHost"
+               required>
+      </mat-input-container>
+    </mat-card-content>
 
-  <mat-card-content>
-    <mat-input-container>
-      <input matInput placeholder="SMTP Port" type="number" name="smtpport" [(ngModel)]="emailConfig.smtpPort"
-             required>
-    </mat-input-container>
-  </mat-card-content>
+    <mat-card-content>
+      <mat-input-container>
+        <input matInput placeholder="SMTP Port" type="number" name="smtpport" [(ngModel)]="emailConfig.smtpPort"
+               required>
+      </mat-input-container>
+    </mat-card-content>
 
-  <mat-card-content>
-    <mat-input-container>
-      <input matInput #inputSmtpDomains (keyup.enter)="addDomain(inputSmtpDomains)"
-             (change)="addDomain(inputSmtpDomains)" type="text" placeholder="SMTP Domains:" required/>
-    </mat-input-container>
-  </mat-card-content>
+    <mat-card-content>
+      <mat-input-container>
+        <input matInput #inputSmtpDomains (keyup.enter)="addDomain(inputSmtpDomains)"
+               (change)="addDomain(inputSmtpDomains)" type="text" placeholder="SMTP Domains:" required/>
+      </mat-input-container>
+    </mat-card-content>
 
-
-  <mat-card-content>
-    <mat-chip-list>
-      <mat-chip *ngFor="let domain of emailConfig.smtpDomains; let i = index">
-        <div fxLayout="row" fxLayoutAlign="start center">
-          <span>{{domain}}</span>
-          <mat-icon class="pointer" (click)="deleteDomain(i)">close</mat-icon>
-        </div>
-      </mat-chip>
-    </mat-chip-list>
-  </mat-card-content>
+    <mat-card-content>
+      <mat-chip-list>
+        <mat-chip *ngFor="let domain of emailConfig.smtpDomains; let i = index">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <span>{{domain}}</span>
+            <mat-icon class="pointer" (click)="deleteDomain(i)">close</mat-icon>
+          </div>
+        </mat-chip>
+      </mat-chip-list>
+    </mat-card-content>
+  </div>
 
   <mat-card-actions>
     <button mat-raised-button color="primary" (click)="updateEmailConfig()">Save Configuration</button>

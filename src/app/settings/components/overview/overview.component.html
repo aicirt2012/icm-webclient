@@ -29,13 +29,13 @@
   <mat-card-content>
 
     <mat-list>
-      <mat-list-item [class.not-connected]="user.provider && !user.provider.name">
-        <span mat-list-avatar *ngIf="user.provider && user.provider.name=='Gmail'" class="fa-3x fa fa-google"></span>
-        <span mat-list-avatar *ngIf="user.provider && user.provider.name=='Exchange'" class="fa-3x fa fa-windows"></span>
-        <span mat-list-avatar *ngIf="user.provider && !user.provider.name" class="fa-3x fa fa-envelope"></span>
-        <h4 mat-line>{{user.provider && user.provider.name ? user.provider.name : 'Email Provider'}}</h4>
+      <mat-list-item [class.not-connected]="user.provider && !user.provider">
+        <span mat-list-avatar *ngIf="user.provider && user.provider=='Gmail'" class="fa-3x fa fa-google"></span>
+        <span mat-list-avatar *ngIf="user.provider && user.provider=='Exchange'" class="fa-3x fa fa-windows"></span>
+        <span mat-list-avatar *ngIf="user.provider && !user.provider" class="fa-3x fa fa-envelope"></span>
+        <h4 mat-line>{{user.provider && user.provider ? user.provider : 'Email Provider'}}</h4>
         <p mat-line>
-          <span [class.connected]="user.provider && user.provider.name">{{user.provider && user.provider.name ? 'Connected' : 'Not Connected'}}</span>
+          <span [class.connected]="user.provider && user.provider">{{user.provider && user.provider ? 'Connected' : 'Not Connected'}}</span>
         </p>
       </mat-list-item>
       <mat-divider></mat-divider>

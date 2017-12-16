@@ -125,8 +125,9 @@ export class ClientComponent {
       this.user = user;
       console.log('user info: ', user)
       this.appState.setUser(user);
-      if (!this.user.provider.name)
+      if (!this.user['provider']) {
         this.noMailboxConnected = true;
+      }
       this.syncing = false;
     })
 
@@ -157,7 +158,7 @@ export class ClientComponent {
 
   onResizeEnd(event: ResizeEvent): void {
     console.log('Element was resized', event);
-    if(event.edges.left < 0) {
+    if (event.edges.left < 0) {
       this.emailListFlex = 0;
     } else {
       this.emailListFlex = 20;
