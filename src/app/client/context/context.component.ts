@@ -7,7 +7,12 @@ import { Email } from '../shared/email.model';
 @Component({
   selector: 'context',
   styleUrls: ['./context.component.css'],
-  templateUrl: './context.component.html'
+  templateUrl: './context.component.html',
+  host:
+    {
+      '(document:OnTranslationClick)': 'handleTranslationEvent($event)',
+      '(document:OnSearchClick)': 'handleSearchEvent($event)',
+    }
 })
 
 export class ContextComponent {
@@ -25,6 +30,16 @@ export class ContextComponent {
     })
   }
 
+  handleTranslationEvent(event:CustomEvent) {
+    if(!this.isOpenTab("translate"))
+      this.openTab("translate");
+
+  }
+
+  handleSearchEvent (event:CustomEvent) {
+    if(!this.isOpenTab("wiki"))
+      this.openTab("wiki");
+  }
   openTab(tab: string) {
     this.currentTab = tab;
   }
