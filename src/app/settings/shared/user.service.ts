@@ -32,10 +32,7 @@ export class UserService {
   }
 
   updateContactProviderSocioCortex(settings: any): Observable<any> {
-    let body = {
-      contactProvider:{socioCortex: settings}
-    }
-    return this.http.put('users/'+this.authService.getUserId(), null, body);
+    return this.http.post('users/me/provider/contacts/sociocortex', null, settings);
   }
 
   getPatterns(): Observable<any> {
