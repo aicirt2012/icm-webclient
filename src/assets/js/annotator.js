@@ -13735,6 +13735,7 @@ var Editor = exports.Editor = Widget.extend({
     _onTranslateClick: function (event) {
       preventEventDefault(event);
        document.dispatchEvent(new CustomEvent("OnTranslationClick",{"detail":this.annotation.quote}));
+      this.hide();
 
     },
 
@@ -13746,6 +13747,7 @@ var Editor = exports.Editor = Widget.extend({
 
       var wikiSearchEvent = new CustomEvent("OnSearchClick",{"detail":this.annotation.quote});
       document.dispatchEvent(wikiSearchEvent);
+      this.hide();
     },
 
     // Event callback: called when a user mouses over the editor's cancel
