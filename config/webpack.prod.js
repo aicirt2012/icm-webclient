@@ -24,8 +24,15 @@ const V8LazyParseWebpackPlugin = require('v8-lazy-parse-webpack-plugin');
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 const HOST = process.env.HOST || 'icm.in.tum.de';
 const PORT = process.env.PORT || 8081;
-const SERVER_API_URL = process.env.SERVER_API_URL || 'https://server.icm.in.tum.de:80';
-const SERVER_SOCKET_URL = process.env.SERVER_SOCKET_URL || 'https://server.icm.in.tum.de:81';
+const SERVER_API_URL = process.env.SERVER_API_URL; // || 'https://api.server.icm.in.tum.de';
+const SERVER_SOCKET_URL = process.env.SERVER_SOCKET_URL; // || 'https://socket.server.icm.in.tum.de';
+
+console.log('SET PRODUCTION VARS++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+console.log(process.env.NODE_ENV)
+console.log(process.env.SERVER_API_URL);
+console.log(SERVER_API_URL)
+console.log('-----------------')
+console.log(process.env)
 
 //throw new Error("stop here");
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
