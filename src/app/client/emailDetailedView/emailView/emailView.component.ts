@@ -1,6 +1,9 @@
 import { MatDialog } from '@angular/material';
 import { SentenceDialogComponent } from './sentenceDialog'; //sentenceDialog.component';
-import { Component, Input, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component, Input, EventEmitter, Output, ViewChild, ElementRef,
+  HostListener
+} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ModalDirective } from 'ng2-bootstrap';
 import { Email } from '../../shared';
@@ -15,6 +18,7 @@ import C from '../../../shared/constants';
   templateUrl: './emailView.component.html'
 })
 export class EmailViewComponent {
+
   @Input() email: Email;
   @Output() highlightSentence: EventEmitter<any> = new EventEmitter<any>();
 
@@ -50,6 +54,20 @@ export class EmailViewComponent {
   onIframeLoad(iframe: HTMLIFrameElement, topSection: HTMLElement) {
     this.adjustIframeSize(iframe, topSection);
     this.injectAnnotationFramework(iframe);
+
+    function handleTranslation(e:CustomEvent) {
+
+      document.dispatchEvent(new CustomEvent("OnTranslationClick",{"detail":e.detail}));
+    }
+
+    iframe.contentDocument.addEventListener("OnTranslationClick", handleTranslation, false);
+
+    function handleSearch(e:CustomEvent) {
+      document.dispatchEvent(new CustomEvent("OnSearchClick",{"detail":e.detail}));
+    }
+
+    iframe.contentDocument.addEventListener("OnSearchClick", handleSearch, false);
+
   }
 
   adjustIframeSize(iframe: HTMLIFrameElement, topSection: HTMLElement) {

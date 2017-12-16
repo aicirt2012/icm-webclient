@@ -7,7 +7,7 @@ import { TranslateService } from '../../shared/translate.service'
   templateUrl: './translate.component.html',
   host:
     {
-      '(window:OnTranslationClick)': 'handleTranslationEvent($event)',
+      '(document:OnTranslationClick)': 'handleTranslationEvent($event)',
     }
 })
 
@@ -21,7 +21,6 @@ export class TranslateComponent{
 
   handleTranslationEvent(event:CustomEvent)
   {
-    console.log("STARTED");
     this.word = event.detail;
     this.translate();
   }

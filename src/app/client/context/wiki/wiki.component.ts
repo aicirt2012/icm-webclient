@@ -4,11 +4,15 @@ import { WikiService } from '../../shared/wiki.service'
 @Component({
   selector: 'wiki',
   styleUrls: ['./wiki.component.css'],
-  templateUrl: './wiki.component.html'
+  templateUrl: './wiki.component.html',
+  host:
+    {
+      '(document:OnSearchClick)': 'handleSearchEvent($event)',
+    }
 })
 
 export class WikiComponent{
- 
+
   private content: any;
   private query: string = 'Munich';
   private loading: boolean = false;
@@ -23,17 +27,22 @@ export class WikiComponent{
     this.loading = true;
     this.ws.search(this.query).subscribe(data=>{
       this.content = data.teaser;
-      this.loading = false;       
+      this.loading = false;
       window.setTimeout(()=>{
-        this.addEvents();       
+        this.addEvents();
       },10);
     });
+  }
+   handleSearchEvent (e:CustomEvent)
+  {
+    this.query = e.detail;
+    this.search();
   }
 
   addEvents() {
     const me = this;
-    me.element.nativeElement.querySelectorAll('.wiki-link').forEach((e)=> {      
-      e.addEventListener('click', ()=>{              
+    me.element.nativeElement.querySelectorAll('.wiki-link').forEach((e)=> {
+      e.addEventListener('click', ()=>{
         me.query = e.getAttribute('title');
         me.search();
       });
@@ -45,7 +54,7 @@ export class WikiComponent{
       });
       e.addEventListener('mouseout', ()=>{
         e.setAttribute('style', baseStyle);
-      });            
+      });
     });
   }
 

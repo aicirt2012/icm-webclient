@@ -13498,18 +13498,6 @@ var Editor = exports.Editor = Widget.extend({
         this.fields = [];
         this.annotation = {};
 
-        if (this.options.defaultFields) {
-            this.addField({
-                type: 'textarea',
-                label: _t('Comments') + '\u2026',
-                load: function (field, annotation) {
-                    $(field).find('textarea').val(annotation.text || '');
-                },
-                submit: function (field, annotation) {
-                    annotation.text = $(field).find('textarea').val();
-                }
-            });
-        }
 
         var self = this;
 
@@ -13517,11 +13505,11 @@ var Editor = exports.Editor = Widget.extend({
             .on("submit." + NS, 'form', function (e) {
                 self._onFormSubmit(e);
             })
-            .on("click." + NS, '.annotator-save', function (e) {
-                self._onSaveClick(e);
+            .on("click." + NS, '.annotator-translate', function (e) {
+                self._onTranslateClick(e);
             })
-            .on("click." + NS, '.annotator-cancel', function (e) {
-                self._onCancelClick(e);
+            .on("click." + NS, '.annotator-search', function (e) {
+                self._onSearchClick(e);
             })
             .on("mouseover." + NS, '.annotator-cancel', function (e) {
                 self._onCancelMouseover(e);
@@ -13557,7 +13545,7 @@ var Editor = exports.Editor = Widget.extend({
         }
 
         this.element
-            .find('.annotator-save')
+            .find('.annotator-translate')
             .addClass(this.classes.focus);
 
         Widget.prototype.show.call(this);
@@ -13744,21 +13732,20 @@ var Editor = exports.Editor = Widget.extend({
     // Event callback: called when a user clicks the editor's save button.
     //
     // Returns nothing
-    _onSaveClick: function (event) {
+    _onTranslateClick: function (event) {
       preventEventDefault(event);
+       document.dispatchEvent(new CustomEvent("OnTranslationClick",{"detail":this.annotation.quote}));
 
-        var translateEvent = new CustomEvent("OnTranslationClick",{"detail":this.annotation.quote});
-        window.dispatchEvent(translateEvent);
     },
 
     // Event callback: called when a user clicks the editor's cancel button.
     //
     // Returns nothing
-    _onCancelClick: function (event) {
+    _onSearchClick: function (event) {
       preventEventDefault(event);
 
-      var wikiSearchEvent = new CustomEvent("OnWikiSearchClick",{"detail":this.annotation.quote});
-      window.dispatchEvent(wikiSearchEvent);
+      var wikiSearchEvent = new CustomEvent("OnSearchClick",{"detail":this.annotation.quote});
+      document.dispatchEvent(wikiSearchEvent);
     },
 
     // Event callback: called when a user mouses over the editor's cancel
@@ -13843,9 +13830,8 @@ Editor.template = [
     '  <form class="annotator-widget">',
     '    <ul class="annotator-listing"></ul>',
     '    <div class="annotator-controls">',
-    '     <a href="#cancel" class="annotator-cancel">' + _t('Cancel') + '</a>',
-    '      <a href="#save"',
-    '         class="annotator-save annotator-focus">' + _t('Save') + '</a>',
+    '     <a href="#cancel" class="annotator-search">' + _t('Search in Wikipedia') + '</a>',
+    '      <a href="#save"  class="annotator-translate annotator-focus">' + _t('Translate') + '</a>',
     '    </div>',
     '  </form>',
     '</div>'
