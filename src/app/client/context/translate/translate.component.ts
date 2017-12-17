@@ -5,34 +5,36 @@ import { TranslateService } from '../../shared/translate.service'
   selector: 'translate',
   styleUrls: ['./translate.component.css'],
   templateUrl: './translate.component.html',
-  host:
-    {
-      '(document:OnTranslationClick)': 'handleTranslationEvent($event)',
-    }
+
 })
 
 export class TranslateComponent{
 
   private content: any;
-  private word: string = 'heft';
+  public _word: string = 'heft';
+
+  @Input()
+  set word(word: string) {
+    word = word.trim();
+    if(word) {
+      this._word = word
+      this.translate();
+    }
+    else this._word =  'Please select text to translate';
+  }
+  get word(): string { return this._word; }
+
 
   constructor(private ts: TranslateService) {
   }
 
-  handleTranslationEvent(event:CustomEvent)
-  {
-    this.word = event.detail;
-    this.translate();
-  }
   ngOnInit() {
   }
 
   translate(){
-    this.ts.translate(this.word).subscribe(data=>{
+    this.ts.translate(this._word).subscribe(data=>{
       this.content = data;
     });
   }
-
-
 
 }

@@ -5,17 +5,27 @@ import { WikiService } from '../../shared/wiki.service'
   selector: 'wiki',
   styleUrls: ['./wiki.component.css'],
   templateUrl: './wiki.component.html',
-  host:
-    {
-      '(document:OnSearchClick)': 'handleSearchEvent($event)',
-    }
+
 })
 
 export class WikiComponent{
 
   private content: any;
-  private query: string = 'Munich';
+  private _query: string = 'Munich';
   private loading: boolean = false;
+
+  @Input()
+  set query(query: string) {
+    query = query.trim();
+    if(query) {
+      this._query = query
+      this.search();
+    }
+    else
+      this._query =  'Please select text to search';
+  }
+  get query(): string { return this._query; }
+
 
   constructor(private ws: WikiService, private element: ElementRef) {
   }
@@ -25,18 +35,13 @@ export class WikiComponent{
 
   search(){
     this.loading = true;
-    this.ws.search(this.query).subscribe(data=>{
+    this.ws.search(this._query).subscribe(data=>{
       this.content = data.teaser;
       this.loading = false;
       window.setTimeout(()=>{
         this.addEvents();
       },10);
     });
-  }
-   handleSearchEvent (e:CustomEvent)
-  {
-    this.query = e.detail;
-    this.search();
   }
 
   addEvents() {

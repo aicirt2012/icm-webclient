@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { ContextTabComponent } from '../contextTab/contextTab.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AppState } from '../../app.service';
@@ -19,6 +19,8 @@ export class ContextComponent {
 
   email: Email;
   currentTab: string = 'tasks';
+  translationInput : string;
+  searchInput : string;
 
   constructor(public route: ActivatedRoute,
               private appState: AppState) {
@@ -34,11 +36,14 @@ export class ContextComponent {
     if(!this.isOpenTab("translate"))
       this.openTab("translate");
 
+    this.translationInput = event.detail;
+
   }
 
   handleSearchEvent (event:CustomEvent) {
     if(!this.isOpenTab("wiki"))
       this.openTab("wiki");
+    this.searchInput = event.detail;
   }
   openTab(tab: string) {
     this.currentTab = tab;
