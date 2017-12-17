@@ -15,7 +15,9 @@ export class TranslateComponent{
 
   @Input()
   set word(word: string) {
+    if(word){
     word = word.trim();
+    }
     if(word) {
       this._word = word
       this.translate();

@@ -16,7 +16,9 @@ export class WikiComponent{
 
   @Input()
   set query(query: string) {
-    query = query.trim();
+    if(query) {
+      query = query.trim();
+    }
     if(query) {
       this._query = query
       this.search();
