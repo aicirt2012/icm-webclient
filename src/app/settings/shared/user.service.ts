@@ -9,44 +9,48 @@ export class UserService {
   constructor(private http: HttpService, private authService: AuthService) {
   }
 
-  getUserInfo(): Observable<any> {
-    return this.http.get('users/'+this.authService.getUserId(), null, null);
+  public getUserInfo(): Observable<any> {
+    return this.http.get('users/me', null, null);
   }
 
-  updateUserInfo(user: any): Observable<any> {
-    return this.http.put('users/'+this.authService.getUserId(), null, user);
+  public updateUserInfo(user: any): Observable<any> {
+    return this.http.put('users/me', null, user);
   }
 
-  updateEmailConfig(emailConfig: any): Observable<any> {
+  public updateEmailConfig(emailConfig: any): Observable<any> {
     let body = {
       provider: emailConfig
     }
-    return this.http.put('users/'+this.authService.getUserId(), null, body);
+    return this.http.put('users/me', null, body);
   }
 
-  updateScConfig(scConfig: any): Observable<any> {
+  public updateScConfig(scConfig: any): Observable<any> {
     let body = {
       sociocortex: scConfig
     }
-    return this.http.put('users/'+this.authService.getUserId(), null, body);
+    return this.http.put('users/me', null, body);
   }
 
-  updateContactProviderSocioCortex(settings: any): Observable<any> {
+  public updateEmailProviderGMail(settings: any): Observable<any> {
+    return this.http.post('users/me/provider/email/gmail', null, settings);
+  }
+
+  public updateContactProviderSocioCortex(settings: any): Observable<any> {
     return this.http.post('users/me/provider/contacts/sociocortex', null, settings);
   }
 
-  getPatterns(): Observable<any> {
+  public getPatterns(): Observable<any> {
     return this.http.get('patterns', null, null);
   }
 
-  createPattern(pattern: string): Observable<any> {
+  public createPattern(pattern: string): Observable<any> {
     const body = {
       pattern: pattern
     };
     return this.http.post('patterns', null, body);
   }
 
-  deletePattern(pattern: any): Observable<any> {
+  public deletePattern(pattern: any): Observable<any> {
     return this.http.delete('patterns/'+pattern._id, null, null);
   }
 }
