@@ -27,7 +27,7 @@ export class LoginComponent {
     this._auth.logout();
   }
 
-  login() {
+  public login() {
     this._auth.login(this.model.username, this.model.password)
       .subscribe(result => {
         if (result === true) {
@@ -38,8 +38,8 @@ export class LoginComponent {
       });
   }
 
-  signup() {
-    this._auth.signup(this.model.username, this.model.password)
+  public signUp() {
+    this._auth.signUp(this.model.username, this.model.password)
       .subscribe(result => {
         if (result.status == 200) {
           this.login();

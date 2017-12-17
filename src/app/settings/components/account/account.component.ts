@@ -29,7 +29,7 @@ export class AccountComponent {
   ngOnInit() {
     this.userService.getUserInfo().subscribe((data: any) => {
       this.updateData(data);
-    })
+    });
   }
 
   updateData(data) {
