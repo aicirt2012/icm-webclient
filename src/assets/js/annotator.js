@@ -13556,9 +13556,9 @@ var Editor = exports.Editor = Widget.extend({
             });
         }
 
-        this.element
-            .find('.annotator-translate')
-            .addClass(this.classes.focus);
+        // this.element
+        //     .find('.annotator-translate')
+        //     .addClass(this.classes.focus);
 
         Widget.prototype.show.call(this);
 
@@ -13741,6 +13741,11 @@ var Editor = exports.Editor = Widget.extend({
         this.submit();
     },
 
+  triggerMouseEvent : function (node, eventType) {
+    var clickEvent = document.createEvent ('MouseEvents');
+    clickEvent.initEvent (eventType, true, true);
+    node.dispatchEvent (clickEvent);
+  },
     // Event callback: called when a user clicks the translate button.
     //
     // Returns nothing
@@ -13748,7 +13753,11 @@ var Editor = exports.Editor = Widget.extend({
       preventEventDefault(event);
         document.dispatchEvent(new CustomEvent("OnTranslationClick",{"detail":this.annotation.quote}));
        this.cancel();
-
+      // simulate mouseup to remove the adder after user click (bug in Annotator framework!)
+      if ( self.getSelection ) {
+        self.getSelection().removeAllRanges();
+        this.triggerMouseEvent (self.document.body, "mouseup");
+      }
     },
 
     // Event callback: called when a user clicks the search button.
@@ -13760,6 +13769,12 @@ var Editor = exports.Editor = Widget.extend({
       var wikiSearchEvent = new CustomEvent("OnSearchClick",{"detail":this.annotation.quote});
       document.dispatchEvent(wikiSearchEvent);
       this.cancel();
+      // simulate mouseup to remove the adder after user click (bug in Annotator framework!)
+
+      if ( self.getSelection ) {
+        self.getSelection().removeAllRanges();
+       this.triggerMouseEvent (self.document.body, "mouseup");
+      }
 
     },
 
@@ -13855,7 +13870,7 @@ Editor.template = [
 // Configuration options
 Editor.options = {
     // Add the default field(s) to the editor.
-    defaultFields: true
+    defaultFields: false
 };
 
 // standalone is a module that uses the Editor to display an editor widget
