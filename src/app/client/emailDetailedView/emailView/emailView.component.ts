@@ -1,13 +1,9 @@
 import { MatDialog } from '@angular/material';
 import { SentenceDialogComponent } from './sentenceDialog'; //sentenceDialog.component';
-import {
-  Component, Input, EventEmitter, Output, ViewChild, ElementRef,
-  HostListener
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ModalDirective } from 'ng2-bootstrap';
-import { Email } from '../../shared';
-import { AttachmentService } from '../../shared';
+import { AttachmentService, Email } from '../../shared';
 import { saveAs as importedSaveAs } from "file-saver";
 import { AuthService } from '../../../shared/services/auth.service';
 import C from '../../../shared/constants';
@@ -25,12 +21,10 @@ export class EmailViewComponent {
   @ViewChild('wrapper') wrapper: ElementRef;
   @ViewChild('iframe') iframe: ElementRef;
 
-  constructor(
-    private sanitizer: DomSanitizer,
-    public dialog: MatDialog,
-    private attachmentService: AttachmentService,
-    private authService: AuthService
-    ) {
+  constructor(private sanitizer: DomSanitizer,
+              public dialog: MatDialog,
+              private attachmentService: AttachmentService,
+              private authService: AuthService) {
   }
 
   ngOnChanges() {
@@ -55,19 +49,16 @@ export class EmailViewComponent {
     this.adjustIframeSize(iframe, topSection);
     this.injectAnnotationFramework(iframe);
 
-    function handleTranslation(e:CustomEvent) {
+    function handleTranslation(e: CustomEvent) {
+      document.dispatchEvent(new CustomEvent("OnTranslationClick", {"detail": e.detail}));
+    }
 
-      document.dispatchEvent(new CustomEvent("OnTranslationClick",{"detail":e.detail}));
+    function handleSearch(e: CustomEvent) {
+      document.dispatchEvent(new CustomEvent("OnSearchClick", {"detail": e.detail}));
     }
 
     iframe.contentDocument.addEventListener("OnTranslationClick", handleTranslation, false);
-
-    function handleSearch(e:CustomEvent) {
-      document.dispatchEvent(new CustomEvent("OnSearchClick",{"detail":e.detail}));
-    }
-
     iframe.contentDocument.addEventListener("OnSearchClick", handleSearch, false);
-
   }
 
   adjustIframeSize(iframe: HTMLIFrameElement, topSection: HTMLElement) {
@@ -92,7 +83,10 @@ export class EmailViewComponent {
     // include annotator framework and initialize
     scriptElement = iframe.contentDocument.createElement("script");
     scriptElement.setAttribute("src", "assets/js/annotator.js");
-    scriptElement.setAttribute("onload", "annotatorCustomExtensions.initAnnotator();");   // call init routine after loading
+    let annotations = "";
+    let scriptValue = "annotatorCustomExtensions.parentWindow.annotations = " + this.getAnnotationsAsString() + ";";
+    scriptValue += "annotatorCustomExtensions.initAnnotator();";
+    scriptElement.setAttribute("onload", scriptValue);   // call init routine after loading
     iframe.contentDocument.body.appendChild(scriptElement);
   }
 
@@ -111,6 +105,40 @@ export class EmailViewComponent {
       .subscribe((blob) => {
         importedSaveAs(blob, filename);
       });
+  }
+
+  private getAnnotationsAsString() {
+    let annotations = this.email.annotations;
+    let annotationString = "[";
+    for (let annotation in annotations) {
+      if (annotationString.length > 1) {
+        annotationString += ",";
+      }
+      annotationString += "{";
+      annotationString += "\"quote\": \"" + annotation['value'] + "\",";
+      annotationString += "\"text\": \"Dummy Description\",";
+      annotationString += "\"ranges\": " + this.getRangesAsString(annotation);
+      annotationString += "}";
+    }
+    annotationString += "]";
+    return annotationString;
+  }
+
+  private getRangesAsString(annotation) {
+    let rangesString = "[";
+    for (let range in annotation['ranges']) {
+      if (rangesString.length > 1) {
+        rangesString += ",";
+      }
+      rangesString += "{";
+      rangesString += "\"start\": \"" + range['xPathStart'] + "\",";
+      rangesString += "\"startOffset\": " + range['offsetStart'] + ",";
+      rangesString += "\"end\": \"" + range['xPathEnd'] + "\",";
+      rangesString += "\"endOffset\": " + range['offsetEnd'];
+      rangesString += "}";
+    }
+    rangesString += "]";
+    return rangesString;
   }
 
 }
