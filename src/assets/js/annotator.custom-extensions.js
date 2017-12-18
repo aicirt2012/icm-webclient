@@ -1,5 +1,7 @@
 var annotatorCustomExtensions = {};
 
+annotatorCustomExtensions.annotations = [];
+
 /**
  * function:: initAnnotator()
  *
@@ -33,8 +35,6 @@ annotatorCustomExtensions.parentwindow = function () {
     console.debug("annotator.storage.parentwindow: " + action, copyAnno);
   }
 
-  var annotations = [];
-
   return {
     create: function (annotation) {
       // annotation.id = id();
@@ -55,8 +55,8 @@ annotatorCustomExtensions.parentwindow = function () {
     query: function (queryObj) {
       trace('query', queryObj);
       var result = {
-        meta: {total: annotations.length},
-        results: annotations
+        meta: {total: annotatorCustomExtensions.annotations.length},
+        results: annotatorCustomExtensions.annotations
       };
       trace("query result", result);
       return result;

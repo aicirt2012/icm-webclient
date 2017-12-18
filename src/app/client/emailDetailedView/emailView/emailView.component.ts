@@ -83,8 +83,7 @@ export class EmailViewComponent {
     // include annotator framework and initialize
     scriptElement = iframe.contentDocument.createElement("script");
     scriptElement.setAttribute("src", "assets/js/annotator.js");
-    let annotations = "";
-    let scriptValue = "annotatorCustomExtensions.parentWindow.annotations = " + this.getAnnotationsAsString() + ";";
+    let scriptValue = "annotatorCustomExtensions.annotations = " + this.getAnnotationsAsString() + ";";
     scriptValue += "annotatorCustomExtensions.initAnnotator();";
     scriptElement.setAttribute("onload", scriptValue);   // call init routine after loading
     iframe.contentDocument.body.appendChild(scriptElement);
@@ -110,13 +109,14 @@ export class EmailViewComponent {
   private getAnnotationsAsString() {
     let annotations = this.email.annotations;
     let annotationString = "[";
-    for (let annotation in annotations) {
+    for (let index in annotations) {
+      let annotation = annotations[index];
       if (annotationString.length > 1) {
         annotationString += ",";
       }
       annotationString += "{";
       annotationString += "\"quote\": \"" + annotation['value'] + "\",";
-      annotationString += "\"text\": \"Dummy Description\",";
+      annotationString += "\"text\": \"" + annotation['nerType'] + "\",";
       annotationString += "\"ranges\": " + this.getRangesAsString(annotation);
       annotationString += "}";
     }
@@ -126,7 +126,8 @@ export class EmailViewComponent {
 
   private getRangesAsString(annotation) {
     let rangesString = "[";
-    for (let range in annotation['ranges']) {
+    for (let index in annotation['ranges']) {
+      let range = annotation['ranges'][index];
       if (rangesString.length > 1) {
         rangesString += ",";
       }
