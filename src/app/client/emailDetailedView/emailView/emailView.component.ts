@@ -111,14 +111,16 @@ export class EmailViewComponent {
     let annotationString = "[";
     for (let index in annotations) {
       let annotation = annotations[index];
-      if (annotationString.length > 1) {
-        annotationString += ",";
+      if (annotation['nerType'].equals("PERSON") || annotation['nerType'].equals("ORGANIZATION") || annotation['nerType'].equals("LOCATION")) {
+        if (annotationString.length > 1) {
+          annotationString += ",";
+        }
+        annotationString += "{";
+        annotationString += "\"quote\": \"" + annotation['value'] + "\",";
+        annotationString += "\"text\": \"" + annotation['nerType'] + "\",";
+        annotationString += "\"ranges\": " + this.getRangesAsString(annotation);
+        annotationString += "}";
       }
-      annotationString += "{";
-      annotationString += "\"quote\": \"" + annotation['value'] + "\",";
-      annotationString += "\"text\": \"" + annotation['nerType'] + "\",";
-      annotationString += "\"ranges\": " + this.getRangesAsString(annotation);
-      annotationString += "}";
     }
     annotationString += "]";
     return annotationString;
