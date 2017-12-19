@@ -111,7 +111,7 @@ export class EmailViewComponent {
     let annotationString = "[";
     for (let index in annotations) {
       let annotation = annotations[index];
-      if (annotation['nerType'].equals("PERSON") || annotation['nerType'].equals("ORGANIZATION") || annotation['nerType'].equals("LOCATION")) {
+      if (annotation['nerType'] === "PERSON" || annotation['nerType'] === "ORGANIZATION" || annotation['nerType'] === "LOCATION") {
         if (annotationString.length > 1) {
           annotationString += ",";
         }
