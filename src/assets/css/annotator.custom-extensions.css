@@ -1,21 +1,25 @@
 .annotator-custom-reset.annotator-adder {
   /* Reset default framework styling */
-  /*background-image: none;*/
+  background-image: none;
   /* Set position */
-  margin-top: -48px;
-  margin-left: -24px;
-  width: 48px;
-  height: 48px;
-}
-
-.annotator-custom-reset.annotator-adder button {
-  /* Reset default framework styling */
   margin-top: 0;
   margin-left: 0;
   width: 0;
   height: 0;
-  background-image: none;
-  text-indent: 0;
+}
+
+/*.annotator-custom-reset.annotator-adder button {*/
+/*!* Reset default framework styling *!*/
+/*margin-top: 0;*/
+/*margin-left: 0;*/
+/*width: 0;*/
+/*height: 0;*/
+/*background-image: none;*/
+/*text-indent: 0;*/
+/*}*/
+
+.annotator-custom-reset.annotator-adder .annotator-widget {
+  min-width: inherit;
 }
 
 .annotator-custom-reset.annotator-viewer .annotator-controls {
@@ -24,5 +28,10 @@
 }
 
 .annotator-custom-container {
+  display: flex;
+}
 
+.annotator-custom-container .annotator-custom-action {
+  padding: 16px;
+  font-size: 14px;
 }

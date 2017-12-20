@@ -97,17 +97,20 @@ annotatorCustomExtensions.injectCustomElements = function () {
   function getCustomContainer() {
     var customContainer = document.createElement("div");
     customContainer.classList.add('annotator-custom-container');
+    customContainer.classList.add('annotator-widget');
     return customContainer;
   }
 
   function getButtonTranslate() {
-    var customButton = document.createElement("button");
+    var customButton = document.createElement("div");
+    customButton.classList.add("annotator-custom-action");
     customButton.appendChild(document.createTextNode("Translate"));
     return customButton;
   }
 
   function getButtonWikipedia() {
-    var customButton = document.createElement("button");
+    var customButton = document.createElement("div");
+    customButton.classList.add("annotator-custom-action");
     customButton.appendChild(document.createTextNode("Wikipedia"));
     return customButton;
   }
