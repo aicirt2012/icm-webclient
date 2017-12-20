@@ -18,6 +18,7 @@ annotatorCustomExtensions.initAnnotator = function () {
     .then(function () {
       app.annotations.load({});
     });
+  annotatorCustomExtensions.injectCustomElements();
 };
 
 /**
@@ -66,4 +67,41 @@ annotatorCustomExtensions.parentwindow = function () {
       registry.registerUtility(this, 'storage');
     }
   };
+};
+
+annotatorCustomExtensions.injectCustomElements = function () {
+  var adderContainers = document.getElementsByClassName("annotator-adder");
+  for (var index = 0; index < adderContainers.length; index++) {
+    var adderContainer = adderContainers[index];
+    clearContainer(adderContainer);
+    var customContainer = getCustomContainer();
+    customContainer.appendChild(getButtonTranslate());
+    customContainer.appendChild(getButtonWikipedia());
+    adderContainer.appendChild(customContainer);
+  }
+
+  function clearContainer(container) {
+    while (container.firstChild) {
+      container.removeChild(container.firstChild);
+    }
+  }
+
+  function getCustomContainer() {
+    var customContainer = document.createElement("div");
+    customContainer.classList.add('annotator-custom-container');
+    return customContainer;
+  }
+
+  function getButtonTranslate() {
+    var customButton = document.createElement("button");
+    customButton.appendChild(document.createTextNode("Translate"));
+    return customButton;
+  }
+
+  function getButtonWikipedia() {
+    var customButton = document.createElement("button");
+    customButton.appendChild(document.createTextNode("Wikipedia"));
+    return customButton;
+  }
+
 };
