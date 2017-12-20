@@ -74,6 +74,7 @@ annotatorCustomExtensions.injectCustomElements = function () {
   for (var index = 0; index < adderContainers.length; index++) {
     var adderContainer = adderContainers[index];
     clearContainer(adderContainer);
+    adderContainer.classList.add("annotator-custom-reset");
     var customContainer = getCustomContainer();
     customContainer.appendChild(getButtonTranslate());
     customContainer.appendChild(getButtonWikipedia());
