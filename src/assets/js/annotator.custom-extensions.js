@@ -104,6 +104,10 @@ annotatorCustomExtensions.injectCustomElements = function () {
   function getButtonTranslate() {
     var customButton = document.createElement("div");
     customButton.classList.add("annotator-custom-action");
+    // var buttonIcon = document.createElement("i");
+    // buttonIcon.classList.add("material-icons");
+    // buttonIcon.appendChild(document.createTextNode("translate"));
+    // customButton.appendChild(buttonIcon);
     customButton.appendChild(document.createTextNode("Translate"));
     return customButton;
   }
@@ -111,6 +115,10 @@ annotatorCustomExtensions.injectCustomElements = function () {
   function getButtonWikipedia() {
     var customButton = document.createElement("div");
     customButton.classList.add("annotator-custom-action");
+    // var buttonIcon = document.createElement("i");
+    // buttonIcon.classList.add("material-icons");
+    // buttonIcon.appendChild(document.createTextNode("wikipedia"));
+    // customButton.appendChild(buttonIcon);
     customButton.appendChild(document.createTextNode("Wikipedia"));
     return customButton;
   }

@@ -75,8 +75,14 @@ export class EmailViewComponent {
   }
 
   injectAnnotationFramework(iframe: HTMLIFrameElement) {
-    // include styling for custom extensions
+    // include icons used in tooltips
     let styleElement = iframe.contentDocument.createElement("link");
+    styleElement.setAttribute("rel", "stylesheet");
+    styleElement.setAttribute("href", "https://fonts.googleapis.com/icon?family=Material+Icons");
+    iframe.contentDocument.head.appendChild(styleElement);
+
+    // include styling for custom extensions
+    styleElement = iframe.contentDocument.createElement("link");
     styleElement.setAttribute("rel", "stylesheet");
     styleElement.setAttribute("href", "assets/css/annotator.custom-extensions.css");
     iframe.contentDocument.head.appendChild(styleElement);
