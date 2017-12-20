@@ -104,6 +104,9 @@ annotatorCustomExtensions.injectCustomElements = function () {
   function getButtonTranslate() {
     var customButton = document.createElement("div");
     customButton.classList.add("annotator-custom-action");
+    customButton.setAttribute("onclick", "debugger;");
+    //TODO parse current selection into an annotation using the internal annotator.js method for doing so
+    // customButton.setAttribute("onclick", "document.dispatchEvent(new CustomEvent(\"OnTranslationClick\",{\"detail\":this.annotation.quote}));");
     // var buttonIcon = document.createElement("i");
     // buttonIcon.classList.add("material-icons");
     // buttonIcon.appendChild(document.createTextNode("translate"));
@@ -115,6 +118,7 @@ annotatorCustomExtensions.injectCustomElements = function () {
   function getButtonWikipedia() {
     var customButton = document.createElement("div");
     customButton.classList.add("annotator-custom-action");
+    customButton.setAttribute("onclick", "document.dispatchEvent(new CustomEvent(\"OnSearchClick\",{\"detail\":this.annotation.quote}));");
     // var buttonIcon = document.createElement("i");
     // buttonIcon.classList.add("material-icons");
     // buttonIcon.appendChild(document.createTextNode("wikipedia"));
