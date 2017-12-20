@@ -75,6 +75,12 @@ export class EmailViewComponent {
   }
 
   injectAnnotationFramework(iframe: HTMLIFrameElement) {
+    // include styling for custom extensions
+    let styleElement = iframe.contentDocument.createElement("link");
+    styleElement.setAttribute("rel", "stylesheet");
+    styleElement.setAttribute("href", "assets/css/annotator.custom-extensions.css");
+    iframe.contentDocument.head.appendChild(styleElement);
+
     // include annotator custom extensions
     let scriptElement = iframe.contentDocument.createElement("script");
     scriptElement.setAttribute("src", "assets/js/annotator.custom-extensions.js");
