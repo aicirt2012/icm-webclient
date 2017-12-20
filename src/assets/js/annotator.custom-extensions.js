@@ -70,6 +70,7 @@ annotatorCustomExtensions.parentwindow = function () {
 };
 
 annotatorCustomExtensions.injectCustomElements = function () {
+  // update add dialogue
   var adderContainers = document.getElementsByClassName("annotator-adder");
   for (var index = 0; index < adderContainers.length; index++) {
     var adderContainer = adderContainers[index];
@@ -79,6 +80,12 @@ annotatorCustomExtensions.injectCustomElements = function () {
     customContainer.appendChild(getButtonTranslate());
     customContainer.appendChild(getButtonWikipedia());
     adderContainer.appendChild(customContainer);
+  }
+  // update view dialogue
+  var viewerContainers = document.getElementsByClassName("annotator-viewer");
+  for (index = 0; index < viewerContainers.length; index++) {
+    var viewerContainer = viewerContainers[index];
+    viewerContainer.classList.add("annotator-custom-reset");
   }
 
   function clearContainer(container) {

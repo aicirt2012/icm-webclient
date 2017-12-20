@@ -18,6 +18,11 @@
   text-indent: 0;
 }
 
+.annotator-custom-reset.annotator-viewer .annotator-controls {
+  /* Hide edit/delete controls when viewing annotations */
+  display: none;
+}
+
 .annotator-custom-container {
 
 }
