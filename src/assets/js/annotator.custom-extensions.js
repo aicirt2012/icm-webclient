@@ -103,27 +103,30 @@ annotatorCustomExtensions.injectCustomElements = function () {
   }
 
   function getButtonTranslate() {
-    var customButton = document.createElement("div");
+    var customButton = document.createElement("a");
     customButton.classList.add("annotator-custom-action");
-    customButton.setAttribute("onclick", "debugger;");
     customButton.setAttribute("onclick", "document.dispatchEvent(new CustomEvent(\"OnTranslationClick\",{\"detail\":annotatorCustomExtensions.currentSelection.quote}));");
     // var buttonIcon = document.createElement("i");
     // buttonIcon.classList.add("material-icons");
     // buttonIcon.appendChild(document.createTextNode("translate"));
     // customButton.appendChild(buttonIcon);
-    customButton.appendChild(document.createTextNode("Translate"));
+    var buttonLabel = document.createElement("span");
+    buttonLabel.appendChild(document.createTextNode("Translate"));
+    customButton.appendChild(buttonLabel);
     return customButton;
   }
 
   function getButtonWikipedia() {
-    var customButton = document.createElement("div");
+    var customButton = document.createElement("a");
     customButton.classList.add("annotator-custom-action");
     customButton.setAttribute("onclick", "document.dispatchEvent(new CustomEvent(\"OnSearchClick\",{\"detail\":annotatorCustomExtensions.currentSelection.quote}));");
     // var buttonIcon = document.createElement("i");
     // buttonIcon.classList.add("material-icons");
     // buttonIcon.appendChild(document.createTextNode("wikipedia"));
     // customButton.appendChild(buttonIcon);
-    customButton.appendChild(document.createTextNode("Wikipedia"));
+    var buttonLabel = document.createElement("span");
+    buttonLabel.appendChild(document.createTextNode("Wikipedia"));
+    customButton.appendChild(buttonLabel);
     return customButton;
   }
 
