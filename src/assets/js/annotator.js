@@ -13164,6 +13164,7 @@ var Adder = Widget.extend({
     // Returns nothing.
     load: function (annotation, position) {
         this.annotation = annotation;
+        annotatorCustomExtensions.currentSelection = annotation;
         this.show(position);
     },
 
