@@ -34,6 +34,8 @@ export class ContextComponent {
     })
   }
 
+  // TODO add a way for setting search terms from within the bars to allow for remembering the last searched term
+
   handlePersonSearchEvent(event: CustomEvent) {
     if (!this.isTabOpen("network"))
       this.openTab("network");
