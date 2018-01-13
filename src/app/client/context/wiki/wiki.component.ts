@@ -1,14 +1,13 @@
-import { Component, Input, ElementRef} from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import { WikiService } from '../../shared/wiki.service'
 
 @Component({
   selector: 'wiki',
   styleUrls: ['./wiki.component.css'],
   templateUrl: './wiki.component.html',
-
 })
 
-export class WikiComponent{
+export class WikiComponent {
 
   private content: any;
   private _query: string = 'Munich';
@@ -16,17 +15,20 @@ export class WikiComponent{
 
   @Input()
   set query(query: string) {
-    if(query) {
+    if (query) {
       query = query.trim();
     }
-    if(query) {
-      this._query = query
+    if (query) {
+      this._query = query;
       this.search();
     }
     else
-      this._query =  'Please select text to search';
+      this._query = 'Please select text to search';
   }
-  get query(): string { return this._query; }
+
+  get query(): string {
+    return this._query;
+  }
 
 
   constructor(private ws: WikiService, private element: ElementRef) {
@@ -35,31 +37,31 @@ export class WikiComponent{
   ngOnInit() {
   }
 
-  search(){
+  search() {
     this.loading = true;
-    this.ws.search(this._query).subscribe(data=>{
+    this.ws.search(this._query).subscribe(data => {
       this.content = data.teaser;
       this.loading = false;
-      window.setTimeout(()=>{
+      window.setTimeout(() => {
         this.addEvents();
-      },10);
+      }, 10);
     });
   }
 
   addEvents() {
     const me = this;
-    me.element.nativeElement.querySelectorAll('.wiki-link').forEach((e)=> {
-      e.addEventListener('click', ()=>{
+    me.element.nativeElement.querySelectorAll('.wiki-link').forEach((e) => {
+      e.addEventListener('click', () => {
         me.query = e.getAttribute('title');
         me.search();
       });
       const baseStyle = 'color:#666;';
       const hoverStyle = 'color:red; cursor:pointer;';
       e.setAttribute('style', baseStyle);
-      e.addEventListener('mouseover', ()=>{
+      e.addEventListener('mouseover', () => {
         e.setAttribute('style', hoverStyle);
       });
-      e.addEventListener('mouseout', ()=>{
+      e.addEventListener('mouseout', () => {
         e.setAttribute('style', baseStyle);
       });
     });
