@@ -13,6 +13,7 @@ export class TranslateComponent {
 
   private content: any;
   private _query: string = this.DEFAULT_QUERY_VALUE;
+  private loading: boolean = false;
 
   @Input()
   set query(query: string) {
@@ -39,8 +40,10 @@ export class TranslateComponent {
   translate() {
     if (this._query === this.DEFAULT_QUERY_VALUE)
       return;
+    this.loading = true;
     this.ts.translate(this._query).subscribe(data => {
       this.content = data;
+      this.loading = false;
     });
   }
 
