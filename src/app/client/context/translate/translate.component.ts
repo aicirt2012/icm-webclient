@@ -9,8 +9,10 @@ import { TranslateService } from '../../shared/translate.service'
 
 export class TranslateComponent {
 
+  private readonly DEFAULT_QUERY_VALUE: string = 'Please select or enter text to translate';
+
   private content: any;
-  public _query: string = 'Please select or enter text to translate';
+  private _query: string = this.DEFAULT_QUERY_VALUE;
 
   @Input()
   set query(query: string) {
@@ -21,13 +23,12 @@ export class TranslateComponent {
       this._query = query;
       this.translate();
     }
-    else this._query = 'Please select or enter text to translate';
+    else this._query = this.DEFAULT_QUERY_VALUE;
   }
 
   get query(): string {
     return this._query;
   }
-
 
   constructor(private ts: TranslateService) {
   }
@@ -36,6 +37,8 @@ export class TranslateComponent {
   }
 
   translate() {
+    if (this._query === this.DEFAULT_QUERY_VALUE)
+      return;
     this.ts.translate(this._query).subscribe(data => {
       this.content = data;
     });

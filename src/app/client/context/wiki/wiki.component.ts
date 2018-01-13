@@ -9,8 +9,10 @@ import { WikiService } from '../../shared/wiki.service'
 
 export class WikiComponent {
 
+  private readonly DEFAULT_QUERY_VALUE: string = 'Please select or enter text to look up';
+
   private content: any;
-  private _query: string = 'Please select or enter text to look up';
+  private _query: string = this.DEFAULT_QUERY_VALUE;
   private loading: boolean = false;
 
   @Input()
@@ -23,7 +25,7 @@ export class WikiComponent {
       this.search();
     }
     else
-      this._query = 'Please select or enter text to look up';
+      this._query = this.DEFAULT_QUERY_VALUE;
   }
 
   get query(): string {
@@ -37,6 +39,8 @@ export class WikiComponent {
   }
 
   search() {
+    if (this._query === this.DEFAULT_QUERY_VALUE)
+      return;
     this.loading = true;
     this.ws.search(this._query).subscribe(data => {
       this.content = data.teaser;
@@ -65,6 +69,5 @@ export class WikiComponent {
       });
     });
   }
-
 
 }

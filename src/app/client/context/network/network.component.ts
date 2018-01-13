@@ -9,8 +9,10 @@ import { NetworkService } from '../../shared/network.service'
 
 export class NetworkComponent {
 
+  private readonly DEFAULT_QUERY_VALUE: string = 'Please select or enter a name to search';
+
   private contacts: any;
-  public _query: string = 'Please select or enter a name to search';
+  private _query: string = this.DEFAULT_QUERY_VALUE;
   private loading: boolean = false;
 
   @Input()
@@ -23,7 +25,7 @@ export class NetworkComponent {
       this.search();
     }
     else
-      this._query = 'Please select or enter a name to search';
+      this._query = this.DEFAULT_QUERY_VALUE;
   }
 
   get query(): string {
@@ -41,6 +43,8 @@ export class NetworkComponent {
   }
 
   public search() {
+    if (this._query === this.DEFAULT_QUERY_VALUE)
+      return;
     this.loading = true;
     this.nt.search(this._query).subscribe((contacts) => {
       this.contacts = contacts;
