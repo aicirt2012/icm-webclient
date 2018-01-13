@@ -23,13 +23,12 @@ export class WikiComponent {
       this.search();
     }
     else
-      this._query = 'Please select text to search';
+      this._query = 'Please select or enter text to search';
   }
 
   get query(): string {
     return this._query;
   }
-
 
   constructor(private ws: WikiService, private element: ElementRef) {
   }

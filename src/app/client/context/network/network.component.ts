@@ -1,4 +1,4 @@
-import { Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NetworkService } from '../../shared/network.service'
 
 @Component({
@@ -7,25 +7,42 @@ import { NetworkService } from '../../shared/network.service'
   templateUrl: './network.component.html'
 })
 
-export class NetworkComponent{
+export class NetworkComponent {
 
   private contacts: any;
-  private query: string = 'Max Mustermann';
+  private _query: string = 'Max Mustermann';
   private loading: boolean = false;
+
+  @Input()
+  set query(query: string) {
+    if (query) {
+      query = query.trim();
+    }
+    if (query) {
+      this._query = query;
+      this.search();
+    }
+    else
+      this._query = 'Please select or enter a name to search';
+  }
+
+  get query(): string {
+    return this._query;
+  }
 
   constructor(private nt: NetworkService) {
   }
 
   public ngOnInit() {
-    this.nt.list().subscribe((contacts)=>{
+    this.nt.list().subscribe((contacts) => {
       this.contacts = contacts;
       this.loading = false;
     });
   }
 
-  public search(){
+  public search() {
     this.loading = true;
-    this.nt.search(this.query).subscribe((contacts)=>{
+    this.nt.search(this._query).subscribe((contacts) => {
       this.contacts = contacts;
       this.loading = false;
     });

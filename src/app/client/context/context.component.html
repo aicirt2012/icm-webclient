@@ -3,7 +3,7 @@
     <tasks *ngIf="isTabOpen('tasks')" [email]="email" fxFlex></tasks>
     <network *ngIf="isTabOpen('network')" fxFlex></network>
     <wiki *ngIf="isTabOpen('wiki')" [query]="wikipediaSearchTerm" fxFlex></wiki>
-    <translate *ngIf="isTabOpen('translate')" [word]="translationSearchTerm" fxFlex></translate>
+    <translate *ngIf="isTabOpen('translate')" [query]="translationSearchTerm" fxFlex></translate>
     <div fxBasis="25px" fxGrow="0" fxShrink="0">
       <div fxLayout="column" fxLayoutAlign="space-between stretch" class="full-height">
           <div class="ctxTab" [class.selected]="isTabOpen('tasks')" fxLayoutAlign="center center" (click)="openTab('tasks')">

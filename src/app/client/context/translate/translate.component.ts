@@ -10,22 +10,22 @@ import { TranslateService } from '../../shared/translate.service'
 export class TranslateComponent {
 
   private content: any;
-  public _word: string = 'heft';
+  public _query: string = 'heft';
 
   @Input()
-  set word(word: string) {
-    if (word) {
-      word = word.trim();
+  set query(query: string) {
+    if (query) {
+      query = query.trim();
     }
-    if (word) {
-      this._word = word;
+    if (query) {
+      this._query = query;
       this.translate();
     }
-    else this._word = 'Please select text to translate';
+    else this._query = 'Please select or enter text to translate';
   }
 
-  get word(): string {
-    return this._word;
+  get query(): string {
+    return this._query;
   }
 
 
@@ -36,7 +36,7 @@ export class TranslateComponent {
   }
 
   translate() {
-    this.ts.translate(this._word).subscribe(data => {
+    this.ts.translate(this._query).subscribe(data => {
       this.content = data;
     });
   }
