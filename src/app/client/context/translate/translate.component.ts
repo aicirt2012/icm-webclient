@@ -10,7 +10,7 @@ import { TranslateService } from '../../shared/translate.service'
 export class TranslateComponent {
 
   private content: any;
-  public _query: string = 'heft';
+  public _query: string = 'Please select or enter text to translate';
 
   @Input()
   set query(query: string) {

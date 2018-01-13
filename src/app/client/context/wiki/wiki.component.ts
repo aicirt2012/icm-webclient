@@ -10,7 +10,7 @@ import { WikiService } from '../../shared/wiki.service'
 export class WikiComponent {
 
   private content: any;
-  private _query: string = 'Munich';
+  private _query: string = 'Please select or enter text to look up';
   private loading: boolean = false;
 
   @Input()
@@ -23,7 +23,7 @@ export class WikiComponent {
       this.search();
     }
     else
-      this._query = 'Please select or enter text to search';
+      this._query = 'Please select or enter text to look up';
   }
 
   get query(): string {

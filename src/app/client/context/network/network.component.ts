@@ -10,7 +10,7 @@ import { NetworkService } from '../../shared/network.service'
 export class NetworkComponent {
 
   private contacts: any;
-  private _query: string = 'Max Mustermann';
+  public _query: string = 'Please select or enter a name to search';
   private loading: boolean = false;
 
   @Input()
