@@ -1,22 +1,22 @@
 <div fxLayout="column" class="full-height">
   <div fxLayout="row" class="full-height">
-    <tasks *ngIf="isOpenTab('tasks')" [email]="email" fxFlex></tasks>
-    <network *ngIf="isOpenTab('network')" fxFlex></network>
-    <wiki *ngIf="isOpenTab('wiki')" [query]="searchInput" fxFlex></wiki>
-    <translate *ngIf="isOpenTab('translate')" [word]="translationInput" fxFlex></translate>
+    <tasks *ngIf="isTabOpen('tasks')" [email]="email" fxFlex></tasks>
+    <network *ngIf="isTabOpen('network')" fxFlex></network>
+    <wiki *ngIf="isTabOpen('wiki')" [query]="wikipediaSearchTerm" fxFlex></wiki>
+    <translate *ngIf="isTabOpen('translate')" [word]="translationSearchTerm" fxFlex></translate>
     <div fxBasis="25px" fxGrow="0" fxShrink="0">
       <div fxLayout="column" fxLayoutAlign="space-between stretch" class="full-height">
-          <div class="ctxTab" [class.selected]="isOpenTab('tasks')" fxLayoutAlign="center center" (click)="openTab('tasks')">
-            <context-tab text="Tasks" svgHeight="50" [active]="isOpenTab('tasks')"></context-tab>
+          <div class="ctxTab" [class.selected]="isTabOpen('tasks')" fxLayoutAlign="center center" (click)="openTab('tasks')">
+            <context-tab text="Tasks" svgHeight="50" [active]="isTabOpen('tasks')"></context-tab>
           </div>
-          <div class="ctxTab" [class.selected]="isOpenTab('network')" fxLayoutAlign="center center" (click)="openTab('network')">
-            <context-tab text="Person Network" svgHeight="120" [active]="isOpenTab('network')"></context-tab>
+          <div class="ctxTab" [class.selected]="isTabOpen('network')" fxLayoutAlign="center center" (click)="openTab('network')">
+            <context-tab text="Person Network" svgHeight="120" [active]="isTabOpen('network')"></context-tab>
           </div>
-          <div class="ctxTab" [class.selected]="isOpenTab('wiki')" fxLayoutAlign="center center" (click)="openTab('wiki')">
-            <context-tab text="Wikipedia" svgHeight="80" [active]="isOpenTab('wiki')"></context-tab>
+          <div class="ctxTab" [class.selected]="isTabOpen('wiki')" fxLayoutAlign="center center" (click)="openTab('wiki')">
+            <context-tab text="Wikipedia" svgHeight="80" [active]="isTabOpen('wiki')"></context-tab>
           </div>
-          <div class="ctxTab" [class.selected]="isOpenTab('translate')" fxLayoutAlign="center center" (click)="openTab('translate')">
-            <context-tab text="Translate" svgHeight="80" [active]="isOpenTab('translate')"></context-tab>
+          <div class="ctxTab" [class.selected]="isTabOpen('translate')" fxLayoutAlign="center center" (click)="openTab('translate')">
+            <context-tab text="Translate" svgHeight="80" [active]="isTabOpen('translate')"></context-tab>
           </div>
       </div>
     </div>
