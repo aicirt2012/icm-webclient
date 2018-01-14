@@ -30,7 +30,7 @@
   </div>
   <div fxFlex fxLayout="row" fxLayoutAlign="center stretch" *ngIf="email">
     <div *ngIf="email.html" class="iframe-container">
-      <iframe #iframe [srcdoc]="email.html" (load)="adjustIframeSize(iframe, topSection)">
+      <iframe #iframe [srcdoc]="email.html" (load)="onIframeLoad(iframe, topSection)">
       </iframe>
     </div>
     <div *ngIf="!email.html">

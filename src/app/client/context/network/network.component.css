@@ -1,0 +1,7 @@
+.network-content {
+  font-size: 14px !important;
+  text-align: justify;
+  padding: 10px;
+  padding-top: 5px;
+  overflow-y: auto;
+}

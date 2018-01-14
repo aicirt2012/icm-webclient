@@ -1,0 +1,54 @@
+.annotator-custom-reset.annotator-adder {
+  /* Reset default framework styling */
+  background-image: none;
+  /* Set position */
+  margin-top: 0;
+  margin-left: 0;
+  width: 0;
+  height: 0;
+}
+
+.annotator-custom-reset.annotator-adder .annotator-widget {
+  min-width: inherit;
+}
+
+.annotator-custom-reset.annotator-viewer .annotator-controls {
+  /* Hide edit/delete controls when viewing annotations */
+  display: none;
+}
+
+.annotator-custom-container {
+  display: flex;
+}
+
+.annotator-custom-container .annotator-custom-action {
+  /* styles from material design */
+  padding: 5px 16px 5px 16px;
+  background-color: #20c9a1;
+  border-radius: 2px;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+  transform: translate3d(0, 0, 0); /* kind of a hack to enable hardware acceleration in most browsers */
+  transition: background .4s cubic-bezier(.25, .8, .25, 1), box-shadow 280ms cubic-bezier(.4, 0, .2, 1); /* smooth transition on click */
+
+  /* custom styles */
+  display: flex;
+  align-items: center;
+  margin: 5px 5px 5px 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.annotator-custom-container .annotator-custom-action:active {
+  /* styles from material design */
+  background-color: #1aa181;
+}
+
+.annotator-custom-container .annotator-custom-action span {
+  /* styles from material design */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Roboto', sans-serif;
+
+  /* custom styles */
+  color: white;
+}
