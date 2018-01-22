@@ -17,6 +17,10 @@
     <spinner [loading]="loading"></spinner>
   </div>
 
+  <div fxLayout="row" *ngIf="_query && !loading && (!content || content.length == 0)" fxFlex>
+    <span>No translations found!</span>
+  </div>
+
   <div fxLayout="row" *ngFor="let c of content" class="block">
     <div>
       <div class="source">

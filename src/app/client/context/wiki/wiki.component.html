@@ -17,8 +17,12 @@
     <spinner [loading]="loading"></spinner>
   </div>
 
-  <div fxLayout="row" *ngIf="!loading && _query">
-    <div *ngIf="!loading" [innerHTML]="content"></div>
+  <div fxLayout="row" *ngIf="_query && !loading && (!content || content.length == 0)" fxFlex>
+    <span>No articles found!</span>
+  </div>
+
+  <div fxLayout="row" *ngIf="_query && !loading">
+    <div [innerHTML]="content"></div>
   </div>
 
 </div>
