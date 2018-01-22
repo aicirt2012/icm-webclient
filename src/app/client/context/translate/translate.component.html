@@ -9,6 +9,10 @@
     </button>
   </div>
 
+  <div fxLayout="row" *ngIf="!_query" fxFlex>
+    <span>Please select or enter text to translate.</span>
+  </div>
+
   <div fxLayout="row" *ngIf="loading" fxFlex>
     <spinner [loading]="loading"></spinner>
   </div>

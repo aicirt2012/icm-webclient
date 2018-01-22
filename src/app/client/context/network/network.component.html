@@ -1,17 +1,25 @@
-
 <div fxLayout="column" class="full-height network-content">
   <div fxLayout="row">
     <mat-input-container fxFlex floatingPlaceholder="false">
-        <input matInput placeholder="Search for contacts..." [(ngModel)]="query" (keyup.enter)="search()">
+      <input matInput placeholder="Search for contacts..." [(ngModel)]="query" (keyup.enter)="search()">
     </mat-input-container>
     <button mat-icon-button (click)="search()">
-        <mat-icon class="mat-24">search</mat-icon>
+      <mat-icon class="mat-24">search</mat-icon>
     </button>
   </div>
+
+
+  <div fxLayout="row" *ngIf="!_query" fxFlex>
+    <span>Please select or enter a name to search.</span>
+  </div>
+
+  <div fxLayout="row" *ngIf="loading" fxFlex>
+    <spinner [loading]="loading"></spinner>
+  </div>
+
   <div fxLayout="row" fxFlex>
-    <spinner *ngIf="loading" [loading]="loading"></spinner>
-    <div *ngIf="!loading">
-      <span *ngIf="contacts != null && contacts.length == 0">No contacts found!</span>
+    <div *ngIf="!loading && _query">
+      <span *ngIf="contacts && contacts.length == 0">No contacts found!</span>
       <div *ngFor="let contact of contacts">
         {{contact.firstName}} {{contact.lastName}}
       </div>

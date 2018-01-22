@@ -9,8 +9,15 @@
     </button>
   </div>
 
-  <div fxLayout="row" fxFlex>
-    <spinner *ngIf="loading" [loading]="loading"></spinner>
+  <div fxLayout="row" *ngIf="!_query" fxFlex>
+    <span>Please select or enter text to lookup.</span>
+  </div>
+
+  <div fxLayout="row" *ngIf="loading" fxFlex>
+    <spinner [loading]="loading"></spinner>
+  </div>
+
+  <div fxLayout="row" *ngIf="!loading && _query">
     <div *ngIf="!loading" [innerHTML]="content"></div>
   </div>
 
