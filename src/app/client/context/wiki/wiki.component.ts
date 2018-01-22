@@ -9,7 +9,7 @@ import { WikiService } from '../../shared/wiki.service'
 
 export class WikiComponent {
 
-  private readonly DEFAULT_QUERY_VALUE: string = 'Please select or enter text to look up';
+  private readonly DEFAULT_QUERY_VALUE: string = '';
 
   private content: any;
   private _query: string = this.DEFAULT_QUERY_VALUE;

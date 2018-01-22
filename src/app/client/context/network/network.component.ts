@@ -9,7 +9,7 @@ import { NetworkService } from '../../shared/network.service'
 
 export class NetworkComponent {
 
-  private readonly DEFAULT_QUERY_VALUE: string = 'Please select or enter a name to search';
+  private readonly DEFAULT_QUERY_VALUE: string = '';
 
   private contacts: any;
   private _query: string = this.DEFAULT_QUERY_VALUE;

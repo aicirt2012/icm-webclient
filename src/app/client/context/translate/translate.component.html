@@ -2,7 +2,7 @@
 
   <div fxLayout="row">
     <mat-input-container fxFlex floatingPlaceholder="false">
-      <input matInput placeholder="Translate..." [(ngModel)]="query" (keyup.enter)="translate()">
+      <input matInput placeholder="Search for translations..." [(ngModel)]="query" (keyup.enter)="translate()">
     </mat-input-container>
     <button mat-icon-button (click)="translate()">
       <mat-icon class="mat-24">search</mat-icon>

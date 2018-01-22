@@ -9,7 +9,7 @@ import { TranslateService } from '../../shared/translate.service'
 
 export class TranslateComponent {
 
-  private readonly DEFAULT_QUERY_VALUE: string = 'Please select or enter text to translate';
+  private readonly DEFAULT_QUERY_VALUE: string = '';
 
   private content: any;
   private _query: string = this.DEFAULT_QUERY_VALUE;
