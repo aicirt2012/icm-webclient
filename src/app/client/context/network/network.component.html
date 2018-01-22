@@ -21,8 +21,8 @@
     <span>No contacts found!</span>
   </div>
 
-  <div fxLayout="row" *ngIf="_query && !loading" fxFlex>
-    <div *ngFor="let contact of contacts">
+  <div fxLayout="column" *ngIf="_query && !loading" fxFlex>
+    <div fxLayout="row" *ngFor="let contact of contacts" fxFlex>
       {{contact.firstName}} {{contact.lastName}}
     </div>
   </div>
