@@ -128,6 +128,7 @@ export class AppState {
             'context': ['context']
           }
         }];
+        email.routeStr = `/search/(searchTerm:${searchTerm}//emailId:${email._id}//context:context)`;
       } else {
         email.route = ['/box', {
           outlets: {
@@ -136,8 +137,8 @@ export class AppState {
             'context': ['context']
           }
         }];
+        email.routeStr = `/box/(boxId:${boxId}//emailId:${email._id}//context:context)`;
       }
-      email.routeStr = `/box/(boxId:${boxId}//emailId:${email._id}//context:context)`;
       return email
     });
     this.set(AppState.EMAILS, emails);

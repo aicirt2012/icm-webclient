@@ -21,6 +21,7 @@ export class EmailDetailedViewComponent {
   private emailResponse: any;
   private sending = false;
   private moving = false;
+  private searchTerm: any = '';
 
   constructor(private emailService: EmailService, public snackBar: MatSnackBar,
               public activatedRoute: ActivatedRoute, public appState: AppState, public router: Router,
@@ -46,6 +47,14 @@ export class EmailDetailedViewComponent {
       console.log('get single email from emailDetailedView...');
       emailId !== 'NONE' ? emailId === 'new' ? this.createNewEmailDraft() : this.getSingleMail(emailId) : '';
     });
+
+    const outlets = {}
+
+    this.activatedRoute.parent.children.forEach((child) => {
+      Object.assign(outlets, child.snapshot.params);
+    });
+
+    this.searchTerm = outlets['searchTerm'];
 
     this.currentSelectedText();
   }
@@ -169,11 +178,11 @@ export class EmailDetailedViewComponent {
       return box;
     });
     this.appState.setBoxList(this.boxList);
-    this.appState.setEmails(this.emails);
+    this.appState.setEmails(this.emails, this.searchTerm);
 
     this.emailService.addFlags(this.email._id, flags).subscribe((res) => {}, (err) => {
       this.email = Object.assign(oldEmail);
-      this.appState.setEmails(oldEmails);
+      this.appState.setEmails(oldEmails, this.searchTerm);
       this.appState.setBoxList(oldBoxList);
       this.snackBar.open('Error while setting email to READ.', 'OK');
     }, () => {
@@ -203,13 +212,13 @@ export class EmailDetailedViewComponent {
       return box;
     });
 
-    this.appState.setEmails(this.emails);
+    this.appState.setEmails(this.emails, this.searchTerm);
     this.appState.setBoxList(this.boxList);
 
     this.emailService.delFlags(this.email._id, flags).subscribe((res) => {
     }, (err) => {
       this.email = Object.assign(oldEmail);
-      this.appState.setEmails(oldEmails);
+      this.appState.setEmails(oldEmails, this.searchTerm);
       this.appState.setBoxList(oldBoxList);
       this.snackBar.open('Error while setting email to READ.', 'OK');
     }, () => {
