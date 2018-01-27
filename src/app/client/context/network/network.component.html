@@ -23,7 +23,15 @@
 
   <div fxLayout="column" *ngIf="_query && !loading" fxFlex>
     <div fxLayout="row" *ngFor="let contact of contacts" fxFlex>
-      {{contact.firstName}} {{contact.lastName}}
+      <div fxLayout="column" fxFlex>
+        <mat-icon class="mat-24">person</mat-icon>
+      </div>
+      <div fxLayout="column" fxFlex>
+        <span>{{contact.firstName}} {{contact.lastName}}</span>
+        <span *ngIf="contact.businessDepartment || contact.businessCompany">
+            {{contact.businessCompany}} {{contact.businessDepartment}}
+        </span>
+      </div>
     </div>
   </div>
 </div>
