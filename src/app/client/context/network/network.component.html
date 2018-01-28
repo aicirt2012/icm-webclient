@@ -21,17 +21,39 @@
     <span>No contacts found!</span>
   </div>
 
-  <div fxLayout="column" *ngIf="_query && !loading" fxFlex>
-    <div fxLayout="row" *ngFor="let contact of contacts" fxFlex>
-      <div fxLayout="column" fxFlex>
-        <mat-icon class="mat-24">person</mat-icon>
+  <div fxLayout="column" class="results-list-wrapper" *ngIf="_query && !loading" fxFlex>
+    <div class="contact-network-container">
+      <div class="primary-contact-container">
+        <div class="primary-icon-container"></div>
+        <div class="primary-details-container">
+          <div class="primary-details-name"></div>
+          <div class="primary-details-job"></div>
+          <div class="primary-details-company"></div>
+        </div>
       </div>
-      <div fxLayout="column" fxFlex>
-        <span>{{contact.firstName}} {{contact.lastName}}</span>
-        <span *ngIf="contact.businessDepartment || contact.businessCompany">
-            {{contact.businessCompany}} {{contact.businessDepartment}}
-        </span>
+      <div class="secondary-contact-container">
+        <div class="secondary-icon-container"></div>
+        <div class="secondary-details-container">
+          <div class="primary-details-name"></div>
+          <div class="primary-details-job"></div>
+          <div class="primary-details-company"></div>
+        </div>
+      </div>
+      <div class="show-more-container">
+        <div class="show-more-icon"></div>
+        <div class="show-more-text"></div>
       </div>
     </div>
+    <!--<div fxLayout="row" *ngFor="let contact of contacts" fxFlex>-->
+      <!--<div fxLayout="column" fxFlex>-->
+        <!--<mat-icon class="mat-24">person</mat-icon>-->
+      <!--</div>-->
+      <!--<div fxLayout="column" fxFlex>-->
+        <!--<span>{{contact.firstName}} {{contact.lastName}}</span>-->
+        <!--<span *ngIf="contact.businessDepartment || contact.businessCompany">-->
+            <!--{{contact.businessCompany}} {{contact.businessDepartment}}-->
+        <!--</span>-->
+      <!--</div>-->
+    <!--</div>-->
   </div>
 </div>
