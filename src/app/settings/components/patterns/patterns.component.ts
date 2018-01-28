@@ -13,6 +13,11 @@ export class PatternsComponent {
 
   patterns: any[];
   newPattern: string = '';
+  useAsRegex :boolean = false;
+  matchTillSentenceEnd: boolean = true;
+  caseSensitive: boolean= false;
+
+
 
   constructor(private userService: UserService, private snackBar: MatSnackBar) { }
 
@@ -24,9 +29,14 @@ export class PatternsComponent {
 
   addPattern() {
     if (this.newPattern != '')  {
-      this.userService.createPattern(this.newPattern).subscribe((pattern: any) => {
+      if(this.useAsRegex){
+        this.caseSensitive =true;
+        this.matchTillSentenceEnd = false;
+      }
+      this.userService.createPattern(this.newPattern,this.matchTillSentenceEnd,this.caseSensitive).subscribe((pattern: any) => {
         this.patterns.push(pattern);
         this.newPattern = '';
+        this.matchTillSentenceEnd = true;
       });
     }
   }

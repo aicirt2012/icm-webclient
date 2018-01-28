@@ -43,9 +43,13 @@ export class UserService {
     return this.http.get('patterns', null, null);
   }
 
-  public createPattern(pattern: string): Observable<any> {
+  public createPattern(pattern: string,matchTillSentenceEnd:boolean,caseSensitive:boolean): Observable<any> {
     const body = {
-      pattern: pattern
+
+      pattern: pattern,
+      matchTillSentenceEnd: matchTillSentenceEnd,
+      caseSensitive:caseSensitive,
+
     };
     return this.http.post('patterns', null, body);
   }
