@@ -8,29 +8,19 @@
           <mat-icon>data_usage</mat-icon>
 
           <span class="span-style" >{{p.pattern}}</span>
-          <span>{{p.matchTillSentenceEnd}}</span>
-
-
-
           <i *ngIf="p.matchTillSentenceEnd" class="material-icons tooltip">keyboard_arrow_right
              <span class="tooltiptext">Match till sentence end</span>
           </i>
-
           <i *ngIf="!p.matchTillSentenceEnd" class="material-icons tooltip">compare_arrows
             <span class="tooltiptext">Match only the given pattern</span>
           </i>
-
-
         <i *ngIf="p.caseSensitive" class="material-icons tooltip">text_fields
           <span class="tooltiptext">Case Sensitive</span>
         </i>
-
         <i *ngIf="!p.caseSensitive" class="material-icons tooltip">title
           <span class="tooltiptext">Case Insensitive</span>
         </i>
         </div>
-
-
         <div fxFlex *ngIf="!p.isDefault" fxLayoutAlign="end center">
           <button mat-mini-fab (click)="deletePattern(p)" class="pattern-action-bar-item"><mat-icon class="fab-icon">delete</mat-icon></button>
         </div>
