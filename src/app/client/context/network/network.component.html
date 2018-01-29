@@ -21,50 +21,48 @@
     <span>No contacts found!</span>
   </div>
 
-  <div fxLayout="column" class="results-list-wrapper" *ngIf="_query && !loading" fxFlex>
-    <div fxLayout="row" class="contact-network-container" *ngFor="let contact of contacts;">
-      <div fxLayout="column">
-        <div fxLayout="row" class="primary-contact-container">
-          <div fxLayout="column" class="primary-icon-container">
-            <mat-icon class="icon">person</mat-icon>
-          </div>
-          <div fxLayout="column" class="primary-details-container">
-            <span fxLayout="row" class="primary-details-name">{{contact.firstName}} {{contact.lastName}}</span>
-            <span fxLayout="row" class="primary-details-job" *ngIf="contact.businessJobTitle">
-              {{contact.businessJobTitle}}
-            </span>
-            <span fxLayout="row" class="primary-details-company" *ngIf="contact.businessCompany">
-              {{contact.businessCompany}}
-            </span>
-          </div>
+  <div fxLayout="column" class="results-list-wrapper scrollable" *ngIf="_query && !loading" fxFlex>
+    <div class="contact-network-container" *ngFor="let contact of contacts;">
+      <div fxLayout="row" class="primary-contact-container">
+        <div fxLayout="column" class="primary-icon-container">
+          <mat-icon class="icon">person</mat-icon>
         </div>
-        <div fxLayout="row" class="secondary-contact-container"
-             *ngFor="let secondaryContact of contact.secondaryContacts; index as i;">
-          <div fxLayout="column" class="secondary-icon-container" *ngIf="i < 3 || contact.showAllRelations">
-            <mat-icon class="icon">person_outline</mat-icon>
-          </div>
-          <div fxLayout="column" class="secondary-details-container" *ngIf="i < 3 || contact.showAllRelations">
-            <span fxLayout="row" class="secondary-details-name">
-              {{secondaryContact.firstName}} {{secondaryContact.lastName}}
-            </span>
-            <span fxLayout="row" class="secondary-details-company" *ngIf="secondaryContact.businessCompany">
-              {{secondaryContact.businessCompany}}
-            </span>
-          </div>
-        </div>
-        <div fxLayout="row" class="show-more-container" (click)="contact.showAllRelations = !contact.showAllRelations;"
-             *ngIf="contact.secondaryContacts && contact.secondaryContacts.length > 3">
-          <div fxLayout="column" class="show-more-icon">
-            <mat-icon class="icon" *ngIf="!contact.showAllRelations">expand_more</mat-icon>
-            <mat-icon class="icon flip" *ngIf="contact.showAllRelations">expand_more</mat-icon>
-          </div>
-          <span fxLayout="column" class="show-more-text" *ngIf="!contact.showAllRelations">
-            Show more... ({{contact.secondaryContacts.length - 3}})
+        <div fxLayout="column" class="primary-details-container">
+          <span fxLayout="row" class="primary-details-name">{{contact.firstName}} {{contact.lastName}}</span>
+          <span fxLayout="row" class="primary-details-job" *ngIf="contact.businessJobTitle">
+            {{contact.businessJobTitle}}
           </span>
-          <span fxLayout="column" class="show-more-text" *ngIf="contact.showAllRelations">
-            Show less...
+          <span fxLayout="row" class="primary-details-company" *ngIf="contact.businessCompany">
+            {{contact.businessCompany}}
           </span>
         </div>
+      </div>
+      <div fxLayout="row" class="secondary-contact-container"
+           *ngFor="let secondaryContact of contact.secondaryContacts; index as i;">
+        <div fxLayout="column" class="secondary-icon-container" *ngIf="i < 3 || contact.showAllRelations">
+          <mat-icon class="icon">person_outline</mat-icon>
+        </div>
+        <div fxLayout="column" class="secondary-details-container" *ngIf="i < 3 || contact.showAllRelations">
+          <span fxLayout="row" class="secondary-details-name">
+            {{secondaryContact.firstName}} {{secondaryContact.lastName}}
+          </span>
+          <span fxLayout="row" class="secondary-details-company" *ngIf="secondaryContact.businessCompany">
+            {{secondaryContact.businessCompany}}
+          </span>
+        </div>
+      </div>
+      <div fxLayout="row" class="show-more-container" (click)="contact.showAllRelations = !contact.showAllRelations;"
+           *ngIf="contact.secondaryContacts && contact.secondaryContacts.length > 3">
+        <div fxLayout="column" class="show-more-icon">
+          <mat-icon class="icon" *ngIf="!contact.showAllRelations">expand_more</mat-icon>
+          <mat-icon class="icon flip" *ngIf="contact.showAllRelations">expand_more</mat-icon>
+        </div>
+        <span fxLayout="column" class="show-more-text" *ngIf="!contact.showAllRelations">
+          Show more... ({{contact.secondaryContacts.length - 3}})
+        </span>
+        <span fxLayout="column" class="show-more-text" *ngIf="contact.showAllRelations">
+          Show less...
+        </span>
       </div>
     </div>
   </div>

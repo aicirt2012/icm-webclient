@@ -9,6 +9,15 @@
   cursor: default;
 }
 
+.contact-network-container {
+  padding-bottom: 20px;
+}
+
+.primary-contact-container {
+  background-color: #f2f6fa;
+  border-radius: 2px;
+}
+
 .show-more-container * {
   cursor: pointer;
 }
