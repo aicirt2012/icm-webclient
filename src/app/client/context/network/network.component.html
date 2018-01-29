@@ -31,11 +31,11 @@
           <div fxLayout="column" class="primary-details-container">
             <span fxLayout="row" class="primary-details-name">{{contact.firstName}} {{contact.lastName}}</span>
             <span fxLayout="row" class="primary-details-job" *ngIf="contact.businessJobTitle">
-          {{contact.businessJobTitle}}
-          </span>
+              {{contact.businessJobTitle}}
+            </span>
             <span fxLayout="row" class="primary-details-company" *ngIf="contact.businessCompany">
-            {{contact.businessCompany}}
-          </span>
+              {{contact.businessCompany}}
+            </span>
           </div>
         </div>
         <div fxLayout="row" class="secondary-contact-container"
@@ -44,12 +44,12 @@
             <mat-icon class="icon">person_outline</mat-icon>
           </div>
           <div fxLayout="column" class="secondary-details-container" *ngIf="i < 3 || contact.showAllRelations">
-          <span fxLayout="row" class="secondary-details-name">
-            {{secondaryContact.firstName}} {{secondaryContact.lastName}}
-          </span>
+            <span fxLayout="row" class="secondary-details-name">
+              {{secondaryContact.firstName}} {{secondaryContact.lastName}}
+            </span>
             <span fxLayout="row" class="secondary-details-company" *ngIf="secondaryContact.businessCompany">
-            {{secondaryContact.businessCompany}}
-          </span>
+              {{secondaryContact.businessCompany}}
+            </span>
           </div>
         </div>
         <div fxLayout="row" class="show-more-container" (click)="contact.showAllRelations = !contact.showAllRelations;"
@@ -59,11 +59,11 @@
             <mat-icon class="icon flip" *ngIf="contact.showAllRelations">expand_more</mat-icon>
           </div>
           <span fxLayout="column" class="show-more-text" *ngIf="!contact.showAllRelations">
-          Show more... ({{contact.secondaryContacts.length - 3}})
-        </span>
+            Show more... ({{contact.secondaryContacts.length - 3}})
+          </span>
           <span fxLayout="column" class="show-more-text" *ngIf="contact.showAllRelations">
-          Show less...
-        </span>
+            Show less...
+          </span>
         </div>
       </div>
     </div>
