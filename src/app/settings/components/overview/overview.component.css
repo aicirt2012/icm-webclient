@@ -16,6 +16,11 @@
   color: rgba(0, 0, 0, 0.54);
 }
 
+mat-card.scrollable {
+  min-height: 100%;
+  overflow-y: scroll;
+}
+
 mat-input-container {
   min-width: 400px;
 }

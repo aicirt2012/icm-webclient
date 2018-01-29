@@ -1,4 +1,4 @@
-<mat-card fxFlex>
+<mat-card>
   <mat-card-title>Pattern Management</mat-card-title>
   <mat-card-content>
     <h3>Current Patterns</h3>
@@ -14,7 +14,7 @@
       </mat-list-item>
     </mat-list>
   </mat-card-content>
-  <mat-card-actions fxFlex fxLayoutAlign="start center">
+  <mat-card-actions>
     <button mat-mini-fab (click)="addPattern()" class="pattern-action-bar-item"><mat-icon class="fab-icon">add</mat-icon></button>
     <mat-input-container class="pattern-action-bar-item">
       <input matInput [(ngModel)]="newPattern" placeholder="New pattern, e.g. do * you">

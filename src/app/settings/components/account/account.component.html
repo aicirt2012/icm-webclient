@@ -76,7 +76,8 @@
   <div *ngIf="selectedEmail === 'Exchange'">
     <mat-card-content>
       <mat-input-container>
-        <input matInput placeholder="Email Address" type="email" name="email" [(ngModel)]="exchangeConfig.user" autofocus
+        <input matInput placeholder="Email Address" type="email" name="email" [(ngModel)]="exchangeConfig.user"
+               autofocus
                required>
       </mat-input-container>
     </mat-card-content>
@@ -96,7 +97,7 @@
   </div>
 
 
-    <mat-card-actions>
+  <mat-card-actions>
     <button mat-raised-button color="primary" (click)="updateEmailConfig()">Save Configuration</button>
   </mat-card-actions>
 
