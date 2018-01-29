@@ -39,7 +39,9 @@
       </div>
       <div fxLayout="row" class="secondary-contact-container"
            *ngFor="let secondaryContact of contact.secondaryContacts">
-        <div fxLayout="column" class="secondary-icon-container"></div>
+        <div fxLayout="column" class="secondary-icon-container">
+          <mat-icon class="mat12">person_outline</mat-icon>
+        </div>
         <div fxLayout="column" class="secondary-details-container">
           <span fxLayout="row" class="secondary-details-name">
             {{secondaryContact.firstName}} {{secondaryContact.lastName}}
