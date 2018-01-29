@@ -10,12 +10,17 @@
 }
 
 .contact-network-container {
-  padding-bottom: 20px;
+  padding-bottom: 5px;
 }
 
 .primary-contact-container {
   background-color: #f2f6fa;
-  border-radius: 2px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.secondary-contact-container {
+  margin-bottom: 5px;
 }
 
 .show-more-container * {
