@@ -26,7 +26,7 @@
       <div fxLayout="column">
         <div fxLayout="row" class="primary-contact-container">
           <div fxLayout="column" class="primary-icon-container">
-            <mat-icon class="mat-24">person</mat-icon>
+            <mat-icon class="icon">person</mat-icon>
           </div>
           <div fxLayout="column" class="primary-details-container">
             <span fxLayout="row" class="primary-details-name">{{contact.firstName}} {{contact.lastName}}</span>
@@ -41,7 +41,7 @@
         <div fxLayout="row" class="secondary-contact-container"
              *ngFor="let secondaryContact of contact.secondaryContacts; index as i;">
           <div fxLayout="column" class="secondary-icon-container" *ngIf="i < 3 || contact.showAllRelations">
-            <mat-icon class="mat12">person_outline</mat-icon>
+            <mat-icon class="icon">person_outline</mat-icon>
           </div>
           <div fxLayout="column" class="secondary-details-container" *ngIf="i < 3 || contact.showAllRelations">
           <span fxLayout="row" class="secondary-details-name">
@@ -54,9 +54,12 @@
         </div>
         <div fxLayout="row" class="show-more-container" (click)="contact.showAllRelations = !contact.showAllRelations;"
              *ngIf="contact.secondaryContacts && contact.secondaryContacts.length > 3">
-          <div fxLayout="column" class="show-more-icon"></div>
+          <div fxLayout="column" class="show-more-icon">
+            <mat-icon class="icon" *ngIf="!contact.showAllRelations">expand_more</mat-icon>
+            <mat-icon class="icon flip" *ngIf="contact.showAllRelations">expand_more</mat-icon>
+          </div>
           <span fxLayout="column" class="show-more-text" *ngIf="!contact.showAllRelations">
-          Show more...
+          Show more... ({{contact.secondaryContacts.length - 3}})
         </span>
           <span fxLayout="column" class="show-more-text" *ngIf="contact.showAllRelations">
           Show less...
