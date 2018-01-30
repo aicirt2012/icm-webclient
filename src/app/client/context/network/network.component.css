@@ -1,8 +1,8 @@
 .network-content {
   font-size: 14px !important;
   text-align: justify;
-  padding: 10px;
-  padding-top: 5px;
+  padding: 5px 0 10px 10px;
+  width: 100%;
 }
 
 .contact-network-container {

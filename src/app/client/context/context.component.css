@@ -12,3 +12,7 @@
     background-color: #F2F6FA;
     cursor: pointer;
 }
+
+network {
+  width: calc(100% - 20px);
+}
