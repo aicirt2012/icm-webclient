@@ -23,7 +23,7 @@
 
   <div fxLayout="column" class="results-list-wrapper scrollable" *ngIf="_query && !loading" fxFlex>
     <div class="contact-network-container" *ngFor="let contact of contacts;">
-      <div fxLayout="row" class="primary-contact-container">
+      <div fxLayout="row" class="primary-contact-container" (click)="openDialog(contact)">
         <div fxLayout="column" class="primary-icon-container">
           <mat-icon class="icon">person</mat-icon>
         </div>
@@ -38,7 +38,7 @@
         </div>
       </div>
       <ng-container *ngFor="let secondaryContact of contact.secondaryContacts; index as i;">
-        <div fxLayout="row" class="secondary-contact-container" *ngIf="i < 3 || contact.showAllRelations">
+        <div fxLayout="row" class="secondary-contact-container" *ngIf="i < 3 || contact.showAllRelations" (click)="openDialog(secondaryContact)">
           <div fxLayout="column" class="secondary-icon-container">
             <mat-icon class="icon">person_outline</mat-icon>
           </div>

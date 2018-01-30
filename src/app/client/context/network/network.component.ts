@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { NetworkService } from '../../shared/network.service'
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { ContactDetailsDialogComponent } from './contactDetailsDialog';
 
 @Component({
   selector: 'network',
@@ -14,6 +16,10 @@ export class NetworkComponent {
   private contacts: any;
   private _query: string = this.DEFAULT_QUERY_VALUE;
   private loading: boolean = false;
+  private dialogConfig = {
+    width: "50%",
+    height: 'auto',
+  };
 
   @Input()
   set query(query: string) {
@@ -32,7 +38,7 @@ export class NetworkComponent {
     return this._query;
   }
 
-  constructor(private nt: NetworkService) {
+  constructor(private nt: NetworkService, public dialog: MatDialog) {
   }
 
   public ngOnInit() {
@@ -50,6 +56,11 @@ export class NetworkComponent {
       this.contacts = contacts;
       this.loading = false;
     });
+  }
+
+  openDialog(contact: any) {
+    let contactDetailsDialogRef: MatDialogRef<ContactDetailsDialogComponent> = this.dialog.open(ContactDetailsDialogComponent, this.dialogConfig);
+    contactDetailsDialogRef.componentInstance.contact = contact;
   }
 
 }

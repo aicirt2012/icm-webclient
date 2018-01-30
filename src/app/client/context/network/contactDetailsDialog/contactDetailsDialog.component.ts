@@ -1,7 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { NetworkService } from '../../../shared';
-import { AppState } from '../../../../app.service';
 
 @Component({
   selector: 'link-task-dialog',
@@ -11,17 +10,26 @@ import { AppState } from '../../../../app.service';
 export class ContactDetailsDialogComponent {
 
   @Input() contact: any;
-  public fullContact: any = {};
+  private fullContact: any = {};
+  private loading = true;
 
-  constructor(public contactDetailsDialogRef: MatDialogRef<ContactDetailsDialogComponent>, private _networkService: NetworkService, public appState: AppState) {
+  constructor(public contactDetailsDialogRef: MatDialogRef<ContactDetailsDialogComponent>, private _networkService: NetworkService) {
   }
 
   ngOnInit() {
-    // call networkService and get full contact
+    this.loadFullContact();
   }
 
   closeDialog() {
     this.contactDetailsDialogRef.close();
+  }
+
+  loadFullContact() {
+    this.loading = true;
+    this._networkService.getFullContact(this.contact._id).subscribe((contact) => {
+      this.fullContact = contact;
+      this.loading = false;
+    });
   }
 
 }
