@@ -6,7 +6,7 @@
             <mat-icon class="pointer check-icon" *ngIf="isChecked()" matTooltip="Completed">check</mat-icon>
             <mat-icon class="pointer close-icon" (click)="removeTask(task)">close</mat-icon>
         </div>
-        <div *ngIf="task.taskType == 'linked'" fxFlex-gt-sm="33" fxLayout="row" fxLayoutAlign="start end" class="card-title">
+        <div  fxFlex-gt-sm="33" fxLayout="row" fxLayoutAlign="start end" class="card-title">
             <div fxLayoutAlign="start center">
             <mat-icon fxFlex-gt-sm="8">date_range</mat-icon>
 
