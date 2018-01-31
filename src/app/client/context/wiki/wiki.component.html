@@ -1,15 +1,28 @@
-
 <div fxLayout="column" class="full-height wiki-content">
+
   <div fxLayout="row">
     <mat-input-container fxFlex floatingPlaceholder="false">
-        <input matInput placeholder="Search..." [(ngModel)]="query" (keyup.enter)="search()">
+      <input matInput placeholder="Search Wikipedia..." [(ngModel)]="query" (keyup.enter)="search()">
     </mat-input-container>
     <button mat-icon-button (click)="search()">
-        <mat-icon class="mat-24">search</mat-icon>
+      <mat-icon class="mat-24">search</mat-icon>
     </button>
   </div>
-  <div fxLayout="row" fxFlex>
-    <spinner *ngIf="loading" [loading]="loading"></spinner>
-    <div *ngIf="!loading" [innerHTML]="content"></div>
+
+  <div fxLayout="row" *ngIf="!_query" fxFlex>
+    <span>Please select or enter text to lookup.</span>
   </div>
+
+  <div fxLayout="row" *ngIf="loading" fxFlex>
+    <spinner [loading]="loading"></spinner>
+  </div>
+
+  <div fxLayout="row" *ngIf="_query && !loading && (!content || content.length == 0)" fxFlex>
+    <span>No articles found!</span>
+  </div>
+
+  <div fxLayout="row" *ngIf="_query && !loading">
+    <div [innerHTML]="content"></div>
+  </div>
+
 </div>

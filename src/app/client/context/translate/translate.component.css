@@ -1,19 +1,19 @@
-.translate{
-    font-size: 14px !important;
+.translate {
+  font-size: 14px !important;
   text-align: justify;
-    padding: 10px;
-    padding-top: 5px;
-    overflow-y:auto;
+  padding: 10px;
+  padding-top: 5px;
+  overflow-y: auto;
 }
 
-.translate .block{
-    margin-bottom: 15px;
+.translate .block {
+  margin-bottom: 15px;
 }
 
-.translate .block .source{
-    font-weight: bold;
+.translate .block .source {
+  font-weight: bold;
 }
 
-.translate .block .target{
-    margin-left: 20px;
+.translate .block .target {
+  margin-left: 20px;
 }
