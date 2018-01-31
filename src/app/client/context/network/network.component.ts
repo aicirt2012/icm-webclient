@@ -17,7 +17,8 @@ export class NetworkComponent {
   private _query: string = this.DEFAULT_QUERY_VALUE;
   private loading: boolean = false;
   private dialogConfig = {
-    width: "50%",
+    'min-width': "30%",
+    'max-width': "80%",
     height: 'auto',
   };
 

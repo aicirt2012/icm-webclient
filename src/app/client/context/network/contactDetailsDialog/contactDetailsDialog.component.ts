@@ -1,9 +1,9 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { NetworkService } from '../../../shared';
 
 @Component({
-  selector: 'link-task-dialog',
+  selector: 'contact-details-dialog',
   styleUrls: ['./contactDetailsDialog.component.css'],
   templateUrl: './contactDetailsDialog.component.html'
 })
