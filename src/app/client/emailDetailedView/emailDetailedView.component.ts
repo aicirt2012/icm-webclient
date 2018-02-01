@@ -44,7 +44,6 @@ export class EmailDetailedViewComponent {
 
     this.routeEmailId = this.activatedRoute.params.map(params => params['emailId'] || 'NONE');
     this.routeEmailId.subscribe((emailId) => {
-      console.log('get single email from emailDetailedView...');
       emailId !== 'NONE' ? emailId === 'new' ? this.createNewEmailDraft() : this.getSingleMail(emailId) : '';
     });
 

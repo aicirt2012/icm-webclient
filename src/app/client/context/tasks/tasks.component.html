@@ -7,8 +7,8 @@
   <div *ngIf="!errorTrello" fxFlex fxLayout="column" class="scrollable">
     <task-list fxFlex [boards]="boards" (createTask)="createTask($event)" (openDialog)="openDialog($event)"
       (openLinkTaskDialog)="openLinkTaskDialog($event)" (deleteTask)="deleteTask($event)" [linkedTasks]="email.linkedTasks"
-      [suggestedTasks]="email.suggestedTasks" (highlightSentence)="highlightSentence($event)" (hightlightTaskItem)="hightlightTaskItem($event)"
-      [showSuggested]="showSuggested" [showLinked]="showLinked"> </task-list>
+       (highlightSentence)="highlightSentence($event)" (hightlightTaskItem)="hightlightTaskItem($event)"
+      [showSuggested]="showSuggested" [suggestedTask]="email.suggestedTask" [showLinked]="showLinked"> </task-list>
   </div>
   <div *ngIf="errorTrello">
     <a fxFlex fxLayoutAlign="center center" class="connect-btn" mat-raised-button [routerLink]="'/settings/tasks'">Please connect to a Task Provider</a>

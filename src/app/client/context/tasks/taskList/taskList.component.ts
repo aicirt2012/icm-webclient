@@ -10,8 +10,8 @@ import { AppState } from '../../../../../app.service';
 
 export class TaskListComponent {
   @Input() linkedTasks: any[];
-  @Input() suggestedTasks: any[];
   @Input() showSuggested: any;
+  @Input() suggestedTask: any;
   @Input() showLinked: any;
   @Input() boards: any[];
   @Output() createTask = new EventEmitter<any>();

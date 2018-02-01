@@ -23,7 +23,6 @@ export class TaskOverviewComponent {
   ngOnInit() {
     this.userService.getUserInfo().subscribe((user) => {
       this.user = user;
-      console.log(user);
       if (this.user.trello) {
       this.fetching = true;
       this.taskService.getAllBoards({ linkedTasks: true }).subscribe((boards) => {

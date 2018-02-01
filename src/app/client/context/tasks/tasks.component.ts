@@ -19,10 +19,7 @@ export class TasksComponent {
   public errorTrello = false;
   public boards: any;
   public user: any;
-  public suggestedTasks: any = [];
   public linkedTasks: any = [];
-  public suggestedTasks$: any;
-  public linkedTasks$: any = [];
   private dialogConfig = {
     width: "70%",
     height: 'auto',
@@ -117,7 +114,7 @@ export class TasksComponent {
     }
   }
 
-  openTaskDialog() {   
+  openTaskDialog() {
     if(this.boards.length > 0) {
       let b = this.boards[0];
       this.openDialog({ 'taskType': 'suggested', 'status': 'empty', 'board': b, 'name': this.email.subject});

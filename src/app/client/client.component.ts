@@ -123,7 +123,6 @@ export class ClientComponent {
 
     this.userService.getUserInfo().subscribe((user) => {
       this.user = user;
-      console.log('user info: ', user)
       this.appState.setUser(user);
       if (!this.user['provider']) {
         this.noMailboxConnected = true;
