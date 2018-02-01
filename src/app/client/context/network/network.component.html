@@ -27,20 +27,20 @@
         <div fxFlex="10" fxLayout="column" class="primary-icon-container">
           <mat-icon class="icon">person</mat-icon>
         </div>
-        <div fxLayout="column" class="primary-details-container">
-          <span fxFlex="{{contact.businessCompany || contact.businessJobTitle ? (
+        <div fxFlex="90" fxLayout="column" class="primary-details-container">
+          <div fxFlex="{{contact.businessCompany || contact.businessJobTitle ? (
                           contact.businessCompany && contact.businessJobTitle ? '33' : '50') : '100'}}"
-                fxLayout="row" class="primary-details-name">
+               class="primary-details-name text-overflow">
             {{contact.firstName}} {{contact.lastName}}
-          </span>
-          <span fxFlex="{{contact.businessCompany ? '33' : '50'}}" fxLayout="row"
-                class="primary-details-job" *ngIf="contact.businessJobTitle">
+          </div>
+          <div fxFlex="{{contact.businessCompany ? '33' : '50'}}" class="primary-details-job text-overflow"
+               *ngIf="contact.businessJobTitle">
             {{contact.businessJobTitle}}
-          </span>
-          <span fxFlex="{{contact.businessJobTitle ? '33' : '50'}}" fxLayout="row"
-                class="primary-details-company" *ngIf="contact.businessCompany">
+          </div>
+          <div fxFlex="{{contact.businessJobTitle ? '33' : '50'}}" class="primary-details-company text-overflow"
+               *ngIf="contact.businessCompany">
             {{contact.businessCompany}}
-          </span>
+          </div>
         </div>
       </div>
       <ng-container *ngFor="let secondaryContact of contact.secondaryContacts; index as i;">
@@ -50,13 +50,13 @@
             <mat-icon class="icon">person_outline</mat-icon>
           </div>
           <div fxFlex="80" fxLayout="column" class="secondary-details-container">
-            <span fxFlex="50" fxLayout="row"
-                  class="secondary-details-name">
+            <div fxFlex="{{secondaryContact.businessCompany ? '50' : '100'}}"
+                 class="secondary-details-name text-overflow">
               {{secondaryContact.firstName}} {{secondaryContact.lastName}}
-            </span>
-            <span fxFlex="50" fxLayout="row" class="secondary-details-company" *ngIf="secondaryContact.businessCompany">
+            </div>
+            <div fxFlex="50" class="secondary-details-company text-overflow" *ngIf="secondaryContact.businessCompany">
               {{secondaryContact.businessCompany}}
-            </span>
+            </div>
           </div>
         </div>
       </ng-container>
