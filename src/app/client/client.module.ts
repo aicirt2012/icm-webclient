@@ -34,6 +34,7 @@ import {
   BoxDialogComponent,
   TaskDialogComponent,
   LinkTaskDialogComponent,
+  ContactDetailsDialogComponent,
   TasksComponent,
   ContextComponent,
   ContextTabComponent,
@@ -133,6 +134,7 @@ import { TinymceModule } from 'angular2-tinymce';
     HighlightPipe,
     TaskDialogComponent,
     LinkTaskDialogComponent,
+    ContactDetailsDialogComponent,
     EmailResponseComponent,
     EmailFormComponent,
     SearchBarComponent,
@@ -162,6 +164,7 @@ import { TinymceModule } from 'angular2-tinymce';
     BoxDialogComponent,
     TaskDialogComponent,
     LinkTaskDialogComponent,
+    ContactDetailsDialogComponent,
     EmailFolderDialogComponent,
     SentenceDialogComponent
   ]

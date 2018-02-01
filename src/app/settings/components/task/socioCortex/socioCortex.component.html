@@ -1,13 +1,17 @@
-<mat-card fxFlex>
-  <form fxFlex>
-    <div fxFlex fxfxLayout="column">
-      <mat-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
-        <input matInput name="username" type="text" [(ngModel)]="scConfig.username" placeholder="Username" autofocus required>
-      </mat-input-container>
-      <mat-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
-        <input matInput fxFlex="45" name="password" type="password" [(ngModel)]="scConfig.password" placeholder="password" required>
-      </mat-input-container>
-    </div>
-      <button mat-raised-button color="primary" (click)="updateUser()">Save SC Configuration</button>
-  </form>
+<mat-card>
+  <mat-card-content>
+    <mat-input-container>
+      <input matInput name="username" type="text" [(ngModel)]="scConfig.username" placeholder="Username" autofocus
+             required>
+    </mat-input-container>
+  </mat-card-content>
+  <mat-card-content>
+    <mat-input-container>
+      <input matInput fxFlex="45" name="password" type="password" [(ngModel)]="scConfig.password" placeholder="password"
+             required>
+    </mat-input-container>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="updateUser()">Save SC Configuration</button>
+  </mat-card-actions>
 </mat-card>

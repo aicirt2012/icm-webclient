@@ -1,20 +1,71 @@
-
 <div fxLayout="column" class="full-height network-content">
+
   <div fxLayout="row">
     <mat-input-container fxFlex floatingPlaceholder="false">
-        <input matInput placeholder="Search..." [(ngModel)]="query" (keyup.enter)="search()">
+      <input matInput placeholder="Search for contacts..." [(ngModel)]="query" (keyup.enter)="search()">
     </mat-input-container>
     <button mat-icon-button (click)="search()">
-        <mat-icon class="mat-24">search</mat-icon>
+      <mat-icon class="mat-24">search</mat-icon>
     </button>
   </div>
-  <div fxLayout="row" fxFlex>
-    <spinner *ngIf="loading" [loading]="loading"></spinner>
-    <div *ngIf="!loading">
-      <span *ngIf="contacts != null && contacts.length == 0">No contacts found!</span>
-      <div *ngFor="let contact of contacts">
-        {{contact.firstName}} {{contact.lastName}}
+
+  <div fxLayout="row" *ngIf="!_query" fxFlex>
+    <span>Please select or enter a name to search.</span>
+  </div>
+
+  <div fxLayout="row" *ngIf="loading" fxFlex>
+    <spinner [loading]="loading"></spinner>
+  </div>
+
+  <div fxLayout="row" *ngIf="_query && !loading && (!contacts || contacts.length == 0)" fxFlex>
+    <span>No contacts found!</span>
+  </div>
+
+  <div fxLayout="column" class="results-list-wrapper scrollable" *ngIf="_query && !loading" fxFlex>
+    <div class="contact-network-container" *ngFor="let contact of contacts;">
+      <div fxLayout="row" class="primary-contact-container" (click)="openDialog(contact)">
+        <div fxLayout="column" class="primary-icon-container">
+          <mat-icon class="icon">person</mat-icon>
+        </div>
+        <div fxLayout="column" class="primary-details-container">
+          <span fxLayout="row" class="primary-details-name">{{contact.firstName}} {{contact.lastName}}</span>
+          <span fxLayout="row" class="primary-details-job" *ngIf="contact.businessJobTitle">
+            {{contact.businessJobTitle}}
+          </span>
+          <span fxLayout="row" class="primary-details-company" *ngIf="contact.businessCompany">
+            {{contact.businessCompany}}
+          </span>
+        </div>
+      </div>
+      <ng-container *ngFor="let secondaryContact of contact.secondaryContacts; index as i;">
+        <div fxLayout="row" class="secondary-contact-container" *ngIf="i < 3 || contact.showAllRelations" (click)="openDialog(secondaryContact)">
+          <div fxLayout="column" class="secondary-icon-container">
+            <mat-icon class="icon">person_outline</mat-icon>
+          </div>
+          <div fxLayout="column" class="secondary-details-container">
+            <span fxLayout="row" class="secondary-details-name">
+              {{secondaryContact.firstName}} {{secondaryContact.lastName}}
+            </span>
+            <span fxLayout="row" class="secondary-details-company" *ngIf="secondaryContact.businessCompany">
+              {{secondaryContact.businessCompany}}
+            </span>
+          </div>
+        </div>
+      </ng-container>
+      <div fxLayout="row" class="show-more-container" (click)="contact.showAllRelations = !contact.showAllRelations;"
+           *ngIf="contact.secondaryContacts && contact.secondaryContacts.length > 3">
+        <div fxLayout="column" class="show-more-icon">
+          <mat-icon class="icon" *ngIf="!contact.showAllRelations">expand_more</mat-icon>
+          <mat-icon class="icon flip" *ngIf="contact.showAllRelations">expand_more</mat-icon>
+        </div>
+        <span fxLayout="column" class="show-more-text" *ngIf="!contact.showAllRelations">
+          Show more... ({{contact.secondaryContacts.length - 3}})
+        </span>
+        <span fxLayout="column" class="show-more-text" *ngIf="contact.showAllRelations">
+          Show less...
+        </span>
       </div>
     </div>
   </div>
+
 </div>

@@ -35,6 +35,10 @@ export class UserService {
     return this.http.post('users/me/provider/email/gmail', null, settings);
   }
 
+  public updateEmailProviderExchange(settings: any): Observable<any> {
+    return this.http.post('users/me/provider/email/exchange', null, settings);
+  }
+
   public updateContactProviderSocioCortex(settings: any): Observable<any> {
     return this.http.post('users/me/provider/contacts/sociocortex', null, settings);
   }

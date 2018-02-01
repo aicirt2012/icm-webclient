@@ -49,16 +49,21 @@ export class EmailViewComponent {
     this.adjustIframeSize(iframe, topSection);
     this.injectAnnotationFramework(iframe);
 
-    function handleTranslation(e: CustomEvent) {
-      document.dispatchEvent(new CustomEvent("OnTranslationClick", {"detail": e.detail}));
+    function handleTranslationLookup(e: CustomEvent) {
+      document.dispatchEvent(new CustomEvent("OnLookupTranslationClick", {"detail": e.detail}));
     }
 
-    function handleSearch(e: CustomEvent) {
-      document.dispatchEvent(new CustomEvent("OnSearchClick", {"detail": e.detail}));
+    function handleWikipediaLookup(e: CustomEvent) {
+      document.dispatchEvent(new CustomEvent("OnLookupWikipediaClick", {"detail": e.detail}));
     }
 
-    iframe.contentDocument.addEventListener("OnTranslationClick", handleTranslation, false);
-    iframe.contentDocument.addEventListener("OnSearchClick", handleSearch, false);
+    function handlePersonLookup(e: CustomEvent) {
+      document.dispatchEvent(new CustomEvent("OnLookupPersonClick", {"detail": e.detail}));
+    }
+
+    iframe.contentDocument.addEventListener("OnLookupPersonClick", handlePersonLookup, false);
+    iframe.contentDocument.addEventListener("OnLookupTranslationClick", handleTranslationLookup, false);
+    iframe.contentDocument.addEventListener("OnLookupWikipediaClick", handleWikipediaLookup, false);
   }
 
   adjustIframeSize(iframe: HTMLIFrameElement, topSection: HTMLElement) {

@@ -1,6 +1,6 @@
-import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { ContextTabComponent } from '../contextTab/contextTab.component';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AppState } from '../../app.service';
 import { Email } from '../shared/email.model';
 
@@ -10,8 +10,9 @@ import { Email } from '../shared/email.model';
   templateUrl: './context.component.html',
   host:
     {
-      '(document:OnTranslationClick)': 'handleTranslationEvent($event)',
-      '(document:OnSearchClick)': 'handleSearchEvent($event)',
+      '(document:OnLookupPersonClick)': 'handlePersonSearchEvent($event)',
+      '(document:OnLookupTranslationClick)': 'handleTranslationSearchEvent($event)',
+      '(document:OnLookupWikipediaClick)': 'handleWikipediaSearchEvent($event)',
     }
 })
 
@@ -19,8 +20,9 @@ export class ContextComponent {
 
   email: Email;
   currentTab: string = 'tasks';
-  translationInput : string;
-  searchInput : string;
+  personSearchTerm: string;
+  translationSearchTerm: string;
+  wikipediaSearchTerm: string;
 
   constructor(public route: ActivatedRoute,
               private appState: AppState) {
@@ -32,24 +34,31 @@ export class ContextComponent {
     })
   }
 
-  handleTranslationEvent(event:CustomEvent) {
-    if(!this.isOpenTab("translate"))
+  // TODO add a way for setting search terms from within the bars to allow for remembering the last searched term
+
+  handlePersonSearchEvent(event: CustomEvent) {
+    if (!this.isTabOpen("network"))
+      this.openTab("network");
+    this.personSearchTerm = event.detail;
+  }
+
+  handleTranslationSearchEvent(event: CustomEvent) {
+    if (!this.isTabOpen("translate"))
       this.openTab("translate");
-
-    this.translationInput = event.detail;
-
+    this.translationSearchTerm = event.detail;
   }
 
-  handleSearchEvent (event:CustomEvent) {
-    if(!this.isOpenTab("wiki"))
+  handleWikipediaSearchEvent(event: CustomEvent) {
+    if (!this.isTabOpen("wiki"))
       this.openTab("wiki");
-    this.searchInput = event.detail;
+    this.wikipediaSearchTerm = event.detail;
   }
+
   openTab(tab: string) {
     this.currentTab = tab;
   }
 
-  isOpenTab(tab: string) {
+  isTabOpen(tab: string) {
     return this.currentTab === tab;
   }
 

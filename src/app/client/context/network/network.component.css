@@ -1,7 +1,35 @@
 .network-content {
   font-size: 14px !important;
   text-align: justify;
-  padding: 10px;
-  padding-top: 5px;
-  overflow-y: auto;
+  padding: 5px 0 10px 10px;
+  width: 100%;
+}
+
+.contact-network-container {
+  padding-bottom: 5px;
+}
+
+.primary-contact-container {
+  background-color: #f2f6fa;
+  padding: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.secondary-contact-container {
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.show-more-container * {
+  cursor: pointer;
+}
+
+.flip {
+  -moz-transform: scaleY(-1);
+  -o-transform: scaleY(-1);
+  -webkit-transform: scaleY(-1);
+  transform: scaleY(-1);
+  filter: FlipV;
+  -ms-filter: "FlipV";
 }

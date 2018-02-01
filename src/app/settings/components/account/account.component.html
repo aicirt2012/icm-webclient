@@ -6,49 +6,50 @@
 
   <mat-card-content>
     <div>Provider:</div>
-    <mat-radio-group name="radio1" [(ngModel)]="emailConfig.name">
+    <mat-radio-group name="radio1" [(ngModel)]="selectedEmail">
       <mat-radio-button value="Gmail">Gmail</mat-radio-button>
       <mat-radio-button value="Exchange">Exchange</mat-radio-button>
     </mat-radio-group>
   </mat-card-content>
 
-  <mat-card-content>
-    <mat-input-container>
-      <input matInput placeholder="Email Address" type="email" name="email" [(ngModel)]="emailConfig.user" autofocus
-             required>
-    </mat-input-container>
-  </mat-card-content>
 
-  <mat-card-content>
-    <mat-input-container>
-      <input matInput placeholder="Password" type="password" name="password" [(ngModel)]="emailConfig.password"
-             required>
-    </mat-input-container>
-  </mat-card-content>
-
-  <mat-card-content>
-    <mat-input-container>
-      <input matInput placeholder="Host" type="text" name="host" [(ngModel)]="emailConfig.host" required>
-    </mat-input-container>
-  </mat-card-content>
-
-  <div *ngIf="emailConfig.name === 'Gmail'">
+  <div *ngIf="selectedEmail === 'Gmail'">
     <mat-card-content>
       <mat-input-container>
-        <input matInput placeholder="Port" type="number" name="port" [(ngModel)]="emailConfig.port" required>
-      </mat-input-container>
-    </mat-card-content>
-
-    <mat-card-content>
-      <mat-input-container>
-        <input matInput placeholder="SMTP Host" type="text" name="smtphost" [(ngModel)]="emailConfig.smtpHost"
+        <input matInput placeholder="Email Address" type="email" name="email" [(ngModel)]="gmailConfig.user" autofocus
                required>
       </mat-input-container>
     </mat-card-content>
 
     <mat-card-content>
       <mat-input-container>
-        <input matInput placeholder="SMTP Port" type="number" name="smtpport" [(ngModel)]="emailConfig.smtpPort"
+        <input matInput placeholder="Password" type="password" name="password" [(ngModel)]="gmailConfig.password"
+               required>
+      </mat-input-container>
+    </mat-card-content>
+
+    <mat-card-content>
+      <mat-input-container>
+        <input matInput placeholder="Host" type="text" name="host" [(ngModel)]="gmailConfig.host" required>
+      </mat-input-container>
+    </mat-card-content>
+
+    <mat-card-content>
+      <mat-input-container>
+        <input matInput placeholder="Port" type="number" name="port" [(ngModel)]="gmailConfig.port" required>
+      </mat-input-container>
+    </mat-card-content>
+
+    <mat-card-content>
+      <mat-input-container>
+        <input matInput placeholder="SMTP Host" type="text" name="smtphost" [(ngModel)]="gmailConfig.smtpHost"
+               required>
+      </mat-input-container>
+    </mat-card-content>
+
+    <mat-card-content>
+      <mat-input-container>
+        <input matInput placeholder="SMTP Port" type="number" name="smtpport" [(ngModel)]="gmailConfig.smtpPort"
                required>
       </mat-input-container>
     </mat-card-content>
@@ -62,7 +63,7 @@
 
     <mat-card-content>
       <mat-chip-list>
-        <mat-chip *ngFor="let domain of emailConfig.smtpDomains; let i = index">
+        <mat-chip *ngFor="let domain of gmailConfig.smtpDomains; let i = index">
           <div fxLayout="row" fxLayoutAlign="start center">
             <span>{{domain}}</span>
             <mat-icon class="pointer" (click)="deleteDomain(i)">close</mat-icon>
@@ -71,6 +72,30 @@
       </mat-chip-list>
     </mat-card-content>
   </div>
+
+  <div *ngIf="selectedEmail === 'Exchange'">
+    <mat-card-content>
+      <mat-input-container>
+        <input matInput placeholder="Email Address" type="email" name="email" [(ngModel)]="exchangeConfig.user"
+               autofocus
+               required>
+      </mat-input-container>
+    </mat-card-content>
+
+    <mat-card-content>
+      <mat-input-container>
+        <input matInput placeholder="Password" type="password" name="password" [(ngModel)]="exchangeConfig.password"
+               required>
+      </mat-input-container>
+    </mat-card-content>
+
+    <mat-card-content>
+      <mat-input-container>
+        <input matInput placeholder="Host" type="text" name="host" [(ngModel)]="exchangeConfig.host" required>
+      </mat-input-container>
+    </mat-card-content>
+  </div>
+
 
   <mat-card-actions>
     <button mat-raised-button color="primary" (click)="updateEmailConfig()">Save Configuration</button>

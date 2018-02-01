@@ -1,13 +1,26 @@
-
 <div fxLayout="column" class="full-height translate">
+
   <div fxLayout="row">
     <mat-input-container fxFlex floatingPlaceholder="false">
-        <input matInput placeholder="Translate..." [(ngModel)]="word" (keyup.enter)="translate()">
+      <input matInput placeholder="Search for translations..." [(ngModel)]="query" (keyup.enter)="translate()">
     </mat-input-container>
     <button mat-icon-button (click)="translate()">
-        <mat-icon class="mat-24">search</mat-icon>
+      <mat-icon class="mat-24">search</mat-icon>
     </button>
   </div>
+
+  <div fxLayout="row" *ngIf="!_query" fxFlex>
+    <span>Please select or enter text to translate.</span>
+  </div>
+
+  <div fxLayout="row" *ngIf="loading" fxFlex>
+    <spinner [loading]="loading"></spinner>
+  </div>
+
+  <div fxLayout="row" *ngIf="_query && !loading && (!content || content.length == 0)" fxFlex>
+    <span>No translations found!</span>
+  </div>
+
   <div fxLayout="row" *ngFor="let c of content" class="block">
     <div>
       <div class="source">
@@ -20,6 +33,5 @@
       </div>
     </div>
   </div>
-
 
 </div>
