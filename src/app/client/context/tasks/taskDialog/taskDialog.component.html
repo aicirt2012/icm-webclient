@@ -8,10 +8,20 @@
     </div>
     <div>
         <form fxFlex fxLayout="column">
-            <mat-input-container>
-                <input matInput type="text" name="title" placeholder="Task Name" maxRows="3" [(ngModel)]="task.name" value="task.name">
-            </mat-input-container>
-            <div fxLayout="row" class="selectList">
+
+
+          <mat-select fxFlex   [(ngModel)]="selectedTask"  name="titleSelect"  required placeholder="Select a task title..">
+            <mat-option *ngFor="let name of task.names "    (onSelectionChange)="onSuggestedTaskChange(name) "   >
+              {{ name }}
+
+            </mat-option>
+          </mat-select>
+
+          <mat-input-container>
+            <input matInput type="text" name="title" placeholder="Task Title"  [(ngModel)]="selectedTask" >
+          </mat-input-container>
+
+             <div fxLayout="row" class="selectList">
                 <div fxFlex="45" fxLayoutAlign="start center">
                     <mat-icon class="margin">dashboard</mat-icon>
                     <mat-select fxFlex name="board-select" [(ngModel)]="task.board" [disabled]="task.taskType == 'linked'" required placeholder="Select a board..">
