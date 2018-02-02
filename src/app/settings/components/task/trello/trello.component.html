@@ -1,17 +1,20 @@
-<mat-card-content class="upper-space">
+<mat-card-actions class="upper-space">
+  <button mat-raised-button color="primary" (click)="redirectToTrello()">
+    <i class="fa fa-trello"></i> Connect to Trello
+  </button>
+</mat-card-actions>
+
+<mat-card-content>
+  <div>Current Configuration:</div>
   <mat-input-container>
     <input matInput name="TrelloAccessToken" type="text" [(ngModel)]="trelloConfig.trelloAccessToken"
            placeholder="TrelloAccessToken" [disabled]="true">
   </mat-input-container>
 </mat-card-content>
+
 <mat-card-content>
   <mat-input-container>
     <input matInput name="TrelloAccessTokenSecret" type="text"
            [(ngModel)]="trelloConfig.trelloAccessTokenSecret" placeholder="TrelloAccessTokenSecret" [disabled]="true">
   </mat-input-container>
 </mat-card-content>
-<mat-card-actions>
-  <button mat-raised-button color="primary" (click)="redirectToTrello()">
-    <i class="fa fa-trello"></i> Connect to Trello
-  </button>
-</mat-card-actions>
