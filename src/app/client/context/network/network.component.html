@@ -25,7 +25,7 @@
     <div class="contact-network-container" *ngFor="let contact of contacts;">
       <div fxLayout="row" class="primary-contact-container" (click)="openDialog(contact)">
         <div fxFlex="10" fxLayout="column" class="primary-icon-container">
-          <img src="assets/img/network/person_dark.png" class="icon"/>
+          <img src="assets/img/network/primary_contact_dark.png" class="icon"/>
         </div>
         <div fxFlex="90" fxLayout="column" class="primary-details-container">
           <div fxFlex="{{contact.businessCompany || contact.businessJobTitle ? (
@@ -47,7 +47,7 @@
         <div fxLayout="row" class="secondary-contact-container" *ngIf="i < 3 || contact.showAllRelations"
              (click)="openDialog(secondaryContact)">
           <div fxFlex="20" fxLayout="column" class="secondary-icon-container">
-            <img src="assets/img/network/connect_light.png" class="icon"/>
+            <img src="assets/img/network/secondary_contact_light.png" class="icon"/>
           </div>
           <div fxFlex="80" fxLayout="column" class="secondary-details-container">
             <div fxFlex="{{secondaryContact.businessCompany ? '50' : '100'}}"
@@ -63,7 +63,7 @@
       <div fxLayout="row" class="show-more-container" (click)="contact.showAllRelations = !contact.showAllRelations;"
            *ngIf="contact.secondaryContacts && contact.secondaryContacts.length > 3">
         <div fxFlex="20" fxLayout="column" class="show-more-icon">
-          <img src="assets/img/network/end_light.png" class="icon"/>
+          <img src="assets/img/network/show_more_light.png" class="icon"/>
         </div>
         <span fxFlex="80" fxLayout="column" class="show-more-text" *ngIf="!contact.showAllRelations">
           Show more... ({{contact.secondaryContacts.length - 3}})
