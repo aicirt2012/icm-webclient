@@ -5,9 +5,9 @@ import { MatSnackBar } from '@angular/material';
 
 
 @Component({
-  selector: 'overview',
-  templateUrl: 'overview.component.html',
-  styleUrls: ['overview.component.css'],
+  selector: 'account',
+  templateUrl: 'account.component.html',
+  styleUrls: ['account.component.css'],
   providers: [MatSnackBar]
 })
 export class OverviewComponent {
