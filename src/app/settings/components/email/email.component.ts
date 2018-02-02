@@ -4,12 +4,12 @@ import { MatSnackBar, MatInput } from '@angular/material';
 
 
 @Component({
-  selector: 'account',
-  templateUrl: 'account.component.html',
-  styleUrls: ['account.component.css'],
+  selector: 'email',
+  templateUrl: 'email.component.html',
+  styleUrls: ['email.component.css'],
   providers: [MatSnackBar]
 })
-export class AccountComponent {
+export class EmailComponent {
 
   public selectedEmail = 'Gmail'
 

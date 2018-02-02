@@ -1,4 +1,4 @@
-export * from './account';
+export * from './email';
 export * from './help';
 export * from './overview';
 export * from './contact';

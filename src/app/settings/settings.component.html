@@ -11,7 +11,7 @@
       </mat-nav-list>
     </div>
     <div fxFlex fxLayout="row" fxLayoutAlign="start stretch">
-      <account *ngIf="getCurrentView('email')"></account>
+      <email *ngIf="getCurrentView('email')"></email>
       <patterns fxFlex *ngIf="getCurrentView('patterns')"></patterns>
       <contact fxFlex *ngIf="getCurrentView('contacts')"></contact>
       <task fxFlex *ngIf="getCurrentView('tasks')"></task>
