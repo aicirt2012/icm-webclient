@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input } from '@angular/core';
 import { WikiService } from '../../shared/wiki.service'
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'wiki',
@@ -14,6 +15,7 @@ export class WikiComponent {
   private content: any;
   private _query: string = this.DEFAULT_QUERY_VALUE;
   private loading: boolean = false;
+  private debouncer: Subject<string> = new Subject<string>();
 
   @Input()
   set query(query: string) {
@@ -33,6 +35,9 @@ export class WikiComponent {
   }
 
   constructor(private ws: WikiService, private element: ElementRef) {
+    this.debouncer
+      .debounceTime(100)
+      .subscribe(value => this.onInputChanged(value));
   }
 
   ngOnInit() {
@@ -68,6 +73,18 @@ export class WikiComponent {
         e.setAttribute('style', baseStyle);
       });
     });
+  }
+
+  private onInputChanged(query) {
+    if (query) {
+      query = query.trim();
+    }
+    if (query) {
+      this._query = query;
+      this.search();
+    }
+    else
+      this._query = this.DEFAULT_QUERY_VALUE;
   }
 
 }
