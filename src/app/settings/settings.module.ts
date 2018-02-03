@@ -26,7 +26,7 @@ import {
 } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { SettingsComponent } from './';
-import { AccountComponent, OverviewComponent, TaskComponent, HelpComponent, SocioCortexComponent, TrelloComponent, PatternsComponent, ContactComponent } from './components'; // all settings components
+import { EmailComponent, OverviewComponent, TaskComponent, HelpComponent, SocioCortexComponent, TrelloComponent, PatternsComponent, ContactComponent } from './components'; // all settings components
 import { SharedModule } from '../shared';
 import { ROUTES } from './settings.routes';
 import { AuthGuard } from '../app.authGuard';
@@ -65,7 +65,7 @@ import { UserService } from './shared';
   declarations: [
     SettingsComponent,
     //dumb components
-    AccountComponent,
+    EmailComponent,
     TaskComponent,
     HelpComponent,
     OverviewComponent,

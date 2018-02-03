@@ -14,9 +14,9 @@ export class SettingsComponent {
   error = '';
   links = [
     {
-      name: 'Overview',
+      name: 'Account',
       icon: 'home',
-      link: '/settings/overview'
+      link: '/settings/account'
     },
     {
       name: 'Email Settings',

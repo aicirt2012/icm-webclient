@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { NetworkService } from '../../shared/network.service'
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { ContactDetailsDialogComponent } from './contactDetailsDialog';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'network',
@@ -21,18 +22,11 @@ export class NetworkComponent {
     'max-width': "80%",
     height: 'auto',
   };
+  private debouncer: Subject<string> = new Subject<string>();
 
   @Input()
   set query(query: string) {
-    if (query) {
-      query = query.trim();
-    }
-    if (query) {
-      this._query = query;
-      this.search();
-    }
-    else
-      this._query = this.DEFAULT_QUERY_VALUE;
+    this.debouncer.next(query);
   }
 
   get query(): string {
@@ -40,6 +34,9 @@ export class NetworkComponent {
   }
 
   constructor(private nt: NetworkService, public dialog: MatDialog) {
+    this.debouncer
+      .debounceTime(100)
+      .subscribe(value => this.onInputChanged(value));
   }
 
   public ngOnInit() {
@@ -50,7 +47,8 @@ export class NetworkComponent {
   }
 
   public search() {
-    if (this._query === this.DEFAULT_QUERY_VALUE)
+    // TODO add message to signalize the user that <=2 characters is too little text instead of just ignoring
+    if (!this._query || this._query === this.DEFAULT_QUERY_VALUE || this._query.trim().length < 3)
       return;
     this.loading = true;
     this.nt.search(this._query).subscribe((contacts) => {
@@ -62,6 +60,18 @@ export class NetworkComponent {
   openDialog(contact: any) {
     let contactDetailsDialogRef: MatDialogRef<ContactDetailsDialogComponent> = this.dialog.open(ContactDetailsDialogComponent, this.dialogConfig);
     contactDetailsDialogRef.componentInstance.contact = contact;
+  }
+
+  private onInputChanged(query) {
+    if (query) {
+      query = query.trim();
+    }
+    if (query) {
+      this._query = query;
+      this.search();
+    }
+    else
+      this._query = this.DEFAULT_QUERY_VALUE;
   }
 
 }

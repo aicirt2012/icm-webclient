@@ -1,3 +1,7 @@
+:host {
+  width: calc(100% + 3px); /* correct parent offset, prevents whitespace between action bar and shadow of context bar */
+}
+
 .action-buttons button {
   margin: 5px;
 }

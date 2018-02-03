@@ -34,7 +34,12 @@ mat-input-container {
   margin-top: 15px;
 }
 
-.mat-card-actions .mat-button:first-child, .mat-card-actions .mat-raised-button:first-child {
+.mat-card-actions {
+  margin-right: 0;
+}
+
+.mat-card-actions .mat-button:first-child,
+.mat-card-actions .mat-raised-button:first-child {
   margin-left: 16px;
   margin-right: 0;
 }

@@ -2,18 +2,16 @@
   height: 100vh;
   width: 100%;
   max-width: 100%;
+  overflow-y: scroll;
 }
 
-.not-connected {
-  color:lightgrey;
+.radio-container {
+  margin: 0 0 8px 0;
+  padding: 0 0 16px 0;
 }
 
-.connected {
-  color:green;
-}
-
-.secondary-text {
-  color: rgba(0, 0, 0, 0.54);
+mat-radio-button {
+  margin: 8px;
 }
 
 mat-card {
@@ -34,8 +32,9 @@ mat-input-container {
   margin-top: 15px;
 }
 
-.mat-card-actions {
+mat-card .mat-card-actions {
   margin-right: 0;
+  margin-bottom: 50px;
 }
 
 .mat-card-actions .mat-button:first-child,

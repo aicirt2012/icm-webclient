@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { TranslateService } from '../../shared/translate.service'
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'translate',
@@ -14,6 +15,7 @@ export class TranslateComponent {
   private content: any;
   private _query: string = this.DEFAULT_QUERY_VALUE;
   private loading: boolean = false;
+  private debouncer: Subject<string> = new Subject<string>();
 
   @Input()
   set query(query: string) {
@@ -32,6 +34,9 @@ export class TranslateComponent {
   }
 
   constructor(private ts: TranslateService) {
+    this.debouncer
+      .debounceTime(100)
+      .subscribe(value => this.onInputChanged(value));
   }
 
   ngOnInit() {
@@ -45,6 +50,18 @@ export class TranslateComponent {
       this.content = data;
       this.loading = false;
     });
+  }
+
+  private onInputChanged(query) {
+    if (query) {
+      query = query.trim();
+    }
+    if (query) {
+      this._query = query;
+      this.translate();
+    }
+    else
+      this._query = this.DEFAULT_QUERY_VALUE;
   }
 
 }

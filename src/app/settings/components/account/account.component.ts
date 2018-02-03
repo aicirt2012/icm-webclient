@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { UserService } from '../../shared';
-import { MatSnackBar, MatInput } from '@angular/material';
+import {UserService } from '../../shared';
+import {EmailService} from '../../../client/shared';
+import { MatSnackBar } from '@angular/material';
 
 
 @Component({
@@ -9,85 +10,33 @@ import { MatSnackBar, MatInput } from '@angular/material';
   styleUrls: ['account.component.css'],
   providers: [MatSnackBar]
 })
-export class AccountComponent {
+export class OverviewComponent {
 
-  public selectedEmail = 'Gmail'
+  public editSettings: boolean = false;
+  public user = {};
 
-  public gmailConfig = {
-    user: '',
-    password: '',
-    host: '',
-    port: 0,
-    smtpHost: '',
-    smtpPort: 0,
-    smtpDomains: []
-  }
-
-  public exchangeConfig = {
-    user: '',
-    password: '',
-    host: '',
-  }
-
-  constructor(private userService: UserService, private snackBar: MatSnackBar) {
-  }
+  constructor(private userService: UserService, private emailService: EmailService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.userService.getUserInfo().subscribe((data: any) => {
-      this.updateData(data);
+    this.userService.getUserInfo().subscribe( (data) => {
+      this.user = data;
     });
   }
 
-  updateData(data) {
+  updateUser() {
+    this.userService.updateUserInfo(this.user).subscribe( (data) => {
+      this.user = data;
+      this.snackBar.open('Update successful.', 'OK');
+    }, (error) => {
+      this.snackBar.open('Error while updating. Try again.', 'OK');
 
-    this.selectedEmail = data.provider || 'Gmail';
-
-    if (data.emailProvider['gmail']) {
-      this.gmailConfig.user = data.emailProvider['gmail'].user;
-      this.gmailConfig.password = data.emailProvider['gmail'].password;
-      this.gmailConfig.host = data.emailProvider['gmail'].host;
-      this.gmailConfig.port = data.emailProvider['gmail'].port;
-      this.gmailConfig.smtpHost = data.emailProvider['gmail'].smtpHost;
-      this.gmailConfig.smtpPort = data.emailProvider['gmail'].smtpPort;
-      this.gmailConfig.smtpDomains = data.emailProvider['gmail'].smtpDomains;
-    }
-
-    if (data.emailProvider['exchange']) {
-      this.exchangeConfig.user = data.emailProvider['exchange'].user;
-      this.exchangeConfig.password = data.emailProvider['exchange'].password;
-      this.exchangeConfig.host = data.emailProvider['exchange'].host;
-    }
-
+    });
   }
 
-  addDomain(domain: MatInput): void {
-    if (domain.value && domain.value.trim() != '') {
-      this.gmailConfig['smtpDomains'].push(domain.value.trim());
-      domain.value = '';
-    }
+  appendEnron() {
+    this.emailService.appendEnron().subscribe((data) => {
+      console.log(data);
+    })
   }
 
-  deleteDomain(index: number) {
-    if (index > -1) {
-      this.gmailConfig['smtpDomains'].splice(index, 1);
-    }
-  }
-
-  updateEmailConfig() {
-    if (this.selectedEmail === 'Gmail') {
-      this.userService.updateEmailProviderGMail(this.gmailConfig)
-        .subscribe((data: any) => {
-          this.snackBar.open('Update successful', 'OK');
-        }, (error) => {
-          this.snackBar.open('Error while updating', 'OK');
-        });
-    } else if (this.selectedEmail === 'Exchange') {
-      this.userService.updateEmailProviderExchange(this.exchangeConfig)
-        .subscribe((data: any) => {
-          this.snackBar.open('Update successful', 'OK');
-        }, (error) => {
-          this.snackBar.open('Error while updating', 'OK');
-        });
-    }
-  }
 }

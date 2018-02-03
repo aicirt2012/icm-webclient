@@ -12,17 +12,36 @@
 .primary-contact-container {
   background-color: #f2f6fa;
   padding: 5px;
-  margin-bottom: 5px;
   cursor: pointer;
 }
 
-.secondary-contact-container {
-  margin-bottom: 5px;
+.secondary-details-container {
+  padding-top: 5px;
+  padding-bottom: 5px;
   cursor: pointer;
 }
 
 .show-more-container * {
   cursor: pointer;
+}
+
+.primary-contact-container .icon {
+  height: 24px;
+  width: 24px;
+}
+
+.secondary-contact-container .icon {
+  height: 44px;
+  width: 48px;
+}
+
+.show-more-container .icon {
+  height: 24px;
+  width: 48px;
+}
+
+.show-more-text {
+  margin-top: 3px;
 }
 
 .flip {

@@ -1,17 +1,20 @@
-<mat-card>
-  <mat-card-content>
-    <mat-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
-      <input matInput fxFlex="100" name="TrelloAccessToken" type="text" [(ngModel)]="trelloConfig.trelloAccessToken"
-             placeholder="TrelloAccessToken" [disabled]="true">
-    </mat-input-container>
-  </mat-card-content>
-  <mat-card-content>
-    <mat-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
-      <input matInput fxFlex="100" name="TrelloAccessTokenSecret" type="text"
-             [(ngModel)]="trelloConfig.trelloAccessTokenSecret" placeholder="TrelloAccessTokenSecret" [disabled]="true">
-    </mat-input-container>
-  </mat-card-content>
-  <mat-card-content>
-    <a [href]="trelloURL"><span class="fa fa-trello"></span> Connect to Trello</a>
-  </mat-card-content>
-</mat-card>
+<mat-card-actions class="upper-space">
+  <button mat-raised-button color="primary" (click)="redirectToTrello()">
+    <i class="fab fa-trello"></i> Connect to Trello
+  </button>
+</mat-card-actions>
+
+<mat-card-content>
+  <div>Current Configuration:</div>
+  <mat-input-container class="upper-space">
+    <input matInput name="TrelloAccessToken" type="text" [(ngModel)]="trelloConfig.trelloAccessToken"
+           placeholder="TrelloAccessToken" [disabled]="true">
+  </mat-input-container>
+</mat-card-content>
+
+<mat-card-content>
+  <mat-input-container>
+    <input matInput name="TrelloAccessTokenSecret" type="text"
+           [(ngModel)]="trelloConfig.trelloAccessTokenSecret" placeholder="TrelloAccessTokenSecret" [disabled]="true">
+  </mat-input-container>
+</mat-card-content>

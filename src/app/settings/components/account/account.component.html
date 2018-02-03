@@ -1,104 +1,66 @@
 <mat-card class="scrollable">
-
   <mat-card-header>
-    <mat-card-title>Email Provider Configuration</mat-card-title>
+    <mat-card-title>User Credentials</mat-card-title>
   </mat-card-header>
-
   <mat-card-content>
-    <div>Provider:</div>
-    <mat-radio-group name="radio1" [(ngModel)]="selectedEmail">
-      <mat-radio-button value="Gmail">Gmail</mat-radio-button>
-      <mat-radio-button value="Exchange">Exchange</mat-radio-button>
-    </mat-radio-group>
+      <mat-input-container>
+        <input matInput name="username" type="text" [(ngModel)]="user.username" placeholder="Username" [disabled]="true">
+      </mat-input-container>
   </mat-card-content>
-
-
-  <div *ngIf="selectedEmail === 'Gmail'">
-    <mat-card-content>
-      <mat-input-container>
-        <input matInput placeholder="Email Address" type="email" name="email" [(ngModel)]="gmailConfig.user" autofocus
-               required>
-      </mat-input-container>
-    </mat-card-content>
-
-    <mat-card-content>
-      <mat-input-container>
-        <input matInput placeholder="Password" type="password" name="password" [(ngModel)]="gmailConfig.password"
-               required>
-      </mat-input-container>
-    </mat-card-content>
-
-    <mat-card-content>
-      <mat-input-container>
-        <input matInput placeholder="Host" type="text" name="host" [(ngModel)]="gmailConfig.host" required>
-      </mat-input-container>
-    </mat-card-content>
-
-    <mat-card-content>
-      <mat-input-container>
-        <input matInput placeholder="Port" type="number" name="port" [(ngModel)]="gmailConfig.port" required>
-      </mat-input-container>
-    </mat-card-content>
-
-    <mat-card-content>
-      <mat-input-container>
-        <input matInput placeholder="SMTP Host" type="text" name="smtphost" [(ngModel)]="gmailConfig.smtpHost"
-               required>
-      </mat-input-container>
-    </mat-card-content>
-
-    <mat-card-content>
-      <mat-input-container>
-        <input matInput placeholder="SMTP Port" type="number" name="smtpport" [(ngModel)]="gmailConfig.smtpPort"
-               required>
-      </mat-input-container>
-    </mat-card-content>
-
-    <mat-card-content>
-      <mat-input-container>
-        <input matInput #inputSmtpDomains (keyup.enter)="addDomain(inputSmtpDomains)"
-               (change)="addDomain(inputSmtpDomains)" type="text" placeholder="SMTP Domains:" required/>
-      </mat-input-container>
-    </mat-card-content>
-
-    <mat-card-content>
-      <mat-chip-list>
-        <mat-chip *ngFor="let domain of gmailConfig.smtpDomains; let i = index">
-          <div fxLayout="row" fxLayoutAlign="start center">
-            <span>{{domain}}</span>
-            <mat-icon class="pointer" (click)="deleteDomain(i)">close</mat-icon>
-          </div>
-        </mat-chip>
-      </mat-chip-list>
-    </mat-card-content>
-  </div>
-
-  <div *ngIf="selectedEmail === 'Exchange'">
-    <mat-card-content>
-      <mat-input-container>
-        <input matInput placeholder="Email Address" type="email" name="email" [(ngModel)]="exchangeConfig.user"
-               autofocus
-               required>
-      </mat-input-container>
-    </mat-card-content>
-
-    <mat-card-content>
-      <mat-input-container>
-        <input matInput placeholder="Password" type="password" name="password" [(ngModel)]="exchangeConfig.password"
-               required>
-      </mat-input-container>
-    </mat-card-content>
-
-    <mat-card-content>
-      <mat-input-container>
-        <input matInput placeholder="Host" type="text" name="host" [(ngModel)]="exchangeConfig.host" required>
-      </mat-input-container>
-    </mat-card-content>
-  </div>
-
-
+  <mat-card-content>
+    <mat-input-container>
+      <input matInput name="email" type="email" [(ngModel)]="user.email" placeholder="Email" autofocus>
+    </mat-input-container>
+  </mat-card-content>
+  <mat-card-content>
+    <mat-input-container>
+      <input matInput name="password" type="password" [(ngModel)]="user.password" placeholder="Password" required>
+    </mat-input-container>
+  </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="updateEmailConfig()">Save Configuration</button>
+    <button mat-raised-button color="primary" (click)="updateUser()">Update User Credentials</button>
   </mat-card-actions>
 
+  <!--<mat-card-header>-->
+    <!--<mat-card-title fxFlex="5">Connection Overview</mat-card-title>-->
+  <!--</mat-card-header>-->
+  <!--<mat-card-content>-->
+
+    <!--<mat-list>-->
+      <!--<mat-list-item [class.not-connected]="user.provider && !user.provider">-->
+        <!--<span mat-list-avatar *ngIf="user.provider && user.provider=='Gmail'" class="fa-3x fab fa-google"></span>-->
+        <!--<span mat-list-avatar *ngIf="user.provider && user.provider=='Exchange'" class="fa-3x fab fa-windows"></span>-->
+        <!--<span mat-list-avatar *ngIf="user.provider && !user.provider" class="fa-3x fas fa-envelope"></span>-->
+        <!--<h4 mat-line>{{user.provider && user.provider ? user.provider : 'Email Provider'}}</h4>-->
+        <!--<p mat-line>-->
+          <!--<span [class.connected]="user.provider && user.provider">{{user.provider && user.provider ? 'Connected' : 'Not Connected'}}</span>-->
+        <!--</p>-->
+      <!--</mat-list-item>-->
+      <!--<mat-divider></mat-divider>-->
+      <!--<mat-list-item [class.not-connected]="!user.trello">-->
+        <!--<span mat-list-avatar class="fa-3x fab fa-trello"></span>-->
+        <!--<h4 mat-line>Trello</h4>-->
+        <!--<p mat-line>-->
+          <!--<span [class.connected]="user.trello">{{user.trello ? 'Connected' : 'Not Connected'}}</span>-->
+        <!--</p>-->
+      <!--</mat-list-item>-->
+      <!--<mat-divider></mat-divider>-->
+      <!--<mat-list-item [class.not-connected]="!user.sociocortex">-->
+        <!--<span mat-list-avatar class="fa-3x fas fa-circle"></span>-->
+        <!--<h4 mat-line>SocioCortex</h4>-->
+        <!--<p mat-line>-->
+          <!--<span [class.connected]="user.sociocortex">{{user.sociocortex ? 'Connected' : 'Not Connected'}}</span>-->
+        <!--</p>-->
+      <!--</mat-list-item>-->
+    <!--</mat-list>-->
+
+  <!--</mat-card-content>-->
 </mat-card>
+
+<!--<mat-card>
+  <mat-card-title fxFlex="5">Enron</mat-card-title>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="appendEnron()">Add enron users</button>
+  </mat-card-actions>
+</mat-card>-->
+
