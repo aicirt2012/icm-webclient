@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../shared';
-import { MatSnackBar, MatInput } from '@angular/material';
+import { MatInput, MatSnackBar } from '@angular/material';
 
 
 @Component({
@@ -11,8 +11,7 @@ import { MatSnackBar, MatInput } from '@angular/material';
 })
 export class EmailComponent {
 
-  public selectedEmail = 'Gmail'
-
+  public selectedEmail = 'Gmail';
   public gmailConfig = {
     user: '',
     password: '',
@@ -21,13 +20,13 @@ export class EmailComponent {
     smtpHost: '',
     smtpPort: 0,
     smtpDomains: []
-  }
-
+  };
   public exchangeConfig = {
     user: '',
     password: '',
     host: '',
-  }
+  };
+  private showAdvancedSettings: boolean = false;
 
   constructor(private userService: UserService, private snackBar: MatSnackBar) {
   }
@@ -39,9 +38,7 @@ export class EmailComponent {
   }
 
   updateData(data) {
-
     this.selectedEmail = data.provider || 'Gmail';
-
     if (data.emailProvider['gmail']) {
       this.gmailConfig.user = data.emailProvider['gmail'].user;
       this.gmailConfig.password = data.emailProvider['gmail'].password;
@@ -51,13 +48,11 @@ export class EmailComponent {
       this.gmailConfig.smtpPort = data.emailProvider['gmail'].smtpPort;
       this.gmailConfig.smtpDomains = data.emailProvider['gmail'].smtpDomains;
     }
-
     if (data.emailProvider['exchange']) {
       this.exchangeConfig.user = data.emailProvider['exchange'].user;
       this.exchangeConfig.password = data.emailProvider['exchange'].password;
       this.exchangeConfig.host = data.emailProvider['exchange'].host;
     }
-
   }
 
   addDomain(domain: MatInput): void {

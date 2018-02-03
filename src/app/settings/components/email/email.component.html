@@ -28,49 +28,48 @@
       </mat-input-container>
     </mat-card-content>
 
-    <mat-card-content>
-      <mat-input-container>
-        <input matInput placeholder="Host" type="text" name="host" [(ngModel)]="gmailConfig.host" required>
-      </mat-input-container>
-    </mat-card-content>
+    <div *ngIf="showAdvancedSettings">
+      <mat-card-content>
+        <mat-input-container>
+          <input matInput placeholder="Host" type="text" name="host" [(ngModel)]="gmailConfig.host" required>
+        </mat-input-container>
+      </mat-card-content>
 
-    <mat-card-content>
-      <mat-input-container>
-        <input matInput placeholder="Port" type="number" name="port" [(ngModel)]="gmailConfig.port" required>
-      </mat-input-container>
-    </mat-card-content>
+      <mat-card-content>
+        <mat-input-container>
+          <input matInput placeholder="Port" type="number" name="port" [(ngModel)]="gmailConfig.port" required>
+        </mat-input-container>
+      </mat-card-content>
 
-    <mat-card-content>
-      <mat-input-container>
-        <input matInput placeholder="SMTP Host" type="text" name="smtphost" [(ngModel)]="gmailConfig.smtpHost"
-               required>
-      </mat-input-container>
-    </mat-card-content>
+      <mat-card-content>
+        <mat-input-container>
+          <input matInput placeholder="SMTP Host" type="text" name="smtphost" [(ngModel)]="gmailConfig.smtpHost"
+                 required>
+        </mat-input-container>
+      </mat-card-content>
 
-    <mat-card-content>
-      <mat-input-container>
-        <input matInput placeholder="SMTP Port" type="number" name="smtpport" [(ngModel)]="gmailConfig.smtpPort"
-               required>
-      </mat-input-container>
-    </mat-card-content>
+      <mat-card-content>
+        <mat-input-container>
+          <input matInput placeholder="SMTP Port" type="number" name="smtpport" [(ngModel)]="gmailConfig.smtpPort"
+                 required>
+        </mat-input-container>
+      </mat-card-content>
 
-    <mat-card-content>
-      <mat-input-container>
-        <input matInput #inputSmtpDomains (keyup.enter)="addDomain(inputSmtpDomains)"
-               (change)="addDomain(inputSmtpDomains)" type="text" placeholder="SMTP Domains:" required/>
-      </mat-input-container>
-    </mat-card-content>
-
-    <mat-card-content>
-      <mat-chip-list>
-        <mat-chip *ngFor="let domain of gmailConfig.smtpDomains; let i = index">
-          <div fxLayout="row" fxLayoutAlign="start center">
-            <span>{{domain}}</span>
-            <mat-icon class="pointer" (click)="deleteDomain(i)">close</mat-icon>
-          </div>
-        </mat-chip>
-      </mat-chip-list>
-    </mat-card-content>
+      <mat-card-content>
+        <mat-input-container>
+          <input matInput #inputSmtpDomains (keyup.enter)="addDomain(inputSmtpDomains)"
+                 (change)="addDomain(inputSmtpDomains)" type="text" placeholder="SMTP Domains:" required/>
+        </mat-input-container>
+        <mat-chip-list>
+          <mat-chip *ngFor="let domain of gmailConfig.smtpDomains; let i = index">
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <span>{{domain}}</span>
+              <mat-icon class="pointer" (click)="deleteDomain(i)">close</mat-icon>
+            </div>
+          </mat-chip>
+        </mat-chip-list>
+      </mat-card-content>
+    </div>
   </div>
 
   <div *ngIf="selectedEmail === 'Exchange'">
@@ -89,13 +88,18 @@
       </mat-input-container>
     </mat-card-content>
 
-    <mat-card-content>
-      <mat-input-container>
-        <input matInput placeholder="Host" type="text" name="host" [(ngModel)]="exchangeConfig.host" required>
-      </mat-input-container>
-    </mat-card-content>
+    <div *ngIf="showAdvancedSettings">
+      <mat-card-content>
+        <mat-input-container>
+          <input matInput placeholder="Host" type="text" name="host" [(ngModel)]="exchangeConfig.host" required>
+        </mat-input-container>
+      </mat-card-content>
+    </div>
   </div>
 
+  <mat-card-content>
+    <mat-checkbox name="showAdvancedSettings" [(ngModel)]="showAdvancedSettings">Show Advanced Settings</mat-checkbox>
+  </mat-card-content>
 
   <mat-card-actions>
     <button mat-raised-button color="primary" (click)="updateEmailConfig()">Save Configuration</button>
