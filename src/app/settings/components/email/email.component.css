@@ -2,6 +2,7 @@
   height: 100vh;
   width: 100%;
   max-width: 100%;
+  overflow-y: scroll;
 }
 
 .radio-container {
@@ -31,8 +32,9 @@ mat-input-container {
   margin-top: 15px;
 }
 
-.mat-card-actions {
+mat-card .mat-card-actions {
   margin-right: 0;
+  margin-bottom: 50px;
 }
 
 .mat-card-actions .mat-button:first-child,
