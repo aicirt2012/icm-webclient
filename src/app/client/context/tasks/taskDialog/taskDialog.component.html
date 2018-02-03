@@ -83,16 +83,16 @@
   </div>
   <mat-dialog-actions>
     <button mat-submit mat-raised-button color="primary" [disabled]="sending || !task.list" (click)="createTask()" *ngIf="task.taskType == 'suggested'">
-      <mat-icon>add</mat-icon><i class="fa fa-unlink"></i>Create Task
+      <i class="fas fa-plus margin"></i>Create Task
     </button>
     <button mat-submit mat-raised-button color="primary" [disabled]="sending" (click)="updateTask()" *ngIf="task.taskType == 'linked'">
-      <mat-icon>check</mat-icon><i class="fa fa-sync"></i>Update Task
-    </button>
-    <button mat-submit mat-raised-button color="primary" [disabled]="sending" (click)="unlinkTask()" *ngIf="task.taskType == 'linked'">
-      <i class="fa fa-unlink"></i>Unlink Task
+      <i class="fas fa-check margin"></i>Update Task
     </button>
     <button mat-submit mat-raised-button color="primary" [disabled]="sending" *ngIf="task.status != 'empty' && task.taskType == 'linked'" (click)="updateTask('close')">
-      <i class="fa fa-archive"></i>Archive Task
+      <mat-icon class="margin">archive</mat-icon>Archive Task
+    </button>
+    <button mat-submit mat-raised-button color="warn" [disabled]="sending" (click)="unlinkTask()" *ngIf="task.taskType == 'linked'">
+      <i class="fas fa-unlink margin"></i>Unlink Task
     </button>
     <img src="/assets/img/trello.gif" class="trello-icon">
   </mat-dialog-actions>
