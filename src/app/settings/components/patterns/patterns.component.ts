@@ -13,9 +13,7 @@ export class PatternsComponent {
 
   patterns: any[];
   newPattern: string = '';
-  useAsRegex :boolean = false;
-  matchTillSentenceEnd: boolean = true;
-  caseSensitive: boolean= false;
+  isRegex :boolean = false;
 
 
 
@@ -29,15 +27,11 @@ export class PatternsComponent {
 
   addPattern() {
     if (this.newPattern != '')  {
-      if(this.useAsRegex){
-        this.caseSensitive =true;
-        this.matchTillSentenceEnd = false;
-      }
-      this.userService.createPattern(this.newPattern,this.matchTillSentenceEnd,this.caseSensitive).subscribe((pattern: any) => {
+
+      this.userService.createPattern(this.newPattern,this.isRegex).subscribe((pattern: any) => {
         this.patterns.push(pattern);
         this.newPattern = '';
-        this.matchTillSentenceEnd = true;
-      });
+       });
     }
   }
 
