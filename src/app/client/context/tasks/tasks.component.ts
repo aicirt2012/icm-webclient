@@ -19,7 +19,7 @@ export class TasksComponent {
   public user: any;
   public linkedTasks: any = [];
   private dialogConfig = {
-    width: "70%",
+    width: "35%",
     height: 'auto',
   };
   private linkTaskDialogConfig = {

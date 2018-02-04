@@ -27,7 +27,7 @@
       </div>
 
       <div fxLayout="row" class="selectList">
-        <div fxFlex="45" fxLayoutAlign="start center">
+        <div fxFlex fxLayoutAlign="start center">
           <mat-icon class="margin">dashboard</mat-icon>
           <mat-select fxFlex name="board-select" [(ngModel)]="task.board" [disabled]="task.taskType == 'linked'"
                       required placeholder="Select a board..">
@@ -38,8 +38,9 @@
             </mat-option>
           </mat-select>
         </div>
-        <div fxFlex="10"></div>
-        <div fxFlex="45" fxLayout="row" fxLayoutAlign="end center">
+      </div>
+      <div fxLayout="row" class="selectList">
+        <div fxFlex fxLayoutAlign="end center">
           <mat-icon class="margin" *ngIf="task.board">view_list</mat-icon>
           <mat-select fxFlex [(ngModel)]="task.list" name="list-select" *ngIf="task.board"
                       [disabled]="task.taskType == 'linked'" required placeholder="Select a list..">
@@ -50,7 +51,7 @@
         </div>
       </div>
       <div fxLayout="row" *ngIf="task.board">
-        <div fxFlex="45" fxLayoutAlign="start center">
+        <div fxFlex fxLayoutAlign="start center">
           <mat-icon class="margin" [class.alert-icon]="overdue && !sticker_check && task.taskType == 'linked'">
             date_range
           </mat-icon>
@@ -59,8 +60,9 @@
                    value="task.date | date:'yyyy-MM-dd'">
           </mat-input-container>
         </div>
-        <div fxFlex="10"></div>
-        <div fxFlex="45" *ngIf="task.board" fxLayout="row" fxLayoutAlign="start center">
+      </div>
+      <div fxLayout="row" *ngIf="task.board">
+        <div fxFlex *ngIf="task.board" fxLayout="row" fxLayoutAlign="start center">
           <mat-icon class="margin">person</mat-icon>
           <mat-select class="selectList margin" placeholder="Delegate to.." [(ngModel)]="currMember" name="member"
                       (onClose)="currMember = ''">
@@ -79,10 +81,12 @@
           </div>
         </div>
       </div>
-      <mat-input-container>
+      <div fxLayout="row">
+        <mat-input-container fxFlex>
         <textarea matInput type="text" class="text-area" name="task-description" placeholder="Task Description"
                   maxRows="10" [(ngModel)]="task.desc" value="task.desc" rows="10"></textarea>
-      </mat-input-container>
+        </mat-input-container>
+      </div>
     </form>
   </div>
   <mat-dialog-actions>
@@ -96,7 +100,8 @@
     </button>
     <button mat-submit mat-raised-button color="primary" [disabled]="sending"
             *ngIf="task.status != 'empty' && task.taskType == 'linked'" (click)="updateTask('close')">
-      <mat-icon class="margin">archive</mat-icon>Archive Task
+      <mat-icon class="margin">archive</mat-icon>
+      Archive Task
     </button>
     <button mat-submit mat-raised-button color="warn" [disabled]="sending" (click)="unlinkTask()"
             *ngIf="task.taskType == 'linked'">
