@@ -40,11 +40,11 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div fxLayout="row">
-        <mat-icon class="margin offset-top-mat-icon" *ngIf="task.board" fxFlex="5">view_list</mat-icon>
+      <div fxLayout="row" *ngIf="task.board">
+        <mat-icon class="margin offset-top-mat-icon" fxFlex="5">view_list</mat-icon>
         <mat-form-field fxFlex>
-          <mat-select name="list-select" [(ngModel)]="task.list" *ngIf="task.board"
-                      [disabled]="task.taskType == 'linked'" required placeholder="Trello List">
+          <mat-select name="list-select" [(ngModel)]="task.list" [disabled]="task.taskType == 'linked'" required
+                      placeholder="Trello List">
             <mat-option *ngFor="let list of task.board.lists" [value]="task.taskType == 'linked'? task.list : list">
               {{task.taskType == 'linked' ? task.list.name : list.name}}
             </mat-option>
@@ -84,7 +84,7 @@
           </div>
         </div>
       </div>
-      <div fxLayout="row">
+      <div fxLayout="row" *ngIf="task.board">
         <i class="fas fa-align-left margin offset-top-fa-icon" fxFlex="5" fxFlexAlign="start center"></i>
         <mat-form-field fxFlex>
           <textarea matInput type="text" class="text-area" name="task-description" placeholder="Task Description"

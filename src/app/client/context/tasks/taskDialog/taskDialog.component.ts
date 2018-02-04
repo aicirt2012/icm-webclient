@@ -161,7 +161,11 @@ export class TaskDialogComponent {
   }
 
   private updateFilteredTasks() {
-    this.filteredTitleSuggestions = this.suggested.titles.filter(title => title.toLowerCase().indexOf(this.taskTitle.toLowerCase()) === 0);
+    if (this.taskTitle) {
+      this.filteredTitleSuggestions = this.suggested.titles.filter(title => title && title.toLowerCase().indexOf(this.taskTitle.toLowerCase()) === 0);
+    } else {
+      this.filteredTitleSuggestions = this.suggested.titles;
+    }
   }
 
 }
