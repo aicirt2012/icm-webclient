@@ -57,10 +57,11 @@
                     fxFlex="5">
             date_range
           </mat-icon>
-          <mat-input-container fxFlex>
-            <input name="date" matInput placeholder="Due Date" type="date" [(ngModel)]="task.date"
-                   value="task.date | date:'yyyy-MM-dd'">
-          </mat-input-container>
+          <mat-form-field fxFlex>
+            <input name="date" matInput placeholder="Due Date" [(ngModel)]="task.date" [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
         </div>
       </div>
       <div fxLayout="row" *ngIf="task.board">
