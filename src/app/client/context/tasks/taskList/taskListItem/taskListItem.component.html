@@ -17,7 +17,7 @@
                 <div *ngFor="let member of task.members" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
                     <span>{{member.initials}}</span>
                 </div>
-                <div *ngIf="task.members.length < 1"><i>No person assigned</i></div>
+                <div *ngIf="task.members.length < 1"><i>Unassigned</i></div>
             </div>
         </div>
         <div *ngIf="task.desc" fxFlex="33" class="text-overflow">
