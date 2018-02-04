@@ -116,12 +116,9 @@ export class TasksComponent {
 
   openTaskDialog() {
     if (this.boards.length > 0) {
-      let b = this.boards[0];
       this.openDialog({
         'taskType': 'suggested',
-        'status': 'empty',
-        'board': b,
-        'name': this.email.subject
+        'status': 'empty'
       });
     }
     else {
