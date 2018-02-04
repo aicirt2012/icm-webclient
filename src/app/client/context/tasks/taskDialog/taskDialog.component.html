@@ -19,12 +19,12 @@
       <div fxLayout="row">
         <i class="fas fa-font margin offset-top" fxFlex="5"></i>
         <mat-form-field fxFlex>
-          <input type="text" name="titleSelect" matInput [(ngModel)]="task.name" [matAutocomplete]="autocompleteTitle"
+          <input type="text" name="titleSelect" matInput [(ngModel)]="taskTitle" [matAutocomplete]="autocompleteTitle"
                  placeholder="Task Title" required>
+          <mat-autocomplete #autocompleteTitle="matAutocomplete">
+            <mat-option *ngFor="let title of filteredTitleSuggestions" [value]="title">{{title}}</mat-option>
+          </mat-autocomplete>
         </mat-form-field>
-        <mat-autocomplete #autocompleteTitle="matAutocomplete">
-          <mat-option *ngFor="let taskTitle of suggested.titles" [value]="taskTitle">{{taskTitle}}</mat-option>
-        </mat-autocomplete>
       </div>
 
       <div fxLayout="row" class="selectList">
@@ -58,7 +58,7 @@
             date_range
           </mat-icon>
           <mat-input-container fxFlex>
-            <input name="date" matInput placeholder="Due Date" type="date" required [(ngModel)]="task.date"
+            <input name="date" matInput placeholder="Due Date" type="date" [(ngModel)]="task.date"
                    value="task.date | date:'yyyy-MM-dd'">
           </mat-input-container>
         </div>
@@ -87,7 +87,7 @@
         <i class="fas fa-align-left margin offset-top" fxFlex="5" fxFlexAlign="start center"></i>
         <mat-input-container fxFlex>
           <textarea matInput type="text" class="text-area" name="task-description" placeholder="Task Description"
-                  maxRows="10" [(ngModel)]="task.desc" value="task.desc" rows="10" fxFlex></textarea>
+                    maxRows="10" [(ngModel)]="task.desc" value="task.desc" rows="10" fxFlex></textarea>
         </mat-input-container>
       </div>
     </form>

@@ -1,6 +1,5 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { MatDialogRef, MatSnackBar, MatInput } from '@angular/material';
+import { Component, Input } from '@angular/core';
+import { MatDialogRef, MatSnackBar } from '@angular/material';
 import { TaskService } from '../../../shared';
 import { AppState } from '../../../../app.service';
 
@@ -25,6 +24,25 @@ export class TaskDialogComponent {
   public index = '';
   overdue: boolean = false;
   sticker_check: boolean = false;
+  private filteredTitleSuggestions: any = [];
+
+  @Input()
+  set taskTitle(title: string) {
+    if (title) {
+      title = title.trim();
+    }
+    if (title) {
+      this.task.name = title;
+      this.updateFilteredTasks();
+    }
+    else
+      this.task.name = "";
+  }
+
+
+  get taskTitle(): string {
+    return this.task.name;
+  }
 
   constructor(public taskDialogRef: MatDialogRef<TaskDialogComponent>, private snackBar: MatSnackBar, private _taskService: TaskService, public appState: AppState) {
   }
@@ -34,6 +52,7 @@ export class TaskDialogComponent {
       this.sticker_check = this.task.stickers.find((sticker) => sticker.image === 'check') ? true : false;
       this.overdue = this.task.date ? (new Date(this.task.date) < new Date()) : false;
     }
+    this.updateFilteredTasks();
   }
 
   createTask() {
@@ -101,7 +120,6 @@ export class TaskDialogComponent {
   }
 
 
-
   onSuggestedTaskChange(suggestedTaskName: string) {
     this.selectedTask = suggestedTaskName;
   }
@@ -140,6 +158,10 @@ export class TaskDialogComponent {
     else {
       this.email.linkedTasks[this.email.linkedTasks.findIndex((t) => t.id == task.id)] = task;
     }
+  }
+
+  private updateFilteredTasks() {
+    this.filteredTitleSuggestions = this.suggested.titles.filter(title => title.toLowerCase().indexOf(this.taskTitle.toLowerCase()) === 0);
   }
 
 }
