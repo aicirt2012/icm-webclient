@@ -1,8 +1,12 @@
 <mat-progress-bar color="accent" class="progressbar-top" *ngIf="sending" mode="indeterminate"></mat-progress-bar>
 <div class="task-dialog-wrapper" fxFlex fxLayout="column">
   <div mat-dialog-title fxLayout="row">
-    <mat-icon matTooltip="Overdue" *ngIf="overdue && !sticker_check && task.taskType == 'linked'" class="pointer alert-icon margin">add_alert</mat-icon>
-    <mat-icon matTooltip="Completed" *ngIf="sticker_check && task.taskType == 'linked'" class="pointer check-icon margin">check</mat-icon>
+    <mat-icon matTooltip="Overdue" *ngIf="overdue && !sticker_check && task.taskType == 'linked'"
+              class="pointer alert-icon margin">add_alert
+    </mat-icon>
+    <mat-icon matTooltip="Completed" *ngIf="sticker_check && task.taskType == 'linked'"
+              class="pointer check-icon margin">check
+    </mat-icon>
     <span fxFlex>{{task.taskType == 'linked' ? 'Update Task' : 'Create Task'}}</span>
     <mat-icon (click)="closeDialog()" class="pointer">close</mat-icon>
   </div>
@@ -12,15 +16,15 @@
   </mat-dialog-content>
   <div>
     <form fxFlex fxLayout="column">
-      <mat-select fxFlex [(ngModel)]="selectedTask" name="titleSelect" required placeholder="Select a task title..">
-        <mat-option *ngFor="let name of task.names " (onSelectionChange)="onSuggestedTaskChange(name) ">
-          {{name}}
-        </mat-option>
-      </mat-select>
-
-      <mat-input-container>
-        <input matInput type="text" name="title" placeholder="Task Title" [(ngModel)]="selectedTask">
-      </mat-input-container>
+      <div fxLayout="row">
+        <mat-form-field fxFlex>
+          <input type="text" name="titleSelect" matInput [(ngModel)]="task.name" [matAutocomplete]="autocompleteTitle"
+                 placeholder="Task Title" required>
+        </mat-form-field>
+        <mat-autocomplete #autocompleteTitle="matAutocomplete">
+          <mat-option *ngFor="let taskTitle of suggested.titles" [value]="taskTitle">{{taskTitle}}</mat-option>
+        </mat-autocomplete>
+      </div>
 
       <div fxLayout="row" class="selectList">
         <div fxFlex="45" fxLayoutAlign="start center">
@@ -82,16 +86,20 @@
     </form>
   </div>
   <mat-dialog-actions>
-    <button mat-submit mat-raised-button color="primary" [disabled]="sending || !task.list" (click)="createTask()" *ngIf="task.taskType == 'suggested'">
+    <button mat-submit mat-raised-button color="primary" [disabled]="sending || !task.list" (click)="createTask()"
+            *ngIf="task.taskType == 'suggested'">
       <i class="fas fa-plus margin"></i>Create Task
     </button>
-    <button mat-submit mat-raised-button color="primary" [disabled]="sending" (click)="updateTask()" *ngIf="task.taskType == 'linked'">
+    <button mat-submit mat-raised-button color="primary" [disabled]="sending" (click)="updateTask()"
+            *ngIf="task.taskType == 'linked'">
       <i class="fas fa-check margin"></i>Update Task
     </button>
-    <button mat-submit mat-raised-button color="primary" [disabled]="sending" *ngIf="task.status != 'empty' && task.taskType == 'linked'" (click)="updateTask('close')">
+    <button mat-submit mat-raised-button color="primary" [disabled]="sending"
+            *ngIf="task.status != 'empty' && task.taskType == 'linked'" (click)="updateTask('close')">
       <mat-icon class="margin">archive</mat-icon>Archive Task
     </button>
-    <button mat-submit mat-raised-button color="warn" [disabled]="sending" (click)="unlinkTask()" *ngIf="task.taskType == 'linked'">
+    <button mat-submit mat-raised-button color="warn" [disabled]="sending" (click)="unlinkTask()"
+            *ngIf="task.taskType == 'linked'">
       <i class="fas fa-unlink margin"></i>Unlink Task
     </button>
     <img src="/assets/img/trello.gif" class="trello-icon">

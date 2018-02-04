@@ -18,5 +18,4 @@ export class TaskListComponent {
   @Output() openLinkTaskDialog = new EventEmitter<any>();
   @Output() highlightSentence = new EventEmitter<any>();
   @Output() hightlightTaskItem = new EventEmitter<any>();
-
 }

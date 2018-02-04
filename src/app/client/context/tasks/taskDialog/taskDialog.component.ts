@@ -14,6 +14,7 @@ export class TaskDialogComponent {
   public task: any = {};
   public selectedTask: any = "sdfsdf";
   public suggestedTasks: any = [];
+  public suggested: any = {};
   public linkedTasks: any = [];
   public email: any = {};
   public boards: any[] = [];

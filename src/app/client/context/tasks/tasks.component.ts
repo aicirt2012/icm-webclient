@@ -67,6 +67,7 @@ export class TasksComponent {
     taskDialogRef.componentInstance.task = task;
     taskDialogRef.componentInstance.email = this.email;
     taskDialogRef.componentInstance.boards = this.boards;
+    taskDialogRef.componentInstance.suggested = this.email.suggestedData;
   }
 
   deleteTask(task: any) {
