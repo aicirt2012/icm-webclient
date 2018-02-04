@@ -17,7 +17,7 @@
   <div>
     <form fxFlex fxLayout="column">
       <div fxLayout="row">
-        <i class="fas fa-font margin offset-top" fxFlex="5"></i>
+        <i class="fas fa-font margin offset-top-fa-icon" fxFlex="5"></i>
         <mat-form-field fxFlex>
           <input type="text" name="titleSelect" matInput [(ngModel)]="taskTitle" [matAutocomplete]="autocompleteTitle"
                  placeholder="Task Title" required>
@@ -27,29 +27,29 @@
         </mat-form-field>
       </div>
 
-      <div fxLayout="row" class="selectList">
-        <div fxLayoutAlign="start center">
-          <mat-icon class="margin" fxFlex="5">dashboard</mat-icon>
-          <mat-select fxFlex name="board-select" [(ngModel)]="task.board" [disabled]="task.taskType == 'linked'"
-                      required placeholder="Select a board..">
+      <div fxLayout="row">
+        <mat-icon class="margin offset-top-mat-icon" fxFlex="5">dashboard</mat-icon>
+        <mat-form-field fxFlex>
+          <mat-select name="board-select" [(ngModel)]="task.board" [disabled]="task.taskType == 'linked'"
+                      required placeholder="Trello Board">
             <mat-option *ngFor="let board of boards; let b = index"
                         [value]="task.taskType == 'suggested' ? board : task.board"
                         (onSelect)="task.taskType == 'suggested' ? onSelectBoard(board): ''">
               {{board.name}}
             </mat-option>
           </mat-select>
-        </div>
+        </mat-form-field>
       </div>
-      <div fxLayout="row" class="selectList">
-        <div fxLayoutAlign="end center">
-          <mat-icon class="margin" *ngIf="task.board" fxFlex="5">view_list</mat-icon>
-          <mat-select fxFlex [(ngModel)]="task.list" name="list-select" *ngIf="task.board"
-                      [disabled]="task.taskType == 'linked'" required placeholder="Select a list..">
+      <div fxLayout="row">
+        <mat-icon class="margin offset-top-mat-icon" *ngIf="task.board" fxFlex="5">view_list</mat-icon>
+        <mat-form-field fxFlex>
+          <mat-select name="list-select" [(ngModel)]="task.list" *ngIf="task.board"
+                      [disabled]="task.taskType == 'linked'" required placeholder="Trello List">
             <mat-option *ngFor="let list of task.board.lists" [value]="task.taskType == 'linked'? task.list : list">
               {{task.taskType == 'linked' ? task.list.name : list.name}}
             </mat-option>
           </mat-select>
-        </div>
+        </mat-form-field>
       </div>
       <div fxLayout="row" *ngIf="task.board">
         <div fxLayoutAlign="start center" fxFlex>
@@ -64,31 +64,31 @@
         </div>
       </div>
       <div fxLayout="row" *ngIf="task.board">
-        <div *ngIf="task.board" fxLayout="row" fxLayoutAlign="start center">
-          <mat-icon class="margin" fxFlex="5">person</mat-icon>
-          <mat-select class="selectList margin" placeholder="Delegate to.." [(ngModel)]="currMember" name="member"
+        <mat-icon class="margin offset-top-mat-icon" fxFlex="5">person</mat-icon>
+        <mat-form-field fxFlex>
+          <mat-select class="margin" placeholder="Assignees" [(ngModel)]="currMember" name="member"
                       (onClose)="currMember = ''" fxFlex>
-            <mat-option [value]="''">Choose...</mat-option>
+            <mat-option><i>Unassigned</i></mat-option>
             <mat-option *ngFor="let member of task.possibleMembers; let i = index" [value]="member"
                         (onSelect)="addMember(member, i)">
               {{member.fullName}}
             </mat-option>
           </mat-select>
-          <div fxLayout="row" fxLayoutAlign="start center">
-            <div *ngFor="let member of task.selectedMembers; let i = index" [matTooltip]="member.fullName"
-                 fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="center center" class="member-initials">
-              <span>{{member.initials}}</span>
-              <mat-icon (click)="deleteMember(member, i)">close</mat-icon>
-            </div>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div *ngFor="let member of task.selectedMembers; let i = index" [matTooltip]="member.fullName"
+               fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="center center" class="member-initials">
+            <span>{{member.initials}}</span>
+            <mat-icon (click)="deleteMember(member, i)">close</mat-icon>
           </div>
         </div>
       </div>
       <div fxLayout="row">
-        <i class="fas fa-align-left margin offset-top" fxFlex="5" fxFlexAlign="start center"></i>
-        <mat-input-container fxFlex>
+        <i class="fas fa-align-left margin offset-top-fa-icon" fxFlex="5" fxFlexAlign="start center"></i>
+        <mat-form-field fxFlex>
           <textarea matInput type="text" class="text-area" name="task-description" placeholder="Task Description"
                     maxRows="10" [(ngModel)]="task.desc" value="task.desc" rows="10" fxFlex></textarea>
-        </mat-input-container>
+        </mat-form-field>
       </div>
     </form>
   </div>

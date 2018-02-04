@@ -23,13 +23,12 @@ form i.fas {
   padding-left: 4px;
 }
 
-.offset-top {
+.offset-top-fa-icon {
   margin-top: 22px;
 }
 
-.selectList {
-  margin-top: 15px;
-  margin-bottom: 15px;
+.offset-top-mat-icon {
+  margin-top: 17px;
 }
 
 .pointer {
