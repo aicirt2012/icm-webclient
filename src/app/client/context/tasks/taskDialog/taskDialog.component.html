@@ -30,11 +30,9 @@
       <div fxLayout="row">
         <mat-icon class="margin offset-top-mat-icon" fxFlex="5">dashboard</mat-icon>
         <mat-form-field fxFlex>
-          <mat-select name="board-select" [(ngModel)]="task.board" [disabled]="task.taskType == 'linked'"
+          <mat-select name="board-select" [(ngModel)]="selectedBoard" [disabled]="task.taskType == 'linked'"
                       required placeholder="Trello Board">
-            <mat-option *ngFor="let board of boards; let b = index"
-                        [value]="task.taskType == 'suggested' ? board : task.board"
-                        (onSelect)="task.taskType == 'suggested' ? onSelectBoard(board): ''">
+            <mat-option *ngFor="let board of boards" [value]="board">
               {{board.name}}
             </mat-option>
           </mat-select>
@@ -67,22 +65,21 @@
       <div fxLayout="row" *ngIf="task.board">
         <mat-icon class="margin offset-top-mat-icon" fxFlex="5">person</mat-icon>
         <mat-form-field fxFlex>
-          <mat-select class="margin" placeholder="Assignees" [(ngModel)]="currMember" name="member"
-                      (onClose)="currMember = ''" fxFlex>
-            <mat-option><i>Unassigned</i></mat-option>
-            <mat-option *ngFor="let member of task.possibleMembers; let i = index" [value]="member"
-                        (onSelect)="addMember(member, i)">
-              {{member.fullName}}
-            </mat-option>
+          <mat-select class="margin" placeholder="Assignees" [(ngModel)]="selectedMembers" name="member" fxFlex
+                      multiple>
+            <mat-optgroup label="Mentioned members" *ngIf="suggestedMembers && suggestedMembers.length > 0">
+              <mat-option *ngFor="let member of suggestedMembers; let i = index" [value]="member"
+                          (onSelect)="addMember(member, i)">
+                {{member.fullName}}
+              </mat-option>
+            </mat-optgroup>
+            <mat-optgroup label="Board members" *ngIf="nonSuggestedMembers && nonSuggestedMembers.length > 0">
+              <mat-option *ngFor="let member of nonSuggestedMembers; let i = index" [value]="member">
+                {{member.fullName}}
+              </mat-option>
+            </mat-optgroup>
           </mat-select>
         </mat-form-field>
-        <div fxLayout="row" fxLayoutAlign="start center">
-          <div *ngFor="let member of task.selectedMembers; let i = index" [matTooltip]="member.fullName"
-               fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="center center" class="member-initials">
-            <span>{{member.initials}}</span>
-            <mat-icon (click)="deleteMember(member, i)">close</mat-icon>
-          </div>
-        </div>
       </div>
       <div fxLayout="row" *ngIf="task.board">
         <i class="fas fa-align-left margin offset-top-fa-icon" fxFlex="5" fxFlexAlign="start center"></i>

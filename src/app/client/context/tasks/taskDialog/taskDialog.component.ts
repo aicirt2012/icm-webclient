@@ -11,20 +11,21 @@ import { AppState } from '../../../../app.service';
 export class TaskDialogComponent {
 
   public task: any = {};
-  public selectedTask: any = "sdfsdf";
   public suggestedTasks: any = [];
   public suggested: any = {};
   public linkedTasks: any = [];
   public email: any = {};
   public boards: any[] = [];
   public sending: boolean = false;
-  public selectedMembers: any[] = [];
   public possibleMembers: any[] = [];
-  public currMember = '';
   public index = '';
   overdue: boolean = false;
   sticker_check: boolean = false;
+
   private filteredTitleSuggestions: any = [];
+  private suggestedMembers: any = [];
+  private nonSuggestedMembers: any = [];
+  private selectedMembers: any = [];  // TODO set task.selectedMembers on submit
 
   @Input()
   set taskTitle(title: string) {
@@ -33,15 +34,26 @@ export class TaskDialogComponent {
     }
     if (title) {
       this.task.name = title;
-      this.updateFilteredTasks();
+      this.updateTaskSuggestions();
     }
     else
       this.task.name = "";
   }
 
-
   get taskTitle(): string {
     return this.task.name;
+  }
+
+  @Input()
+  set selectedBoard(board: any) {
+    if (board) {
+      this.task.board = board;
+      this.updateMemberSuggestions();
+    }
+  }
+
+  get selectedBoard(): any {
+    return this.task.board;
   }
 
   constructor(public taskDialogRef: MatDialogRef<TaskDialogComponent>, private snackBar: MatSnackBar, private _taskService: TaskService, public appState: AppState) {
@@ -52,7 +64,7 @@ export class TaskDialogComponent {
       this.sticker_check = this.task.stickers.find((sticker) => sticker.image === 'check') ? true : false;
       this.overdue = this.task.date ? (new Date(this.task.date) < new Date()) : false;
     }
-    this.updateFilteredTasks();
+    this.updateTaskSuggestions();
   }
 
   createTask() {
@@ -114,29 +126,6 @@ export class TaskDialogComponent {
     this.taskDialogRef.close();
   }
 
-  onSelectBoard(board: any) {
-    this.task.possibleMembers = [].concat(board.members);
-    this.task.selectedMembers = this.task.selectedMembers == undefined ? [] : this.task.selectedMembers;
-  }
-
-
-  onSuggestedTaskChange(suggestedTaskName: string) {
-    this.selectedTask = suggestedTaskName;
-  }
-
-  addMember(member: any, index: number): void {
-    this.task.selectedMembers.push(member);
-    this.task.possibleMembers.splice(index, 1);
-    this.currMember = '';
-  }
-
-  deleteMember(member: any, index: number) {
-    this.task.possibleMembers = this.task.possibleMembers == undefined ? [] : this.task.possibleMembers;
-    this.task.possibleMembers.push(member);
-    this.task.selectedMembers.splice(index, 1);
-    this.currMember = '';
-  }
-
   addLinkedTask(task: any) {
     task['board'] = this.task.board;
     task['list'] = this.task.list;
@@ -160,12 +149,46 @@ export class TaskDialogComponent {
     }
   }
 
-  private updateFilteredTasks() {
+  private updateMemberSuggestions() {
+    this.suggestedMembers = this.getSuggestedPersons(this.suggested.persons, this.task.board.members);
+    this.nonSuggestedMembers = this.getNonSuggestedPersons(this.task.board.members, this.suggestedMembers);
+  }
+
+  private updateTaskSuggestions() {
     if (this.taskTitle) {
-      this.filteredTitleSuggestions = this.suggested.titles.filter(title => title && title.toLowerCase().indexOf(this.taskTitle.toLowerCase()) === 0);
+      this.filteredTitleSuggestions = this.suggested.titles.filter(title => title.toLowerCase().indexOf(this.taskTitle.toLowerCase()) === 0);
     } else {
       this.filteredTitleSuggestions = this.suggested.titles;
     }
+  }
+
+  private getSuggestedPersons(mentionedPersons: any[], boardMembers: any[]) {
+    let result = [];
+    mentionedPersons.forEach(mentionedPerson => {
+      boardMembers.some(boardMember => {   //.some() is like .forEach() but stops if true is returned
+        if (mentionedPerson.id === boardMember.id) {
+          result.push(mentionedPerson);
+          return true;
+        }
+      })
+    });
+    return result;
+  }
+
+  private getNonSuggestedPersons(boardMembers: any[], suggestedPersons: any[]) {
+    let result = [];
+    boardMembers.forEach(boardMember => {
+      let isSuggested = false;
+      suggestedPersons.forEach(suggestedPerson => {
+        if (boardMember.id === suggestedPerson.id) {
+          isSuggested = true;
+        }
+      });
+      if (!isSuggested) {
+        result.push(boardMember);
+      }
+    });
+    return result;
   }
 
 }
