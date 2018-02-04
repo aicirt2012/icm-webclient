@@ -1,8 +1,6 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
-import { Email } from '../../shared';
 import { TaskService } from '../../shared';
-import { TaskDialogType, DialogType } from '../../../shared/constants';
 import { TaskDialogComponent } from './taskDialog';
 import { LinkTaskDialogComponent } from './linkTaskDialog';
 import { AppState } from '../../../app.service';
@@ -23,13 +21,11 @@ export class TasksComponent {
   private dialogConfig = {
     width: "70%",
     height: 'auto',
-  }
+  };
   private linkTaskDialogConfig = {
     width: '70%',
     height: 'auto'
-  }
-  public showSuggested: boolean = true;
-  public showLinked: boolean = true;
+  };
 
   constructor(private _taskService: TaskService, public dialog: MatDialog, public snackBar: MatSnackBar, public appState: AppState) {
   }
@@ -48,22 +44,22 @@ export class TasksComponent {
   createTask(taskObject: any) {
     this._taskService.createTask(this.email, taskObject)
       .subscribe((task: any) => {
-        this.snackBar.open('Task successfully created.', 'OK');
-      },
-      error => {
-        console.log(error);
-        this.snackBar.open('Error while creating task.', 'OK');
-      });
+          this.snackBar.open('Task successfully created.', 'OK');
+        },
+        error => {
+          console.log(error);
+          this.snackBar.open('Error while creating task.', 'OK');
+        });
   }
 
   getAllBoards() {
     this._taskService.getAllBoards()
       .subscribe((data: any) => {
-        this.boards = data;
-      },
-      error => {
-        console.log(error)
-      });
+          this.boards = data;
+        },
+        error => {
+          console.log(error)
+        });
   }
 
   openDialog(task: any) {
@@ -88,10 +84,13 @@ export class TasksComponent {
     linkTaskDialogRef.componentInstance.email = this.email;
     linkTaskDialogRef.componentInstance.boards = this.boards;
   }
+
   /* change highlightstatus { sentenceId, highlight(true/false)}*/
   highlightSentence(h: any) {
     const sentence = this.email.sentences.find((s) => s.id == h.id);
-    this.email.sentences.forEach((s) => { s.highlighted = false });
+    this.email.sentences.forEach((s) => {
+      s.highlighted = false
+    });
     sentence.highlighted = h.highlight;
   }
 
@@ -105,31 +104,28 @@ export class TasksComponent {
   }
 
   openLinkTask() {
-    if(this.boards.length > 0) {
+    if (this.boards.length > 0) {
       let b = this.boards[0];
-      this.openLinkTaskDialog({ 'taskType': 'linked', 'board': b, });
+      this.openLinkTaskDialog({'taskType': 'linked', 'board': b,});
     }
     else {
-      this.openLinkTaskDialog({ 'taskType': 'linked' });
+      this.openLinkTaskDialog({'taskType': 'linked'});
     }
   }
 
   openTaskDialog() {
-    if(this.boards.length > 0) {
+    if (this.boards.length > 0) {
       let b = this.boards[0];
-      this.openDialog({ 'taskType': 'suggested', 'status': 'empty', 'board': b, 'name': this.email.subject});
+      this.openDialog({
+        'taskType': 'suggested',
+        'status': 'empty',
+        'board': b,
+        'name': this.email.subject
+      });
     }
     else {
-      this.openDialog({ 'taskType': 'suggested', 'status': 'empty', 'name': this.email.subject});
+      this.openDialog({'taskType': 'suggested', 'status': 'empty', 'name': this.email.subject});
     }
-  }
-
-  setSuggestedFilter(checked: boolean) {
-    this.showSuggested = checked;
-  }
-
-  setLinkedFilter(checked: boolean) {
-    this.showLinked = checked;
   }
 
 }

@@ -10,9 +10,7 @@ import { AppState } from '../../../../../app.service';
 
 export class TaskListComponent {
   @Input() linkedTasks: any[];
-  @Input() showSuggested: any;
-  @Input() suggestedTask: any;
-  @Input() showLinked: any;
+  @Input() suggestedData: any;
   @Input() boards: any[];
   @Output() createTask = new EventEmitter<any>();
   @Output() openDialog = new EventEmitter<any>();
@@ -20,12 +18,5 @@ export class TaskListComponent {
   @Output() openLinkTaskDialog = new EventEmitter<any>();
   @Output() highlightSentence = new EventEmitter<any>();
   @Output() hightlightTaskItem = new EventEmitter<any>();
-
-  setSuggestedFilters(checked: boolean) {
-    this.showSuggested = checked;
-  }
-  setLinkedFilters(checked: boolean) {
-    this.showLinked = checked;
-  }
 
 }
