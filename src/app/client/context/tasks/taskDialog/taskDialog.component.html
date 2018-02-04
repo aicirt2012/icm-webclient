@@ -17,6 +17,7 @@
   <div>
     <form fxFlex fxLayout="column">
       <div fxLayout="row">
+        <i class="fas fa-font margin offset-top" fxFlex="5"></i>
         <mat-form-field fxFlex>
           <input type="text" name="titleSelect" matInput [(ngModel)]="task.name" [matAutocomplete]="autocompleteTitle"
                  placeholder="Task Title" required>
@@ -27,8 +28,8 @@
       </div>
 
       <div fxLayout="row" class="selectList">
-        <div fxFlex fxLayoutAlign="start center">
-          <mat-icon class="margin">dashboard</mat-icon>
+        <div fxLayoutAlign="start center">
+          <mat-icon class="margin" fxFlex="5">dashboard</mat-icon>
           <mat-select fxFlex name="board-select" [(ngModel)]="task.board" [disabled]="task.taskType == 'linked'"
                       required placeholder="Select a board..">
             <mat-option *ngFor="let board of boards; let b = index"
@@ -40,8 +41,8 @@
         </div>
       </div>
       <div fxLayout="row" class="selectList">
-        <div fxFlex fxLayoutAlign="end center">
-          <mat-icon class="margin" *ngIf="task.board">view_list</mat-icon>
+        <div fxLayoutAlign="end center">
+          <mat-icon class="margin" *ngIf="task.board" fxFlex="5">view_list</mat-icon>
           <mat-select fxFlex [(ngModel)]="task.list" name="list-select" *ngIf="task.board"
                       [disabled]="task.taskType == 'linked'" required placeholder="Select a list..">
             <mat-option *ngFor="let list of task.board.lists" [value]="task.taskType == 'linked'? task.list : list">
@@ -51,8 +52,9 @@
         </div>
       </div>
       <div fxLayout="row" *ngIf="task.board">
-        <div fxFlex fxLayoutAlign="start center">
-          <mat-icon class="margin" [class.alert-icon]="overdue && !sticker_check && task.taskType == 'linked'">
+        <div fxLayoutAlign="start center" fxFlex>
+          <mat-icon class="margin" [class.alert-icon]="overdue && !sticker_check && task.taskType == 'linked'"
+                    fxFlex="5">
             date_range
           </mat-icon>
           <mat-input-container fxFlex>
@@ -62,10 +64,10 @@
         </div>
       </div>
       <div fxLayout="row" *ngIf="task.board">
-        <div fxFlex *ngIf="task.board" fxLayout="row" fxLayoutAlign="start center">
-          <mat-icon class="margin">person</mat-icon>
+        <div *ngIf="task.board" fxLayout="row" fxLayoutAlign="start center">
+          <mat-icon class="margin" fxFlex="5">person</mat-icon>
           <mat-select class="selectList margin" placeholder="Delegate to.." [(ngModel)]="currMember" name="member"
-                      (onClose)="currMember = ''">
+                      (onClose)="currMember = ''" fxFlex>
             <mat-option [value]="''">Choose...</mat-option>
             <mat-option *ngFor="let member of task.possibleMembers; let i = index" [value]="member"
                         (onSelect)="addMember(member, i)">
@@ -82,9 +84,10 @@
         </div>
       </div>
       <div fxLayout="row">
+        <i class="fas fa-align-left margin offset-top" fxFlex="5" fxFlexAlign="start center"></i>
         <mat-input-container fxFlex>
-        <textarea matInput type="text" class="text-area" name="task-description" placeholder="Task Description"
-                  maxRows="10" [(ngModel)]="task.desc" value="task.desc" rows="10"></textarea>
+          <textarea matInput type="text" class="text-area" name="task-description" placeholder="Task Description"
+                  maxRows="10" [(ngModel)]="task.desc" value="task.desc" rows="10" fxFlex></textarea>
         </mat-input-container>
       </div>
     </form>

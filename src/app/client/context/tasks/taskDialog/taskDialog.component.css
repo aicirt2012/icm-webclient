@@ -19,6 +19,14 @@
   color: #ce2424;
 }
 
+form i.fas {
+  padding-left: 4px;
+}
+
+.offset-top {
+  margin-top: 22px;
+}
+
 .selectList {
   margin-top: 15px;
   margin-bottom: 15px;
