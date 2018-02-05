@@ -62,10 +62,10 @@ export class TaskDialogComponent {
     if (dateString) {
       console.log("set taskDate " + dateString);
       this.task.date = dateString;
-      this.updateDateSuggestions();
     }
     else
       this.task.date = "";
+    this.updateDateSuggestions();
   }
 
   get taskDate(): string {
@@ -89,6 +89,7 @@ export class TaskDialogComponent {
     }
     this.updateTitleSuggestions();
     this.updateDateSuggestions();
+    this.updateMemberSuggestions();
   }
 
   createTask() {
