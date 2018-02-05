@@ -56,7 +56,12 @@
             date_range
           </mat-icon>
           <mat-form-field fxFlex>
-            <input name="date" matInput placeholder="Due Date" [(ngModel)]="task.date" [matDatepicker]="picker">
+            <input name="date" matInput placeholder="Due Date" [(ngModel)]="taskDate"
+                   [matAutocomplete]="autocompleteDate">
+            <mat-autocomplete #autocompleteDate="matAutocomplete">
+              <mat-option *ngFor="let date of filteredDateSuggestions" [value]="date">{{date}}</mat-option>
+            </mat-autocomplete>
+            <input hidden name="datePicker" [(ngModel)]="taskDatePicker" [matDatepicker]="picker">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>

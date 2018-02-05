@@ -23,6 +23,7 @@ export class TaskDialogComponent {
   sticker_check: boolean = false;
 
   private filteredTitleSuggestions: any = [];
+  private filteredDateSuggestions: any = [];
   private suggestedMembers: any = [];
   private nonSuggestedMembers: any = [];
   private selectedMembers: any = [];  // TODO set task.selectedMembers on submit
@@ -34,7 +35,7 @@ export class TaskDialogComponent {
     }
     if (title) {
       this.task.name = title;
-      this.updateTaskSuggestions();
+      this.updateTitleSuggestions();
     }
     else
       this.task.name = "";
@@ -56,6 +57,28 @@ export class TaskDialogComponent {
     return this.task.board;
   }
 
+  @Input()
+  set taskDate(dateString: string) {
+    if (dateString) {
+      console.log("set taskDate " + dateString);
+      this.task.date = dateString;
+      this.updateDateSuggestions();
+    }
+    else
+      this.task.date = "";
+  }
+
+  get taskDate(): string {
+    return this.task.date;
+  }
+
+  @Input()
+  set taskDatePicker(date: any) {
+    if (date) {
+      this.taskDate = this.toDateString(date);
+    }
+  }
+
   constructor(public taskDialogRef: MatDialogRef<TaskDialogComponent>, private snackBar: MatSnackBar, private _taskService: TaskService, public appState: AppState) {
   }
 
@@ -64,7 +87,8 @@ export class TaskDialogComponent {
       this.sticker_check = this.task.stickers.find((sticker) => sticker.image === 'check') ? true : false;
       this.overdue = this.task.date ? (new Date(this.task.date) < new Date()) : false;
     }
-    this.updateTaskSuggestions();
+    this.updateTitleSuggestions();
+    this.updateDateSuggestions();
   }
 
   createTask() {
@@ -149,17 +173,34 @@ export class TaskDialogComponent {
     }
   }
 
-  private updateMemberSuggestions() {
-    this.suggestedMembers = this.getSuggestedPersons(this.suggested.persons, this.task.board.members);
-    this.nonSuggestedMembers = this.getNonSuggestedPersons(this.task.board.members, this.suggestedMembers);
-  }
-
-  private updateTaskSuggestions() {
+  private updateTitleSuggestions() {
     if (this.taskTitle) {
       this.filteredTitleSuggestions = this.suggested.titles.filter(title => title.toLowerCase().indexOf(this.taskTitle.toLowerCase()) === 0);
     } else {
       this.filteredTitleSuggestions = this.suggested.titles;
     }
+  }
+
+  private updateDateSuggestions() {
+    let allDates = this.toDateStrings(this.suggested.dates);
+    if (this.taskDate) {
+      this.filteredDateSuggestions = allDates.filter(date => date.toLowerCase().indexOf(this.taskDate.toLowerCase()) === 0);
+    } else {
+      this.filteredDateSuggestions = allDates;
+    }
+  }
+
+  private toDateStrings(dates: any[]) {
+    return dates.map(date => this.toDateString(new Date(date)));
+  }
+
+  private toDateString(date: any) {
+    return date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+  }
+
+  private updateMemberSuggestions() {
+    this.suggestedMembers = this.getSuggestedPersons(this.suggested.persons, this.task.board.members);
+    this.nonSuggestedMembers = this.getNonSuggestedPersons(this.task.board.members, this.suggestedMembers);
   }
 
   private getSuggestedPersons(mentionedPersons: any[], boardMembers: any[]) {
