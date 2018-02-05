@@ -26,7 +26,7 @@ export class TaskDialogComponent {
   private filteredDateSuggestions: any = [];
   private suggestedMembers: any = [];
   private nonSuggestedMembers: any = [];
-  private selectedMembers: any = [];  // TODO set task.selectedMembers on submit
+  private selectedMembers: any = [];
 
   @Input()
   set taskTitle(title: string) {
@@ -93,6 +93,7 @@ export class TaskDialogComponent {
 
   createTask() {
     this.sending = true;
+    this.task.selectedMembers = this.selectedMembers.map((s) => s.id);
     this._taskService.createTask(this.email, this.task)
       .subscribe((task: any) => {
           this.sending = false;
@@ -114,6 +115,7 @@ export class TaskDialogComponent {
     if (close == 'close') {
       this.task.closed = true;
     }
+    this.task.selectedMembers = this.selectedMembers.map((s) => s.id);
     this._taskService.updateTask(this.task)
       .subscribe((task: any) => {
           this.sending = false;
