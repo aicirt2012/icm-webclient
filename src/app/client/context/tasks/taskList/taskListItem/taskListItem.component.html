@@ -10,7 +10,8 @@
             <div fxLayoutAlign="start center">
             <mat-icon fxFlex-gt-sm="8">date_range</mat-icon>
 
-            <div fxFlex-gt-sm="27" [class.overdue-text]="isOverdue() && task.taskType == 'linked' && !isChecked()">{{task.date | date:'shortDate'}}</div>
+            <div fxFlex-gt-sm="27" [class.overdue-text]="isOverdue() && task.taskType == 'linked' && !isChecked()" *ngIf="task.date">{{task.date}}</div>
+              <div fxFlex-gt-sm="27" [class.overdue-text]="isOverdue() && task.taskType == 'linked' && !isChecked()" *ngIf="!task.date"><i>No due date</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
             </div>
             <mat-icon class="icon-margin" fxFlex-gt-sm="8">person</mat-icon>
             <div fxFlex-gt-sm="53" fxLayout="row">

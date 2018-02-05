@@ -41,10 +41,11 @@ export class TaskListItemComponent {
   ngOnInit() {
     if (this.task) {
       if (this.task.taskType == 'linked') {
-        this.task.date = this._taskService.formatDate(this.task.due);
+        if (this.task.due) {
+          this.task.date = this._taskService.formatDate(this.task.due);
+        }
       }
-      else
-      {
+      else {
         this.possibleMembers = this.task.members;
       }
 
@@ -52,15 +53,14 @@ export class TaskListItemComponent {
   }
 
   openTaskDialog(task: any) {
-    if (this.task.taskType =='linked') {
+    if (this.task.taskType == 'linked') {
       this.task.board.lists = this.boards.filter((board) => {
         if (board.id == this.task.idBoard) return board.lists;
       })[0].lists;
       this.task.selectedMembers = this.task.selectedMembers ? this.task.selectedMembers : this.task.members;
       this.task.possibleMembers = this.getPossibleMembers(this.task.board, this.task.selectedMembers);
     }
-    else
-    {
+    else {
       this.task.possibleMembers = this.task.members;
     }
     this.openDialog.emit(this.task);
@@ -110,8 +110,8 @@ export class TaskListItemComponent {
   }
 
   onMouseLeave() {
-   // if (this.task.taskType != "linked" ) {
-     // this.highlight(this.task.task.id, false);
+    // if (this.task.taskType != "linked" ) {
+    // this.highlight(this.task.task.id, false);
     //}
   }
 
