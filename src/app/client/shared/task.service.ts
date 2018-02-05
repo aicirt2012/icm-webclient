@@ -51,7 +51,7 @@ export class TaskService {
       /*TODO: change naming */
       idList: task.list.id,
       desc: task.desc,
-      idMembers: task.selectedMembers,
+      idMembers: task.selectedMembers.map((s) => s.id),
       due: task.date,
       sentences: email.sentences ? email.sentences : [],
       sentenceId: task.task ? task.task.id : ""
@@ -66,7 +66,7 @@ export class TaskService {
       /*TODO: change naming */
       idList: task.list.id,
       desc: task.desc,
-      idMembers: task.selectedMembers,
+      idMembers: task.selectedMembers.map((s) => s.id),
       due: task.date,
       closed: task.closed
     };

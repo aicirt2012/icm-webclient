@@ -60,7 +60,6 @@ export class TaskDialogComponent {
   @Input()
   set taskDate(dateString: string) {
     if (dateString) {
-      console.log("set taskDate " + dateString);
       this.task.date = dateString;
     }
     else
@@ -75,7 +74,7 @@ export class TaskDialogComponent {
   @Input()
   set taskDatePicker(date: any) {
     if (date) {
-      this.taskDate = this.toDateString(date);
+      this.taskDate = this._taskService.formatDate(date);
     }
   }
 
@@ -94,7 +93,7 @@ export class TaskDialogComponent {
 
   createTask() {
     this.sending = true;
-    this.task.selectedMembers = this.selectedMembers.map((s) => s.id);
+    this.task.selectedMembers = this.selectedMembers;
     this._taskService.createTask(this.email, this.task)
       .subscribe((task: any) => {
           this.sending = false;
@@ -112,11 +111,11 @@ export class TaskDialogComponent {
 
   updateTask(close?: string) {
     this.sending = true;
+    this.task.selectedMembers = this.selectedMembers;
     this.task.closed = false;
     if (close == 'close') {
       this.task.closed = true;
     }
-    this.task.selectedMembers = this.selectedMembers.map((s) => s.id);
     this._taskService.updateTask(this.task)
       .subscribe((task: any) => {
           this.sending = false;
@@ -194,16 +193,14 @@ export class TaskDialogComponent {
   }
 
   private toDateStrings(dates: any[]) {
-    return dates.map(date => this.toDateString(new Date(date)));
-  }
-
-  private toDateString(date: any) {
-    return date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+    return dates.map(date => this._taskService.formatDate(new Date(date)));
   }
 
   private updateMemberSuggestions() {
-    this.suggestedMembers = this.getSuggestedPersons(this.suggested.persons, this.task.board.members);
-    this.nonSuggestedMembers = this.getNonSuggestedPersons(this.task.board.members, this.suggestedMembers);
+    if (this.task.board) {
+      this.suggestedMembers = this.getSuggestedPersons(this.suggested.persons, this.task.board.members);
+      this.nonSuggestedMembers = this.getNonSuggestedPersons(this.task.board.members, this.suggestedMembers);
+    }
   }
 
   private getSuggestedPersons(mentionedPersons: any[], boardMembers: any[]) {
