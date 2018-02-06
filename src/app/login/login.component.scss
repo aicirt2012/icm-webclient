@@ -1,27 +1,27 @@
 @import '../../styles/_variables.scss';
 
 #login-wallpaper {
-    background-color: $primary;
-    background-image: url("/assets/img/login-background.jpeg") ;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
+  background-color: $primary;
+  background-image: url("/assets/img/login-background.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 #logo {
-    margin: 60px 0px 0px 0px;
-    padding: 0;
-    width: 301px;
-    height: 77px;
-    background-size: 301px 77px;
-    background-repeat: no-repeat;
-    background-image: url("/assets/img/taskBlack.png");
+  margin: 60px 0 0 0;
+  padding: 0;
+  width: 301px;
+  height: 77px;
+  background-size: 301px 77px;
+  background-repeat: no-repeat;
+  background-image: url("/assets/img/taskBlack.png");
 }
 
 .copyrights {
-    color: $primary;
-    margin-bottom: 20px;
-    font-size: small;
+  color: $primary;
+  margin-bottom: 20px;
+  font-size: small;
 }
 
 .login-box {
@@ -58,4 +58,3 @@ mat-card {
   padding: 5px;
   margin: 0;
 }
-
