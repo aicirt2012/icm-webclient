@@ -79,7 +79,9 @@ annotatorCustomExtensions.injectCustomElements = function () {
     adderContainer.classList.add("annotator-custom-reset");
     var customContainer = getCustomContainer();
     customContainer.appendChild(getButtonPersonNetwork());
+    customContainer.appendChild(getVerticalSeparator());
     customContainer.appendChild(getButtonTranslation());
+    customContainer.appendChild(getVerticalSeparator());
     customContainer.appendChild(getButtonWikipedia());
     adderContainer.appendChild(customContainer);
   }
@@ -104,15 +106,15 @@ annotatorCustomExtensions.injectCustomElements = function () {
   }
 
   function getButtonPersonNetwork() {
-    return getButton("Contacts", "OnLookupPersonClick", "iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAZiS0dEAAAAAAAA+UO7fwAAAAlwSFlzAAAASAAAAEgARslrPgAAARtJREFUSMftk01KA0EQhV+HQQ1CjiAhgpfID+Qq4hH0Blm7C94gM7fRTZZR1AQiBnRpsvBzUyNDYyd2RxcG36amqZr3VdfUSP9KFdAFCmAGLIEpkAOdbY0z4Ir1GgJZKqBq/g6cAofAmZ0/ISnmPa/Tay9/4+XbsYDCM3gGGpZrAAsvP4oFzL6Y9xi4tOhrusnTeYClpL2InlbOuf11BTXvvKg8v0g6l9SSdGDxQtJroP5bI8rt6nOgFag5Bp6sLo8FdOzFN6AbqOlZPn6LzGBYgQyAE6BucWB/NUARbW6ArAIJqVznO6CZCmoDI+ARWNkK5+VYzHw7yIYGjoCJQe5DS/H3IbVU41LOuQdJfUm3P969d5Pmr3zs3dcHwEH0ByGVtfIAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTgtMDEtMTNUMjA6NDY6NDYrMDA6MDABhXqOAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE4LTAxLTEzVDIwOjQ2OjQ2KzAwOjAwcNjCMgAAACh0RVh0c3ZnOmJhc2UtdXJpAGZpbGU6Ly8vdG1wL21hZ2ljay0zYkcyazJvbJorxAgAAAAASUVORK5CYII=");
+    return getButton("Find contacts", "OnLookupPersonClick", "iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAg0lEQVQ4Ed3BQQqCQBiG4e80MripfXSP8C51JVHc1AXqHkntwhhdqbyuhGHK/mXg80irREpFR0uJk42UN7MGJwsVoUIWOkJeFlpCXhZKQrksOBpmLxLZcBR4PDmJ/o8tJy7U9PTcOXNkoyXsufHNlZ0+kTGyZOCgGE9+eSiGQTEMWpEJ/bgWSos9mooAAAAASUVORK5CYII=");
   }
 
   function getButtonTranslation() {
-    return getButton("Translate", "OnLookupTranslationClick", "iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAZiS0dEAAAAAAAA+UO7fwAAAAlwSFlzAAAASAAAAEgARslrPgAAAVZJREFUSMfdlCFPw1AUhe9bUgEkhJCs/Apgih9BEIUAZgqDnpsiVGFImASLADvD/xhBEgSW4YAF2Mg+zCm8NF23diEQrmnvPeede9/pezX794Gi7PrKTw/okimnEnHO/doOCgWwAPSAe2Ci4YruYN/MZs3s3Dk3LDtlCDwBj8CiV59X7QUIp7XiQKfz1KudqXY0lbjE5oBbYAjsAJt6vwNmUty2GreLNlnRB32WZa/AWopTBfpq0AeqRZsc8x0nGXhDWE/PRhHxdeDNa/AORClOR9ienp1JxTc88UOg6dmwJU5NtRvl18pr48S3PV9jrx6rdqW85dvi2dXKE98FBsnkGXhTnADoirskLNRgXSDIEl8GPtKTZ/AqQER+RKMWx3niHq89pkGxO5EST87+Q9oKz7qvO1Hmd103s8DMLpxzAx9Qfim8XnYHydlfHYEnx3eyO/Hn4xMooBHrsMkgAQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxNy0xMi0yMVQwMjo0MjowMiswMDowMDfIWrMAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTctMTItMjFUMDI6NDI6MDIrMDA6MDBGleIPAAAAKHRFWHRzdmc6YmFzZS11cmkAZmlsZTovLy90bXAvbWFnaWNrLXl0bzhoajQ0y9KhnAAAAABJRU5ErkJggg==");
+    return getButton("Find translations", "OnLookupTranslationClick", "iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAABDUlEQVQ4Eb3BMU6TYQAG4FcjDCYwGBoGz2DAhcErmEgHCXHyCDYMzF9cnIhojOdovIj1ACbGiQCTGgN/v/jw02ClUAouPE9y67TyP7Qym2vkIlVVVVVVVVVVjeUmPHDkuzu5Kdt4nVk8dGTPQloWHfhtObPZwbu0fMSbXMeCb/546hm+up8RffQznScaP/x0bC0jOho0OpnOB6fe5owefqGXaTw3dOrYekYM8BKDXGbDEEVBo5tYxefEF6xmkk1DlLQUfErs4lViC7s5zwsVJWcUG+bsaywllg3tm8tfHqkoOcddXZO6+UdRcoG+Sf3MoqOx515GzDvU6ORqetjJmPfo5WoGWMmYxxjkFpwACdQ/wc48fzIAAAAASUVORK5CYII=");
   }
 
   function getButtonWikipedia() {
-    return getButton("Wikipedia", "OnLookupWikipediaClick", "iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAZiS0dEAAAAAAAA+UO7fwAAAAlwSFlzAAAASAAAAEgARslrPgAAAXBJREFUSMft08+LzlEUx/FzpxkLjZqhJpEy+0GzsbBnwU52FuxslMU0KWkWNsokPYkUpRTlL5gUhYWaZCXGHyBTY8xs/AjTvCycxe1Gz2PYqOdTZ/F9n/s9537O+X4j+urrnwm3sZKxhOsYxgyeJ3+CSRzDU7zHNYzgMhYzLv2uyZSfetzwcXzHzYp1cLI5dwenujl5hDXsbvg9fMEYRvEMpcpvwQI2dWtwMF3MNnwf1nEhx3a8yZ/B+V52UfAKqxhucg+xjHkMVnwALzHW1htoQSlFRHQiYiQiTjTp2YjYFhELpZS1ih+JiBellKWuDvJGm/EBb5o5788xfcTWxtlkT8Wrly7mLg5XbA7nkp9NNtF+db022IlveJDPh3ADQ3ibMYRbOPrHDbLo/bzt3vzJdiWfSX46xzi40QYHstBrdCq+HV/T4fSGilfF5vEZOxp+F5/qZf9KvVi7EhF7SinvGn41IpZLKSt/5aCv/18/ABubqIpQmAHGAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE3LTEyLTIxVDAyOjQxOjQxKzAwOjAwaV311wAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxNy0xMi0yMVQwMjo0MTo0MSswMDowMBgATWsAAAAodEVYdHN2ZzpiYXNlLXVyaQBmaWxlOi8vL3RtcC9tYWdpY2stSm91dTNTdk7iTmMqAAAAAElFTkSuQmCC");
+    return getButton("Find on Wikipedia", "OnLookupWikipediaClick", "iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAZiS0dEAAAAAAAA+UO7fwAAAAlwSFlzAAAASAAAAEgARslrPgAAAXBJREFUSMft08+LzlEUx/FzpxkLjZqhJpEy+0GzsbBnwU52FuxslMU0KWkWNsokPYkUpRTlL5gUhYWaZCXGHyBTY8xs/AjTvCycxe1Gz2PYqOdTZ/F9n/s9537O+X4j+urrnwm3sZKxhOsYxgyeJ3+CSRzDU7zHNYzgMhYzLv2uyZSfetzwcXzHzYp1cLI5dwenujl5hDXsbvg9fMEYRvEMpcpvwQI2dWtwMF3MNnwf1nEhx3a8yZ/B+V52UfAKqxhucg+xjHkMVnwALzHW1htoQSlFRHQiYiQiTjTp2YjYFhELpZS1ih+JiBellKWuDvJGm/EBb5o5788xfcTWxtlkT8Wrly7mLg5XbA7nkp9NNtF+db022IlveJDPh3ADQ3ibMYRbOPrHDbLo/bzt3vzJdiWfSX46xzi40QYHstBrdCq+HV/T4fSGilfF5vEZOxp+F5/qZf9KvVi7EhF7SinvGn41IpZLKSt/5aCv/18/ABubqIpQmAHGAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE4LTAyLTA1VDIzOjUzOjA1KzAwOjAwWSsyrQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOC0wMi0wNVQyMzo1MzowNSswMDowMCh2ihEAAAAodEVYdHN2ZzpiYXNlLXVyaQBmaWxlOi8vL3RtcC9tYWdpY2stRGpFWUdRWHH/D1yjAAAAAElFTkSuQmCC");
   }
 
   function getButton(label, eventName, iconBase64) {
@@ -120,16 +122,19 @@ annotatorCustomExtensions.injectCustomElements = function () {
     var customButton = document.createElement("a");
     customButton.classList.add("annotator-custom-action");
     customButton.setAttribute("onclick", "document.dispatchEvent(new CustomEvent(\"" + eventName + "\",{\"detail\":annotatorCustomExtensions.currentSelection.quote}));");
+    customButton.setAttribute("title", label);
     // add the icon
     var buttonIcon = document.createElement("img");
     buttonIcon.classList.add("annotator-custom-icon");
     buttonIcon.setAttribute("src", "data:image/png;base64, " + iconBase64);
     customButton.appendChild(buttonIcon);
-    // add the label
-    var buttonLabel = document.createElement("span");
-    buttonLabel.appendChild(document.createTextNode(label));
-    customButton.appendChild(buttonLabel);
     return customButton;
+  }
+
+  function getVerticalSeparator() {
+    var textContainer = document.createElement("span");
+    textContainer.appendChild(document.createTextNode("|"));
+    return textContainer;
   }
 
 };
