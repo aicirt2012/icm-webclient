@@ -9,17 +9,17 @@
       <mat-tab-group fxFlex="70" fxLayout="column" fxLayoutAlign="start stretch" md-stretch-tabs>
 
         <mat-tab fxFlex fxLayout="column" fxLayoutAlign="start stretch"
-                label="Log in">
+                 label="Log in">
 
           <mat-card class="login-box">
             <div fxFlex fxLayout="column" fxLayoutAlign="center stretch">
 
-              <div fxFlex fxLayout="column" fxLayoutAlign="center stretch">
-                <a mat-raised-button [href]="googleLoginLink">
-                  <mat-icon svgIcon="google"></mat-icon>
-                 Log in with Google Account
-                </a>
-              </div>
+              <!--<div fxFlex fxLayout="column" fxLayoutAlign="center stretch">-->
+              <!--<a mat-raised-button [href]="googleLoginLink">-->
+              <!--<mat-icon svgIcon="google"></mat-icon>-->
+              <!--Log in with Google Account-->
+              <!--</a>-->
+              <!--</div>-->
               <!--<div fxFlex fxLayout="column" fxLayoutAlign="center stretch">
                 <a mat-raised-button [href]="googleLoginLink">
                   <mat-icon svgIcon="exchange"></mat-icon>
@@ -27,15 +27,14 @@
                 </a>
               </div>-->
 
-              <div class="separator separator_login_page" fxFlex="5" fxLayout="row" fxLayoutAlign="center center">
-                <div class="middle_separator">or</div>
-              </div>
+              <!--<div class="separator separator_login_page" fxFlex="5" fxLayout="row" fxLayoutAlign="center center">-->
+              <!--<div class="middle_separator">or</div>-->
+              <!--</div>-->
 
               <div fxFlex fxLayout="row" fxLayoutAlign="start stretch">
                 <mat-input-container fxFlex fxLayout="column" fxFlexAlign="center stretch">
                   <input matInput placeholder="Username" type="text" name="username" [(ngModel)]="model.username"
-                         autofocus
-                         required>
+                         autofocus required>
                 </mat-input-container>
               </div>
               <div fxFlex fxLayout="row" fxLayoutAlign="start stretch">
@@ -52,17 +51,17 @@
 
         </mat-tab>
         <mat-tab fxFlex fxLayout="column" fxLayoutAlign="start stretch"
-                label="Sign up">
+                 label="Sign up">
 
           <mat-card class="login-box">
             <div fxFlex fxLayout="column" fxLayoutAlign="center stretch">
 
-              <div fxFlex fxLayout="column" fxLayoutAlign="center stretch">
-                <a mat-raised-button [href]="googleLoginLink">
-                  <mat-icon svgIcon="google"></mat-icon>
-                  Sign up with Google Account
-                </a>
-              </div>
+              <!--<div fxFlex fxLayout="column" fxLayoutAlign="center stretch">-->
+              <!--<a mat-raised-button [href]="googleLoginLink">-->
+              <!--<mat-icon svgIcon="google"></mat-icon>-->
+              <!--Sign up with Google Account-->
+              <!--</a>-->
+              <!--</div>-->
 
               <!--<div fxFlex fxLayout="column" fxLayoutAlign="center stretch">
                 <a mat-raised-button [href]="googleLoginLink">
@@ -71,9 +70,9 @@
                 </a>
               </div>-->
 
-              <div class="separator separator_login_page" fxFlex="5" fxLayout="row" fxLayoutAlign="center center">
-                <div class="middle_separator">or</div>
-              </div>
+              <!--<div class="separator separator_login_page" fxFlex="5" fxLayout="row" fxLayoutAlign="center center">-->
+              <!--<div class="middle_separator">or</div>-->
+              <!--</div>-->
 
               <div fxFlex fxLayout="row" fxLayoutAlign="start stretch">
                 <mat-input-container fxFlex fxLayout="column" fxFlexAlign="center stretch">
@@ -89,7 +88,8 @@
                 </mat-input-container>
               </div>
               <div fxFlex fxLayout="column" fxLayoutAlign="center stretch">
-                <button mat-raised-button color="primary" [disabled]="loading" (click)="signUp()">Create My Account</button>
+                <button mat-raised-button color="primary" [disabled]="loading" (click)="signUp()">Create My Account
+                </button>
               </div>
             </div>
           </mat-card>
@@ -100,7 +100,7 @@
     </div>
 
     <div fxFlex="10" fxLayoutAlign="center center">
-      <span class="copyrights">&copy; 2017 Sebis</span>
+      <span class="copyrights">&copy; 2018 Sebis</span>
     </div>
   </div>
 </div>

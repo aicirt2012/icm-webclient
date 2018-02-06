@@ -25,8 +25,13 @@
 }
 
 .login-box {
-  min-height: 450px;
-  overflow-y: visible;
+  min-height: 300px;
+  overflow-y: auto;
+}
+
+.login-box > div > div {
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .separator {
