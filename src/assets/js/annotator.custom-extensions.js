@@ -80,9 +80,9 @@ annotatorCustomExtensions.injectCustomElements = function () {
     var customContainer = getCustomContainer();
     customContainer.appendChild(getButtonPersonNetwork());
     customContainer.appendChild(getVerticalSeparator());
-    customContainer.appendChild(getButtonTranslation());
-    customContainer.appendChild(getVerticalSeparator());
     customContainer.appendChild(getButtonWikipedia());
+    customContainer.appendChild(getVerticalSeparator());
+    customContainer.appendChild(getButtonTranslation());
     adderContainer.appendChild(customContainer);
   }
   // update view dialogue
@@ -114,7 +114,7 @@ annotatorCustomExtensions.injectCustomElements = function () {
   }
 
   function getButtonWikipedia() {
-    return getButton("Find on Wikipedia", "OnLookupWikipediaClick", "iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAZiS0dEAAAAAAAA+UO7fwAAAAlwSFlzAAAASAAAAEgARslrPgAAAXBJREFUSMft08+LzlEUx/FzpxkLjZqhJpEy+0GzsbBnwU52FuxslMU0KWkWNsokPYkUpRTlL5gUhYWaZCXGHyBTY8xs/AjTvCycxe1Gz2PYqOdTZ/F9n/s9537O+X4j+urrnwm3sZKxhOsYxgyeJ3+CSRzDU7zHNYzgMhYzLv2uyZSfetzwcXzHzYp1cLI5dwenujl5hDXsbvg9fMEYRvEMpcpvwQI2dWtwMF3MNnwf1nEhx3a8yZ/B+V52UfAKqxhucg+xjHkMVnwALzHW1htoQSlFRHQiYiQiTjTp2YjYFhELpZS1ih+JiBellKWuDvJGm/EBb5o5788xfcTWxtlkT8Wrly7mLg5XbA7nkp9NNtF+db022IlveJDPh3ADQ3ibMYRbOPrHDbLo/bzt3vzJdiWfSX46xzi40QYHstBrdCq+HV/T4fSGilfF5vEZOxp+F5/qZf9KvVi7EhF7SinvGn41IpZLKSt/5aCv/18/ABubqIpQmAHGAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE4LTAyLTA1VDIzOjUzOjA1KzAwOjAwWSsyrQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOC0wMi0wNVQyMzo1MzowNSswMDowMCh2ihEAAAAodEVYdHN2ZzpiYXNlLXVyaQBmaWxlOi8vL3RtcC9tYWdpY2stRGpFWUdRWHH/D1yjAAAAAElFTkSuQmCC");
+    return getButton("Search Wikipedia", "OnLookupWikipediaClick", "iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAZiS0dEAAAAAAAA+UO7fwAAAAlwSFlzAAAASAAAAEgARslrPgAAAXBJREFUSMft08+LzlEUx/FzpxkLjZqhJpEy+0GzsbBnwU52FuxslMU0KWkWNsokPYkUpRTlL5gUhYWaZCXGHyBTY8xs/AjTvCycxe1Gz2PYqOdTZ/F9n/s9537O+X4j+urrnwm3sZKxhOsYxgyeJ3+CSRzDU7zHNYzgMhYzLv2uyZSfetzwcXzHzYp1cLI5dwenujl5hDXsbvg9fMEYRvEMpcpvwQI2dWtwMF3MNnwf1nEhx3a8yZ/B+V52UfAKqxhucg+xjHkMVnwALzHW1htoQSlFRHQiYiQiTjTp2YjYFhELpZS1ih+JiBellKWuDvJGm/EBb5o5788xfcTWxtlkT8Wrly7mLg5XbA7nkp9NNtF+db022IlveJDPh3ADQ3ibMYRbOPrHDbLo/bzt3vzJdiWfSX46xzi40QYHstBrdCq+HV/T4fSGilfF5vEZOxp+F5/qZf9KvVi7EhF7SinvGn41IpZLKSt/5aCv/18/ABubqIpQmAHGAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE4LTAyLTA1VDIzOjUzOjA1KzAwOjAwWSsyrQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOC0wMi0wNVQyMzo1MzowNSswMDowMCh2ihEAAAAodEVYdHN2ZzpiYXNlLXVyaQBmaWxlOi8vL3RtcC9tYWdpY2stRGpFWUdRWHH/D1yjAAAAAElFTkSuQmCC");
   }
 
   function getButton(label, eventName, iconBase64) {
