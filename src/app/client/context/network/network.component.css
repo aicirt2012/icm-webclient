@@ -15,6 +15,27 @@
   cursor: pointer;
 }
 
+.primary-contact-container .icon {
+  height: 24px;
+  width: 24px;
+}
+
+.primary-details-name,
+.secondary-details-name {
+  font-weight: bold;
+}
+
+.primary-details-description,
+.secondary-details-company {
+  font-size: 12px;
+  color: #545252;
+}
+
+.secondary-contact-container .icon {
+  height: 44px;
+  width: 48px;
+}
+
 .secondary-details-container {
   padding-top: 5px;
   padding-bottom: 5px;
@@ -23,16 +44,6 @@
 
 .show-more-container * {
   cursor: pointer;
-}
-
-.primary-contact-container .icon {
-  height: 24px;
-  width: 24px;
-}
-
-.secondary-contact-container .icon {
-  height: 44px;
-  width: 48px;
 }
 
 .show-more-container .icon {
