@@ -1,9 +1,13 @@
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .contact-details-wrapper {
   max-width: 100%;
+}
+
+.section > div {
+  width: 100%;
 }
 
 .details-container {
