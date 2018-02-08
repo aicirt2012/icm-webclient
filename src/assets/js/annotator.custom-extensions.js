@@ -1,25 +1,81 @@
 var annotatorCustomExtensions = {};
 
+annotatorCustomExtensions._framework = undefined;
 annotatorCustomExtensions.annotations = [];
+annotatorCustomExtensions.annotationStore = [];
+annotatorCustomExtensions.displayAnnotations = false;
 annotatorCustomExtensions.currentSelection = undefined;
+
+/**
+ * function:: setAnnotations(annotation[])
+ *
+ * Used to set the annotations that the framework can then display
+ *
+ * Use as a function::
+ *     annotatorCustomExtensions.setAnnotations(annotations);
+ */
+annotatorCustomExtensions.setAnnotations = function (annotations) {
+  annotatorCustomExtensions.annotationStore = annotations;
+  annotatorCustomExtensions.setDisplayAnnotations(annotatorCustomExtensions.displayAnnotations);
+};
+
+/**
+ * function:: setDisplayAnnotations(boolean)
+ *
+ * Used to control the display of the annotations in the store
+ *
+ * Use as a function::
+ *     annotatorCustomExtensions.setDisplayAnnotations(true);   // to show
+ *     annotatorCustomExtensions.setDisplayAnnotations(false);  // to hide
+ */
+annotatorCustomExtensions.setDisplayAnnotations = function (isDisplayed) {
+  annotatorCustomExtensions.displayAnnotations = isDisplayed;
+  if (annotatorCustomExtensions.displayAnnotations) {
+    annotatorCustomExtensions.annotations = annotatorCustomExtensions.annotationStore;
+  } else {
+    annotatorCustomExtensions.annotations = [];
+  }
+  if (annotatorCustomExtensions._framework) {
+    annotatorCustomExtensions.destroyAnnotator();
+    annotatorCustomExtensions.initAnnotator();
+  }
+};
 
 /**
  * function:: initAnnotator()
  *
- * Used to initialize the annotator framework with the custom extensions included
+ * Used to initialize the annotator framework with all custom extensions included
  *
- * Use as an extension module::
- *     app.include(annotatorCustomExtensions.parentwindow);
+ * Use as a function::
+ *     annotatorCustomExtensions.initAnnotator();
  */
 annotatorCustomExtensions.initAnnotator = function () {
-  var app = new annotator.App();
-  app.include(annotator.ui.main);
-  app.include(annotatorCustomExtensions.parentwindow);
-  app.start()
-    .then(function () {
-      app.annotations.load({});
-    });
-  annotatorCustomExtensions.injectCustomElements();
+  if (!annotatorCustomExtensions._framework) {
+    var app = new annotator.App();
+    app.include(annotator.ui.main);
+    app.include(annotatorCustomExtensions.parentwindow);
+    app.start()
+      .then(function () {
+        app.annotations.load({});
+      });
+    annotatorCustomExtensions.injectCustomElements();
+    annotatorCustomExtensions._framework = app;
+  }
+};
+
+/**
+ * function:: destroyAnnotator()
+ *
+ * Used to destroy the annotator framework
+ *
+ * Use as a function::
+ *     annotatorCustomExtensions.destroyAnnotator();
+ */
+annotatorCustomExtensions.destroyAnnotator = function () {
+  if (annotatorCustomExtensions._framework) {
+    annotatorCustomExtensions._framework.destroy();
+    annotatorCustomExtensions._framework = undefined;
+  }
 };
 
 /**

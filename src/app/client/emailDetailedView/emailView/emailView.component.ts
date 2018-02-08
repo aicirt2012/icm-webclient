@@ -21,7 +21,8 @@ export class EmailViewComponent {
   @ViewChild('wrapper') wrapper: ElementRef;
   @ViewChild('iframe') iframe: ElementRef;
 
-  private displayedAnnotationTypes: string[] = ["PERSON", "DATE", "TIME", "TASK_TITLE"];
+  private highlightedAnnotationTypes: string[] = ["PERSON", "DATE", "TIME", "TASK_TITLE"];
+  private highlightAnnotations: boolean = false;
 
   constructor(private sanitizer: DomSanitizer,
               public dialog: MatDialog,
@@ -102,7 +103,8 @@ export class EmailViewComponent {
     // include annotator framework and initialize
     scriptElement = iframe.contentDocument.createElement("script");
     scriptElement.setAttribute("src", "assets/js/annotator.js");
-    let scriptValue = "annotatorCustomExtensions.annotations = " + this.getAnnotationsAsString() + ";";
+    let scriptValue = "annotatorCustomExtensions.setAnnotations(" + this.getAnnotationsAsString() + ");";
+    scriptValue += "annotatorCustomExtensions.setDisplayAnnotations(" + (this.highlightAnnotations ? "true" : "false") + ");";
     scriptValue += "annotatorCustomExtensions.initAnnotator();";
     scriptElement.setAttribute("onload", scriptValue);   // call init routine after loading
     iframe.contentDocument.body.appendChild(scriptElement);
@@ -130,7 +132,7 @@ export class EmailViewComponent {
     let annotationString = "[";
     for (let index in annotations) {
       let annotation = annotations[index];
-      if (this.displayedAnnotationTypes.indexOf(annotation['nerType']) > -1) {
+      if (this.highlightedAnnotationTypes.indexOf(annotation['nerType']) > -1) {
         if (annotationString.length > 1) {
           annotationString += ",";
         }
