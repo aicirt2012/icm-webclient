@@ -28,18 +28,14 @@
           <img src="assets/img/network/primary_contact_dark.png" class="icon"/>
         </div>
         <div fxFlex="90" fxLayout="column" class="primary-details-container">
-          <div fxFlex="{{contact.businessCompany || contact.businessJobTitle ? (
-                          contact.businessCompany && contact.businessJobTitle ? '33' : '50') : '100'}}"
-               class="primary-details-name text-overflow">
+          <div fxLayout="row" class="primary-details-name text-overflow">
             {{contact.firstName}} {{contact.lastName}}
           </div>
-          <div fxFlex="{{contact.businessCompany ? '33' : '50'}}" class="primary-details-job text-overflow"
-               *ngIf="contact.businessJobTitle">
-            {{contact.businessJobTitle}}
+          <div fxLayout="row" class="primary-details-description" *ngIf="contact.description">
+            {{contact.description}}
           </div>
-          <div fxFlex="{{contact.businessJobTitle ? '33' : '50'}}" class="primary-details-company text-overflow"
-               *ngIf="contact.businessCompany">
-            {{contact.businessCompany}}
+          <div fxLayout="row" class="primary-details-description" *ngIf="!contact.description">
+            <i>No company details</i>
           </div>
         </div>
       </div>

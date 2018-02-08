@@ -41,7 +41,7 @@ export class NetworkComponent {
 
   public ngOnInit() {
     this.nt.list().subscribe((contacts) => {
-      this.contacts = contacts;
+      this.contacts = this.composeAndAppendDescriptions(contacts);
       this.loading = false;
     });
   }
@@ -52,7 +52,7 @@ export class NetworkComponent {
       return;
     this.loading = true;
     this.nt.search(this._query).subscribe((contacts) => {
-      this.contacts = contacts;
+      this.contacts = this.composeAndAppendDescriptions(contacts);
       this.loading = false;
     });
   }
@@ -62,7 +62,7 @@ export class NetworkComponent {
     contactDetailsDialogRef.componentInstance.contact = contact;
   }
 
-  private onInputChanged(query) {
+  private onInputChanged(query: string) {
     if (query) {
       query = query.trim();
     }
@@ -72,6 +72,28 @@ export class NetworkComponent {
     }
     else
       this._query = this.DEFAULT_QUERY_VALUE;
+  }
+
+  private composeAndAppendDescriptions(contacts: any) {
+    // TODO evaluate if this can be used as an onChange listener instead
+    contacts.forEach((contact) => {
+      let description = "";
+      description = NetworkComponent.appendSafely(description, contact.businessJobTitle);
+      description = NetworkComponent.appendSafely(description, contact.businessCompany);
+      description = NetworkComponent.appendSafely(description, contact.businessDepartment);
+      description = NetworkComponent.appendSafely(description, contact.businessStreet);
+      if (description.length > 0)
+        description = description.substring(0, description.length - 3);
+      contact.description = description;
+    });
+    return contacts;
+  }
+
+  private static appendSafely(description, value) {
+    if (value) {
+      description += value + " | ";
+    }
+    return description;
   }
 
 }
