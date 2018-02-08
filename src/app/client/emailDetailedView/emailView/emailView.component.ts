@@ -22,12 +22,24 @@ export class EmailViewComponent {
   @ViewChild('iframe') iframe: ElementRef;
 
   private highlightedAnnotationTypes: string[] = ["PERSON", "DATE", "TIME", "TASK_TITLE"];
-  private highlightAnnotations: boolean = false;
+  private _highlightAnnotations: boolean = false;
+
+  @Input()
+  set highlightAnnotations(areHighlighted: boolean) {
+    this._highlightAnnotations = areHighlighted;
+    if (this.iframe)
+      this.iframe.nativeElement.contentDocument.dispatchEvent(new CustomEvent('onSetDisplayAnnotations', {detail: areHighlighted}));
+  }
+
+  get highlightAnnotations() {
+    return this._highlightAnnotations;
+  }
 
   constructor(private sanitizer: DomSanitizer,
               public dialog: MatDialog,
               private attachmentService: AttachmentService,
               private authService: AuthService) {
+    this.highlightAnnotations = true;
   }
 
   ngOnChanges() {

@@ -6,6 +6,10 @@ annotatorCustomExtensions.annotationStore = [];
 annotatorCustomExtensions.displayAnnotations = false;
 annotatorCustomExtensions.currentSelection = undefined;
 
+document.addEventListener('onSetDisplayAnnotations', function (event) {
+  annotatorCustomExtensions.setDisplayAnnotations(event.detail);
+}, false);
+
 /**
  * function:: setAnnotations(annotation[])
  *
