@@ -8,12 +8,8 @@
           <mat-icon>data_usage</mat-icon>
 
           <span class="span-style" >{{p.pattern}}</span>
-          <i *ngIf="p.isRegex" class="material-icons tooltip">keyboard_arrow_right
-             <span class="tooltiptext">Regex</span>
-          </i>
-          <i *ngIf="!p.isRegex" class="material-icons tooltip">compare_arrows
-            <span class="tooltiptext">Non-Regex Pattern</span>
-          </i>
+          <mat-icon svgIcon="regex" matTooltip="regex-based search" matTooltipPosition="right" *ngIf="p.isRegex"></mat-icon>
+          <mat-icon svgIcon="abc" matTooltip="text-based search" matTooltipPosition="right" *ngIf="!p.isRegex"></mat-icon>
 
         </div>
         <div fxFlex   fxLayoutAlign="end center">
