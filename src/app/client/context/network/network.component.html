@@ -28,13 +28,13 @@
           <img src="assets/img/network/primary_contact_dark.png" class="icon"/>
         </div>
         <div fxFlex="90" fxLayout="column" class="primary-details-container">
-          <div fxLayout="row" class="primary-details-name text-overflow">
+          <div class="primary-details-name">
             {{contact.firstName}} {{contact.lastName}}
           </div>
-          <div fxLayout="row" class="primary-details-description" *ngIf="contact.description">
+          <div class="primary-details-description" *ngIf="contact.description">
             {{contact.description}}
           </div>
-          <div fxLayout="row" class="primary-details-description" *ngIf="!contact.description">
+          <div class="primary-details-description" *ngIf="!contact.description">
             <i>No company details</i>
           </div>
         </div>
@@ -47,10 +47,10 @@
           </div>
           <div fxFlex="80" fxLayout="column" class="secondary-details-container">
             <div fxFlex="{{secondaryContact.businessCompany ? '50' : '100'}}"
-                 class="secondary-details-name text-overflow">
+                 class="secondary-details-name">
               {{secondaryContact.firstName}} {{secondaryContact.lastName}}
             </div>
-            <div fxFlex="50" class="secondary-details-company text-overflow" *ngIf="secondaryContact.businessCompany">
+            <div fxFlex="50" class="secondary-details-company" *ngIf="secondaryContact.businessCompany">
               {{secondaryContact.businessCompany}}
             </div>
           </div>

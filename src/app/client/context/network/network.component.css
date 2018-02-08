@@ -20,8 +20,14 @@
   width: 24px;
 }
 
+.primary-details-container div,
+.secondary-details-container div {
+  overflow-wrap: break-word;
+}
+
 .primary-details-name,
-.secondary-details-name {
+.secondary-details-name,
+.show-more-text {
   font-weight: bold;
 }
 
