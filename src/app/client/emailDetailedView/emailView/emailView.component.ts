@@ -150,7 +150,7 @@ export class EmailViewComponent {
         }
         annotationString += "{";
         annotationString += "\"quote\": \"" + annotation['value'] + "\",";
-        annotationString += "\"text\": \"" + annotation['nerType'] + "\",";
+        annotationString += "\"text\": \"" + (annotation['nerType'] ? annotation['nerType'].toLowerCase() : "") + "\",";
         annotationString += "\"ranges\": " + this.getRangesAsString(annotation);
         annotationString += "}";
       }
