@@ -55,3 +55,8 @@
   /* custom styles */
   color: white;
 }
+
+.annotator-hl {
+  /* override highlight color to primary color with 50% transparency */
+  background: #20c9a180 !important;
+}
