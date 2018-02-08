@@ -21,6 +21,8 @@ export class EmailViewComponent {
   @ViewChild('wrapper') wrapper: ElementRef;
   @ViewChild('iframe') iframe: ElementRef;
 
+  private displayedAnnotationTypes: string[] = ["PERSON", "DATE", "TIME", "TASK_TITLE"];
+
   constructor(private sanitizer: DomSanitizer,
               public dialog: MatDialog,
               private attachmentService: AttachmentService,
@@ -128,7 +130,7 @@ export class EmailViewComponent {
     let annotationString = "[";
     for (let index in annotations) {
       let annotation = annotations[index];
-      if (annotation['nerType'] === "PERSON" || annotation['nerType'] === "ORGANIZATION" || annotation['nerType'] === "LOCATION") {
+      if (this.displayedAnnotationTypes.indexOf(annotation['nerType']) > -1) {
         if (annotationString.length > 1) {
           annotationString += ",";
         }
