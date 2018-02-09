@@ -102,7 +102,7 @@
               {{secondaryContact.businessDepartment}}
             </div>
             <div fxFlex class="secondary-details-company"
-                 *ngIf="!secondaryContact.businessCompany && !secondaryContact.businessJobTitle">
+                 *ngIf="!secondaryContact.businessCompany && !secondaryContact.businessJobTitle && !secondaryContact.businessDepartment">
               <!-- if no information available at all, tell the user -->
               <i class="light-text">No company information available</i>
             </div>
