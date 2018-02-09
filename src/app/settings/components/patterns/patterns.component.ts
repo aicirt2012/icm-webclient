@@ -2,7 +2,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Component } from '@angular/core';
 import { UserService } from '../../shared';
 import { MatIconRegistry } from '@angular/material';
-import { MatSnackBar, MatInput } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class PatternsComponent {
 
   patterns: any[];
   newPattern: string = '';
-  isRegex :boolean = false;
+  isRegex: boolean = false;
 
   constructor(private userService: UserService, private snackBar: MatSnackBar, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon('abc', sanitizer.bypassSecurityTrustResourceUrl('assets/img/alphabetical.svg'));
@@ -29,12 +29,12 @@ export class PatternsComponent {
   }
 
   addPattern() {
-    if (this.newPattern != '')  {
+    if (this.newPattern != '') {
 
-      this.userService.createPattern(this.newPattern,this.isRegex).subscribe((pattern: any) => {
+      this.userService.createPattern(this.newPattern, this.isRegex).subscribe((pattern: any) => {
         this.patterns.push(pattern);
         this.newPattern = '';
-       });
+      });
     }
   }
 
