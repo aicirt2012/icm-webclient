@@ -29,8 +29,8 @@ export class ContactComponent {
     console.log('her',this.socioCortex);
     this.userService.updateContactProviderSocioCortex(this.socioCortex)
       .subscribe((data: any) => {
-        this.socioCortex = data.contactProvider.socioCortex;
         this.snackBar.open('Update successful.', 'OK');
+        this.socioCortex = data.contactProvider.socioCortex;
       }, (error) => {
         this.snackBar.open('Error while updating. Try again.', 'OK');
 
