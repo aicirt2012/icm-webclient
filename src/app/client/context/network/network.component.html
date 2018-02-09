@@ -1,6 +1,6 @@
 <div fxLayout="column" class="full-height network-content">
 
-  <div fxLayout="row">
+  <div fxLayout="row" class="padding-left">
     <mat-input-container fxFlex floatingPlaceholder="false">
       <input matInput placeholder="Search for contacts..." [(ngModel)]="query" (keyup.enter)="search()">
     </mat-input-container>
@@ -9,32 +9,34 @@
     </button>
   </div>
 
-  <div fxLayout="row" *ngIf="!_query" fxFlex>
+  <div fxLayout="row" *ngIf="!_query" fxFlex class="padding-left">
     <span>Please select or enter a name to search.</span>
   </div>
 
-  <div fxLayout="row" *ngIf="loading" fxFlex>
+  <div fxLayout="row" *ngIf="loading" fxFlex class="padding-left">
     <spinner [loading]="loading"></spinner>
   </div>
 
-  <div fxLayout="row" *ngIf="_query && !loading && (!contacts || contacts.length == 0)" fxFlex>
+  <div fxLayout="row" *ngIf="_query && !loading && (!contacts || contacts.length == 0)" fxFlex class="padding-left">
     <span>No contacts found!</span>
   </div>
 
   <div fxLayout="column" class="results-list-wrapper scrollable" *ngIf="_query && !loading" fxFlex>
     <div class="contact-network-container" *ngFor="let contact of contacts;">
-      <div fxLayout="row" class="primary-contact-container" (click)="openDialog(contact)">
-        <div fxFlex="10" fxLayout="column" class="primary-icon-container">
-          <img src="assets/img/network/primary_contact_dark.png" class="icon"/>
-        </div>
-        <div fxFlex="90" fxLayout="column" class="primary-details-container">
-          <div class="primary-details-name">
+      <div fxLayout="column" class="primary-contact-container" (click)="openDialog(contact)">
+        <div fxLayout="row">
+          <div fxFlex="19px" class="primary-icon-container">
+            <img src="assets/img/network/primary_contact_dark.png" class="icon"/>
+          </div>
+          <div fxFlex class="primary-details-name">
             {{contact.firstName}} {{contact.lastName}}
           </div>
-          <div class="primary-details-description" *ngIf="contact.description">
+        </div>
+        <div fxLayout="row" class="primary-details-container">
+          <div fxFlex fxFlexOffset="19px" class="primary-details-description" *ngIf="contact.description">
             {{contact.description}}
           </div>
-          <div class="primary-details-description" *ngIf="!contact.description">
+          <div fxFlex fxFlexOffset="19px" class="primary-details-description" *ngIf="!contact.description">
             <i>No company details</i>
           </div>
         </div>
