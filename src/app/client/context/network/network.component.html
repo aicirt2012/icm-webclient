@@ -23,6 +23,7 @@
 
   <div fxLayout="column" class="results-list-wrapper scrollable" *ngIf="_query && !loading" fxFlex>
     <div class="contact-network-container" *ngFor="let contact of contacts;">
+      <!-- primary contact -->
       <div fxLayout="column" class="primary-contact-container" (click)="openDialog(contact)">
         <div fxLayout="row">
           <div fxFlex="19px" class="primary-icon-container">
@@ -41,48 +42,87 @@
           </div>
         </div>
       </div>
+      <!-- secondary contacts -->
       <ng-container *ngFor="let secondaryContact of contact.secondaryContacts; index as i;">
-        <div fxLayout="row" class="secondary-contact-container" *ngIf="i < 3 || contact.showAllRelations"
+        <div fxLayout="column" class="secondary-contact-container" *ngIf="i < 3 || contact.showAllRelations"
              (click)="openDialog(secondaryContact)">
-          <div fxFlex="20" fxLayout="column" class="secondary-icon-container">
-            <img src="assets/img/network/secondary_contact_light.png" class="icon"/>
+          <!-- top spacer -->
+          <div fxLayout="row" class="secondary-contact-divider">
+            <div fxFlex="48px" fxLayout="column" class="divider-icon-container">
+              <img src="assets/img/network/secondary_contact_line_small_light_gray.png" class="divider-icon"/>
+            </div>
           </div>
-          <div fxFlex="80" fxLayout="column" class="secondary-details-container">
-            <div fxFlex="{{secondaryContact.businessCompany ? '50' : '100'}}"
-                 class="secondary-details-name">
+          <!-- name and main icon -->
+          <div fxLayout="row">
+            <div fxFlex="48px" fxLayout="column"
+                 *ngIf="contact.secondaryContacts.length <= 3 && contact.secondaryContacts.length - 1 == i">
+              <!-- if contact is the last one, show the end bubble -->
+              <img src="assets/img/network/secondary_contact_end_small_light_gray.png" class="show-more-icon"/>
+            </div>
+            <div fxFlex="48px" class="secondary-icon-container"
+                 *ngIf="!(contact.secondaryContacts.length <= 3 && contact.secondaryContacts.length - 1 == i)">
+              <!-- else, use the normal icon -->
+              <img src="assets/img/network/secondary_contact_small_light_gray.png" class="secondary-icon"/>
+            </div>
+            <div fxFlex class="secondary-details-name">
               {{secondaryContact.firstName}} {{secondaryContact.lastName}}
             </div>
-            <div fxFlex="50" class="secondary-details-company"
+          </div>
+          <!-- additional information -->
+          <div fxLayout="row">
+            <div fxFlex="48px"
+                 *ngIf="contact.secondaryContacts.length <= 3 && contact.secondaryContacts.length - 1 == i">
+              <!-- if contact is the last one, hide the icon -->
+            </div>
+            <div fxFlex="48px"
+                 *ngIf="!(contact.secondaryContacts.length <= 3 && contact.secondaryContacts.length - 1 == i)">
+              <!-- else, use the normal icon -->
+              <img src="assets/img/network/secondary_contact_line_small_light_gray.png" class="divider-icon"/>
+            </div>
+            <div fxFlex class="secondary-details-company"
                  *ngIf="secondaryContact.businessCompany && secondaryContact.businessJobTitle">
               <!-- if contacts belong to the same company, show the position instead of the company, else show company -->
               {{contact.businessCompany == secondaryContact.businessCompany ?
               secondaryContact.businessJobTitle :
               secondaryContact.businessCompany}}
             </div>
-            <div fxFlex="50" class="secondary-details-company"
+            <div fxFlex class="secondary-details-company"
                  *ngIf="!(secondaryContact.businessCompany && secondaryContact.businessJobTitle) && secondaryContact.businessCompany">
-              <!-- if not enough information available, just show what we got -->
+              <!-- if only company available, just show what we got -->
               {{secondaryContact.businessCompany}}
             </div>
-            <div fxFlex="50" class="secondary-details-company"
+            <div fxFlex class="secondary-details-company"
                  *ngIf="!(secondaryContact.businessCompany && secondaryContact.businessJobTitle) && secondaryContact.businessJobTitle">
-              <!-- if not enough information available, just show what we got -->
+              <!-- if only position available, just show what we got -->
               {{secondaryContact.businessJobTitle}}
+            </div>
+            <div fxFlex class="secondary-details-company"
+                 *ngIf="!secondaryContact.businessCompany && !secondaryContact.businessJobTitle && secondaryContact.businessDepartment">
+              <!-- if only department available, just show what we got -->
+              {{secondaryContact.businessDepartment}}
+            </div>
+            <div fxFlex class="secondary-details-company"
+                 *ngIf="!secondaryContact.businessCompany && !secondaryContact.businessJobTitle">
+              <!-- if no information available at all, tell the user -->
+              <i class="light-text">No company information available</i>
             </div>
           </div>
         </div>
       </ng-container>
-      <div fxLayout="row" class="show-more-container" (click)="contact.showAllRelations = !contact.showAllRelations;"
+      <!-- show more button -->
+      <div fxLayout="column" class="show-more-container" (click)="contact.showAllRelations = !contact.showAllRelations;"
            *ngIf="contact.secondaryContacts && contact.secondaryContacts.length > 3">
-        <div fxFlex="20" fxLayout="column" class="show-more-icon">
-          <img src="assets/img/network/show_more_light.png" class="icon"/>
+        <div fxLayout="row">
+          <div fxFlex="48px" fxLayout="column">
+            <img src="assets/img/network/secondary_contact_end_small_light_gray.png" class="show-more-icon"/>
+          </div>
+          <span fxFlex fxLayout="column" class="show-more-text" *ngIf="!contact.showAllRelations">
+            Show more... ({{contact.secondaryContacts.length - 3}})
+          </span>
+          <span fxFlex fxLayout="column" class="show-more-text" *ngIf="contact.showAllRelations">
+            Show less...
+          </span>
         </div>
-        <span fxFlex="80" fxLayout="column" class="show-more-text" *ngIf="!contact.showAllRelations">
-          Show more... ({{contact.secondaryContacts.length - 3}})
-        </span>
-        <span fxFlex="80" fxLayout="column" class="show-more-text" *ngIf="contact.showAllRelations">
-          Show less...
-        </span>
       </div>
     </div>
   </div>

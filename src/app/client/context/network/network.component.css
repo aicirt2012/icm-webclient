@@ -37,8 +37,25 @@
   color: #545252;
 }
 
-.secondary-contact-container .icon {
-  height: 44px;
+.divider-icon-container {
+  height: 10px;
+}
+
+.divider-icon {
+  height: 100%;
+  width: 48px;
+}
+
+.secondary-contact-container {
+  cursor: pointer;
+}
+
+.secondary-icon-container {
+  height: 20px;
+}
+
+.secondary-icon {
+  height: 20px;
   width: 48px;
 }
 
@@ -52,22 +69,17 @@
   cursor: pointer;
 }
 
-.show-more-container .icon {
-  height: 24px;
+.show-more-icon {
+  height: 20px;
   width: 48px;
 }
 
 .show-more-text {
-  margin-top: 3px;
+  margin-top: 2px;
 }
 
-.flip {
-  -moz-transform: scaleY(-1);
-  -o-transform: scaleY(-1);
-  -webkit-transform: scaleY(-1);
-  transform: scaleY(-1);
-  filter: FlipV;
-  -ms-filter: "FlipV";
+.light-text {
+  color: rgba(0, 0, 0, 0.54);
 }
 
 .padding-left {
