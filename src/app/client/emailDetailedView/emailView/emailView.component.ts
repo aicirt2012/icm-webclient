@@ -21,10 +21,25 @@ export class EmailViewComponent {
   @ViewChild('wrapper') wrapper: ElementRef;
   @ViewChild('iframe') iframe: ElementRef;
 
+  private highlightedAnnotationTypes: string[] = ["PERSON", "DATE", "TIME", "TASK_TITLE"];
+  private _highlightAnnotations: boolean = false;
+
+  @Input()
+  set highlightAnnotations(areHighlighted: boolean) {
+    this._highlightAnnotations = areHighlighted;
+    if (this.iframe)
+      this.iframe.nativeElement.contentDocument.dispatchEvent(new CustomEvent('onSetDisplayAnnotations', {detail: areHighlighted}));
+  }
+
+  get highlightAnnotations() {
+    return this._highlightAnnotations;
+  }
+
   constructor(private sanitizer: DomSanitizer,
               public dialog: MatDialog,
               private attachmentService: AttachmentService,
               private authService: AuthService) {
+    this.highlightAnnotations = true;
   }
 
   ngOnChanges() {
@@ -100,7 +115,8 @@ export class EmailViewComponent {
     // include annotator framework and initialize
     scriptElement = iframe.contentDocument.createElement("script");
     scriptElement.setAttribute("src", "assets/js/annotator.js");
-    let scriptValue = "annotatorCustomExtensions.annotations = " + this.getAnnotationsAsString() + ";";
+    let scriptValue = "annotatorCustomExtensions.setAnnotations(" + this.getAnnotationsAsString() + ");";
+    scriptValue += "annotatorCustomExtensions.setDisplayAnnotations(" + (this.highlightAnnotations ? "true" : "false") + ");";
     scriptValue += "annotatorCustomExtensions.initAnnotator();";
     scriptElement.setAttribute("onload", scriptValue);   // call init routine after loading
     iframe.contentDocument.body.appendChild(scriptElement);
@@ -128,13 +144,13 @@ export class EmailViewComponent {
     let annotationString = "[";
     for (let index in annotations) {
       let annotation = annotations[index];
-      if (annotation['nerType'] === "PERSON" || annotation['nerType'] === "ORGANIZATION" || annotation['nerType'] === "LOCATION") {
+      if (this.highlightedAnnotationTypes.indexOf(annotation['nerType']) > -1) {
         if (annotationString.length > 1) {
           annotationString += ",";
         }
         annotationString += "{";
         annotationString += "\"quote\": \"" + annotation['value'] + "\",";
-        annotationString += "\"text\": \"" + annotation['nerType'] + "\",";
+        annotationString += "\"text\": \"" + (annotation['nerType'] ? annotation['nerType'].toLowerCase() : "") + "\",";
         annotationString += "\"ranges\": " + this.getRangesAsString(annotation);
         annotationString += "}";
       }

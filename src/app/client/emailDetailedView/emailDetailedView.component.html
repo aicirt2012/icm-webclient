@@ -18,6 +18,7 @@
       *ngIf="!emailResponse.text && !emailResponse.type && !moving"
       [email]="email"
       (highlightSentence)="highlightSentence($event)"
+      [highlightAnnotations]="email.highlightAnnotations"
     >
     </email-view>
     <div *ngIf="moving" fxFlex fxLayout="row" fxLayoutAlign="center center">
