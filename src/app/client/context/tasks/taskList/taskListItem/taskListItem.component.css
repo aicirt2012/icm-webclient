@@ -97,9 +97,7 @@
 }
 
 .overdue {
-    border-bottom: 1px solid #ce2424;
-    border-top: 1px solid #ce2424;
-    border-right: 1px solid #ce2424;
+  color: #ce2424;
 }
 
 .overdue-text {
