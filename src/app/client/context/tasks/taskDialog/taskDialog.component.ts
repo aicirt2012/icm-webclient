@@ -185,7 +185,7 @@ export class TaskDialogComponent {
 
   private updateDateSuggestions() {
     // TODO maybe flag the dates as past instead of hiding them completely, similar to how assignee dropdown works
-    let allDates = this.toDateStrings(this.suggested.dates.filter(date => date > Date.now()));
+    let allDates = this.toDateStrings(this.suggested.dates.filter(date => new Date(date) > new Date()));
     if (this.taskDate) {
       this.filteredDateSuggestions = allDates.filter(date => date.toLowerCase().indexOf(this.taskDate.toLowerCase()) === 0);
     } else {
