@@ -17,7 +17,6 @@
   <div>
     <form fxFlex fxLayout="column">
       <div fxLayout="row">
-        <i class="fas fa-font margin offset-top-fa-icon" fxFlex="5"></i>
         <mat-form-field fxFlex>
           <input type="text" name="titleSelect" matInput [(ngModel)]="taskTitle" [matAutocomplete]="autocompleteTitle"
                  placeholder="Task Title" required>
@@ -28,7 +27,6 @@
       </div>
 
       <div fxLayout="row">
-        <mat-icon class="margin offset-top-mat-icon" fxFlex="5">dashboard</mat-icon>
         <mat-form-field fxFlex>
           <mat-select name="board-select" [(ngModel)]="selectedBoard" [disabled]="task.taskType == 'linked'"
                       required placeholder="Trello Board">
@@ -39,7 +37,6 @@
         </mat-form-field>
       </div>
       <div fxLayout="row" *ngIf="task.board">
-        <mat-icon class="margin offset-top-mat-icon" fxFlex="5">view_list</mat-icon>
         <mat-form-field fxFlex>
           <mat-select name="list-select" [(ngModel)]="task.list" [disabled]="task.taskType == 'linked'" required
                       placeholder="Trello List">
@@ -87,7 +84,6 @@
         </mat-form-field>
       </div>
       <div fxLayout="row" *ngIf="task.board">
-        <i class="fas fa-align-left margin offset-top-fa-icon" fxFlex="5" fxFlexAlign="start center"></i>
         <mat-form-field fxFlex>
           <textarea matInput type="text" class="text-area" name="task-description" placeholder="Task Description"
                     maxRows="10" [(ngModel)]="task.desc" value="task.desc" rows="10" fxFlex></textarea>
