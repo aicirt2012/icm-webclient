@@ -27,7 +27,8 @@
       </div>
 
       <div fxLayout="row">
-        <mat-form-field fxFlex>
+        <mat-form-field fxFlex="49">
+          <!-- board input -->
           <mat-select name="board-select" [(ngModel)]="selectedBoard" [disabled]="task.taskType == 'linked'"
                       required placeholder="Trello Board">
             <mat-option *ngFor="let board of boards" [value]="board">
@@ -35,9 +36,12 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-      </div>
-      <div fxLayout="row" *ngIf="task.board">
-        <mat-form-field fxFlex>
+        <mat-form-field fxFlex="49" fxFlexOffset="2" *ngIf="!task.board">
+          <!-- disabled dummy list selector if board not yet selected -->
+          <mat-select name="list-select" disabled required placeholder="Trello List"></mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex="49" fxFlexOffset="2" *ngIf="task.board">
+          <!-- list selector -->
           <mat-select name="list-select" [(ngModel)]="task.list" [disabled]="task.taskType == 'linked'" required
                       placeholder="Trello List">
             <mat-option *ngFor="let list of task.board.lists" [value]="task.taskType == 'linked'? task.list : list">
@@ -46,13 +50,13 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div fxLayout="row" *ngIf="task.board">
+      <div fxLayout="row" *ngIf="task.list">
         <div fxLayoutAlign="start center" fxFlex>
           <mat-icon class="margin" [class.alert-icon]="overdue && !sticker_check && task.taskType == 'linked'"
                     fxFlex="5">
             date_range
           </mat-icon>
-          <mat-form-field fxFlex>
+          <mat-form-field fxFlex="44">
             <input name="date" matInput placeholder="Due Date" [(ngModel)]="taskDate"
                    [matAutocomplete]="autocompleteDate">
             <mat-autocomplete #autocompleteDate="matAutocomplete">
@@ -62,28 +66,26 @@
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
+          <mat-icon class="margin" fxFlex="5" fxFlexOffset="2">person</mat-icon>
+          <mat-form-field fxFlex="44">
+            <mat-select class="margin" placeholder="Assignees" [(ngModel)]="selectedMembers" name="member" fxFlex
+                        multiple>
+              <mat-optgroup label="Mentioned members" *ngIf="suggestedMembers && suggestedMembers.length > 0">
+                <mat-option *ngFor="let member of suggestedMembers; let i = index" [value]="member"
+                            (onSelect)="addMember(member, i)">
+                  {{member.fullName}}
+                </mat-option>
+              </mat-optgroup>
+              <mat-optgroup label="Board members" *ngIf="nonSuggestedMembers && nonSuggestedMembers.length > 0">
+                <mat-option *ngFor="let member of nonSuggestedMembers; let i = index" [value]="member">
+                  {{member.fullName}}
+                </mat-option>
+              </mat-optgroup>
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
-      <div fxLayout="row" *ngIf="task.board">
-        <mat-icon class="margin offset-top-mat-icon" fxFlex="5">person</mat-icon>
-        <mat-form-field fxFlex>
-          <mat-select class="margin" placeholder="Assignees" [(ngModel)]="selectedMembers" name="member" fxFlex
-                      multiple>
-            <mat-optgroup label="Mentioned members" *ngIf="suggestedMembers && suggestedMembers.length > 0">
-              <mat-option *ngFor="let member of suggestedMembers; let i = index" [value]="member"
-                          (onSelect)="addMember(member, i)">
-                {{member.fullName}}
-              </mat-option>
-            </mat-optgroup>
-            <mat-optgroup label="Board members" *ngIf="nonSuggestedMembers && nonSuggestedMembers.length > 0">
-              <mat-option *ngFor="let member of nonSuggestedMembers; let i = index" [value]="member">
-                {{member.fullName}}
-              </mat-option>
-            </mat-optgroup>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div fxLayout="row" *ngIf="task.board">
+      <div fxLayout="row" *ngIf="task.list">
         <mat-form-field fxFlex>
           <textarea matInput type="text" class="text-area" name="task-description" placeholder="Task Description"
                     maxRows="10" [(ngModel)]="task.desc" value="task.desc" rows="10" fxFlex></textarea>
