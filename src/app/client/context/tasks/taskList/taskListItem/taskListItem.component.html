@@ -1,5 +1,5 @@
-<mat-card [class]="task.taskType" [class.highlighted]="task.highlight">
-    <mat-card-content class="cardContent" fxFlex fxLayout="column">
+<div class="task" [class]="task.taskType" [class.highlighted]="task.highlight">
+    <div fxFlex fxLayout="column">
         <div fxFlex="33" fxLayout="row">
             <div fxFlex="85" class="card-title text-overflow"><strong>{{task.name}}</strong></div>
         </div>
@@ -17,11 +17,11 @@
                 <div *ngIf="task.members.length < 1"><i>Unassigned</i></div>
             </div>
         </div>
-        <div *ngIf="task.desc" fxFlex="33" class="text-overflow">
+        <div *ngIf="task.desc" fxFlex="33" class="text-overflow task-description">
             {{task.desc}}
         </div>
-        <div *ngIf="!task.desc" fxFlex="33" class="text-overflow">
+        <div *ngIf="!task.desc" fxFlex="33" class="text-overflow task-description">
             <i>No description</i>
         </div>
-    </mat-card-content>
-</mat-card>
+    </div>
+</div>
