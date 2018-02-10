@@ -54,9 +54,11 @@
         <div fxLayoutAlign="start center" fxFlex>
           <mat-icon class="margin" [class.alert-icon]="overdue && !sticker_check && task.taskType == 'linked'"
                     fxFlex="5">
+            <!-- date icon -->
             date_range
           </mat-icon>
           <mat-form-field fxFlex="44">
+            <!-- date input -->
             <input name="date" matInput placeholder="Due Date" [(ngModel)]="taskDate"
                    [matAutocomplete]="autocompleteDate">
             <mat-autocomplete #autocompleteDate="matAutocomplete">
@@ -66,8 +68,12 @@
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
-          <mat-icon class="margin" fxFlex="5" fxFlexOffset="2">person</mat-icon>
+          <mat-icon class="margin" fxFlex="5" fxFlexOffset="2">
+            <!-- assignees icon -->
+            person
+          </mat-icon>
           <mat-form-field fxFlex="44">
+            <!-- assignees selector -->
             <mat-select class="margin" placeholder="Assignees" [(ngModel)]="selectedMembers" name="member" fxFlex
                         multiple>
               <mat-optgroup label="Mentioned members" *ngIf="suggestedMembers && suggestedMembers.length > 0">
@@ -87,6 +93,7 @@
       </div>
       <div fxLayout="row" *ngIf="task.list">
         <mat-form-field fxFlex>
+          <!-- description input -->
           <textarea matInput type="text" class="text-area" name="task-description" placeholder="Task Description"
                     maxRows="10" [(ngModel)]="task.desc" value="task.desc" rows="10" fxFlex></textarea>
         </mat-form-field>
