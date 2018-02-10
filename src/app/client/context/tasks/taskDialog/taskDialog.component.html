@@ -52,12 +52,7 @@
       </div>
       <div fxLayout="row" *ngIf="task.list">
         <div fxLayoutAlign="start center" fxFlex>
-          <mat-icon class="margin" [class.alert-icon]="overdue && !sticker_check && task.taskType == 'linked'"
-                    fxFlex="5">
-            <!-- date icon -->
-            date_range
-          </mat-icon>
-          <mat-form-field fxFlex="44">
+          <mat-form-field fxFlex="49">
             <!-- date input -->
             <input name="date" matInput placeholder="Due Date" [(ngModel)]="taskDate"
                    [matAutocomplete]="autocompleteDate">
@@ -68,11 +63,7 @@
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
-          <mat-icon class="margin" fxFlex="5" fxFlexOffset="2">
-            <!-- assignees icon -->
-            person
-          </mat-icon>
-          <mat-form-field fxFlex="44">
+          <mat-form-field fxFlex="49" fxFlexOffset="2">
             <!-- assignees selector -->
             <mat-select class="margin" placeholder="Assignees" [(ngModel)]="selectedMembers" name="member" fxFlex
                         multiple>
