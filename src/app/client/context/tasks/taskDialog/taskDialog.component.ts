@@ -46,15 +46,19 @@ export class TaskDialogComponent {
   }
 
   @Input()
-  set selectedBoard(board: any) {
-    if (board) {
-      this.task.board = board;
-      this.updateMemberSuggestions();
+  set selectedBoardId(boardId: any) {
+    if (boardId) {
+      this.boards.forEach(board => {
+        if (board.id === boardId) {
+          this.task.board = board;
+          this.updateMemberSuggestions();
+        }
+      });
     }
   }
 
-  get selectedBoard(): any {
-    return this.task.board;
+  get selectedBoardId(): any {
+    return this.task.board ? this.task.board.id : undefined;
   }
 
   @Input()
