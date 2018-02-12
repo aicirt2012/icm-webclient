@@ -94,7 +94,7 @@
   <mat-dialog-actions>
     <button mat-submit mat-raised-button color="primary" [disabled]="sending || !task.list" (click)="createTask()"
             *ngIf="task.taskType == 'suggested'">
-      <i class="fas fa-plus margin"></i>Create Task
+      <i class="fas fa-check margin"></i>Create Task
     </button>
     <button mat-submit mat-raised-button color="primary" [disabled]="sending" (click)="updateTask()"
             *ngIf="task.taskType == 'linked'">
