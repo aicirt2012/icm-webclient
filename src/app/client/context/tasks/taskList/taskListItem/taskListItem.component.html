@@ -8,13 +8,13 @@
       </div>
       <div  fxFlex-gt-sm="33" fxLayout="row" fxLayoutAlign="start center">
           <div fxLayoutAlign="start center">
-            <mat-icon fxFlex-gt-sm="8" [class.overdue]="isOverdue()" class="date-icon">date_range</mat-icon>
+            <mat-icon fxFlex-gt-sm="8" [class.overdue]="isOverdue()" class="date-icon" [class.light-icon]="task.taskType === 'suggested'">date_range</mat-icon>
             <div fxFlex-gt-sm="27" [class.light-text]="task.taskType === 'suggested'" [class.overdue-text]="isOverdue() && task.taskType == 'linked' && !isChecked()" *ngIf="task.date">{{task.date}}</div>
             <div fxFlex-gt-sm="27" [class.light-text]="task.taskType === 'suggested'" [class.overdue-text]="isOverdue() && task.taskType == 'linked' && !isChecked()" *ngIf="!task.date"><i>No due date</i></div>
           </div>
-          <mat-icon class="icon-margin" fxFlex-gt-sm="8">person</mat-icon>
+          <mat-icon class="icon-margin" fxFlex-gt-sm="8" [class.light-icon]="task.taskType === 'suggested'">person</mat-icon>
           <div fxFlex-gt-sm="53" fxLayout="row">
-              <div *ngFor="let member of task.members" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
+              <div *ngFor="let member of task.members" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials" [class.light-initials]="task.taskType === 'suggested'">
                   <span [class.light-text]="task.taskType === 'suggested'">{{member.initials}}</span>
               </div>
               <div *ngIf="task.members.length < 1" [class.light-text]="task.taskType === 'suggested'"><i>Unassigned</i></div>

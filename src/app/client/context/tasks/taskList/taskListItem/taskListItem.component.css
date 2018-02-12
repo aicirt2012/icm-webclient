@@ -141,3 +141,11 @@
   border-top: 1px solid lightgray;
   background-color: #f8f8f8;
 }
+
+.light-icon {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.light-initials {
+  color: rgba(211, 211, 211, 0.6);
+}
