@@ -1,7 +1,7 @@
 .translate {
   font-size: 14px !important;
   text-align: justify;
-  padding-top: 5px;
+  padding: 5px 0 10px 10px;
   overflow-y: auto;
 }
 

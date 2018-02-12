@@ -100,28 +100,28 @@ annotatorCustomExtensions.parentwindow = function () {
   return {
     create: function (annotation) {
       // annotation.id = id();
-      trace('create (not yet implemented)', annotation);
+      // trace('create (not yet implemented)', annotation);
       return annotation;
     },
 
     update: function (annotation) {
-      trace('update (not yet implemented)', annotation);
+      // trace('update (not yet implemented)', annotation);
       return annotation;
     },
 
     'delete': function (annotation) {
-      trace('destroy (not yet implemented)', annotation);
+      // trace('destroy (not yet implemented)', annotation);
       return annotation;
     },
 
     query: function (queryObj) {
-      trace('query', queryObj);
-      var result = {
+      // trace('query', queryObj);
+      return {
         meta: {total: annotatorCustomExtensions.annotations.length},
         results: annotatorCustomExtensions.annotations
       };
-      trace("query result", result);
-      return result;
+      // trace("query result", result);
+      // return result;
     },
 
     configure: function (registry) {

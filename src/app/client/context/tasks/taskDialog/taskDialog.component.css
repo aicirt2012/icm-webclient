@@ -1,56 +1,48 @@
 .progressbar-top {
-    margin-top: -24px;
-    margin-bottom: 24px;
-    width: 70%;
-    margin-left: -24px;
-    position: absolute;
+  margin-top: -24px;
+  margin-bottom: 24px;
+  width: 70%;
+  margin-left: -24px;
+  position: absolute;
 }
 
 .check-icon {
-    color: #21C9A1;
+  color: #21C9A1;
 }
 
 .overdue-text {
-    color: #ce2424;
-    font-weight: bold;
+  color: #ce2424;
+  font-weight: bold;
 }
 
 .alert-icon {
-    color: #ce2424;
+  color: #ce2424;
 }
 
-.selectList {
-    margin-top: 15px;
-    margin-bottom: 15px;
+.offset-top-mat-icon {
+  margin-top: 17px;
 }
 
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .member-initials {
-    background-color: lightgrey;
-    height: 24px;
-    min-width: 25px;
-    font-size: 12px;
-    line-height: 24px;
-    text-align: center;
-    padding: 2px;
-    border-radius: 4px;
-    margin-right: 2px;
+  background-color: lightgrey;
+  height: 24px;
+  min-width: 25px;
+  font-size: 12px;
+  line-height: 24px;
+  text-align: center;
+  padding: 2px;
+  border-radius: 4px;
+  margin-right: 2px;
 }
 
 .text-area {
-    resize: none;
+  resize: none;
 }
 
 .margin {
-    margin-right: 5px;
-}
-
-.trello-icon {
-  height: 42px;
-  width: 52px;
-  right: 16%;
-  position: absolute;
+  margin-right: 5px;
 }

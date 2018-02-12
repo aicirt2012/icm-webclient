@@ -21,7 +21,7 @@ import {
   MatChipsModule,
   MatTabsModule,
   MatFormFieldModule,
-  MatSnackBarModule
+  MatSnackBarModule, MatDatepickerModule, MatNativeDateModule
 } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { ContextMenuModule } from 'ngx-contextmenu';
@@ -101,6 +101,8 @@ import { TinymceModule } from 'angular2-tinymce';
     MatTabsModule,
     MatFormFieldModule,
     MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     //
     FlexLayoutModule,
     InfiniteScrollModule,

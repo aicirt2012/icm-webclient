@@ -21,6 +21,10 @@ mat-card {
   overflow-y: scroll;
 }
 
+mat-list {
+  width: 30%;
+}
+
 mat-input-container {
   min-width: 400px;
 }
@@ -52,15 +56,18 @@ mat-input-container {
 .fab-icon {
   color: white;
 }
-.span-style{
+
+.regex-icon {
+  margin: 5px;
+}
+
+.span-style {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   width: 150px;
 
 }
-
-
 
 /* Tooltip container */
 .tooltip {

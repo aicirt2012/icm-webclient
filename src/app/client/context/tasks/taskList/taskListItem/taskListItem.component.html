@@ -1,30 +1,33 @@
-<mat-card [class]="task.taskType" [class.highlighted]="task.highlight">
-    <mat-card-content class="cardContent" fxFlex fxLayout="column">
-        <div fxFlex="33" fxLayout="row">
-            <div fxFlex="85" class="card-title text-overflow"><strong>{{task.name}}</strong></div>
-            <mat-icon class="pointer alert-icon" *ngIf="isOverdue() && task.taskType == 'linked' && !isChecked()">add_alert</mat-icon>
-            <mat-icon class="pointer check-icon" *ngIf="isChecked()" matTooltip="Completed">check</mat-icon>
-            <mat-icon class="pointer close-icon" (click)="removeTask(task)">close</mat-icon>
-        </div>
-        <div  fxFlex-gt-sm="33" fxLayout="row" fxLayoutAlign="start end" class="card-title">
-            <div fxLayoutAlign="start center">
-            <mat-icon fxFlex-gt-sm="8">date_range</mat-icon>
-
-            <div fxFlex-gt-sm="27" [class.overdue-text]="isOverdue() && task.taskType == 'linked' && !isChecked()">{{task.date | date:'shortDate'}}</div>
-            </div>
-            <mat-icon class="icon-margin" fxFlex-gt-sm="8">person</mat-icon>
-            <div fxFlex-gt-sm="53" fxLayout="row">
-                <div *ngFor="let member of task.members" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
-                    <span>{{member.initials}}</span>
-                </div>
-                <div *ngIf="task.members.length < 1"><i>No person assigned</i></div>
-            </div>
-        </div>
-        <div *ngIf="task.desc" fxFlex="33" class="text-overflow">
-            {{task.desc}}
-        </div>
-        <div *ngIf="!task.desc" fxFlex="33" class="text-overflow">
-            <i>No description</i>
-        </div>
-    </mat-card-content>
-</mat-card>
+<div class="task" [class]="task.taskType" [class.highlighted]="task.highlight">
+  <div fxFlex fxLayout="column">
+      <div fxFlex="33" fxLayout="row" class="task-title">
+          <div fxFlex="85" class="text-overflow">
+            <i *ngIf="task.taskType === 'suggested'" class="label-suggestion light-text">(Suggestion) {{task.name}}</i>
+            <strong [class.light-text]="task.taskType === 'suggested'" *ngIf="task.taskType !== 'suggested'">{{task.name}}</strong>
+          </div>
+      </div>
+      <div  fxFlex-gt-sm="33" fxLayout="row" fxLayoutAlign="start center">
+          <div fxLayoutAlign="start center">
+            <mat-icon fxFlex-gt-sm="8" [class.overdue]="isOverdue()" class="date-icon" [class.light-icon]="task.taskType === 'suggested'">date_range</mat-icon>
+            <div fxFlex-gt-sm="27" [class.light-text]="task.taskType === 'suggested'" [class.overdue-text]="isOverdue() && task.taskType == 'linked' && !isChecked()" *ngIf="task.date">{{task.date}}</div>
+            <div fxFlex-gt-sm="27" [class.light-text]="task.taskType === 'suggested'" [class.overdue-text]="isOverdue() && task.taskType == 'linked' && !isChecked()" *ngIf="!task.date"><i>No due date</i></div>
+          </div>
+          <mat-icon class="icon-margin" fxFlex-gt-sm="8" [class.light-icon]="task.taskType === 'suggested'">person</mat-icon>
+          <div fxFlex-gt-sm="53" fxLayout="row">
+              <div *ngFor="let member of task.members" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials" [class.light-initials]="task.taskType === 'suggested'">
+                  <span [class.light-text]="task.taskType === 'suggested'">{{member.initials}}</span>
+              </div>
+              <div *ngIf="task.members.length < 1" [class.light-text]="task.taskType === 'suggested'"><i>Unassigned</i></div>
+          </div>
+      </div>
+      <div *ngIf="task.desc && task.taskType !== 'suggested'" fxFlex="33" class="text-overflow task-description light-text">
+          {{task.desc}}
+      </div>
+      <div *ngIf="!task.desc && task.taskType !== 'suggested'" fxFlex="33" class="text-overflow task-description light-text">
+          <i>No description</i>
+      </div>
+    <div *ngIf="task.taskType === 'suggested'" fxFlex="33" class="text-overflow task-description light-text">
+      <i>Click to create this task</i>
+    </div>
+  </div>
+</div>

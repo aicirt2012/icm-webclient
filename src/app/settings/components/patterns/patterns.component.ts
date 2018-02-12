@@ -1,6 +1,8 @@
+import { DomSanitizer } from '@angular/platform-browser';
 import { Component } from '@angular/core';
 import { UserService } from '../../shared';
-import { MatSnackBar, MatInput } from '@angular/material';
+import { MatIconRegistry } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 
 @Component({
@@ -13,13 +15,12 @@ export class PatternsComponent {
 
   patterns: any[];
   newPattern: string = '';
-  useAsRegex :boolean = false;
-  matchTillSentenceEnd: boolean = true;
-  caseSensitive: boolean= false;
+  isRegex: boolean = false;
 
-
-
-  constructor(private userService: UserService, private snackBar: MatSnackBar) { }
+  constructor(private userService: UserService, private snackBar: MatSnackBar, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIcon('abc', sanitizer.bypassSecurityTrustResourceUrl('assets/img/alphabetical.svg'));
+    iconRegistry.addSvgIcon('regex', sanitizer.bypassSecurityTrustResourceUrl('assets/img/regex.svg'));
+  }
 
   ngOnInit() {
     this.userService.getPatterns().subscribe((patterns: any) => {
@@ -28,15 +29,11 @@ export class PatternsComponent {
   }
 
   addPattern() {
-    if (this.newPattern != '')  {
-      if(this.useAsRegex){
-        this.caseSensitive =true;
-        this.matchTillSentenceEnd = false;
-      }
-      this.userService.createPattern(this.newPattern,this.matchTillSentenceEnd,this.caseSensitive).subscribe((pattern: any) => {
+    if (this.newPattern != '') {
+
+      this.userService.createPattern(this.newPattern, this.isRegex).subscribe((pattern: any) => {
         this.patterns.push(pattern);
         this.newPattern = '';
-        this.matchTillSentenceEnd = true;
       });
     }
   }
