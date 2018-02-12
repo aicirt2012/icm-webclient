@@ -1,10 +1,11 @@
+.task > div,
+.task > div > div {
+  width: 100%;
+}
+
 .padding {
     padding: 8px;
     padding-top: 0px;
-}
-
-.tasks {
-    padding: 8px;
 }
 
 .selectList {
@@ -17,10 +18,6 @@
 
 .pointer {
     cursor: pointer;
-}
-
-.card-title {
-    margin-bottom: 5px;
 }
 
 .cardContent {
@@ -113,7 +110,16 @@
 }
 
 .task-description {
+  padding-top: 4px;
   color: #545252;
+}
+
+.task-title {
+  padding-bottom: 4px;
+}
+
+.date-icon {
+  margin-left: -2px;
 }
 
 .task {
