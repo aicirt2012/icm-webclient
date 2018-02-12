@@ -4,7 +4,6 @@ import { TaskService } from '../../shared';
 import { TaskDialogComponent } from './taskDialog';
 import { LinkTaskDialogComponent } from './linkTaskDialog';
 import { AppState } from '../../../app.service';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'tasks',
