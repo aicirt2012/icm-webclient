@@ -4,6 +4,7 @@ import { TaskService } from '../../shared';
 import { TaskDialogComponent } from './taskDialog';
 import { LinkTaskDialogComponent } from './linkTaskDialog';
 import { AppState } from '../../../app.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'tasks',
@@ -31,14 +32,16 @@ export class TasksComponent {
   }
 
   ngOnInit() {
-    this.user = this.appState.getUser();
-    if (this.user.trello) {
-      this.getAllBoards();
-      this.errorTrello = false;
-    }
-    else {
-      this.errorTrello = true;
-    }
+    this.appState.user().subscribe(user => {
+      this.user = user;
+      if (this.user.trello) {
+        this.getAllBoards();
+        this.errorTrello = false;
+      }
+      else {
+        this.errorTrello = true;
+      }
+    });
   }
 
   createTask(taskObject: any) {

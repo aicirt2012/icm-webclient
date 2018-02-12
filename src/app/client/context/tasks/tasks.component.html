@@ -5,8 +5,9 @@
     </task-action-bar>
   </div>
   <div *ngIf="!errorTrello" fxFlex fxLayout="column" class="scrollable">
-    <task-list fxFlex [boards]="boards" [linkedTasks]="email.linkedTasks" [suggestedData]="email.suggestedData"
-               (createTask)="createTask($event)" (deleteTask)="deleteTask($event)" (openDialog)="openDialog($event)"
+    <task-list fxFlex [boards]="boards" [linkedTasks]="email ? email.linkedTasks : []"
+               [suggestedData]="email ? email.suggestedData : []" (createTask)="createTask($event)"
+               (deleteTask)="deleteTask($event)" (openDialog)="openDialog($event)"
                (openLinkTaskDialog)="openLinkTaskDialog($event)" (highlightSentence)="highlightSentence($event)"
                (hightlightTaskItem)="hightlightTaskItem($event)"></task-list>
   </div>
