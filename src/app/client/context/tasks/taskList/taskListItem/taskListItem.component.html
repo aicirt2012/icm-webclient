@@ -1,51 +1,33 @@
 <div class="task" [class]="task.taskType" [class.highlighted]="task.highlight">
-  <!-- suggested task -->
-  <div fxFlex fxLayout="column" *ngIf="task.taskType === 'suggested'">
-    <div fxFlex="33" fxLayout="row" class="task-title">
-      <div fxFlex="85" class="text-overflow"><strong>{{task.name}}</strong></div>
-    </div>
-    <div  fxFlex-gt-sm="33" fxLayout="row" fxLayoutAlign="start center">
-      <div fxLayoutAlign="start center">
-        <mat-icon fxFlex-gt-sm="8" class="date-icon">date_range</mat-icon>
-        <div fxFlex-gt-sm="27" *ngIf="task.date">{{task.date}}</div>
-        <div fxFlex-gt-sm="27" *ngIf="!task.date"><i>No date suggestions</i></div>
-      </div>
-      <mat-icon class="icon-margin" fxFlex-gt-sm="8">person</mat-icon>
-      <div fxFlex-gt-sm="53" fxLayout="row">
-        <div *ngFor="let member of task.members" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
-          <span>{{member.initials}}</span>
-        </div>
-        <div *ngIf="task.members.length < 1"><i>No assignee suggestions</i></div>
-      </div>
-    </div>
-    <div *ngIf="!task.desc" fxFlex="33" class="text-overflow task-description">
-      <i>Click to create task from suggestions</i>
-    </div>
-  </div>
-  <!-- linked task -->
-  <div fxFlex fxLayout="column" *ngIf="task.taskType !== 'suggested'">
+  <div fxFlex fxLayout="column">
       <div fxFlex="33" fxLayout="row" class="task-title">
-          <div fxFlex="85" class="text-overflow"><strong>{{task.name}}</strong></div>
+          <div fxFlex="85" class="text-overflow">
+            <i *ngIf="task.taskType === 'suggested'" class="label-suggestion light-text">(Suggestion) {{task.name}}</i>
+            <strong [class.light-text]="task.taskType === 'suggested'" *ngIf="task.taskType !== 'suggested'">{{task.name}}</strong>
+          </div>
       </div>
       <div  fxFlex-gt-sm="33" fxLayout="row" fxLayoutAlign="start center">
           <div fxLayoutAlign="start center">
             <mat-icon fxFlex-gt-sm="8" [class.overdue]="isOverdue()" class="date-icon">date_range</mat-icon>
-            <div fxFlex-gt-sm="27" [class.overdue-text]="isOverdue() && task.taskType == 'linked' && !isChecked()" *ngIf="task.date">{{task.date}}</div>
-            <div fxFlex-gt-sm="27" [class.overdue-text]="isOverdue() && task.taskType == 'linked' && !isChecked()" *ngIf="!task.date"><i>No due date</i></div>
+            <div fxFlex-gt-sm="27" [class.light-text]="task.taskType === 'suggested'" [class.overdue-text]="isOverdue() && task.taskType == 'linked' && !isChecked()" *ngIf="task.date">{{task.date}}</div>
+            <div fxFlex-gt-sm="27" [class.light-text]="task.taskType === 'suggested'" [class.overdue-text]="isOverdue() && task.taskType == 'linked' && !isChecked()" *ngIf="!task.date"><i>No due date</i></div>
           </div>
           <mat-icon class="icon-margin" fxFlex-gt-sm="8">person</mat-icon>
           <div fxFlex-gt-sm="53" fxLayout="row">
               <div *ngFor="let member of task.members" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
-                  <span>{{member.initials}}</span>
+                  <span [class.light-text]="task.taskType === 'suggested'">{{member.initials}}</span>
               </div>
-              <div *ngIf="task.members.length < 1"><i>Unassigned</i></div>
+              <div *ngIf="task.members.length < 1" [class.light-text]="task.taskType === 'suggested'"><i>Unassigned</i></div>
           </div>
       </div>
-      <div *ngIf="task.desc" fxFlex="33" class="text-overflow task-description">
+      <div *ngIf="task.desc && task.taskType !== 'suggested'" fxFlex="33" class="text-overflow task-description light-text">
           {{task.desc}}
       </div>
-      <div *ngIf="!task.desc" fxFlex="33" class="text-overflow task-description">
+      <div *ngIf="!task.desc && task.taskType !== 'suggested'" fxFlex="33" class="text-overflow task-description light-text">
           <i>No description</i>
       </div>
+    <div *ngIf="task.taskType === 'suggested'" fxFlex="33" class="text-overflow task-description light-text">
+      <i>Click to create this task</i>
+    </div>
   </div>
 </div>
