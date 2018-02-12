@@ -117,9 +117,6 @@ export class TaskListItemComponent {
 
   onClick() {
     if (!!this.task) {
-      if (this.task.taskType == "suggested" && this.boards.length > 0) {
-        this.task.board = this.boards[0];
-      }
       this.openTaskDialog(this.task)
     }
   }
