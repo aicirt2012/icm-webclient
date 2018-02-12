@@ -26,7 +26,7 @@ export class TaskDialogComponent {
   private filteredDateSuggestions: any = [];
   private suggestedMembers: any = [];
   private nonSuggestedMembers: any = [];
-  private selectedMembers: any = [];
+  private selectedMemberIds: any = [];
 
   @Input()
   set taskTitle(title: string) {
@@ -85,6 +85,7 @@ export class TaskDialogComponent {
     if (this.task.taskType == 'linked') {
       this.sticker_check = this.task.stickers.find((sticker) => sticker.image === 'check') ? true : false;
       this.overdue = this.task.date ? (new Date(this.task.date) < new Date()) : false;
+      this.task.members.forEach(member => this.selectedMemberIds.push(member.id));
     }
     this.updateTitleSuggestions();
     this.updateDateSuggestions();
@@ -93,11 +94,11 @@ export class TaskDialogComponent {
 
   createTask() {
     this.sending = true;
-    this.task.selectedMembers = this.selectedMembers;
+    this.task.selectedMembers = this.getSelectedMembers(this.selectedMemberIds, this.task.board.members);
     this._taskService.createTask(this.email, this.task)
       .subscribe((task: any) => {
           this.sending = false;
-          this.email.suggestedTasks.splice(this.task.index, 1);
+          // this.email.suggestedTasks.splice(this.task.index, 1);
           this.email.linkedTasks.push(this.addLinkedTask(task));
           this.snackBar.open('Task successfully created.', 'OK');
           this.closeDialog();
@@ -111,7 +112,7 @@ export class TaskDialogComponent {
 
   updateTask(close?: string) {
     this.sending = true;
-    this.task.selectedMembers = this.selectedMembers;
+    this.task.selectedMembers = this.getSelectedMembers(this.selectedMemberIds, this.task.board.members);
     this.task.closed = false;
     if (close == 'close') {
       this.task.closed = true;
@@ -122,6 +123,7 @@ export class TaskDialogComponent {
           this.snackBar.open('Task successfully updated.', 'OK');
           this.updateLinkedTasks(this.task);
           /* we need to update here manually the linked tasks in appstate */
+          // FIXME global update does not work, changes are not propagated to task list
           this.closeDialog();
         },
         (error) => {
@@ -229,6 +231,19 @@ export class TaskDialogComponent {
       if (!isSuggested) {
         result.push(boardMember);
       }
+    });
+    return result;
+  }
+
+  private getSelectedMembers(selectedMemberIds: string[], boardMembers: any[]) {
+    let result = [];
+    boardMembers.forEach(boardMember => {
+      selectedMemberIds.some(selectedMemberId => {   //.some() is like .forEach() but stops if true is returned
+        if (selectedMemberId === boardMember.id) {
+          result.push(boardMember);
+          return true;
+        }
+      })
     });
     return result;
   }

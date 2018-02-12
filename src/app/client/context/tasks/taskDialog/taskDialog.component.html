@@ -65,16 +65,15 @@
           </mat-form-field>
           <mat-form-field fxFlex="49" fxFlexOffset="2">
             <!-- assignees selector -->
-            <mat-select class="margin" placeholder="Assignees" [(ngModel)]="selectedMembers" name="member" fxFlex
+            <mat-select class="margin" placeholder="Assignees" [(ngModel)]="selectedMemberIds" name="member" fxFlex
                         multiple>
               <mat-optgroup label="Mentioned members" *ngIf="suggestedMembers && suggestedMembers.length > 0">
-                <mat-option *ngFor="let member of suggestedMembers; let i = index" [value]="member"
-                            (onSelect)="addMember(member, i)">
+                <mat-option *ngFor="let member of suggestedMembers" [value]="member.id">
                   {{member.fullName}}
                 </mat-option>
               </mat-optgroup>
               <mat-optgroup label="Board members" *ngIf="nonSuggestedMembers && nonSuggestedMembers.length > 0">
-                <mat-option *ngFor="let member of nonSuggestedMembers; let i = index" [value]="member">
+                <mat-option *ngFor="let member of nonSuggestedMembers" [value]="member.id">
                   {{member.fullName}}
                 </mat-option>
               </mat-optgroup>
@@ -109,5 +108,6 @@
             *ngIf="task.taskType == 'linked'">
       <i class="fas fa-unlink margin"></i>Unlink Task
     </button>
+    <button (click)="debug()"></button>
   </mat-dialog-actions>
 </div>
