@@ -14,3 +14,7 @@
 .email-action-button {
   min-width: 30px;
 }
+
+.enabled {
+  color: #20c9a1;
+}

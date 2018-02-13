@@ -81,4 +81,8 @@ export class EmailActionBarComponent {
     };
   }
 
+  toggleHighlightAnnotations() {
+    this.email['highlightAnnotations'] = !this.email['highlightAnnotations'];
+  }
+
 }

@@ -24,7 +24,10 @@
             (click)="moveEmailToTrash()">
       <mat-icon>delete</mat-icon>
     </button>
-    <mat-checkbox [(ngModel)]="email.highlightAnnotations">Highlight annotations</mat-checkbox>
+    <button mat-raised-button matTooltip="Highlight Annotations" class="email-action-button"
+            (click)="toggleHighlightAnnotations()">
+      <mat-icon [class.enabled]="email.highlightAnnotations">border_color</mat-icon>
+    </button>
     <!--
     <button mat-raised-button class="email-action-button" matTooltip="Move to Box"
             [matMenuTriggerFor]="menu">
