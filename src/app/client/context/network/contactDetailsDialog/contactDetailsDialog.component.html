@@ -1,7 +1,7 @@
 <div class="contact-details-wrapper" fxFlex fxLayout="column">
   <div mat-dialog-title fxLayout="row">
     <span fxFlex>{{contact.title ? contact.title + ' ' : ''}}{{contact.firstName}} {{contact.lastName}}</span>
-    <mat-icon (click)="closeDialog()" class="pointer">close</mat-icon>
+    <mat-icon (click)="closeDialog()" class="pointer padding-left">close</mat-icon>
   </div>
   <mat-dialog-content>
     <div class="details-container" fxLayout="column">
