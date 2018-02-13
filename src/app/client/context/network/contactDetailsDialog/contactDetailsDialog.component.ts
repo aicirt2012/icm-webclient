@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { NetworkService } from '../../../shared';
+import * as moment from 'moment';
 
 @Component({
   selector: 'contact-details-dialog',
@@ -27,9 +28,22 @@ export class ContactDetailsDialogComponent {
   loadFullContact() {
     this.loading = true;
     this._networkService.getFullContact(this.contact._id).subscribe((contact) => {
+      ContactDetailsDialogComponent.formatDates(contact);
       this.fullContact = contact;
       this.loading = false;
     });
   }
 
+  private static formatDates(contact: any) {
+    if (contact.syncedAt) {
+      contact.syncedAt = moment(contact.syncedAt).fromNow();
+    }
+    if (contact.lastModifiedAt) {
+      console.log(contact.lastModifiedAt);
+      contact.lastModifiedAt = moment(contact.lastModifiedAt).fromNow();
+    }
+    if (contact.birthday) {
+      contact.birthday = moment(contact.birthday).format("MMMM Do YYYY");
+    }
+  }
 }
