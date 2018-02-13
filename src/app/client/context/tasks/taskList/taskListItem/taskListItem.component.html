@@ -2,7 +2,7 @@
   <div fxFlex fxLayout="column">
       <div fxFlex="33" fxLayout="row" class="task-title">
           <div fxFlex="85" class="text-overflow">
-            <i *ngIf="task.taskType === 'suggested'" class="label-suggestion light-text">(Suggestion) {{task.name}}</i>
+            <i *ngIf="task.taskType === 'suggested'" class="label-suggestion light-text">{{task.name}}</i>
             <strong [class.light-text]="task.taskType === 'suggested'" *ngIf="task.taskType !== 'suggested'">{{task.name}}</strong>
           </div>
       </div>
@@ -27,7 +27,7 @@
           <i>No description</i>
       </div>
     <div *ngIf="task.taskType === 'suggested'" fxFlex="33" class="text-overflow task-description light-text">
-      <i>Click to create this task</i>
+      <i>Click to create this suggested task</i>
     </div>
   </div>
 </div>

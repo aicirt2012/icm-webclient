@@ -132,22 +132,17 @@
   font-size: 14px;
 }
 
-.linked {
-  border-left: 5px solid #444C62;
-}
-
 .suggested {
-  border-left: 5px solid #20c9a1;
   border-top: 1px solid lightgray;
   background-color: #f8f8f8;
 }
 
 .light-icon {
-  color: rgba(0, 0, 0, 0.54);
+  color: rgba(0, 0, 0, 0.38);
 }
 
 .light-initials {
-  color: rgba(211, 211, 211, 0.6);
+  background-color: rgba(211, 211, 211, 0.6);
 }
 
 .date-container {
