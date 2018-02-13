@@ -7,7 +7,7 @@
           </div>
       </div>
       <div  fxFlex-gt-sm="33" fxLayout="row" fxLayoutAlign="start center">
-          <div fxLayoutAlign="start center">
+          <div fxLayoutAlign="start center" class="date-container">
             <mat-icon fxFlex-gt-sm="8" [class.overdue]="isOverdue()" class="date-icon" [class.light-icon]="task.taskType === 'suggested'">date_range</mat-icon>
             <div fxFlex-gt-sm="27" [class.light-text]="task.taskType === 'suggested'" [class.overdue-text]="isOverdue() && task.taskType == 'linked' && !isChecked()" *ngIf="task.date">{{task.date}}</div>
             <div fxFlex-gt-sm="27" [class.light-text]="task.taskType === 'suggested'" [class.overdue-text]="isOverdue() && task.taskType == 'linked' && !isChecked()" *ngIf="!task.date"><i>No due date</i></div>

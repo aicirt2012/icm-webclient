@@ -149,3 +149,7 @@
 .light-initials {
   color: rgba(211, 211, 211, 0.6);
 }
+
+.date-container {
+  min-width: 100px;
+}
