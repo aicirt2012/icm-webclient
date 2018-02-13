@@ -1,14 +1,14 @@
 <div fxFlex fxLayout="column" class="tasks">
-  <div *ngIf="suggestedTask">
-    <task-list-item [openDialog]="openDialog" [createTask]="createTask" [boards]="boards" [deleteTask]="deleteTask"
-                    [index]="i" [highlightSentence]="highlightSentence" [hightlightTaskItem]="hightlightTaskItem"
-                    [task]="suggestedTask">
-    </task-list-item>
-  </div>
   <div>
     <task-list-item *ngFor="let linkedTask of linkedTasks; let i = index;" [openDialog]="openDialog"
                     [createTask]="createTask" [task]="linkedTask" [boards]="boards" [deleteTask]="deleteTask"
                     [index]="i" [highlightSentence]="highlightSentence" [hightlightTaskItem]="hightlightTaskItem">
+    </task-list-item>
+  </div>
+  <div *ngIf="suggestedTask">
+    <task-list-item [openDialog]="openDialog" [createTask]="createTask" [boards]="boards" [deleteTask]="deleteTask"
+                    [index]="i" [highlightSentence]="highlightSentence" [hightlightTaskItem]="hightlightTaskItem"
+                    [task]="suggestedTask">
     </task-list-item>
   </div>
 </div>
