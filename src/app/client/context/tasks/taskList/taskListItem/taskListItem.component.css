@@ -148,3 +148,7 @@
 .date-container {
   min-width: 100px;
 }
+
+.label-suggestion {
+  font-style: italic;
+}

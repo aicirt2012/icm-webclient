@@ -2,8 +2,8 @@
   <div fxFlex fxLayout="column">
       <div fxFlex="33" fxLayout="row" class="task-title">
           <div fxFlex="85" class="text-overflow">
-            <i *ngIf="task.taskType === 'suggested'" class="label-suggestion light-text">{{task.name}}</i>
-            <strong [class.light-text]="task.taskType === 'suggested'" *ngIf="task.taskType !== 'suggested'">{{task.name}}</strong>
+            <strong *ngIf="task.taskType === 'suggested'" class="label-suggestion light-text">{{task.name}}</strong>
+            <strong *ngIf="task.taskType !== 'suggested'">{{task.name}}</strong>
           </div>
       </div>
       <div  fxFlex-gt-sm="33" fxLayout="row" fxLayoutAlign="start center">
