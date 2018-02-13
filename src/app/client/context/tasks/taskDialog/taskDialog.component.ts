@@ -89,6 +89,8 @@ export class TaskDialogComponent {
     if (this.task.taskType == 'linked') {
       this.sticker_check = this.task.stickers.find((sticker) => sticker.image === 'check') ? true : false;
       this.overdue = this.task.date ? (new Date(this.task.date) < new Date()) : false;
+    }
+    if (this.task.members) {
       this.task.members.forEach(member => this.selectedMemberIds.push(member.id));
     }
     this.updateTitleSuggestions();
