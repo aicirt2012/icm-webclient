@@ -54,7 +54,8 @@ export class TaskService {
       idMembers: task.selectedMembers.map((s) => s.id),
       due: task.date,
       sentences: email.sentences ? email.sentences : [],
-      sentenceId: task.task ? task.task.id : ""
+      sentenceId: task.task ? task.task.id : "",
+      sourceUrl: task.currentUrl ? task.currentUrl : ""
     };
     const path = `tasks/email/${email._id}/addTask`;
     return this.http.post(path, null, options);

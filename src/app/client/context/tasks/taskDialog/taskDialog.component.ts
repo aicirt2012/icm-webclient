@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
 import { TaskService } from '../../../shared';
 import { AppState } from '../../../../app.service';
+import { DOCUMENT } from "@angular/common";
 
 @Component({
   selector: 'task-dialog',
@@ -82,7 +83,7 @@ export class TaskDialogComponent {
     }
   }
 
-  constructor(public taskDialogRef: MatDialogRef<TaskDialogComponent>, private snackBar: MatSnackBar, private _taskService: TaskService, public appState: AppState) {
+  constructor(public taskDialogRef: MatDialogRef<TaskDialogComponent>, private snackBar: MatSnackBar, private _taskService: TaskService, public appState: AppState, @Inject(DOCUMENT) private document: any) {
   }
 
   ngOnInit() {
@@ -101,6 +102,7 @@ export class TaskDialogComponent {
   createTask() {
     this.sending = true;
     this.task.selectedMembers = this.getSelectedMembers(this.selectedMemberIds, this.task.board.members);
+    this.task.currentUrl = this.document.location.href;
     this._taskService.createTask(this.email, this.task)
       .subscribe((task: any) => {
           this.sending = false;
