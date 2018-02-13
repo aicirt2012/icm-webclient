@@ -33,3 +33,12 @@
 .section:first-of-type .section-header {
   margin-top: 0;
 }
+
+.details-container ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+ul.section-row {
+  padding-bottom: 0;
+}
