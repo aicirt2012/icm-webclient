@@ -30,7 +30,7 @@
             <img src="assets/img/network/primary_contact_small_black.png" class="icon"/>
           </div>
           <div fxFlex class="primary-details-name">
-            {{contact.firstName}} {{contact.lastName}}
+            {{contact.title ? contact.title + " " : ""}}{{contact.firstName}} {{contact.lastName}}
           </div>
         </div>
         <div fxLayout="row" class="primary-details-container">
@@ -65,7 +65,7 @@
               <img src="assets/img/network/secondary_contact_small_light_gray.png" class="secondary-icon"/>
             </div>
             <div fxFlex class="secondary-details-name">
-              {{secondaryContact.firstName}} {{secondaryContact.lastName}}
+              {{secondaryContact.title ? secondaryContact.title + " " : ""}}{{secondaryContact.firstName}} {{secondaryContact.lastName}}
             </div>
           </div>
           <!-- additional information -->

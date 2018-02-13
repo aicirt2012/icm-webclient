@@ -31,6 +31,10 @@
   font-weight: bold;
 }
 
+.secondary-details-name {
+  color: #545252;
+}
+
 .primary-details-description,
 .secondary-details-company {
   font-size: 12px;
