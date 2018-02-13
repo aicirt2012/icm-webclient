@@ -1,6 +1,7 @@
-import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TaskDialogType } from '../../../../../shared';
 import { AppState } from '../../../../app.service';
+import { TaskService } from '../../../shared';
 
 @Component({
   selector: 'task-list',
@@ -21,7 +22,7 @@ export class TaskListComponent {
 
   private suggestedTask: any;
 
-  constructor(public appState: AppState) {
+  constructor(private _taskService: TaskService, public appState: AppState) {
   }
 
   ngOnInit() {
@@ -30,7 +31,7 @@ export class TaskListComponent {
         this.suggestedData = email.suggestedData;
         this.suggestedTask = {
           taskType: "suggested",
-          date: this.suggestedData.dates ? this.suggestedData.dates[0] : undefined,
+          date: this.suggestedData.dates && this.suggestedData.dates[0] ? this._taskService.formatDate(new Date(this.suggestedData.dates[0])) : undefined,
           name: this.suggestedData.titles ? this.suggestedData.titles[0] : undefined,
           members: this.suggestedData.persons ? this.suggestedData.persons : []
         }
