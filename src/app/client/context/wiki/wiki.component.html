@@ -9,19 +9,19 @@
     </button>
   </div>
 
-  <div fxLayout="row" *ngIf="!_query" fxFlex>
+  <div fxLayout="row" *ngIf="!_query" fxFlex class="padding-right">
     <span>Please select or enter text to lookup.</span>
   </div>
 
-  <div fxLayout="row" *ngIf="loading" fxFlex>
+  <div fxLayout="row" *ngIf="loading" fxFlex class="padding-right">
     <spinner [loading]="loading"></spinner>
   </div>
 
-  <div fxLayout="row" *ngIf="_query && !loading && (!content || content.length == 0)" fxFlex>
+  <div fxLayout="row" *ngIf="_query && !loading && (!content || content.length == 0)" fxFlex class="padding-right">
     <span>No articles found!</span>
   </div>
 
-  <div fxLayout="row" *ngIf="_query && !loading">
+  <div fxLayout="row" *ngIf="_query && !loading" class="padding-right">
     <div [innerHTML]="content"></div>
   </div>
 

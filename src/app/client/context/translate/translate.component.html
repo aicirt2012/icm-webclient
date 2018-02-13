@@ -9,19 +9,19 @@
     </button>
   </div>
 
-  <div fxLayout="row" *ngIf="!_query" fxFlex class="padding-left">
+  <div fxLayout="row" *ngIf="!_query" fxFlex class="padding-left padding-right">
     <span>Please select or enter text to translate.</span>
   </div>
 
-  <div fxLayout="row" *ngIf="loading" fxFlex class="padding-left">
+  <div fxLayout="row" *ngIf="loading" fxFlex class="padding-left padding-right">
     <spinner [loading]="loading"></spinner>
   </div>
 
-  <div fxLayout="row" *ngIf="_query && !loading && (!content || content.length == 0)" fxFlex class="padding-left">
+  <div fxLayout="row" *ngIf="_query && !loading && (!content || content.length == 0)" fxFlex class="padding-left padding-right">
     <span>No translations found!</span>
   </div>
 
-  <div *ngFor="let c of content" class="translation-container">
+  <div *ngFor="let c of content" class="translation-container padding-right">
     <!-- translation source -->
     <div fxLayout="row" class="translation-source-container">
       <div fxFlex="19px" fxLayout="column" *ngIf="c.sourceLanguage == 'EN'">
