@@ -1,9 +1,10 @@
 <div fxLayout="column" class="full-height">
-  <div>
-    <task-action-bar *ngIf="!errorTrello" (openTaskDialog)="openTaskDialog($event)"
-                     (openLinkTask)="openLinkTask($event)">
-    </task-action-bar>
-  </div>
+  <!-- TODO re-enable or remove completely, with component. would allow simplification of taskDialog opening process -->
+  <!--<div>-->
+    <!--<task-action-bar *ngIf="!errorTrello" (openTaskDialog)="openTaskDialog($event)"-->
+                     <!--(openLinkTask)="openLinkTask($event)">-->
+    <!--</task-action-bar>-->
+  <!--</div>-->
   <div *ngIf="!errorTrello" fxFlex fxLayout="column" class="scrollable">
     <task-list fxFlex [boards]="boards" [linkedTasks]="email ? email.linkedTasks : []"
                [suggestedData]="email ? email.suggestedData : []" (createTask)="createTask($event)"
