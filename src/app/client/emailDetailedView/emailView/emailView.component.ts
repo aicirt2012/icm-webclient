@@ -150,7 +150,7 @@ export class EmailViewComponent {
         }
         annotationString += "{";
         annotationString += "\"quote\": \"" + annotation['value'] + "\",";
-        annotationString += "\"text\": \"" + (annotation['nerType'] ? annotation['nerType'].toLowerCase() : "") + "\",";
+        annotationString += "\"text\": \"" + this.formatNerType(annotation['nerType']) + "\",";
         annotationString += "\"ranges\": " + this.getRangesAsString(annotation);
         annotationString += "}";
       }
@@ -175,6 +175,12 @@ export class EmailViewComponent {
     }
     rangesString += "]";
     return rangesString;
+  }
+
+  private formatNerType(nerType) {
+    if (!nerType)
+      return "";
+    return nerType.toLowerCase().replace(new RegExp('_', 'g'), '\xa0');   // replace with non-breaking space
   }
 
 }
