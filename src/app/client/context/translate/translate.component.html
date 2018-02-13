@@ -46,8 +46,8 @@
     <!-- translation targets -->
     <div fxLayout="row" *ngFor="let word of c.target; index as i" class="translation-target-container">
       <div fxFlex="48px" fxLayout="column" *ngIf="c.target.length - 1 == i">
-        <!-- if translation is the last one, show the end bubble -->
-        <img src="assets/img/translations/secondary_contact_end_small_light_gray.png" class="translation-icon-last"/>
+        <!-- if translation is the last one, use the icon for the last element -->
+        <img src="assets/img/translations/translation_end.png" class="translation-icon-last"/>
       </div>
       <div fxFlex="48px" class="translation-icon-container" *ngIf="!(c.target.length - 1 == i)">
         <!-- else, use the normal icon -->
