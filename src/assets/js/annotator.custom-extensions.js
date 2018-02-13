@@ -181,7 +181,7 @@ annotatorCustomExtensions.injectCustomElements = function () {
     // build the container
     var customButton = document.createElement("a");
     customButton.classList.add("annotator-custom-action");
-    customButton.setAttribute("onclick", "document.dispatchEvent(new CustomEvent(\"" + eventName + "\",{\"detail\":annotatorCustomExtensions.currentSelection.quote}));");
+    customButton.setAttribute("onclick", "document.dispatchEvent(new CustomEvent(\"" + eventName + "\",{\"detail\":annotatorCustomExtensions.currentSelection.quote}));" + annotatorCustomExtensions._closeAnnotatorJsSnippet);
     customButton.setAttribute("title", label);
     // add the icon
     var buttonIcon = document.createElement("img");
@@ -198,3 +198,9 @@ annotatorCustomExtensions.injectCustomElements = function () {
   }
 
 };
+
+annotatorCustomExtensions._closeAnnotatorJsSnippet =
+  "var list = document.getElementsByClassName('annotator-adder');" +
+  "for (var i = 0; i < list.length; i++) {" +
+  "    list[i].classList.add('annotator-hide');" +
+  "}";
