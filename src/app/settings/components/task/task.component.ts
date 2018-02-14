@@ -13,7 +13,8 @@ export class TaskComponent {
   private trelloConfig = {
     trelloId: '',
     trelloAccessToken: '',
-    trelloAccesTokenSecret: ''
+    trelloAccessTokenSecret: '',
+    userEmail: ''
   };
   private scConfig = {
     username: '',
