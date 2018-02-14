@@ -26,17 +26,22 @@ export class TaskListComponent {
   }
 
   ngOnInit() {
+    this.updateSuggestedTask(this.appState.getCurrentEmail());
     this.appState.currentEmail().subscribe(email => {
-      if (email.suggestedData) {
-        this.suggestedData = email.suggestedData;
-        this.suggestedTask = {
-          taskType: "suggested",
-          date: this.suggestedData.dates && this.suggestedData.dates[0] ? this._taskService.formatDate(new Date(this.suggestedData.dates[0])) : undefined,
-          name: this.suggestedData.titles ? this.suggestedData.titles[0] : undefined,
-          members: this.suggestedData.persons ? this.suggestedData.persons : []
-        }
-      }
+      this.updateSuggestedTask(email);
     });
+  }
+
+  private updateSuggestedTask(email) {
+    if (email.suggestedData) {
+      this.suggestedData = email.suggestedData;
+      this.suggestedTask = {
+        taskType: "suggested",
+        date: this.suggestedData.dates && this.suggestedData.dates[0] ? this._taskService.formatDate(new Date(this.suggestedData.dates[0])) : undefined,
+        name: this.suggestedData.titles ? this.suggestedData.titles[0] : undefined,
+        members: this.suggestedData.persons ? this.suggestedData.persons : []
+      }
+    }
   }
 
 }
