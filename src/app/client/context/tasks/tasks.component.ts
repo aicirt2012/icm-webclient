@@ -33,7 +33,7 @@ export class TasksComponent {
   ngOnInit() {
     this.appState.user().subscribe(user => {
       this.user = user;
-      if (this.user.trello) {
+      if (this.user.trello && this.user.trello.trelloId) {
         this.getAllBoards();
         this.errorTrello = false;
       }
