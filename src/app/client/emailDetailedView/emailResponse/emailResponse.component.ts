@@ -1,5 +1,5 @@
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
-import { MdInput } from '@angular/material';
+import { MatInput } from '@angular/material';
 
 @Component({
   selector: 'email-response',
@@ -27,7 +27,7 @@ export class EmailResponseComponent {
     this.emailForm.bcc = [];
   }
 
-  addAddress(address: MdInput, addressType: string): void {
+  addAddress(address: MatInput, addressType: string): void {
     if (address.value && address.value.trim() != '') {
       this.emailForm[addressType].push({
         address: address.value.trim()

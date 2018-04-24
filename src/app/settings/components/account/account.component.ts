@@ -1,57 +1,42 @@
 import { Component } from '@angular/core';
-import { SettingsService } from '../../shared';
-import { MdSnackBar, MdInput } from '@angular/material';
+import {UserService } from '../../shared';
+import {EmailService} from '../../../client/shared';
+import { MatSnackBar } from '@angular/material';
 
 
 @Component({
   selector: 'account',
   templateUrl: 'account.component.html',
   styleUrls: ['account.component.css'],
-  providers: [MdSnackBar]
+  providers: [MatSnackBar]
 })
-export class AccountComponent {
+export class OverviewComponent {
 
-public emailConfig = {
-  name:'Gmail',
-  user: 'sebisng2@gmail.com',
-  password: 's3b1sng2',
-  host: 'imap.gmail.com',
-  port: 993,
-  smtpHost: 'smtp.gmail.com',
-  smtpPort: 465,
-  smtpDomains: ['gmail.com', 'googlemail.com']
-};
+  public editSettings: boolean = false;
+  public user = {};
 
-  constructor(private _settingsService: SettingsService, private snackBar: MdSnackBar) {}
+  constructor(private userService: UserService, private emailService: EmailService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this._settingsService.getUserInfo().subscribe((data: any) => {
-      if(data.provider.name) {
-        this.emailConfig = data.provider;
-      }
+    this.userService.getUserInfo().subscribe( (data) => {
+      this.user = data;
+    });
+  }
+
+  updateUser() {
+    this.userService.updateUserInfo(this.user).subscribe( (data) => {
+      this.user = data;
+      this.snackBar.open('Update successful.', 'OK');
+    }, (error) => {
+      this.snackBar.open('Error while updating. Try again.', 'OK');
+
+    });
+  }
+
+  appendEnron() {
+    this.emailService.appendEnron().subscribe((data) => {
+      console.log(data);
     })
   }
 
-  addDomain(domain: MdInput): void {
-    if (domain.value && domain.value.trim() != '') {
-      this.emailConfig['smtpDomains'].push(domain.value.trim());
-      domain.value = '';
-    }
-  }
-
-  deleteDomain(index: number) {
-    if(index > -1) {
-      this.emailConfig['smtpDomains'].splice(index,1);
-    }
-  }
-
-  updateEmailConfig() {
-    this._settingsService.updateEmailConfig(this.emailConfig)
-    .subscribe((data: any) => {
-      this.emailConfig = data.provider;
-      this.snackBar.open('Update successful', 'OK');
-    }, (error) => {
-      this.snackBar.open('Error while updating', 'OK');
-    });
-  }
 }

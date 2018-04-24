@@ -19,6 +19,7 @@ export class Email {
     name: string;
   }];
   box: any;
+  boxes: string[];
   subject: string;
   html: any;
   text: string;
@@ -36,4 +37,7 @@ export class Email {
   }];
   suggestedTasks: any[];
   linkedTasks: any[];
+  route: any[]; // used for ui routing
+  routeStr: String; // user for ui routing comparison
+  annotations: any[];
 }

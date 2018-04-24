@@ -1,12 +1,20 @@
-.action-buttons button {
+:host {
+  width: calc(100% + 3px); /* correct parent offset, prevents whitespace between action bar and shadow of context bar */
+}
+
+.action-buttons button,
+.action-buttons mat-checkbox {
   margin: 5px;
 }
 
 .action-buttons {
   background-color: #F8F8F8;
-  height: 50px;
 }
 
 .email-action-button {
   min-width: 30px;
+}
+
+.enabled {
+  color: #20c9a1;
 }

@@ -1,9 +1,11 @@
 import { Component, Input, EventEmitter, Output, ViewChild, state } from '@angular/core';
 import { Email } from '../shared';
 import { EmailService } from '../shared';
-import { MdSnackBar } from '@angular/material';
+import { WindowRef } from '../shared/window.ref.service';
+import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AppState } from '../../app.service';
+
 
 @Component({
   selector: 'email-detailed-view',
@@ -11,51 +13,92 @@ import { AppState } from '../../app.service';
   templateUrl: './emailDetailedView.component.html'
 })
 export class EmailDetailedViewComponent {
-  currentBox: string;
-  email: Email;
-  emails: Email[];
-  currentId: any;
-  boxList: any[];
+  public email: Email;
+  public emails: Email[];
+  public boxList: any[];
+  public routeEmailId: any;
   public responseStatus: boolean;
   private emailResponse: any;
   private sending = false;
-  private manuallyRemovedFlag = false;
   private moving = false;
+  private searchTerm: any = '';
 
-  constructor(private _emailService: EmailService, public snackBar: MdSnackBar,
-    public route: ActivatedRoute, public appState: AppState, public router: Router) {
+  constructor(private emailService: EmailService, public snackBar: MatSnackBar,
+              public activatedRoute: ActivatedRoute, public appState: AppState, public router: Router,
+              public windowRef: WindowRef) {
     this.emailResponse = {};
     this.responseStatus = false;
   }
 
   ngOnInit() {
-    this.emails = this.appState.get('emails').length > 0 ? this.appState.get('emails') : [];
-    this.boxList = this.appState.get('boxList').length > 0 ? this.appState.get('boxList') : [];
+    this.emails = this.appState.getEmails().length > 0 ? this.appState.getEmails(): [];
+    this.boxList = this.appState.getBoxList().length > 0 ? this.appState.getBoxList(): [];
 
-    this.appState.dataChange.subscribe((stateChange) => {
-      this[stateChange] = this.appState.get(stateChange);
+    this.appState.boxList().subscribe(boxList => {
+      this.boxList = boxList;
     });
 
-    this.currentId = this.route.params.map(params => params['emailId'] || 'None');
-    this.currentId.subscribe((emailId) => {
-      emailId === 'None' ? '' : this.getSingleMail(emailId);
+    this.appState.emails().subscribe(emails => {
+      this.emails = emails;
     });
+
+    this.routeEmailId = this.activatedRoute.params.map(params => params['emailId'] || 'NONE');
+    this.routeEmailId.subscribe((emailId) => {
+      emailId !== 'NONE' ? emailId === 'new' ? this.createNewEmailDraft() : this.getSingleMail(emailId) : '';
+    });
+
+    const outlets = {}
+
+    this.activatedRoute.parent.children.forEach((child) => {
+      Object.assign(outlets, child.snapshot.params);
+    });
+
+    this.searchTerm = outlets['searchTerm'];
+
+    this.currentSelectedText();
   }
 
-  generateEmailResponse(type: string) {
+  private currentSelectedText() {
+    const self = this;
+    /*
+    setInterval(() => {
+      console.log(self.windowRef.nativeWindow.getSelection().toString());
+    }, 300);
+    */
+  }
+
+  private createNewEmailDraft() {
+    console.log('creating a new email draft');
     this.responseStatus = true;
-    this.emailResponse = this._emailService.generateEmailForm(this.email, type);
+    this.generateEmailResponse('new');
   }
 
-  discardEmailResponse() {
+  private generateEmailResponse(type: string) {
+    this.responseStatus = true;
+    this.emailResponse = this.emailService.generateEmailForm(this.email, type);
+  }
+
+  private discardEmailResponse() {
     this.responseStatus = false;
     this.emailResponse = {};
+
+    const url = this.activatedRoute.parent.url["value"][0].path;
+    const outlets = {}
+
+    // The parent root of the component is the /box
+    this.activatedRoute.parent.children.forEach((child) => {
+      Object.assign(outlets, child.snapshot.params);
+    });
+
+    outlets['emailId'] = this.email._id;
+
+    this.router.navigate([url, {outlets}]);
   }
 
-  sendEmail(mail: any) {
+  private sendEmail(mail: any) {
     this.sending = true;
-    this._emailService
-      .sendMail(mail)
+    this.emailService
+      .sendEmail(mail)
       .subscribe((data: any) => {
         this.sending = false;
         this.emailResponse = {};
@@ -69,9 +112,8 @@ export class EmailDetailedViewComponent {
       });
   }
 
-  getSingleMail(id: string) {
-    this._emailService
-      .getSingleMail(id)
+  private getSingleMail(emailId: string) {
+    this.emailService.getEmail(emailId)
       .subscribe((data: any) => {
         if (data.sentences) {
           data.sentences = data.sentences.map((s) => { s.highlighted = false; return s });
@@ -81,27 +123,33 @@ export class EmailDetailedViewComponent {
           this.addFlags(['\\Seen']);
         }
 
+        this.appState.setCurrentEmail(this.email);
       },
       error => {
         console.log(error)
       },
       () => {
-        console.log(`Message with ID: ${id} has been successfully loaded`)
+        console.log(`Message with ID: ${emailId} has been successfully loaded`)
       });
   }
 
-  emailMoveToBox(params: any) {
+  private emailMoveToTrash(emailId: any) {
     this.moving = true;
-    this._emailService.moveMail(params.emailId, params.newBoxId).subscribe((res) => {
-      this.emails.splice(this.emails.findIndex((e) => this.email._id == e._id), 1);
-      this.appState.set('emails', this.emails);
+    this.emailService.moveEmailToTrash(emailId).subscribe((res) => {
+      this.snackBar.open(`Message successfully moved to Trash`, 'OK');
+      this.moving = false;
+    }, (err) => {
+      console.log(err);
+      this.snackBar.open('Error when moving Message to Trash', 'OK');
+      this.moving = false;
+    });
+  }
+
+  private emailMoveToBox(params: any) {
+    this.moving = true;
+    this.emailService.moveEmail(params.emailId, params.newBoxId).subscribe((res) => {
       const destBox = this.boxList.find((b) => b._id == params.newBoxId).shortName;
       this.snackBar.open(`Message successfully moved to ${destBox}.`, 'OK');
-      if (this.emails.length > 0) {
-        this.router.navigate([`box/${this.appState.get('currentBox')}/${this.emails[0]._id}`]);
-      } else {
-        this.router.navigate([`box/${this.appState.get('currentBox')}`]);
-      }
       this.moving = false;
     }, (err) => {
       console.log(err);
@@ -110,10 +158,10 @@ export class EmailDetailedViewComponent {
     });
   }
 
-  addFlags(flags: string[]) {
+  private addFlags(flags: string[]) {
     const oldEmail = Object.assign(this.email);
-    const oldEmails = this.appState.get('emails');
-    const oldBoxList = this.appState.get('boxList');
+    const oldEmails = this.appState.getEmails();
+    const oldBoxList = this.appState.getBoxList();
 
     this.email.flags = this.email.flags.concat(flags);
     this.emails = this.emails.map((email) => {
@@ -128,22 +176,22 @@ export class EmailDetailedViewComponent {
       }
       return box;
     });
-    this.appState.set('boxList', this.boxList);
-    this.appState.set('emails', this.emails);
+    this.appState.setBoxList(this.boxList);
+    this.appState.setEmails(this.emails, this.searchTerm);
 
-    this._emailService.addFlags(this.email.uid, flags, this.email.box).subscribe((res) => { }, (err) => {
+    this.emailService.addFlags(this.email._id, flags).subscribe((res) => {}, (err) => {
       this.email = Object.assign(oldEmail);
-      this.appState.set('emails', oldEmails);
-      this.appState.set('boxList', oldBoxList);
+      this.appState.setEmails(oldEmails, this.searchTerm);
+      this.appState.setBoxList(oldBoxList);
       this.snackBar.open('Error while setting email to READ.', 'OK');
     }, () => {
     });
   }
 
-  deleteFlags(flags: string[]) {
+  private deleteFlags(flags: string[]) {
     const oldEmail = Object.assign(this.email);
-    const oldEmails = this.appState.get('emails');
-    const oldBoxList = this.appState.get('boxList');
+    const oldEmails = this.appState.getEmails();
+    const oldBoxList = this.appState.getBoxList();
 
     flags.forEach((f) => {
       this.email.flags.splice(this.email.flags.indexOf(f), 1);
@@ -163,20 +211,20 @@ export class EmailDetailedViewComponent {
       return box;
     });
 
-    this.appState.set('emails', this.emails);
-    this.appState.set('boxList', this.boxList);
+    this.appState.setEmails(this.emails, this.searchTerm);
+    this.appState.setBoxList(this.boxList);
 
-    this._emailService.delFlags(this.email.uid, flags, this.email.box).subscribe((res) => {
+    this.emailService.delFlags(this.email._id, flags).subscribe((res) => {
     }, (err) => {
       this.email = Object.assign(oldEmail);
-      this.appState.set('emails', oldEmails);
-      this.appState.set('boxList', oldBoxList);
+      this.appState.setEmails(oldEmails, this.searchTerm);
+      this.appState.setBoxList(oldBoxList);
       this.snackBar.open('Error while setting email to READ.', 'OK');
     }, () => {
     })
   }
 
-  highlightSentence(h: any) {
+  private highlightSentence(h: any) {
     const sentence = this.email.sentences.find((s) => s.id == h.id);
     this.email.sentences.forEach((s) => { s.highlighted = false });
     this.email.suggestedTasks.forEach((t) => {

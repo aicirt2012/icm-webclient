@@ -2,16 +2,78 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MaterialModule } from '@angular/material';
+import {
+  MatAutocompleteModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCheckboxModule,
+  MatDialogModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatSelectModule,
+  MatCardModule,
+  MatChipsModule,
+  MatTabsModule,
+  MatFormFieldModule,
+  MatSnackBarModule, MatDatepickerModule, MatNativeDateModule
+} from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { ContextMenuModule } from 'ngx-contextmenu';
+import { ResizableModule } from "angular-resizable-element";
 
-import { ClientComponent, EmailDialogComponent, EmailFolderDialogComponent, TaskDialogComponent, LinkTaskDialogComponent, TasksComponent, ContextComponent, ContextTabComponent, WikiComponent, NetworkComponent, TranslateComponent, EmailDetailedViewComponent, EmailListComponent, HighlightPipe, TaskListComponent, SearchBarComponent, EmailViewComponent, BoxListComponent, BoxListItemComponent, EmailActionBarComponent, EmailResponseComponent, TaskActionBarComponent, TaskListItemComponent, EmailFormComponent, TaskItemEmailDialogComponent, SentenceDialogComponent} from './'; 
-import { EmailService, TaskService, WikiService, NetworkService, TranslateService} from './shared'; // all services
+import {
+  ClientComponent,
+  EmailDialogComponent,
+  EmailFolderDialogComponent,
+  BoxDialogComponent,
+  TaskDialogComponent,
+  LinkTaskDialogComponent,
+  ContactDetailsDialogComponent,
+  TasksComponent,
+  ContextComponent,
+  ContextTabComponent,
+  WikiComponent,
+  NetworkComponent,
+  TranslateComponent,
+  EmailDetailedViewComponent,
+  EmailListComponent,
+  HighlightPipe,
+  TaskListComponent,
+  SearchBarComponent,
+  EmailViewComponent,
+  BoxListComponent,
+  BoxListItemComponent,
+  EmailActionBarComponent,
+  EmailResponseComponent,
+  TaskActionBarComponent,
+  TaskListItemComponent,
+  EmailFormComponent,
+  TaskItemEmailDialogComponent,
+  SentenceDialogComponent
+} from './';
+import {
+  EmailService,
+  BoxService,
+  TaskService,
+  WikiService,
+  NetworkService,
+  TranslateService,
+  AttachmentService,
+  WindowRef
+} from './shared'; // all services
 import { Email, EmailForm } from './shared'; // all models from client
 import { SharedModule } from '../shared';
 import { ROUTES } from './client.routes';
 import { AuthGuard } from '../app.authGuard';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
+import { DndModule } from 'ng2-dnd';
+import { TinymceModule } from 'angular2-tinymce';
 
 @NgModule({
   imports: [
@@ -19,12 +81,44 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
     FormsModule,
     RouterModule.forRoot(ROUTES),
     SharedModule,
-    MaterialModule.forRoot(),
-    FlexLayoutModule.forRoot(),
-    InfiniteScrollModule
+    // angular material
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatSelectModule,
+    MatCardModule,
+    MatChipsModule,
+    MatTabsModule,
+    MatFormFieldModule,
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    //
+    FlexLayoutModule,
+    InfiniteScrollModule,
+    ContextMenuModule,
+    ResizableModule,
+    DndModule.forRoot(),
+    TinymceModule.withConfig({
+      selector: 'textarea',
+      plugins: ['autoresize'],
+      menubar: false,
+      statusbar: false,
+    })
   ],
   exports: [
-    TaskItemEmailDialogComponent
+    TaskItemEmailDialogComponent,
+    DndModule
   ],
   declarations: [
     ClientComponent,
@@ -36,11 +130,13 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
     TranslateComponent,
     EmailDialogComponent,
     EmailFolderDialogComponent,
+    BoxDialogComponent,
     EmailDetailedViewComponent,
     EmailListComponent,
     HighlightPipe,
     TaskDialogComponent,
     LinkTaskDialogComponent,
+    ContactDetailsDialogComponent,
     EmailResponseComponent,
     EmailFormComponent,
     SearchBarComponent,
@@ -56,16 +152,21 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
   ],
   providers: [
     EmailService,
+    BoxService,
+    AttachmentService,
     TaskService,
     WikiService,
     NetworkService,
     TranslateService,
-    AuthGuard
+    AuthGuard,
+    WindowRef,
   ],
   entryComponents: [
     EmailDialogComponent,
+    BoxDialogComponent,
     TaskDialogComponent,
     LinkTaskDialogComponent,
+    ContactDetailsDialogComponent,
     EmailFolderDialogComponent,
     SentenceDialogComponent
   ]

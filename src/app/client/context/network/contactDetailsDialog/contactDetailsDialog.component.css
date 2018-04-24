@@ -1,0 +1,48 @@
+.pointer {
+  cursor: pointer;
+}
+
+.contact-details-wrapper {
+  max-width: 100%;
+}
+
+.section > div {
+  width: 100%;
+}
+
+.details-container {
+  font-size: 14px;
+}
+
+.section-separator {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 16px;
+}
+
+.section-row {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.section-header {
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.section:first-of-type .section-header {
+  margin-top: 0;
+}
+
+.details-container ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+ul.section-row {
+  padding-bottom: 0;
+}
+
+.padding-left {
+  padding-left: 20px;
+}

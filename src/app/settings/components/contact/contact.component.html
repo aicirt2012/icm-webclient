@@ -1,0 +1,36 @@
+<mat-card>
+  <mat-tab-group>
+    <mat-tab label="SocioCortex">
+
+      <mat-card-content class="upper-space">
+        <mat-checkbox name="isEnabled" [(ngModel)]="socioCortex.isEnabled">Enable</mat-checkbox>
+      </mat-card-content>
+
+      <mat-card-content>
+        <mat-input-container>
+          <input matInput name="email" type="text" [(ngModel)]="socioCortex.email" placeholder="Email" autofocus
+                 required disabled="{{!socioCortex.isEnabled}}">
+        </mat-input-container>
+      </mat-card-content>
+
+      <mat-card-content>
+        <mat-input-container>
+          <input matInput name="password" type="password" [(ngModel)]="socioCortex.password"
+                 placeholder="Password" required disabled="{{!socioCortex.isEnabled}}">
+        </mat-input-container>
+      </mat-card-content>
+
+      <mat-card-content>
+        <mat-input-container>
+          <input matInput name="baseURL" type="text" [(ngModel)]="socioCortex.baseURL"
+                 placeholder="Base URL" required disabled="{{!socioCortex.isEnabled}}">
+        </mat-input-container>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="updateSocioCortex()">Save Configuration</button>
+      </mat-card-actions>
+
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>

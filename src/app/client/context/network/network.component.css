@@ -1,0 +1,91 @@
+.network-content {
+  font-size: 14px !important;
+  text-align: justify;
+  padding-top: 5px;
+  width: 100%;
+}
+
+.contact-network-container {
+  padding-bottom: 10px;
+}
+
+.primary-contact-container {
+  background-color: #F8F8F8;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.primary-contact-container .icon {
+  height: 16px;
+  width: 16px;
+}
+
+.primary-details-container div,
+.secondary-details-container div {
+  overflow-wrap: break-word;
+}
+
+.primary-details-name,
+.secondary-details-name,
+.show-more-text {
+  font-weight: bold;
+}
+
+.secondary-details-name {
+  color: #545252;
+}
+
+.primary-details-description,
+.secondary-details-company {
+  font-size: 12px;
+  color: #545252;
+}
+
+.divider-icon-container {
+  height: 10px;
+}
+
+.divider-icon {
+  height: 100%;
+  width: 48px;
+}
+
+.secondary-contact-container {
+  cursor: pointer;
+}
+
+.secondary-icon-container {
+  height: 20px;
+}
+
+.secondary-icon {
+  height: 20px;
+  width: 48px;
+}
+
+.secondary-details-container {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  cursor: pointer;
+}
+
+.show-more-container * {
+  cursor: pointer;
+}
+
+.show-more-icon {
+  height: 20px;
+  width: 48px;
+}
+
+.show-more-text {
+  margin-top: 2px;
+}
+
+.light-text {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.padding-left {
+  padding-left: 10px;
+}

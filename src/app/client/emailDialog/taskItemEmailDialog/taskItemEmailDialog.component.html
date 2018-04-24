@@ -1,16 +1,16 @@
 <div (click)="open(task)" class="tasks-card pointer">
     <div fxLayoutAlign="start center" class="title-container">
         <div fxFlex class="title">{{task.name}}</div>
-        <md-icon class="pointer alert-icon" *ngIf="overdue && !sticker_check">add_alert</md-icon>
-        <md-icon class="pointer check-icon" *ngIf="sticker_check">check</md-icon>
+        <mat-icon class="pointer alert-icon" *ngIf="overdue && !sticker_check">add_alert</mat-icon>
+        <mat-icon class="pointer check-icon" *ngIf="sticker_check">check</mat-icon>
     </div>
     <div fxLayout="column" fxLayoutAlign="center">
         <div fxLayout="row" fxLayoutAlign="start center">
-            <md-icon fxFlex-gt-sm="8">date_range</md-icon>
+            <mat-icon fxFlex-gt-sm="8">date_range</mat-icon>
             <div fxFlex-gt-sm="27" [class.overdue-text]="overdue && !sticker_check" class="text-overflow">{{task.due | date:'shortDate'}}</div>
-            <md-icon class="icon-margin" fxFlex-gt-sm="8">person</md-icon>
+            <mat-icon class="icon-margin" fxFlex-gt-sm="8">person</mat-icon>
             <div fxFlex-gt-sm="53" fxLayout="row" style="overflow: hidden">
-                <div *ngFor="let member of task.members" [mdTooltip]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
+                <div *ngFor="let member of task.members" [matTooltip]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials">
                     <span>{{member.initials}}</span>
                 </div>
                 <div *ngIf="task.members.length < 1"><i>No person assigned</i></div>

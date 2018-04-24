@@ -10,10 +10,7 @@ export class TranslateService {
   }
  
   translate(word: string): Observable<any> {
-    const options = {
-      word: word
-    };
-    return this.http.httpGET('translate', null, options, null);
+    return this.http.get('translate', {word: word}, null);
   }
  
 

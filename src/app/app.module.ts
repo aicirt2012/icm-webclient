@@ -1,22 +1,34 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import {
-  NgModule,
-  ApplicationRef
-} from '@angular/core';
-import {
-  removeNgStyles,
-  createNewHosts,
-  createInputTransfer
-} from '@angularclass/hmr';
-import {
-  RouterModule,
-  PreloadAllModules
-} from '@angular/router';
+import { NgModule, ApplicationRef } from '@angular/core';
+import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
+import { RouterModule, PreloadAllModules } from '@angular/router';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
-import { MaterialModule } from '@angular/material';
+import {
+  MatAutocompleteModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCheckboxModule,
+  MatDialogModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatSelectModule,
+  MatCardModule,
+  MatChipsModule,
+  MatTabsModule,
+  MatFormFieldModule,
+  MatSnackBarModule
+} from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { ResizableModule } from "angular-resizable-element";
 
 // Self-written modules
 import { ClientModule } from './client/client.module';
@@ -36,6 +48,8 @@ import { AppComponent } from './app.component';
 import { AppState, InternalStateType } from './app.service';
 import { AuthGuard } from './app.authGuard';
 
+import 'hammerjs';
+
 import '../styles/styles.scss';
 import '../styles/headings.css';
 
@@ -54,24 +68,46 @@ type StoreType = {
  * `AppModule` is the main entry point into Angular2's bootstraping process
  */
 @NgModule({
-  bootstrap: [ AppComponent ],
+  bootstrap: [AppComponent],
   declarations: [
     AppComponent,
   ],
   imports: [ // import Angular's modules
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES, { useHash: false }),
-    MaterialModule.forRoot(),
-    FlexLayoutModule.forRoot(),
+    RouterModule.forRoot(ROUTES, {useHash: false}),
+    // angular material
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatSelectModule,
+    MatCardModule,
+    MatChipsModule,
+    MatTabsModule,
+    MatFormFieldModule,
+    MatSnackBarModule,
+    //
+    FlexLayoutModule,
+    ResizableModule,
     // custom modules
     LoginModule,
     ClientModule,
     SettingsModule,
     TaskOverviewModule,
     DashboardModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
@@ -84,12 +120,11 @@ type StoreType = {
 })
 export class AppModule {
 
-  constructor(
-    public appRef: ApplicationRef,
-    public appState: AppState
-  ) {}
+  constructor(public appRef: ApplicationRef,
+              public appState: AppState) {
+  }
 
-hmrOnInit(store: StoreType) {
+  hmrOnInit(store: StoreType) {
     if (!store || !store.state) return;
     console.log('HMR store', JSON.stringify(store, null, 2));
     // set state

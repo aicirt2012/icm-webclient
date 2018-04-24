@@ -1,44 +1,66 @@
-<md-card fxFlex>
-  <md-card-title>Email Provider Configuration</md-card-title>
-  <form novalidate>
-    <div fxLayout="column">
-      <div fxLayout="row" fxLayoutAlign="start center" class="radio-container">
-        <div>Provider:</div>
-        <md-radio-group name="radio1" [(ngModel)]="emailConfig.name">
-        <md-radio-button value="Gmail">Gmail</md-radio-button>
-        <md-radio-button value="Exchange">Exchange</md-radio-button>
-      </md-radio-group>
-      </div>
-      <md-input-container>
-          <input md-input placeholder="Email Address" type="email" name="email" [(ngModel)]="emailConfig.user" autofocus required>
-      </md-input-container>
-      <md-input-container>
-          <input md-input placeholder="Password" type="password" name="password" [(ngModel)]="emailConfig.password" required>
-      </md-input-container>
-      <md-input-container>
-          <input md-input placeholder="Host" type="text" name="host" [(ngModel)]="emailConfig.host" required>
-      </md-input-container>
-      <md-input-container>
-          <input md-input placeholder="Port" type="number" name="port" [(ngModel)]="emailConfig.port" required>
-      </md-input-container>
-      <md-input-container>
-          <input md-input placeholder="SMTP Host" type="text" name="smtphost" [(ngModel)]="emailConfig.smtpHost" required>
-      </md-input-container>
-      <md-input-container>
-          <input md-input placeholder="SMTP Port" type="number" name="smtpport" [(ngModel)]="emailConfig.smtpPort" required>
-      </md-input-container>
-      <md-input-container>
-          <input md-input #inputSmtpDomains (keyup.enter)="addDomain(inputSmtpDomains)" (change)="addDomain(inputSmtpDomains)"  type="text" placeholder="SMTP Domains:" required/>
-          <md-chip-list>
-            <md-chip *ngFor="let domain of emailConfig.smtpDomains; let i = index">
-              <div fxLayout="row" fxLayoutAlign="start center">
-                <span>{{domain}}</span>
-                <md-icon class="pointer" (click)="deleteDomain(i)">close</md-icon>
-              </div>
-            </md-chip>
-          </md-chip-list>
-      </md-input-container>
-    </div>
-      <button md-raised-button color="primary" (click)="updateEmailConfig()">Save Configuration</button>
-  </form>
-</md-card>
+<mat-card class="scrollable">
+  <mat-card-header>
+    <mat-card-title>User Credentials</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+      <mat-input-container>
+        <input matInput name="username" type="text" [(ngModel)]="user.username" placeholder="Username" [disabled]="true">
+      </mat-input-container>
+  </mat-card-content>
+  <mat-card-content>
+    <mat-input-container>
+      <input matInput name="email" type="email" [(ngModel)]="user.email" placeholder="Email" autofocus>
+    </mat-input-container>
+  </mat-card-content>
+  <mat-card-content>
+    <mat-input-container>
+      <input matInput name="password" type="password" [(ngModel)]="user.password" placeholder="Password" required>
+    </mat-input-container>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="updateUser()">Update User Credentials</button>
+  </mat-card-actions>
+
+  <!--<mat-card-header>-->
+    <!--<mat-card-title fxFlex="5">Connection Overview</mat-card-title>-->
+  <!--</mat-card-header>-->
+  <!--<mat-card-content>-->
+
+    <!--<mat-list>-->
+      <!--<mat-list-item [class.not-connected]="user.provider && !user.provider">-->
+        <!--<span mat-list-avatar *ngIf="user.provider && user.provider=='Gmail'" class="fa-3x fab fa-google"></span>-->
+        <!--<span mat-list-avatar *ngIf="user.provider && user.provider=='Exchange'" class="fa-3x fab fa-windows"></span>-->
+        <!--<span mat-list-avatar *ngIf="user.provider && !user.provider" class="fa-3x fas fa-envelope"></span>-->
+        <!--<h4 mat-line>{{user.provider && user.provider ? user.provider : 'Email Provider'}}</h4>-->
+        <!--<p mat-line>-->
+          <!--<span [class.connected]="user.provider && user.provider">{{user.provider && user.provider ? 'Connected' : 'Not Connected'}}</span>-->
+        <!--</p>-->
+      <!--</mat-list-item>-->
+      <!--<mat-divider></mat-divider>-->
+      <!--<mat-list-item [class.not-connected]="!user.trello">-->
+        <!--<span mat-list-avatar class="fa-3x fab fa-trello"></span>-->
+        <!--<h4 mat-line>Trello</h4>-->
+        <!--<p mat-line>-->
+          <!--<span [class.connected]="user.trello">{{user.trello ? 'Connected' : 'Not Connected'}}</span>-->
+        <!--</p>-->
+      <!--</mat-list-item>-->
+      <!--<mat-divider></mat-divider>-->
+      <!--<mat-list-item [class.not-connected]="!user.sociocortex">-->
+        <!--<span mat-list-avatar class="fa-3x fas fa-circle"></span>-->
+        <!--<h4 mat-line>SocioCortex</h4>-->
+        <!--<p mat-line>-->
+          <!--<span [class.connected]="user.sociocortex">{{user.sociocortex ? 'Connected' : 'Not Connected'}}</span>-->
+        <!--</p>-->
+      <!--</mat-list-item>-->
+    <!--</mat-list>-->
+
+  <!--</mat-card-content>-->
+</mat-card>
+
+<!--<mat-card>
+  <mat-card-title fxFlex="5">Enron</mat-card-title>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="appendEnron()">Add enron users</button>
+  </mat-card-actions>
+</mat-card>-->
+

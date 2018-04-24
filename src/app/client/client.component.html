@@ -7,7 +7,29 @@
     <spinner [loading]="true"></spinner>
   </div>
   <div [fxShow]="!syncing && !noMailboxConnected" fxLayout="row" fxFlex>
-    <box-list fxFlex="15" (onRefresh)="onRefresh($event)" [lastSync]="user?.lastSync" [syncing]="updating"></box-list>
-    <router-outlet></router-outlet>
+    <box-list [fxFlex]="boxListFlex"
+              (onRefresh)="onRefresh($event)"
+              [lastSync]="user?.lastSync"
+              [syncing]="updating"
+              (onMoveEmailToBox)="moveEmailToBox($event)"
+    >
+    </box-list>
+    <router-outlet fxFlex="0"></router-outlet>
+    <div [fxFlex]="emailListFlex">
+      <router-outlet fxFlex="0" name="boxId"></router-outlet>
+      <router-outlet fxFlex="0" name="searchTerm"></router-outlet>
+    </div>
+    <div [fxFlex]="100 - boxListFlex - emailListFlex - contextFlex"
+         class="resizableBox"
+         mwlResizable
+         [resizeCursorPrecision]="10"
+         [resizeEdges]="{bottom: false, right: false, top: false, left: true}"
+         (resizeEnd)="onResizeEnd($event)"
+    >
+      <router-outlet fxFlex="0" name="emailId"></router-outlet>
+    </div>
+    <div [fxFlex]="contextFlex">
+      <router-outlet fxFlex="0" name="context"></router-outlet>
+    </div>
   </div>
 </div>

@@ -1,23 +1,40 @@
-<md-card fxFlex>
-  <md-card-title>Pattern Management</md-card-title>
-  <md-card-content>
+<mat-card>
+  <mat-card-title>Pattern Management</mat-card-title>
+  <mat-card-content>
     <h3>Current Patterns</h3>
-    <md-list>
-      <md-list-item *ngFor="let p of patterns">
-        <div fxFlex fxLayoutAlign="start center" class="pattern-list-item">
-          <md-icon>data_usage</md-icon>
-          <span>{{p.pattern}}</span><small>{{p.isDefault ? 'Default': 'User-defined'}}</small>
+    <mat-list>
+      <mat-list-item *ngFor="let p of patterns">
+        <div fxFlex fxLayoutAlign="start " class="pattern-list-item">
+          <mat-icon>data_usage</mat-icon>
+          <span class="span-style">{{p.pattern}}</span>
         </div>
-        <div fxFlex *ngIf="!p.isDefault" fxLayoutAlign="end center">
-          <button md-mini-fab (click)="deletePattern(p)" class="pattern-action-bar-item"><md-icon class="fab-icon">delete</md-icon></button>
+        <div fxFlex fxLayoutAlign="end center">
+          <mat-icon svgIcon="regex" matTooltip="regex-based search" matTooltipPosition="left"
+                    class="regex-icon" *ngIf="p.isRegex"></mat-icon>
+          <mat-icon svgIcon="abc" matTooltip="text-based search" matTooltipPosition="left"
+                    class="regex-icon" *ngIf="!p.isRegex"></mat-icon>
+          <button mat-mini-fab (click)="deletePattern(p)" class="pattern-action-bar-item">
+            <mat-icon class="fab-icon">delete</mat-icon>
+          </button>
         </div>
-      </md-list-item>
-    </md-list>
-  </md-card-content>
-  <md-card-actions fxFlex fxLayoutAlign="start center">
-    <button md-mini-fab (click)="addPattern()" class="pattern-action-bar-item"><md-icon class="fab-icon">add</md-icon></button>
-    <md-input-container class="pattern-action-bar-item">
-      <input md-input [(ngModel)]="newPattern" placeholder="New pattern, e.g. do * you">
-    </md-input-container>
-  </md-card-actions>
-</md-card>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+  <mat-card-actions>
+    <mat-card-content>
+      <button mat-mini-fab (click)="addPattern()" class="pattern-action-bar-item">
+        <mat-icon class="fab-icon">add</mat-icon>
+      </button>
+
+      <mat-input-container class="pattern-action-bar-item" layout="column">
+        <input matInput [(ngModel)]="newPattern" placeholder="New pattern, e.g. Could you please">
+      </mat-input-container>
+      <mat-list>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="isRegex">Use as Regex</mat-checkbox>
+        </mat-list-item>
+
+      </mat-list>
+    </mat-card-content>
+  </mat-card-actions>
+</mat-card>

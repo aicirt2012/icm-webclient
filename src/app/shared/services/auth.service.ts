@@ -13,7 +13,11 @@ export class AuthService {
     }
   }
 
-  login(username: string, password: string): Observable<boolean> {
+  public signUp(username: string, password: string): Observable<any> {
+    return this.http.post(C.server + '/users/signup', {username: username, password: password});
+  }
+
+  public login(username: string, password: string): Observable<boolean> {
     return this.http.post(`${C.server}/auth/login`, { username: username, password: password })
       .map((response: Response) => {
         // login successful if there's a jwt token in the response
@@ -28,16 +32,12 @@ export class AuthService {
       });
   }
 
-  signup(username: string, password: string): Observable<any> {
-    return this.http.post(`${C.server}/users`, { username: username, password: password });
-  }
-
-  logout(): void {
+  public logout(): void {
     this.token = null;
     localStorage.removeItem('email-jwt');
   }
 
-  isAuthenticated() {
+  public isAuthenticated() {
     const token = localStorage.getItem('email-jwt');
     if (token) {
       if (new Date() > new Date(this.parseToken(token).exp * 1000)) {
@@ -50,9 +50,18 @@ export class AuthService {
     }
   }
 
-  parseToken(token) {
+  public getParsedToken(){
+    return this.parseToken(this.token);
+  }
+
+  public getUserId(){
+    return this.getParsedToken().user._id;
+  }
+
+  private parseToken(token) {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace('-', '+').replace('_', '/');
     return JSON.parse(window.atob(base64));
   }
+ 
 }

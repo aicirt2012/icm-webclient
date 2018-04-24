@@ -8,54 +8,26 @@ import * as io from "socket.io-client";
 @Injectable()
 export class SocketService {
 
-  private socket : any;
+  private socket: any;
 
   constructor(private authService: AuthService) {
 
   }
 
-  openSocketConnection(){
-    if(!this.authService.isAuthenticated()){
+  openSocketConnection() {
+    if (!this.authService.isAuthenticated()) {
       console.log('Could not create socket - not authenticated!');
-    }else{
-      this.socket = io.connect(C.socketUrl, {query: "token="+this.authService.token});
-      this.socket.on('connect', ()=>{
+    } else {
+      console.log(C);
+      console.log(C.socketUrl);
+      this.socket = io.connect(C.socketUrl, {query: "token=" + this.authService.token});
+      this.socket.on('connect', () => {
         console.log('Socket connection established!');
-      });
-
-      //TODO remove only for testing
-      this.createEmail().subscribe((email:any)=>{
-        console.log('create email: '+email.subject);
-      });
-
-      //TODO remove only for testing
-      this.updateEmail().subscribe((email:any)=>{
-        console.log('update email: '+email.subject);
-      });
-
-      //TODO remove only for testing
-      this.deleteEmail().subscribe((email:any)=>{
-        console.log('delete email: '+email.subject);
-      });
-
-      //TODO remove only for testing
-      this.createBox().subscribe((box:any)=>{
-        console.log('create box: '+box.name);
-      });
-
-      //TODO remove only for testing
-      this.updateBox().subscribe((box:any)=>{
-        console.log('update box: '+box.name);
-      });
-
-      //TODO remove only for testing
-      this.deleteBox().subscribe((box:any)=>{
-        console.log('delete box: '+box.name);
       });
     }
   }
 
-  createEmail(){
+  createEmail() {
     return new Observable(observer => {
       this.socket.on('create_email', (email) => {
         observer.next(JSON.parse(email));
@@ -66,7 +38,7 @@ export class SocketService {
     });
   }
 
-  deleteEmail(){
+  deleteEmail() {
     return new Observable(observer => {
       this.socket.on('delete_email', (email) => {
         observer.next(JSON.parse(email));
@@ -77,7 +49,7 @@ export class SocketService {
     });
   }
 
-  updateEmail(){
+  updateEmail() {
     return new Observable(observer => {
       this.socket.on('update_email', (email) => {
         observer.next(JSON.parse(email));
@@ -88,7 +60,7 @@ export class SocketService {
     });
   }
 
-  createBox(){
+  createBox() {
     return new Observable(observer => {
       this.socket.on('create_box', (box) => {
         observer.next(JSON.parse(box));
@@ -99,7 +71,7 @@ export class SocketService {
     });
   }
 
-  updateBox(){
+  updateBox() {
     return new Observable(observer => {
       this.socket.on('update_box', (box) => {
         observer.next(JSON.parse(box));
@@ -110,7 +82,7 @@ export class SocketService {
     });
   }
 
-  deleteBox(){
+  deleteBox() {
     return new Observable(observer => {
       this.socket.on('delete_box', (box) => {
         observer.next(JSON.parse(box));

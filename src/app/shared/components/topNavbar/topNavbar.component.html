@@ -1,11 +1,14 @@
 <div fxFlex fxLayout="row" class="tn-top-nav">
-    <div fxFlex="15" fxLayoutAlign="center center"><span class="pointer" [routerLink]="['/box/0']" id="logo"></span></div>
-    <div fxFlex fxLayoutAlign="end center">
-        <button md-icon-button [mdMenuTriggerFor]="menu">
-            <md-icon style="color:white;">more_vert</md-icon>
-        </button>
-        <md-menu #menu="mdMenu">
-            <button md-menu-item *ngFor="let choice of items" [routerLink]="choice.route"><md-icon> {{choice.icon}} </md-icon><span>{{choice.name}}</span></button>
-        </md-menu>
-    </div>
+  <div fxFlex="15" fxLayoutAlign="center center"><span class="pointer" [routerLink]="['/box/0']" id="logo"></span></div>
+  <div fxFlex fxLayoutAlign="end center">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon style="color:white;">more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item *ngFor="let choice of items" [routerLink]="choice.route">
+        <mat-icon> {{choice.icon}}</mat-icon>
+        <span>{{choice.name}}</span>
+      </button>
+    </mat-menu>
+  </div>
 </div>

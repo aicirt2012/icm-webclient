@@ -1,14 +1,15 @@
-import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core';
-import {Router} from '@angular/router';
-import {MdDialog, MdDialogRef} from '@angular/material';
-import {DialogType} from '../../shared/constants';
-import {AppState} from '../../app.service';
-import {EmailDialogComponent} from '../emailDialog';
-import {EmailFolderDialogComponent} from './emailFolderDialog';
-import {EmailService} from '../shared';
+import { Component, Input, EventEmitter, Output, ViewChild, Inject } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AppState } from '../../app.service';
+import { EmailFolderDialogComponent } from './emailFolderDialog';
+import { BoxService } from "../shared/box.service";
+import { MatDialog } from '@angular/material';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
+import _ from 'lodash';
 
 @Component({
-  selector: 'box-list', 
+  selector: 'box-list',
   providers: [],
   styleUrls: ['./boxList.component.css'],
   templateUrl: './boxList.component.html'
@@ -18,78 +19,88 @@ export class BoxListComponent {
   @Input() lastSync: Date;
   @Input() syncing: Boolean;
   @Output() onRefresh = new EventEmitter<boolean>();
+  @Output() onMoveEmailToBox = new EventEmitter<any>();
 
-  boxName: string;
   boxList: any[];
   user: any;
 
-  constructor(public appState: AppState, public router: Router, public dialog: MdDialog) {
+  boxId: string;
+  searchTerm: string;
+  params;
+
+
+  constructor(public appState: AppState,
+              public router: Router,
+              public activatedRoute: ActivatedRoute,
+              public dialog: MatDialog,
+              public boxService: BoxService) {
   }
 
   ngOnInit() {
-    this.appState.dataChange.subscribe((stateChange) => {
-      if (this.appState.getBoxList().length > 0) {
-        this.boxList = this.appState.getBoxList();
-        this.addDataToBoxes(this.appState.getBoxList());
+    this.appState.boxList().subscribe(boxList => {
+      if (boxList.length > 0) {
+        this.boxList = boxList;
+        this.addDataToBoxes(boxList);
+
+        const url = this.activatedRoute.url["value"][0].path;
+        const outlets = {}
+
+        this.activatedRoute.children.forEach((child) => {
+          Object.assign(outlets, child.snapshot.params);
+        });
+
+        if (url === 'box' && (_.size(outlets) > 0) && (outlets['boxId'] !== 'NONE')) {
+          const currentBox = this.appState.getBox(outlets['boxId']);
+          this.appState.setCurrentBox(currentBox);
+        } else if (url === 'box') {
+          this.appState.setCurrentBox(boxList[0]);
+          this.router.navigate(['/box', {outlets: {boxId: [boxList[0]._id]}}]);
+        }
+
       }
-      this.user = this.appState.getUser();
-    })
+    });
+
+    this.appState.user().subscribe(user => {
+      this.user = user;
+    });
+
   }
 
-  addDataToBoxes(boxList: any[]) {
+  moveEmailToBox(data) {
+    console.log('recursive event emit to parent');
+    this.onMoveEmailToBox.emit(data);
+  }
+
+  private addDataToBoxes(boxList: any[]) {
     if (boxList.length > 0) {
-      boxList = boxList.map((box) => {
-        let icon;
-        switch (box.shortName) { //TODO put in service
-          case 'INBOX':
-            icon = 'home';
-            break;
-          case 'Sent Mail':
-            icon = 'send';
-            break;
-          case 'Drafts':
-            icon = 'drafts';
-            break;
-          case 'Starred':
-            icon = 'star';
-            break;
-          case 'Spam':
-            icon = 'error';
-            break;
-          case 'Trash':
-            icon = 'delete';
-            break;
-          default:
-            icon = 'home';
-            break;
-        };
-        box.route = `/box/${box._id}`;
-        box.icon = icon;
-        box.children = [];
-        return box;
-      });
 
-      const boxParentMap = new Map();
-      boxList.forEach(box => {
-        if(boxParentMap.has(box.parent))
-          boxParentMap.get(box.parent).push(box);
-        else
-          boxParentMap.set(box.parent, [box]);
-      });
+      boxList = this.boxService.addDefaultBoxes(boxList);
+      const boxParentMap = this.getBoxParentMap(boxList);
       const rootBoxes = boxParentMap.get(null);
-
-      this.navbarItems = this._populateBoxesTree(rootBoxes, boxParentMap);
+      this.navbarItems = this.populateBoxesTree(rootBoxes, boxParentMap, 0);
     }
   }
 
-  _populateBoxesTree(boxes: any[], boxParentMap) {
-    if(boxes == null)
+  private getBoxParentMap(boxList: any): Map<string, any> {
+    const boxParentMap = new Map<string, any>();
+    boxList.forEach(box => {
+      if (boxParentMap.has(box.parent))
+        boxParentMap.get(box.parent).push(box);
+      else
+        boxParentMap.set(box.parent, [box]);
+    });
+    return boxParentMap;
+  }
+
+  private populateBoxesTree(boxes: any[], boxParentMap, level: number = 0) {
+    if (boxes == null)
       return [];
     return boxes.map(box => {
-      if(boxParentMap.has(box._id)) {
+      if (boxParentMap.has(box._id)) {
         let children = boxParentMap.get(box._id);
-        box.children = this._populateBoxesTree(children, boxParentMap);
+        box.children = this.populateBoxesTree(children, boxParentMap, level + 1);
       }
+      box.level = level;
       return box;
     });
   }
@@ -98,25 +109,31 @@ export class BoxListComponent {
     this.onRefresh.emit(true);
   }
 
-  openCreateEmailDialog() {
-    let emailDialogRef: MdDialogRef<EmailDialogComponent> = this.dialog.open(EmailDialogComponent, {
-      width: '80%',
-      height: '95%',
+  createNewEmail() {
+    const url = this.activatedRoute.url["value"][0].path;
+    const outlets = {}
+
+    this.activatedRoute.children.forEach((child) => {
+      Object.assign(outlets, child.snapshot.params);
+    });
+
+    outlets['emailId'] = 'new';
+    this.router.navigate([url, {outlets}]);
+  }
+
+  openEmailFolderDialog() {
+    let dialogRef = this.dialog.open(EmailFolderDialogComponent, {
+      width: '25%',
+      height: '300px',
       position: {
         top: '',
         bottom: '',
         left: '',
         right: ''
-      }
-    });
-  }
-
-  openEmailFolderDialog() {
-    let dialogRef = this.dialog.open(EmailFolderDialogComponent, {
-      width: '50%',
-      height: '50%'
+      },
     });
     dialogRef.componentInstance.boxList = this.boxList;
+
   }
 
 }

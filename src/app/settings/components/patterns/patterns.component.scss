@@ -1,14 +1,97 @@
+:host {
+  height: 100vh;
+  width: 100%;
+  max-width: 100%;
+}
+
+.not-connected {
+  color: lightgrey;
+}
+
+.connected {
+  color: green;
+}
+
+.secondary-text {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+mat-card {
+  min-height: 100%;
+  overflow-y: scroll;
+}
+
+mat-list {
+  width: 30%;
+}
+
+mat-input-container {
+  min-width: 400px;
+}
+
+.mat-card-title {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.upper-space {
+  margin-top: 15px;
+}
+
+.mat-card-actions .mat-button:first-child, .mat-card-actions .mat-raised-button:first-child {
+  margin-left: 16px;
+  margin-right: 0;
+}
+
 .pattern-action-bar-item {
   margin: 5px;
 }
 
 .pattern-list-item {
-  &>* {
+  & > * {
     margin: 5px;
   }
 }
 
 .fab-icon {
   color: white;
+}
+
+.regex-icon {
+  margin: 5px;
+}
+
+.span-style {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 150px;
+
+}
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  font-size: medium;
+  visibility: hidden;
+  background-color: white;
+  color: slategrey;
+  text-align: center;
+  padding: 5px 3px;
+  border-radius: 5px;
+
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
 

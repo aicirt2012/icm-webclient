@@ -1,29 +1,30 @@
 import { Component } from '@angular/core';
-import { SettingsService } from '../../shared';
-import { MdSnackBar } from '@angular/material';
+import { UserService } from '../../shared';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'task',
   templateUrl: 'task.component.html',
   styleUrls: ['task.component.css'],
-  providers: [MdSnackBar]
+  providers: [MatSnackBar]
 })
 export class TaskComponent {
 
   private trelloConfig = {
     trelloId: '',
     trelloAccessToken: '',
-    trelloAccesTokenSecret: ''
+    trelloAccessTokenSecret: '',
+    userEmail: ''
   };
   private scConfig = {
     username: '',
     password: ''
   };
 
-    constructor(private _settingsService: SettingsService, private snackBar:  MdSnackBar) {}
+    constructor(private userService: UserService, private snackBar:  MatSnackBar) {}
 
     ngOnInit() {
-      this._settingsService.getUserInfo().subscribe((data) => {
+      this.userService.getUserInfo().subscribe((data) => {
         if(data.trello) {
           this.trelloConfig = data.trello;
         }
@@ -34,14 +35,14 @@ export class TaskComponent {
     }
 
     updateUserWithScConfig() {
-      this._settingsService.updateScConfig(this.scConfig)
-      .subscribe((data: any) => {
-        this.scConfig = data.sociocortex;
-        this.snackBar.open('Update successful.', 'OK');
-      }, (error) => {
-        this.snackBar.open('Error while updating. Try again.', 'OK');
+      this.userService.updateScConfig(this.scConfig)
+        .subscribe((data: any) => {
+          this.scConfig = data.sociocortex;
+          this.snackBar.open('Update successful.', 'OK');
+        }, (error) => {
+          this.snackBar.open('Error while updating. Try again.', 'OK');
 
-      });
+        });
     }
 
 }

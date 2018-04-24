@@ -1,0 +1,19 @@
+image: node:latest
+
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - dockerbuild
+
+# Create Docker Image
+dockerbuild:
+  image: docker:latest
+  services:
+    - docker:dind
+  stage: dockerbuild
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+    - docker build --pull -t registry.gitlab.com/tum.icm/icm-webclient:latest .
+    - docker push registry.gitlab.com/tum.icm/icm-webclient:latest

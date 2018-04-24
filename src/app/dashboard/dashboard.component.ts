@@ -36,7 +36,6 @@ export class DashboardComponent {
     public appState: AppState) { }
 
   ngOnInit() {
-    console.log(this.appState.get());
   }
 
   getCurrentView(view: string): boolean {

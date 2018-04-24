@@ -1,25 +1,62 @@
-
 <div fxLayout="column" class="full-height translate">
-  <div fxLayout="row">
-    <md-input-container fxFlex floatingPlaceholder="false">
-        <input md-input placeholder="Translate..." [(ngModel)]="word" (keyup.enter)="translate()">
-    </md-input-container>
-    <button md-icon-button (click)="translate()">
-        <md-icon class="md-24">search</md-icon>
+
+  <div fxLayout="row" class="padding-left">
+    <mat-input-container fxFlex floatingPlaceholder="false">
+      <input matInput placeholder="Search for translations..." [(ngModel)]="query" (keyup.enter)="translate()">
+    </mat-input-container>
+    <button mat-icon-button (click)="translate()">
+      <mat-icon class="mat-24">search</mat-icon>
     </button>
   </div>
-  <div fxLayout="row" *ngFor="let c of content" class="block">
-    <div>
-      <div class="source">
+
+  <div fxLayout="row" *ngIf="!_query" fxFlex class="padding-left padding-right">
+    <span>Please select or enter text to translate.</span>
+  </div>
+
+  <div fxLayout="row" *ngIf="loading" fxFlex class="padding-left padding-right">
+    <spinner [loading]="loading"></spinner>
+  </div>
+
+  <div fxLayout="row" *ngIf="_query && !loading && (!content || content.length == 0)" fxFlex class="padding-left padding-right">
+    <span>No translations found!</span>
+  </div>
+
+  <div *ngFor="let c of content" class="translation-container">
+    <!-- translation source -->
+    <div fxLayout="row" class="translation-source-container">
+      <div fxFlex="19px" fxLayout="column" *ngIf="c.sourceLanguage == 'EN'">
+        <img src="assets/img/translations/en.png" class="translation-source-icon"/>
+      </div>
+      <div fxFlex="19px" fxLayout="column" *ngIf="c.sourceLanguage == 'DE'">
+        <img src="assets/img/translations/de.png" class="translation-source-icon"/>
+      </div>
+      <div fxFlex="19px" fxLayout="column" *ngIf="!c.sourceLanguage">
+        <img src="assets/img/translations/global.png" class="translation-source-icon"/>
+      </div>
+      <div fxFlex class="translation-source">
         {{c.source}}
       </div>
-      <div class="target">
-        <div *ngFor="let word of c.target">
-          {{word}} <br/>
-        </div>
+    </div>
+    <!-- vertical spacer -->
+    <div fxLayout="row">
+      <div fxFlex="48px" fxLayout="column" class="divider-icon-container">
+        <img src="assets/img/translations/secondary_contact_line_small_light_gray.png" class="divider-icon"/>
       </div>
-    </div>  
+    </div>
+    <!-- translation targets -->
+    <div fxLayout="row" *ngFor="let word of c.target; index as i" class="translation-target-container">
+      <div fxFlex="48px" fxLayout="column" *ngIf="c.target.length - 1 == i">
+        <!-- if translation is the last one, use the icon for the last element -->
+        <img src="assets/img/translations/translation_end.png" class="translation-icon-last"/>
+      </div>
+      <div fxFlex="48px" class="translation-icon-container" *ngIf="!(c.target.length - 1 == i)">
+        <!-- else, use the normal icon -->
+        <img src="assets/img/translations/secondary_contact_small_light_gray.png" class="translation-target-icon"/>
+      </div>
+      <div fxFlex class="translation-target">
+        {{word}}
+      </div>
+    </div>
   </div>
-    
 
 </div>

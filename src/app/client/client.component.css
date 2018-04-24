@@ -17,3 +17,16 @@
   border-radius: 32px;
   color: black;
 }
+
+mwlResizable {
+  box-sizing: border-box;
+}
+
+.resizableBox {
+}
+
+.resize-left-hover {
+}
+
+.resize-active {
+}

@@ -28,12 +28,18 @@ div.cdk-focus-trap-content {
   height: 100%;
 }
 
-.md-tab-label {
-  min-width: 0px;
+.mat-tab-label {
+  min-width: 0px !important;
 }
 
-.md-tab-list > div {
+.mat-tab-list > div {
   min-width: 100px ! important;
+}
+
+/deep/.mat-tab-label, /deep/.mat-tab-label-active{
+  min-width: 0!important;
+  padding: 3px!important;
+  margin: 3px!important;
 }
 
 /*
@@ -120,7 +126,7 @@ div.cdk-focus-trap-content {
 ::-webkit-scrollbar-thumb {
   @include browser(Windows) {
     background-color: #ADADAD;
-    -webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,0.10),inset 0 -1px 0 rgba(0,0,0,0.07);
+    -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.10), inset 0 -1px 0 rgba(0, 0, 0, 0.07);
   }
 }
 
@@ -135,4 +141,64 @@ div.cdk-focus-trap-content {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+/* ngx Contextual Menu */
+.ngx-contextmenu .dropdown-menu {
+  border: 0;
+  background-color: whitesmoke;
+  box-shadow: 1px 1px 3px #888888;
+  padding: 0;
+}
+
+.ngx-contextmenu li {
+  display: block;
+  text-align: left;
+  font-size: small;
+}
+
+.ngx-contextmenu li:first-child {
+  border-top: none;
+}
+
+.ngx-contextmenu a {
+  color: grey;
+  display: block;
+  padding: 5px 10px;
+  text-decoration: none;
+}
+
+.ngx-contextmenu a:hover {
+  color: black;
+  background-color: darkgray;
+}
+
+/* Tiny MCE */
+
+/*Container, container body, iframe*/
+.mce-tinymce, .mce-container-body, #code_ifr {
+  min-height: 100% !important;
+}
+/*Container body*/
+.mce-container-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+/*Editing area*/
+.mce-container-body .mce-edit-area {
+  position: absolute;
+  top: 40px;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  overflow-y: scroll;
+}
+/*Footer*/
+.mce-tinymce .mce-statusbar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }

@@ -1,18 +1,27 @@
-<md-card fxFlex>
-  <form fxFlex>
-    <div fxFlex fxfxLayout="column">
-      <md-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
-        <input md-input fxFlex="100" name="trelloId" type="text" [(ngModel)]="trelloConfig.trelloId" placeholder="TrelloId" [disabled]="true">
-      </md-input-container>
-      <md-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
-        <input md-input fxFlex="100" name="TrelloAccessToken" type="text" [(ngModel)]="trelloConfig.trelloAccessToken" placeholder="TrelloAccessToken" [disabled]="true">
-      </md-input-container>
-      <md-input-container fxFlex fxLayout="row" fxLayoutAlign="start center">
-        <input md-input fxFlex="100" name="TrelloAccessTokenSecret" type="text" [(ngModel)]="trelloConfig.trelloAccessTokenSecret" placeholder="TrelloAccessTokenSecret" [disabled]="true">
-      </md-input-container>
-    </div>
-    <div fxLayoutAlign="start center" class="t-margin">
-        <a [href]="trelloURL"><span class="fa fa-trello"></span> Connect to Trello</a>
-    </div>
-  </form>
-</md-card>
+<mat-card-content class="upper-space">
+  <mat-input-container>
+    <input matInput name="TrelloUserEmail" type="email" [(ngModel)]="trelloConfig.userEmail"
+           placeholder="Trello Email Address" required>
+  </mat-input-container>
+</mat-card-content>
+
+<mat-card-actions>
+  <button mat-raised-button color="primary" (click)="onButtonClick()" [disabled]="!trelloConfig.userEmail">
+    <i class="fab fa-trello"></i> Connect to Trello
+  </button>
+</mat-card-actions>
+
+<mat-card-content class="hidden">
+  <div>Current Configuration:</div>
+  <mat-input-container class="upper-space">
+    <input matInput name="TrelloAccessToken" type="text" [(ngModel)]="trelloConfig.trelloAccessToken"
+           placeholder="TrelloAccessToken" disabled>
+  </mat-input-container>
+</mat-card-content>
+
+<mat-card-content class="hidden">
+  <mat-input-container>
+    <input matInput name="TrelloAccessTokenSecret" type="text"
+           [(ngModel)]="trelloConfig.trelloAccessTokenSecret" placeholder="TrelloAccessTokenSecret" disabled>
+  </mat-input-container>
+</mat-card-content>

@@ -9,11 +9,20 @@ export class NetworkService {
   constructor(private http: HttpService) {    
   }
  
-  search(query: string): Observable<any> {
-    const options = {
-      query: query
-    };
-    return this.http.httpGET('network/search', null, options, null);
+  public search(query: string): Observable<any> {
+    return this.http.get('contacts/search', {query: query}, null);
+  }
+
+  public list(): Observable<any> {
+    return this.http.get('contacts', null, null);
+  }
+
+  public getFullContact(id: string): Observable<any> {
+    return this.http.get('contacts/'+id, null, null);
+  }
+
+  public sync(): Observable<any> {
+    return this.http.post('contacts/sync', null, null);
   }
  
 

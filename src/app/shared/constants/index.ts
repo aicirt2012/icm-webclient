@@ -1,7 +1,8 @@
 export default {
-  server: `${process.env.SERVER_PROT}://${process.env.SERVER_HOST}:${process.env.SERVER_PORT}/api`,
-  socketUrl: `${process.env.SERVER_PROT}://${process.env.SERVER_HOST}:${process.env.SERVER_PORT+1}`
+  server: SERVER_API_URL + '/api',
+  socketUrl: SERVER_SOCKET_URL
 };
+
 
 export enum TaskDialogType {
   create, edit

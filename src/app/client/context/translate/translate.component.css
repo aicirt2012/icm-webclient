@@ -1,18 +1,55 @@
-.translate{
-    font-size: 14px !important;
-    padding: 10px;
-    padding-top:0px;
-    overflow-y:auto; 
+.translate {
+  font-size: 14px !important;
+  text-align: justify;
+  padding-top: 5px;
+  overflow-y: auto;
 }
 
-.translate .block{
-    margin-bottom: 15px;
+.translation-container {
+  padding-bottom: 10px;
 }
 
-.translate .block .source{
-    font-weight: bold;
+.translation-source-container {
+  background-color: #F8F8F8;
+  padding: 5px;
 }
 
-.translate .block .target{
-    margin-left: 20px;
+.translation-source-icon {
+  height: 16px;
+  width: 16px;
+}
+
+.translation-source {
+  font-weight: bold;
+  padding-left: 1px;
+}
+
+.divider-icon-container {
+  height: 10px;
+}
+
+.divider-icon {
+  height: 100%;
+  width: 48px;
+}
+
+.translation-target-container {
+  height: 20px;
+}
+
+.translation-target-icon {
+  height: 20px;
+  width: 48px;
+}
+
+.translation-target {
+  font-size: 12px;
+}
+
+.padding-left {
+  padding-left: 10px;
+}
+
+.padding-right {
+  padding-right: 10px;
 }

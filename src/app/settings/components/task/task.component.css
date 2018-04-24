@@ -1,0 +1,40 @@
+:host {
+  height: 100vh;
+  width: 100%;
+  max-width: 100%;
+}
+
+.not-connected {
+  color:lightgrey;
+}
+
+.connected {
+  color:green;
+}
+
+.secondary-text {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+mat-card {
+  min-height: 100%;
+  overflow-y: scroll;
+}
+
+mat-input-container {
+  min-width: 400px;
+}
+
+.mat-card-title {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.upper-space {
+  margin-top: 15px;
+}
+
+.mat-card-actions .mat-button:first-child, .mat-card-actions .mat-raised-button:first-child {
+  margin-left: 16px;
+  margin-right: 0;
+}

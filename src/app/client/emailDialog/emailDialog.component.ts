@@ -3,7 +3,7 @@ import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core
 import { EmailService, TaskService } from '../shared';
 import { Observable } from 'rxjs/Observable';
 import { Email, EmailForm } from '../shared';
-import { MdDialogRef, MdSnackBar, MdInput } from '@angular/material';
+import { MatDialogRef, MatSnackBar, MatInput } from '@angular/material';
 
 
 @Component({
@@ -27,13 +27,13 @@ export class EmailDialogComponent {
   public relatedTasks: any = [];
   public user: any;
 
-  constructor(public appState: AppState, private _emailService: EmailService, public emailDialogRef: MdDialogRef<EmailDialogComponent>, private snackBar: MdSnackBar, private _taskService: TaskService) {
+  constructor(public appState: AppState, private _emailService: EmailService, public emailDialogRef: MatDialogRef<EmailDialogComponent>, private snackBar: MatSnackBar, private _taskService: TaskService) {
   }
 
   ngOnInit() {
-    this.appState.dataChange.subscribe((stateChange) => {
-      this.user = this.appState.get('user');
-    })
+    this.appState.user().subscribe(user => {
+      this.user = user;
+    });
   }
 
 
@@ -42,7 +42,7 @@ export class EmailDialogComponent {
     this.emailDialogRef.close();
   }
 
-  addAddress(address: MdInput, addressType: string): void {
+  addAddress(address: MatInput, addressType: string): void {
     if (address.value && address.value.trim() != '') {
       this.emailForm[addressType].push(address.value.trim());
       address.value = '';
@@ -68,7 +68,7 @@ export class EmailDialogComponent {
   sendEmail() {
     this.sending = true;
     this._emailService
-      .sendMail(this.emailForm)
+      .sendEmail(this.emailForm)
       .subscribe((data: any) => {
         this.sending = false;
         this.snackBar.open('Message successfully sent.', 'OK');
@@ -81,12 +81,19 @@ export class EmailDialogComponent {
   }
 
   saveDraft() {
+    const boxId = this.appState.getBoxList().find((b) => b.shortName == 'Drafts')._id;
+    this.sending = true;
+
     this._emailService
-      .appendMail(this.emailForm.to, this.emailForm.subject, this.emailForm.text)
+      .appendEmail(boxId, this.emailForm.to, this.emailForm.subject, this.emailForm.text)
       .subscribe((data: any) => {
-        console.log("appending successful", data);
+        this.sending = false;
+        this.snackBar.open('Message saved as a Draft.', 'OK');
+        this.closeDialog();
       }, (error) => {
         console.log(error);
+        this.sending = false;
+        this.snackBar.open('Error while saving Message as a Draft.', 'OK');
       });
   }
 

@@ -1,0 +1,169 @@
+<div class="contact-details-wrapper" fxFlex fxLayout="column">
+  <div mat-dialog-title fxLayout="row">
+    <span fxFlex>{{contact.title ? contact.title + ' ' : ''}}{{contact.firstName}} {{contact.lastName}}</span>
+    <mat-icon (click)="closeDialog()" class="pointer padding-left">close</mat-icon>
+  </div>
+  <mat-dialog-content>
+    <div class="details-container" fxLayout="column">
+      <div class="section section-business" fxLayout="row"
+           *ngIf="fullContact.businessCompany || fullContact.businessDepartment || fullContact.businessJobTitle ||
+           fullContact.businessPhone || fullContact.businessPhoneAssistant || fullContact.businessFax ||
+           fullContact.businessStreet || fullContact.businessZip || fullContact.businessCity ||
+           fullContact.businessState || fullContact.businessCountry">
+        <div fxLayout="column">
+          <div class="section-row section-header" fxLayout="row">
+            <span>Business Details</span>
+            <mat-divider class="section-separator"></mat-divider>
+          </div>
+          <div class="section-row section-data" fxLayout="row" fxLayoutAlign="start" *ngIf="fullContact.businessCompany">
+            <span class="label" fxFlex="110px">Company:</span>
+            <span class="value" fxFlex>{{fullContact.businessCompany}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" fxLayoutAlign="start" *ngIf="fullContact.businessDepartment">
+            <span class="label" fxFlex="110px">Department:</span>
+            <span class="value" fxFlex>{{fullContact.businessDepartment}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" fxLayoutAlign="start" *ngIf="fullContact.businessJobTitle">
+            <span class="label" fxFlex="110px">Position:</span>
+            <span class="value" fxFlex>{{fullContact.businessJobTitle}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" fxLayoutAlign="start" *ngIf="fullContact.businessPhone">
+            <span class="label" fxFlex="110px">Phone:</span>
+            <span class="value" fxFlex>{{fullContact.businessPhone}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" fxLayoutAlign="start" *ngIf="fullContact.businessPhoneAssistant">
+            <span class="label" fxFlex="110px">Phone Assistant:</span>
+            <span class="value" fxFlex>{{fullContact.businessPhoneAssistant}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" fxLayoutAlign="start" *ngIf="fullContact.businessFax">
+            <span class="label" fxFlex="110px">Fax:</span>
+            <span class="value" fxFlex>{{fullContact.businessFax}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" fxLayoutAlign="start" *ngIf="fullContact.businessStreet">
+            <span class="label" fxFlex="110px">Street:</span>
+            <span class="value" fxFlex>{{fullContact.businessStreet}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" fxLayoutAlign="start" *ngIf="fullContact.businessZip">
+            <span class="label" fxFlex="110px">Zip:</span>
+            <span class="value" fxFlex>{{fullContact.businessZip}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" fxLayoutAlign="start" *ngIf="fullContact.businessCity">
+            <span class="label" fxFlex="110px">City:</span>
+            <span class="value" fxFlex>{{fullContact.businessCity}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" fxLayoutAlign="start" *ngIf="fullContact.businessState">
+            <span class="label" fxFlex="110px">State:</span>
+            <span class="value" fxFlex>{{fullContact.businessState}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" *ngIf="fullContact.businessCountry">
+            <span class="label" fxFlex="110px">Country:</span>
+            <span class="value" fxFlex>{{fullContact.businessCountry}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="section section-personal" fxLayout="row"
+           *ngIf="fullContact.birthday || fullContact.email || fullContact.email2 || fullContact.homeStreet ||
+           fullContact.homeZip || fullContact.homeCity || fullContact.homeState || fullContact.homeCountry ||
+            fullContact.homePhone || fullContact.homeMobile || fullContact.homeFax">
+        <div fxLayout="column">
+          <div class="section-row section-header" fxLayout="row">
+            <span>Personal Details</span>
+            <mat-divider class="section-separator"></mat-divider>
+          </div>
+          <div class="section-row section-data" fxLayout="row" *ngIf="fullContact.birthday">
+            <span class="label" fxFlex="110px">Birthday:</span>
+            <span class="value" fxFlex>{{fullContact.birthday}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" *ngIf="fullContact.email">
+            <span class="label" fxFlex="110px">E-Mail:</span>
+            <span class="value" fxFlex>{{fullContact.email}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" *ngIf="fullContact.email2">
+            <span class="label" fxFlex="110px">E-Mail 2:</span>
+            <span class="value" fxFlex>{{fullContact.email2}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" *ngIf="fullContact.homeStreet">
+            <span class="label" fxFlex="110px">Street:</span>
+            <span class="value" fxFlex>{{fullContact.homeStreet}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" *ngIf="fullContact.homeZip">
+            <span class="label" fxFlex="110px">Zip:</span>
+            <span class="value" fxFlex>{{fullContact.homeZip}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" *ngIf="fullContact.homeCity">
+            <span class="label" fxFlex="110px">City:</span>
+            <span class="value" fxFlex>{{fullContact.homeCity}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" *ngIf="fullContact.homeState">
+            <span class="label" fxFlex="110px">State:</span>
+            <span class="value" fxFlex>{{fullContact.homeState}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" *ngIf="fullContact.homeCountry">
+            <span class="label" fxFlex="110px">Country:</span>
+            <span class="value" fxFlex>{{fullContact.homeCountry}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" *ngIf="fullContact.homePhone">
+            <span class="label" fxFlex="110px">Phone:</span>
+            <span class="value" fxFlex>{{fullContact.homePhone}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" *ngIf="fullContact.homeMobile">
+            <span class="label" fxFlex="110px">Mobile phone:</span>
+            <span class="value" fxFlex>{{fullContact.homeMobile}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" *ngIf="fullContact.homeFax">
+            <span class="label" fxFlex="110px">Fax:</span>
+            <span class="value" fxFlex>{{fullContact.homeFax}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="section section-groups" fxLayout="row" *ngIf="fullContact.groups && fullContact.groups.length > 0">
+        <div fxLayout="column">
+          <div class="section-row section-header" fxLayout="row">
+            <span>Group Memberships:</span>
+            <mat-divider class="section-separator"></mat-divider>
+          </div>
+          <ul class="section-row section-data section-list">
+            <li *ngFor="let group of fullContact.groups">{{group}}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="section section-social" fxLayout="row"
+           *ngIf="fullContact.www || fullContact.url || fullContact.linkedInUrl">
+        <div fxLayout="column">
+          <div class="section-row section-header" fxLayout="row">
+            <span>Social Media Details</span>
+            <mat-divider class="section-separator"></mat-divider>
+          </div>
+          <div class="section-row section-data" fxLayout="row" *ngIf="fullContact.www">
+            <span class="label" fxFlex="110px">Homepage:</span>
+            <span class="value" fxFlex>{{fullContact.www}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" *ngIf="fullContact.url">
+            <span class="label" fxFlex="110px">Url:</span>
+            <span class="value" fxFlex>{{fullContact.url}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" *ngIf="fullContact.linkedInUrl">
+            <span class="label" fxFlex="110px">LinkedIn:</span>
+            <span class="value" fxFlex>{{fullContact.linkedInUrl}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="section section-misc" fxLayout="row" *ngIf="fullContact.syncedAt || fullContact.lastModifiedAt">
+        <div fxLayout="column">
+          <div class="section-row section-header" fxLayout="row">
+            <span>Miscellaneous</span>
+            <mat-divider class="section-separator"></mat-divider>
+          </div>
+          <div class="section-row section-data" fxLayout="row" *ngIf="fullContact.syncedAt">
+            <span class="label" fxFlex="110px">Last synced:</span>
+            <span class="value" fxFlex>{{fullContact.syncedAt}}</span>
+          </div>
+          <div class="section-row section-data" fxLayout="row" *ngIf="fullContact.lastModifiedAt">
+            <span class="label" fxFlex="110px">Last modified:</span>
+            <span class="value" fxFlex>{{fullContact.lastModifiedAt}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>

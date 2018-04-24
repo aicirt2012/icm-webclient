@@ -7,8 +7,7 @@ import {Email} from './';
 @Injectable()
 export class TaskService {
 
-  private domain: string = 'task';
-  constructor(private _httpService: HttpService) { }
+  constructor(private http: HttpService) { }
 
   /*
    @param: list: string ,
@@ -18,7 +17,7 @@ export class TaskService {
     const options = {
       idList: list
     };
-    return this._httpService.httpGET(this.domain, '', options, null);
+    return this.http.get('tasks', options, null);
   }
 
   /*
@@ -29,7 +28,7 @@ export class TaskService {
     const options = {
       query: query
     };
-    return this._httpService.httpGET(this.domain, 'search', options, null);
+    return this.http.get('tasks/search', options, null);
   }
 
   /*
@@ -40,7 +39,7 @@ export class TaskService {
     const body = {
       emailAddresses: emailAddresses
     }
-    return this._httpService.httpPOST(this.domain, 'cards', null, body);
+    return this.http.post('tasks/cards', null, body);
   }
 
   /*
@@ -55,10 +54,11 @@ export class TaskService {
       idMembers: task.selectedMembers.map((s) => s.id),
       due: task.date,
       sentences: email.sentences ? email.sentences : [],
-      sentenceId: task.task ? task.task.id : ""
+      sentenceId: task.task ? task.task.id : "",
+      sourceUrl: task.currentUrl ? task.currentUrl : ""
     };
-    const path = `email/${email._id}/addTask`;
-    return this._httpService.httpPOST(this.domain, path, null, options);
+    const path = `tasks/email/${email._id}/addTask`;
+    return this.http.post(path, null, options);
   }
 
   updateTask(task: any): Observable<any> {
@@ -71,29 +71,28 @@ export class TaskService {
       due: task.date,
       closed: task.closed
     };
-    const path = `${task.id}`;
-    return this._httpService.httpPUT(this.domain, path, null, options);
+    return this.http.put('tasks/'+task.id, null, options);
   }
 
   getTaskByID(id :string): Observable<any> {
-    return this._httpService.httpGET(this.domain, `/${id}`, null, null);
+    return this.http.get('tasks/'+id, null, null);
   }
 
   getAllBoards(params?: any): Observable<any> {
-    return this._httpService.httpGET(this.domain, 'boards', params, null);
+    return this.http.get('tasks/boards', params, null);
   }
 
   linkTask(email: any, task: any) {
     const options = {
       taskId : task.card.id
     };
-    const path = `email/${email._id}/linkTask`;
-    return this._httpService.httpPOST(this.domain, path, null, options);
+    const path = `tasks/email/${email._id}/linkTask`;
+    return this.http.post(path, null, options);
   }
 
   unlinkTask(task: any) {
-    const path = `${task.id}/unlink`;
-     return this._httpService.httpPUT(this.domain, path, null, null);
+    const path = `tasks/${task.id}/unlink`;
+     return this.http.put(path, null, null);
   }
 
   formatDate(date) {

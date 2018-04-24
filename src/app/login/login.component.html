@@ -1,35 +1,106 @@
 <div class="flex-container full-height" fxLayout.gt-sm="row" fxLayout="column">
   <div fxFlex fxHide="false" fxHide.sm fxHide.xs id="login-wallpaper"></div>
-  <div fxFlex fxFlex.gt-sm="30" fxLayout="column">
-    <div fxFlex="10" fxLayoutAlign="center center">
+  <div fxFlex fxFlex.gt-sm="30" fxLayout="column" fxLayoutAlign="space-between stretch">
+    <div fxFlex="0 1 20" fxLayoutAlign="center center">
       <span class="pointer" id="logo"></span>
     </div>
-    <div fxFlex fxLayoutAlign="center center" fxLayout="row">
-      <md-card fxFlex="80">
-        <md-card-content>
-          <form fxLayout="column">
-            <md-input-container>
-              <input md-input placeholder="Username" type="text" name="username" [(ngModel)]="model.username" autofocus required>
-            </md-input-container>
-            <md-input-container>
-              <input md-input placeholder="Password" type="password" name="password" [(ngModel)]="model.password" required>
-            </md-input-container>
-          </form>
-        </md-card-content>
-        <md-card-actions fxLayoutAlign="center center">
-          <button md-raised-button color="primary" [disabled]="loading" (click)="login()">Login</button>
-          <button md-raised-button [disabled]="loading" (click)="signup()">Signup</button>
-        </md-card-actions>
-        <div fxLayoutAlign="center center">
-          <a md-raised-button [href]="googleLoginLink">
-            <md-icon svgIcon="google"></md-icon>
-            Sign in with Google
-          </a>
-        </div>
-      </md-card>
+    <div fxFlex="1 1 60" fxLayout="row" fxLayoutAlign="center stretch">
+
+      <mat-tab-group fxFlex="70" fxLayout="column" fxLayoutAlign="start stretch" md-stretch-tabs>
+
+        <mat-tab fxFlex fxLayout="column" fxLayoutAlign="start stretch"
+                 label="Log in">
+
+          <mat-card class="login-box">
+            <div fxFlex fxLayout="column" fxLayoutAlign="center stretch">
+
+              <!--<div fxFlex fxLayout="column" fxLayoutAlign="center stretch">-->
+              <!--<a mat-raised-button [href]="googleLoginLink">-->
+              <!--<mat-icon svgIcon="google"></mat-icon>-->
+              <!--Log in with Google Account-->
+              <!--</a>-->
+              <!--</div>-->
+              <!--<div fxFlex fxLayout="column" fxLayoutAlign="center stretch">
+                <a mat-raised-button [href]="googleLoginLink">
+                  <mat-icon svgIcon="exchange"></mat-icon>
+                  Log in with Exchange Account
+                </a>
+              </div>-->
+
+              <!--<div class="separator separator_login_page" fxFlex="5" fxLayout="row" fxLayoutAlign="center center">-->
+              <!--<div class="middle_separator">or</div>-->
+              <!--</div>-->
+
+              <div fxFlex fxLayout="row" fxLayoutAlign="start stretch">
+                <mat-input-container fxFlex fxLayout="column" fxFlexAlign="center stretch">
+                  <input matInput placeholder="Username" type="text" name="username" [(ngModel)]="model.username"
+                         autofocus required>
+                </mat-input-container>
+              </div>
+              <div fxFlex fxLayout="row" fxLayoutAlign="start stretch">
+                <mat-input-container fxFlex fxLayout="column" fxFlexAlign="center stretch">
+                  <input matInput placeholder="Password" type="password" name="password" [(ngModel)]="model.password"
+                         required>
+                </mat-input-container>
+              </div>
+              <div fxFlex fxLayout="column" fxLayoutAlign="center stretch">
+                <button mat-raised-button color="primary" [disabled]="loading" (click)="login()">Log in</button>
+              </div>
+            </div>
+          </mat-card>
+
+        </mat-tab>
+        <mat-tab fxFlex fxLayout="column" fxLayoutAlign="start stretch"
+                 label="Sign up">
+
+          <mat-card class="login-box">
+            <div fxFlex fxLayout="column" fxLayoutAlign="center stretch">
+
+              <!--<div fxFlex fxLayout="column" fxLayoutAlign="center stretch">-->
+              <!--<a mat-raised-button [href]="googleLoginLink">-->
+              <!--<mat-icon svgIcon="google"></mat-icon>-->
+              <!--Sign up with Google Account-->
+              <!--</a>-->
+              <!--</div>-->
+
+              <!--<div fxFlex fxLayout="column" fxLayoutAlign="center stretch">
+                <a mat-raised-button [href]="googleLoginLink">
+                  <mat-icon svgIcon="exchange"></mat-icon>
+                  Log in with Exchange Account
+                </a>
+              </div>-->
+
+              <!--<div class="separator separator_login_page" fxFlex="5" fxLayout="row" fxLayoutAlign="center center">-->
+              <!--<div class="middle_separator">or</div>-->
+              <!--</div>-->
+
+              <div fxFlex fxLayout="row" fxLayoutAlign="start stretch">
+                <mat-input-container fxFlex fxLayout="column" fxFlexAlign="center stretch">
+                  <input matInput placeholder="Username" type="text" name="username" [(ngModel)]="model.username"
+                         autofocus
+                         required>
+                </mat-input-container>
+              </div>
+              <div fxFlex fxLayout="row" fxLayoutAlign="start stretch">
+                <mat-input-container fxFlex fxLayout="column" fxFlexAlign="center stretch">
+                  <input matInput placeholder="Password" type="password" name="password" [(ngModel)]="model.password"
+                         required>
+                </mat-input-container>
+              </div>
+              <div fxFlex fxLayout="column" fxLayoutAlign="center stretch">
+                <button mat-raised-button color="primary" [disabled]="loading" (click)="signUp()">Create My Account
+                </button>
+              </div>
+            </div>
+          </mat-card>
+
+        </mat-tab>
+      </mat-tab-group>
+
     </div>
+
     <div fxFlex="10" fxLayoutAlign="center center">
-      <span class="copyrights">&copy; 2016 Master Lab Course Web Applications</span>
+      <span class="copyrights">&copy; 2018 Sebis</span>
     </div>
   </div>
 </div>

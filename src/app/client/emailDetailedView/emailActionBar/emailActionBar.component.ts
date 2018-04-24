@@ -1,25 +1,26 @@
 import { EmailDialogComponent } from './../../emailDialog/emailDialog.component';
-import { MdDialogRef, MdDialog } from '@angular/material';
+import { MatDialogRef, MatDialog } from '@angular/material';
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Email } from '../../shared';
+import { AppState } from '../../../app.service';
 
 @Component({
-  selector: 'email-action-bar',  // <detailedView></detailedView>
+  selector: 'email-action-bar',
   styleUrls: ['./emailActionBar.component.css'],
   templateUrl: './emailActionBar.component.html'
 })
 export class EmailActionBarComponent {
   @Input() boxList: any[];
   @Input() email: Email;
+  @Output() onEmailMoveToTrash = new EventEmitter<any>();
   @Output() onEmailMoveToBox = new EventEmitter<any>();
   @Output() onAddFlags = new EventEmitter<any>();
   @Output() onDeleteFlags = new EventEmitter<any>();
   @Output() generateEmailResponseActionBar = new EventEmitter<any>();
   @Output() discardEmailResponse = new EventEmitter<any>();
   @Input() responseStatus: boolean;
-  selectedBox: string;
 
-  constructor(public dialog: MdDialog) {
+  constructor(public dialog: MatDialog, private appState: AppState) {
   }
 
   replyEmail() {
@@ -35,14 +36,15 @@ export class EmailActionBarComponent {
   }
 
   moveEmailToBox(destBox: string) {
-    if (destBox == 'Trash') {
-      destBox = this.boxList.find((b) => b.shortName == destBox).name;
-    }
     const params = {
       emailId: this.email._id,
-      newBoxId: this.boxList.find((b) => b.name == destBox)._id
+      newBoxId: this.boxList.find((b) => b.shortName == destBox)._id
     };
     this.onEmailMoveToBox.emit(params);
+  }
+
+  moveEmailToTrash() {
+    this.onEmailMoveToTrash.emit(this.email._id);
   }
 
   addFlags(flags: string[]) {
@@ -54,11 +56,13 @@ export class EmailActionBarComponent {
   }
 
   showMailActions() {
-    return this.email.box.shortName != 'Drafts' &&  this.email.box.shortName != 'Sent Mails';
+    const currentBox = this.appState.getCurrentBox();
+    return currentBox.shortName != 'Drafts' &&  currentBox.shortName != 'Sent Mails';
   }
 
-  openCreateEmailDialog() {
-    let emailDialogRef: MdDialogRef<EmailDialogComponent> = this.dialog.open(EmailDialogComponent, {
+  // TODO: Use detailed emailview edit instead of dialog
+  editEmail() {
+    let emailDialogRef: MatDialogRef<EmailDialogComponent> = this.dialog.open(EmailDialogComponent, {
       width: '80%',
       height: '95%',
       position: {
@@ -75,7 +79,10 @@ export class EmailActionBarComponent {
       subject: this.email.subject,
       text: this.email.text
     };
+  }
 
+  toggleHighlightAnnotations() {
+    this.email['highlightAnnotations'] = !this.email['highlightAnnotations'];
   }
 
 }

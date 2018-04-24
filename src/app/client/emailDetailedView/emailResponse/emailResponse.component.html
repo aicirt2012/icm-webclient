@@ -1,59 +1,122 @@
-<div class="padding-side" fxFlex fxLayout="column">
-  <md-progress-bar *ngIf="sending" color="accent" mode="indeterminate"></md-progress-bar>
-  <div>
-    <form fxFlex fxLayout="column">
+<div fxFlex="90" fxLayout="column">
+  <mat-progress-bar *ngIf="sending" color="accent" mode="indeterminate"></mat-progress-bar>
+  <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
 
-    <div fxLayout="row" style="margin-top: 8px;" fxLayoutAlign="start center">
-            <md-input-container fxFlex>
-                <input md-input #inputTo (keyup.enter)="addAddress(inputTo,'to')" (change)="addAddress(inputTo,'to')"
-                    type="email" placeholder="To:" required/>
-                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap="wrap">
-                    <div *ngFor="let to of emailForm.to; let i = index" class="address-tag" fxLayout="row" fxLayoutAlign="center center">
-                        <span class="address-tag-span">{{to.address}}</span>
-                        <md-icon class="pointer" (click)="deleteAddress(i, 'to')" fxLayoutAlign="center center">close</md-icon>
-                    </div>
-                </div>
-            </md-input-container>
-            <span class="cc-tags" [class.add-recipients-selected]="cc" (click)="cc = !cc">CC</span>
-            <span class="cc-tags" [class.add-recipients-selected]="bcc" (click)="bcc = !bcc">BCC</span>
+    <div [fxFlex]="cc || bcc ? '150px' : '100px'" fxLayout="column" fxLayoutAlign="space-between stretch">
+
+      <div fxFlex="50px" fxLayout="row" fxLayoutAlign="space-between stretch">
+        <div fxFlex="70px" fxLayoutAlign="start center">
+          <label>To:</label>
+        </div>
+        <div fxFlex fxLayout="row" fxLayoutAlign="center stretch">
+          <mat-input-container fxFlex>
+            <div fxFlex fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap="wrap">
+              <div *ngFor="let to of emailForm.to; let i = index" class="address-tag" fxLayout="row"
+                   fxLayoutAlign="center center">
+                <span class="address-tag-span">{{to.address}}</span>
+                <mat-icon class="pointer" (click)="deleteAddress(i, 'to')" fxLayoutAlign="center center">close
+                </mat-icon>
+              </div>
+            </div>
+            <input fxFlex matInput #inputTo
+                   (keyup.enter)="addAddress(inputTo,'to')"
+                   (change)="addAddress(inputTo,'to')"
+                   type="email" required/>
+          </mat-input-container>
+        </div>
+        <div fxFlex="10" fxLayout="row" fxLayoutAlign="center center">
+          <span class="cc-tags" [class.add-recipients-selected]="cc" (click)="cc = !cc">Cc</span>
+          <span class="cc-tags" [class.add-recipients-selected]="bcc" (click)="bcc = !bcc">Bcc</span>
+        </div>
+      </div>
+
+      <div [fxShow]="cc || bcc ? true : false" fxLayout="row">
+
+        <div fxFlex *ngIf="cc">
+          <div fxFlex="70px" fxLayoutAlign="start center">
+            <label>Cc:</label>
+          </div>
+          <div fxFlex fxLayout="row" fxLayoutAlign="center stretch">
+            <mat-input-container fxFlex>
+              <input matInput #inputCc (keyup.enter)="addAddress(inputCc,'cc')" (change)="addAddress(inputCc,'cc')"
+                     type="email">
+            </mat-input-container>
+          </div>
         </div>
 
-        <div fxLayout="row">
 
-        <md-input-container fxFlex *ngIf="cc">
-                <input md-input #inputCc (keyup.enter)="addAddress(inputCc,'cc')" (change)="addAddress(inputCc,'cc')" placeholder="Cc:" type="email">
+        <div fxFlex="10px" [fxShow]="cc && bcc ? true : false"></div>
 
-                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap="wrap">
-                    <div *ngFor="let cc of emailForm.cc; let i = index" class="address-tag" fxLayout="row" fxLayoutAlign="center center">
-                        <span class="address-tag-span">{{cc.address}}</span>
-                        <md-icon class="pointer" (click)="deleteAddress(i, 'cc')" fxLayoutAlign="center center">close</md-icon>
+        <div fxFlex [fxShow]="bcc ? true : false">
+          <div fxFlex="70px" fxLayoutAlign="start center">
+            <label>Bcc:</label>
+          </div>
+          <div fxFlex fxLayout="row" fxLayoutAlign="center stretch">
+            <mat-input-container fxFlex>
+              <input matInput #inputBcc (keyup.enter)="addAddress(inputBcc,'bcc')" (change)="addAddress(inputBcc,'bcc')"
+                     type="email">
+            </mat-input-container>
+          </div>
+        </div>
+
+        <!--        <mat-input-container fxFlex *ngIf="cc">
+                  <input matInput #inputCc (keyup.enter)="addAddress(inputCc,'cc')" (change)="addAddress(inputCc,'cc')"
+                         placeholder="Cc:" type="email">
+
+                  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap="wrap">
+                    <div *ngFor="let cc of emailForm.cc; let i = index" class="address-tag" fxLayout="row"
+                         fxLayoutAlign="center center">
+                      <span class="address-tag-span">{{cc.address}}</span>
+                      <mat-icon class="pointer" (click)="deleteAddress(i, 'cc')" fxLayoutAlign="center center">close</mat-icon>
                     </div>
-                </div>
-            </md-input-container>
+                  </div>
+                </mat-input-container>
 
-                    <md-input-container fxFlex *ngIf="bcc">
-                <input md-input #inputBcc (keyup.enter)="addAddress(inputBcc,'bcc')" (change)="addAddress(inputBcc,'bcc')" placeholder="Bcc:" type="email">
+                <mat-input-container fxFlex *ngIf="bcc">
+                  <input matInput #inputBcc (keyup.enter)="addAddress(inputBcc,'bcc')" (change)="addAddress(inputBcc,'bcc')"
+                         placeholder="Bcc:" type="email">
 
-                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap="wrap">
-                    <div *ngFor="let bcc of emailForm.bcc; let i = index" class="address-tag" fxLayout="row" fxLayoutAlign="center center">
-                        <span class="address-tag-span">{{bcc.address}}</span>
-                        <md-icon class="pointer" (click)="deleteAddress(i, 'bcc')" fxLayoutAlign="center center">close</md-icon>
+                  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap="wrap">
+                    <div *ngFor="let bcc of emailForm.bcc; let i = index" class="address-tag" fxLayout="row"
+                         fxLayoutAlign="center center">
+                      <span class="address-tag-span">{{bcc.address}}</span>
+                      <mat-icon class="pointer" (click)="deleteAddress(i, 'bcc')" fxLayoutAlign="center center">close</mat-icon>
                     </div>
-                </div>
-            </md-input-container>
-            </div>
+                  </div>
+                </mat-input-container>
+                -->
+      </div>
 
-      <md-input-container>
-          <input md-input placeholder="Subject:" type="text" name="subject" [(ngModel)]="emailForm.subject">
-      </md-input-container>
+      <div fxFlex="50px" fxLayout="row" fxLayoutAlign="space-between stretch">
+        <div fxFlex="70px" fxLayoutAlign="start center">
+          <label>Subject:</label>
+        </div>
+        <div fxFlex fxLayout="row" fxLayoutAlign="center stretch">
+          <mat-input-container fxFlex>
+            <input matInput type="text" name="subject" [(ngModel)]="emailForm.subject">
+          </mat-input-container>
+        </div>
+      </div>
 
-      <md-input-container>
-        <textarea md-input placeholder="Message" [(ngModel)]="emailForm.text" name="text" rows="20" autofocus></textarea>
-      </md-input-container>
-        
+    </div>
 
-    </form>
-            <button md-submit md-raised-button color="primary" (click)="sendEmail()" [disabled]="sending">Send Email</button>
+    <!--    <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+          <mat-input-container fxFlex>
+            <textarea matInput placeholder [(ngModel)]="emailForm.text" name="text" rows="20"
+                      autofocus></textarea>
+          </mat-input-container>
+        </div>-->
+
+    <app-tinymce
+      fxFlex
+      [(ngModel)]='emailForm.text'
+    >
+    </app-tinymce>
+
+    <div fxFlex="10" fxLayout="row" fxLayoutAlign="center center">
+      <button mat-submit mat-raised-button color="primary" (click)="sendEmail()" [disabled]="sending">Send Email
+      </button>
+    </div>
 
   </div>
 </div>

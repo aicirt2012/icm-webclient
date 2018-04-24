@@ -1,15 +1,36 @@
-<md-list-item class="navbar-list-item" [class.route-active]="isActive(item.route)" [routerLink]="item.route">
-  
-  <div md-line>
-    <md-icon class="v-align-middle">{{item.icon}}</md-icon>
+<mat-list-item class="navbar-list-item" dnd-droppable
+               [class.route-active]="isActive(item.routeStr)"
+               [routerLink]="item.route"
+               (click)="setCurrentBox()"
+               (onDropSuccess)="dropEmailEvent($event)"
+               [contextMenu]="basicMenu"
+               [contextMenuSubject]="item">
+  <div mat-line>
+    <mat-icon class="v-align-middle">{{item.icon}}</mat-icon>
     <a class="v-align-middle">{{item.shortName}}</a>
   </div>
   <div *ngIf="item.unseen > 0" class="unseen-counter"><a>{{item.unseen}}</a></div>
 
-</md-list-item>
+</mat-list-item>
 
-<md-nav-list class="no-padding padding-left" *ngIf="item.children.length > 0">
-    <box-list-item [item]="child" *ngFor="let child of item.children"></box-list-item>
-</md-nav-list>
+<mat-nav-list class="no-padding padding-left" *ngIf="item.children.length > 0">
+  <box-list-item [item]="child" *ngFor="let child of item.children"
+                 (onMoveEmailToBox)="moveEmailToBox($event)"></box-list-item>
+</mat-nav-list>
 
-
+<context-menu>
+  <ng-template [visible]="!item.static" contextMenuItem
+               (execute)="renameBox(item._id)">
+    Rename
+  </ng-template>
+  <ng-template [visible]="!item.static" contextMenuItem divider="true"></ng-template>
+  <ng-template [visible]="!item.static" contextMenuItem let-item
+               (execute)="moveBox(item._id)">
+    Move to
+  </ng-template>
+  <ng-template [visible]="!item.static" contextMenuItem divider="true"></ng-template>
+  <ng-template [visible]="!item.static" contextMenuItem let-item
+               (execute)="deleteBox(item._id)">
+    Delete
+  </ng-template>
+</context-menu>

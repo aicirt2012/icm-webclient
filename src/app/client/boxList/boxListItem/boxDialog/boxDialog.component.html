@@ -1,0 +1,75 @@
+<div fxFlex fxLayout="column" fxLayoutAlign="start stretch" *ngIf="dialogType==='RENAME'">
+  <div fxFlex="20" mat-dialog-title fxLayout="row" fxLayoutAlign="space-between stretch">
+    <mat-card-title>Rename box '{{box.shortName}}'</mat-card-title>
+    <mat-icon class="pointer" (click)="closeDialog()">close</mat-icon>
+  </div>
+
+  <div fxFlex="60" fxLayout="column" fxLayoutAlign="space-between stretch">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <mat-input-container fxFlex>
+        <input fxFlex matInput placeholder="New box name..." type="text" [(ngModel)]="newBoxShortName">
+      </mat-input-container>
+    </div>
+  </div>
+
+  <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
+    <button
+      [disabled]="newBoxShortName === '' || updating" mat-raised-button color="primary"
+      (click)="onRenameBox()">Rename Box
+    </button>
+  </div>
+
+</div>
+
+<div fxFlex fxLayout="column" fxLayoutAlign="start stretch" *ngIf="dialogType==='MOVE'">
+  <div fxFlex="20" mat-dialog-title fxLayout="row" fxLayoutAlign="space-between stretch">
+    <mat-card-title>Move box '{{box.shortName}}'</mat-card-title>
+    <mat-icon class="pointer" (click)="closeDialog()">close</mat-icon>
+  </div>
+
+  <div fxFlex="60" fxLayout="column" fxLayoutAlign="space-between stretch">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <mat-form-field fxFlex>
+        <mat-select fxFlex [(value)]="newParentBoxId" placeholder="Nest under...">
+          <mat-option fxFlex *ngFor="let box of boxList; let b = index" [value]="box._id">
+            <span [style.padding-left]="addPadding(box)"> {{ box.shortName }} </span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
+    <button
+      [disabled]="newParentBoxId === ''" mat-raised-button color="primary"
+      (click)="onMoveBox(selectedBoxId)">Move Box
+    </button>
+  </div>
+
+</div>
+
+<div fxFlex fxLayout="column" fxLayoutAlign="start stretch" *ngIf="dialogType==='DELETE'">
+  <div fxFlex="20" mat-dialog-title fxLayout="row" fxLayoutAlign="space-between stretch">
+    <mat-card-title>Delete box '{{box.shortName}}'</mat-card-title>
+    <mat-icon class="pointer" (click)="closeDialog()">close</mat-icon>
+  </div>
+
+  <div fxFlex="60" fxLayout="column" fxLayoutAlign="space-between stretch">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      Do you want to delete this box?
+    </div>
+  </div>
+
+  <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
+    <button
+      mat-raised-button color="primary"
+      (click)="onDeleteBox(selectedBoxId)">
+      Delete Box
+    </button>
+    <button
+      mat-raised-button color="accent"
+      (click)="closeDialog()">
+      Cancel
+    </button>
+  </div>
+</div>
