@@ -2,7 +2,7 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { MatDialogRef, MatSnackBar, MatInput } from '@angular/material';
-import { TaskService } from '../../../shared';
+import { TaskLegacyService } from '../../../shared';
 import { AppState } from '../../../../app.service';
 
 @Component({
@@ -25,7 +25,7 @@ export class LinkTaskDialogComponent {
   public members = [];
   public date: any;
 
-  constructor(public linkTaskDialogRef: MatDialogRef<LinkTaskDialogComponent>, private snackBar: MatSnackBar, private _taskService: TaskService, public appState: AppState) {
+  constructor(public linkTaskDialogRef: MatDialogRef<LinkTaskDialogComponent>, private snackBar: MatSnackBar, private _taskService: TaskLegacyService, public appState: AppState) {
   }
 
   linkTask() {

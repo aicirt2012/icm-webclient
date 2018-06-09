@@ -9,7 +9,7 @@ import {
   ElementRef,
   ContentChild
 } from '@angular/core';
-import { TaskService } from '../../../../shared';
+import { TaskLegacyService } from '../../../../shared';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
@@ -35,7 +35,7 @@ export class TaskListItemComponent {
   public possibleMembers: any[] = [];
   public currMember = '';
 
-  constructor(private _taskService: TaskService, public snackBar: MatSnackBar) {
+  constructor(private _taskService: TaskLegacyService, public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {

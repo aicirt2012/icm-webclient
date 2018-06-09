@@ -1,7 +1,7 @@
 import { UserService } from './../settings/shared/user.service';
 import { User } from './../shared/models/user.model';
 import { AppState } from './../app.service';
-import { TaskService } from './../client/shared/task.service';
+import { TaskLegacyService } from '../client/shared/task.legacy.service';
 import { Component } from '@angular/core';
 import { AuthService } from '../shared';
 
@@ -18,7 +18,7 @@ export class TaskOverviewComponent {
   fetching: boolean = false;
   user: any = {};
 
-  constructor(private taskService: TaskService, private userService: UserService) { }
+  constructor(private taskService: TaskLegacyService, private userService: UserService) { }
 
   ngOnInit() {
     this.userService.getUserInfo().subscribe((user) => {

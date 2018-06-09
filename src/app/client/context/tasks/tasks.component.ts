@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
-import { TaskService } from '../../shared';
+import { TaskLegacyService } from '../../shared';
 import { TaskDialogComponent } from './taskDialog';
 import { LinkTaskDialogComponent } from './linkTaskDialog';
 import { AppState } from '../../../app.service';
@@ -27,7 +27,7 @@ export class TasksComponent {
     height: 'auto'
   };
 
-  constructor(private _taskService: TaskService, public dialog: MatDialog, public snackBar: MatSnackBar, public appState: AppState) {
+  constructor(private _taskService: TaskLegacyService, public dialog: MatDialog, public snackBar: MatSnackBar, public appState: AppState) {
   }
 
   ngOnInit() {

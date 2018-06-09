@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import {Email} from './';
 
 @Injectable()
-export class TaskService {
+export class TaskLegacyService {
 
   constructor(private http: HttpService) { }
 
