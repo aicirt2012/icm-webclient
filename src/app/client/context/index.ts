@@ -3,4 +3,4 @@ export * from './contextTab';
 export * from './wiki';
 export * from './translate';
 export * from './network';
-export * from './tasks';
+export * from './tasks-legacy';
