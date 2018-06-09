@@ -1,1 +1,12 @@
-
+<div fxLayout="column" class="full-height">
+  <div *ngIf="email && anyProviderEnabled" fxFlex fxLayout="column" class="scrollable">
+    <task-list fxFlex [linkedTasks]="email.linkedTasks"
+               [suggestedData]="email.suggestedData">
+    </task-list>
+  </div>
+  <div *ngIf="!anyProviderEnabled">
+    <a fxFlex fxLayoutAlign="center center" class="connect-btn" mat-raised-button [routerLink]="'/settings/tasks'">
+      Please connect to a Task Provider
+    </a>
+  </div>
+</div>

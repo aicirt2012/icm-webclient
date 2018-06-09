@@ -1,1 +1,9 @@
+:host {
+  width: 100%;
+}
 
+.connect-btn {
+  padding: 8px 8px 5px;
+  background-color: #ec4b4e;
+  color: white;
+}
