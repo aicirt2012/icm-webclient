@@ -22,8 +22,8 @@ export class TasksComponent {
     this.appState.user().subscribe(user => {
       this.user = user;
       this.anyProviderEnabled = false;
-      user.taskProviders.forEach((providerConfig) => {
-        this.anyProviderEnabled = this.anyProviderEnabled || providerConfig.isEnabled;
+      Object.keys(this.user.taskProviders).forEach((provider) => {
+        this.anyProviderEnabled = this.anyProviderEnabled || this.user.taskProviders[provider].isEnabled;
       });
       // TODO initialize suggested tasks from email.suggestedData
     });
