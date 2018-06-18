@@ -21,7 +21,10 @@ export class TasksComponent {
   ngOnInit() {
     this.appState.user().subscribe(user => {
       this.user = user;
-      this.anyProviderEnabled = user.taskProviders.trello.isEnabled || user.taskProviders.sociocortex.isEnabled;
+      this.anyProviderEnabled = false;
+      user.taskProviders.forEach((providerConfig) => {
+        this.anyProviderEnabled = this.anyProviderEnabled || providerConfig.isEnabled;
+      });
     });
   }
 
