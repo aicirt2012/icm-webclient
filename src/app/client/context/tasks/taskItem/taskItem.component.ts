@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'task-list-item',
-  styleUrls: ['./taskListItem.component.css'],
-  templateUrl: './taskListItem.component.html',
+  selector: 'task-item',
+  styleUrls: ['./taskItem.component.css'],
+  templateUrl: './taskItem.component.html',
 })
 
-export class TaskListItemComponent {
+export class TaskItemComponent {
 
   @Input() task: any;
   @Input() index: number;

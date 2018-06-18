@@ -1,9 +1,9 @@
 <div fxLayout="column" class="full-height">
   <div *ngIf="anyProviderEnabled && email" fxFlex fxLayout="column" class="scrollable task-list">
-    <task-list-item *ngFor="let task of email.linkedTasks; let i = index;" [task]="task" [index]="i">
-    </task-list-item>
-    <task-list-item *ngFor="let task of suggestedTasks; let i = index;" [task]="task" [index]="i" [isSuggestion]="true">
-    </task-list-item>
+    <task-item *ngFor="let task of email.linkedTasks; let i = index;" [task]="task" [index]="i">
+    </task-item>
+    <task-item *ngFor="let task of suggestedTasks; let i = index;" [task]="task" [index]="i" [isSuggestion]="true">
+    </task-item>
   </div>
   <div *ngIf="!anyProviderEnabled">
     <a fxFlex fxLayoutAlign="center center" class="connect-btn" mat-raised-button [routerLink]="'/settings/tasks'">
