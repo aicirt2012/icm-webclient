@@ -1,7 +1,6 @@
 <div fxLayout="column" class="full-height">
-  <div *ngIf="email && anyProviderEnabled" fxFlex fxLayout="column" class="scrollable">
-    <task-list fxFlex [linkedTasks]="email.linkedTasks"
-               [suggestedData]="email.suggestedData">
+  <div *ngIf="anyProviderEnabled && email" fxFlex fxLayout="column" class="scrollable">
+    <task-list fxFlex [tasks]="email.linkedTasks" [suggestions]="email.suggestedData">
     </task-list>
   </div>
   <div *ngIf="!anyProviderEnabled">
