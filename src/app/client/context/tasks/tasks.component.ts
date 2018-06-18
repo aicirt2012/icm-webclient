@@ -11,9 +11,9 @@ export class TasksComponent {
 
   @Input() email: any;
   anyProviderEnabled = false;
+  suggestedTasks = [];
 
   private user: any;
-  private linkedTasks: any = [];
 
   constructor(public appState: AppState) {
   }
@@ -25,6 +25,7 @@ export class TasksComponent {
       user.taskProviders.forEach((providerConfig) => {
         this.anyProviderEnabled = this.anyProviderEnabled || providerConfig.isEnabled;
       });
+      // TODO initialize suggested tasks from email.suggestedData
     });
   }
 

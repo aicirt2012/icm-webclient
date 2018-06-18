@@ -9,5 +9,7 @@ import { Component, Input } from '@angular/core';
 export class TaskListItemComponent {
 
   @Input() task: any;
+  @Input() index: number;
+  @Input() isSuggestion: boolean = false;
 
 }

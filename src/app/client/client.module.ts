@@ -34,6 +34,8 @@ import {
   BoxDialogComponent,
   ContactDetailsDialogComponent,
   TasksComponent,
+  TaskListItemComponent,
+  TaskDialogComponent,
   ContextComponent,
   ContextTabComponent,
   WikiComponent,
@@ -118,6 +120,8 @@ import { TinymceModule } from 'angular2-tinymce';
   declarations: [
     ClientComponent,
     TasksComponent,
+    TaskListItemComponent,
+    TaskDialogComponent,
     ContextComponent,
     ContextTabComponent,
     WikiComponent,
@@ -154,6 +158,7 @@ import { TinymceModule } from 'angular2-tinymce';
   entryComponents: [
     EmailDialogComponent,
     BoxDialogComponent,
+    TaskDialogComponent,
     ContactDetailsDialogComponent,
     EmailFolderDialogComponent,
     SentenceDialogComponent
