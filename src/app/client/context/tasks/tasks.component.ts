@@ -27,12 +27,18 @@ export class TasksComponent {
     this.appState.user().subscribe(user => {
       this.user = user;
     });
-    if (this.email && this.email.linkedTasks)
+    this.appState.currentEmail().subscribe(email => {
+      console.log(this.email);
+      this.email = email;
+      this.openTasks = [];
+      this.completedTasks = [];
+      this.suggestedTasks = [];
       this.email.linkedTasks.forEach(task => {
         // TODO load tasks via service and sort into active / completed
         this.openTasks.push(task);
+        // TODO initialize suggested tasks from email.suggestedData
       });
-    // TODO initialize suggested tasks from email.suggestedData
+    });
   }
 
   getEnabledProviderCount(): number {
