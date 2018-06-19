@@ -7,3 +7,15 @@
   background-color: #ec4b4e;
   color: white;
 }
+
+:host .mat-expansion-panel-header {
+  padding: 0 8px;
+}
+
+::ng-deep .task-list .mat-expansion-panel-body {
+  margin: 0;
+}
+
+.task-list > .mat-expansion-panel {
+  box-shadow: none;
+}
