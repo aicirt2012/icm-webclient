@@ -34,14 +34,15 @@ export class TaskItemComponent {
       this.completed = TaskService.isTaskCompleted(this.task);
       if (!this.members)
         this.members = [];
-      if (this.dueDateRaw)
+      if (this.dueDateRaw) {
         this.dueDateRaw = new Date(this.dueDateRaw);
         this.dueDate = TaskService.formatDate(this.dueDateRaw);
+      }
     }
   }
 
   isOverdue() {
-    return this.dueDateRaw < new Date();
+    return this.dueDateRaw && this.dueDateRaw < new Date();
   }
 
 }
