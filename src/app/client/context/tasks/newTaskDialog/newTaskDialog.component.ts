@@ -14,28 +14,30 @@ export class NewTaskDialogComponent {
   public suggestedData: any[] = [];
   public isSuggestion: boolean = false;
 
-  private provider: string = "";
-  private intendedAction: string;
-
-  private title: string = "(Untitled Task)";
-  private dueDate: string;
-  private members: any[] = [];
-  private state: string;
-
-  providerSelectionForm: FormGroup;
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
+  providerSelectionGroup: FormGroup;
+  parentSelectionGroup: FormGroup;
+  primaryDataInputGroup: FormGroup;
+  additionalDataInputGroup: FormGroup;
 
   constructor(public taskDialogRef: MatDialogRef<NewTaskDialogComponent>,
               private _formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
-    this.providerSelectionForm = this._formBuilder.group({
+    this.providerSelectionGroup = this._formBuilder.group({
       provider: ['', Validators.required],
       intendedAction: ['', Validators.required]
     });
-    this.secondFormGroup = this._formBuilder.group({
+    this.parentSelectionGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
+    this.primaryDataInputGroup = this._formBuilder.group({
+      title: ['(Untitled Task)', Validators.required],
+      dueDate: ['', Validators.required],
+      members: ['', Validators.required],
+      state: ['', Validators.required],
+    });
+    this.additionalDataInputGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
   }

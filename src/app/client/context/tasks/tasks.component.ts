@@ -46,7 +46,7 @@ export class TasksComponent {
 
   openNewTaskDialog(task: any) {
     let dialogRef = this.dialog.open(NewTaskDialogComponent, {
-      width: '35%',
+      width: '30%',
       height: 'auto'
     });
     dialogRef.componentInstance.task = task;
@@ -56,7 +56,7 @@ export class TasksComponent {
 
   openEditTaskDialog(task: any) {
     let dialogRef = this.dialog.open(EditTaskDialogComponent, {
-      width: '35%',
+      width: '30%',
       height: 'auto'
     });
     dialogRef.componentInstance.task = task;

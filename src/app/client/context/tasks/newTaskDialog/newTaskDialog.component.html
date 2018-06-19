@@ -6,8 +6,8 @@
 
   <mat-dialog-content class="new-task-dialog">
     <mat-vertical-stepper [linear]="true">
-      <mat-step [stepControl]="providerSelectionForm">
-        <form [formGroup]="providerSelectionForm">
+      <mat-step [stepControl]="providerSelectionGroup">
+        <form [formGroup]="providerSelectionGroup">
           <ng-template matStepLabel>Choose Task Provider and Intended Action</ng-template>
           <!-- provider input -->
           <mat-form-field>
@@ -28,8 +28,8 @@
           </div>
         </form>
       </mat-step>
-      <mat-step [stepControl]="secondFormGroup">
-        <form [formGroup]="secondFormGroup">
+      <mat-step [stepControl]="parentSelectionGroup">
+        <form [formGroup]="parentSelectionGroup">
           <ng-template matStepLabel>Fill out your address</ng-template>
           <mat-form-field>
             <input matInput placeholder="Address" formControlName="secondCtrl" required>
@@ -41,11 +41,15 @@
         </form>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        You are now done.
-        <div>
+        <ng-template matStepLabel>Confirm</ng-template>
+        <span>Preview of the new task:</span>
+        <div class="task-preview">
+          <task-item [task]="task"></task-item>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start">
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button (click)="stepper.reset()">Reset</button>
+          <button mat-button color="accent" style="margin-left: auto">Confirm</button>
         </div>
       </mat-step>
     </mat-vertical-stepper>
