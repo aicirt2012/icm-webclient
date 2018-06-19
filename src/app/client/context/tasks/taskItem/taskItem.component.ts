@@ -25,7 +25,7 @@ export class TaskItemComponent {
   ngOnInit() {
     if (!this.isSuggestion) {
       this.provider = this.task.provider;
-      this.title = TaskService.getParameter(this.task, 'title');
+      this.title = TaskService.getParameter(this.task, 'name');
       this.dueDate = TaskService.getParameter(this.task, 'due');
       this.members = TaskService.getParameter(this.task, 'members');
       if (!this.members)
