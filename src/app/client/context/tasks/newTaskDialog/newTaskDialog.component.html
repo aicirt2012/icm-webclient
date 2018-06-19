@@ -67,7 +67,7 @@
       <mat-step>
         <ng-template matStepLabel>Confirm</ng-template>
         <span>Preview of the new task:</span>
-        <div class="task-preview">
+        <div *ngIf="task" class="task-preview">
           <task-item [task]="task"></task-item>
         </div>
         <div fxLayout="row" fxLayoutAlign="start">
