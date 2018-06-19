@@ -1,0 +1,10 @@
+<div fxFlex fxLayout="column">
+  <div mat-dialog-title fxLayout="row">
+    <span fxFlex>{{isSuggestion ? 'New Task' : 'Edit: ' + title}}</span>
+    <mat-icon (click)="closeDialog()" class="pointer">close</mat-icon>
+  </div>
+
+  <mat-dialog-content>
+
+  </mat-dialog-content>
+</div>
