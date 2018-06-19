@@ -26,11 +26,16 @@ export class TasksComponent {
 
   ngOnInit() {
     this.appState.user().subscribe(user => {
+      console.log("Got a user via subscription:");
+      console.log(user);
       this.user = user;
     });
-    this.appState.currentEmail().subscribe(email => {
+  }
+
+  ngOnChanges() {
+    if (this.email) {
+      console.log("Got an updated email via onChange:");
       console.log(this.email);
-      this.email = email;
       this.openTasks = [];
       this.completedTasks = [];
       this.suggestedTasks = [];
@@ -41,7 +46,7 @@ export class TasksComponent {
           this.openTasks.push(task);
         // TODO initialize suggested tasks from email.suggestedData
       });
-    });
+    }
   }
 
   getEnabledProviderCount(): number {

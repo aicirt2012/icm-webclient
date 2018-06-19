@@ -22,8 +22,10 @@ export class TaskItemComponent {
   constructor() {
   }
 
-  ngOnInit() {
+  ngOnChanges() {
     if (!this.isSuggestion) {
+      console.log("Rendering task:");
+      console.log(this.task);
       this.provider = this.task.provider;
       this.title = TaskService.getParameter(this.task, 'name');
       this.dueDate = TaskService.getParameter(this.task, 'due');
