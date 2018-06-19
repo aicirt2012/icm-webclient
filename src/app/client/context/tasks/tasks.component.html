@@ -1,8 +1,13 @@
 <div fxLayout="column" class="full-height">
   <div *ngIf="isAnyProviderEnabled && email" fxFlex fxLayout="column" class="scrollable task-list">
-    <task-item *ngFor="let task of email.linkedTasks; let i = index;" [task]="task" [index]="i">
+    <task-item *ngFor="let task of email.linkedTasks; let i = index;" [task]="task" [index]="i"
+               (click)="openTaskDialog(task, false)">
     </task-item>
-    <task-item *ngFor="let task of suggestedTasks; let i = index;" [task]="task" [index]="i" [isSuggestion]="true">
+    <task-item *ngFor="let task of suggestedTasks; let i = index;" [task]="task" [index]="i" [isSuggestion]="true"
+               (click)="openTaskDialog(task, true)">
+    </task-item>
+    <task-item *ngIf="suggestedTasks.length == 0" [task]="{}" [index]="i" [isSuggestion]="true"
+               (click)="openTaskDialog(task, true)">
     </task-item>
   </div>
   <div *ngIf="!isAnyProviderEnabled">

@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { MatDialog } from "@angular/material";
 import { AppState } from '../../../app.service';
+import { TaskDialogComponent } from "./taskDialog";
 
 @Component({
   selector: 'tasks',
@@ -14,7 +16,8 @@ export class TasksComponent {
 
   private user: any;
 
-  constructor(public appState: AppState) {
+  constructor(public appState: AppState,
+              public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -31,6 +34,22 @@ export class TasksComponent {
           return true;
       });
     return false;
+  }
+
+  openTaskDialog(task: any, isSuggestion: boolean) {
+    let dialogRef = this.dialog.open(TaskDialogComponent, {
+      width: '25%',
+      height: '300px',
+      position: {
+        top: '',
+        bottom: '',
+        left: '',
+        right: ''
+      },
+    });
+    dialogRef.componentInstance.task = task;
+    dialogRef.componentInstance.isSuggestion = isSuggestion;
+    dialogRef.componentInstance.suggestedData = this.email.suggestedData;
   }
 
 }

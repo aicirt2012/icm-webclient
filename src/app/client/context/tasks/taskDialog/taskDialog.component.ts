@@ -8,4 +8,8 @@ import { Component } from '@angular/core';
 
 export class TaskDialogComponent {
 
+  public task: any;
+  public suggestedData: any[] = [];
+  public isSuggestion: boolean = false;
+
 }
