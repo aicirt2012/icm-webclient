@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from "@angular/material";
 import { AppState } from '../../../app.service';
-import { TaskDialogComponent } from "./taskDialog";
+import { NewTaskDialogComponent } from "./newTaskDialog";
+import { EditTaskDialogComponent } from "./editTaskDialog";
 
 @Component({
   selector: 'tasks',
@@ -43,8 +44,8 @@ export class TasksComponent {
     return false;
   }
 
-  openTaskDialog(task: any, isSuggestion: boolean) {
-    let dialogRef = this.dialog.open(TaskDialogComponent, {
+  openNewTaskDialog(task: any) {
+    let dialogRef = this.dialog.open(NewTaskDialogComponent, {
       width: '25%',
       height: '300px',
       position: {
@@ -55,8 +56,22 @@ export class TasksComponent {
       },
     });
     dialogRef.componentInstance.task = task;
-    dialogRef.componentInstance.isSuggestion = isSuggestion;
+    dialogRef.componentInstance.isSuggestion = true;  // TODO obsolete, remove property!
     dialogRef.componentInstance.suggestedData = this.email.suggestedData;
+  }
+
+  openEditTaskDialog(task: any) {
+    let dialogRef = this.dialog.open(EditTaskDialogComponent, {
+      width: '25%',
+      height: '300px',
+      position: {
+        top: '',
+        bottom: '',
+        left: '',
+        right: ''
+      },
+    });
+    dialogRef.componentInstance.task = task;
   }
 
 }

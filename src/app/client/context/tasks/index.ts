@@ -1,3 +1,4 @@
 export * from './tasks.component';
 export * from './taskItem';
-export * from './taskDialog';
+export * from './newTaskDialog';
+export * from './editTaskDialog';

@@ -2,16 +2,14 @@ import { Component } from '@angular/core';
 import { MatDialogRef } from "@angular/material";
 
 @Component({
-  selector: 'task-dialog',
-  styleUrls: ['./taskDialog.component.css'],
-  templateUrl: './taskDialog.component.html'
+  selector: 'edit-task-dialog',
+  styleUrls: ['./editTaskDialog.component.css'],
+  templateUrl: './editTaskDialog.component.html'
 })
 
-export class TaskDialogComponent {
+export class EditTaskDialogComponent {
 
   public task: any;
-  public suggestedData: any[] = [];
-  public isSuggestion: boolean = false;
 
   private title: string = "(Untitled Task)";
   private provider: string = "";
@@ -19,8 +17,7 @@ export class TaskDialogComponent {
   private members: any[] = [];
   private state: string;
 
-
-  constructor(public taskDialogRef: MatDialogRef<TaskDialogComponent>) {
+  constructor(public taskDialogRef: MatDialogRef<EditTaskDialogComponent>) {
   }
 
   closeDialog() {
