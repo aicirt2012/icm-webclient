@@ -12,7 +12,7 @@ export class TaskItemComponent {
   @Input() index: number;
   @Input() isSuggestion: boolean = true;
 
-  private title: string = "Click to create task";
+  private title: string = "(Untitled Task)";
   private provider: string = "";
   private dueDate: string;
   private members: any[] = [];
