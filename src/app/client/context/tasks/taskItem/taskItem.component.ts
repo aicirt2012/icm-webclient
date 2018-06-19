@@ -30,7 +30,7 @@ export class TaskItemComponent {
       this.provider = this.task.provider;
       this.title = TaskService.getParameter(this.task, 'name');
       this.dueDateRaw = TaskService.getParameter(this.task, 'due');
-      this.members = TaskService.getParameter(this.task, 'members');
+      this.members = TaskService.getParameter(this.task, 'idMembers');
       this.completed = TaskService.isTaskCompleted(this.task);
       if (!this.members)
         this.members = [];
