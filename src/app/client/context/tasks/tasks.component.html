@@ -1,18 +1,29 @@
 <div fxLayout="column" class="full-height">
-  <!-- TODO re-enable or remove completely, with component. would allow simplification of taskDialog opening process -->
-  <!--<div>-->
-    <!--<task-action-bar *ngIf="!errorTrello" (openTaskDialog)="openTaskDialog($event)"-->
-                     <!--(openLinkTask)="openLinkTask($event)">-->
-    <!--</task-action-bar>-->
-  <!--</div>-->
-  <div *ngIf="!errorTrello" fxFlex fxLayout="column" class="scrollable">
-    <task-list fxFlex [boards]="boards" [linkedTasks]="email ? email.linkedTasks : []"
-               [suggestedData]="email ? email.suggestedData : []" (createTask)="createTask($event)"
-               (deleteTask)="deleteTask($event)" (openDialog)="openDialog($event)"
-               (openLinkTaskDialog)="openLinkTaskDialog($event)" (highlightSentence)="highlightSentence($event)"
-               (hightlightTaskItem)="hightlightTaskItem($event)"></task-list>
+  <div *ngIf="getEnabledProviderCount() && email" fxFlex fxLayout="column" class="scrollable task-list">
+    <mat-accordion [multi]="true" displayMode="flat" class="task-list">
+      <mat-expansion-panel [expanded]="openTasks.length" [disabled]="!openTasks.length">
+        <mat-expansion-panel-header expandedHeight="20px" collapsedHeight="20px">Open Tasks ({{openTasks.length}})</mat-expansion-panel-header>
+        <mat-divider></mat-divider>
+        <task-item *ngFor="let task of openTasks" [task]="task" (click)="openEditTaskDialog(task)"></task-item>
+      </mat-expansion-panel>
+      <mat-expansion-panel [disabled]="!completedTasks.length">
+        <mat-expansion-panel-header expandedHeight="20px" collapsedHeight="20px">Completed Tasks ({{completedTasks.length}})</mat-expansion-panel-header>
+        <mat-divider></mat-divider>
+        <task-item *ngFor="let task of completedTasks" [task]="task" (click)="openEditTaskDialog(task)"></task-item>
+      </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header expandedHeight="20px" collapsedHeight="20px">Suggested Tasks</mat-expansion-panel-header>
+        <mat-divider></mat-divider>
+        <task-item *ngFor="let task of suggestedTasks" [task]="task" [isSuggestion]="true"
+                   (click)="openNewTaskDialog(task)">
+        </task-item>
+        <task-item *ngIf="!suggestedTasks || !suggestedTasks.length" [task]="{}" [index]="i" [isSuggestion]="true"
+                   (click)="openNewTaskDialog(task)">
+        </task-item>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
-  <div *ngIf="errorTrello">
+  <div *ngIf="!getEnabledProviderCount()">
     <a fxFlex fxLayoutAlign="center center" class="connect-btn" mat-raised-button [routerLink]="'/settings/tasks'">
       Please connect to a Task Provider
     </a>

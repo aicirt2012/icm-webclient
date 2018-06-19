@@ -1,6 +1,6 @@
 import { AppState } from './../../app.service';
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
-import { EmailService, TaskService } from '../shared';
+import { EmailService, TaskLegacyService } from '../shared';
 import { Observable } from 'rxjs/Observable';
 import { Email, EmailForm } from '../shared';
 import { MatDialogRef, MatSnackBar, MatInput } from '@angular/material';
@@ -27,7 +27,7 @@ export class EmailDialogComponent {
   public relatedTasks: any = [];
   public user: any;
 
-  constructor(public appState: AppState, private _emailService: EmailService, public emailDialogRef: MatDialogRef<EmailDialogComponent>, private snackBar: MatSnackBar, private _taskService: TaskService) {
+  constructor(public appState: AppState, private _emailService: EmailService, public emailDialogRef: MatDialogRef<EmailDialogComponent>, private snackBar: MatSnackBar, private _taskService: TaskLegacyService) {
   }
 
   ngOnInit() {

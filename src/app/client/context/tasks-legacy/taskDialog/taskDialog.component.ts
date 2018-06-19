@@ -1,6 +1,6 @@
 import { Component, Inject, Input } from '@angular/core';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
-import { TaskService } from '../../../shared';
+import { TaskLegacyService } from '../../../shared';
 import { AppState } from '../../../../app.service';
 import { DOCUMENT } from "@angular/common";
 
@@ -83,7 +83,7 @@ export class TaskDialogComponent {
     }
   }
 
-  constructor(public taskDialogRef: MatDialogRef<TaskDialogComponent>, private snackBar: MatSnackBar, private _taskService: TaskService, public appState: AppState, @Inject(DOCUMENT) private document: any) {
+  constructor(public taskDialogRef: MatDialogRef<TaskDialogComponent>, private snackBar: MatSnackBar, private _taskService: TaskLegacyService, public appState: AppState, @Inject(DOCUMENT) private document: any) {
   }
 
   ngOnInit() {

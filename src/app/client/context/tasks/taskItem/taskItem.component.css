@@ -1,0 +1,76 @@
+.task {
+  border-bottom: 1px solid lightgray;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.task > div,
+.task > div > div {
+  width: 100%;
+}
+
+.member-initials {
+  background-color: lightgrey;
+  height: 24px;
+  min-width: 25px;
+  font-size: 12px;
+  line-height: 24px;
+  text-align: center;
+  padding: 2px;
+  border-radius: 4px;
+  margin-right: 2px;
+}
+
+.member-initials mat-icon {
+  color: #ec4b4e;
+}
+
+.overdue {
+  color: #ce2424;
+}
+
+.overdue-text {
+  font-weight: bold;
+  color: #ce2424;
+}
+
+.icon-margin {
+  margin-left: 10px;
+}
+
+.task-description {
+  padding-top: 4px;
+}
+
+.light-text {
+  color: #545252;
+}
+
+.task-title {
+  padding-bottom: 4px;
+}
+
+.date-icon {
+  margin-left: -2px;
+}
+
+.suggested {
+  background-color: #f8f8f8;
+}
+
+.light-icon {
+  color: rgba(0, 0, 0, 0.38);
+}
+
+.light-initials {
+  background-color: rgba(211, 211, 211, 0.6);
+}
+
+.date-container {
+  min-width: 100px;
+}
+
+.label-suggestion {
+  font-style: italic;
+}

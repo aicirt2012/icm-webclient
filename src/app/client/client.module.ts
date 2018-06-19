@@ -1,6 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {
   MatAutocompleteModule,
@@ -8,12 +8,14 @@ import {
   MatButtonToggleModule,
   MatCheckboxModule,
   MatDialogModule,
+  MatExpansionModule,
   MatIconModule,
   MatInputModule,
   MatListModule,
   MatMenuModule,
   MatSliderModule,
   MatSlideToggleModule,
+  MatStepperModule,
   MatToolbarModule,
   MatTooltipModule,
   MatSelectModule,
@@ -21,7 +23,9 @@ import {
   MatChipsModule,
   MatTabsModule,
   MatFormFieldModule,
-  MatSnackBarModule, MatDatepickerModule, MatNativeDateModule
+  MatSnackBarModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { ContextMenuModule } from 'ngx-contextmenu';
@@ -32,10 +36,11 @@ import {
   EmailDialogComponent,
   EmailFolderDialogComponent,
   BoxDialogComponent,
-  TaskDialogComponent,
-  LinkTaskDialogComponent,
   ContactDetailsDialogComponent,
   TasksComponent,
+  TaskItemComponent,
+  NewTaskDialogComponent,
+  EditTaskDialogComponent,
   ContextComponent,
   ContextTabComponent,
   WikiComponent,
@@ -44,15 +49,12 @@ import {
   EmailDetailedViewComponent,
   EmailListComponent,
   HighlightPipe,
-  TaskListComponent,
   SearchBarComponent,
   EmailViewComponent,
   BoxListComponent,
   BoxListItemComponent,
   EmailActionBarComponent,
   EmailResponseComponent,
-  TaskActionBarComponent,
-  TaskListItemComponent,
   EmailFormComponent,
   TaskItemEmailDialogComponent,
   SentenceDialogComponent
@@ -60,7 +62,7 @@ import {
 import {
   EmailService,
   BoxService,
-  TaskService,
+  TaskLegacyService,
   WikiService,
   NetworkService,
   TranslateService,
@@ -79,6 +81,7 @@ import { TinymceModule } from 'angular2-tinymce';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(ROUTES),
     SharedModule,
     // angular material
@@ -87,12 +90,14 @@ import { TinymceModule } from 'angular2-tinymce';
     MatButtonToggleModule,
     MatCheckboxModule,
     MatDialogModule,
+    MatExpansionModule,
     MatIconModule,
     MatInputModule,
     MatListModule,
     MatMenuModule,
     MatSliderModule,
     MatSlideToggleModule,
+    MatStepperModule,
     MatToolbarModule,
     MatTooltipModule,
     MatSelectModule,
@@ -123,6 +128,9 @@ import { TinymceModule } from 'angular2-tinymce';
   declarations: [
     ClientComponent,
     TasksComponent,
+    TaskItemComponent,
+    NewTaskDialogComponent,
+    EditTaskDialogComponent,
     ContextComponent,
     ContextTabComponent,
     WikiComponent,
@@ -134,27 +142,22 @@ import { TinymceModule } from 'angular2-tinymce';
     EmailDetailedViewComponent,
     EmailListComponent,
     HighlightPipe,
-    TaskDialogComponent,
-    LinkTaskDialogComponent,
     ContactDetailsDialogComponent,
     EmailResponseComponent,
     EmailFormComponent,
     SearchBarComponent,
     EmailActionBarComponent,
     EmailViewComponent,
-    TaskListComponent,
-    TaskListItemComponent,
     TaskItemEmailDialogComponent,
     BoxListComponent,
     SentenceDialogComponent,
     BoxListItemComponent,
-    TaskActionBarComponent
   ],
   providers: [
     EmailService,
     BoxService,
     AttachmentService,
-    TaskService,
+    TaskLegacyService,
     WikiService,
     NetworkService,
     TranslateService,
@@ -164,8 +167,8 @@ import { TinymceModule } from 'angular2-tinymce';
   entryComponents: [
     EmailDialogComponent,
     BoxDialogComponent,
-    TaskDialogComponent,
-    LinkTaskDialogComponent,
+    NewTaskDialogComponent,
+    EditTaskDialogComponent,
     ContactDetailsDialogComponent,
     EmailFolderDialogComponent,
     SentenceDialogComponent

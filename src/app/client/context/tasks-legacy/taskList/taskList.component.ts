@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TaskDialogType } from '../../../../../shared';
 import { AppState } from '../../../../app.service';
-import { TaskService } from '../../../shared';
+import { TaskLegacyService } from '../../../shared';
 
 @Component({
   selector: 'task-list',
@@ -22,7 +22,7 @@ export class TaskListComponent {
 
   private suggestedTask: any;
 
-  constructor(private _taskService: TaskService, public appState: AppState) {
+  constructor(private _taskService: TaskLegacyService, public appState: AppState) {
   }
 
   ngOnInit() {

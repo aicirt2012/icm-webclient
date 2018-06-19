@@ -2,7 +2,7 @@ import { Component, ViewChild, style, state, animate, transition, trigger } from
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { AppState } from '../app.service';
-import { Email, EmailService, BoxService, TaskService } from './shared';
+import { Email, EmailService, BoxService, TaskLegacyService } from './shared';
 import { SocketService } from '../shared/services/socket.service';
 import { UserService } from '../settings/shared'; // TODO:move settingsservice to userservice
 import { Observable } from 'rxjs/Observable';

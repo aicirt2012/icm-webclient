@@ -3,8 +3,20 @@
 }
 
 .connect-btn {
-  padding: 8px;
-  padding-bottom: 5px;
+  padding: 8px 8px 5px;
   background-color: #ec4b4e;
   color: white;
+}
+
+:host .mat-expansion-panel-header {
+  padding: 0 8px;
+  font-size: 12px;
+}
+
+::ng-deep .task-list .mat-expansion-panel-body {
+  margin: 0;
+}
+
+.task-list > .mat-expansion-panel {
+  box-shadow: none;
 }
