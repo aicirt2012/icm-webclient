@@ -15,7 +15,8 @@ export class TaskItemComponent {
 
   private title: string = "(Untitled Task)";
   private provider: string = "";
-  private dueDate: any;
+  private dueDateRaw: any;
+  private dueDate: string;
   private members: any[] = [];
   private completed: boolean;
 
@@ -28,17 +29,19 @@ export class TaskItemComponent {
       console.log(this.task);
       this.provider = this.task.provider;
       this.title = TaskService.getParameter(this.task, 'name');
-      this.dueDate = TaskService.getParameter(this.task, 'due');
+      this.dueDateRaw = TaskService.getParameter(this.task, 'due');
       this.members = TaskService.getParameter(this.task, 'members');
+      this.completed = TaskService.isTaskCompleted(this.task);
       if (!this.members)
         this.members = [];
-      this.completed = TaskService.isTaskCompleted(this.task);
+      if (this.dueDateRaw)
+        this.dueDateRaw = new Date(this.dueDateRaw);
+        this.dueDate = TaskService.formatDate(this.dueDateRaw);
     }
   }
 
   isOverdue() {
-    // TODO implement overdue calculation
-    return false;
+    return this.dueDateRaw < new Date();
   }
 
 }

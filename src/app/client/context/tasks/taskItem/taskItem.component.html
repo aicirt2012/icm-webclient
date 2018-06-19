@@ -9,8 +9,8 @@
     <div  fxFlex-gt-sm="50" fxLayout="row" fxLayoutAlign="start center">
       <div fxLayoutAlign="start center" class="date-container">
         <mat-icon fxFlex-gt-sm="8" [class.overdue]="isOverdue()" class="date-icon" [class.light-icon]="isSuggestion">date_range</mat-icon>
-        <div fxFlex-gt-sm="27" [class.light-text]="isSuggestion" [class.overdue-text]="isOverdue() && !isSuggestion && !isChecked()" *ngIf="dueDate">{{dueDate}}</div>
-        <div fxFlex-gt-sm="27" [class.light-text]="isSuggestion" [class.overdue-text]="isOverdue() && !isSuggestion && !isChecked()" *ngIf="!dueDate"><i>No due date</i></div>
+        <div fxFlex-gt-sm="27" [class.light-text]="isSuggestion" [class.overdue-text]="isOverdue() && !isSuggestion" *ngIf="dueDate">{{dueDate}}</div>
+        <div fxFlex-gt-sm="27" [class.light-text]="isSuggestion" [class.overdue-text]="isOverdue() && !isSuggestion" *ngIf="!dueDate"><i>No due date</i></div>
       </div>
       <mat-icon class="icon-margin" fxFlex-gt-sm="8" [class.light-icon]="isSuggestion">person</mat-icon>
       <div fxFlex-gt-sm="53" fxLayout="row">
