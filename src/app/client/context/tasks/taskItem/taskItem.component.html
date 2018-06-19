@@ -15,11 +15,14 @@
         <div fxFlex-gt-sm="27" [class.light-text]="isSuggestion" [class.overdue-text]="isOverdue() && !isSuggestion" *ngIf="!dueDate"><i>No due date</i></div>
       </div>
       <mat-icon class="icon-margin" fxFlex-gt-sm="8" [class.light-icon]="isSuggestion">person</mat-icon>
-      <div fxFlex-gt-sm="53" fxLayout="row">
+      <div *ngIf="provider === 'trello'" fxFlex-gt-sm="53" fxLayout="row">
         <div *ngFor="let member of members" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials" [class.light-initials]="isSuggestion">
           <span [class.light-text]="isSuggestion">{{member.initials}}</span>
         </div>
         <div *ngIf="members.length < 1" [class.light-text]="isSuggestion"><i>Unassigned</i></div>
+      </div>
+      <div *ngIf="provider === 'sociocortex'" fxFlex-gt-sm="53" fxLayout="row">
+        <span>{{members[0]}}</span>
       </div>
     </div>
   </div>

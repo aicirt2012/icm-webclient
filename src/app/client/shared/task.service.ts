@@ -45,6 +45,16 @@ export class TaskService {
     }
   }
 
+  static getMembers(task: any) {
+    if (task.provider === "trello") {
+      return TaskService.getParameter(task, 'idMembers');
+    } else if (task.provider === "sociocortex") {
+      let members = [];
+      members.push(TaskService.getParameter(task, 'ownerEmail'));
+      return members;
+    }
+  }
+
   static formatDate(date: any) {
     let d = new Date(date),
       month = '' + (d.getMonth() + 1),

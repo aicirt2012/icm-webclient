@@ -27,11 +27,13 @@ export class TaskItemComponent {
     if (!this.isSuggestion) {
       console.log("Rendering task:");
       console.log(this.task);
+
       this.provider = this.task.provider;
       this.title = TaskService.getParameter(this.task, 'name');
       this.dueDateRaw = TaskService.getParameter(this.task, 'due');
-      this.members = TaskService.getParameter(this.task, 'idMembers');
       this.completed = TaskService.isTaskCompleted(this.task);
+      this.members = TaskService.getMembers(this.task);
+
       if (!this.members)
         this.members = [];
       if (this.dueDateRaw) {
