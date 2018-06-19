@@ -51,6 +51,12 @@
   padding-bottom: 4px;
 }
 
+.task-title .icon {
+  height: 14px;
+  margin-bottom: -2px;
+  margin-left: 4px;
+}
+
 .date-icon {
   margin-left: -2px;
 }
