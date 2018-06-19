@@ -25,12 +25,15 @@ export class TaskService {
   }
 
   static getParameter(task: any, parameterName: string): any {
+    let value = undefined;
     if (task.parameters)
-      task.parameters.forEach(parameter => {
-        if (parameter.name === parameterName)
-          return parameter.value;
+      task.parameters.some(parameter => {
+        if (parameter.name === parameterName) {
+          value = parameter.value;
+          return true;
+        }
       });
-    return undefined;
+    return value;
   }
 
   static isTaskCompleted(task: any) {
