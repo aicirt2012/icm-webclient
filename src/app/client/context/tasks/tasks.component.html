@@ -1,5 +1,5 @@
 <div fxLayout="column" class="full-height">
-  <div *ngIf="isAnyProviderEnabled && email" fxFlex fxLayout="column" class="scrollable task-list">
+  <div *ngIf="getEnabledProviderCount() && email" fxFlex fxLayout="column" class="scrollable task-list">
     <mat-accordion [multi]="true" displayMode="flat" class="task-list">
       <mat-expansion-panel [expanded]="openTasks.length" [disabled]="!openTasks.length">
         <mat-expansion-panel-header expandedHeight="20px" collapsedHeight="20px">Open Tasks ({{openTasks.length}})</mat-expansion-panel-header>
@@ -23,7 +23,7 @@
       </mat-expansion-panel>
     </mat-accordion>
   </div>
-  <div *ngIf="!isAnyProviderEnabled">
+  <div *ngIf="!getEnabledProviderCount()">
     <a fxFlex fxLayoutAlign="center center" class="connect-btn" mat-raised-button [routerLink]="'/settings/tasks'">
       Please connect to a Task Provider
     </a>

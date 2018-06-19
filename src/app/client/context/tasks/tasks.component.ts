@@ -35,13 +35,14 @@ export class TasksComponent {
     // TODO initialize suggested tasks from email.suggestedData
   }
 
-  isAnyProviderEnabled(): boolean {
+  getEnabledProviderCount(): number {
+    let enabledProviderCount = 0;
     if (this.user && this.user.taskProviders)
       Object.keys(this.user.taskProviders).forEach((provider) => {
         if (this.user.taskProviders[provider].isEnabled)
-          return true;
+          enabledProviderCount++;
       });
-    return false;
+    return enabledProviderCount;
   }
 
   openNewTaskDialog(task: any) {
