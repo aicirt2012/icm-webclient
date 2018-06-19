@@ -1,6 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {
   MatAutocompleteModule,
@@ -15,6 +15,7 @@ import {
   MatMenuModule,
   MatSliderModule,
   MatSlideToggleModule,
+  MatStepperModule,
   MatToolbarModule,
   MatTooltipModule,
   MatSelectModule,
@@ -22,7 +23,9 @@ import {
   MatChipsModule,
   MatTabsModule,
   MatFormFieldModule,
-  MatSnackBarModule, MatDatepickerModule, MatNativeDateModule
+  MatSnackBarModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { ContextMenuModule } from 'ngx-contextmenu';
@@ -78,6 +81,7 @@ import { TinymceModule } from 'angular2-tinymce';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(ROUTES),
     SharedModule,
     // angular material
@@ -93,6 +97,7 @@ import { TinymceModule } from 'angular2-tinymce';
     MatMenuModule,
     MatSliderModule,
     MatSlideToggleModule,
+    MatStepperModule,
     MatToolbarModule,
     MatTooltipModule,
     MatSelectModule,

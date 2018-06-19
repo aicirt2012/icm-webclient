@@ -4,7 +4,50 @@
     <mat-icon (click)="closeDialog()" class="pointer">close</mat-icon>
   </div>
 
-  <mat-dialog-content>
-
+  <mat-dialog-content class="new-task-dialog">
+    <mat-vertical-stepper [linear]="true">
+      <mat-step [stepControl]="providerSelectionForm">
+        <form [formGroup]="providerSelectionForm">
+          <ng-template matStepLabel>Choose Task Provider and Intended Action</ng-template>
+          <!-- provider input -->
+          <mat-form-field>
+            <mat-select formControlName="provider" required placeholder="Choose Provider">
+              <mat-option value="trello">Trello</mat-option>
+              <mat-option value="sacm">SACM</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!-- create/link input -->
+          <mat-form-field>
+            <mat-select formControlName="intendedAction" required placeholder="Choose Action">
+              <mat-option value="create">Create new</mat-option>
+              <mat-option value="link">Link existing</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Fill out your address</ng-template>
+          <mat-form-field>
+            <input matInput placeholder="Address" formControlName="secondCtrl" required>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        You are now done.
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
   </mat-dialog-content>
 </div>

@@ -46,14 +46,8 @@ export class TasksComponent {
 
   openNewTaskDialog(task: any) {
     let dialogRef = this.dialog.open(NewTaskDialogComponent, {
-      width: '25%',
-      height: '300px',
-      position: {
-        top: '',
-        bottom: '',
-        left: '',
-        right: ''
-      },
+      width: '35%',
+      height: 'auto'
     });
     dialogRef.componentInstance.task = task;
     dialogRef.componentInstance.isSuggestion = true;  // TODO obsolete, remove property!
@@ -62,14 +56,8 @@ export class TasksComponent {
 
   openEditTaskDialog(task: any) {
     let dialogRef = this.dialog.open(EditTaskDialogComponent, {
-      width: '25%',
-      height: '300px',
-      position: {
-        top: '',
-        bottom: '',
-        left: '',
-        right: ''
-      },
+      width: '35%',
+      height: 'auto'
     });
     dialogRef.componentInstance.task = task;
   }
