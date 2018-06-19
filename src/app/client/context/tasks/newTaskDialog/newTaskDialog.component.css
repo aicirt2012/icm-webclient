@@ -14,3 +14,7 @@
   padding-top: 8px;
   padding-bottom: 8px;
 }
+
+::ng-deep .new-task-dialog .task-preview div.task {
+  cursor: initial;
+}
