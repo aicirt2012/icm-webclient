@@ -30,9 +30,33 @@
       </mat-step>
       <mat-step [stepControl]="parentSelectionGroup">
         <form [formGroup]="parentSelectionGroup">
-          <ng-template matStepLabel>Fill out your address</ng-template>
+          <ng-template matStepLabel>Choose parent structure</ng-template>
           <mat-form-field>
-            <input matInput placeholder="Address" formControlName="secondCtrl" required>
+            <input matInput placeholder="Dummy" formControlName="secondCtrl" required>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="primaryDataInputGroup">
+        <form [formGroup]="primaryDataInputGroup">
+          <ng-template matStepLabel>Enter primary data</ng-template>
+          <mat-form-field>
+            <input matInput placeholder="Title" formControlName="title" required>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="additionalDataInputGroup" [optional]="true">
+        <form [formGroup]="additionalDataInputGroup">
+          <ng-template matStepLabel>Enter additional data</ng-template>
+          <mat-form-field>
+            <input matInput placeholder="Dummy" formControlName="secondCtrl">
           </mat-form-field>
           <div>
             <button mat-button matStepperPrevious>Back</button>

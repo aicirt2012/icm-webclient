@@ -33,12 +33,12 @@ export class NewTaskDialogComponent {
     });
     this.primaryDataInputGroup = this._formBuilder.group({
       title: ['(Untitled Task)', Validators.required],
-      dueDate: ['', Validators.required],
-      members: ['', Validators.required],
-      state: ['', Validators.required],
+      // dueDate: ['', Validators.required],
+      // members: ['', Validators.required],
+      // state: ['', Validators.required],
     });
     this.additionalDataInputGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
+      secondCtrl: ['']
     });
   }
 
