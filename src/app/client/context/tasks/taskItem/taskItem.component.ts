@@ -10,6 +10,23 @@ export class TaskItemComponent {
 
   @Input() task: any;
   @Input() index: number;
-  @Input() isSuggestion: boolean = false;
+  @Input() isSuggestion: boolean = true;
+
+  private title: string = "Click to create task";
+  private provider: string = "";
+  private dueDate: string;
+  private members: any[] = [];
+  private state: string;
+
+  constructor() {
+  }
+
+  ngOnInit() {
+  }
+
+  isOverdue() {
+    // TODO implement overdue calculation
+    return false;
+  }
 
 }
