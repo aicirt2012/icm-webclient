@@ -24,4 +24,12 @@ export class TaskService {
     return this.http.delete('tasks/' + task.id, null, task);
   }
 
+  static getParameter(task: any, parameterName: string): any {
+    task.parameters.forEach(parameter => {
+      if (parameter.name === parameterName)
+        return parameter.value;
+    });
+    return undefined;
+  }
+
 }
