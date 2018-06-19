@@ -25,11 +25,21 @@ export class TaskService {
   }
 
   static getParameter(task: any, parameterName: string): any {
-    task.parameters.forEach(parameter => {
-      if (parameter.name === parameterName)
-        return parameter.value;
-    });
+    if (task.parameters)
+      task.parameters.forEach(parameter => {
+        if (parameter.name === parameterName)
+          return parameter.value;
+      });
     return undefined;
+  }
+
+  static isTaskCompleted(task: any) {
+    if (task.provider === "trello") {
+      return !!TaskService.getParameter(task, 'closed');
+    } else if (task.provider === "sociocortex") {
+      const state = TaskService.getParameter(task, 'state');
+      return state === 'COMPLETED' || state === 'TERMINATED';
+    }
   }
 
 }

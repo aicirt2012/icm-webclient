@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from "@angular/material";
 import { AppState } from '../../../app.service';
 import { NewTaskDialogComponent } from "./newTaskDialog";
 import { EditTaskDialogComponent } from "./editTaskDialog";
-import { TaskService } from "../../shared/task.service";
+import { TaskService } from "../../shared";
 
 @Component({
   selector: 'tasks',
@@ -35,19 +35,10 @@ export class TasksComponent {
       this.completedTasks = [];
       this.suggestedTasks = [];
       this.email.linkedTasks.forEach(task => {
-        if (task.provider === "trello") {
-          console.log(TaskService.getParameter(task, 'closed'));
-          if (TaskService.getParameter(task, 'closed') === true)
-            this.completedTasks.push(task);
-          else
-            this.openTasks.push(task);
-        } else if (task.provider === "sociocortex") {
-          const state = TaskService.getParameter(task, 'state');
-          if (state === 'COMPLETED' || state === 'TERMINATED')
-            this.completedTasks.push(task);
-          else
-            this.openTasks.push(task);
-        }
+        if (TaskService.isTaskCompleted(task))
+          this.completedTasks.push(task);
+        else
+          this.openTasks.push(task);
         // TODO initialize suggested tasks from email.suggestedData
       });
     });
