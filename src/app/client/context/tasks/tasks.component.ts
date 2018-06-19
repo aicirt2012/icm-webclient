@@ -12,6 +12,8 @@ import { TaskDialogComponent } from "./taskDialog";
 export class TasksComponent {
 
   @Input() email: any;
+  openTasks: any[] = [];
+  completedTasks: any[] = [];
   suggestedTasks: any[] = [];
 
   private user: any;
@@ -24,6 +26,11 @@ export class TasksComponent {
     this.appState.user().subscribe(user => {
       this.user = user;
     });
+    if (this.email && this.email.linkedTasks)
+      this.email.linkedTasks.forEach(task => {
+        // TODO load tasks via service and sort into active / completed
+        this.openTasks.push(task);
+      });
     // TODO initialize suggested tasks from email.suggestedData
   }
 

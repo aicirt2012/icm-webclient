@@ -1,14 +1,24 @@
 <div fxLayout="column" class="full-height">
   <div *ngIf="isAnyProviderEnabled && email" fxFlex fxLayout="column" class="scrollable task-list">
-    <task-item *ngFor="let task of email.linkedTasks" [task]="task"
-               (click)="openTaskDialog(task, false)">
-    </task-item>
-    <task-item *ngFor="let task of suggestedTasks" [task]="task" [isSuggestion]="true"
-               (click)="openTaskDialog(task, true)">
-    </task-item>
-    <task-item *ngIf="!suggestedTasks || suggestedTasks.length == 0" [task]="{}" [index]="i" [isSuggestion]="true"
-               (click)="openTaskDialog(task, true)">
-    </task-item>
+    <mat-accordion [multi]="true">
+      <mat-expansion-panel *ngIf="openTasks && openTasks.length" expanded>
+        <mat-expansion-panel-header>Open Tasks</mat-expansion-panel-header>
+        <task-item *ngFor="let task of openTasks" [task]="task" (click)="openTaskDialog(task, false)"></task-item>
+      </mat-expansion-panel>
+      <mat-expansion-panel *ngIf="completedTasks && completedTasks.length">
+        <mat-expansion-panel-header>Completed Tasks</mat-expansion-panel-header>
+        <task-item *ngFor="let task of completedTasks" [task]="task" (click)="openTaskDialog(task, false)"></task-item>
+      </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>Suggested Tasks</mat-expansion-panel-header>
+        <task-item *ngFor="let task of suggestedTasks" [task]="task" [isSuggestion]="true"
+                   (click)="openTaskDialog(task, true)">
+        </task-item>
+        <task-item *ngIf="!suggestedTasks || suggestedTasks.length == 0" [task]="{}" [index]="i" [isSuggestion]="true"
+                   (click)="openTaskDialog(task, true)">
+        </task-item>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
   <div *ngIf="!isAnyProviderEnabled">
     <a fxFlex fxLayoutAlign="center center" class="connect-btn" mat-raised-button [routerLink]="'/settings/tasks'">
