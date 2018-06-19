@@ -10,8 +10,7 @@ import { AppState } from '../../../app.service';
 export class TasksComponent {
 
   @Input() email: any;
-  anyProviderEnabled = false;
-  suggestedTasks = [];
+  suggestedTasks: any[] = [];
 
   private user: any;
 
@@ -21,12 +20,17 @@ export class TasksComponent {
   ngOnInit() {
     this.appState.user().subscribe(user => {
       this.user = user;
-      this.anyProviderEnabled = false;
-      Object.keys(this.user.taskProviders).forEach((provider) => {
-        this.anyProviderEnabled = this.anyProviderEnabled || this.user.taskProviders[provider].isEnabled;
-      });
-      // TODO initialize suggested tasks from email.suggestedData
     });
+    // TODO initialize suggested tasks from email.suggestedData
+  }
+
+  isAnyProviderEnabled(): boolean {
+    if (this.user && this.user.taskProviders)
+      Object.keys(this.user.taskProviders).forEach((provider) => {
+        if (this.user.taskProviders[provider].isEnabled)
+          return true;
+      });
+    return false;
   }
 
 }
