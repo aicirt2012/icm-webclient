@@ -1,10 +1,111 @@
 <div fxFlex fxLayout="column">
   <div mat-dialog-title fxLayout="row">
     <span fxFlex>Edit Task: {{title}}</span>
+    <img *ngIf="provider === 'trello'" src="assets/img/tasks/trello-logo.svg" class="icon"/>
+    <img *ngIf="provider === 'sociocortex'" src="assets/img/tasks/sociocortex-logo.svg" class="icon"/>
     <mat-icon (click)="closeDialog()" class="pointer">close</mat-icon>
   </div>
 
   <mat-dialog-content>
+    <form fxFlex fxLayout="column">
+      <div fxLayout="row">
+        <mat-form-field fxFlex>
+          <input type="text" name="title" matInput [(ngModel)]="title" placeholder="Task Title" required>
+        </mat-form-field>
+      </div>
 
+      <div fxLayout="row">
+        <mat-form-field fxFlex="49">
+          <!-- board name -->
+          <mat-select [disabled]="true" required placeholder="Board Name" value="Board Name Dummy"></mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex="49" fxFlexOffset="2">
+          <!-- list name -->
+          <mat-select [disabled]="true" required placeholder="List Name" value="List Name Dummy"></mat-select>
+        </mat-form-field>
+      </div>
+
+    </form>
+  </mat-dialog-content>
+
+  <!--<mat-dialog-content *ngIf="provider === 'trello'">-->
+    <!--<form fxFlex fxLayout="column">-->
+      <!--<div fxLayout="row">-->
+        <!--<mat-form-field fxFlex>-->
+          <!--<input type="text" name="titleSelect" matInput [(ngModel)]="taskTitle" [matAutocomplete]="autocompleteTitle"-->
+                 <!--placeholder="Task Title" required>-->
+          <!--<mat-autocomplete #autocompleteTitle="matAutocomplete">-->
+            <!--<mat-option *ngFor="let title of filteredTitleSuggestions" [value]="title">{{title}}</mat-option>-->
+          <!--</mat-autocomplete>-->
+        <!--</mat-form-field>-->
+      <!--</div>-->
+
+      <!--<div fxLayout="row">-->
+        <!--<mat-form-field fxFlex="49">-->
+          <!--&lt;!&ndash; board input &ndash;&gt;-->
+          <!--<mat-select name="board-select" [(ngModel)]="selectedBoardId" [disabled]="task.taskType == 'linked'"-->
+                      <!--required placeholder="Trello Board">-->
+            <!--<mat-option *ngFor="let board of boards" [value]="board.id">-->
+              <!--{{board.name}}-->
+            <!--</mat-option>-->
+          <!--</mat-select>-->
+        <!--</mat-form-field>-->
+        <!--<mat-form-field fxFlex="49" fxFlexOffset="2" *ngIf="!task.board">-->
+          <!--&lt;!&ndash; disabled dummy list selector if board not yet selected &ndash;&gt;-->
+          <!--<mat-select name="list-select" disabled required placeholder="Trello List"></mat-select>-->
+        <!--</mat-form-field>-->
+        <!--<mat-form-field fxFlex="49" fxFlexOffset="2" *ngIf="task.board">-->
+          <!--&lt;!&ndash; list selector &ndash;&gt;-->
+          <!--<mat-select name="list-select" [(ngModel)]="task.list" [disabled]="task.taskType == 'linked'" required-->
+                      <!--placeholder="Trello List">-->
+            <!--<mat-option *ngFor="let list of task.board.lists" [value]="task.taskType == 'linked'? task.list : list">-->
+              <!--{{task.taskType == 'linked' ? task.list.name : list.name}}-->
+            <!--</mat-option>-->
+          <!--</mat-select>-->
+        <!--</mat-form-field>-->
+      <!--</div>-->
+      <!--<div fxLayout="row" *ngIf="task.list">-->
+        <!--<div fxLayoutAlign="start center" fxFlex>-->
+          <!--<mat-form-field fxFlex="49">-->
+            <!--&lt;!&ndash; date input &ndash;&gt;-->
+            <!--<input name="date" matInput placeholder="Due Date" [(ngModel)]="taskDate"-->
+                   <!--[matAutocomplete]="autocompleteDate">-->
+            <!--<mat-autocomplete #autocompleteDate="matAutocomplete">-->
+              <!--<mat-option *ngFor="let date of filteredDateSuggestions" [value]="date">{{date}}</mat-option>-->
+            <!--</mat-autocomplete>-->
+            <!--<input hidden name="datePicker" [(ngModel)]="taskDatePicker" [matDatepicker]="picker">-->
+            <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+            <!--<mat-datepicker #picker></mat-datepicker>-->
+          <!--</mat-form-field>-->
+          <!--<mat-form-field fxFlex="49" fxFlexOffset="2">-->
+            <!--&lt;!&ndash; assignees selector &ndash;&gt;-->
+            <!--<mat-select class="margin" placeholder="Assignees" [(ngModel)]="selectedMemberIds" name="member" fxFlex-->
+                        <!--multiple>-->
+              <!--<mat-optgroup label="Mentioned members" *ngIf="suggestedMembers && suggestedMembers.length > 0">-->
+                <!--<mat-option *ngFor="let member of suggestedMembers" [value]="member.id">-->
+                  <!--{{member.fullName}}-->
+                <!--</mat-option>-->
+              <!--</mat-optgroup>-->
+              <!--<mat-optgroup label="Board members" *ngIf="nonSuggestedMembers && nonSuggestedMembers.length > 0">-->
+                <!--<mat-option *ngFor="let member of nonSuggestedMembers" [value]="member.id">-->
+                  <!--{{member.fullName}}-->
+                <!--</mat-option>-->
+              <!--</mat-optgroup>-->
+            <!--</mat-select>-->
+          <!--</mat-form-field>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div fxLayout="row" *ngIf="task.list">-->
+        <!--<mat-form-field fxFlex>-->
+          <!--&lt;!&ndash; description input &ndash;&gt;-->
+          <!--<textarea matInput type="text" class="text-area" name="task-description" placeholder="Task Description"-->
+                    <!--maxRows="10" [(ngModel)]="task.desc" value="task.desc" rows="10" fxFlex></textarea>-->
+        <!--</mat-form-field>-->
+      <!--</div>-->
+    <!--</form>-->
+  <!--</mat-dialog-content>-->
+
+  <mat-dialog-content *ngIf="provider === 'sociocortex'">
+    <span>SACM</span>
   </mat-dialog-content>
 </div>
