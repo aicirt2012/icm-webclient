@@ -10,18 +10,31 @@
     <form fxFlex fxLayout="column">
       <div fxLayout="row">
         <mat-form-field fxFlex>
-          <input type="text" name="title" matInput [(ngModel)]="title" placeholder="Task Title" required>
+          <input type="text" name="title" matInput [(ngModel)]="title" placeholder="Task Title" required [disabled]="provider !== 'trello'">
         </mat-form-field>
       </div>
 
-      <div fxLayout="row">
+      <div fxLayout="row" *ngIf="provider === 'trello'">
         <mat-form-field fxFlex="49">
           <!-- board name -->
-          <mat-select [disabled]="true" required placeholder="Board Name" value="Board Name Dummy"></mat-select>
+          <mat-select required placeholder="Board Name" [disabled]="false">
+            <mat-option [value]="trelloData.boardId">{{trelloData.boardName}}</mat-option>
+          </mat-select>
         </mat-form-field>
         <mat-form-field fxFlex="49" fxFlexOffset="2">
           <!-- list name -->
-          <mat-select [disabled]="true" required placeholder="List Name" value="List Name Dummy"></mat-select>
+          <mat-select [disabled]="true" required placeholder="List Name" [(value)]="trelloData.listName"></mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" *ngIf="provider === 'sociocortex'">
+        <mat-form-field fxFlex="49">
+          <!-- workspace name -->
+          <mat-select [disabled]="true" required placeholder="Workspace Name" value="Workspace Name Dummy"></mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex="49" fxFlexOffset="2">
+          <!-- case name -->
+          <mat-select [disabled]="true" required placeholder="Case Name" value="Case Name Dummy"></mat-select>
         </mat-form-field>
       </div>
 

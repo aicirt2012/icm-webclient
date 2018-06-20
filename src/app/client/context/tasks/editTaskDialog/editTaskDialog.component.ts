@@ -45,7 +45,10 @@ export class EditTaskDialogComponent {
 
   private initTrelloTask() {
     this.trelloData = {
-      boardId: TaskService.getParameter(this.task, 'boardId')
+      boardId: TaskService.getParameter(this.task, 'boardId'),
+      boardName: "dummyBoardName",
+      listId: TaskService.getParameter(this.task, 'listId'),
+      listName: "dummyListName"
     };
   }
 
