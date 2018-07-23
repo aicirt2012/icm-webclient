@@ -1,8 +1,8 @@
 import { Component, Inject, Input } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import C from '../../../../shared/constants';
-import { UserService } from '../../../shared';
 import { MatSnackBar } from '@angular/material';
+import { TrelloService } from '../../../shared/trello.service';
 
 @Component({
   selector: 'trello',
@@ -14,25 +14,20 @@ export class TrelloComponent {
   public trelloURL = `${C.server}/auth/trello`;
   @Input() trelloConfig: any;
 
-  constructor(private userService: UserService, @Inject(DOCUMENT) private document: any, private snackBar: MatSnackBar) {
+  constructor(private trelloService: TrelloService, @Inject(DOCUMENT) private document: any, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
   }
 
   public onButtonClick() {
-    // get most up to date user object
-    this.userService.getUserInfo().subscribe((user) => {
-      // update trello config
-      user.trello = this.trelloConfig;
-      // update user object
-      this.userService.updateUserInfo(user).subscribe((data) => {
-        // redirect to trello if update successful
-        this.trelloConfig = data.trello;
-        this.document.location.href = this.trelloURL;
-      }, (error) => {
-        this.snackBar.open('Error while updating. Try again.', 'OK');
-      });
+    // update trello config via service, then redirect to trello
+    this.trelloService.configure(this.trelloConfig.userEmail).subscribe(response => {
+      // redirect to trello if update successful
+      this.document.location.href = this.trelloURL;
+    }, (error) => {
+      // TODO check error if email adress is currently in use
+      this.snackBar.open('Error while updating Trello config. Please try again.', 'OK');
     });
   }
 
