@@ -2,7 +2,7 @@ import { Component, Inject, Input } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import C from '../../../../shared/constants';
 import { MatSnackBar } from '@angular/material';
-import { TrelloService } from '../../../shared/trello.service';
+import { TrelloService } from '../../../shared';
 
 @Component({
   selector: 'trello',
@@ -22,12 +22,14 @@ export class TrelloComponent {
 
   public onButtonClick() {
     // update trello config via service, then redirect to trello
-    this.trelloService.configure(this.trelloConfig.userEmail).subscribe(response => {
+    this.trelloService.configure(this.trelloConfig.userEmail).subscribe(() => {
       // redirect to trello if update successful
       this.document.location.href = this.trelloURL;
     }, (error) => {
-      // TODO check error if email adress is currently in use
-      this.snackBar.open('Error while updating Trello config. Please try again.', 'OK');
+      if (error.status == 409)
+        this.snackBar.open(error._body, 'OK');
+      else
+        this.snackBar.open('Error while updating Trello config. Please try again.', 'OK');
     });
   }
 
