@@ -40,7 +40,7 @@ import {
 import { SharedModule } from '../shared';
 import { ROUTES } from './settings.routes';
 import { AuthGuard } from '../app.authGuard';
-import { TrelloService, UserService } from './shared';
+import { UserService, TaskService } from './shared';
 
 @NgModule({
   imports: [
@@ -87,7 +87,7 @@ import { TrelloService, UserService } from './shared';
   providers: [
     AuthGuard,
     UserService,
-    TrelloService
+    TaskService
   ],
   exports: []
 })

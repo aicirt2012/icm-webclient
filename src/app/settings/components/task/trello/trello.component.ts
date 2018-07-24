@@ -2,7 +2,7 @@ import { Component, Inject, Input } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import C from '../../../../shared/constants';
 import { MatSnackBar } from '@angular/material';
-import { TrelloService } from '../../../shared';
+import { TaskService } from '../../../shared';
 
 @Component({
   selector: 'trello',
@@ -14,7 +14,7 @@ export class TrelloComponent {
   public trelloURL = `${C.server}/auth/trello`;
   @Input() trelloConfig: any;
 
-  constructor(private trelloService: TrelloService, @Inject(DOCUMENT) private document: any, private snackBar: MatSnackBar) {
+  constructor(private taskService: TaskService, @Inject(DOCUMENT) private document: any, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -22,7 +22,7 @@ export class TrelloComponent {
 
   public onButtonClick() {
     // update trello config via service, then redirect to trello
-    this.trelloService.configure(this.trelloConfig.userEmail).subscribe(() => {
+    this.taskService.configureTrello(this.trelloConfig.userEmail).subscribe(() => {
       // redirect to trello if update successful
       this.document.location.href = this.trelloURL;
     }, (error) => {
