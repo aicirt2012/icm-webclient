@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ContextTabComponent } from '../contextTab/contextTab.component';
 import { ActivatedRoute } from '@angular/router';
 import { AppState } from '../../app.service';
-import { Email } from '../shared/email.model';
+import { Email } from '../shared';
 
 @Component({
   selector: 'context',
@@ -19,6 +19,7 @@ import { Email } from '../shared/email.model';
 export class ContextComponent {
 
   email: Email;
+  isTaskProviderEnabled: boolean;
   currentTab: string = 'tasks';
   personSearchTerm: string;
   translationSearchTerm: string;
@@ -29,9 +30,16 @@ export class ContextComponent {
   }
 
   ngOnInit() {
+    this.email = this.appState.getCurrentEmail();
     this.appState.currentEmail().subscribe((email) => {
       this.email = email;
-    })
+    });
+    this.isTaskProviderEnabled = ContextComponent.calculateIsTaskProviderEnabled(this.appState.getUser());
+    console.log("task provider enabled: " + this.isTaskProviderEnabled);
+    this.appState.user().subscribe((user) => {
+      this.isTaskProviderEnabled = ContextComponent.calculateIsTaskProviderEnabled(user);
+      console.log("task provider enabled: " + this.isTaskProviderEnabled);
+    });
   }
 
   // TODO add a way for setting search terms from within the bars to allow for remembering the last searched term
@@ -60,6 +68,14 @@ export class ContextComponent {
 
   isTabOpen(tab: string) {
     return this.currentTab === tab;
+  }
+
+  static calculateIsTaskProviderEnabled(user) {
+    if (user && user.taskProviders)
+      return (<any>Object).values(user.taskProviders).some((provider) => {
+        return provider.isEnabled;
+      });
+    return false;
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog } from "@angular/material";
 import { AppState } from '../../../app.service';
 import { NewTaskDialogComponent } from "./newTaskDialog";
@@ -13,6 +13,7 @@ import { TaskService } from "../../shared";
 
 export class TasksComponent {
 
+  @Input() enabled: boolean;
   @Input() email: any;
   openTasks: any[] = [];
   completedTasks: any[] = [];
@@ -25,6 +26,7 @@ export class TasksComponent {
   }
 
   ngOnInit() {
+    this.user = this.appState.getUser();
     this.appState.user().subscribe(user => {
       console.log("Got a user via subscription:");
       console.log(user);
@@ -39,24 +41,15 @@ export class TasksComponent {
       this.openTasks = [];
       this.completedTasks = [];
       this.suggestedTasks = [];
-      this.email.linkedTasks.forEach(task => {
-        if (TaskService.isTaskCompleted(task))
-          this.completedTasks.push(task);
-        else
-          this.openTasks.push(task);
-        // TODO initialize suggested tasks from email.suggestedData
-      });
+      if (this.email.linkedTasks)
+        this.email.linkedTasks.forEach(task => {
+          if (TaskService.isTaskCompleted(task))
+            this.completedTasks.push(task);
+          else
+            this.openTasks.push(task);
+          // TODO initialize suggested tasks from email.suggestedData
+        });
     }
-  }
-
-  getEnabledProviderCount(): number {
-    let enabledProviderCount = 0;
-    if (this.user && this.user.taskProviders)
-      Object.keys(this.user.taskProviders).forEach((provider) => {
-        if (this.user.taskProviders[provider].isEnabled)
-          enabledProviderCount++;
-      });
-    return enabledProviderCount;
   }
 
   openNewTaskDialog(task: any) {
