@@ -17,7 +17,7 @@ export class SocioCortexComponent {
   ngOnInit() {
   }
 
-  updateUser() {
+  updateConfig() {
     this.taskService.configureSociocortex(this.scConfig.email, this.scConfig.password).subscribe(() => {
       this.taskService.setupSociocortex().subscribe(() => {
         this.snackBar.open("SACM connection successful.", 'OK');

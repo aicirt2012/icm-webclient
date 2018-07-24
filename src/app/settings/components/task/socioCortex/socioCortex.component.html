@@ -1,14 +1,19 @@
 <mat-card-content class="upper-space">
   <mat-input-container>
-    <input matInput name="email" type="email" [(ngModel)]="scConfig.email" placeholder="Email" autofocus required>
+    <input matInput name="email" type="email" [(ngModel)]="scConfig.email" placeholder="Email" autofocus required
+           [disabled]="scConfig.isEnabled">
   </mat-input-container>
 </mat-card-content>
 <mat-card-content>
   <mat-input-container>
     <input matInput fxFlex="45" name="password" type="password" [(ngModel)]="scConfig.password" placeholder="Password"
-           required>
+           required [disabled]="scConfig.isEnabled">
   </mat-input-container>
 </mat-card-content>
 <mat-card-actions>
-  <button mat-raised-button color="primary" (click)="updateUser()">Save Configuration</button>
+  <button mat-raised-button color="primary" (click)="updateConfig()"
+          [disabled]="!scConfig.email || !scConfig.password || scConfig.isEnabled">
+    Verify Credentials
+  </button>
+  <span class="connected-msg" *ngIf="scConfig.isEnabled">Connection successful.</span>
 </mat-card-actions>
