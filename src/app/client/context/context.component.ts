@@ -35,10 +35,8 @@ export class ContextComponent {
       this.email = email;
     });
     this.isTaskProviderEnabled = ContextComponent.calculateIsTaskProviderEnabled(this.appState.getUser());
-    console.log("task provider enabled: " + this.isTaskProviderEnabled);
     this.appState.user().subscribe((user) => {
       this.isTaskProviderEnabled = ContextComponent.calculateIsTaskProviderEnabled(user);
-      console.log("task provider enabled: " + this.isTaskProviderEnabled);
     });
   }
 
