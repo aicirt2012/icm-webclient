@@ -16,20 +16,16 @@ export class TaskService {
     return this.http.post('tasks/providers/trello/configure', null, body);
   }
 
-  public configureSociocortex(email: string): Observable<any> {
+  public configureSociocortex(email: string, password: string): Observable<any> {
     const body = {
       email: email,
-      password: ""
+      password: password
     };
     return this.http.post('tasks/providers/sociocortex/configure', null, body);
   }
 
-  public setupSociocortex(email: string): Observable<any> {
-    const body = {
-      email: email,
-      password: ""
-    };
-    return this.http.post('tasks/providers/sociocortex/setup', null, body);
+  public setupSociocortex(): Observable<any> {
+    return this.http.post('tasks/providers/sociocortex/setup', null, {});
   }
 
 }

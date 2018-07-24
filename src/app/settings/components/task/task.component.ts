@@ -11,17 +11,15 @@ import { MatSnackBar } from '@angular/material';
 export class TaskComponent {
 
   private trelloConfig = {
-    trelloId: '',
     trelloAccessToken: '',
-    trelloAccessTokenSecret: '',
-    userEmail: ''
+    registrationEmail: ''
   };
   private scConfig = {
     username: '',
     password: ''
   };
 
-  constructor(private userService: UserService, private snackBar: MatSnackBar) {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {
@@ -33,17 +31,6 @@ export class TaskComponent {
         this.scConfig = data.taskProviders.sociocortex;
       }
     })
-  }
-
-  updateUserWithScConfig() {
-    this.userService.updateScConfig(this.scConfig)
-      .subscribe((data: any) => {
-        this.scConfig = data.sociocortex;
-        this.snackBar.open('Update successful.', 'OK');
-      }, (error) => {
-        this.snackBar.open('Error while updating. Try again.', 'OK');
-
-      });
   }
 
 }

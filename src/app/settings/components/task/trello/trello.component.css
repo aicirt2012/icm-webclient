@@ -37,3 +37,8 @@ mat-input-container {
 .hidden {
   display: none;
 }
+
+.connected-msg {
+  color: green;
+  padding-left: 8px;
+}

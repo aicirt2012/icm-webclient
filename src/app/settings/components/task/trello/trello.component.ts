@@ -22,7 +22,7 @@ export class TrelloComponent {
 
   public onButtonClick() {
     // update trello config via service, then redirect to trello
-    this.taskService.configureTrello(this.trelloConfig.userEmail).subscribe(() => {
+    this.taskService.configureTrello(this.trelloConfig.registrationEmail).subscribe(() => {
       // redirect to trello if update successful
       this.document.location.href = this.trelloURL;
     }, (error) => {
