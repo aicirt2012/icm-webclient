@@ -140,7 +140,7 @@ export class EmailViewComponent {
   }
 
   private getAnnotationsAsString() {
-    let annotations = this.email.annotations;
+    let annotations = this.email.namedEntities;
     let annotationString = "[";
     for (let index in annotations) {
       let annotation = annotations[index];

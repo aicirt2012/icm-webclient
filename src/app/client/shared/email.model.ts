@@ -39,5 +39,5 @@ export class Email {
   linkedTasks: any[];
   route: any[]; // used for ui routing
   routeStr: String; // user for ui routing comparison
-  annotations: any[];
+  namedEntities: any[];
 }
