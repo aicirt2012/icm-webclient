@@ -1,14 +1,16 @@
 <mat-card-content class="upper-space">
   <mat-input-container>
-    <input matInput name="TrelloUserEmail" type="email" [(ngModel)]="trelloConfig.userEmail"
-           placeholder="Trello Email Address" required>
+    <input matInput name="TrelloUserEmail" type="email" [(ngModel)]="trelloConfig.registrationEmail"
+           placeholder="Trello Email Address" required [disabled]="trelloConfig.isEnabled">
   </mat-input-container>
 </mat-card-content>
 
 <mat-card-actions>
-  <button mat-raised-button color="primary" (click)="onButtonClick()" [disabled]="!trelloConfig.userEmail">
+  <button mat-raised-button color="primary" (click)="onButtonClick()"
+          [disabled]="!trelloConfig.registrationEmail || trelloConfig.isEnabled">
     <i class="fab fa-trello"></i> Connect to Trello
   </button>
+  <span class="connected-msg" *ngIf="trelloConfig.isEnabled">Connection successful.</span>
 </mat-card-actions>
 
 <mat-card-content class="hidden">
@@ -16,12 +18,5 @@
   <mat-input-container class="upper-space">
     <input matInput name="TrelloAccessToken" type="text" [(ngModel)]="trelloConfig.trelloAccessToken"
            placeholder="TrelloAccessToken" disabled>
-  </mat-input-container>
-</mat-card-content>
-
-<mat-card-content class="hidden">
-  <mat-input-container>
-    <input matInput name="TrelloAccessTokenSecret" type="text"
-           [(ngModel)]="trelloConfig.trelloAccessTokenSecret" placeholder="TrelloAccessTokenSecret" disabled>
   </mat-input-container>
 </mat-card-content>

@@ -11,38 +11,26 @@ import { MatSnackBar } from '@angular/material';
 export class TaskComponent {
 
   private trelloConfig = {
-    trelloId: '',
     trelloAccessToken: '',
-    trelloAccessTokenSecret: '',
-    userEmail: ''
+    registrationEmail: ''
   };
   private scConfig = {
     username: '',
     password: ''
   };
 
-    constructor(private userService: UserService, private snackBar:  MatSnackBar) {}
+  constructor(private userService: UserService) {
+  }
 
-    ngOnInit() {
-      this.userService.getUserInfo().subscribe((data) => {
-        if(data.trello) {
-          this.trelloConfig = data.trello;
-        }
-        if(data.sociocortex) {
-          this.scConfig = data.sociocortex;
-        }
-      })
-    }
-
-    updateUserWithScConfig() {
-      this.userService.updateScConfig(this.scConfig)
-        .subscribe((data: any) => {
-          this.scConfig = data.sociocortex;
-          this.snackBar.open('Update successful.', 'OK');
-        }, (error) => {
-          this.snackBar.open('Error while updating. Try again.', 'OK');
-
-        });
-    }
+  ngOnInit() {
+    this.userService.getUserInfo().subscribe((data) => {
+      if (data.taskProviders.trello) {
+        this.trelloConfig = data.taskProviders.trello;
+      }
+      if (data.taskProviders.sociocortex) {
+        this.scConfig = data.taskProviders.sociocortex;
+      }
+    })
+  }
 
 }

@@ -3,9 +3,8 @@
     <mat-tab label="Trello">
       <trello [trelloConfig]="trelloConfig"></trello>
     </mat-tab>
-    <mat-tab label="SocioCortex">
-      <socioCortex (updateUserWithScConfig)="updateUserWithScConfig($event)"
-                   [scConfig]="scConfig"></socioCortex>
+    <mat-tab label="SACM">
+      <socioCortex [scConfig]="scConfig"></socioCortex>
     </mat-tab>
   </mat-tab-group>
 </mat-card>

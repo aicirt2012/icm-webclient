@@ -5,11 +5,11 @@
 }
 
 .not-connected {
-  color:lightgrey;
+  color: lightgrey;
 }
 
 .connected {
-  color:green;
+  color: green;
 }
 
 .secondary-text {
@@ -42,4 +42,9 @@ mat-input-container {
 .mat-card-actions .mat-raised-button:first-child {
   margin-left: 16px;
   margin-right: 0;
+}
+
+.connected-msg {
+  color: green;
+  padding-left: 8px;
 }
