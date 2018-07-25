@@ -36,7 +36,7 @@ export class TaskService {
     return value;
   }
 
-  static getMembers(task: any) {
+  static getAssignees(task: any) {
     if (task.provider === "trello") {
       return task.assignees;
     } else if (task.provider === "sociocortex") {
