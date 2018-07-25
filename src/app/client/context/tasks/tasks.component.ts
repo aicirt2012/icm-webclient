@@ -3,7 +3,6 @@ import { MatDialog } from "@angular/material";
 import { AppState } from '../../../app.service';
 import { NewTaskDialogComponent } from "./newTaskDialog";
 import { EditTaskDialogComponent } from "./editTaskDialog";
-import { TaskService } from "../../shared";
 
 @Component({
   selector: 'tasks',
@@ -43,10 +42,10 @@ export class TasksComponent {
       this.suggestedTasks = [];
       if (this.email.linkedTasks)
         this.email.linkedTasks.forEach(task => {
-          if (TaskService.isTaskCompleted(task))
-            this.completedTasks.push(task);
-          else
+          if (task.isOpen)
             this.openTasks.push(task);
+          else
+            this.completedTasks.push(task);
           // TODO initialize suggested tasks from email.suggestedData
         });
     }

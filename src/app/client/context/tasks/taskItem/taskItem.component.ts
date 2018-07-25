@@ -29,9 +29,9 @@ export class TaskItemComponent {
       console.log(this.task);
 
       this.provider = this.task.provider;
-      this.title = TaskService.getParameter(this.task, 'name');
-      this.dueDateRaw = TaskService.getParameter(this.task, 'due');
-      this.completed = TaskService.isTaskCompleted(this.task);
+      this.title = this.task.name;
+      this.dueDateRaw = this.task.due;
+      this.completed = !this.task.isOpen;
       this.members = TaskService.getMembers(this.task);
 
       if (!this.members)
