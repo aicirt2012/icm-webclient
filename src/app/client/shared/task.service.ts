@@ -36,18 +36,9 @@ export class TaskService {
     return value;
   }
 
-  static isTaskCompleted(task: any) {
+  static getAssignees(task: any) {
     if (task.provider === "trello") {
-      return !!TaskService.getParameter(task, 'closed');
-    } else if (task.provider === "sociocortex") {
-      const state = TaskService.getParameter(task, 'state');
-      return state === 'COMPLETED' || state === 'TERMINATED';
-    }
-  }
-
-  static getMembers(task: any) {
-    if (task.provider === "trello") {
-      return TaskService.getParameter(task, 'idMembers');
+      return task.assignees;
     } else if (task.provider === "sociocortex") {
       let members = [];
       members.push(TaskService.getParameter(task, 'ownerEmail'));

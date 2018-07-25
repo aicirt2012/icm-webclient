@@ -17,7 +17,7 @@ export class TaskItemComponent {
   private provider: string = "";
   private dueDateRaw: any;
   private dueDate: string;
-  private members: any[] = [];
+  private assignees: any[] = [];
   private completed: boolean;
 
   constructor() {
@@ -29,13 +29,13 @@ export class TaskItemComponent {
       console.log(this.task);
 
       this.provider = this.task.provider;
-      this.title = TaskService.getParameter(this.task, 'name');
-      this.dueDateRaw = TaskService.getParameter(this.task, 'due');
-      this.completed = TaskService.isTaskCompleted(this.task);
-      this.members = TaskService.getMembers(this.task);
+      this.title = this.task.name;
+      this.dueDateRaw = this.task.due;
+      this.completed = !this.task.isOpen;
+      this.assignees = TaskService.getAssignees(this.task);
 
-      if (!this.members)
-        this.members = [];
+      if (!this.assignees)
+        this.assignees = [];
       if (this.dueDateRaw) {
         this.dueDateRaw = new Date(this.dueDateRaw);
         this.dueDate = TaskService.formatDate(this.dueDateRaw);

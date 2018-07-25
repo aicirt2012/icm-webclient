@@ -1,6 +1,6 @@
 <div fxLayout="column" class="full-height">
   <div fxLayout="row" class="full-height">
-    <tasks *ngIf="isTabOpen('tasks')" [email]="email" fxFlex></tasks>
+    <tasks *ngIf="isTabOpen('tasks')" [email]="email" [enabled]="isTaskProviderEnabled" fxFlex></tasks>
     <network *ngIf="isTabOpen('network')" [query]="personSearchTerm" fxFlex></network>
     <wiki *ngIf="isTabOpen('wiki')" [query]="wikipediaSearchTerm" fxFlex></wiki>
     <translate *ngIf="isTabOpen('translate')" [query]="translationSearchTerm" fxFlex></translate>
@@ -22,4 +22,3 @@
     </div>
   </div>
 </div>
-

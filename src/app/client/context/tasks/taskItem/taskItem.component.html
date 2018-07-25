@@ -10,19 +10,19 @@
     </div>
     <div  fxFlex-gt-sm="50" fxLayout="row" fxLayoutAlign="start center">
       <div fxLayoutAlign="start center" class="date-container">
-        <mat-icon fxFlex-gt-sm="8" [class.overdue]="isOverdue()" class="date-icon" [class.light-icon]="isSuggestion">date_range</mat-icon>
-        <div fxFlex-gt-sm="27" [class.light-text]="isSuggestion" [class.overdue-text]="isOverdue() && !isSuggestion" *ngIf="dueDate">{{dueDate}}</div>
-        <div fxFlex-gt-sm="27" [class.light-text]="isSuggestion" [class.overdue-text]="isOverdue() && !isSuggestion" *ngIf="!dueDate"><i>No due date</i></div>
+        <mat-icon fxFlex-gt-sm="8" [class.overdue]="!completed && isOverdue()" class="date-icon" [class.light-icon]="isSuggestion">date_range</mat-icon>
+        <div fxFlex-gt-sm="27" [class.light-text]="isSuggestion" [class.overdue-text]="!completed && isOverdue() && !isSuggestion" *ngIf="dueDate">{{dueDate}}</div>
+        <div fxFlex-gt-sm="27" [class.light-text]="isSuggestion" *ngIf="!dueDate"><i>No due date</i></div>
       </div>
       <mat-icon class="icon-margin" fxFlex-gt-sm="8" [class.light-icon]="isSuggestion">person</mat-icon>
       <div *ngIf="provider === 'trello'" fxFlex-gt-sm="53" fxLayout="row">
-        <div *ngFor="let member of members" [title]="member.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials" [class.light-initials]="isSuggestion">
-          <span [class.light-text]="isSuggestion">{{member.initials}}</span>
+        <div *ngFor="let assignee of assignees" [title]="assignee.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials" [class.light-initials]="isSuggestion">
+          <span [class.light-text]="isSuggestion">{{assignee.initials}}</span>
         </div>
-        <div *ngIf="members.length < 1" [class.light-text]="isSuggestion"><i>Unassigned</i></div>
+        <div *ngIf="assignees.length < 1" [class.light-text]="isSuggestion"><i>Unassigned</i></div>
       </div>
       <div *ngIf="provider === 'sociocortex'" fxFlex-gt-sm="53" fxLayout="row">
-        <span>{{members[0]}}</span>
+        <span>{{assignees[0]}}</span>
       </div>
     </div>
   </div>
