@@ -25,6 +25,7 @@ import {
 } from '@angular/material';
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {SpinnerComponent, TopNavbarComponent} from './components'; // all shared components
+import {DisableControlDirective} from './directives'; // all shared directives
 import {AuthService, HttpService} from './services';
 
 @NgModule({
@@ -57,10 +58,13 @@ import {AuthService, HttpService} from './services';
   ],
   declarations: [
     SpinnerComponent,
-    TopNavbarComponent],
+    TopNavbarComponent,
+    DisableControlDirective
+  ],
   exports: [
     SpinnerComponent,
-    TopNavbarComponent
+    TopNavbarComponent,
+    DisableControlDirective
   ],
   providers: [
     AuthService,

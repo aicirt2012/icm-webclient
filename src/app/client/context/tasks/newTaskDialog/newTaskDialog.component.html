@@ -37,7 +37,6 @@
         <form [formGroup]="contextGroup">
           <!-- TRELLO PROPERTIES -->
           <div *ngIf="intentGroup.controls.provider.value === 'TRELLO'">
-            <ng-template>Choose Trello Board and List</ng-template>
             <!-- board input -->
             <mat-form-field>
               <mat-select formControlName="trelloBoard" required placeholder="Choose Board">
@@ -47,14 +46,14 @@
             <!-- list input -->
             <mat-form-field>
               <mat-select formControlName="trelloList" required placeholder="Choose List"
-                          [disabled]="!contextGroup.controls.trelloBoard.value">
+                          [disableControl]="!contextGroup.controls.trelloBoard.value">
                 <mat-option value="789123">Dummy List</mat-option>
               </mat-select>
             </mat-form-field>
             <!-- task input -->
             <mat-form-field *ngIf="intentGroup.controls.intendedAction.value === 'LINK'">
               <mat-select formControlName="trelloTask" required placeholder="Choose Task"
-                          [disabled]="!contextGroup.controls.trelloList.value">
+                          [disableControl]="!contextGroup.controls.trelloList.value">
                 <mat-option value="xzy-abc">Dummy task</mat-option>
               </mat-select>
             </mat-form-field>
@@ -77,7 +76,7 @@
             <!-- task input -->
             <mat-form-field>
               <mat-select formControlName="sociocortexTask" required placeholder="Choose Task"
-                          [disabled]="!contextGroup.controls.sociocortexCase.value">
+                          [disableControl]="!contextGroup.controls.sociocortexCase.value">
                 <mat-option value="789123">Dummy Task</mat-option>
               </mat-select>
             </mat-form-field>
@@ -103,43 +102,28 @@
               <mat-option value="John Doe">Dummy Assignee</mat-option>
             </mat-select>
           </mat-form-field>
-          <!-- provider input -->
-          <mat-form-field>
-            <mat-select formControlName="provider3" required placeholder="Choose Provider">
-              <mat-option value="trello">Trello</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <!-- create/link input -->
-          <mat-form-field>
-            <mat-select formControlName="intendedAction3" required placeholder="Choose Action">
-              <mat-option value="create">Create new</mat-option>
-              <mat-option value="link">Link existing</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <!-- ADDITIONAL METADATA -->
+          <div *ngIf="intentGroup.controls.provider.value === 'TRELLO'">
+            <span>Additional trello metadata</span>
+          </div>
+          <div *ngIf="intentGroup.controls.provider.value === 'SOCIOCORTEX'">
+            <span>Additional sociocortex metadata</span>
+          </div>
         </form>
       </mat-expansion-panel>
 
-      <mat-expansion-panel
-        [disabled]="intentGroup.status !== 'VALID' || intentGroup.controls.provider.value !== 'SOCIOCORTEX'">
+      <mat-expansion-panel [disabled]="contextGroup.status !== 'VALID'">
         <mat-expansion-panel-header expandedHeight="40px" collapsedHeight="40px">
           Task Content
         </mat-expansion-panel-header>
         <mat-divider></mat-divider>
         <form [formGroup]="contentGroup">
-          <ng-template>Choose Task Provider and Intended Action</ng-template>
-          <!-- provider input -->
-          <mat-form-field>
-            <mat-select formControlName="provider4" required placeholder="Choose Provider">
-              <mat-option value="trello">Trello</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <!-- create/link input -->
-          <mat-form-field>
-            <mat-select formControlName="intendedAction4" required placeholder="Choose Action">
-              <mat-option value="create">Create new</mat-option>
-              <mat-option value="link">Link existing</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <div *ngIf="intentGroup.controls.provider.value === 'TRELLO'">
+            <span>Trello content</span>
+          </div>
+          <div *ngIf="intentGroup.controls.provider.value === 'SOCIOCORTEX'">
+            <span>Sociocortex content</span>
+          </div>
         </form>
       </mat-expansion-panel>
 
