@@ -12,7 +12,6 @@ export class NewTaskDialogComponent {
 
   public task: any;
   public suggestedData: any[] = [];
-  public isSuggestion: boolean = false;
 
   intentGroup: FormGroup;
   contextGroup: FormGroup;
@@ -64,7 +63,7 @@ export class NewTaskDialogComponent {
     }
     //SOCIOCORTEX VALIDATIONS
     if (intentGroup.controls['provider'].value === 'SOCIOCORTEX') {
-      if (!group.controls['sociocortexWorkspace'].value ||!group.controls['sociocortexCase'].value)
+      if (!group.controls['sociocortexWorkspace'].value || !group.controls['sociocortexCase'].value)
         return {'error': true};
       if (intentGroup.controls['intendedAction'].value === 'LINK' && !group.controls['sociocortexTask'].value)
         return {'error': true};

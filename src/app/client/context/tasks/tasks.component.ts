@@ -53,17 +53,16 @@ export class TasksComponent {
 
   openNewTaskDialog(task: any) {
     let dialogRef = this.dialog.open(NewTaskDialogComponent, {
-      width: '30%',
+      width: '45%',
       height: 'auto'
     });
     dialogRef.componentInstance.task = task;
-    dialogRef.componentInstance.isSuggestion = true;  // TODO obsolete, remove property!
     dialogRef.componentInstance.suggestedData = this.email.suggestedData;
   }
 
   openEditTaskDialog(task: any) {
     let dialogRef = this.dialog.open(EditTaskDialogComponent, {
-      width: '30%',
+      width: '45%',
       height: 'auto'
     });
     dialogRef.componentInstance.task = task;
