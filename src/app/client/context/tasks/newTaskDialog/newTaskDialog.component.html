@@ -122,12 +122,12 @@
             Task Content
           </mat-expansion-panel-header>
           <mat-divider></mat-divider>
-          <div *ngIf="form.controls.intent.controls.provider.value === 'TRELLO'" formGroupName="trelloContent">
-            <span>Trello content</span>
-          </div>
-          <div *ngIf="form.controls.intent.controls.provider.value === 'SOCIOCORTEX'" formGroupName="sociocortexContent">
-            <span>Sociocortex content</span>
-          </div>
+          <task-content-trello *ngIf="form.controls.intent.controls.provider.value === 'TRELLO'"
+                               formGroupName="trelloContent">
+          </task-content-trello>
+          <task-content-sociocortex *ngIf="form.controls.intent.controls.provider.value === 'SOCIOCORTEX'"
+                                     formGroupName="sociocortexContent">
+          </task-content-sociocortex>
         </mat-expansion-panel>
 
         <button mat-raised-button color="accent">Confirm</button>
