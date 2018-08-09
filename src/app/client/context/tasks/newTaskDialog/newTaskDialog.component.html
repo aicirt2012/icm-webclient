@@ -6,129 +6,133 @@
 
   <mat-dialog-content class="new-task-dialog">
     <mat-accordion [multi]="true" displayMode="flat" class="new-task-panel">
+      <form [formGroup]="form">
 
-      <form [formGroup]="intentGroup">
-        <!-- title input -->
-        <mat-form-field>
-          <input matInput placeholder="Title" formControlName="title" required>
-        </mat-form-field>
-        <!-- provider input -->
-        <mat-form-field>
-          <mat-select formControlName="provider" required placeholder="Choose Provider">
-            <mat-option value="TRELLO">Trello</mat-option>
-            <mat-option value="SOCIOCORTEX">SACM</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <!-- create/link input -->
-        <mat-form-field>
-          <mat-select formControlName="intendedAction" required placeholder="Choose Action">
-            <mat-option value="CREATE">Create new</mat-option>
-            <mat-option value="LINK">Link existing</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </form>
-
-      <mat-expansion-panel [disabled]="intentGroup.status !== 'VALID'"
-                           [expanded]="intentGroup.status === 'VALID'">
-        <mat-expansion-panel-header expandedHeight="40px" collapsedHeight="40px">
-          Context
-        </mat-expansion-panel-header>
-        <mat-divider></mat-divider>
-        <form [formGroup]="contextGroup">
-          <!-- TRELLO PROPERTIES -->
-          <div *ngIf="intentGroup.controls.provider.value === 'TRELLO'">
-            <!-- board input -->
-            <mat-form-field>
-              <mat-select formControlName="trelloBoard" required placeholder="Choose Board">
-                <mat-option value="123456">Dummy Board</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <!-- list input -->
-            <mat-form-field>
-              <mat-select formControlName="trelloList" required placeholder="Choose List"
-                          [disableControl]="!contextGroup.controls.trelloBoard.value">
-                <mat-option value="789123">Dummy List</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <!-- task input -->
-            <mat-form-field *ngIf="intentGroup.controls.intendedAction.value === 'LINK'">
-              <mat-select formControlName="trelloTask" required placeholder="Choose Task"
-                          [disableControl]="!contextGroup.controls.trelloList.value">
-                <mat-option value="xzy-abc">Dummy task</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <!-- SOCIOCORTEX PROPERTIES -->
-          <div *ngIf="intentGroup.controls.provider.value === 'SOCIOCORTEX'">
-            <!-- workspace input -->
-            <mat-form-field>
-              <mat-select formControlName="sociocortexWorkspace" required placeholder="Choose Workspace">
-                <mat-option value="123">Dummy WS 1</mat-option>
-                <mat-option value="456">Dummy WS 2</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <!-- case input -->
-            <mat-form-field>
-              <mat-select formControlName="sociocortexCase" required placeholder="Choose Case">
-                <mat-option value="123456">Dummy Case</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <!-- task input -->
-            <mat-form-field>
-              <mat-select formControlName="sociocortexTask" required placeholder="Choose Task"
-                          [disableControl]="!contextGroup.controls.sociocortexCase.value">
-                <mat-option value="789123">Dummy Task</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </form>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel [disabled]="intentGroup.status !== 'VALID'">
-        <mat-expansion-panel-header expandedHeight="40px" collapsedHeight="40px">
-          Metadata
-        </mat-expansion-panel-header>
-        <mat-divider></mat-divider>
-        <form [formGroup]="metadataGroup">
-          <!-- due date input -->
+        <div formGroupName="intent">
+          <!-- title input -->
           <mat-form-field>
-            <mat-select formControlName="dueDate" required placeholder="Set a Due Date">
-              <mat-option value="date">Dummy Date</mat-option>
+            <input matInput placeholder="Title" formControlName="title" required>
+          </mat-form-field>
+          <!-- provider input -->
+          <mat-form-field>
+            <mat-select formControlName="provider" required placeholder="Choose Provider">
+              <mat-option value="TRELLO">Trello</mat-option>
+              <mat-option value="SOCIOCORTEX">SACM</mat-option>
             </mat-select>
           </mat-form-field>
-          <!-- assignee input -->
+          <!-- create/link input -->
           <mat-form-field>
-            <mat-select formControlName="assignees" required placeholder="Choose Assignees">
-              <mat-option value="John Doe">Dummy Assignee</mat-option>
+            <mat-select formControlName="intendedAction" required placeholder="Choose Action">
+              <mat-option value="CREATE">Create new</mat-option>
+              <mat-option value="LINK">Link existing</mat-option>
             </mat-select>
           </mat-form-field>
-          <!-- ADDITIONAL METADATA -->
-          <div *ngIf="intentGroup.controls.provider.value === 'TRELLO'">
-            <span>Additional trello metadata</span>
-          </div>
-          <div *ngIf="intentGroup.controls.provider.value === 'SOCIOCORTEX'">
-            <span>Additional sociocortex metadata</span>
-          </div>
-        </form>
-      </mat-expansion-panel>
+        </div>
 
-      <mat-expansion-panel [disabled]="contextGroup.status !== 'VALID'">
-        <mat-expansion-panel-header expandedHeight="40px" collapsedHeight="40px">
-          Task Content
-        </mat-expansion-panel-header>
-        <mat-divider></mat-divider>
-        <form [formGroup]="contentGroup">
-          <div *ngIf="intentGroup.controls.provider.value === 'TRELLO'">
+        <mat-expansion-panel [disabled]="form.controls.intent.status !== 'VALID'"
+                             [expanded]="form.controls.intent.status === 'VALID'">
+          <mat-expansion-panel-header expandedHeight="40px" collapsedHeight="40px">
+            Context
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <div formGroupName="context">
+            <!-- TRELLO PROPERTIES -->
+            <div *ngIf="!form.controls.intent.errors && form.controls.intent.controls.provider.value === 'TRELLO'">
+              <!-- board input -->
+              <mat-form-field>
+                <mat-select formControlName="trelloBoard" required placeholder="Choose Board">
+                  <mat-option value="123456">Dummy Board</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <!-- list input -->
+              <mat-form-field>
+                <mat-select formControlName="trelloList" required placeholder="Choose List"
+                            [disableControl]="!form.controls.context.controls.trelloBoard.value">
+                  <mat-option value="789123">Dummy List</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <!-- task input -->
+              <mat-form-field *ngIf="form.controls.intent.controls.intendedAction.value === 'LINK'">
+                <mat-select formControlName="trelloTask" required placeholder="Choose Task"
+                            [disableControl]="!form.controls.context.controls.trelloList.value">
+                  <mat-option value="xzy-abc">Dummy task</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <!-- SOCIOCORTEX PROPERTIES -->
+            <div *ngIf="form.controls.intent.controls.provider.value === 'SOCIOCORTEX'">
+              <!-- workspace input -->
+              <mat-form-field>
+                <mat-select formControlName="sociocortexWorkspace" required placeholder="Choose Workspace">
+                  <mat-option value="123">Dummy WS 1</mat-option>
+                  <mat-option value="456">Dummy WS 2</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <!-- case input -->
+              <mat-form-field>
+                <mat-select formControlName="sociocortexCase" required placeholder="Choose Case">
+                  <mat-option value="123456">Dummy Case</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <!-- task input -->
+              <mat-form-field>
+                <mat-select formControlName="sociocortexTask" required placeholder="Choose Task"
+                            [disableControl]="!form.controls.context.controls.sociocortexCase.value">
+                  <mat-option value="789123">Dummy Task</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel
+          [disabled]="form.controls.intent.status !== 'VALID'
+        || (form.controls.intent.controls.intendedAction.value === 'LINK' && form.controls.context.status !== 'VALID')">
+          <mat-expansion-panel-header expandedHeight="40px" collapsedHeight="40px">
+            Metadata
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <div formGroupName="metadata">
+            <!-- due date input -->
+            <mat-form-field>
+              <mat-select formControlName="dueDate" required placeholder="Set a Due Date">
+                <mat-option value="date">Dummy Date</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- assignee input -->
+            <mat-form-field>
+              <mat-select formControlName="assignees" required placeholder="Choose Assignees">
+                <mat-option value="John Doe">Dummy Assignee</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- ADDITIONAL METADATA -->
+            <div *ngIf="form.controls.intent.controls.provider.value === 'TRELLO'">
+              <span>Additional trello metadata</span>
+            </div>
+            <div *ngIf="form.controls.intent.controls.provider.value === 'SOCIOCORTEX'">
+              <span>Additional sociocortex metadata</span>
+            </div>
+          </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel
+          [disabled]="form.controls.intent.status !== 'VALID'
+        || (form.controls.intent.controls.intendedAction.value === 'LINK' && form.controls.context.status !== 'VALID')">
+          <mat-expansion-panel-header expandedHeight="40px" collapsedHeight="40px">
+            Task Content
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <div *ngIf="form.controls.intent.controls.provider.value === 'TRELLO'" formGroupName="trelloContent">
             <span>Trello content</span>
           </div>
-          <div *ngIf="intentGroup.controls.provider.value === 'SOCIOCORTEX'">
+          <div *ngIf="form.controls.intent.controls.provider.value === 'SOCIOCORTEX'" formGroupName="sociocortexContent">
             <span>Sociocortex content</span>
           </div>
-        </form>
-      </mat-expansion-panel>
+        </mat-expansion-panel>
 
-      <button mat-raised-button color="accent">Confirm</button>
+        <button mat-raised-button color="accent">Confirm</button>
 
+      </form>
     </mat-accordion>
   </mat-dialog-content>
 </div>

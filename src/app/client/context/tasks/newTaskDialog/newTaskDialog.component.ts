@@ -13,59 +13,54 @@ export class NewTaskDialogComponent {
   public task: any;
   public suggestedData: any[] = [];
 
-  intentGroup: FormGroup;
-  contextGroup: FormGroup;
-  metadataGroup: FormGroup;
-  contentGroup: FormGroup;
-
-  constructor(public taskDialogRef: MatDialogRef<NewTaskDialogComponent>,
-              private _formBuilder: FormBuilder) {
-  }
-
-  ngOnInit() {
-    this.intentGroup = this._formBuilder.group({
+  form: FormGroup = this._formBuilder.group({
+    intent: this._formBuilder.group({
       title: ['(Untitled Task)', Validators.required],
       provider: ['', Validators.required],
       intendedAction: ['', Validators.required],
-    });
-    this.contextGroup = this._formBuilder.group({
+    }),
+    context: this._formBuilder.group({
       trelloBoard: [''],
       trelloList: [''],
       trelloTask: [''],
       sociocortexWorkspace: [''],
       sociocortexCase: [''],
       sociocortexTask: ['']
-    }, {validator: this.validateBasicMetadata});
-    this.metadataGroup = this._formBuilder.group({
+    }),
+    metadata: this._formBuilder.group({
       dueDate: [''],
-      assignees: [''],
-      provider3: ['', Validators.required],
-      intendedAction3: ['', Validators.required]
-    });
-    this.contentGroup = this._formBuilder.group({
-      provider4: ['', Validators.required],
-      intendedAction4: ['', Validators.required]
-    });
+      assignees: ['']
+    }),
+    trelloContent: this._formBuilder.group({
+      trelloDescription: ['']
+    }),
+    sociocortexContent: this._formBuilder.array([])
+  }, {validator: NewTaskDialogComponent.validateForm});
+
+  constructor(public taskDialogRef: MatDialogRef<NewTaskDialogComponent>,
+              private _formBuilder: FormBuilder) {
   }
 
-  validateBasicMetadata() {
+  static validateForm(group: FormGroup) {
     // NOT NULL CHECKS
-    if (!this || !this.intentGroup || !this.intentGroup.controls || !this.contextGroup || !this.contextGroup.controls)
+    if (!group || !group.controls.intent || !group.controls.context)
       return {'error': true};
-    const intentGroup = this.intentGroup.controls;
-    const group = this.contextGroup.controls;
+    const intent = (<FormGroup> group.controls.intent).controls;
+    const context = (<FormGroup> group.controls.context).controls;
+    if (!intent || !context)
+      return {'error': true};
     // TRELLO VALIDATIONS
-    if (intentGroup['provider'].value === 'TRELLO') {
-      if (!group['trelloBoard'].value || !group['trelloList'].value)
+    if (intent['provider'].value === 'TRELLO') {
+      if (!context['trelloBoard'].value || !context['trelloList'].value)
         return {'error': true};
-      if (intentGroup['intendedAction'].value === 'LINK' && !group['trelloTask'].value)
+      if (intent['intendedAction'].value === 'LINK' && !context['trelloTask'].value)
         return {'error': true};
     }
     //SOCIOCORTEX VALIDATIONS
-    if (intentGroup.controls['provider'].value === 'SOCIOCORTEX') {
-      if (!group.controls['sociocortexWorkspace'].value || !group.controls['sociocortexCase'].value)
+    if (intent['provider'].value === 'SOCIOCORTEX') {
+      if (!context['sociocortexWorkspace'].value || !context['sociocortexCase'].value)
         return {'error': true};
-      if (intentGroup.controls['intendedAction'].value === 'LINK' && !group.controls['sociocortexTask'].value)
+      if (intent['intendedAction'].value === 'LINK' && !context['sociocortexTask'].value)
         return {'error': true};
     }
     return null;
