@@ -6,7 +6,7 @@
 
   <mat-dialog-content class="new-task-dialog">
     <mat-accordion [multi]="true" displayMode="flat" class="new-task-panel">
-      <form [formGroup]="form">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
         <div formGroupName="intent">
           <!-- title input -->
@@ -95,13 +95,13 @@
           <div formGroupName="metadata">
             <!-- due date input -->
             <mat-form-field>
-              <mat-select formControlName="dueDate" required placeholder="Set a Due Date">
+              <mat-select formControlName="dueDate" placeholder="Set a Due Date">
                 <mat-option value="date">Dummy Date</mat-option>
               </mat-select>
             </mat-form-field>
             <!-- assignee input -->
             <mat-form-field>
-              <mat-select formControlName="assignees" required placeholder="Choose Assignees">
+              <mat-select formControlName="assignees" placeholder="Choose Assignees">
                 <mat-option value="John Doe">Dummy Assignee</mat-option>
               </mat-select>
             </mat-form-field>
@@ -126,11 +126,14 @@
                                formGroupName="trelloContent">
           </task-content-trello>
           <task-content-sociocortex *ngIf="form.controls.intent.controls.provider.value === 'SOCIOCORTEX'"
-                                     formGroupName="sociocortexContent">
+                                    formGroupName="sociocortexContent">
           </task-content-sociocortex>
         </mat-expansion-panel>
 
-        <button mat-raised-button color="accent">Confirm</button>
+        <button type="submit" [disabled]="form.status !== 'VALID' || submitted" mat-raised-button color="accent">
+          <span>Confirm</span>
+          <!--<mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>-->
+        </button>
 
       </form>
     </mat-accordion>

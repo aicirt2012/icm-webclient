@@ -2,19 +2,6 @@
   cursor: pointer;
 }
 
-::ng-deep .new-task-dialog .mat-vertical-content {
-  padding: 0 24px 0 24px;
-}
-
-::ng-deep .new-task-dialog .mat-step:last-child .mat-vertical-content-container {
-  margin-left: 0;
-}
-
-.task-preview {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-::ng-deep .new-task-dialog .task-preview div.task {
-  cursor: initial;
+.mat-spinner {
+  max-height: 36px;
 }

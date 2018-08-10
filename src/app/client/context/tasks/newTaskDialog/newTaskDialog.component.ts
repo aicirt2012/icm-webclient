@@ -13,6 +13,12 @@ export class NewTaskDialogComponent {
   public task: any;
   public suggestedData: any[] = [];
 
+  loading: any = {
+    trello: false,
+    sociocortex: false
+  };
+  submitted: boolean = false;
+
   form: FormGroup = this._formBuilder.group({
     intent: this._formBuilder.group({
       title: ['(Untitled Task)', Validators.required],
@@ -64,6 +70,12 @@ export class NewTaskDialogComponent {
         return {'error': true};
     }
     return null;
+  }
+
+  onSubmit() {
+    console.log("Submit!");
+    console.log(this.form);
+    this.submitted = true;
   }
 
   closeDialog() {
