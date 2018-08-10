@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { MatDialogRef } from "@angular/material";
+import { MatDialogRef, MatSnackBar } from "@angular/material";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { TaskService } from '../../../shared';
 
 @Component({
   selector: 'new-task-dialog',
@@ -44,6 +45,8 @@ export class NewTaskDialogComponent {
   }, {validator: NewTaskDialogComponent.validateForm});
 
   constructor(public taskDialogRef: MatDialogRef<NewTaskDialogComponent>,
+              public snackBar: MatSnackBar,
+              private taskService: TaskService,
               private _formBuilder: FormBuilder) {
   }
 
@@ -76,6 +79,16 @@ export class NewTaskDialogComponent {
     console.log("Submit!");
     console.log(this.form);
     this.submitted = true;
+
+    const task = {};
+    // TODO map from form to task
+    this.taskService.createTask(task).subscribe(() => {
+      this.closeDialog();
+      this.snackBar.open('Task successfully created.', 'OK');
+    }, error => {
+      console.log(error);
+      this.snackBar.open('Error while creating task.', 'OK');
+    });
   }
 
   closeDialog() {
