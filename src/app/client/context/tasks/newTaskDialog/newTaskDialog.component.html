@@ -99,19 +99,18 @@
                 <mat-option value="date">Dummy Date</mat-option>
               </mat-select>
             </mat-form-field>
-            <!-- assignee input -->
-            <mat-form-field>
+            <!-- Trello assignee input -->
+            <mat-form-field *ngIf="form.controls.intent.controls.provider.value === 'TRELLO'">
               <mat-select formControlName="assignees" placeholder="Choose Assignees">
-                <mat-option value="John Doe">Dummy Assignee</mat-option>
+                <mat-option value="John Doe">Dummy Trello Assignee</mat-option>
               </mat-select>
             </mat-form-field>
-            <!-- ADDITIONAL METADATA -->
-            <div *ngIf="form.controls.intent.controls.provider.value === 'TRELLO'">
-              <span>Additional trello metadata</span>
-            </div>
-            <div *ngIf="form.controls.intent.controls.provider.value === 'SOCIOCORTEX'">
-              <span>Additional sociocortex metadata</span>
-            </div>
+            <!-- Sociocortex assignee input -->
+            <mat-form-field *ngIf="form.controls.intent.controls.provider.value === 'SOCIOCORTEX'">
+              <mat-select formControlName="assignees" placeholder="Choose Assignees">
+                <mat-option value="John Doe">Dummy Sociocortex Assignee</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
         </mat-expansion-panel>
 
