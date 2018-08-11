@@ -57,6 +57,8 @@ export class TasksComponent {
       height: 'auto'
     });
     dialogRef.componentInstance.task = task;
+    dialogRef.componentInstance.email = this.email;
+    dialogRef.componentInstance.user = this.user;
     dialogRef.componentInstance.suggestedData = this.email.suggestedData;
   }
 

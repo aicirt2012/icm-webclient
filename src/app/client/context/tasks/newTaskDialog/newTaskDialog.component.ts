@@ -13,6 +13,8 @@ import { Task } from '../../../../shared';
 export class NewTaskDialogComponent {
 
   public task: any;
+  public email: any;
+  public user: any;
   public suggestedData: any[] = [];
 
   loading: any = {
@@ -40,7 +42,7 @@ export class NewTaskDialogComponent {
       assignees: ['']
     }),
     trelloContent: this._formBuilder.group({
-      trelloDescription: ['']
+      description: ['']
     }),
     sociocortexContent: this._formBuilder.array([])
   }, {validator: NewTaskDialogComponent.validateForm});
@@ -86,6 +88,7 @@ export class NewTaskDialogComponent {
       this.snackBar.open('Task successfully created.', 'OK');
     }, error => {
       console.log(error);
+      this.submitted = false;
       this.snackBar.open('Error while creating task.', 'OK');
     });
   }
@@ -95,16 +98,19 @@ export class NewTaskDialogComponent {
     const metadata = (<FormGroup> this.form.controls.metadata).controls;
     const task = new Task();
 
+    task.email = this.email._id;
+    task.user = this.user._id;
     task.name = intent.title.value;
-    task.due = metadata.due.value ? metadata.due.value : undefined;
+    task.due = metadata.dueDate.value ? metadata.dueDate.value : undefined;
     task.assignees = metadata.assignees.value ? metadata.assignees.value : undefined;
     task.isOpen = true;
+    task.provider = intent.provider.value;
 
-    if (intent.provider.value === 'TRELLO') {
+    if (task.provider === 'TRELLO') {
       if (intent.intendedAction.value === 'LINK')
         task.providerId = (<FormGroup> this.form.controls.context).controls.trelloTask.value;
       task.parameters = this.getTaskParametersTrello();
-    } else if (intent.provider.value === 'SOCIOCORTEX') {
+    } else if (task.provider === 'SOCIOCORTEX') {
       task.parameters = this.getTaskParametersSociocortex();
     }
     return task;
