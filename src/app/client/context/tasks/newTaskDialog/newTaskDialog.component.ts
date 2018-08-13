@@ -142,6 +142,9 @@ export class NewTaskDialogComponent {
   }
 
   onBoardSelect(boardId: string) {
+    this.taskService.getTrelloMembers(boardId)
+      .take(1)
+      .subscribe(members => {this.autocomplete.assignees.other = members;console.log("got members");console.log(members);});
     const lists = this.autocomplete.trelloLists;
     lists.relevant = lists.all.filter(list => list.idBoard === boardId);
   }
