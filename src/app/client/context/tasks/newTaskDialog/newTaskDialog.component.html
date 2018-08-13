@@ -171,7 +171,7 @@
                                [contentForm]="form.controls.trelloContent">
           </task-content-trello>
           <task-content-sociocortex *ngIf="form.controls.intent.controls.provider.value === 'SOCIOCORTEX'"
-                                    formGroupName="sociocortexContent">
+                                    [contentForm]="form.controls.sociocortexContent">
           </task-content-sociocortex>
         </mat-expansion-panel>
 
