@@ -27,10 +27,7 @@ export class NewTaskDialogComponent {
       all: [],
       relevant: []
     },
-    trelloTasks: {
-      all: [],
-      relevant: []
-    },
+    trelloTasks: [],
     assignees: {
       suggested: [],
       other: []
@@ -127,18 +124,38 @@ export class NewTaskDialogComponent {
 
   onProviderSelect(provider: string) {
     if (provider === 'TRELLO') {
-      // TODO load trelloboards
+      this.taskService.getTrelloBoards()
+        .take(1)
+        .subscribe(boards => {
+          // keep reference to all boards
+          this.autocomplete.trelloBoards = boards;
+          // extract and keep nested lists
+          let lists = [];
+          this.autocomplete.trelloBoards.forEach(board => {
+            lists = lists.concat(board.lists);
+          });
+          this.autocomplete.trelloLists.all = lists;
+        })
     } else if (provider === 'SOCIOCORTEX') {
       // TODO load sc workspaces
     }
   }
 
   onBoardSelect(boardId: string) {
-    // TODO filter lists for boardId
+    const lists = this.autocomplete.trelloLists;
+    lists.relevant = lists.all.filter(list => list.idBoard === boardId);
   }
 
   onListSelect(listId: string) {
-    //TODO filter tasks by listId
+    if (this.form.get('intent.intendedAction').value === 'LINK' && listId) {
+      this.taskService.getTrelloTasks(listId)
+        .take(1)
+        .subscribe(tasks => this.autocomplete.trelloTasks = tasks);
+    }
+  }
+
+  onTaskSelect(taskId: string) {
+    // TODO copy over the existing data from the selected task
   }
 
   onWorkspaceSelect(workspaceId: string) {
