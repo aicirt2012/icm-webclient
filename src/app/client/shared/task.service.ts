@@ -24,6 +24,10 @@ export class TaskService {
     return this.http.delete('tasks/' + task.id, null, task);
   }
 
+  getTrelloTask(taskId: string): Observable<any> {
+    return this.http.get('tasks/providers/trello/tasks/' + taskId, null, null);
+  }
+
   getTrelloBoards(): Observable<any> {
     return this.http.get('tasks/providers/trello/boards', null, null);
   }

@@ -158,7 +158,11 @@ export class NewTaskDialogComponent {
   }
 
   onTaskSelect(taskId: string) {
-    // TODO copy over the existing data from the selected task
+    this.taskService.getTrelloTask(taskId)
+      .take(1)
+      .subscribe(task => {
+        this.applyTaskObjectToForm(task);
+      });
   }
 
   onWorkspaceSelect(workspaceId: string) {
@@ -174,7 +178,7 @@ export class NewTaskDialogComponent {
     console.log(this.form);
     this.submitted = true;
 
-    this.taskService.createTask(this.getTaskObject()).subscribe(() => {
+    this.taskService.createTask(this.convertFormToTaskObject()).subscribe(() => {
       this.closeDialog();
       this.snackBar.open('Task successfully created.', 'OK');
     }, error => {
@@ -184,7 +188,7 @@ export class NewTaskDialogComponent {
     });
   }
 
-  getTaskObject() {
+  convertFormToTaskObject() {
     const intent = (<FormGroup> this.form.controls.intent).controls;
     const metadata = (<FormGroup> this.form.controls.metadata).controls;
     const task = new Task();
@@ -205,6 +209,13 @@ export class NewTaskDialogComponent {
       task.parameters = this.getTaskParametersSociocortex();
     }
     return task;
+  }
+
+  applyTaskObjectToForm(task: Task) {
+    this.form.get('intent.title').setValue(task.name);
+    this.form.get('metadata.dueDate').setValue(TaskService.formatDate(task.due));
+    this.form.get('metadata.assignees').setValue(task.assignees);
+    this.form.get('trelloContent.description').setValue(TaskService.getParameter(task, 'desc'));
   }
 
   private getTaskParametersTrello() {
