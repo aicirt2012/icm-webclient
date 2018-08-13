@@ -14,7 +14,7 @@
             <input type="text" formControlName="title" matInput [matAutocomplete]="autocompleteTitle"
                    placeholder="Task Title" required>
             <mat-autocomplete #autocompleteTitle="matAutocomplete">
-              <mat-option *ngFor="let title of autocomplete_trello.titles.filtered" [value]="title">{{title}}</mat-option>
+              <mat-option *ngFor="let title of autocomplete.titles.filtered" [value]="title">{{title}}</mat-option>
             </mat-autocomplete>
           </mat-form-field>
           <!-- provider input -->
@@ -44,22 +44,28 @@
             <div *ngIf="!form.controls.intent.errors && form.controls.intent.controls.provider.value === 'TRELLO'">
               <!-- board input -->
               <mat-form-field>
-                <mat-select formControlName="trelloBoard" required placeholder="Choose Board">
-                  <mat-option value="123456">Dummy Board</mat-option>
+                <mat-select formControlName="trelloBoard" required placeholder="Trello Board">
+                  <mat-option *ngFor="let board of autocomplete.trelloBoards" [value]="board.id">
+                    {{board.name}}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
               <!-- list input -->
               <mat-form-field>
-                <mat-select formControlName="trelloList" required placeholder="Choose List"
+                <mat-select formControlName="trelloList" required placeholder="Trello List"
                             [disableControl]="!form.controls.context.controls.trelloBoard.value">
-                  <mat-option value="789123">Dummy List</mat-option>
+                  <mat-option *ngFor="let list of autocomplete.trelloLists.relevant" [value]="list.id">
+                    {{list.name}}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
               <!-- task input -->
               <mat-form-field *ngIf="form.controls.intent.controls.intendedAction.value === 'LINK'">
-                <mat-select formControlName="trelloTask" required placeholder="Choose Task"
+                <mat-select formControlName="trelloTask" required placeholder="Trello Task"
                             [disableControl]="!form.controls.context.controls.trelloList.value">
-                  <mat-option value="xzy-abc">Dummy task</mat-option>
+                  <mat-option *ngFor="let task of autocomplete.trelloTasks.relevant" [value]="task.id">
+                    {{task.name}}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -67,22 +73,28 @@
             <div *ngIf="form.controls.intent.controls.provider.value === 'SOCIOCORTEX'">
               <!-- workspace input -->
               <mat-form-field>
-                <mat-select formControlName="sociocortexWorkspace" required placeholder="Choose Workspace">
-                  <mat-option value="123">Dummy WS 1</mat-option>
-                  <mat-option value="456">Dummy WS 2</mat-option>
+                <mat-select formControlName="sociocortexWorkspace" required placeholder="SACM Workspace">
+                  <mat-option *ngFor="let workspace of autocomplete.sociocortexWorkspaces" [value]="workspace.id">
+                    {{workspace.name}}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
               <!-- case input -->
               <mat-form-field>
-                <mat-select formControlName="sociocortexCase" required placeholder="Choose Case">
-                  <mat-option value="123456">Dummy Case</mat-option>
+                <mat-select formControlName="sociocortexCase" required placeholder="SACM Case"
+                            [disableControl]="!form.controls.context.controls.sociocortexWorkspaces.value">
+                  <mat-option *ngFor="let sacmCase of autocomplete.sociocortexCases.relevant" [value]="sacmCase.id">
+                    {{sacmCase.name}}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
               <!-- task input -->
               <mat-form-field>
-                <mat-select formControlName="sociocortexTask" required placeholder="Choose Task"
+                <mat-select formControlName="sociocortexTask" required placeholder="SACM Task"
                             [disableControl]="!form.controls.context.controls.sociocortexCase.value">
-                  <mat-option value="789123">Dummy Task</mat-option>
+                  <mat-option *ngFor="let task of autocomplete.sociocortexTasks.relevant" [value]="task.id">
+                    {{task.name}}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>

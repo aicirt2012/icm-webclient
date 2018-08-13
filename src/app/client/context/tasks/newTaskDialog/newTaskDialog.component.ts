@@ -22,29 +22,21 @@ export class NewTaskDialogComponent {
       all: [],
       filtered: []
     },
-    trelloBoards: {
-      all: [],
-      filtered: []
-    },
+    trelloBoards: [],
     trelloLists: {
       all: [],
-      relevant: [],
-      filtered: []
+      relevant: []
     },
     trelloTasks: {
       all: [],
-      relevant: [],
-      filtered: []
+      relevant: []
     },
     assignees: {
       all: [],
       relevant: [],
       filtered: []
     },
-    sociocortexWorkspaces: {
-      all: [],
-      filtered: []
-    },
+    sociocortexWorkspaces: [],
     sociocortexCases: {
       all: [],
       relevant: [],
