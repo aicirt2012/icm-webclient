@@ -32,9 +32,8 @@ export class NewTaskDialogComponent {
       relevant: []
     },
     assignees: {
-      all: [],
-      relevant: [],
-      filtered: []
+      suggested: [],
+      other: []
     },
     sociocortexWorkspaces: [],
     sociocortexCases: {
@@ -48,8 +47,11 @@ export class NewTaskDialogComponent {
       filtered: []
     },
     owner: {
+      suggested: [],
+      other: []
+    },
+    dates: {
       all: [],
-      relevant: [],
       filtered: []
     }
   };
@@ -76,6 +78,7 @@ export class NewTaskDialogComponent {
     }),
     metadata: this._formBuilder.group({
       dueDate: [''],
+      dueDateUnformatted: [''],
       assignees: ['']
     }),
     trelloContent: this._formBuilder.group({

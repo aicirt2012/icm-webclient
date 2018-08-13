@@ -111,20 +111,44 @@
           <div formGroupName="metadata">
             <!-- due date input -->
             <mat-form-field>
-              <mat-select formControlName="dueDate" placeholder="Set a Due Date">
-                <mat-option value="date">Dummy Date</mat-option>
-              </mat-select>
+              <input name="date" matInput placeholder="Due Date" formControlName="dueDate"
+                     [matAutocomplete]="autocompleteDate">
+              <mat-autocomplete #autocompleteDate="matAutocomplete">
+                <mat-option *ngFor="let date of autocomplete.dates.filtered" [value]="date">{{date}}</mat-option>
+              </mat-autocomplete>
+              <input hidden name="datePicker" [(ngModel)]="dueDateUnformatted" [matDatepicker]="picker">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
             <!-- Trello assignee input -->
             <mat-form-field *ngIf="form.controls.intent.controls.provider.value === 'TRELLO'">
-              <mat-select formControlName="assignees" placeholder="Choose Assignees">
-                <mat-option value="John Doe">Dummy Trello Assignee</mat-option>
+              <mat-select class="margin" placeholder="Assignees" formControlName="assignees" name="member" fxFlex
+                          multiple>
+                <mat-optgroup label="Mentioned members" *ngIf="autocomplete.assignees.suggested.length > 0">
+                  <mat-option *ngFor="let member of autocomplete.assignees.suggested" [value]="member.id">
+                    {{member.fullName}}
+                  </mat-option>
+                </mat-optgroup>
+                <mat-optgroup label="Board members" *ngIf="autocomplete.assignees.other.length > 0">
+                  <mat-option *ngFor="let member of autocomplete.assignees.other" [value]="member.id">
+                    {{member.fullName}}
+                  </mat-option>
+                </mat-optgroup>
               </mat-select>
             </mat-form-field>
-            <!-- Sociocortex assignee input -->
+            <!-- Sociocortex owner input -->
             <mat-form-field *ngIf="form.controls.intent.controls.provider.value === 'SOCIOCORTEX'">
-              <mat-select formControlName="assignees" placeholder="Choose Assignees">
-                <mat-option value="John Doe">Dummy Sociocortex Assignee</mat-option>
+              <mat-select class="margin" placeholder="Owner" formControlName="assignees" name="member" fxFlex multiple>
+                <mat-optgroup label="Mentioned persons" *ngIf="autocomplete.owner.suggested.length > 0">
+                  <mat-option *ngFor="let member of autocomplete.owner.suggested" [value]="member.id">
+                    {{member.fullName}}
+                  </mat-option>
+                </mat-optgroup>
+                <mat-optgroup label="Workspace members" *ngIf="autocomplete.owner.other.length > 0">
+                  <mat-option *ngFor="let member of autocomplete.owner.other" [value]="member.id">
+                    {{member.fullName}}
+                  </mat-option>
+                </mat-optgroup>
               </mat-select>
             </mat-form-field>
           </div>
