@@ -19,7 +19,8 @@
           </mat-form-field>
           <!-- provider input -->
           <mat-form-field>
-            <mat-select formControlName="provider" required placeholder="Choose Provider">
+            <mat-select formControlName="provider" required placeholder="Choose Provider"
+                        (selectionChange)="onProviderSelect($event.value)">
               <mat-option value="TRELLO">Trello</mat-option>
               <mat-option value="SOCIOCORTEX">SACM</mat-option>
             </mat-select>
@@ -44,7 +45,8 @@
             <div *ngIf="!form.controls.intent.errors && form.controls.intent.controls.provider.value === 'TRELLO'">
               <!-- board input -->
               <mat-form-field>
-                <mat-select formControlName="trelloBoard" required placeholder="Trello Board">
+                <mat-select formControlName="trelloBoard" required placeholder="Trello Board"
+                            (selectionChange)="onBoardSelect($event.value)">
                   <mat-option *ngFor="let board of autocomplete.trelloBoards" [value]="board.id">
                     {{board.name}}
                   </mat-option>
@@ -53,7 +55,8 @@
               <!-- list input -->
               <mat-form-field>
                 <mat-select formControlName="trelloList" required placeholder="Trello List"
-                            [disableControl]="!form.controls.context.controls.trelloBoard.value">
+                            [disableControl]="!form.controls.context.controls.trelloBoard.value"
+                            (selectionChange)="onListSelect($event.value)">
                   <mat-option *ngFor="let list of autocomplete.trelloLists.relevant" [value]="list.id">
                     {{list.name}}
                   </mat-option>
@@ -62,7 +65,8 @@
               <!-- task input -->
               <mat-form-field *ngIf="form.controls.intent.controls.intendedAction.value === 'LINK'">
                 <mat-select formControlName="trelloTask" required placeholder="Trello Task"
-                            [disableControl]="!form.controls.context.controls.trelloList.value">
+                            [disableControl]="!form.controls.context.controls.trelloList.value"
+                            (selectionChange)="onTaskSelect($event.value)">
                   <mat-option *ngFor="let task of autocomplete.trelloTasks.relevant" [value]="task.id">
                     {{task.name}}
                   </mat-option>
@@ -73,7 +77,8 @@
             <div *ngIf="form.controls.intent.controls.provider.value === 'SOCIOCORTEX'">
               <!-- workspace input -->
               <mat-form-field>
-                <mat-select formControlName="sociocortexWorkspace" required placeholder="SACM Workspace">
+                <mat-select formControlName="sociocortexWorkspace" required placeholder="SACM Workspace"
+                            (selectionChange)="onWorkspaceSelect($event.value)">
                   <mat-option *ngFor="let workspace of autocomplete.sociocortexWorkspaces" [value]="workspace.id">
                     {{workspace.name}}
                   </mat-option>
@@ -82,7 +87,8 @@
               <!-- case input -->
               <mat-form-field>
                 <mat-select formControlName="sociocortexCase" required placeholder="SACM Case"
-                            [disableControl]="!form.controls.context.controls.sociocortexWorkspaces.value">
+                            [disableControl]="!form.controls.context.controls.sociocortexWorkspaces.value"
+                            (selectionChange)="onCaseSelect($event.value)">
                   <mat-option *ngFor="let sacmCase of autocomplete.sociocortexCases.relevant" [value]="sacmCase.id">
                     {{sacmCase.name}}
                   </mat-option>

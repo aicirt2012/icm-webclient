@@ -125,6 +125,30 @@ export class NewTaskDialogComponent {
     return null;
   }
 
+  onProviderSelect(provider: string) {
+    if (provider === 'TRELLO') {
+      // TODO load trelloboards
+    } else if (provider === 'SOCIOCORTEX') {
+      // TODO load sc workspaces
+    }
+  }
+
+  onBoardSelect(boardId: string) {
+    // TODO filter lists for boardId
+  }
+
+  onListSelect(listId: string) {
+    //TODO filter tasks by listId
+  }
+
+  onWorkspaceSelect(workspaceId: string) {
+    // TODO filter cases for workspaceId
+  }
+
+  onCaseSelect(caseId: string) {
+    // TODO filter tasks by caseId
+  }
+
   onSubmit() {
     console.log("Submit!");
     console.log(this.form);
