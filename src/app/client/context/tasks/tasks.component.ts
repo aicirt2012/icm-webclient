@@ -3,6 +3,7 @@ import { MatDialog } from "@angular/material";
 import { AppState } from '../../../app.service';
 import { NewTaskDialogComponent } from "./newTaskDialog";
 import { EditTaskDialogComponent } from "./editTaskDialog";
+import { TaskService } from '../../shared';
 
 @Component({
   selector: 'tasks',
@@ -21,18 +22,18 @@ export class TasksComponent {
   private user: any;
 
   constructor(public appState: AppState,
+              private taskService: TaskService,
               public dialog: MatDialog) {
   }
 
   ngOnInit() {
     this.user = this.appState.getUser();
     this.appState.user().subscribe(user => {
-      console.log("Got a user via subscription:");
-      console.log(user);
       this.user = user;
     });
   }
 
+  // noinspection JSUnusedGlobalSymbols (method is called by angular)
   ngOnChanges() {
     if (this.email) {
       console.log("Got an updated email via onChange:");
@@ -42,10 +43,15 @@ export class TasksComponent {
       this.suggestedTasks = [];
       if (this.email.linkedTasks)
         this.email.linkedTasks.forEach(task => {
-          if (task.isOpen)
-            this.openTasks.push(task);
-          else
-            this.completedTasks.push(task);
+          // load each task from our backend via its id
+          this.taskService.readTask(task._id)
+            .take(1)
+            .subscribe(task => {
+              if (task.isOpen)
+                this.openTasks.push(task);
+              else
+                this.completedTasks.push(task);
+            });
           // TODO initialize suggested tasks from email.suggestedData
         });
     }
