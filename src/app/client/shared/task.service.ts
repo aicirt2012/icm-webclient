@@ -47,6 +47,8 @@ export class TaskService {
   }
 
   static formatDate(date: any) {
+    if (!date)
+      return "";
     let d = new Date(date),
       month = '' + (d.getMonth() + 1),
       day = '' + d.getDate(),

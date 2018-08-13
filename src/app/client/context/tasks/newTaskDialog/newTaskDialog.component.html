@@ -116,7 +116,7 @@
               <mat-autocomplete #autocompleteDate="matAutocomplete">
                 <mat-option *ngFor="let date of autocomplete.dates.filtered" [value]="date">{{date}}</mat-option>
               </mat-autocomplete>
-              <input hidden name="datePicker" [(ngModel)]="dueDateUnformatted" [matDatepicker]="picker">
+              <input hidden name="datePicker" formControlName="dueDateUnformatted" [matDatepicker]="picker">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>

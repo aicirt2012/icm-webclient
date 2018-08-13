@@ -93,6 +93,13 @@ export class NewTaskDialogComponent {
               private _formBuilder: FormBuilder) {
   }
 
+  ngOnInit() {
+    this.form.get('metadata.dueDateUnformatted').valueChanges
+      .subscribe(date => {
+        this.form.get('metadata.dueDate').setValue(TaskService.formatDate(date));
+      });
+  }
+
   static validateForm(group: FormGroup) {
     // NOT NULL CHECKS
     if (!group || !group.controls.intent || !group.controls.context)
