@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'task-content-trello',
@@ -7,6 +8,9 @@ import { Component } from '@angular/core';
 })
 
 export class TaskContentTrelloComponent {
+
+  @Input()
+  private contentForm: FormGroup;
 
 }
 

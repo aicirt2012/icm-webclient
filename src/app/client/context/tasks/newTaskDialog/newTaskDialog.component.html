@@ -168,7 +168,7 @@
           </mat-expansion-panel-header>
           <mat-divider></mat-divider>
           <task-content-trello *ngIf="form.controls.intent.controls.provider.value === 'TRELLO'"
-                               formGroupName="trelloContent">
+                               [contentForm]="form.controls.trelloContent">
           </task-content-trello>
           <task-content-sociocortex *ngIf="form.controls.intent.controls.provider.value === 'SOCIOCORTEX'"
                                     formGroupName="sociocortexContent">
