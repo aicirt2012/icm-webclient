@@ -11,7 +11,11 @@
         <div formGroupName="intent">
           <!-- title input -->
           <mat-form-field>
-            <input matInput placeholder="Title" formControlName="title" required>
+            <input type="text" formControlName="title" matInput [matAutocomplete]="autocompleteTitle"
+                   placeholder="Task Title" required>
+            <mat-autocomplete #autocompleteTitle="matAutocomplete">
+              <mat-option *ngFor="let title of autocomplete_trello.titles.filtered" [value]="title">{{title}}</mat-option>
+            </mat-autocomplete>
           </mat-form-field>
           <!-- provider input -->
           <mat-form-field>

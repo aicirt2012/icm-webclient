@@ -17,6 +17,51 @@ export class NewTaskDialogComponent {
   public user: any;
   public suggestedData: any[] = [];
 
+  private autocomplete = {
+    titles: {
+      all: [],
+      filtered: []
+    },
+    trelloBoards: {
+      all: [],
+      filtered: []
+    },
+    trelloLists: {
+      all: [],
+      relevant: [],
+      filtered: []
+    },
+    trelloTasks: {
+      all: [],
+      relevant: [],
+      filtered: []
+    },
+    assignees: {
+      all: [],
+      relevant: [],
+      filtered: []
+    },
+    sociocortexWorkspaces: {
+      all: [],
+      filtered: []
+    },
+    sociocortexCases: {
+      all: [],
+      relevant: [],
+      filtered: []
+    },
+    sociocortexTasks: {
+      all: [],
+      relevant: [],
+      filtered: []
+    },
+    owner: {
+      all: [],
+      relevant: [],
+      filtered: []
+    }
+  };
+
   loading: any = {
     trello: false,
     sociocortex: false
