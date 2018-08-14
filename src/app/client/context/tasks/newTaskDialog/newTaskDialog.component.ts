@@ -35,12 +35,10 @@ export class NewTaskDialogComponent {
     },
     sociocortexWorkspaces: [],
     sociocortexCases: {
-      all: [],
       relevant: [],
       filtered: []
     },
     sociocortexTasks: {
-      all: [],
       relevant: [],
       filtered: []
     },
@@ -139,7 +137,14 @@ export class NewTaskDialogComponent {
           this.autocomplete.trelloLists.all = lists;
         })
     } else if (provider === 'SOCIOCORTEX') {
-      // TODO load sc workspaces
+      this.taskService.getSociocortexWorkspaces()
+        .take(1)
+        .subscribe(workspaces => {
+          this.autocomplete.sociocortexWorkspaces = workspaces;
+          if (workspaces.length == 1) {
+            this.form.get('context.sociocortexWorkspace').setValue(workspaces[0].id);
+          }
+        })
     }
   }
 
@@ -160,19 +165,35 @@ export class NewTaskDialogComponent {
   }
 
   onTaskSelect(taskId: string) {
-    this.taskService.getTrelloTask(taskId)
-      .take(1)
-      .subscribe(task => {
-        this.applyTaskObjectToForm(task);
-      });
+    if (this.form.get('intent.provider').value === 'TRELLO') {
+      this.taskService.getTrelloTask(taskId)
+        .take(1)
+        .subscribe(task => {
+          this.applyTaskObjectToForm(task);
+        });
+    } else {
+      this.taskService.getSociocortexMembers(taskId)
+        .take(1)
+        .subscribe(members => {
+          this.autocomplete.owner.other = members;
+        });
+    }
   }
 
   onWorkspaceSelect(workspaceId: string) {
-    // TODO filter cases for workspaceId
+    this.taskService.getSociocortexCases(workspaceId)
+      .take(1)
+      .subscribe(cases => {
+        this.autocomplete.sociocortexCases.relevant = cases;
+      });
   }
 
   onCaseSelect(caseId: string) {
-    // TODO filter tasks by caseId
+    this.taskService.getSociocortexTasks(caseId)
+      .take(1)
+      .subscribe(tasks => {
+        this.autocomplete.sociocortexTasks.relevant = tasks;
+      });
   }
 
   onSubmit() {

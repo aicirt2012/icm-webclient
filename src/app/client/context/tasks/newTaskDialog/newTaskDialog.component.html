@@ -76,10 +76,10 @@
             <!-- SOCIOCORTEX PROPERTIES -->
             <div *ngIf="form.controls.intent.controls.provider.value === 'SOCIOCORTEX'">
               <!-- workspace input -->
-              <mat-form-field>
+              <mat-form-field *ngIf="autocomplete.sociocortexWorkspaces.length > 1">
                 <mat-select formControlName="sociocortexWorkspace" required placeholder="SACM Workspace"
                             (change)="onWorkspaceSelect($event.value)">
-                  <mat-option *ngFor="let workspace of autocomplete.sociocortexWorkspace" [value]="workspace.id">
+                  <mat-option *ngFor="let workspace of autocomplete.sociocortexWorkspaces" [value]="workspace.id">
                     {{workspace.name}}
                   </mat-option>
                 </mat-select>
@@ -97,8 +97,9 @@
               <!-- task input -->
               <mat-form-field>
                 <mat-select formControlName="sociocortexTask" required placeholder="SACM Task"
-                            [disableControl]="!form.controls.context.controls.sociocortexCase.value">
-                  <mat-option *ngFor="let task of autocomplete.sociocortexTasks.relevant" [value]="task.id">
+                            [disableControl]="!form.controls.context.controls.sociocortexCase.value"
+                            (change)="onTaskSelect($event.value)">
+                  <mat-option *ngFor="let task of autocomplete.sociocortexTasks.relevant" [value]="task.providerId">
                     {{task.name}}
                   </mat-option>
                 </mat-select>
@@ -144,15 +145,16 @@
             </mat-form-field>
             <!-- Sociocortex owner input -->
             <mat-form-field *ngIf="form.controls.intent.controls.provider.value === 'SOCIOCORTEX'">
-              <mat-select class="margin" placeholder="Owner" formControlName="assignees" name="member" fxFlex multiple>
+              <mat-select class="margin" placeholder="Owner" formControlName="assignees" name="member" fxFlex
+                          [disabled]="!form.get('context.sociocortexTask').value">
                 <mat-optgroup label="Mentioned persons" *ngIf="autocomplete.owner.suggested.length > 0">
                   <mat-option *ngFor="let member of autocomplete.owner.suggested" [value]="member.id">
-                    {{member.fullName}}
+                    {{member.name}}
                   </mat-option>
                 </mat-optgroup>
                 <mat-optgroup label="Workspace members" *ngIf="autocomplete.owner.other.length > 0">
                   <mat-option *ngFor="let member of autocomplete.owner.other" [value]="member.id">
-                    {{member.fullName}}
+                    {{member.name}}
                   </mat-option>
                 </mat-optgroup>
               </mat-select>

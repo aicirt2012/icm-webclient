@@ -44,6 +44,26 @@ export class TaskService {
     return this.http.get('tasks/providers/trello/boards/' + boardId + '/members', null, null);
   }
 
+  getSociocortexWorkspaces(): Observable<any> {
+    return this.http.get('tasks/providers/sociocortex/workspaces', null, null);
+  }
+
+  getSociocortexCases(workspaceId: string): Observable<any> {
+    return this.http.get('tasks/providers/sociocortex/workspaces/' + workspaceId + '/cases', null, null);
+  }
+
+  getSociocortexTasks(caseId: string): Observable<any> {
+    return this.http.get('tasks/providers/sociocortex/cases/' + caseId + '/tasks', null, null);
+  }
+
+  getSociocortexMembers(taskId: string): Observable<any> {
+    return this.http.get('tasks/providers/sociocortex/tasks/' + taskId + '/members', null, null);
+  }
+
+  getSociocortexTask(taskId: string): Observable<any> {
+    return this.http.get('tasks/providers/sociocortex/tasks/' + taskId, null, null);
+  }
+
   static getParameter(task: any, parameterName: string): any {
     let value = undefined;
     if (task.parameters)
