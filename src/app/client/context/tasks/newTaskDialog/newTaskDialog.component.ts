@@ -241,7 +241,6 @@ export class NewTaskDialogComponent {
     task.name = intent.title.value;
     task.frontendUrl = this.router.url;
     task.due = metadata.dueDate.value ? metadata.dueDate.value : undefined;
-    task.assignees = metadata.assignees.value ? metadata.assignees.value : undefined;
     task.isOpen = true;
     task.provider = intent.provider.value;
 
@@ -249,8 +248,12 @@ export class NewTaskDialogComponent {
       if (intent.intendedAction.value === 'LINK')
         task.providerId = (<FormGroup> this.form.controls.context).controls.trelloTask.value;
       task.parameters = this.getTaskParametersTrello();
+      task.assignees = metadata.assignees.value ? metadata.assignees.value : undefined;
     } else if (task.provider === 'SOCIOCORTEX') {
+      if (intent.intendedAction.value === 'LINK')
+        task.providerId = (<FormGroup> this.form.controls.context).controls.sociocortexTask.value;
       task.parameters = this.getTaskParametersSociocortex();
+      task.assignees = metadata.assignees.value ? [metadata.assignees.value] : undefined;
     }
     return task;
   }
@@ -258,8 +261,14 @@ export class NewTaskDialogComponent {
   applyTaskObjectToForm(task: Task) {
     this.form.get('intent.title').setValue(task.name);
     this.form.get('metadata.dueDate').setValue(TaskService.formatDate(task.due));
-    this.form.get('metadata.assignees').setValue(task.assignees);
     this.form.get('trelloContent.description').setValue(TaskService.getParameter(task, 'desc'));
+    if (this.form.get('intent.provider').value === 'TRELLO') {
+      this.form.get('metadata.assignees').setValue(task.assignees);
+    } else {
+      if (task.assignees && task.assignees.length > 0)
+      // only one owner allowed for SC tasks
+        this.form.get('metadata.assignees').setValue(task.assignees[0]);
+    }
   }
 
   private getTaskParametersTrello() {
@@ -279,9 +288,9 @@ export class NewTaskDialogComponent {
     const content = (<FormGroup> this.form.controls.sociocortexContent).controls;
     const parameters = [];
     // context information
-    parameters.push({name: "case", value: context.trelloList.value});
+    parameters.push({name: "case", value: context.sociocortexCase.value});
     // task content
-    parameters.push({name: "description", value: content.description.value});
+    // parameters.push({name: "description", value: content.description.value});
     return parameters;
   }
 
