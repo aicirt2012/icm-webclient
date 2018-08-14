@@ -16,7 +16,7 @@ export class NewTaskDialogComponent {
   public task: any;
   public email: any;
   public user: any;
-  public suggestedData: any[] = [];
+  public suggestedData: { titles: any[], dates: any[], mentionedPersons: any[] };
 
   private autocomplete = {
     titles: {
@@ -95,6 +95,8 @@ export class NewTaskDialogComponent {
       .subscribe(date => {
         this.form.get('metadata.dueDate').setValue(TaskService.formatDate(date));
       });
+    this.autocomplete.titles.all = this.suggestedData.titles;
+    this.autocomplete.dates.all = this.suggestedData.dates;
   }
 
   static validateForm(group: FormGroup) {
@@ -151,7 +153,19 @@ export class NewTaskDialogComponent {
   onBoardSelect(boardId: string) {
     this.taskService.getTrelloMembers(boardId)
       .take(1)
-      .subscribe(members => this.autocomplete.assignees.other = members);
+      .subscribe(members => {
+        const mentionedMembers = [], otherMembers = [];
+        members.forEach(member => {
+          let isMentioned = this.suggestedData.mentionedPersons
+            .some(nameString => member.fullName.indexOf(nameString) > -1);
+          if (isMentioned)
+            mentionedMembers.push(member);
+          else
+            otherMembers.push(member);
+        });
+        this.autocomplete.assignees.other = otherMembers;
+        this.autocomplete.assignees.suggested = mentionedMembers;
+      });
     const lists = this.autocomplete.trelloLists;
     lists.relevant = lists.all.filter(list => list.idBoard === boardId);
   }
@@ -175,7 +189,17 @@ export class NewTaskDialogComponent {
       this.taskService.getSociocortexMembers(taskId)
         .take(1)
         .subscribe(members => {
-          this.autocomplete.owner.other = members;
+          const mentionedMembers = [], otherMembers = [];
+          members.forEach(member => {
+            let isMentioned = this.suggestedData.mentionedPersons
+              .some(nameString => member.name.indexOf(nameString) > -1);
+            if (isMentioned)
+              mentionedMembers.push(member);
+            else
+              otherMembers.push(member);
+          });
+          this.autocomplete.owner.other = otherMembers;
+          this.autocomplete.owner.suggested = mentionedMembers;
         });
       this.taskService.getSociocortexTask(taskId)
         .take(1)
