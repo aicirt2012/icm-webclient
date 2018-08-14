@@ -91,12 +91,22 @@ export class NewTaskDialogComponent {
   }
 
   ngOnInit() {
+    this.autocomplete.titles.all = this.suggestedData.titles;
+    this.autocomplete.dates.all = this.suggestedData.dates;
+    this.autocomplete.titles.filtered = this.autocomplete.titles.all;
+    this.autocomplete.dates.filtered = this.autocomplete.dates.all;
     this.form.get('metadata.dueDateUnformatted').valueChanges
       .subscribe(date => {
         this.form.get('metadata.dueDate').setValue(TaskService.formatDate(date));
       });
-    this.autocomplete.titles.all = this.suggestedData.titles;
-    this.autocomplete.dates.all = this.suggestedData.dates;
+    this.form.get('intent.title').valueChanges
+      .subscribe(updatedValue => {
+        this.autocomplete.titles.filtered = this.autocomplete.titles.all.filter(title => title.indexOf(updatedValue) == 0)
+      });
+    this.form.get('metadata.dueDate').valueChanges
+      .subscribe(updatedValue => {
+        this.autocomplete.dates.filtered = this.autocomplete.dates.all.filter(date => date.indexOf(updatedValue) == 0)
+      });
   }
 
   static validateForm(group: FormGroup) {
