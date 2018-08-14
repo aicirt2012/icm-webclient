@@ -160,7 +160,7 @@ export class NewTaskDialogComponent {
     if (this.form.get('intent.intendedAction').value === 'LINK' && listId) {
       this.taskService.getTrelloTasks(listId)
         .take(1)
-        .subscribe(tasks => this.autocomplete.trelloTasks = tasks);
+        .subscribe(tasks => this.autocomplete.trelloTasks = tasks.filter(task => task.isOpen));
     }
   }
 
@@ -177,6 +177,12 @@ export class NewTaskDialogComponent {
         .subscribe(members => {
           this.autocomplete.owner.other = members;
         });
+      this.taskService.getSociocortexTask(taskId)
+        .take(1)
+        .subscribe(task => {
+          console.log(task);
+          this.applyTaskObjectToForm(task);
+        });
     }
   }
 
@@ -192,7 +198,10 @@ export class NewTaskDialogComponent {
     this.taskService.getSociocortexTasks(caseId)
       .take(1)
       .subscribe(tasks => {
-        this.autocomplete.sociocortexTasks.relevant = tasks;
+        if (this.form.get('intent.intendedAction').value === 'LINK')
+          this.autocomplete.sociocortexTasks.relevant = tasks.filter(task => task.isOpen);
+        else
+          this.autocomplete.sociocortexTasks.relevant = tasks.filter(task => task.getParameter('state') === 'ENABLED');
       });
   }
 

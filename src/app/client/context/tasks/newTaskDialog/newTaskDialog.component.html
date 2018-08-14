@@ -92,6 +92,9 @@
                   <mat-option *ngFor="let sacmCase of autocomplete.sociocortexCases.relevant" [value]="sacmCase.id">
                     {{sacmCase.name}}
                   </mat-option>
+                  <mat-option *ngIf="autocomplete.sociocortexCases.relevant.length < 1" disabled>
+                    No cases available
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
               <!-- task input -->
@@ -101,6 +104,9 @@
                             (change)="onTaskSelect($event.value)">
                   <mat-option *ngFor="let task of autocomplete.sociocortexTasks.relevant" [value]="task.providerId">
                     {{task.name}}
+                  </mat-option>
+                  <mat-option *ngIf="autocomplete.sociocortexTasks.relevant.length < 1" disabled>
+                    No tasks available
                   </mat-option>
                 </mat-select>
               </mat-form-field>
