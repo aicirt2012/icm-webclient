@@ -3,6 +3,7 @@ import { MatDialogRef, MatSnackBar } from "@angular/material";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { TaskService } from '../../../shared';
 import { Task } from '../../../../shared';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'new-task-dialog',
@@ -87,6 +88,7 @@ export class NewTaskDialogComponent {
   constructor(public taskDialogRef: MatDialogRef<NewTaskDialogComponent>,
               public snackBar: MatSnackBar,
               private taskService: TaskService,
+              private router: Router,
               private _formBuilder: FormBuilder) {
   }
 
@@ -178,14 +180,25 @@ export class NewTaskDialogComponent {
     console.log(this.form);
     this.submitted = true;
 
-    this.taskService.createTask(this.convertFormToTaskObject()).subscribe(() => {
-      this.closeDialog();
-      this.snackBar.open('Task successfully created.', 'OK');
-    }, error => {
-      console.log(error);
-      this.submitted = false;
-      this.snackBar.open('Error while creating task.', 'OK');
-    });
+    if (this.form.get('intent.intendedAction').value === 'LINK') {
+      this.taskService.linkTask(this.convertFormToTaskObject()).subscribe(() => {
+        this.closeDialog();
+        this.snackBar.open('Task successfully linked.', 'OK');
+      }, error => {
+        console.log(error);
+        this.submitted = false;
+        this.snackBar.open('Error while linking task.', 'OK');
+      });
+    } else {
+      this.taskService.createTask(this.convertFormToTaskObject()).subscribe(() => {
+        this.closeDialog();
+        this.snackBar.open('Task successfully created.', 'OK');
+      }, error => {
+        console.log(error);
+        this.submitted = false;
+        this.snackBar.open('Error while creating task.', 'OK');
+      });
+    }
   }
 
   convertFormToTaskObject() {
@@ -196,6 +209,7 @@ export class NewTaskDialogComponent {
     task.email = this.email._id;
     task.user = this.user._id;
     task.name = intent.title.value;
+    task.frontendUrl = this.router.url;
     task.due = metadata.dueDate.value ? metadata.dueDate.value : undefined;
     task.assignees = metadata.assignees.value ? metadata.assignees.value : undefined;
     task.isOpen = true;

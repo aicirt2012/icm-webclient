@@ -6,6 +6,7 @@ export class Task {
   user: any;
   email: any;
   threadId: any;
+  frontendUrl: string;
 
   // default task content
   name: string;
