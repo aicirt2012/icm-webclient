@@ -282,12 +282,12 @@ export class TaskDialogComponent {
     if (task.provider === 'TRELLO') {
       if (intent.intendedAction.value === 'LINK')
         task.providerId = (<FormGroup> this.form.controls.context).controls.trelloTask.value;
-      task.parameters = this.getTaskParametersTrello();
+      task.parameters = this.convertTaskParametersTrello();
       task.assignees = metadata.assignees.value ? metadata.assignees.value : undefined;
     } else if (task.provider === 'SOCIOCORTEX') {
       if (intent.intendedAction.value === 'LINK')
         task.providerId = (<FormGroup> this.form.controls.context).controls.sociocortexTask.value;
-      task.parameters = this.getTaskParametersSociocortex();
+      task.parameters = this.convertTaskParametersSociocortex();
       task.assignees = metadata.assignees.value ? [metadata.assignees.value] : undefined;
     }
     return task;
@@ -306,7 +306,7 @@ export class TaskDialogComponent {
     }
   }
 
-  private getTaskParametersTrello() {
+  private convertTaskParametersTrello() {
     const context = (<FormGroup> this.form.controls.context).controls;
     const content = (<FormGroup> this.form.controls.trelloContent).controls;
     const parameters = [];
@@ -318,7 +318,7 @@ export class TaskDialogComponent {
     return parameters;
   }
 
-  private getTaskParametersSociocortex() {
+  private convertTaskParametersSociocortex() {
     const context = (<FormGroup> this.form.controls.context).controls;
     const content = (<FormGroup> this.form.controls.sociocortexContent).controls;
     const parameters = [];
