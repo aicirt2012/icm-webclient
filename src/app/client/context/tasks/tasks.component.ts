@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { MatDialog } from "@angular/material";
 import { AppState } from '../../../app.service';
 import { NewTaskDialogComponent } from "./newTaskDialog";
-import { EditTaskDialogComponent } from "./editTaskDialog";
 import { TaskService } from '../../shared';
 
 @Component({
@@ -69,11 +68,14 @@ export class TasksComponent {
   }
 
   openEditTaskDialog(task: any) {
-    let dialogRef = this.dialog.open(EditTaskDialogComponent, {
+    let dialogRef = this.dialog.open(NewTaskDialogComponent, {
       width: '45%',
       height: 'auto'
     });
     dialogRef.componentInstance.task = task;
+    dialogRef.componentInstance.email = this.email;
+    dialogRef.componentInstance.user = this.user;
+    dialogRef.componentInstance.suggestedData = this.email.suggestedData;
   }
 
 }

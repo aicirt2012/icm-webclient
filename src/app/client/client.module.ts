@@ -41,7 +41,6 @@ import {
   TasksComponent,
   TaskItemComponent,
   NewTaskDialogComponent,
-  EditTaskDialogComponent,
   TaskContentTrelloComponent,
   TaskContentSociocortexComponent,
   ContextComponent,
@@ -135,7 +134,6 @@ import { TinymceModule } from 'angular2-tinymce';
     TasksComponent,
     TaskItemComponent,
     NewTaskDialogComponent,
-    EditTaskDialogComponent,
     TaskContentTrelloComponent,
     TaskContentSociocortexComponent,
     ContextComponent,
@@ -176,7 +174,6 @@ import { TinymceModule } from 'angular2-tinymce';
     EmailDialogComponent,
     BoxDialogComponent,
     NewTaskDialogComponent,
-    EditTaskDialogComponent,
     ContactDetailsDialogComponent,
     EmailFolderDialogComponent,
     SentenceDialogComponent
