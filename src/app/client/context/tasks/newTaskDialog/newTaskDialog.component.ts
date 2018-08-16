@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2, ViewChild } from '@angular/core';
 import { MatDialogRef, MatSnackBar } from "@angular/material";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { TaskService } from '../../../shared';
@@ -59,8 +59,8 @@ export class NewTaskDialogComponent {
   submitted: boolean = false;
 
   form: FormGroup = this._formBuilder.group({
+    title: this._formBuilder.control('', Validators.required),
     intent: this._formBuilder.group({
-      title: ['', Validators.required],
       provider: ['', Validators.required],
       intendedAction: ['', Validators.required],
     }),
@@ -87,6 +87,7 @@ export class NewTaskDialogComponent {
               public snackBar: MatSnackBar,
               private taskService: TaskService,
               private router: Router,
+              private renderer: Renderer2,
               private _formBuilder: FormBuilder) {
   }
 
@@ -99,7 +100,7 @@ export class NewTaskDialogComponent {
       .subscribe(date => {
         this.form.get('metadata.dueDate').setValue(TaskService.formatDate(date));
       });
-    this.form.get('intent.title').valueChanges
+    this.form.get('title').valueChanges
       .subscribe(updatedValue => {
         this.autocomplete.titles.filtered = this.autocomplete.titles.all.filter(title => title.indexOf(updatedValue) == 0)
       });

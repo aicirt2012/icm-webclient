@@ -1,22 +1,23 @@
 <div fxFlex fxLayout="column">
-  <div mat-dialog-title fxLayout="row">
-    <span fxFlex>New Task</span>
-    <mat-icon (click)="closeDialog()" class="pointer">close</mat-icon>
-  </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div mat-dialog-title fxLayout="row">
+      <!-- title input -->
+      <mat-form-field fxFlex floatLabel="always">
+        <label>Task Title</label>
+        <input type="text" formControlName="title" matInput [matAutocomplete]="autocompleteTitle"
+               placeholder="Unnamed Task" required>
+        <mat-autocomplete #autocompleteTitle="matAutocomplete">
+          <mat-option *ngFor="let title of autocomplete.titles.filtered" [value]="title">{{title}}</mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <!-- close icon -->
+      <mat-icon (click)="closeDialog()" class="pointer">close</mat-icon>
+    </div>
 
-  <mat-dialog-content class="new-task-dialog">
-    <mat-accordion [multi]="true" displayMode="flat" class="new-task-panel">
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-dialog-content class="new-task-dialog">
+      <mat-accordion [multi]="true" displayMode="flat" class="new-task-panel">
 
         <div formGroupName="intent">
-          <!-- title input -->
-          <mat-form-field>
-            <input type="text" formControlName="title" matInput [matAutocomplete]="autocompleteTitle"
-                   placeholder="Task Title" required>
-            <mat-autocomplete #autocompleteTitle="matAutocomplete">
-              <mat-option *ngFor="let title of autocomplete.titles.filtered" [value]="title">{{title}}</mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
           <!-- provider input -->
           <mat-form-field>
             <mat-select formControlName="provider" required placeholder="Choose Provider"
@@ -45,7 +46,7 @@
             <div *ngIf="!form.controls.intent.errors && form.controls.intent.controls.provider.value === 'TRELLO'">
               <!-- board input -->
               <mat-form-field>
-                <mat-select formControlName="trelloBoard" required placeholder="Trello Board"
+                <mat-select #initiallyFocused formControlName="trelloBoard" required placeholder="Trello Board"
                             (change)="onBoardSelect($event.value)">
                   <mat-option *ngFor="let board of autocomplete.trelloBoards" [value]="board.id">
                     {{board.name}}
@@ -188,7 +189,7 @@
           <!--<mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>-->
         </button>
 
-      </form>
-    </mat-accordion>
-  </mat-dialog-content>
+      </mat-accordion>
+    </mat-dialog-content>
+  </form>
 </div>
