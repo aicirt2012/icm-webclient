@@ -40,7 +40,7 @@ import {
   ContactDetailsDialogComponent,
   TasksComponent,
   TaskItemComponent,
-  NewTaskDialogComponent,
+  TaskDialogComponent,
   TaskContentTrelloComponent,
   TaskContentSociocortexComponent,
   ContextComponent,
@@ -133,7 +133,7 @@ import { TinymceModule } from 'angular2-tinymce';
     ClientComponent,
     TasksComponent,
     TaskItemComponent,
-    NewTaskDialogComponent,
+    TaskDialogComponent,
     TaskContentTrelloComponent,
     TaskContentSociocortexComponent,
     ContextComponent,
@@ -173,7 +173,7 @@ import { TinymceModule } from 'angular2-tinymce';
   entryComponents: [
     EmailDialogComponent,
     BoxDialogComponent,
-    NewTaskDialogComponent,
+    TaskDialogComponent,
     ContactDetailsDialogComponent,
     EmailFolderDialogComponent,
     SentenceDialogComponent

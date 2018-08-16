@@ -1,4 +1,4 @@
-import { Component, Renderer2, ViewChild } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { MatDialogRef, MatSnackBar } from "@angular/material";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { TaskService } from '../../../shared';
@@ -6,12 +6,12 @@ import { Task } from '../../../../shared';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'new-task-dialog',
-  styleUrls: ['./newTaskDialog.component.css'],
-  templateUrl: './newTaskDialog.component.html'
+  selector: 'task-dialog',
+  styleUrls: ['./taskDialog.component.css'],
+  templateUrl: './taskDialog.component.html'
 })
 
-export class NewTaskDialogComponent {
+export class TaskDialogComponent {
 
   public task: any;
   public email: any;
@@ -81,9 +81,9 @@ export class NewTaskDialogComponent {
       description: ['']
     }),
     sociocortexContent: this._formBuilder.array([])
-  }, {validator: NewTaskDialogComponent.validateForm});
+  }, {validator: TaskDialogComponent.validateForm});
 
-  constructor(public taskDialogRef: MatDialogRef<NewTaskDialogComponent>,
+  constructor(public taskDialogRef: MatDialogRef<TaskDialogComponent>,
               public snackBar: MatSnackBar,
               private taskService: TaskService,
               private router: Router,
@@ -273,7 +273,7 @@ export class NewTaskDialogComponent {
 
     task.email = this.email._id;
     task.user = this.user._id;
-    task.name = intent.title.value;
+    task.name = this.form.controls.title.value;
     task.frontendUrl = this.router.url;
     task.due = metadata.dueDate.value ? metadata.dueDate.value : undefined;
     task.isOpen = true;
@@ -294,7 +294,7 @@ export class NewTaskDialogComponent {
   }
 
   applyTaskObjectToForm(task: Task) {
-    this.form.get('intent.title').setValue(task.name);
+    this.form.get('title').setValue(task.name);
     this.form.get('metadata.dueDate').setValue(TaskService.formatDate(task.due));
     this.form.get('trelloContent.description').setValue(TaskService.getParameter(task, 'desc'));
     if (this.form.get('intent.provider').value === 'TRELLO') {
