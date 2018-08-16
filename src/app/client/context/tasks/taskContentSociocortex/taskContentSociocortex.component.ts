@@ -11,6 +11,13 @@ export class TaskContentSociocortexComponent {
 
   @Input()
   private contentForm: FormGroup;
+  @Input()
+  private taskParams: any[];
+
+  ngOnInit() {
+    console.log("init sociocortex content. params:");
+    console.log(this.taskParams);
+  }
 
 }
 

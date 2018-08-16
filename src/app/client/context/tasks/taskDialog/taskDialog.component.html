@@ -169,8 +169,10 @@
         </mat-expansion-panel>
 
         <mat-expansion-panel
-          [disabled]="form.controls.intent.status !== 'VALID'
-        || (form.controls.intent.controls.intendedAction.value === 'LINK' && form.controls.context.status !== 'VALID')">
+          [disabled]="form.get('intent').status !== 'VALID'
+        || (form.get('intent.intendedAction').value === 'LINK' && form.get('context').status !== 'VALID')
+        || (form.get('intent.intendedAction').value === 'LINK' && form.get('intent.provider').value === 'SCOIOCORTEX'
+        && !sociocortexParams)">
           <mat-expansion-panel-header expandedHeight="40px" collapsedHeight="40px">
             Task Content
           </mat-expansion-panel-header>
@@ -178,7 +180,7 @@
           <task-content-trello *ngIf="form.controls.intent.controls.provider.value === 'TRELLO'"
                                [contentForm]="form.controls.trelloContent">
           </task-content-trello>
-          <task-content-sociocortex *ngIf="form.controls.intent.controls.provider.value === 'SOCIOCORTEX'"
+          <task-content-sociocortex *ngIf="sociocortexParams" [taskParams]="sociocortexParams"
                                     [contentForm]="form.controls.sociocortexContent">
           </task-content-sociocortex>
         </mat-expansion-panel>

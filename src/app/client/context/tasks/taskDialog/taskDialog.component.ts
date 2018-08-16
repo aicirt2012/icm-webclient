@@ -18,6 +18,8 @@ export class TaskDialogComponent {
   public user: any;
   public suggestedData: { titles: any[], dates: any[], mentionedPersons: any[] };
 
+  private sociocortexParams: any[];
+
   private autocomplete = {
     titles: {
       all: [],
@@ -217,6 +219,7 @@ export class TaskDialogComponent {
         .subscribe(task => {
           console.log(task);
           this.applyTaskObjectToForm(task);
+          this.sociocortexParams = TaskService.getParameter(task, 'contentParams');
         });
     }
   }
