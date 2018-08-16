@@ -2,10 +2,9 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div mat-dialog-title fxLayout="row">
       <!-- title input -->
-      <mat-form-field fxFlex floatLabel="always">
-        <label>Task Title</label>
+      <mat-form-field fxFlex>
         <input type="text" formControlName="title" matInput [matAutocomplete]="autocompleteTitle"
-               placeholder="Unnamed Task" required>
+               placeholder="Task Title" required>
         <mat-autocomplete #autocompleteTitle="matAutocomplete">
           <mat-option *ngFor="let title of autocomplete.titles.filtered" [value]="title">{{title}}</mat-option>
         </mat-autocomplete>
