@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'task-content-sociocortex',
@@ -10,7 +10,7 @@ import { FormGroup } from '@angular/forms';
 export class TaskContentSociocortexComponent {
 
   @Input()
-  private contentForm: FormGroup;
+  private contentForm: FormArray;
   private _taskParams: any[];
 
   get taskParams(): any[] {
@@ -24,8 +24,15 @@ export class TaskContentSociocortexComponent {
     console.log("Preprocessed parameters.", this._taskParams);
   }
 
+  constructor(private formBuilder: FormBuilder) {
+  }
+
   private preProcessParameters() {
     this._taskParams.forEach(taskParam => {
+      if (taskParam.required)
+        this.contentForm.push(this.formBuilder.control(['', Validators.required]));
+      else
+        this.contentForm.push(this.formBuilder.control(['']));
       switch (taskParam.type) {
         case "enumeration":
           if (taskParam.multiplicity === 'exactlyOne')
