@@ -1,6 +1,13 @@
 import { Component, Renderer2 } from '@angular/core';
 import { MatDialogRef, MatSnackBar } from "@angular/material";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from "@angular/forms";
 import { TaskService } from '../../../shared';
 import { Task } from '../../../../shared';
 import { Router } from '@angular/router';
@@ -244,27 +251,30 @@ export class TaskDialogComponent {
   }
 
   onSubmit() {
-    console.log("Submit!");
-    console.log(this.form);
-    this.submitted = true;
-
-    if (this.form.get('intent.intendedAction').value === 'LINK') {
-      this.taskService.linkTask(this.convertFormToTaskObject()).subscribe(() => {
-        this.closeDialog();
-        this.snackBar.open('Task successfully linked.', 'OK');
-      }, error => {
-        console.log(error);
-        this.submitted = false;
-        this.snackBar.open('Error while linking task.', 'OK');
-      });
+    if (this.form.valid) {
+      this.submitted = true;
+      if (this.form.get('intent.intendedAction').value === 'LINK') {
+        this.taskService.linkTask(this.convertFormToTaskObject()).subscribe(() => {
+          this.closeDialog();
+          this.snackBar.open('Task successfully linked.', 'OK');
+        }, error => {
+          console.log(error);
+          this.submitted = false;
+          this.snackBar.open('Error while linking task.', 'OK');
+        });
+      } else {
+        this.taskService.createTask(this.convertFormToTaskObject()).subscribe(() => {
+          this.closeDialog();
+          this.snackBar.open('Task successfully created.', 'OK');
+        }, error => {
+          console.log(error);
+          this.submitted = false;
+          this.snackBar.open('Error while creating task.', 'OK');
+        });
+      }
     } else {
-      this.taskService.createTask(this.convertFormToTaskObject()).subscribe(() => {
-        this.closeDialog();
-        this.snackBar.open('Task successfully created.', 'OK');
-      }, error => {
-        console.log(error);
-        this.submitted = false;
-        this.snackBar.open('Error while creating task.', 'OK');
+      Object.keys(this.form.controls).forEach(field => {
+        this.validateFormField(this.form.get(field));
       });
     }
   }
@@ -294,6 +304,20 @@ export class TaskDialogComponent {
       task.assignees = metadata.assignees.value ? [metadata.assignees.value] : undefined;
     }
     return task;
+  }
+
+  validateFormField(control: AbstractControl) {
+    if (control instanceof FormControl) {
+      control.markAsTouched({onlySelf: true});
+    } else if (control instanceof FormGroup) {
+      Object.keys(control.controls).forEach(field => {
+        this.validateFormField(control.get(field));
+      });
+    } else if (control instanceof FormArray) {
+      control.controls.forEach(subcontrol => {
+        this.validateFormField(subcontrol);
+      });
+    }
   }
 
   applyTaskObjectToForm(task: Task) {
