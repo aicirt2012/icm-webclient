@@ -244,9 +244,11 @@ export class TaskDialogComponent {
       .take(1)
       .subscribe(tasks => {
         if (this.form.get('intent.intendedAction').value === 'LINK')
-          this.autocomplete.sociocortexTasks.relevant = tasks.filter(task => task.isOpen);
+          this.autocomplete.sociocortexTasks.relevant = tasks
+            .filter(task => task.isOpen);
         else
-          this.autocomplete.sociocortexTasks.relevant = tasks.filter(task => task.getParameter('state') === 'ENABLED');
+          this.autocomplete.sociocortexTasks.relevant = tasks
+            .filter(task => TaskService.getParameter(task, 'state') === 'ENABLED');
       });
   }
 
