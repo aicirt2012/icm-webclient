@@ -34,12 +34,13 @@
           </mat-form-field>
         </div>
 
+        <!-- context -->
         <mat-expansion-panel [disabled]="form.controls.intent.status !== 'VALID'"
                              [expanded]="form.controls.intent.status === 'VALID'">
           <mat-expansion-panel-header expandedHeight="40px" collapsedHeight="40px">
             Context
           </mat-expansion-panel-header>
-          <mat-divider></mat-divider>
+          <mat-divider class="expansion-divider"></mat-divider>
           <div formGroupName="context">
             <!-- TRELLO PROPERTIES -->
             <div *ngIf="!form.controls.intent.errors && form.controls.intent.controls.provider.value === 'TRELLO'">
@@ -113,14 +114,14 @@
             </div>
           </div>
         </mat-expansion-panel>
-
+        <!-- metadata -->
         <mat-expansion-panel
           [disabled]="form.controls.intent.status !== 'VALID'
         || (form.controls.intent.controls.intendedAction.value === 'LINK' && form.controls.context.status !== 'VALID')">
           <mat-expansion-panel-header expandedHeight="40px" collapsedHeight="40px">
             Metadata
           </mat-expansion-panel-header>
-          <mat-divider></mat-divider>
+          <mat-divider class="expansion-divider"></mat-divider>
           <div formGroupName="metadata">
             <!-- due date input -->
             <mat-form-field>
@@ -167,7 +168,7 @@
             </mat-form-field>
           </div>
         </mat-expansion-panel>
-
+        <!-- content -->
         <mat-expansion-panel
           [disabled]="!form.get('intent').valid
         || (form.get('intent.intendedAction').value === 'LINK' && !form.get('context').valid)
@@ -175,7 +176,7 @@
           <mat-expansion-panel-header expandedHeight="40px" collapsedHeight="40px">
             Task Content
           </mat-expansion-panel-header>
-          <mat-divider></mat-divider>
+          <mat-divider class="expansion-divider"></mat-divider>
           <task-content-trello *ngIf="form.controls.intent.controls.provider.value === 'TRELLO'"
                                [contentForm]="form.controls.trelloContent">
           </task-content-trello>

@@ -5,3 +5,7 @@
 .mat-spinner {
   max-height: 36px;
 }
+
+.expansion-divider {
+  padding-bottom: 8px;
+}
