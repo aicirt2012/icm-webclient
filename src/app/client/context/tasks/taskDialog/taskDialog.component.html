@@ -184,13 +184,13 @@
                                     [contentForm]="form.controls.sociocortexContent">
           </task-content-sociocortex>
         </mat-expansion-panel>
-
-        <button type="submit" [disabled]="submitted" mat-raised-button color="accent">
-          <span>Confirm</span>
-          <!--<mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>-->
-        </button>
-
       </mat-accordion>
     </mat-dialog-content>
+    <mat-dialog-actions>
+      <button type="submit" [disabled]="submitted" mat-raised-button color="accent">
+        <span>Confirm</span>
+        <!--<mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>-->
+      </button>
+    </mat-dialog-actions>
   </form>
 </div>
