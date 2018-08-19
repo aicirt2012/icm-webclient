@@ -171,8 +171,7 @@
         <mat-expansion-panel
           [disabled]="!form.get('intent').valid
         || (form.get('intent.intendedAction').value === 'LINK' && !form.get('context').valid)
-        || (form.get('intent.intendedAction').value === 'LINK' && form.get('intent.provider').value === 'SCOIOCORTEX'
-        && !sociocortexParams)">
+        || (form.get('intent.provider').value === 'SOCIOCORTEX' && (!sociocortexParams || sociocortexParams.length == 0))">
           <mat-expansion-panel-header expandedHeight="40px" collapsedHeight="40px">
             Task Content
           </mat-expansion-panel-header>
