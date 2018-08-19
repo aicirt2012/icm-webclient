@@ -91,7 +91,7 @@
                             [disableControl]="!form.controls.context.controls.sociocortexWorkspace.value"
                             (change)="onCaseSelect($event.value)">
                   <mat-option *ngFor="let sacmCase of autocomplete.sociocortexCases.relevant" [value]="sacmCase.id">
-                    {{sacmCase.name}}
+                    {{sacmCase.friendlyName}}
                   </mat-option>
                   <mat-option *ngIf="autocomplete.sociocortexCases.relevant.length < 1" disabled>
                     No cases available
