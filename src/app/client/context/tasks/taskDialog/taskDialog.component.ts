@@ -10,7 +10,7 @@ import {
 } from "@angular/forms";
 import { TaskService } from '../../../shared';
 import { Task } from '../../../../shared';
-import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'task-dialog',
@@ -95,7 +95,7 @@ export class TaskDialogComponent {
   constructor(public taskDialogRef: MatDialogRef<TaskDialogComponent>,
               public snackBar: MatSnackBar,
               private taskService: TaskService,
-              private router: Router,
+              private location: Location,
               private renderer: Renderer2,
               private _formBuilder: FormBuilder) {
   }
@@ -283,8 +283,10 @@ export class TaskDialogComponent {
   onSubmit() {
     if (this.form.valid) {
       this.submitted = true;
+      const convertedTask = this.convertFormToTaskObject();
+      console.log("Form submit.", this.form, convertedTask);
       if (this.form.get('intent.intendedAction').value === 'LINK') {
-        this.taskService.linkTask(this.convertFormToTaskObject()).subscribe(() => {
+        this.taskService.linkTask(convertedTask).subscribe(() => {
           this.closeDialog();
           this.snackBar.open('Task successfully linked.', 'OK');
         }, error => {
@@ -293,7 +295,7 @@ export class TaskDialogComponent {
           this.snackBar.open('Error while linking task.', 'OK');
         });
       } else {
-        this.taskService.createTask(this.convertFormToTaskObject()).subscribe(() => {
+        this.taskService.createTask(convertedTask).subscribe(() => {
           this.closeDialog();
           this.snackBar.open('Task successfully created.', 'OK');
         }, error => {
@@ -317,7 +319,7 @@ export class TaskDialogComponent {
     task.email = this.email._id;
     task.user = this.user._id;
     task.name = this.form.controls.title.value;
-    task.frontendUrl = this.router.url;
+    task.frontendUrl = "http://localhost:3000" + this.location.prepareExternalUrl(this.location.path());    //FIXME replace hardcoded base url with actual, dynamic one
     task.due = metadata.dueDate.value ? metadata.dueDate.value : undefined;
     task.isOpen = true;
     task.provider = intent.provider.value;
