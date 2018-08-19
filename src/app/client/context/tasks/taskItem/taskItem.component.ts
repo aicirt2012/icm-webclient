@@ -25,8 +25,7 @@ export class TaskItemComponent {
 
   ngOnChanges() {
     if (!this.isSuggestion) {
-      console.log("Rendering task:");
-      console.log(this.task);
+      console.log("Rendering task", this.task);
 
       this.provider = this.task.provider;
       this.title = this.task.name;
