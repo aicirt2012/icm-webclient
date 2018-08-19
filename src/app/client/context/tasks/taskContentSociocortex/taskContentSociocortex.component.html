@@ -1,3 +1,47 @@
 <div [formGroup]="contentForm">
-  <span>Sociocortex Content Component</span>
+  <div class="param-container" *ngFor="let taskParam of taskParams">
+    <div *ngIf="taskParam.htmlElement === 'radioboxes'">
+      <mat-radio-group fxFlex>
+        {{taskParam.name}}
+        <mat-radio-button *ngFor="let option of taskParam.constraints.enumerationOptions" [value]="option.value"
+                          class="radio-option">
+          {{option.description}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div *ngIf="taskParam.htmlElement === 'checkboxes'">
+      <div fxFlex>
+        <mat-checkbox *ngFor="let option of taskParam.constraints.enumerationOptions" [value]="option.name"
+                      class="checkbox-option">
+          {{option.description}}
+        </mat-checkbox>
+      </div>
+    </div>
+    <div *ngIf="taskParam.htmlElement === 'textinput'">
+      <mat-form-field fxFlex>
+        <input type="text" matInput [placeholder]="taskParam.name">
+      </mat-form-field>
+    </div>
+    <div *ngIf="taskParam.htmlElement === 'datepicker'">
+      <mat-form-field fxFlex>
+        <input matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div *ngIf="taskParam.htmlElement === 'select'">
+      <mat-form-field fxFlex>
+        <mat-select [placeholder]="taskParam.name">
+          <mat-option *ngFor="let option of taskParam.constraints.enumerationOptions" [value]="option.name">
+            {{option.description}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div *ngIf="taskParam.htmlElement === 'numberinput'">
+      <mat-form-field fxFlex>
+        <input type="number" matInput [placeholder]="taskParam.name">
+      </mat-form-field>
+    </div>
+  </div>
 </div>

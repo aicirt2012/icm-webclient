@@ -1,0 +1,8 @@
+.param-container {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+ .radio-option,
+ .checkbox-option{
+   padding-right: 8px;
+ }

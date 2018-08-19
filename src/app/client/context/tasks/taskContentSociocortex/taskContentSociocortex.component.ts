@@ -37,6 +37,8 @@ export class TaskContentSociocortexComponent {
         case "enumeration":
           if (taskParam.multiplicity === 'exactlyOne')
             taskParam.htmlElement = "radioboxes";
+          else if (taskParam.multiplicity === 'atLeastOne')
+            taskParam.htmlElement = "checkboxes";
           else if (taskParam.multiplicity === 'any')
             taskParam.htmlElement = "checkboxes";
           else
@@ -60,7 +62,14 @@ export class TaskContentSociocortexComponent {
           else
             console.error("Unknown multiplicity for parameter type link", taskParam);
           break;
+        case "number":
+          taskParam.htmlElement = "numberinput";
+          break;
+        case "longtext":
+          taskParam.htmlElement = "textarea";
+          break;
         default:
+          taskParam.htmlElement = "hidden";
           console.error("Unknown parameter type", taskParam)
       }
     });
