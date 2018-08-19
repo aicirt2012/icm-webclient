@@ -1,7 +1,7 @@
 <div [formGroup]="contentForm">
-  <div class="param-container" *ngFor="let taskParam of taskParams">
+  <div class="param-container" *ngFor="let taskParam of taskParams; let i = index">
     <div *ngIf="taskParam.htmlElement === 'radioboxes'">
-      <mat-radio-group fxFlex>
+      <mat-radio-group fxFlex [formControl]="contentForm.at(i)">
         {{taskParam.name}}
         <mat-radio-button *ngFor="let option of taskParam.constraints.enumerationOptions" [value]="option.value"
                           class="radio-option">
@@ -21,20 +21,20 @@
     <div *ngIf="taskParam.htmlElement === 'textinput'">
       <mat-form-field fxFlex>
         {{taskParam.name}}
-        <input type="text" matInput>
+        <input type="text" matInput [formControl]="contentForm.at(i)">
       </mat-form-field>
     </div>
     <div *ngIf="taskParam.htmlElement === 'datepicker'">
       <mat-form-field fxFlex>
         {{taskParam.name}}
-        <input matInput [matDatepicker]="picker">
+        <input matInput [matDatepicker]="picker" [formControl]="contentForm.at(i)">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </div>
     <div *ngIf="taskParam.htmlElement === 'select'">
       <mat-form-field fxFlex>
-        <mat-select [placeholder]="taskParam.name">
+        <mat-select [placeholder]="taskParam.name" [formControl]="contentForm.at(i)">
           <mat-option *ngFor="let option of taskParam.constraints.enumerationOptions" [value]="option.name">
             {{option.description}}
           </mat-option>
@@ -44,7 +44,7 @@
     <div *ngIf="taskParam.htmlElement === 'numberinput'">
       <mat-form-field fxFlex>
         {{taskParam.name}}
-        <input type="number" matInput>
+        <input type="number" matInput [formControl]="contentForm.at(i)">
       </mat-form-field>
     </div>
   </div>
