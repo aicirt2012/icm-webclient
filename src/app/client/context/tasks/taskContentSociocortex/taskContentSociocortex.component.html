@@ -11,6 +11,7 @@
     </div>
     <div *ngIf="taskParam.htmlElement === 'checkboxes'">
       <div fxFlex>
+        {{taskParam.name}}
         <mat-checkbox *ngFor="let option of taskParam.constraints.enumerationOptions" [value]="option.name"
                       class="checkbox-option">
           {{option.description}}
@@ -19,11 +20,13 @@
     </div>
     <div *ngIf="taskParam.htmlElement === 'textinput'">
       <mat-form-field fxFlex>
-        <input type="text" matInput [placeholder]="taskParam.name">
+        {{taskParam.name}}
+        <input type="text" matInput>
       </mat-form-field>
     </div>
     <div *ngIf="taskParam.htmlElement === 'datepicker'">
       <mat-form-field fxFlex>
+        {{taskParam.name}}
         <input matInput [matDatepicker]="picker">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
@@ -40,7 +43,8 @@
     </div>
     <div *ngIf="taskParam.htmlElement === 'numberinput'">
       <mat-form-field fxFlex>
-        <input type="number" matInput [placeholder]="taskParam.name">
+        {{taskParam.name}}
+        <input type="number" matInput>
       </mat-form-field>
     </div>
   </div>
