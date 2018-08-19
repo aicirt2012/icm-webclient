@@ -69,7 +69,7 @@
                 <mat-select formControlName="trelloTask" required placeholder="Trello Task"
                             [disableControl]="!form.controls.context.controls.trelloList.value"
                             (change)="onTaskSelect($event.value)">
-                  <mat-option *ngFor="let task of autocomplete.trelloTasks" [value]="task.id">
+                  <mat-option *ngFor="let task of autocomplete.trelloTasks" [value]="task.providerId">
                     {{task.name}}
                   </mat-option>
                 </mat-select>
