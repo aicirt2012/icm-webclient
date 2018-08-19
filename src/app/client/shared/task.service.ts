@@ -76,16 +76,6 @@ export class TaskService {
     return value;
   }
 
-  static getAssignees(task: any) {
-    if (task.provider === "trello") {
-      return task.assignees;
-    } else if (task.provider === "sociocortex") {
-      let members = [];
-      members.push(TaskService.getParameter(task, 'ownerEmail'));
-      return members;
-    }
-  }
-
   static formatDate(date: any) {
     if (!date)
       return "";
