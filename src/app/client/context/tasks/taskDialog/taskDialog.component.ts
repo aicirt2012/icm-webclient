@@ -145,6 +145,11 @@ export class TaskDialogComponent {
   }
 
   onProviderSelect(provider: string) {
+    this.form.get("intent.intendedAction").reset();
+    this.form.get("context").reset();
+    this.form.get("metadata").reset();
+    this.form.get("trelloContent").reset();
+    this.form.get("sociocortexContent").reset();
     if (provider === 'TRELLO') {
       this.taskService.getTrelloBoards()
         .take(1)
@@ -170,7 +175,18 @@ export class TaskDialogComponent {
     }
   }
 
+  onActionSelect() {
+    this.form.get("context").reset();
+    this.form.get("metadata").reset();
+    this.form.get("trelloContent").reset();
+    this.form.get("sociocortexContent").reset();
+  }
+
   onBoardSelect(boardId: string) {
+    this.form.get("context.trelloList").reset();
+    this.form.get("context.trelloTask").reset();
+    this.form.get("metadata").reset();
+    this.form.get("trelloContent").reset();
     this.taskService.getTrelloMembers(boardId)
       .take(1)
       .subscribe(members => {
@@ -191,6 +207,9 @@ export class TaskDialogComponent {
   }
 
   onListSelect(listId: string) {
+    this.form.get("context.trelloTask").reset();
+    this.form.get("metadata").reset();
+    this.form.get("trelloContent").reset();
     if (this.form.get('intent.intendedAction').value === 'LINK' && listId) {
       this.taskService.getTrelloTasks(listId)
         .take(1)
@@ -199,13 +218,16 @@ export class TaskDialogComponent {
   }
 
   onTaskSelect(taskId: string) {
+    this.form.get("metadata").reset();
     if (this.form.get('intent.provider').value === 'TRELLO') {
+      this.form.get("trelloContent").reset();
       this.taskService.getTrelloTask(taskId)
         .take(1)
         .subscribe(task => {
           this.applyTaskObjectToForm(task);
         });
     } else {
+      this.form.get("sociocortexContent").reset();
       this.taskService.getSociocortexMembers(taskId)
         .take(1)
         .subscribe(members => {
@@ -232,6 +254,10 @@ export class TaskDialogComponent {
   }
 
   onWorkspaceSelect(workspaceId: string) {
+    this.form.get("context.sociocortexCase").reset();
+    this.form.get("context.sociocortexTask").reset();
+    this.form.get("metadata").reset();
+    this.form.get("sociocortexContent").reset();
     this.taskService.getSociocortexCases(workspaceId)
       .take(1)
       .subscribe(cases => {
@@ -240,6 +266,8 @@ export class TaskDialogComponent {
   }
 
   onCaseSelect(caseId: string) {
+    this.form.get("metadata").reset();
+    this.form.get("sociocortexContent").reset();
     this.taskService.getSociocortexTasks(caseId)
       .take(1)
       .subscribe(tasks => {

@@ -27,7 +27,8 @@
           </mat-form-field>
           <!-- create/link input -->
           <mat-form-field>
-            <mat-select formControlName="intendedAction" required placeholder="Choose Action">
+            <mat-select formControlName="intendedAction" required placeholder="Choose Action"
+                        (change)="onActionSelect()">
               <mat-option value="CREATE">Create new</mat-option>
               <mat-option value="LINK">Link existing</mat-option>
             </mat-select>
