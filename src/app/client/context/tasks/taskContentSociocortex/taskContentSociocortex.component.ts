@@ -121,23 +121,44 @@ export class TaskContentSociocortexComponent {
   }
 
   private initializeFormValues() {
+    let i = 0;
     this._taskParams.forEach(taskParam => {
       switch (<HtmlElements> taskParam.htmlElement) {
+        case HtmlElements.Number:
         case HtmlElements.TextInput:
+        case HtmlElements.TextArea:
+          if (taskParam.values && taskParam.values.length > 0)
+            this.contentForm.at(i).setValue(taskParam.values[0]);
+          else if (taskParam.defaultValues && taskParam.defaultValues.length > 0)
+            this.contentForm.at(i).setValue(taskParam.defaultValues[0]);
           break;
         case HtmlElements.Select:
+        case HtmlElements.RadioBoxes:
+          if (taskParam.values && taskParam.values.length > 0)
+            this.contentForm.at(i).setValue(taskParam.values[0]);
+          else if (taskParam.defaultValues && taskParam.defaultValues.length > 0)
+            this.contentForm.at(i).setValue(taskParam.defaultValues[0]);
           break;
         case HtmlElements.DatePicker:
+          console.log("initValue, date", taskParam);
           break;
         case HtmlElements.CheckBoxes:
-          break;
-        case HtmlElements.RadioBoxes:
-          break;
-        case HtmlElements.TextArea:
-          break;
-        case HtmlElements.Number:
+          if (taskParam.values && taskParam.values.length > 0) {
+            taskParam.values.forEach(value => {
+              let j = 0;
+              taskParam.constraints.enumerationOptions.some(enumOption => {
+                if (value === enumOption.value) {
+                  (<FormArray> this.contentForm.at(i)).at(j).setValue(value);
+                  return true;
+                }
+                j++;
+              })
+            });
+          } else if (taskParam.defaultValues && taskParam.defaultValues.length > 0)
+            this.contentForm.at(i).setValue(taskParam.defaultValues[0]);
           break;
       }
+      i++;
     });
   }
 
