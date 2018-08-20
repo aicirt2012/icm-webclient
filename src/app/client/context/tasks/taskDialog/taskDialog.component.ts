@@ -355,13 +355,13 @@ export class TaskDialogComponent {
   applyTaskObjectToForm(task: Task) {
     this.form.get('title').setValue(task.name);
     this.form.get('metadata.dueDate').setValue(TaskService.formatDate(task.due));
-    this.form.get('trelloContent.description').setValue(TaskService.getParameter(task, 'desc'));
     if (this.form.get('intent.provider').value === 'TRELLO') {
-      this.form.get('metadata.assignees').setValue(task.assignees);
+      this.form.get('trelloContent.description').setValue(TaskService.getParameter(task, 'desc'));
+      this.form.get('metadata.assignees').setValue(task.assignees.map(assignee => assignee.id));
     } else {
       if (task.assignees && task.assignees.length > 0)
       // only one owner allowed for SC tasks
-        this.form.get('metadata.assignees').setValue(task.assignees[0]);
+        this.form.get('metadata.assignees').setValue(task.assignees[0].id);
     }
   }
 

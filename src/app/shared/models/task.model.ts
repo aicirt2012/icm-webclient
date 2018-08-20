@@ -12,7 +12,10 @@ export class Task {
   name: string;
   due: string;
   isOpen: boolean;
-  assignees: string[];
+  assignees: [{
+    id: string;
+    fullName: string;
+  }];
 
   // dynamic task content
   parameters: {
