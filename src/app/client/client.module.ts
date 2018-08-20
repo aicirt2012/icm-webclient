@@ -25,7 +25,7 @@ import {
   MatFormFieldModule,
   MatSnackBarModule,
   MatDatepickerModule,
-  MatNativeDateModule,
+  NativeDateModule,
   MatProgressSpinnerModule,
   MatRadioModule
 } from '@angular/material';
@@ -111,7 +111,7 @@ import { TinymceModule } from 'angular2-tinymce';
     MatFormFieldModule,
     MatSnackBarModule,
     MatDatepickerModule,
-    MatNativeDateModule,
+    NativeDateModule,
     MatProgressSpinnerModule,
     MatRadioModule,
     //

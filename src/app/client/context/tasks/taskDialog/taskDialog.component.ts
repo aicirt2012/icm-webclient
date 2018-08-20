@@ -1,5 +1,5 @@
 import { Component, Renderer2 } from '@angular/core';
-import { MatDialogRef, MatSnackBar } from "@angular/material";
+import { MAT_DATE_FORMATS, MatDialogRef, MatSnackBar } from "@angular/material";
 import {
   AbstractControl,
   FormArray,
@@ -12,10 +12,24 @@ import { TaskService } from '../../../shared';
 import { Task } from '../../../../shared';
 import { Location } from '@angular/common';
 
+// See the Moment.js docs for the meaning of these formats:
+// https://momentjs.com/docs/#/displaying/format/
+export const ICM_DATE_FORMATS = {
+  display: {
+    dateInput: 'YYYY-MM-DD',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'YYYY-MM-DD',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
 @Component({
   selector: 'task-dialog',
   styleUrls: ['./taskDialog.component.css'],
-  templateUrl: './taskDialog.component.html'
+  templateUrl: './taskDialog.component.html',
+  providers: [
+    {provide: MAT_DATE_FORMATS, useValue: ICM_DATE_FORMATS},
+  ]
 })
 
 export class TaskDialogComponent {

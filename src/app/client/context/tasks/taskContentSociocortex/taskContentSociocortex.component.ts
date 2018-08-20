@@ -1,10 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { MAT_DATE_FORMATS } from '@angular/material';
+import { ICM_DATE_FORMATS } from '../taskDialog';
 
 @Component({
   selector: 'task-content-sociocortex',
   styleUrls: ['./taskContentSociocortex.component.css'],
-  templateUrl: './taskContentSociocortex.component.html'
+  templateUrl: './taskContentSociocortex.component.html',
+  providers: [
+    {provide: MAT_DATE_FORMATS, useValue: ICM_DATE_FORMATS},
+  ]
 })
 
 export class TaskContentSociocortexComponent {
