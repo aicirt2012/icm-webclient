@@ -12,8 +12,9 @@
     <div *ngIf="taskParam.htmlElement === 'checkboxes'">
       <div fxFlex>
         {{taskParam.name}}
-        <mat-checkbox *ngFor="let option of taskParam.constraints.enumerationOptions" [value]="option.name"
-                      class="checkbox-option" [disabled]="taskParam.readOnly">
+        <mat-checkbox *ngFor="let option of taskParam.constraints.enumerationOptions; let j = index"
+                      [value]="option.name" class="checkbox-option" [formControl]="contentForm.at(i).at(j)"
+                      [disabled]="taskParam.readOnly">
           {{option.description}}
         </mat-checkbox>
       </div>

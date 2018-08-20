@@ -21,27 +21,42 @@ export class TaskContentSociocortexComponent {
   set taskParams(taskParams: any[]) {
     this._taskParams = taskParams;
     this.preProcessParameters();
-    console.log("Preprocessed parameters.", this._taskParams);
+    console.log("Preprocessed parameters.", this._taskParams, this.contentForm);
   }
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private fb: FormBuilder) {
   }
 
   private preProcessParameters() {
+    // clear form controls
+    while (this.contentForm.length > 0) {
+      this.contentForm.removeAt(0);
+    }
+    // initialize form controls
     this._taskParams.forEach(taskParam => {
       if (taskParam.required)
-        this.contentForm.push(this.formBuilder.control(['', Validators.required]));
+        this.contentForm.push(this.fb.control(['', Validators.required]));
       else
-        this.contentForm.push(this.formBuilder.control(['']));
+        this.contentForm.push(this.fb.control(['']));
       switch (taskParam.type) {
         case "enumeration":
           if (taskParam.multiplicity === 'exactlyOne')
             taskParam.htmlElement = "radioboxes";
-          else if (taskParam.multiplicity === 'atLeastOne')
+          else if (taskParam.multiplicity === 'atLeastOne') {
             taskParam.htmlElement = "checkboxes";
-          else if (taskParam.multiplicity === 'any')
+            const checkboxControls = [];
+            taskParam.constraints.enumerationOptions.forEach(() =>
+              checkboxControls.push(this.fb.control(['']))
+            );
+            const array = this.fb.array(checkboxControls, TaskContentSociocortexComponent.validateArrayAtLeastOne);
+            this.contentForm.setControl(this.contentForm.length - 1, array);
+          } else if (taskParam.multiplicity === 'any') {
             taskParam.htmlElement = "checkboxes";
-          else
+            this.contentForm.removeAt(this.contentForm.length - 1);
+            const array = this.fb.array(['']);
+            taskParam.constraints.enumerationOptions.forEach(() => array.push(this.fb.control([])));
+            this.contentForm.push(array);
+          } else
             console.error("Unknown multiplicity for parameter type enumeration", taskParam);
           break;
         case "string":
@@ -75,6 +90,18 @@ export class TaskContentSociocortexComponent {
           console.error("Unknown parameter type", taskParam)
       }
     });
+    // reset form values
+    this.contentForm.reset();
+    // initialize form with values from task
+    // TODO implement content initialization
+  }
+
+  static validateArrayAtLeastOne(array: FormArray) {
+    // NOT NULL CHECKS
+    if (!array || array.length < 1)
+      return {'error': true};
+    const oneItemChecked = array.controls.some(control => control.value);
+    return oneItemChecked ? null : {'error': true};
   }
 
 }
