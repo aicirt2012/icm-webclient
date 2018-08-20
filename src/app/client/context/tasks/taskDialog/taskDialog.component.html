@@ -160,7 +160,7 @@
                     {{member.fullName}}
                   </mat-option>
                 </mat-optgroup>
-                <mat-optgroup label="Workspace members" *ngIf="autocomplete.owner.other.length > 0">
+                <mat-optgroup label="Other possible owners" *ngIf="autocomplete.owner.other.length > 0">
                   <mat-option *ngFor="let member of autocomplete.owner.other" [value]="member.id">
                     {{member.fullName}}
                   </mat-option>

@@ -234,7 +234,7 @@ export class TaskDialogComponent {
           const mentionedMembers = [], otherMembers = [];
           members.forEach(member => {
             let isMentioned = this.suggestedData.mentionedPersons
-              .some(nameString => member.name.indexOf(nameString) > -1);
+              .some(nameString => member.fullName.indexOf(nameString) > -1);
             if (isMentioned)
               mentionedMembers.push(member);
             else
