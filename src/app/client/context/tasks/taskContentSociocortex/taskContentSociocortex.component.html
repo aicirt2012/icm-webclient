@@ -21,15 +21,15 @@
     <div *ngIf="taskParam.htmlElement === 'textinput'">
       <mat-form-field fxFlex>
         {{taskParam.name}}
-        <input type="text" matInput [formControl]="contentForm.at(i)" [disabled]="taskParam.readOnly">
+        <input type="text" matInput [formControl]="contentForm.at(i)" [readonly]="taskParam.readOnly">
       </mat-form-field>
     </div>
     <div *ngIf="taskParam.htmlElement === 'datepicker'">
       <mat-form-field fxFlex>
         {{taskParam.name}}
-        <input matInput [matDatepicker]="picker" [formControl]="contentForm.at(i)" [disabled]="taskParam.readOnly">
+        <input matInput [matDatepicker]="picker" [formControl]="contentForm.at(i)" [readonly]="taskParam.readOnly">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <mat-datepicker #picker [disabled]="taskParam.readOnly"></mat-datepicker>
       </mat-form-field>
     </div>
     <div *ngIf="taskParam.htmlElement === 'select'">
@@ -44,7 +44,7 @@
     <div *ngIf="taskParam.htmlElement === 'numberinput'">
       <mat-form-field fxFlex>
         {{taskParam.name}}
-        <input type="number" matInput [formControl]="contentForm.at(i)" [disabled]="taskParam.readOnly">
+        <input type="number" matInput [formControl]="contentForm.at(i)" [readonly]="taskParam.readOnly">
       </mat-form-field>
     </div>
   </div>
