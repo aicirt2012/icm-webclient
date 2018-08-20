@@ -49,5 +49,12 @@
         <input type="number" matInput [formControl]="contentForm.at(i)" [readonly]="taskParam.readOnly">
       </mat-form-field>
     </div>
+    <div *ngIf="taskParam.htmlElement === 'textarea'">
+      <mat-form-field>
+        {{taskParam.name}}
+        <textarea type="text" matInput [formControl]="contentForm.at(i)" [readonly]="taskParam.readOnly" rows="10">
+        </textarea>
+      </mat-form-field>
+    </div>
   </div>
 </div>
