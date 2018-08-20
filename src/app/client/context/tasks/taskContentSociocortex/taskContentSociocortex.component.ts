@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { HtmlElements } from './index';
 
 @Component({
   selector: 'task-content-sociocortex',
@@ -21,7 +22,7 @@ export class TaskContentSociocortexComponent {
   set taskParams(taskParams: any[]) {
     this._taskParams = taskParams;
     this.processNewTaskParameters();
-    console.log("Preprocessed parameters.", this._taskParams, this.contentForm);
+    console.log("Processed parameters.", this._taskParams, this.contentForm);
   }
 
   constructor(private fb: FormBuilder) {
@@ -60,13 +61,13 @@ export class TaskContentSociocortexComponent {
           this.initLinkParam(taskParam);
           break;
         case "number":
-          taskParam.htmlElement = "numberinput";
+          taskParam.htmlElement = HtmlElements.Number;
           break;
         case "longtext":
-          taskParam.htmlElement = "textarea";
+          taskParam.htmlElement = HtmlElements.TextArea;
           break;
         default:
-          taskParam.htmlElement = "hidden";
+          taskParam.htmlElement = HtmlElements.None;
           console.error("Unknown parameter type", taskParam)
       }
     });
@@ -74,9 +75,9 @@ export class TaskContentSociocortexComponent {
 
   private initEnumParam(taskParam) {
     if (taskParam.multiplicity === 'exactlyOne')
-      taskParam.htmlElement = "radioboxes";
+      taskParam.htmlElement = HtmlElements.RadioBoxes;
     else if (taskParam.multiplicity === 'atLeastOne') {
-      taskParam.htmlElement = "checkboxes";
+      taskParam.htmlElement = HtmlElements.CheckBoxes;
       const checkboxControls = [];
       taskParam.constraints.enumerationOptions.forEach(() =>
         checkboxControls.push(this.fb.control(['']))
@@ -84,7 +85,7 @@ export class TaskContentSociocortexComponent {
       const array = this.fb.array(checkboxControls, TaskContentSociocortexComponent.validateArrayAtLeastOne);
       this.contentForm.setControl(this.contentForm.length - 1, array);
     } else if (taskParam.multiplicity === 'any') {
-      taskParam.htmlElement = "checkboxes";
+      taskParam.htmlElement = HtmlElements.CheckBoxes;
       this.contentForm.removeAt(this.contentForm.length - 1);
       const array = this.fb.array(['']);
       taskParam.constraints.enumerationOptions.forEach(() => array.push(this.fb.control([])));
@@ -96,9 +97,9 @@ export class TaskContentSociocortexComponent {
   // noinspection JSMethodCanBeStatic
   private initStringParam(taskParam) {
     if (taskParam.multiplicity === 'exactlyOne')
-      taskParam.htmlElement = "textinput";
+      taskParam.htmlElement = HtmlElements.TextInput;
     else if (!taskParam.multiplicity)
-      taskParam.htmlElement = "textinput";
+      taskParam.htmlElement = HtmlElements.TextInput;
     else
       console.error("Unknown multiplicity for parameter type string", taskParam);
   }
@@ -106,7 +107,7 @@ export class TaskContentSociocortexComponent {
   // noinspection JSMethodCanBeStatic
   private initDateParam(taskParam) {
     if (taskParam.multiplicity === 'exactlyOne')
-      taskParam.htmlElement = "datepicker";
+      taskParam.htmlElement = HtmlElements.DatePicker;
     else
       console.error("Unknown multiplicity for parameter type date", taskParam);
   }
@@ -114,13 +115,30 @@ export class TaskContentSociocortexComponent {
   // noinspection JSMethodCanBeStatic
   private initLinkParam(taskParam) {
     if (taskParam.multiplicity === 'exactlyOne')
-      taskParam.htmlElement = "select";
+      taskParam.htmlElement = HtmlElements.Select;
     else
       console.error("Unknown multiplicity for parameter type link", taskParam);
   }
 
   private initializeFormValues() {
-    // TODO implement content initialization
+    this._taskParams.forEach(taskParam => {
+      switch (<HtmlElements> taskParam.htmlElement) {
+        case HtmlElements.TextInput:
+          break;
+        case HtmlElements.Select:
+          break;
+        case HtmlElements.DatePicker:
+          break;
+        case HtmlElements.CheckBoxes:
+          break;
+        case HtmlElements.RadioBoxes:
+          break;
+        case HtmlElements.TextArea:
+          break;
+        case HtmlElements.Number:
+          break;
+      }
+    });
   }
 
   static validateArrayAtLeastOne(array: FormArray) {
