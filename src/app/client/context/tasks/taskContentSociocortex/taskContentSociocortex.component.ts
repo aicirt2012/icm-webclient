@@ -47,6 +47,8 @@ export class TaskContentSociocortexComponent {
         case "string":
           if (taskParam.multiplicity === 'exactlyOne')
             taskParam.htmlElement = "textinput";
+          else if (!taskParam.multiplicity)
+            taskParam.htmlElement = "textinput";
           else
             console.error("Unknown multiplicity for parameter type string", taskParam);
           break;
