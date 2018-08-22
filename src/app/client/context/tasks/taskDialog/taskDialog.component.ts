@@ -330,8 +330,7 @@ export class TaskDialogComponent {
       task.parameters = this.convertTaskParametersTrello();
       task.assignees = metadata.assignees.value ? metadata.assignees.value : undefined;
     } else if (task.provider === 'SOCIOCORTEX') {
-      if (intent.intendedAction.value === 'LINK')
-        task.providerId = (<FormGroup> this.form.controls.context).controls.sociocortexTask.value;
+      task.providerId = (<FormGroup> this.form.controls.context).controls.sociocortexTask.value;
       task.parameters = this.convertTaskParametersSociocortex();
       task.assignees = metadata.assignees.value ? [metadata.assignees.value] : undefined;
     }
