@@ -4,7 +4,7 @@
       <!-- title input -->
       <mat-form-field fxFlex>
         <input type="text" formControlName="title" matInput [matAutocomplete]="autocompleteTitle"
-               placeholder="Task Title" required>
+               placeholder="Task Title" required [disableControl]="form.get('intent.provider').value === 'SOCIOCORTEX'">
         <mat-autocomplete #autocompleteTitle="matAutocomplete">
           <mat-option *ngFor="let title of autocomplete.titles.filtered" [value]="title">{{title}}</mat-option>
         </mat-autocomplete>
@@ -81,7 +81,7 @@
               <!-- workspace input -->
               <mat-form-field *ngIf="autocomplete.sociocortexWorkspaces.length > 1">
                 <mat-select formControlName="sociocortexWorkspace" required placeholder="SACM Workspace"
-                            (change)="onWorkspaceSelect($event.value)">
+                            (change)="onWorkspaceSelect($event.value)" [disabled]="isEditMode">
                   <mat-option *ngFor="let workspace of autocomplete.sociocortexWorkspaces" [value]="workspace.id">
                     {{workspace.name}}
                   </mat-option>
@@ -90,7 +90,7 @@
               <!-- case input -->
               <mat-form-field>
                 <mat-select formControlName="sociocortexCase" required placeholder="SACM Case"
-                            [disableControl]="!form.controls.context.controls.sociocortexWorkspace.value"
+                            [disableControl]="isEditMode || !form.controls.context.controls.sociocortexWorkspace.value"
                             (change)="onCaseSelect($event.value)">
                   <mat-option *ngFor="let sacmCase of autocomplete.sociocortexCases.relevant" [value]="sacmCase.id">
                     {{sacmCase.friendlyName}}
@@ -103,8 +103,8 @@
               <!-- task input -->
               <mat-form-field>
                 <mat-select formControlName="sociocortexTask" required placeholder="SACM Task"
-                            [disableControl]="!form.controls.context.controls.sociocortexCase.value"
-                            (change)="onTaskSelect($event.value)">
+                            [disableControl]="isEditMode || !form.controls.context.controls.sociocortexCase.value"
+                            (change)="onTaskSelect($event.value)" [disabled]="isEditMode">
                   <mat-option *ngFor="let task of autocomplete.sociocortexTasks.relevant" [value]="task.providerId">
                     {{task.name}}
                   </mat-option>
