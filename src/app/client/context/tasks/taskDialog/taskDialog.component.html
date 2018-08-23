@@ -1,5 +1,5 @@
 <div fxFlex fxLayout="column">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form [formGroup]="form">
     <div mat-dialog-title fxLayout="row">
       <!-- title input -->
       <mat-form-field fxFlex>
@@ -189,8 +189,20 @@
       </mat-accordion>
     </mat-dialog-content>
     <mat-dialog-actions>
-      <button type="submit" [disabled]="submitted" mat-raised-button color="accent">
-        <span>Confirm</span>
+      <button type="button" [disabled]="submitted" mat-raised-button color="accent" *ngIf="!isEditMode"
+              (click)="onSubmit(false, false)">
+        <span *ngIf="!isEditMode">Confirm</span>
+        <span *ngIf="isEditMode">Update</span>
+        <!--<mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>-->
+      </button>
+      <button type="button" [disabled]="submitted" mat-raised-button color="accent" *ngIf="isEditMode"
+              (click)="onSubmit(true, false)">
+        <span>Update & Complete</span>
+        <!--<mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>-->
+      </button>
+      <button type="button" [disabled]="submitted" mat-raised-button color="accent" *ngIf="isEditMode"
+              (click)="onSubmit(false, true)">
+        <span>Update & Terminate</span>
         <!--<mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>-->
       </button>
     </mat-dialog-actions>

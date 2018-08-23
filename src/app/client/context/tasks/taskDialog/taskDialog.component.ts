@@ -350,35 +350,51 @@ export class TaskDialogComponent {
       });
   }
 
-  onSubmit() {
+  onSubmit(complete: boolean, terminate: boolean) {
     if (this.form.valid) {
       this.submitted = true;
       const convertedTask = this.convertFormToTaskObject();
       console.log("Form submit.", this.form, convertedTask);
-      if (this.form.get('intent.intendedAction').value === 'LINK') {
-        this.taskService.linkTask(convertedTask).subscribe(() => {
-          this.closeDialog();
-          this.snackBar.open('Task successfully linked.', 'OK');
-        }, error => {
-          console.log(error);
-          this.submitted = false;
-          this.snackBar.open('Error while linking task.', 'OK');
-        });
+      if (this.isEditMode) {
+        this.onEditSubmit(convertedTask);
       } else {
-        this.taskService.createTask(convertedTask).subscribe(() => {
-          this.closeDialog();
-          this.snackBar.open('Task successfully created.', 'OK');
-        }, error => {
-          console.log(error);
-          this.submitted = false;
-          this.snackBar.open('Error while creating task.', 'OK');
-        });
+        if (this.form.get('intent.intendedAction').value === 'LINK') {
+          this.onLinkSubmit(convertedTask);
+        } else {
+          this.onCreateSubmit(convertedTask);
+        }
       }
     } else {
       Object.keys(this.form.controls).forEach(field => {
         this.validateFormField(this.form.get(field));
       });
     }
+  }
+
+  private onEditSubmit(convertedTask) {
+    // TODO implement task update
+  }
+
+  private onLinkSubmit(convertedTask) {
+    this.taskService.linkTask(convertedTask).subscribe(() => {
+      this.closeDialog();
+      this.snackBar.open('Task successfully linked.', 'OK');
+    }, error => {
+      console.log(error);
+      this.submitted = false;
+      this.snackBar.open('Error while linking task.', 'OK');
+    });
+  }
+
+  private onCreateSubmit(convertedTask) {
+    this.taskService.createTask(convertedTask).subscribe(() => {
+      this.closeDialog();
+      this.snackBar.open('Task successfully created.', 'OK');
+    }, error => {
+      console.log(error);
+      this.submitted = false;
+      this.snackBar.open('Error while creating task.', 'OK');
+    });
   }
 
   convertFormToTaskObject() {
