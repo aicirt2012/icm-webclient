@@ -104,7 +104,8 @@ export class TaskDialogComponent {
   ngOnInit() {
     this.initAutocompleteData();
     this.initInputCallbacks();
-    this.applyTaskObjectToForm(this.task);
+    if (this.task)
+      this.applyTaskObjectToForm(this.task);
   }
 
   private initAutocompleteData() {
