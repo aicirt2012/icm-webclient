@@ -16,7 +16,7 @@
     <mat-dialog-content class="new-task-dialog">
       <mat-accordion [multi]="true" displayMode="flat" class="new-task-panel">
 
-        <div formGroupName="intent">
+        <div formGroupName="intent" *ngIf="!isEditMode">
           <!-- provider input -->
           <mat-form-field>
             <mat-select formControlName="provider" required placeholder="Choose Provider"
@@ -37,18 +37,19 @@
 
         <!-- context -->
         <mat-expansion-panel [disabled]="form.controls.intent.status !== 'VALID'"
-                             [expanded]="form.controls.intent.status === 'VALID'">
+                             [expanded]="form.controls.intent.status === 'VALID' && !isEditMode">
           <mat-expansion-panel-header expandedHeight="40px" collapsedHeight="40px">
             Context
           </mat-expansion-panel-header>
           <mat-divider class="expansion-divider"></mat-divider>
           <div formGroupName="context">
             <!-- TRELLO PROPERTIES -->
-            <div *ngIf="!form.controls.intent.errors && form.controls.intent.controls.provider.value === 'TRELLO'">
+            <div
+              *ngIf="isEditMode || !form.controls.intent.errors && form.controls.intent.controls.provider.value === 'TRELLO'">
               <!-- board input -->
               <mat-form-field>
                 <mat-select #initiallyFocused formControlName="trelloBoard" required placeholder="Trello Board"
-                            (change)="onBoardSelect($event.value)">
+                            (change)="onBoardSelect($event.value)" [disabled]="isEditMode">
                   <mat-option *ngFor="let board of autocomplete.trelloBoards" [value]="board.id">
                     {{board.name}}
                   </mat-option>
@@ -58,7 +59,7 @@
               <mat-form-field>
                 <mat-select formControlName="trelloList" required placeholder="Trello List"
                             [disableControl]="!form.controls.context.controls.trelloBoard.value"
-                            (change)="onListSelect($event.value)">
+                            (change)="onListSelect($event.value)" [disabled]="isEditMode">
                   <mat-option *ngFor="let list of autocomplete.trelloLists.relevant" [value]="list.id">
                     {{list.name}}
                   </mat-option>

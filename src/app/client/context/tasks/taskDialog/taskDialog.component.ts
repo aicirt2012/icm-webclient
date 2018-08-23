@@ -20,6 +20,7 @@ import { Location } from '@angular/common';
 
 export class TaskDialogComponent {
 
+  public isEditMode: boolean;
   public task: any;
   public email: any;
   public user: any;
@@ -101,10 +102,28 @@ export class TaskDialogComponent {
   }
 
   ngOnInit() {
+    this.initAutocompleteData();
+    this.initInputCallbacks();
+    this.applyTaskObjectToForm(this.task);
+  }
+
+  private initAutocompleteData() {
+    if (this.isEditMode) {
+      this.form.get('intent.intendedAction').setValue("CREATE");  // value does not matter, just need any for form to be valid
+      if (this.task.provider.toUpperCase() === 'TRELLO') {
+        this.autocomplete.trelloBoards = [TaskService.getParameter(this.task, 'board')];
+        this.autocomplete.trelloLists.relevant = [TaskService.getParameter(this.task, 'list')];
+        this.updateTrelloAssigneeAutocomplete(TaskService.getParameter(this.task, 'idBoard'));
+      }
+    }
     this.autocomplete.titles.all = this.suggestedData.titles;
     this.autocomplete.dates.all = this.suggestedData.dates;
     this.autocomplete.titles.filtered = this.autocomplete.titles.all;
     this.autocomplete.dates.filtered = this.autocomplete.dates.all;
+    console.log("autocomplete initialized", this.autocomplete);
+  }
+
+  private initInputCallbacks() {
     this.form.get('metadata.dueDateUnformatted').valueChanges
       .subscribe(date => {
         this.form.get('metadata.dueDate').setValue(TaskService.formatDate(date));
@@ -117,6 +136,24 @@ export class TaskDialogComponent {
       .subscribe(updatedValue => {
         this.autocomplete.dates.filtered = this.autocomplete.dates.all.filter(date => date.indexOf(updatedValue) == 0)
       });
+  }
+
+  applyTaskObjectToForm(task: Task) {
+    console.log("Applying task to form.", task);
+    this.form.get('title').setValue(task.name);
+    this.form.get('intent.provider').setValue(task.provider.toUpperCase());
+    this.form.get('metadata.dueDate').setValue(TaskService.formatDate(task.due));
+    if (this.form.get('intent.provider').value === 'TRELLO') {
+      this.form.get('context.trelloBoard').setValue(TaskService.getParameter(task, 'idBoard'));
+      this.form.get('context.trelloList').setValue(TaskService.getParameter(task, 'idList'));
+      this.form.get('trelloContent.description').setValue(TaskService.getParameter(task, 'desc'));
+      this.form.get('metadata.assignees').setValue(task.assignees.map(assignee => assignee.id));
+    } else {
+      if (task.assignees && task.assignees.length > 0)
+      // only one owner allowed for SC tasks
+        this.form.get('metadata.assignees').setValue(task.assignees[0].id);
+    }
+    console.log("updated form.", this.form);
   }
 
   static validateForm(group: FormGroup) {
@@ -187,6 +224,12 @@ export class TaskDialogComponent {
     this.form.get("context.trelloTask").reset();
     this.form.get("metadata").reset();
     this.form.get("trelloContent").reset();
+    this.updateTrelloAssigneeAutocomplete(boardId);
+    const lists = this.autocomplete.trelloLists;
+    lists.relevant = lists.all.filter(list => list.idBoard === boardId);
+  }
+
+  private updateTrelloAssigneeAutocomplete(boardId: string) {
     this.taskService.getTrelloMembers(boardId)
       .take(1)
       .subscribe(members => {
@@ -202,8 +245,6 @@ export class TaskDialogComponent {
         this.autocomplete.assignees.other = otherMembers;
         this.autocomplete.assignees.suggested = mentionedMembers;
       });
-    const lists = this.autocomplete.trelloLists;
-    lists.relevant = lists.all.filter(list => list.idBoard === boardId);
   }
 
   onListSelect(listId: string) {
@@ -345,22 +386,9 @@ export class TaskDialogComponent {
         this.validateFormField(control.get(field));
       });
     } else if (control instanceof FormArray) {
-      control.controls.forEach(subcontrol => {
-        this.validateFormField(subcontrol);
+      control.controls.forEach(subControl => {
+        this.validateFormField(subControl);
       });
-    }
-  }
-
-  applyTaskObjectToForm(task: Task) {
-    this.form.get('title').setValue(task.name);
-    this.form.get('metadata.dueDate').setValue(TaskService.formatDate(task.due));
-    if (this.form.get('intent.provider').value === 'TRELLO') {
-      this.form.get('trelloContent.description').setValue(TaskService.getParameter(task, 'desc'));
-      this.form.get('metadata.assignees').setValue(task.assignees.map(assignee => assignee.id));
-    } else {
-      if (task.assignees && task.assignees.length > 0)
-      // only one owner allowed for SC tasks
-        this.form.get('metadata.assignees').setValue(task.assignees[0].id);
     }
   }
 

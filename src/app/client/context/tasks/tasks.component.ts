@@ -65,6 +65,7 @@ export class TasksComponent {
     dialogRef.componentInstance.email = this.email;
     dialogRef.componentInstance.user = this.user;
     dialogRef.componentInstance.suggestedData = this.email.suggestedData;
+    dialogRef.componentInstance.isEditMode = false;
   }
 
   openEditTaskDialog(task: any) {
@@ -76,6 +77,7 @@ export class TasksComponent {
     dialogRef.componentInstance.email = this.email;
     dialogRef.componentInstance.user = this.user;
     dialogRef.componentInstance.suggestedData = this.email.suggestedData;
+    dialogRef.componentInstance.isEditMode = true;
   }
 
 }
