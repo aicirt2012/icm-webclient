@@ -52,6 +52,10 @@ export class TaskService {
     return this.http.get('tasks/providers/sociocortex/workspaces/' + workspaceId + '/cases', null, null);
   }
 
+  getSociocortexCase(caseId: string): Observable<any> {
+    return this.http.get('tasks/providers/sociocortex/cases/' + caseId, null, null);
+  }
+
   getSociocortexTasks(caseId: string): Observable<any> {
     return this.http.get('tasks/providers/sociocortex/cases/' + caseId + '/tasks', null, null);
   }

@@ -114,13 +114,40 @@ export class TaskDialogComponent {
         this.autocomplete.trelloBoards = [TaskService.getParameter(this.task, 'board')];
         this.autocomplete.trelloLists.relevant = [TaskService.getParameter(this.task, 'list')];
         this.updateTrelloAssigneeAutocomplete(TaskService.getParameter(this.task, 'idBoard'));
+      } else if (this.task.provider.toUpperCase() === 'SOCIOCORTEX') {
+        this.autocomplete.sociocortexTasks.relevant = [this.task];
+        this.taskService.getSociocortexWorkspaces()
+          .take(1)
+          .subscribe(workspaces => {
+            this.autocomplete.sociocortexWorkspaces = workspaces;
+          });
+        this.taskService.getSociocortexCase(TaskService.getParameter(this.task, 'case'))
+          .take(1)
+          .subscribe(scCase => {
+            this.autocomplete.sociocortexCases.relevant = [scCase];
+            this.form.get('context.sociocortexWorkspace').setValue(scCase.workspace);   // TODO move this call away from this method (not autocomplete related)
+          });
+        this.taskService.getSociocortexMembers(this.task.providerId)
+          .take(1)
+          .subscribe(members => {
+            const mentionedMembers = [], otherMembers = [];
+            members.forEach(member => {
+              let isMentioned = this.suggestedData.mentionedPersons
+                .some(nameString => member.fullName.indexOf(nameString) > -1);
+              if (isMentioned)
+                mentionedMembers.push(member);
+              else
+                otherMembers.push(member);
+            });
+            this.autocomplete.owner.other = otherMembers;
+            this.autocomplete.owner.suggested = mentionedMembers;
+          });
       }
     }
     this.autocomplete.titles.all = this.suggestedData.titles;
     this.autocomplete.dates.all = this.suggestedData.dates;
     this.autocomplete.titles.filtered = this.autocomplete.titles.all;
     this.autocomplete.dates.filtered = this.autocomplete.dates.all;
-    console.log("autocomplete initialized", this.autocomplete);
   }
 
   private initInputCallbacks() {
@@ -139,7 +166,6 @@ export class TaskDialogComponent {
   }
 
   applyTaskObjectToForm(task: Task) {
-    console.log("Applying task to form.", task);
     this.form.get('title').setValue(task.name);
     this.form.get('intent.provider').setValue(task.provider.toUpperCase());
     this.form.get('metadata.dueDate').setValue(TaskService.formatDate(task.due));
@@ -149,11 +175,13 @@ export class TaskDialogComponent {
       this.form.get('trelloContent.description').setValue(TaskService.getParameter(task, 'desc'));
       this.form.get('metadata.assignees').setValue(task.assignees.map(assignee => assignee.id));
     } else {
+      this.form.get('context.sociocortexCase').setValue(TaskService.getParameter(task, 'case'));
+      this.form.get('context.sociocortexTask').setValue(task.providerId);
+      this.sociocortexParams = TaskService.getParameter(task, 'contentParams');
       if (task.assignees && task.assignees.length > 0)
       // only one owner allowed for SC tasks
         this.form.get('metadata.assignees').setValue(task.assignees[0].id);
     }
-    console.log("updated form.", this.form);
   }
 
   static validateForm(group: FormGroup) {
