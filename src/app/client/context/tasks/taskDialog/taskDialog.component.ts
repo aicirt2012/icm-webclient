@@ -356,7 +356,7 @@ export class TaskDialogComponent {
       const convertedTask = this.convertFormToTaskObject();
       console.log("Form submit.", this.form, convertedTask);
       if (this.isEditMode) {
-        this.onEditSubmit(convertedTask);
+        this.onEditSubmit(convertedTask, complete, terminate);
       } else {
         if (this.form.get('intent.intendedAction').value === 'LINK') {
           this.onLinkSubmit(convertedTask);
@@ -371,8 +371,63 @@ export class TaskDialogComponent {
     }
   }
 
-  private onEditSubmit(convertedTask) {
-    // TODO implement task update
+  private onEditSubmit(convertedTask, complete: boolean, terminate: boolean) {
+    this.taskService.linkTask(convertedTask).subscribe(() => {
+      if (complete) {
+        this.onCompleteSubmit(convertedTask._id);
+      } else if (terminate) {
+        this.onTerminateSubmit(convertedTask._id)
+      } else {
+        this.closeDialog();
+        this.snackBar.open('Task successfully updated.', 'OK');
+      }
+    }, error => {
+      console.log(error);
+      this.submitted = false;
+      this.snackBar.open('Error while updating task.', 'OK');
+    });
+  }
+
+  private onCompleteSubmit(taskId) {
+    if (this.form.get('intent.provider').value === 'SOCIOCORTEX')
+      this.taskService.completeSociocortexTask(taskId).subscribe(() => {
+        this.closeDialog();
+        this.snackBar.open('Task successfully completed.', 'OK');
+      }, error => {
+        console.log(error);
+        this.submitted = false;
+        this.snackBar.open('Error while completing task.', 'OK');
+      });
+    else if (this.form.get('intent.provider').value === 'TRELLO')
+      this.taskService.archiveTrelloTask(taskId).subscribe(() => {
+        this.closeDialog();
+        this.snackBar.open('Task successfully archived.', 'OK');
+      }, error => {
+        console.log(error);
+        this.submitted = false;
+        this.snackBar.open('Error while archiving task.', 'OK');
+      });
+  }
+
+  private onTerminateSubmit(taskId) {
+    if (this.form.get('intent.provider').value === 'SOCIOCORTEX')
+      this.taskService.terminateSociocortexTask(taskId).subscribe(() => {
+        this.closeDialog();
+        this.snackBar.open('Task successfully terminated.', 'OK');
+      }, error => {
+        console.log(error);
+        this.submitted = false;
+        this.snackBar.open('Error while terminating task.', 'OK');
+      });
+    else if (this.form.get('intent.provider').value === 'TRELLO')
+      this.taskService.deleteTask(taskId).subscribe(() => {
+        this.closeDialog();
+        this.snackBar.open('Task successfully deleted.', 'OK');
+      }, error => {
+        console.log(error);
+        this.submitted = false;
+        this.snackBar.open('Error while deleting task.', 'OK');
+      });
   }
 
   private onLinkSubmit(convertedTask) {
@@ -400,7 +455,7 @@ export class TaskDialogComponent {
   convertFormToTaskObject() {
     const intent = (<FormGroup> this.form.controls.intent).controls;
     const metadata = (<FormGroup> this.form.controls.metadata).controls;
-    const task = new Task();
+    const task = this.task ? this.task : new Task();
 
     task.email = this.email._id;
     task.user = this.user._id;

@@ -189,20 +189,21 @@
       </mat-accordion>
     </mat-dialog-content>
     <mat-dialog-actions>
-      <button type="button" [disabled]="submitted" mat-raised-button color="accent" *ngIf="!isEditMode"
-              (click)="onSubmit(false, false)">
+      <button type="button" [disabled]="submitted" mat-raised-button color="primary" (click)="onSubmit(false, false)">
         <span *ngIf="!isEditMode">Confirm</span>
         <span *ngIf="isEditMode">Update</span>
         <!--<mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>-->
       </button>
       <button type="button" [disabled]="submitted" mat-raised-button color="accent" *ngIf="isEditMode"
               (click)="onSubmit(true, false)">
-        <span>Update & Complete</span>
+        <span *ngIf="form.get('intent.provider').value === 'SOCIOCORTEX'">Complete</span>
+        <span *ngIf="form.get('intent.provider').value === 'TRELLO'">Archive</span>
         <!--<mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>-->
       </button>
-      <button type="button" [disabled]="submitted" mat-raised-button color="accent" *ngIf="isEditMode"
+      <button type="button" [disabled]="submitted" mat-raised-button color="warn" *ngIf="isEditMode"
               (click)="onSubmit(false, true)">
-        <span>Update & Terminate</span>
+        <span *ngIf="form.get('intent.provider').value === 'SOCIOCORTEX'">Terminate</span>
+        <span *ngIf="form.get('intent.provider').value === 'TRELLO'">Delete</span>
         <!--<mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>-->
       </button>
     </mat-dialog-actions>

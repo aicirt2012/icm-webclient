@@ -8,6 +8,8 @@ export class TaskService {
   constructor(private http: HttpService) {
   }
 
+  // ---- COMMON ----
+
   createTask(task: any): Observable<any> {
     return this.http.post('tasks', null, task);
   }
@@ -28,6 +30,8 @@ export class TaskService {
     return this.http.post('tasks/link', null, task);
   }
 
+  // ---- TRELLO ----
+
   getTrelloTask(taskId: string): Observable<any> {
     return this.http.get('tasks/providers/trello/tasks/' + taskId, null, null);
   }
@@ -43,6 +47,12 @@ export class TaskService {
   getTrelloMembers(boardId: string): Observable<any> {
     return this.http.get('tasks/providers/trello/boards/' + boardId + '/members', null, null);
   }
+
+  archiveTrelloTask(taskId: string): Observable<any> {
+    return this.http.get('tasks/providers/trello/archive/' + taskId, null, null);
+  }
+
+  // ---- SOCIOCORTEX ----
 
   getSociocortexWorkspaces(): Observable<any> {
     return this.http.get('tasks/providers/sociocortex/workspaces', null, null);
@@ -67,6 +77,16 @@ export class TaskService {
   getSociocortexTask(taskId: string): Observable<any> {
     return this.http.get('tasks/providers/sociocortex/tasks/' + taskId, null, null);
   }
+
+  completeSociocortexTask(taskId: string): Observable<any> {
+    return this.http.get('tasks/providers/sociocortex/complete/' + taskId, null, null);
+  }
+
+  terminateSociocortexTask(taskId: string): Observable<any> {
+    return this.http.get('tasks/providers/sociocortex/terminate/' + taskId, null, null);
+  }
+
+  // ___ helpers ____
 
   static getParameter(task: any, parameterName: string): any {
     let value = undefined;
