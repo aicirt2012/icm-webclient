@@ -355,29 +355,25 @@ export class TaskDialogComponent {
       this.submitted = true;
       const convertedTask = this.convertFormToTaskObject();
       console.log("Form submit.", this.form, convertedTask);
-      if (this.isEditMode) {
+      if (this.isEditMode)
         this.onEditSubmit(convertedTask, complete, terminate);
-      } else {
-        if (this.form.get('intent.intendedAction').value === 'LINK') {
-          this.onLinkSubmit(convertedTask);
-        } else {
-          this.onCreateSubmit(convertedTask);
-        }
-      }
-    } else {
+      else if (this.form.get('intent.intendedAction').value === 'LINK')
+        this.onLinkSubmit(convertedTask);
+      else
+        this.onCreateSubmit(convertedTask);
+    } else
       Object.keys(this.form.controls).forEach(field => {
         this.validateFormField(this.form.get(field));
       });
-    }
   }
 
   private onEditSubmit(convertedTask, complete: boolean, terminate: boolean) {
-    this.taskService.linkTask(convertedTask).subscribe(() => {
-      if (complete) {
+    this.taskService.updateTask(convertedTask).subscribe(() => {
+      if (complete)
         this.onCompleteSubmit(convertedTask._id);
-      } else if (terminate) {
-        this.onTerminateSubmit(convertedTask._id)
-      } else {
+      else if (terminate)
+        this.onTerminateSubmit(convertedTask._id);
+      else {
         this.closeDialog();
         this.snackBar.open('Task successfully updated.', 'OK');
       }

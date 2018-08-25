@@ -19,11 +19,11 @@ export class TaskService {
   }
 
   updateTask(task: any): Observable<any> {
-    return this.http.put('tasks/' + task.id, null, task);
+    return this.http.put('tasks/' + task._id, null, task);
   }
 
   deleteTask(task: any): Observable<any> {
-    return this.http.delete('tasks/' + task.id, null, task);
+    return this.http.delete('tasks/' + task._id, null, task);
   }
 
   linkTask(task: any): Observable<any> {
