@@ -22,8 +22,8 @@ export class TaskService {
     return this.http.put('tasks/' + task._id, null, task);
   }
 
-  deleteTask(task: any): Observable<any> {
-    return this.http.delete('tasks/' + task._id, null, task);
+  deleteTask(taskId: string): Observable<any> {
+    return this.http.delete('tasks/' + taskId, null, null);
   }
 
   linkTask(task: any): Observable<any> {
