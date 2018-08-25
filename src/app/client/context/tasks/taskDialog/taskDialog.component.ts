@@ -350,6 +350,19 @@ export class TaskDialogComponent {
       });
   }
 
+  onUnlink() {
+    this.submitted = true;
+    this.taskService.unlinkTask(this.task)
+      .subscribe(() => {
+        this.closeDialog();
+        this.snackBar.open('Task successfully unlinked.', 'OK');
+      }, error => {
+        console.log(error);
+        this.submitted = false;
+        this.snackBar.open('Error while unlinking task.', 'OK');
+      })
+  }
+
   onSubmit(complete: boolean, terminate: boolean) {
     if (this.form.valid) {
       this.submitted = true;

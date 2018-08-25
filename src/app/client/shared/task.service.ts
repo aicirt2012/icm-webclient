@@ -30,6 +30,10 @@ export class TaskService {
     return this.http.post('tasks/link', null, task);
   }
 
+  unlinkTask(task: any): Observable<any> {
+    return this.http.post('tasks/' + task._id + '/unlink', null, task);
+  }
+
   // ---- TRELLO ----
 
   getTrelloTask(taskId: string): Observable<any> {
