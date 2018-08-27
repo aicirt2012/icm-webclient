@@ -461,6 +461,20 @@ export class TaskDialogComponent {
     });
   }
 
+  validateFormField(control: AbstractControl) {
+    if (control instanceof FormControl) {
+      control.markAsTouched({onlySelf: true});
+    } else if (control instanceof FormGroup) {
+      Object.keys(control.controls).forEach(field => {
+        this.validateFormField(control.get(field));
+      });
+    } else if (control instanceof FormArray) {
+      control.controls.forEach(subControl => {
+        this.validateFormField(subControl);
+      });
+    }
+  }
+
   convertFormToTaskObject() {
     const intent = (<FormGroup> this.form.controls.intent).controls;
     const metadata = (<FormGroup> this.form.controls.metadata).controls;
@@ -487,27 +501,15 @@ export class TaskDialogComponent {
     return task;
   }
 
-  validateFormField(control: AbstractControl) {
-    if (control instanceof FormControl) {
-      control.markAsTouched({onlySelf: true});
-    } else if (control instanceof FormGroup) {
-      Object.keys(control.controls).forEach(field => {
-        this.validateFormField(control.get(field));
-      });
-    } else if (control instanceof FormArray) {
-      control.controls.forEach(subControl => {
-        this.validateFormField(subControl);
-      });
-    }
-  }
-
   private convertTaskParametersTrello() {
     const context = (<FormGroup> this.form.controls.context).controls;
     const content = (<FormGroup> this.form.controls.trelloContent).controls;
+    const metadata = (<FormGroup> this.form.controls.metadata).controls;
     const parameters = [];
     // context information
     parameters.push({name: "idBoard", value: context.trelloBoard.value});
     parameters.push({name: "idList", value: context.trelloList.value});
+    parameters.push({name: "idMembers", value: metadata.assignees.value});
     // task content
     parameters.push({name: "desc", value: content.description.value});
     return parameters;
