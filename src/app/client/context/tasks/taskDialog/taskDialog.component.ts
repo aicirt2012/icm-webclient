@@ -11,6 +11,7 @@ import {
 import { TaskService } from '../../../shared';
 import { Task } from '../../../../shared';
 import { Location } from '@angular/common';
+import { HtmlElements } from '../taskContentSociocortex';
 
 @Component({
   selector: 'task-dialog',
@@ -517,12 +518,31 @@ export class TaskDialogComponent {
 
   private convertTaskParametersSociocortex() {
     const context = (<FormGroup> this.form.controls.context).controls;
-    const content = (<FormGroup> this.form.controls.sociocortexContent).controls;
+    const content = (<FormArray> this.form.controls.sociocortexContent).controls;
     const parameters = [];
     // context information
     parameters.push({name: "case", value: context.sociocortexCase.value});
     // task content
-    // parameters.push({name: "description", value: content.description.value});
+    const contentParams = [];
+    for (let i = 0; i < content.length; i++) {
+      const values = [];
+      if (this.sociocortexParams[i].htmlElement === HtmlElements.CheckBoxes)
+      // checkbox group
+        for (let j = 0; j < (<FormArray> content[i]).length; j++) {
+          const option = this.sociocortexParams[i].constraints.enumerationOptions[j];
+          if ((<FormArray> content[i]).controls[j].value)
+            values.push(option.value);
+        }
+      else if (content[i].value)
+      // simple inputs
+        values.push(content[i].value);
+      contentParams.push({
+        id: this.sociocortexParams[i].id,
+        name: this.sociocortexParams[i].name,
+        values: values
+      })
+    }
+    parameters.push({name: "contentParams", value: contentParams});
     return parameters;
   }
 
