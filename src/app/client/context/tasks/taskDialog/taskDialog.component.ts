@@ -525,25 +525,29 @@ export class TaskDialogComponent {
     // task content
     const contentParams = [];
     for (let i = 0; i < content.length; i++) {
-      const values = [];
-      if (this.sociocortexParams[i].htmlElement === HtmlElements.CheckBoxes)
-      // checkbox group
-        for (let j = 0; j < (<FormArray> content[i]).length; j++) {
-          const option = this.sociocortexParams[i].constraints.enumerationOptions[j];
-          if ((<FormArray> content[i]).controls[j].value)
-            values.push(option.value);
-        }
-      else if (content[i].value)
-      // simple inputs
-        values.push(content[i].value);
-      contentParams.push({
-        id: this.sociocortexParams[i].id,
-        name: this.sociocortexParams[i].name,
-        values: values
-      })
+      contentParams.push(this.convertTaskParameterSociocortex(i, content));
     }
     parameters.push({name: "contentParams", value: contentParams});
     return parameters;
+  }
+
+  private convertTaskParameterSociocortex(paramIndex: number, content) {
+    const values = [];
+    if (this.sociocortexParams[paramIndex].htmlElement === HtmlElements.CheckBoxes)
+    // checkbox group
+      for (let enumIndex = 0; enumIndex < (<FormArray> content[paramIndex]).length; enumIndex++) {
+        const option = this.sociocortexParams[paramIndex].constraints.enumerationOptions[enumIndex];
+        if ((<FormArray> content[paramIndex]).controls[enumIndex].value)
+          values.push(option.value);
+      }
+    else if (content[paramIndex].value)
+    // simple inputs
+      values.push(content[paramIndex].value);
+    return {
+      id: this.sociocortexParams[paramIndex].id,
+      name: this.sociocortexParams[paramIndex].name,
+      values: values
+    };
   }
 
   closeDialog() {
