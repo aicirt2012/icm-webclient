@@ -375,10 +375,12 @@ export class TaskDialogComponent {
         this.onLinkSubmit(convertedTask);
       else
         this.onCreateSubmit(convertedTask);
-    } else
+    } else {
+      console.log("Form has errors, submit prevented.");
       Object.keys(this.form.controls).forEach(field => {
         this.validateFormField(this.form.get(field));
       });
+    }
   }
 
   private onEditSubmit(convertedTask, complete: boolean, terminate: boolean) {
