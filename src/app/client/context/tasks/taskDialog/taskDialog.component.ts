@@ -168,6 +168,7 @@ export class TaskDialogComponent {
   }
 
   applyTaskObjectToForm(task: Task) {
+    this.task = task;
     this.form.get('title').setValue(task.name);
     this.form.get('intent.provider').setValue(task.provider.toUpperCase());
     this.form.get('metadata.dueDate').setValue(TaskService.formatDate(task.due));
@@ -524,6 +525,11 @@ export class TaskDialogComponent {
     const parameters = [];
     // context information
     parameters.push({name: "case", value: context.sociocortexCase.value});
+    parameters.push({name: "state", value: TaskService.getParameter(this.task, 'state')});
+    parameters.push({
+      name: "resourceType",
+      value: TaskService.getParameter(this.task, 'resourceType')
+    });
     // task content
     const contentParams = [];
     for (let i = 0; i < content.length; i++) {
