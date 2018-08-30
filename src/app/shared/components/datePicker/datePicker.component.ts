@@ -17,6 +17,18 @@ export class DatePickerComponent {
   constructor() {
   }
 
+  ngOnInit() {
+    // TODO init the views from the values we got
+  }
+
+  onInputChange(event: any) {
+    console.log("Input changed!", event);
+  }
+
+  onPickerChange(event: any) {
+    console.log("Picker changed!", event);
+  }
+
 }
 
 class MyDate {
