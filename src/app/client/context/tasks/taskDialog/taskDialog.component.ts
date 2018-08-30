@@ -444,8 +444,19 @@ export class TaskDialogComponent {
 
   private onLinkSubmit(convertedTask) {
     this.taskService.linkTask(convertedTask).subscribe(() => {
-      this.closeDialog();
-      this.snackBar.open('Task successfully linked.', 'OK');
+      if (this.form.get('intent.provider').value === 'SOCIOCORTEX')
+        this.taskService.updateTask(convertedTask).subscribe(() => {
+          this.closeDialog();
+          this.snackBar.open('Task successfully linked.', 'OK');
+        }, error => {
+          console.log(error);
+          this.submitted = false;
+          this.snackBar.open('Error while updating newly linked task.', 'OK');
+        });
+      else {
+        this.closeDialog();
+        this.snackBar.open('Task successfully linked.', 'OK');
+      }
     }, error => {
       console.log(error);
       this.submitted = false;
