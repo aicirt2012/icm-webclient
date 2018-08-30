@@ -1,0 +1,10 @@
+<input name="dateView" matInput placeholder="Due Date" [matAutocomplete]="autocompleteDate" [matDatepicker]="picker">
+<input name="dateValue" hidden [matDatepicker]="picker">
+<mat-autocomplete #autocompleteDate="matAutocomplete">
+  <mat-option *ngFor="let date of displayedSuggestions" [value]="date.value">{{date.toString()}}</mat-option>
+</mat-autocomplete>
+<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+<mat-datepicker #picker></mat-datepicker>
+
+<!--<input hidden name="datePicker" formControlName="dueDateUnformatted" [matDatepicker]="picker">-->
+<!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
