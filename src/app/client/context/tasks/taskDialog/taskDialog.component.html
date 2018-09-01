@@ -126,16 +126,19 @@
           <mat-divider class="expansion-divider"></mat-divider>
           <div formGroupName="metadata">
             <!-- due date input -->
-            <mat-form-field>
-              <input name="date" matInput placeholder="Due Date" formControlName="dueDate"
-                     [matAutocomplete]="autocompleteDate">
-              <mat-autocomplete #autocompleteDate="matAutocomplete">
-                <mat-option *ngFor="let date of autocomplete.dates.filtered" [value]="date">{{date}}</mat-option>
-              </mat-autocomplete>
-              <input hidden name="datePicker" formControlName="dueDateUnformatted" [matDatepicker]="picker">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
+            <datepicker [autocompleteStrings]="autocomplete.dates.all"></datepicker>
+
+            <!--<mat-form-field>-->
+            <!--<input name="date" matInput placeholder="Due Date" formControlName="dueDate"-->
+            <!--[matAutocomplete]="autocompleteDate">-->
+            <!--<mat-autocomplete #autocompleteDate="matAutocomplete">-->
+            <!--<mat-option *ngFor="let date of autocomplete.dates.filtered" [value]="date">{{date}}</mat-option>-->
+            <!--</mat-autocomplete>-->
+            <!--<input hidden name="datePicker" formControlName="dueDateUnformatted" [matDatepicker]="picker">-->
+            <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+            <!--<mat-datepicker #picker></mat-datepicker>-->
+            <!--</mat-form-field>-->
+
             <!-- Trello assignee input -->
             <mat-form-field *ngIf="form.controls.intent.controls.provider.value === 'TRELLO'">
               <mat-select class="margin" placeholder="Assignees" formControlName="assignees" name="member" fxFlex

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {
   MatAutocompleteModule,
@@ -9,19 +9,21 @@ import {
   MatCardModule,
   MatCheckboxModule,
   MatChipsModule,
+  MatDatepickerModule,
   MatDialogModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
   MatListModule,
   MatMenuModule,
+  MatNativeDateModule,
   MatSelectModule,
   MatSliderModule,
   MatSlideToggleModule,
   MatSnackBarModule,
   MatTabsModule,
   MatToolbarModule,
-  MatTooltipModule
+  MatTooltipModule,
 } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { DatePickerComponent, SpinnerComponent, TopNavbarComponent } from './components'; // all shared components
@@ -53,6 +55,9 @@ import { AuthService, HttpService } from './services';
     MatTabsModule,
     MatFormFieldModule,
     MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
     //
     FlexLayoutModule
   ],
