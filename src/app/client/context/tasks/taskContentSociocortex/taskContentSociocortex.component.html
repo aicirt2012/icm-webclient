@@ -26,13 +26,11 @@
       </mat-form-field>
     </div>
     <div *ngIf="taskParam.htmlElement === 'datepicker'">
-      {{taskParam.name}} [datepicker disabled]
-      <!--<mat-form-field fxFlex>-->
-      <!--{{taskParam.name}}-->
-      <!--<input matInput [matDatepicker]="picker" [formControl]="contentForm.at(i)" [readonly]="taskParam.readOnly">-->
-      <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-      <!--<mat-datepicker #picker [disabled]="taskParam.readOnly"></mat-datepicker>-->
-      <!--</mat-form-field>-->
+      {{taskParam.name}}
+      <!-- TODO support readonly property for datepicker component -->
+      <datepicker [dateControl]="contentForm.at(i)"
+                  [autocompleteDates]="[]">
+      </datepicker>
     </div>
     <div *ngIf="taskParam.htmlElement === 'select'">
       <mat-form-field fxFlex>
