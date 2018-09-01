@@ -9,7 +9,7 @@ import { FormBuilder, FormControl } from '@angular/forms';
 export class DatePickerComponent {
 
   @Input()
-  private autocompleteStrings: string[];
+  private autocompleteDates: Date[];
   private stringValue: FormControl = this.fb.control(['']);
   private autocomplete = {
     all: [],
@@ -23,7 +23,7 @@ export class DatePickerComponent {
     // TODO init the views from the values we got
     console.log("init date picker component. value, autocompleteValues", this.stringValue, this.autocomplete);
 
-    this.autocomplete.all = ["2019-08-07", "2018-07-06", "2017-06-05", "2010-12-11"]; // TODO remove this line after debugging
+    this.autocomplete.all = this.autocompleteDates.map(date => new MyDate(date).toString());
     this.autocomplete.filtered = this.autocomplete.all;
     this.stringValue.valueChanges
       .subscribe(updatedValue => {
@@ -40,6 +40,10 @@ export class DatePickerComponent {
 
 class MyDate {
   value: Date;
+
+  constructor(value: Date) {
+    this.value = value;
+  }
 
   toString(): string {
     if (!this.value)

@@ -59,7 +59,8 @@ export class TaskDialogComponent {
     },
     dates: {
       all: [],
-      filtered: []
+      filtered: [],
+      asDates: []
     }
   };
 
@@ -148,6 +149,7 @@ export class TaskDialogComponent {
     }
     this.autocomplete.titles.all = this.suggestedData.titles;
     this.autocomplete.dates.all = this.suggestedData.dates;
+    this.autocomplete.dates.asDates = this.suggestedData.dates.map(date => new Date(date));
     this.autocomplete.titles.filtered = this.autocomplete.titles.all;
     this.autocomplete.dates.filtered = this.autocomplete.dates.all;
   }

@@ -126,7 +126,7 @@
           <mat-divider class="expansion-divider"></mat-divider>
           <div formGroupName="metadata">
             <!-- due date input -->
-            <datepicker [autocompleteStrings]="autocomplete.dates.all"></datepicker>
+            <datepicker [autocompleteDates]="autocomplete.dates.asDates"></datepicker>
 
             <!--<mat-form-field>-->
             <!--<input name="date" matInput placeholder="Due Date" formControlName="dueDate"-->
