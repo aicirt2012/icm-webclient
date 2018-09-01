@@ -1,11 +1,11 @@
 <mat-form-field>
-  <input name="stringInput" matInput placeholder="Due Date" [formControl]="stringValue"
-         [matAutocomplete]="autocompleteDateString" (blur)="onStringInputBlur()">
+  <input name="stringInput" matInput placeholder="Due Date" [formControl]="stringControl"
+         [matAutocomplete]="autocompleteDateString" (blur)="onStringValueUpdate()">
   <mat-autocomplete #autocompleteDateString="matAutocomplete">
     <mat-option *ngFor="let dateString of autocomplete.filtered" [value]="dateString">{{dateString}}</mat-option>
   </mat-autocomplete>
 
-  <input name="dateInput" hidden [formControl]="dateValue" [matDatepicker]="picker">
+  <input name="dateInput" hidden [formControl]="dateControl" [matDatepicker]="picker">
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>

@@ -10,8 +10,8 @@ export class DatePickerComponent {
 
   // noinspection JSMismatchedCollectionQueryUpdate
   @Input() private autocompleteDates: Date[];
-  private stringValue: FormControl = new FormControl('');
-  private dateValue: FormControl = new FormControl(null);
+  @Input() private dateControl: FormControl;
+  private stringControl: FormControl = new FormControl('');
   private autocomplete = {
     all: [],
     filtered: []
@@ -21,26 +21,34 @@ export class DatePickerComponent {
   }
 
   ngOnInit() {
-    // TODO init the views from the values we got
-    console.log("init date picker component. stringValue, dateValue, autocomplete", this.stringValue.value, this.dateValue.value, this.autocomplete);
+    this.initData();
+    this.initChangeListeners();
+  }
 
+  private initData() {
     this.autocomplete.all = this.autocompleteDates.map(date => DatePickerComponent.dateToString(date));
     this.autocomplete.filtered = this.autocomplete.all;
-    this.stringValue.valueChanges
+    this.stringControl.setValue(DatePickerComponent.dateToString(this.dateControl.value));
+    this.onStringValueUpdate();
+  }
+
+  private initChangeListeners() {
+    this.stringControl.valueChanges
       .subscribe(updatedValue => {
         this.autocomplete.filtered = this.autocomplete.all.filter(date => date.indexOf(updatedValue) == 0);
       });
-    this.dateValue.valueChanges
-      .subscribe(() => this.stringValue.setValue(DatePickerComponent.dateToString(this.dateValue.value)));
+    this.dateControl.valueChanges
+      .subscribe(() => this.stringControl.setValue(DatePickerComponent.dateToString(this.dateControl.value)));
   }
 
-  onStringInputBlur() {
-    const date = new Date(this.stringValue.value);
-    if (date.getTime() > 0)   // check if value is valid date
-      this.dateValue.setValue(date);
-    else {
-      this.stringValue.setValue("");  // TODO improve error handling by keeping the input and showing a validation error
-      this.dateValue.setValue(null);
+  onStringValueUpdate() {
+    const date = new Date(this.stringControl.value);
+    // check if value is valid date
+    if (date.getTime() > 0) {
+      this.dateControl.setValue(date);
+    } else {
+      this.stringControl.setValue("");  // TODO improve error handling by keeping the input and showing a validation error
+      this.dateControl.setValue(null);
     }
   }
 

@@ -85,7 +85,7 @@ export class TaskDialogComponent {
       sociocortexTask: ['']
     }),
     metadata: this._formBuilder.group({
-      dueDate: [''],
+      dueDate: [null],
       dueDateUnformatted: [''],
       assignees: ['']
     }),
@@ -157,7 +157,7 @@ export class TaskDialogComponent {
   private initInputCallbacks() {
     this.form.get('metadata.dueDateUnformatted').valueChanges
       .subscribe(date => {
-        this.form.get('metadata.dueDate').setValue(TaskService.formatDate(date));
+        this.form.get('metadata.dueDate').setValue(new Date(date));
       });
     this.form.get('title').valueChanges
       .subscribe(updatedValue => {
@@ -173,7 +173,7 @@ export class TaskDialogComponent {
     this.task = task;
     this.form.get('title').setValue(task.name);
     this.form.get('intent.provider').setValue(task.provider.toUpperCase());
-    this.form.get('metadata.dueDate').setValue(TaskService.formatDate(task.due));
+    this.form.get('metadata.dueDate').setValue(new Date(task.due));
     if (this.form.get('intent.provider').value === 'TRELLO') {
       this.form.get('context.trelloBoard').setValue(TaskService.getParameter(task, 'idBoard'));
       this.form.get('context.trelloList').setValue(TaskService.getParameter(task, 'idList'));
