@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'datepicker',
@@ -10,30 +10,32 @@ export class DatePickerComponent {
 
   @Input()
   private autocompleteDates: Date[];
-  private stringValue: FormControl = this.fb.control(['']);
+  private stringValue: FormControl = new FormControl('');
+  private dateValue: FormControl = new FormControl(null);
   private autocomplete = {
     all: [],
     filtered: []
   };
 
-  constructor(private fb: FormBuilder) {
+  constructor() {
   }
 
   ngOnInit() {
     // TODO init the views from the values we got
-    console.log("init date picker component. value, autocompleteValues", this.stringValue, this.autocomplete);
+    console.log("init date picker component. stringValue, dateValue, autocomplete", this.stringValue.value, this.dateValue.value, this.autocomplete);
 
     this.autocomplete.all = this.autocompleteDates.map(date => new MyDate(date).toString());
     this.autocomplete.filtered = this.autocomplete.all;
     this.stringValue.valueChanges
       .subscribe(updatedValue => {
-        this.autocomplete.filtered = this.autocomplete.all.filter(date => date.indexOf(updatedValue) == 0)
-        console.log("Input changed! value, displayedValue", this.stringValue, this.autocomplete);
+        this.autocomplete.filtered = this.autocomplete.all.filter(date => date.indexOf(updatedValue) == 0);
       });
+    this.dateValue.valueChanges
+      .subscribe(() => this.stringValue.setValue(new MyDate(this.dateValue.value).toString()));
   }
 
-  onPickerChange(event: any) {
-    console.log("Picker changed! event, value, displayedValue", event, this.stringValue, this.autocomplete);
+  onStringInputBlur() {
+    this.dateValue.setValue(new Date(this.stringValue.value));
   }
 
 }
