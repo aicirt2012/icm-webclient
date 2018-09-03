@@ -61,11 +61,7 @@ export class TasksComponent {
       width: '45%',
       height: 'auto'
     });
-    dialogRef.componentInstance.task = task;
-    dialogRef.componentInstance.email = this.email;
-    dialogRef.componentInstance.user = this.user;
-    dialogRef.componentInstance.suggestedData = this.email.suggestedData;
-    dialogRef.componentInstance.isEditMode = false;
+    dialogRef.componentInstance.initDialog(task, this.email,this.user, this.email.suggestedData, false);
   }
 
   openEditTaskDialog(task: any) {
@@ -73,11 +69,7 @@ export class TasksComponent {
       width: '45%',
       height: 'auto'
     });
-    dialogRef.componentInstance.task = task;
-    dialogRef.componentInstance.email = this.email;
-    dialogRef.componentInstance.user = this.user;
-    dialogRef.componentInstance.suggestedData = this.email.suggestedData;
-    dialogRef.componentInstance.isEditMode = true;
+    dialogRef.componentInstance.initDialog(task, this.email,this.user, this.email.suggestedData, true);
   }
 
 }

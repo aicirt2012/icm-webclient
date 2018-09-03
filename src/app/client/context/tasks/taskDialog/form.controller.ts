@@ -1,12 +1,27 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { Task } from '../../../../shared';
 import { TaskService } from '../../../shared';
+import { HtmlElements } from '../taskContentSociocortex';
+import { Location } from '@angular/common';
 
 export class FormController {
 
+  private task: any;
+  private email: any;
+  private user: any;
+  private sociocortexParams: any[];
+
   private form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private location: Location) {
   }
 
   makeForm() {
@@ -62,7 +77,7 @@ export class FormController {
     return null;
   }
 
-  applyTaskObjectToForm(task: Task) {
+  setTask(task: Task): void {
     this.form.get('title').setValue(task.name);
     this.form.get('intent.provider').setValue(task.provider.toUpperCase());
     this.form.get('metadata.dueDate').setValue(new Date(task.due));
@@ -77,6 +92,109 @@ export class FormController {
       if (task.assignees && task.assignees.length > 0)
       // only one owner allowed for SC tasks
         this.form.get('metadata.assignees').setValue(task.assignees[0].id);
+    }
+  }
+
+  getTask(): Task {
+    return null;
+  }
+
+  getTask_temp(email: any, user: any, task?: Task) {
+    const intent = (<FormGroup> this.form.controls.intent).controls;
+    const metadata = (<FormGroup> this.form.controls.metadata).controls;
+    const newTask = task ? task : new Task();
+
+    newTask.email = email._id;
+    newTask.user = user._id;
+    newTask.name = this.form.controls.title.value;
+    newTask.frontendUrl = "http://localhost:3000" + this.location.prepareExternalUrl(this.location.path());    //FIXME replace hardcoded base url with actual, dynamic one
+    newTask.due = metadata.dueDate.value ? metadata.dueDate.value : undefined;
+    newTask.isOpen = true;
+    newTask.provider = intent.provider.value;
+
+    if (newTask.provider === 'TRELLO') {
+      if (intent.intendedAction.value === 'LINK')
+        newTask.providerId = (<FormGroup> this.form.controls.context).controls.trelloTask.value;
+      newTask.parameters = this.convertTaskParametersTrello();
+      newTask.assignees = metadata.assignees.value ? metadata.assignees.value : undefined;
+    } else if (newTask.provider === 'SOCIOCORTEX') {
+      newTask.providerId = (<FormGroup> this.form.controls.context).controls.sociocortexTask.value;
+      newTask.parameters = this.convertTaskParametersSociocortex(newTask);
+      newTask.assignees = metadata.assignees.value ? [metadata.assignees.value] : undefined;
+    }
+    return newTask;
+  }
+
+  private convertTaskParametersTrello() {
+    const context = (<FormGroup> this.form.controls.context).controls;
+    const content = (<FormGroup> this.form.controls.trelloContent).controls;
+    const metadata = (<FormGroup> this.form.controls.metadata).controls;
+    const parameters = [];
+    // context information
+    parameters.push({name: "idBoard", value: context.trelloBoard.value});
+    parameters.push({name: "idList", value: context.trelloList.value});
+    parameters.push({name: "idMembers", value: metadata.assignees.value});
+    // task content
+    parameters.push({name: "desc", value: content.description.value});
+    return parameters;
+  }
+
+  private convertTaskParametersSociocortex(task: any) {
+    const context = (<FormGroup> this.form.controls.context).controls;
+    const content = (<FormArray> this.form.controls.sociocortexContent).controls;
+    const parameters = [];
+    // context information
+    parameters.push({name: "case", value: context.sociocortexCase.value});
+    parameters.push({name: "state", value: TaskService.getParameter(task, 'state')});
+    parameters.push({
+      name: "resourceType",
+      value: TaskService.getParameter(task, 'resourceType')
+    });
+    // task content
+    const contentParams = [];
+    for (let i = 0; i < content.length; i++) {
+      contentParams.push(this.convertTaskParameterSociocortex(i, content));
+    }
+    parameters.push({name: "contentParams", value: contentParams});
+    return parameters;
+  }
+
+  private convertTaskParameterSociocortex(paramIndex: number, content) {
+    const values = [];
+    if (this.sociocortexParams[paramIndex].htmlElement === HtmlElements.CheckBoxes)
+    // checkbox group
+      for (let enumIndex = 0; enumIndex < (<FormArray> content[paramIndex]).length; enumIndex++) {
+        const option = this.sociocortexParams[paramIndex].constraints.enumerationOptions[enumIndex];
+        if ((<FormArray> content[paramIndex]).controls[enumIndex].value)
+          values.push(option.value);
+      }
+    else if (content[paramIndex].value)
+    // simple inputs
+      values.push(content[paramIndex].value);
+    return {
+      id: this.sociocortexParams[paramIndex].id,
+      name: this.sociocortexParams[paramIndex].name,
+      values: values
+    };
+  }
+
+  showValidationErrors() {
+    Object.keys(this.form.controls).forEach(field => {
+      this.validateFormField(this.form.get(field));
+    });
+  }
+
+  validateFormField(control: AbstractControl) {
+    if (control instanceof FormControl) {
+      control.markAsTouched({onlySelf: true});
+    } else if (control instanceof FormGroup) {
+      Object.keys(control.controls).forEach(field => {
+        this.validateFormField(control.get(field));
+      });
+    } else if (control instanceof FormArray) {
+      control.controls.forEach(subControl => {
+        this.validateFormField(subControl);
+      });
     }
   }
 

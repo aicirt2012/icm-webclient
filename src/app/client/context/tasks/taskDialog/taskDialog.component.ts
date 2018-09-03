@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialogRef, MatSnackBar } from "@angular/material";
-import { AbstractControl, FormArray, FormControl, FormGroup } from "@angular/forms";
+import { FormGroup } from "@angular/forms";
 import { TaskService } from '../../../shared';
-import { Task } from '../../../../shared';
-import { Location } from '@angular/common';
-import { HtmlElements } from '../taskContentSociocortex';
 import { FormController } from './form.controller';
 
 @Component({
@@ -69,15 +66,22 @@ export class TaskDialogComponent {
   constructor(public taskDialogRef: MatDialogRef<TaskDialogComponent>,
               private snackBar: MatSnackBar,
               private taskService: TaskService,
-              private location: Location,
               private formController: FormController) {
+  }
+
+  initDialog(task: any, email: any, user: any, sociocortexParams: any[], isEditMode: boolean) {
+    this.task = task;
+    this.email = email;
+    this.user = user;
+    this.sociocortexParams = sociocortexParams;
+    this.isEditMode = isEditMode;
   }
 
   ngOnInit() {
     this.initAutocompleteData();
     this.initInputCallbacks();
     if (this.task) {
-      this.formController.applyTaskObjectToForm(this.task);
+      this.formController.setTask(this.task);
       this.sociocortexParams = TaskService.getParameter(this.task, 'contentParams');
     }
   }
@@ -226,7 +230,7 @@ export class TaskDialogComponent {
         .take(1)
         .subscribe(task => {
           this.task = task;
-          this.formController.applyTaskObjectToForm(task);
+          this.formController.setTask(task);
         });
     } else {
       this.form.get("sociocortexContent").reset();
@@ -250,7 +254,7 @@ export class TaskDialogComponent {
         .subscribe(task => {
           console.log(task);
           this.task = task;
-          this.formController.applyTaskObjectToForm(task);
+          this.formController.setTask(task);
           this.sociocortexParams = TaskService.getParameter(task, 'contentParams');
         });
     }
@@ -299,7 +303,7 @@ export class TaskDialogComponent {
   onSubmit(complete: boolean, terminate: boolean) {
     if (this.form.valid) {
       this.submitted = true;
-      const convertedTask = this.convertFormToTaskObject();
+      const convertedTask = this.formController.getTask_temp(this.email, this.user, this.task);
       console.log("Form submit.", this.form, convertedTask);
       if (this.isEditMode)
         this.onEditSubmit(convertedTask, complete, terminate);
@@ -309,9 +313,7 @@ export class TaskDialogComponent {
         this.onCreateSubmit(convertedTask);
     } else {
       console.log("Form has errors, submit prevented.");
-      Object.keys(this.form.controls).forEach(field => {
-        this.validateFormField(this.form.get(field));
-      });
+      this.formController.showValidationErrors();
     }
   }
 
@@ -394,99 +396,6 @@ export class TaskDialogComponent {
       this.submitted = false;
       this.snackBar.open('Error while creating task.', 'OK');
     });
-  }
-
-  validateFormField(control: AbstractControl) {
-    if (control instanceof FormControl) {
-      control.markAsTouched({onlySelf: true});
-    } else if (control instanceof FormGroup) {
-      Object.keys(control.controls).forEach(field => {
-        this.validateFormField(control.get(field));
-      });
-    } else if (control instanceof FormArray) {
-      control.controls.forEach(subControl => {
-        this.validateFormField(subControl);
-      });
-    }
-  }
-
-  convertFormToTaskObject() {
-    const intent = (<FormGroup> this.form.controls.intent).controls;
-    const metadata = (<FormGroup> this.form.controls.metadata).controls;
-    const task = this.task ? this.task : new Task();
-
-    task.email = this.email._id;
-    task.user = this.user._id;
-    task.name = this.form.controls.title.value;
-    task.frontendUrl = "http://localhost:3000" + this.location.prepareExternalUrl(this.location.path());    //FIXME replace hardcoded base url with actual, dynamic one
-    task.due = metadata.dueDate.value ? metadata.dueDate.value : undefined;
-    task.isOpen = true;
-    task.provider = intent.provider.value;
-
-    if (task.provider === 'TRELLO') {
-      if (intent.intendedAction.value === 'LINK')
-        task.providerId = (<FormGroup> this.form.controls.context).controls.trelloTask.value;
-      task.parameters = this.convertTaskParametersTrello();
-      task.assignees = metadata.assignees.value ? metadata.assignees.value : undefined;
-    } else if (task.provider === 'SOCIOCORTEX') {
-      task.providerId = (<FormGroup> this.form.controls.context).controls.sociocortexTask.value;
-      task.parameters = this.convertTaskParametersSociocortex();
-      task.assignees = metadata.assignees.value ? [metadata.assignees.value] : undefined;
-    }
-    return task;
-  }
-
-  private convertTaskParametersTrello() {
-    const context = (<FormGroup> this.form.controls.context).controls;
-    const content = (<FormGroup> this.form.controls.trelloContent).controls;
-    const metadata = (<FormGroup> this.form.controls.metadata).controls;
-    const parameters = [];
-    // context information
-    parameters.push({name: "idBoard", value: context.trelloBoard.value});
-    parameters.push({name: "idList", value: context.trelloList.value});
-    parameters.push({name: "idMembers", value: metadata.assignees.value});
-    // task content
-    parameters.push({name: "desc", value: content.description.value});
-    return parameters;
-  }
-
-  private convertTaskParametersSociocortex() {
-    const context = (<FormGroup> this.form.controls.context).controls;
-    const content = (<FormArray> this.form.controls.sociocortexContent).controls;
-    const parameters = [];
-    // context information
-    parameters.push({name: "case", value: context.sociocortexCase.value});
-    parameters.push({name: "state", value: TaskService.getParameter(this.task, 'state')});
-    parameters.push({
-      name: "resourceType",
-      value: TaskService.getParameter(this.task, 'resourceType')
-    });
-    // task content
-    const contentParams = [];
-    for (let i = 0; i < content.length; i++) {
-      contentParams.push(this.convertTaskParameterSociocortex(i, content));
-    }
-    parameters.push({name: "contentParams", value: contentParams});
-    return parameters;
-  }
-
-  private convertTaskParameterSociocortex(paramIndex: number, content) {
-    const values = [];
-    if (this.sociocortexParams[paramIndex].htmlElement === HtmlElements.CheckBoxes)
-    // checkbox group
-      for (let enumIndex = 0; enumIndex < (<FormArray> content[paramIndex]).length; enumIndex++) {
-        const option = this.sociocortexParams[paramIndex].constraints.enumerationOptions[enumIndex];
-        if ((<FormArray> content[paramIndex]).controls[enumIndex].value)
-          values.push(option.value);
-      }
-    else if (content[paramIndex].value)
-    // simple inputs
-      values.push(content[paramIndex].value);
-    return {
-      id: this.sociocortexParams[paramIndex].id,
-      name: this.sociocortexParams[paramIndex].name,
-      values: values
-    };
   }
 
   closeDialog() {
