@@ -1,17 +1,11 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef, MatSnackBar } from "@angular/material";
-import {
-  AbstractControl,
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from "@angular/forms";
+import { AbstractControl, FormArray, FormControl, FormGroup } from "@angular/forms";
 import { TaskService } from '../../../shared';
 import { Task } from '../../../../shared';
 import { Location } from '@angular/common';
 import { HtmlElements } from '../taskContentSociocortex';
+import { FormController } from './form.controller';
 
 @Component({
   selector: 'task-dialog',
@@ -70,44 +64,22 @@ export class TaskDialogComponent {
   };
   submitted: boolean = false;
 
-  form: FormGroup = this._formBuilder.group({
-    title: this._formBuilder.control('', Validators.required),
-    intent: this._formBuilder.group({
-      provider: ['', Validators.required],
-      intendedAction: ['', Validators.required],
-    }),
-    context: this._formBuilder.group({
-      trelloBoard: [''],
-      trelloList: [''],
-      trelloTask: [''],
-      sociocortexWorkspace: [''],
-      sociocortexCase: [''],
-      sociocortexTask: ['']
-    }),
-    metadata: this._formBuilder.group({
-      dueDate: [null],
-      dueDateUnformatted: [''],
-      assignees: ['']
-    }),
-    trelloContent: this._formBuilder.group({
-      description: ['']
-    }),
-    sociocortexContent: this._formBuilder.array([])
-  }, {validator: TaskDialogComponent.validateForm});
+  form: FormGroup = this.formController.makeForm();
 
   constructor(public taskDialogRef: MatDialogRef<TaskDialogComponent>,
-              public snackBar: MatSnackBar,
+              private snackBar: MatSnackBar,
               private taskService: TaskService,
               private location: Location,
-              private renderer: Renderer2,
-              private _formBuilder: FormBuilder) {
+              private formController: FormController) {
   }
 
   ngOnInit() {
     this.initAutocompleteData();
     this.initInputCallbacks();
-    if (this.task)
-      this.applyTaskObjectToForm(this.task);
+    if (this.task) {
+      this.formController.applyTaskObjectToForm(this.task);
+      this.sociocortexParams = TaskService.getParameter(this.task, 'contentParams');
+    }
   }
 
   private initAutocompleteData() {
@@ -167,51 +139,6 @@ export class TaskDialogComponent {
       .subscribe(updatedValue => {
         this.autocomplete.dates.filtered = this.autocomplete.dates.all.filter(date => date.indexOf(updatedValue) == 0)
       });
-  }
-
-  applyTaskObjectToForm(task: Task) {
-    this.task = task;
-    this.form.get('title').setValue(task.name);
-    this.form.get('intent.provider').setValue(task.provider.toUpperCase());
-    this.form.get('metadata.dueDate').setValue(new Date(task.due));
-    if (this.form.get('intent.provider').value === 'TRELLO') {
-      this.form.get('context.trelloBoard').setValue(TaskService.getParameter(task, 'idBoard'));
-      this.form.get('context.trelloList').setValue(TaskService.getParameter(task, 'idList'));
-      this.form.get('trelloContent.description').setValue(TaskService.getParameter(task, 'desc'));
-      this.form.get('metadata.assignees').setValue(task.assignees.map(assignee => assignee.id));
-    } else {
-      this.form.get('context.sociocortexCase').setValue(TaskService.getParameter(task, 'case'));
-      this.form.get('context.sociocortexTask').setValue(task.providerId);
-      this.sociocortexParams = TaskService.getParameter(task, 'contentParams');
-      if (task.assignees && task.assignees.length > 0)
-      // only one owner allowed for SC tasks
-        this.form.get('metadata.assignees').setValue(task.assignees[0].id);
-    }
-  }
-
-  static validateForm(group: FormGroup) {
-    // NOT NULL CHECKS
-    if (!group || !group.controls.intent || !group.controls.context)
-      return {'error': true};
-    const intent = (<FormGroup> group.controls.intent).controls;
-    const context = (<FormGroup> group.controls.context).controls;
-    if (!intent || !context)
-      return {'error': true};
-    // TRELLO VALIDATIONS
-    if (intent['provider'].value === 'TRELLO') {
-      if (!context['trelloBoard'].value || !context['trelloList'].value)
-        return {'error': true};
-      if (intent['intendedAction'].value === 'LINK' && !context['trelloTask'].value)
-        return {'error': true};
-    }
-    //SOCIOCORTEX VALIDATIONS
-    if (intent['provider'].value === 'SOCIOCORTEX') {
-      if (!context['sociocortexWorkspace'].value || !context['sociocortexCase'].value)
-        return {'error': true};
-      if (intent['intendedAction'].value === 'LINK' && !context['sociocortexTask'].value)
-        return {'error': true};
-    }
-    return null;
   }
 
   onProviderSelect(provider: string) {
@@ -298,7 +225,8 @@ export class TaskDialogComponent {
       this.taskService.getTrelloTask(taskId)
         .take(1)
         .subscribe(task => {
-          this.applyTaskObjectToForm(task);
+          this.task = task;
+          this.formController.applyTaskObjectToForm(task);
         });
     } else {
       this.form.get("sociocortexContent").reset();
@@ -321,7 +249,8 @@ export class TaskDialogComponent {
         .take(1)
         .subscribe(task => {
           console.log(task);
-          this.applyTaskObjectToForm(task);
+          this.task = task;
+          this.formController.applyTaskObjectToForm(task);
           this.sociocortexParams = TaskService.getParameter(task, 'contentParams');
         });
     }
