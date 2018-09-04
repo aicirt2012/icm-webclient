@@ -16,7 +16,6 @@ export class FormController {
   private task: any;
   private email: any;
   private user: any;
-  private sociocortexParams: any[];
 
   private form: FormGroup;
 
@@ -99,7 +98,7 @@ export class FormController {
     return null;
   }
 
-  getTask_temp(email: any, user: any, task?: Task) {
+  getTask_temp(email: any, user: any, sociocortexParams: any[], task?: Task) {
     const intent = (<FormGroup> this.form.controls.intent).controls;
     const metadata = (<FormGroup> this.form.controls.metadata).controls;
     const newTask = task ? task : new Task();
@@ -119,7 +118,7 @@ export class FormController {
       newTask.assignees = metadata.assignees.value ? metadata.assignees.value : undefined;
     } else if (newTask.provider === 'SOCIOCORTEX') {
       newTask.providerId = (<FormGroup> this.form.controls.context).controls.sociocortexTask.value;
-      newTask.parameters = this.convertTaskParametersSociocortex(newTask);
+      newTask.parameters = this.convertTaskParametersSociocortex(sociocortexParams, newTask);
       newTask.assignees = metadata.assignees.value ? [metadata.assignees.value] : undefined;
     }
     return newTask;
@@ -139,10 +138,11 @@ export class FormController {
     return parameters;
   }
 
-  private convertTaskParametersSociocortex(task: any) {
+  private convertTaskParametersSociocortex(sociocortexParams, task: any) {
     const context = (<FormGroup> this.form.controls.context).controls;
     const content = (<FormArray> this.form.controls.sociocortexContent).controls;
     const parameters = [];
+    console.log("convert params sc", content);
     // context information
     parameters.push({name: "case", value: context.sociocortexCase.value});
     parameters.push({name: "state", value: TaskService.getParameter(task, 'state')});
@@ -153,18 +153,18 @@ export class FormController {
     // task content
     const contentParams = [];
     for (let i = 0; i < content.length; i++) {
-      contentParams.push(this.convertTaskParameterSociocortex(i, content));
+      contentParams.push(this.convertTaskParameterSociocortex(i, content, sociocortexParams));
     }
     parameters.push({name: "contentParams", value: contentParams});
     return parameters;
   }
 
-  private convertTaskParameterSociocortex(paramIndex: number, content) {
+  private convertTaskParameterSociocortex(paramIndex: number, content, sociocortexParams) {
     const values = [];
-    if (this.sociocortexParams[paramIndex].htmlElement === HtmlElements.CheckBoxes)
+    if (sociocortexParams[paramIndex].htmlElement === HtmlElements.CheckBoxes)
     // checkbox group
       for (let enumIndex = 0; enumIndex < (<FormArray> content[paramIndex]).length; enumIndex++) {
-        const option = this.sociocortexParams[paramIndex].constraints.enumerationOptions[enumIndex];
+        const option = sociocortexParams[paramIndex].constraints.enumerationOptions[enumIndex];
         if ((<FormArray> content[paramIndex]).controls[enumIndex].value)
           values.push(option.value);
       }
@@ -172,8 +172,8 @@ export class FormController {
     // simple inputs
       values.push(content[paramIndex].value);
     return {
-      id: this.sociocortexParams[paramIndex].id,
-      name: this.sociocortexParams[paramIndex].name,
+      id: sociocortexParams[paramIndex].id,
+      name: sociocortexParams[paramIndex].name,
       values: values
     };
   }

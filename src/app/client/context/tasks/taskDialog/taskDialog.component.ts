@@ -217,7 +217,7 @@ export class TaskDialogComponent {
   onSubmit(complete: boolean, terminate: boolean) {
     if (this.form.valid) {
       this.submitted = true;
-      const convertedTask = this.formController.getTask_temp(this.email, this.user, this.task);
+      const convertedTask = this.formController.getTask_temp(this.email, this.user, this.sociocortexParams, this.task);
       console.log("Form submit.", this.form, convertedTask);
       if (this.isEditMode)
         this.onEditSubmit(convertedTask, complete, terminate);
