@@ -51,6 +51,10 @@ export class FormController {
     return this.form;
   }
 
+  reset(controlNames: string[]) {
+    controlNames.forEach(name => this.form.get(name).reset());
+  }
+
   static validateForm(group: FormGroup) {
     // NOT NULL CHECKS
     if (!group || !group.controls.intent || !group.controls.context)
