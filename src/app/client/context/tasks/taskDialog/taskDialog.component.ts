@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { MatDialogRef, MatSnackBar } from "@angular/material";
-import { FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { TaskService } from '../../../shared';
 import { FormController } from './form.controller';
 import { AutocompleteController } from './autocomplete.controller';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'task-dialog',
@@ -21,32 +22,38 @@ export class TaskDialogComponent {
 
   private sociocortexParams: any[];
 
-  private autocomplete = this.autocompleteController.getModel();
-
   loading: any = {
     trello: false,
     sociocortex: false
   };
   submitted: boolean = false;
 
-  form: FormGroup = this.formController.makeForm();
+  private autocomplete;
+  private form: FormGroup;
+
+  private formController: FormController;
+  private autocompleteController: AutocompleteController;
 
   constructor(public taskDialogRef: MatDialogRef<TaskDialogComponent>,
               private snackBar: MatSnackBar,
               private taskService: TaskService,
-              private formController: FormController,
-              private autocompleteController: AutocompleteController) {
+              formBuilder: FormBuilder,
+              location: Location) {
+    this.formController = new FormController(formBuilder, location);
+    this.autocompleteController = new AutocompleteController(this.taskService);
   }
 
-  initDialog(task: any, email: any, user: any, sociocortexParams: any[], isEditMode: boolean) {
+  initDialog(task: any, email: any, user: any, isEditMode: boolean) {
     this.task = task;
     this.email = email;
+    this.suggestedData = email.suggestedData;
     this.user = user;
-    this.sociocortexParams = sociocortexParams;
     this.isEditMode = isEditMode;
   }
 
   ngOnInit() {
+    this.form = this.formController.makeForm();
+    this.autocomplete = this.autocompleteController.getModel();
     this.autocompleteController.initAutocompleteData(this.task, this.isEditMode, this.suggestedData, this.form);
     this.initInputCallbacks();
     if (this.task) {
