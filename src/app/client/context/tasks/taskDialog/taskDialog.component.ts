@@ -3,6 +3,7 @@ import { MatDialogRef, MatSnackBar } from "@angular/material";
 import { FormGroup } from "@angular/forms";
 import { TaskService } from '../../../shared';
 import { FormController } from './form.controller';
+import { AutocompleteController } from './autocomplete.controller';
 
 @Component({
   selector: 'task-dialog',
@@ -20,40 +21,7 @@ export class TaskDialogComponent {
 
   private sociocortexParams: any[];
 
-  private autocomplete = {
-    titles: {
-      all: [],
-      filtered: []
-    },
-    trelloBoards: [],
-    trelloLists: {
-      all: [],
-      relevant: []
-    },
-    trelloTasks: [],
-    assignees: {
-      suggested: [],
-      other: []
-    },
-    sociocortexWorkspaces: [],
-    sociocortexCases: {
-      relevant: [],
-      filtered: []
-    },
-    sociocortexTasks: {
-      relevant: [],
-      filtered: []
-    },
-    owner: {
-      suggested: [],
-      other: []
-    },
-    dates: {
-      all: [],
-      filtered: [],
-      asDates: []
-    }
-  };
+  private autocomplete = this.autocompleteController.getModel();
 
   loading: any = {
     trello: false,
@@ -66,7 +34,8 @@ export class TaskDialogComponent {
   constructor(public taskDialogRef: MatDialogRef<TaskDialogComponent>,
               private snackBar: MatSnackBar,
               private taskService: TaskService,
-              private formController: FormController) {
+              private formController: FormController,
+              private autocompleteController: AutocompleteController) {
   }
 
   initDialog(task: any, email: any, user: any, sociocortexParams: any[], isEditMode: boolean) {
@@ -78,56 +47,12 @@ export class TaskDialogComponent {
   }
 
   ngOnInit() {
-    this.initAutocompleteData();
+    this.autocompleteController.initAutocompleteData(this.task, this.isEditMode, this.suggestedData, this.form);
     this.initInputCallbacks();
     if (this.task) {
       this.formController.setTask(this.task);
       this.sociocortexParams = TaskService.getParameter(this.task, 'contentParams');
     }
-  }
-
-  private initAutocompleteData() {
-    if (this.isEditMode) {
-      this.form.get('intent.intendedAction').setValue("CREATE");  // value does not matter, just need any for form to be valid
-      if (this.task.provider.toUpperCase() === 'TRELLO') {
-        this.autocomplete.trelloBoards = [TaskService.getParameter(this.task, 'board')];
-        this.autocomplete.trelloLists.relevant = [TaskService.getParameter(this.task, 'list')];
-        this.updateTrelloAssigneeAutocomplete(TaskService.getParameter(this.task, 'idBoard'));
-      } else if (this.task.provider.toUpperCase() === 'SOCIOCORTEX') {
-        this.autocomplete.sociocortexTasks.relevant = [this.task];
-        this.taskService.getSociocortexWorkspaces()
-          .take(1)
-          .subscribe(workspaces => {
-            this.autocomplete.sociocortexWorkspaces = workspaces;
-          });
-        this.taskService.getSociocortexCase(TaskService.getParameter(this.task, 'case'))
-          .take(1)
-          .subscribe(scCase => {
-            this.autocomplete.sociocortexCases.relevant = [scCase];
-            this.form.get('context.sociocortexWorkspace').setValue(scCase.workspace);   // TODO move this call away from this method (not autocomplete related)
-          });
-        this.taskService.getSociocortexMembers(this.task.providerId)
-          .take(1)
-          .subscribe(members => {
-            const mentionedMembers = [], otherMembers = [];
-            members.forEach(member => {
-              let isMentioned = this.suggestedData.mentionedPersons
-                .some(nameString => member.fullName.indexOf(nameString) > -1);
-              if (isMentioned)
-                mentionedMembers.push(member);
-              else
-                otherMembers.push(member);
-            });
-            this.autocomplete.owner.other = otherMembers;
-            this.autocomplete.owner.suggested = mentionedMembers;
-          });
-      }
-    }
-    this.autocomplete.titles.all = this.suggestedData.titles;
-    this.autocomplete.dates.all = this.suggestedData.dates;
-    this.autocomplete.dates.asDates = this.suggestedData.dates.map(date => new Date(date));
-    this.autocomplete.titles.filtered = this.autocomplete.titles.all;
-    this.autocomplete.dates.filtered = this.autocomplete.dates.all;
   }
 
   private initInputCallbacks() {
@@ -188,27 +113,9 @@ export class TaskDialogComponent {
     this.form.get("context.trelloTask").reset();
     this.form.get("metadata").reset();
     this.form.get("trelloContent").reset();
-    this.updateTrelloAssigneeAutocomplete(boardId);
+    this.autocompleteController.updateTrelloAssigneeAutocomplete(boardId, this.suggestedData);
     const lists = this.autocomplete.trelloLists;
     lists.relevant = lists.all.filter(list => list.idBoard === boardId);
-  }
-
-  private updateTrelloAssigneeAutocomplete(boardId: string) {
-    this.taskService.getTrelloMembers(boardId)
-      .take(1)
-      .subscribe(members => {
-        const mentionedMembers = [], otherMembers = [];
-        members.forEach(member => {
-          let isMentioned = this.suggestedData.mentionedPersons
-            .some(nameString => member.fullName.indexOf(nameString) > -1);
-          if (isMentioned)
-            mentionedMembers.push(member);
-          else
-            otherMembers.push(member);
-        });
-        this.autocomplete.assignees.other = otherMembers;
-        this.autocomplete.assignees.suggested = mentionedMembers;
-      });
   }
 
   onListSelect(listId: string) {
