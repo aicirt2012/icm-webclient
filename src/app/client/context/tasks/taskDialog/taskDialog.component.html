@@ -167,14 +167,15 @@
         <!-- content -->
         <mat-expansion-panel
           [disabled]="!form.isValid('intent') || (form.hasValue('intent.intendedAction','LINK') && !form.isValid('context'))
-        || (isSociocortexProvider() && (!sociocortexParams || sociocortexParams.length == 0))">
+        || (isSociocortexProvider() && (!this.form.getSociocortexParams() || this.form.getSociocortexParams().length == 0))">
           <mat-expansion-panel-header expandedHeight="40px" collapsedHeight="40px">
             Task Content
           </mat-expansion-panel-header>
           <mat-divider class="expansion-divider"></mat-divider>
           <task-content-trello *ngIf="isTrelloProvider()" [contentForm]="form.get().get('trelloContent')">
           </task-content-trello>
-          <task-content-sociocortex *ngIf="sociocortexParams" [taskParams]="sociocortexParams"
+          <task-content-sociocortex *ngIf="this.form.getSociocortexParams()"
+                                    [taskParams]="this.form.getSociocortexParams()"
                                     [contentForm]="form.get().get('sociocortexContent')">
           </task-content-sociocortex>
         </mat-expansion-panel>

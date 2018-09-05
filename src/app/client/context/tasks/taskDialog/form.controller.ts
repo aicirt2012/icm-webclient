@@ -56,7 +56,6 @@ export class FormController {
     this.email = email;
     this.user = user;
     this.isEditMode = isEditMode;
-    this.sociocortexParams = TaskService.getParameter(task, 'contentParams');
     this.constructForm();
     this.setTask(task);
   }
@@ -120,6 +119,7 @@ export class FormController {
 
   setTask(task: Task): void {
     this.task = task;
+    this.sociocortexParams = TaskService.getParameter(task, 'contentParams');
     this.form.get('title').setValue(task.name);
     this.form.get('intent.provider').setValue(task.provider.toUpperCase());
     this.form.get('metadata.dueDate').setValue(new Date(task.due));
@@ -135,6 +135,10 @@ export class FormController {
       // only one owner allowed for SC tasks
         this.form.get('metadata.assignees').setValue(task.assignees[0].id);
     }
+  }
+
+  getSociocortexParams(): any[] {
+    return this.sociocortexParams;
   }
 
   getTask(): Task {
