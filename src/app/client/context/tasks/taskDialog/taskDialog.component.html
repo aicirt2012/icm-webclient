@@ -146,7 +146,7 @@
             </mat-form-field>
 
             <!-- Sociocortex owner input -->
-            <mat-form-field *ngIf="fisSociocortexProvider()">
+            <mat-form-field *ngIf="isSociocortexProvider()">
               <mat-select class="margin" placeholder="Owner" formControlName="assignees" name="member" fxFlex
                           [disabled]="!form.getValue('context.sociocortexTask')">
                 <mat-optgroup label="Mentioned persons" *ngIf="autocomplete.owner.suggested.length > 0">
