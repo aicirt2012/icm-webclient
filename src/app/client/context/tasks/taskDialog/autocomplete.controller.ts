@@ -1,6 +1,5 @@
 import { TaskService } from '../../../shared';
 import { Task } from '../../../../shared/index';
-import { FormGroup } from '@angular/forms';
 
 export class AutocompleteController {
 
@@ -43,7 +42,7 @@ export class AutocompleteController {
     }
   };
 
-  constructor(private taskService: TaskService) {
+  constructor() {
   }
 
   onPostConstruct(task: Task, suggestedData: any, isEditMode: boolean) {
@@ -56,41 +55,15 @@ export class AutocompleteController {
     return this.autocomplete;
   }
 
-  initAutocompleteData(form: FormGroup): void {
+  initAutocompleteData(): void {
     if (this.isEditMode) {
-      form.get('intent.intendedAction').setValue("CREATE");  // TODO replace dummy value by custom validator that respects the edit mode
       if (this.task.provider.toUpperCase() === 'TRELLO') {
-        this.autocomplete.trelloBoards = [TaskService.getParameter(this.task, 'board')];
-        this.autocomplete.trelloLists.relevant = [TaskService.getParameter(this.task, 'list')];
-        this.updateTrelloAssignees(TaskService.getParameter(this.task, 'idBoard'));
+        const boardId = TaskService.getParameter(this.task, 'board');
+        this.updateTrelloBoards([boardId]);
+        this.updateTrelloLists([TaskService.getParameter(this.task, 'list')]);
+        this.filterTrelloLists(boardId);
       } else if (this.task.provider.toUpperCase() === 'SOCIOCORTEX') {
-        this.autocomplete.sociocortexTasks.relevant = [this.task];
-        this.taskService.getSociocortexWorkspaces()
-          .take(1)
-          .subscribe(workspaces => {
-            this.autocomplete.sociocortexWorkspaces = workspaces;
-          });
-        this.taskService.getSociocortexCase(TaskService.getParameter(this.task, 'case'))
-          .take(1)
-          .subscribe(scCase => {
-            this.autocomplete.sociocortexCases.relevant = [scCase];
-            form.get('context.sociocortexWorkspace').setValue(scCase.workspace);   // TODO move this call away from this method (not autocomplete related)
-          });
-        this.taskService.getSociocortexMembers(this.task.providerId)
-          .take(1)
-          .subscribe(members => {
-            const mentionedMembers = [], otherMembers = [];
-            members.forEach(member => {
-              let isMentioned = this.suggestedData.mentionedPersons
-                .some(nameString => member.fullName.indexOf(nameString) > -1);
-              if (isMentioned)
-                mentionedMembers.push(member);
-              else
-                otherMembers.push(member);
-            });
-            this.autocomplete.owner.other = otherMembers;
-            this.autocomplete.owner.suggested = mentionedMembers;
-          });
+        this.updateSociocortexTasks([this.task], false);
       }
     }
     this.autocomplete.titles.all = this.suggestedData.titles;
@@ -105,7 +78,7 @@ export class AutocompleteController {
       .filter(title => title.indexOf(newTitle) == 0);
   }
 
-  updateTrelloBoards(boards): void {
+  updateTrelloBoards(boards: any[]): void {
     // keep reference to all boards
     this.autocomplete.trelloBoards = boards;
     // extract and keep nested lists
@@ -113,6 +86,10 @@ export class AutocompleteController {
     this.autocomplete.trelloBoards.forEach(board => {
       lists = lists.concat(board.lists);
     });
+    this.updateTrelloLists(lists);
+  }
+
+  updateTrelloLists(lists: any[]): void {
     this.autocomplete.trelloLists.all = lists;
   }
 
@@ -125,22 +102,18 @@ export class AutocompleteController {
     this.autocomplete.trelloTasks = tasks.filter(task => task.isOpen);
   }
 
-  updateTrelloAssignees(boardId: string): void {
-    this.taskService.getTrelloMembers(boardId)
-      .take(1)
-      .subscribe(members => {
-        const mentionedMembers = [], otherMembers = [];
-        members.forEach(member => {
-          let isMentioned = this.suggestedData.mentionedPersons
-            .some(nameString => member.fullName.indexOf(nameString) > -1);
-          if (isMentioned)
-            mentionedMembers.push(member);
-          else
-            otherMembers.push(member);
-        });
-        this.autocomplete.assignees.other = otherMembers;
-        this.autocomplete.assignees.suggested = mentionedMembers;
-      });
+  updateTrelloAssignees(members: any[]): void {
+    const mentionedMembers = [], otherMembers = [];
+    members.forEach(member => {
+      let isMentioned = this.suggestedData.mentionedPersons
+        .some(nameString => member.fullName.indexOf(nameString) > -1);
+      if (isMentioned)
+        mentionedMembers.push(member);
+      else
+        otherMembers.push(member);
+    });
+    this.autocomplete.assignees.other = otherMembers;
+    this.autocomplete.assignees.suggested = mentionedMembers;
   }
 
   updateSociocortexWorkspaces(workspaces): void {

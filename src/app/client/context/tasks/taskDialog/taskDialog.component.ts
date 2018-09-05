@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef, MatSnackBar } from "@angular/material";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder } from "@angular/forms";
 import { TaskService } from '../../../shared';
 import { FormController } from './form.controller';
 import { AutocompleteController } from './autocomplete.controller';
@@ -11,22 +11,20 @@ import { Location } from '@angular/common';
   styleUrls: ['./taskDialog.component.css'],
   templateUrl: './taskDialog.component.html'
 })
-
 export class TaskDialogComponent {
 
-  public isEditMode: boolean;
-
-  loading: any = {
-    trello: false,
-    sociocortex: false
-  };
-  submitted: boolean = false;
+  private isEditMode: boolean;
+  private task: any;
+  private submitted: boolean = false;
+  private autocomplete: any;    // used only in template for data access
 
   private formController: FormController;
   private autocompleteController: AutocompleteController;
 
-  private form: FormGroup;
-  private autocomplete: any;
+  // loading: any = {
+  //   trello: false,
+  //   sociocortex: false
+  // };
 
   constructor(public taskDialogRef: MatDialogRef<TaskDialogComponent>,
               private snackBar: MatSnackBar,
@@ -34,21 +32,45 @@ export class TaskDialogComponent {
               formBuilder: FormBuilder,
               location: Location) {
     this.formController = new FormController(formBuilder, location);
-    this.autocompleteController = new AutocompleteController(this.taskService);
+    this.autocompleteController = new AutocompleteController();
   }
 
   onPostConstruct(task: any, email: any, user: any, isEditMode: boolean) {
     this.isEditMode = isEditMode;
+    this.task = task;
     this.formController.onPostConstruct(task, email, user, isEditMode);
     this.autocompleteController.onPostConstruct(task, email.suggestedData, isEditMode);
   }
 
   ngOnInit() {
-    this.form = this.formController.get();
     this.autocomplete = this.autocompleteController.get();
-    this.autocompleteController.initAutocompleteData(this.form);
+    this.autocompleteController.initAutocompleteData();
     this.formController.valueChanges('title').subscribe(
       title => this.autocompleteController.filterTitles(title));
+    if (this.isEditMode) {
+      this.formController.setValue('intent.intendedAction', 'CREATE');  // TODO replace dummy value by custom validator that respects the edit mode
+      if (this.isSociocortexProvider())
+        this.initSociocortexTask();
+      else if (this.isTrelloProvider())
+        this.initTrelloTask();
+    }
+  }
+
+  private initSociocortexTask() {
+    this.taskService.getSociocortexWorkspaces().take(1)
+      .subscribe(workspaces => this.autocompleteController.updateSociocortexWorkspaces(workspaces));
+    this.taskService.getSociocortexCase(TaskService.getParameter(this.task, 'case')).take(1)
+      .subscribe(scCase => {
+        this.autocompleteController.updateSociocortexCases([scCase]);
+        this.formController.setValue('context.sociocortexWorkspace', scCase.workspace);
+      });
+    this.taskService.getSociocortexMembers(this.task.providerId).take(1)
+      .subscribe(members => this.autocompleteController.updateSociocortexOwner(members));
+  }
+
+  private initTrelloTask() {
+    this.taskService.getTrelloMembers(TaskService.getParameter(this.task, 'idBoard')).take(1)
+      .subscribe(members => this.autocompleteController.updateTrelloAssignees(members));
   }
 
   onProviderSelect(provider: string) {
@@ -74,15 +96,15 @@ export class TaskDialogComponent {
 
   onBoardSelect(boardId: string) {
     this.formController.reset(["metadata", "trelloContent", "context.trelloTask", "context.trelloList"]);
-    this.autocompleteController.updateTrelloAssignees(boardId);
+    this.taskService.getTrelloMembers(boardId).take(1)
+      .subscribe(members => this.autocompleteController.updateTrelloAssignees(members));
     this.autocompleteController.filterTrelloLists(boardId);
   }
 
   onListSelect(listId: string) {
     this.formController.reset(["metadata", "trelloContent", "context.trelloTask"]);
     if (listId && this.formController.hasValue('intent.intendedAction', 'LINK')) {
-      this.taskService.getTrelloTasks(listId)
-        .take(1)
+      this.taskService.getTrelloTasks(listId).take(1)
         .subscribe(tasks => this.autocompleteController.updateTrelloTasks(tasks));
     }
   }
@@ -91,34 +113,28 @@ export class TaskDialogComponent {
     this.formController.reset(["metadata"]);
     if (this.isTrelloProvider()) {
       this.formController.reset(["trelloContent"]);
-      this.taskService.getTrelloTask(taskId)
-        .take(1)
+      this.taskService.getTrelloTask(taskId).take(1)
         .subscribe(task => this.formController.setTask(task));
     } else if (this.isSociocortexProvider()) {
       this.formController.reset(["sociocortexContent"]);
-      this.taskService.getSociocortexMembers(taskId)
-        .take(1)
+      this.taskService.getSociocortexMembers(taskId).take(1)
         .subscribe(members => this.autocompleteController.updateSociocortexOwner(members));
-      this.taskService.getSociocortexTask(taskId)
-        .take(1)
+      this.taskService.getSociocortexTask(taskId).take(1)
         .subscribe(task => this.formController.setTask(task));
     }
   }
 
   onWorkspaceSelect(workspaceId: string) {
     this.formController.reset(["metadata", "sociocortexContent", "context.sociocortexCase", "context.sociocortexTask"]);
-    this.taskService.getSociocortexCases(workspaceId)
-      .take(1)
+    this.taskService.getSociocortexCases(workspaceId).take(1)
       .subscribe(cases => this.autocompleteController.updateSociocortexCases(cases));
   }
 
   onCaseSelect(caseId: string) {
     this.formController.reset(["metadata", "sociocortexContent"]);
-    this.taskService.getSociocortexTasks(caseId)
-      .take(1)
-      .subscribe(tasks => {
-        this.autocompleteController.updateSociocortexTasks(tasks, this.formController.hasValue('intent.intendedAction', 'CREATE'));
-      });
+    this.taskService.getSociocortexTasks(caseId).take(1)
+      .subscribe(tasks => this.autocompleteController
+        .updateSociocortexTasks(tasks, this.formController.hasValue('intent.intendedAction', 'CREATE')));
   }
 
   onUnlink() {
