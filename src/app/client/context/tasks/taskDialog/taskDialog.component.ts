@@ -15,12 +15,6 @@ import { Location } from '@angular/common';
 export class TaskDialogComponent {
 
   public isEditMode: boolean;
-  public task: any;
-  public email: any;
-  public user: any;
-  public suggestedData: { titles: any[], dates: any[], mentionedPersons: any[] };
-
-  private sociocortexParams: any[];
 
   loading: any = {
     trello: false,
@@ -44,10 +38,6 @@ export class TaskDialogComponent {
   }
 
   onPostConstruct(task: any, email: any, user: any, isEditMode: boolean) {
-    this.task = task;
-    this.email = email;
-    this.suggestedData = email.suggestedData;
-    this.user = user;
     this.isEditMode = isEditMode;
     this.formController.onPostConstruct(task, email, user, isEditMode);
     this.autocompleteController.onPostConstruct(task, email.suggestedData, isEditMode);
@@ -58,10 +48,6 @@ export class TaskDialogComponent {
     this.autocomplete = this.autocompleteController.get();
     this.autocompleteController.initAutocompleteData(this.form);
     this.initInputCallbacks();
-    if (this.task) {
-      this.formController.setTask(this.task);
-      this.sociocortexParams = TaskService.getParameter(this.task, 'contentParams');
-    }
   }
 
   private initInputCallbacks() {
@@ -131,10 +117,7 @@ export class TaskDialogComponent {
       this.formController.reset(["trelloContent"]);
       this.taskService.getTrelloTask(taskId)
         .take(1)
-        .subscribe(task => {
-          this.task = task;
-          this.formController.setTask(task);
-        });
+        .subscribe(task => this.formController.setTask(task));
     } else if (this.isSociocortexProvider()) {
       this.formController.reset(["sociocortexContent"]);
       this.taskService.getSociocortexMembers(taskId)
@@ -142,12 +125,7 @@ export class TaskDialogComponent {
         .subscribe(members => this.autocompleteController.updateSociocortexOwner(members));
       this.taskService.getSociocortexTask(taskId)
         .take(1)
-        .subscribe(task => {
-          console.log(task);
-          this.task = task;
-          this.formController.setTask(task);
-          this.sociocortexParams = TaskService.getParameter(task, 'contentParams');
-        });
+        .subscribe(task => this.formController.setTask(task));
     }
   }
 
@@ -169,7 +147,7 @@ export class TaskDialogComponent {
 
   onUnlink() {
     this.submitted = true;
-    this.taskService.unlinkTask(this.task).subscribe(
+    this.taskService.unlinkTask(this.formController.getTask()).subscribe(
       () => this.onSubmissionSuccess('Task successfully unlinked.'),
       error => this.onSubmissionFailure('Error while unlinking task.', error))
   }
