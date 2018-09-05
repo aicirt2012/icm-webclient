@@ -65,6 +65,10 @@ export class FormController {
     paths.forEach(path => this.form.get(path).reset());
   }
 
+  getValue(path: string): any {
+    return this.form.get(path).value;
+  }
+
   setValue(path: string, value: any): void {
     this.form.get(path).setValue(value);
   }
@@ -73,8 +77,12 @@ export class FormController {
     return this.form.get(path).value === value;
   }
 
-  isValid(): boolean {
+  valid(): boolean {
     return this.form.valid;
+  }
+
+  isValid(path: string): boolean {
+    return this.form.get(path).valid;
   }
 
   valueChanges(path: string): Observable<any> {

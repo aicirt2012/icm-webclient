@@ -1,10 +1,10 @@
 <div fxFlex fxLayout="column">
-  <form [formGroup]="formController.get()">
+  <form [formGroup]="form.get()">
     <div mat-dialog-title fxLayout="row">
       <!-- title input -->
       <mat-form-field fxFlex>
         <input type="text" formControlName="title" matInput [matAutocomplete]="autocompleteTitle"
-               placeholder="Task Title" required [disableControl]="form.get('intent.provider').value === 'SOCIOCORTEX'">
+               placeholder="Task Title" required [disableControl]="isSociocortexProvider()">
         <mat-autocomplete #autocompleteTitle="matAutocomplete">
           <mat-option *ngFor="let title of autocomplete.titles.filtered" [value]="title">{{title}}</mat-option>
         </mat-autocomplete>
@@ -36,16 +36,14 @@
         </div>
 
         <!-- context -->
-        <mat-expansion-panel [disabled]="form.controls.intent.status !== 'VALID'"
-                             [expanded]="form.controls.intent.status === 'VALID' && !isEditMode">
+        <mat-expansion-panel [disabled]="!form.isValid('intent')" [expanded]="form.isValid('intent') && !isEditMode">
           <mat-expansion-panel-header expandedHeight="40px" collapsedHeight="40px">
             Context
           </mat-expansion-panel-header>
           <mat-divider class="expansion-divider"></mat-divider>
           <div formGroupName="context">
             <!-- TRELLO PROPERTIES -->
-            <div
-              *ngIf="(isEditMode || !form.controls.intent.errors) && form.controls.intent.controls.provider.value === 'TRELLO'">
+            <div *ngIf="isTrelloProvider() && (isEditMode || form.isValid('intent'))">
               <!-- board input -->
               <mat-form-field>
                 <mat-select #initiallyFocused formControlName="trelloBoard" required placeholder="Trello Board"
@@ -58,7 +56,7 @@
               <!-- list input -->
               <mat-form-field>
                 <mat-select formControlName="trelloList" required placeholder="Trello List"
-                            [disableControl]="!form.controls.context.controls.trelloBoard.value"
+                            [disableControl]="!form.getValue('context.trelloBoard')"
                             (change)="onListSelect($event.value)" [disabled]="isEditMode">
                   <mat-option *ngFor="let list of autocomplete.trelloLists.relevant" [value]="list.id">
                     {{list.name}}
@@ -66,9 +64,9 @@
                 </mat-select>
               </mat-form-field>
               <!-- task input -->
-              <mat-form-field *ngIf="form.controls.intent.controls.intendedAction.value === 'LINK'">
+              <mat-form-field *ngIf="form.hasValue('intent.intendedAction', 'LINK')">
                 <mat-select formControlName="trelloTask" required placeholder="Trello Task"
-                            [disableControl]="!form.controls.context.controls.trelloList.value"
+                            [disableControl]="!form.getValue('context.trelloList')"
                             (change)="onTaskSelect($event.value)">
                   <mat-option *ngFor="let task of autocomplete.trelloTasks" [value]="task.providerId">
                     {{task.name}}
@@ -77,7 +75,7 @@
               </mat-form-field>
             </div>
             <!-- SOCIOCORTEX PROPERTIES -->
-            <div *ngIf="form.controls.intent.controls.provider.value === 'SOCIOCORTEX'">
+            <div *ngIf="isSociocortexProvider()">
               <!-- workspace input -->
               <mat-form-field *ngIf="autocomplete.sociocortexWorkspaces.length > 1">
                 <mat-select formControlName="sociocortexWorkspace" required placeholder="SACM Workspace"
@@ -90,7 +88,7 @@
               <!-- case input -->
               <mat-form-field>
                 <mat-select formControlName="sociocortexCase" required placeholder="SACM Case"
-                            [disableControl]="isEditMode || !form.controls.context.controls.sociocortexWorkspace.value"
+                            [disableControl]="isEditMode || !form.getValue('context.sociocortexWorkspace')"
                             (change)="onCaseSelect($event.value)">
                   <mat-option *ngFor="let sacmCase of autocomplete.sociocortexCases.relevant" [value]="sacmCase.id">
                     {{sacmCase.friendlyName}}
@@ -103,7 +101,7 @@
               <!-- task input -->
               <mat-form-field>
                 <mat-select formControlName="sociocortexTask" required placeholder="SACM Task"
-                            [disableControl]="isEditMode || !form.controls.context.controls.sociocortexCase.value"
+                            [disableControl]="isEditMode || !form.getValue('context.sociocortexCase')"
                             (change)="onTaskSelect($event.value)" [disabled]="isEditMode">
                   <mat-option *ngFor="let task of autocomplete.sociocortexTasks.relevant" [value]="task.providerId">
                     {{task.name}}
@@ -118,33 +116,22 @@
         </mat-expansion-panel>
         <!-- metadata -->
         <mat-expansion-panel
-          [disabled]="form.controls.intent.status !== 'VALID'
-        || (form.controls.intent.controls.intendedAction.value === 'LINK' && form.controls.context.status !== 'VALID')">
+          [disabled]="!form.isValid('intent') || (form.hasValue('intent.intendedAction','LINK') && !form.isValid('context'))">
           <mat-expansion-panel-header expandedHeight="40px" collapsedHeight="40px">
             Metadata
           </mat-expansion-panel-header>
           <mat-divider class="expansion-divider"></mat-divider>
           <div formGroupName="metadata">
+
             <!-- due date input -->
-            <datepicker [dateControl]="form.get('metadata.dueDate')"
+            <datepicker [dateControl]="form.get().get('metadata.dueDate')"
                         [autocompleteDates]="autocomplete.dates.asDates">
             </datepicker>
 
-            <!--<mat-form-field>-->
-            <!--<input name="date" matInput placeholder="Due Date" formControlName="dueDate"-->
-            <!--[matAutocomplete]="autocompleteDate">-->
-            <!--<mat-autocomplete #autocompleteDate="matAutocomplete">-->
-            <!--<mat-option *ngFor="let date of autocomplete.dates.filtered" [value]="date">{{date}}</mat-option>-->
-            <!--</mat-autocomplete>-->
-            <!--<input hidden name="datePicker" formControlName="dueDateUnformatted" [matDatepicker]="picker">-->
-            <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-            <!--<mat-datepicker #picker></mat-datepicker>-->
-            <!--</mat-form-field>-->
-
             <!-- Trello assignee input -->
-            <mat-form-field *ngIf="form.controls.intent.controls.provider.value === 'TRELLO'">
+            <mat-form-field *ngIf="isTrelloProvider()">
               <mat-select class="margin" placeholder="Assignees" formControlName="assignees" name="member" fxFlex
-                          multiple [disabled]="!form.get('context.trelloBoard').value">
+                          multiple [disabled]="!form.getValue('context.trelloBoard')">
                 <mat-optgroup label="Mentioned members" *ngIf="autocomplete.assignees.suggested.length > 0">
                   <mat-option *ngFor="let member of autocomplete.assignees.suggested" [value]="member.id">
                     {{member.fullName}}
@@ -157,10 +144,11 @@
                 </mat-optgroup>
               </mat-select>
             </mat-form-field>
+
             <!-- Sociocortex owner input -->
-            <mat-form-field *ngIf="form.controls.intent.controls.provider.value === 'SOCIOCORTEX'">
+            <mat-form-field *ngIf="fisSociocortexProvider()">
               <mat-select class="margin" placeholder="Owner" formControlName="assignees" name="member" fxFlex
-                          [disabled]="!form.get('context.sociocortexTask').value">
+                          [disabled]="!form.getValue('context.sociocortexTask')">
                 <mat-optgroup label="Mentioned persons" *ngIf="autocomplete.owner.suggested.length > 0">
                   <mat-option *ngFor="let member of autocomplete.owner.suggested" [value]="member.id">
                     {{member.fullName}}
@@ -175,20 +163,19 @@
             </mat-form-field>
           </div>
         </mat-expansion-panel>
+
         <!-- content -->
         <mat-expansion-panel
-          [disabled]="!form.get('intent').valid
-        || (form.get('intent.intendedAction').value === 'LINK' && !form.get('context').valid)
-        || (form.get('intent.provider').value === 'SOCIOCORTEX' && (!sociocortexParams || sociocortexParams.length == 0))">
+          [disabled]="!form.isValid('intent') || (form.hasValue('intent.intendedAction','LINK') && !form.isValid('context'))
+        || (isSociocortexProvider() && (!sociocortexParams || sociocortexParams.length == 0))">
           <mat-expansion-panel-header expandedHeight="40px" collapsedHeight="40px">
             Task Content
           </mat-expansion-panel-header>
           <mat-divider class="expansion-divider"></mat-divider>
-          <task-content-trello *ngIf="form.controls.intent.controls.provider.value === 'TRELLO'"
-                               [contentForm]="form.controls.trelloContent">
+          <task-content-trello *ngIf="isTrelloProvider()" [contentForm]="form.get().get('trelloContent')">
           </task-content-trello>
           <task-content-sociocortex *ngIf="sociocortexParams" [taskParams]="sociocortexParams"
-                                    [contentForm]="form.controls.sociocortexContent">
+                                    [contentForm]="form.get().get('sociocortexContent')">
           </task-content-sociocortex>
         </mat-expansion-panel>
       </mat-accordion>
@@ -201,14 +188,14 @@
       </button>
       <button type="button" [disabled]="submitted" mat-raised-button color="accent" *ngIf="isEditMode"
               (click)="onSubmit(true, false)">
-        <span *ngIf="form.get('intent.provider').value === 'SOCIOCORTEX'">Complete</span>
-        <span *ngIf="form.get('intent.provider').value === 'TRELLO'">Archive</span>
+        <span *ngIf="isSociocortexProvider()">Complete</span>
+        <span *ngIf="isTrelloProvider()">Archive</span>
         <!--<mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>-->
       </button>
       <button type="button" [disabled]="submitted" mat-raised-button color="warn" *ngIf="isEditMode"
               (click)="onSubmit(false, true)">
-        <span *ngIf="form.get('intent.provider').value === 'SOCIOCORTEX'">Terminate</span>
-        <span *ngIf="form.get('intent.provider').value === 'TRELLO'">Delete</span>
+        <span *ngIf="isSociocortexProvider()">Terminate</span>
+        <span *ngIf="isTrelloProvider()">Delete</span>
         <!--<mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>-->
       </button>
       <button type="button" [disabled]="submitted" mat-raised-button *ngIf="isEditMode"
