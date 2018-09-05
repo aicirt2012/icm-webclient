@@ -47,22 +47,8 @@ export class TaskDialogComponent {
     this.form = this.formController.get();
     this.autocomplete = this.autocompleteController.get();
     this.autocompleteController.initAutocompleteData(this.form);
-    this.initInputCallbacks();
-  }
-
-  private initInputCallbacks() {
-    this.form.get('metadata.dueDateUnformatted').valueChanges
-      .subscribe(date => {
-        this.form.get('metadata.dueDate').setValue(new Date(date));
-      });
-    this.form.get('title').valueChanges
-      .subscribe(updatedValue => {
-        this.autocomplete.titles.filtered = this.autocomplete.titles.all.filter(title => title.indexOf(updatedValue) == 0)
-      });
-    this.form.get('metadata.dueDate').valueChanges
-      .subscribe(updatedValue => {
-        this.autocomplete.dates.filtered = this.autocomplete.dates.all.filter(date => date.indexOf(updatedValue) == 0)
-      });
+    this.formController.valueChanges('title').subscribe(
+      title => this.autocompleteController.filterTitles(title));
   }
 
   onProviderSelect(provider: string) {
@@ -70,24 +56,14 @@ export class TaskDialogComponent {
     if (provider === 'TRELLO') {
       this.taskService.getTrelloBoards()
         .take(1)
-        .subscribe(boards => {
-          // keep reference to all boards
-          this.autocomplete.trelloBoards = boards;
-          // extract and keep nested lists
-          let lists = [];
-          this.autocomplete.trelloBoards.forEach(board => {
-            lists = lists.concat(board.lists);
-          });
-          this.autocomplete.trelloLists.all = lists;
-        })
+        .subscribe(boards => this.autocompleteController.updateTrelloBoards(boards))
     } else if (provider === 'SOCIOCORTEX') {
       this.taskService.getSociocortexWorkspaces()
         .take(1)
         .subscribe(workspaces => {
-          this.autocomplete.sociocortexWorkspaces = workspaces;
-          if (workspaces.length == 1) {
-            this.form.get('context.sociocortexWorkspace').setValue(workspaces[0].id);
-          }
+          this.autocompleteController.updateSociocortexWorkspaces(workspaces);
+          if (workspaces.length == 1)
+            this.formController.setValue('context.sociocortexWorkspace', workspaces[0].id);
         })
     }
   }
@@ -104,7 +80,7 @@ export class TaskDialogComponent {
 
   onListSelect(listId: string) {
     this.formController.reset(["metadata", "trelloContent", "context.trelloTask"]);
-    if (this.isLinkAction() && listId) {
+    if (listId && this.formController.hasValue('intent.intendedAction', 'LINK')) {
       this.taskService.getTrelloTasks(listId)
         .take(1)
         .subscribe(tasks => this.autocompleteController.updateTrelloTasks(tasks));
@@ -141,7 +117,7 @@ export class TaskDialogComponent {
     this.taskService.getSociocortexTasks(caseId)
       .take(1)
       .subscribe(tasks => {
-        this.autocompleteController.updateSociocortexTasks(tasks, this.isCreateAction());
+        this.autocompleteController.updateSociocortexTasks(tasks, this.formController.hasValue('intent.intendedAction', 'CREATE'));
       });
   }
 
@@ -153,13 +129,13 @@ export class TaskDialogComponent {
   }
 
   onSubmit(complete: boolean, terminate: boolean) {
-    if (this.form.valid) {
+    if (this.formController.isValid()) {
       this.submitted = true;
       const convertedTask = this.formController.getTask();
-      console.log("Form submit.", this.form, convertedTask);
+      console.log("Form submit.", this.formController.get(), convertedTask);
       if (this.isEditMode)
         this.onEditSubmit(convertedTask, complete, terminate);
-      else if (this.form.get('intent.intendedAction').value === 'LINK')
+      else if (this.formController.hasValue('intent.intendedAction', 'LINK'))
         this.onLinkSubmit(convertedTask);
       else
         this.onCreateSubmit(convertedTask);
@@ -214,6 +190,14 @@ export class TaskDialogComponent {
       error => this.onSubmissionFailure('Error while creating task.', error));
   }
 
+  private isTrelloProvider(): boolean {
+    return this.formController.hasValue('intent.provider', 'TRELLO');
+  }
+
+  private isSociocortexProvider(): boolean {
+    return this.formController.hasValue('intent.provider', 'SOCIOCORTEX');
+  }
+
   private onSubmissionSuccess(message: string): void {
     this.closeDialog();
     this.snackBar.open(message, 'OK');
@@ -223,22 +207,6 @@ export class TaskDialogComponent {
     console.log(error);
     this.submitted = false;
     this.snackBar.open(message, 'OK');
-  }
-
-  private isCreateAction(): boolean {
-    return this.form.get('intent.intendedAction').value === 'CREATE';
-  }
-
-  private isLinkAction(): boolean {
-    return this.form.get('intent.intendedAction').value === 'LINK';
-  }
-
-  private isTrelloProvider(): boolean {
-    return this.form.get('intent.provider').value === 'TRELLO';
-  }
-
-  private isSociocortexProvider(): boolean {
-    return this.form.get('intent.provider').value === 'SOCIOCORTEX';
   }
 
   closeDialog() {

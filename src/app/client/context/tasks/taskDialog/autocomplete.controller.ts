@@ -100,6 +100,31 @@ export class AutocompleteController {
     this.autocomplete.dates.filtered = this.autocomplete.dates.all;
   }
 
+  filterTitles(newTitle: string): void {
+    this.autocomplete.titles.filtered = this.autocomplete.titles.all
+      .filter(title => title.indexOf(newTitle) == 0);
+  }
+
+  updateTrelloBoards(boards): void {
+    // keep reference to all boards
+    this.autocomplete.trelloBoards = boards;
+    // extract and keep nested lists
+    let lists = [];
+    this.autocomplete.trelloBoards.forEach(board => {
+      lists = lists.concat(board.lists);
+    });
+    this.autocomplete.trelloLists.all = lists;
+  }
+
+  filterTrelloLists(boardId: string): void {
+    const lists = this.autocomplete.trelloLists;
+    lists.relevant = lists.all.filter(list => list.idBoard === boardId);
+  }
+
+  updateTrelloTasks(tasks): void {
+    this.autocomplete.trelloTasks = tasks.filter(task => task.isOpen);
+  }
+
   updateTrelloAssignees(boardId: string): void {
     this.taskService.getTrelloMembers(boardId)
       .take(1)
@@ -118,27 +143,8 @@ export class AutocompleteController {
       });
   }
 
-  updateSociocortexOwner(members: any[]): void {
-    const mentionedMembers = [], otherMembers = [];
-    members.forEach(member => {
-      let isMentioned = this.suggestedData.mentionedPersons
-        .some(nameString => member.fullName.indexOf(nameString) > -1);
-      if (isMentioned)
-        mentionedMembers.push(member);
-      else
-        otherMembers.push(member);
-    });
-    this.autocomplete.owner.other = otherMembers;
-    this.autocomplete.owner.suggested = mentionedMembers;
-  }
-
-  updateTrelloTasks(tasks): void {
-    this.autocomplete.trelloTasks = tasks.filter(task => task.isOpen);
-  }
-
-  filterTrelloLists(boardId: string): void {
-    const lists = this.autocomplete.trelloLists;
-    lists.relevant = lists.all.filter(list => list.idBoard === boardId);
+  updateSociocortexWorkspaces(workspaces): void {
+    this.autocomplete.sociocortexWorkspaces = workspaces;
   }
 
   updateSociocortexCases(cases): void {
@@ -152,6 +158,20 @@ export class AutocompleteController {
     else
       this.autocomplete.sociocortexTasks.relevant = tasks
         .filter(task => task.isOpen);
+  }
+
+  updateSociocortexOwner(members: any[]): void {
+    const mentionedMembers = [], otherMembers = [];
+    members.forEach(member => {
+      let isMentioned = this.suggestedData.mentionedPersons
+        .some(nameString => member.fullName.indexOf(nameString) > -1);
+      if (isMentioned)
+        mentionedMembers.push(member);
+      else
+        otherMembers.push(member);
+    });
+    this.autocomplete.owner.other = otherMembers;
+    this.autocomplete.owner.suggested = mentionedMembers;
   }
 
 }

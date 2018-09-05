@@ -10,6 +10,7 @@ import { Task } from '../../../../shared';
 import { TaskService } from '../../../shared';
 import { HtmlElements } from '../taskContentSociocortex';
 import { Location } from '@angular/common';
+import { Observable } from 'rxjs';
 
 export class FormController {
 
@@ -50,7 +51,6 @@ export class FormController {
       }),
       metadata: this.fb.group({
         dueDate: [null],
-        dueDateUnformatted: [''],
         assignees: ['']
       }),
       trelloContent: this.fb.group({
@@ -61,8 +61,24 @@ export class FormController {
     return this.form;
   }
 
-  reset(controlNames: string[]) {
-    controlNames.forEach(name => this.form.get(name).reset());
+  reset(paths: string[]) {
+    paths.forEach(path => this.form.get(path).reset());
+  }
+
+  setValue(path: string, value: any): void {
+    this.form.get(path).setValue(value);
+  }
+
+  hasValue(path: string, value: any): boolean {
+    return this.form.get(path).value === value;
+  }
+
+  isValid(): boolean {
+    return this.form.valid;
+  }
+
+  valueChanges(path: string): Observable<any> {
+    return this.form.get(path).valueChanges;
   }
 
   static validateForm(group: FormGroup) {
