@@ -32,9 +32,6 @@ export class FormController {
     this.user = user;
     this.isEditMode = isEditMode;
     this.sociocortexParams = TaskService.getParameter(task, 'contentParams');
-  }
-
-  get() {
     this.form = this.fb.group({
       title: this.fb.control('', Validators.required),
       intent: this.fb.group({
@@ -58,6 +55,9 @@ export class FormController {
       }),
       sociocortexContent: this.fb.array([])
     }, {validator: FormController.validateForm});
+  }
+
+  get() {
     return this.form;
   }
 
