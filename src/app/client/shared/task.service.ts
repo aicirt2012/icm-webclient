@@ -94,7 +94,7 @@ export class TaskService {
 
   static getParameter(task: any, parameterName: string): any {
     let value = undefined;
-    if (task.parameters)
+    if (task && task.parameters)
       task.parameters.some(parameter => {
         if (parameter.name === parameterName) {
           value = parameter.value;
