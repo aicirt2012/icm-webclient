@@ -47,7 +47,7 @@
               <!-- board input -->
               <mat-form-field>
                 <mat-select #initiallyFocused formControlName="trelloBoard" required placeholder="Trello Board"
-                            (change)="onBoardSelect($event.value)" [disabled]="isEditMode">
+                            (change)="onBoardSelect($event.value)" [disableControl]="isEditMode">
                   <mat-option *ngFor="let board of autocomplete.trelloBoards" [value]="board.id">
                     {{board.name}}
                   </mat-option>
@@ -56,8 +56,8 @@
               <!-- list input -->
               <mat-form-field>
                 <mat-select formControlName="trelloList" required placeholder="Trello List"
-                            [disableControl]="!form.getValue('context.trelloBoard')"
-                            (change)="onListSelect($event.value)" [disabled]="isEditMode">
+                            [disableControl]="isEditMode || !form.getValue('context.trelloBoard')"
+                            (change)="onListSelect($event.value)">
                   <mat-option *ngFor="let list of autocomplete.trelloLists.relevant" [value]="list.id">
                     {{list.name}}
                   </mat-option>
@@ -79,7 +79,7 @@
               <!-- workspace input -->
               <mat-form-field *ngIf="autocomplete.sociocortexWorkspaces.length > 1">
                 <mat-select formControlName="sociocortexWorkspace" required placeholder="SACM Workspace"
-                            (change)="onWorkspaceSelect($event.value)" [disabled]="isEditMode">
+                            (change)="onWorkspaceSelect($event.value)" [disableControl]="isEditMode">
                   <mat-option *ngFor="let workspace of autocomplete.sociocortexWorkspaces" [value]="workspace.id">
                     {{workspace.name}}
                   </mat-option>
@@ -102,7 +102,7 @@
               <mat-form-field>
                 <mat-select formControlName="sociocortexTask" required placeholder="SACM Task"
                             [disableControl]="isEditMode || !form.getValue('context.sociocortexCase')"
-                            (change)="onTaskSelect($event.value)" [disabled]="isEditMode">
+                            (change)="onTaskSelect($event.value)">
                   <mat-option *ngFor="let task of autocomplete.sociocortexTasks.relevant" [value]="task.providerId">
                     {{task.name}}
                   </mat-option>
@@ -131,7 +131,7 @@
             <!-- Trello assignee input -->
             <mat-form-field *ngIf="isTrelloProvider()">
               <mat-select class="margin" placeholder="Assignees" formControlName="assignees" name="member" fxFlex
-                          multiple [disabled]="!form.getValue('context.trelloBoard')">
+                          multiple [disableControl]="!form.getValue('context.trelloBoard')">
                 <mat-optgroup label="Mentioned members" *ngIf="autocomplete.assignees.suggested.length > 0">
                   <mat-option *ngFor="let member of autocomplete.assignees.suggested" [value]="member.id">
                     {{member.fullName}}
@@ -148,7 +148,7 @@
             <!-- Sociocortex owner input -->
             <mat-form-field *ngIf="isSociocortexProvider()">
               <mat-select class="margin" placeholder="Owner" formControlName="assignees" name="member" fxFlex
-                          [disabled]="!form.getValue('context.sociocortexTask')">
+                          [disableControl]="!form.getValue('context.sociocortexTask')">
                 <mat-optgroup label="Mentioned persons" *ngIf="autocomplete.owner.suggested.length > 0">
                   <mat-option *ngFor="let member of autocomplete.owner.suggested" [value]="member.id">
                     {{member.fullName}}
