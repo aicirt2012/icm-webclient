@@ -52,7 +52,7 @@ export class AutocompleteController {
       if (task.provider.toUpperCase() === 'TRELLO') {
         this.autocomplete.trelloBoards = [TaskService.getParameter(task, 'board')];
         this.autocomplete.trelloLists.relevant = [TaskService.getParameter(task, 'list')];
-        this.updateTrelloAssigneeAutocomplete(TaskService.getParameter(task, 'idBoard'), suggestedData);
+        this.updateTrelloAssignees(TaskService.getParameter(task, 'idBoard'), suggestedData);
       } else if (task.provider.toUpperCase() === 'SOCIOCORTEX') {
         this.autocomplete.sociocortexTasks.relevant = [task];
         this.taskService.getSociocortexWorkspaces()
@@ -90,7 +90,7 @@ export class AutocompleteController {
     this.autocomplete.dates.filtered = this.autocomplete.dates.all;
   }
 
-  updateTrelloAssigneeAutocomplete(boardId: string, suggestedData: any) {
+  updateTrelloAssignees(boardId: string, suggestedData: any): void {
     this.taskService.getTrelloMembers(boardId)
       .take(1)
       .subscribe(members => {
@@ -106,6 +106,42 @@ export class AutocompleteController {
         this.autocomplete.assignees.other = otherMembers;
         this.autocomplete.assignees.suggested = mentionedMembers;
       });
+  }
+
+  updateSociocortexOwner(members: any[], suggestedData: any): void {
+    const mentionedMembers = [], otherMembers = [];
+    members.forEach(member => {
+      let isMentioned = suggestedData.mentionedPersons
+        .some(nameString => member.fullName.indexOf(nameString) > -1);
+      if (isMentioned)
+        mentionedMembers.push(member);
+      else
+        otherMembers.push(member);
+    });
+    this.autocomplete.owner.other = otherMembers;
+    this.autocomplete.owner.suggested = mentionedMembers;
+  }
+
+  updateTrelloTasks(tasks): void {
+    this.autocomplete.trelloTasks = tasks.filter(task => task.isOpen);
+  }
+
+  filterTrelloLists(boardId: string): void {
+    const lists = this.autocomplete.trelloLists;
+    lists.relevant = lists.all.filter(list => list.idBoard === boardId);
+  }
+
+  updateSociocortexCases(cases): void {
+    this.autocomplete.sociocortexCases.relevant = cases;
+  }
+
+  updateSociocortexTasks(tasks: any[], allowOnlyEnabled: boolean): void {
+    if (allowOnlyEnabled)
+      this.autocomplete.sociocortexTasks.relevant = tasks
+        .filter(task => TaskService.getParameter(task, 'state') === 'ENABLED');
+    else
+      this.autocomplete.sociocortexTasks.relevant = tasks
+        .filter(task => task.isOpen);
   }
 
 }
