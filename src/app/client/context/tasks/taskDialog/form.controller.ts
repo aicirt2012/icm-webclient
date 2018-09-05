@@ -26,12 +26,7 @@ export class FormController {
               private location: Location) {
   }
 
-  onPostConstruct(task: any, email: any, user: any, isEditMode) {
-    this.task = task;
-    this.email = email;
-    this.user = user;
-    this.isEditMode = isEditMode;
-    this.sociocortexParams = TaskService.getParameter(task, 'contentParams');
+  constructForm(): void {
     this.form = this.fb.group({
       title: this.fb.control('', Validators.required),
       intent: this.fb.group({
@@ -57,11 +52,20 @@ export class FormController {
     }, {validator: FormController.validateForm});
   }
 
-  get() {
+  onPostConstruct(task: any, email: any, user: any, isEditMode): void {
+    this.email = email;
+    this.user = user;
+    this.isEditMode = isEditMode;
+    this.sociocortexParams = TaskService.getParameter(task, 'contentParams');
+    this.constructForm();
+    this.setTask(task);
+  }
+
+  get(): FormGroup {
     return this.form;
   }
 
-  reset(paths: string[]) {
+  reset(paths: string[]): void {
     paths.forEach(path => this.form.get(path).reset());
   }
 
@@ -115,6 +119,7 @@ export class FormController {
   }
 
   setTask(task: Task): void {
+    this.task = task;
     this.form.get('title').setValue(task.name);
     this.form.get('intent.provider').setValue(task.provider.toUpperCase());
     this.form.get('metadata.dueDate').setValue(new Date(task.due));
