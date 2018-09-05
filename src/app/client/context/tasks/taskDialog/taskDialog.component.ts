@@ -28,11 +28,11 @@ export class TaskDialogComponent {
   };
   submitted: boolean = false;
 
-  private autocomplete;
-  private form: FormGroup;
-
   private formController: FormController;
   private autocompleteController: AutocompleteController;
+
+  private form: FormGroup;
+  private autocomplete: any;
 
   constructor(public taskDialogRef: MatDialogRef<TaskDialogComponent>,
               private snackBar: MatSnackBar,
@@ -43,18 +43,20 @@ export class TaskDialogComponent {
     this.autocompleteController = new AutocompleteController(this.taskService);
   }
 
-  initDialog(task: any, email: any, user: any, isEditMode: boolean) {
+  onPostConstruct(task: any, email: any, user: any, isEditMode: boolean) {
     this.task = task;
     this.email = email;
     this.suggestedData = email.suggestedData;
     this.user = user;
     this.isEditMode = isEditMode;
+    this.formController.onPostConstruct(task, email, user, isEditMode);
+    this.autocompleteController.onPostConstruct(task, email.suggestedData, isEditMode);
   }
 
   ngOnInit() {
-    this.form = this.formController.makeForm();
-    this.autocomplete = this.autocompleteController.getModel();
-    this.autocompleteController.initAutocompleteData(this.task, this.isEditMode, this.suggestedData, this.form);
+    this.form = this.formController.get();
+    this.autocomplete = this.autocompleteController.get();
+    this.autocompleteController.initAutocompleteData(this.form);
     this.initInputCallbacks();
     if (this.task) {
       this.formController.setTask(this.task);
@@ -110,7 +112,7 @@ export class TaskDialogComponent {
 
   onBoardSelect(boardId: string) {
     this.formController.reset(["metadata", "trelloContent", "context.trelloTask", "context.trelloList"]);
-    this.autocompleteController.updateTrelloAssignees(boardId, this.suggestedData);
+    this.autocompleteController.updateTrelloAssignees(boardId);
     this.autocompleteController.filterTrelloLists(boardId);
   }
 
@@ -137,7 +139,7 @@ export class TaskDialogComponent {
       this.formController.reset(["sociocortexContent"]);
       this.taskService.getSociocortexMembers(taskId)
         .take(1)
-        .subscribe(members => this.autocompleteController.updateSociocortexOwner(members, this.suggestedData));
+        .subscribe(members => this.autocompleteController.updateSociocortexOwner(members));
       this.taskService.getSociocortexTask(taskId)
         .take(1)
         .subscribe(task => {
@@ -175,7 +177,7 @@ export class TaskDialogComponent {
   onSubmit(complete: boolean, terminate: boolean) {
     if (this.form.valid) {
       this.submitted = true;
-      const convertedTask = this.formController.getTask_temp(this.email, this.user, this.sociocortexParams, this.task);
+      const convertedTask = this.formController.getTask();
       console.log("Form submit.", this.form, convertedTask);
       if (this.isEditMode)
         this.onEditSubmit(convertedTask, complete, terminate);

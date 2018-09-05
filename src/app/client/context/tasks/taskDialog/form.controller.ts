@@ -16,6 +16,8 @@ export class FormController {
   private task: any;
   private email: any;
   private user: any;
+  private isEditMode: boolean;
+  private sociocortexParams: any[];
 
   private form: FormGroup;
 
@@ -23,7 +25,15 @@ export class FormController {
               private location: Location) {
   }
 
-  makeForm() {
+  onPostConstruct(task: any, email: any, user: any, isEditMode) {
+    this.task = task;
+    this.email = email;
+    this.user = user;
+    this.isEditMode = isEditMode;
+    this.sociocortexParams = TaskService.getParameter(task, 'contentParams');
+  }
+
+  get() {
     this.form = this.fb.group({
       title: this.fb.control('', Validators.required),
       intent: this.fb.group({
@@ -99,16 +109,12 @@ export class FormController {
   }
 
   getTask(): Task {
-    return null;
-  }
-
-  getTask_temp(email: any, user: any, sociocortexParams: any[], task?: Task) {
     const intent = (<FormGroup> this.form.controls.intent).controls;
     const metadata = (<FormGroup> this.form.controls.metadata).controls;
-    const newTask = task ? task : new Task();
+    const newTask = this.task ? this.task : new Task();
 
-    newTask.email = email._id;
-    newTask.user = user._id;
+    newTask.email = this.email._id;
+    newTask.user = this.user._id;
     newTask.name = this.form.controls.title.value;
     newTask.frontendUrl = "http://localhost:3000" + this.location.prepareExternalUrl(this.location.path());    //FIXME replace hardcoded base url with actual, dynamic one
     newTask.due = metadata.dueDate.value ? metadata.dueDate.value : undefined;
@@ -122,7 +128,7 @@ export class FormController {
       newTask.assignees = metadata.assignees.value ? metadata.assignees.value : undefined;
     } else if (newTask.provider === 'SOCIOCORTEX') {
       newTask.providerId = (<FormGroup> this.form.controls.context).controls.sociocortexTask.value;
-      newTask.parameters = this.convertTaskParametersSociocortex(sociocortexParams, newTask);
+      newTask.parameters = this.convertTaskParametersSociocortex(newTask);
       newTask.assignees = metadata.assignees.value ? [metadata.assignees.value] : undefined;
     }
     return newTask;
@@ -142,7 +148,7 @@ export class FormController {
     return parameters;
   }
 
-  private convertTaskParametersSociocortex(sociocortexParams, task: any) {
+  private convertTaskParametersSociocortex(task: any) {
     const context = (<FormGroup> this.form.controls.context).controls;
     const content = (<FormArray> this.form.controls.sociocortexContent).controls;
     const parameters = [];
@@ -157,18 +163,18 @@ export class FormController {
     // task content
     const contentParams = [];
     for (let i = 0; i < content.length; i++) {
-      contentParams.push(this.convertTaskParameterSociocortex(i, content, sociocortexParams));
+      contentParams.push(this.convertTaskParameterSociocortex(i, content));
     }
     parameters.push({name: "contentParams", value: contentParams});
     return parameters;
   }
 
-  private convertTaskParameterSociocortex(paramIndex: number, content, sociocortexParams) {
+  private convertTaskParameterSociocortex(paramIndex: number, content) {
     const values = [];
-    if (sociocortexParams[paramIndex].htmlElement === HtmlElements.CheckBoxes)
+    if (this.sociocortexParams[paramIndex].htmlElement === HtmlElements.CheckBoxes)
     // checkbox group
       for (let enumIndex = 0; enumIndex < (<FormArray> content[paramIndex]).length; enumIndex++) {
-        const option = sociocortexParams[paramIndex].constraints.enumerationOptions[enumIndex];
+        const option = this.sociocortexParams[paramIndex].constraints.enumerationOptions[enumIndex];
         if ((<FormArray> content[paramIndex]).controls[enumIndex].value)
           values.push(option.value);
       }
@@ -176,8 +182,8 @@ export class FormController {
     // simple inputs
       values.push(content[paramIndex].value);
     return {
-      id: sociocortexParams[paramIndex].id,
-      name: sociocortexParams[paramIndex].name,
+      id: this.sociocortexParams[paramIndex].id,
+      name: this.sociocortexParams[paramIndex].name,
       values: values
     };
   }

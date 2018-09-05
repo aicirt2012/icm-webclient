@@ -61,7 +61,7 @@ export class TasksComponent {
       width: '45%',
       height: 'auto'
     });
-    dialogRef.componentInstance.initDialog(task, this.email, this.user, false);
+    dialogRef.componentInstance.onPostConstruct(task, this.email, this.user, false);
   }
 
   openEditTaskDialog(task: any) {
@@ -69,7 +69,7 @@ export class TasksComponent {
       width: '45%',
       height: 'auto'
     });
-    dialogRef.componentInstance.initDialog(task, this.email, this.user, true);
+    dialogRef.componentInstance.onPostConstruct(task, this.email, this.user, true);
   }
 
 }
