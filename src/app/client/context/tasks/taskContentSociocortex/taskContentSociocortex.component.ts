@@ -106,6 +106,7 @@ export class TaskContentSociocortexComponent {
 
   // noinspection JSMethodCanBeStatic
   private initDateParam(taskParam) {
+    this.contentForm.at(this.contentForm.length - 1).setValue(null);
     if (taskParam.multiplicity === 'exactlyOne')
       taskParam.htmlElement = HtmlElements.DatePicker;
     else
@@ -140,7 +141,10 @@ export class TaskContentSociocortexComponent {
             this.contentForm.at(i).setValue(taskParam.defaultValues[0]);
           break;
         case HtmlElements.DatePicker:
-          console.log("initValue, date", taskParam);
+          if (taskParam.values && taskParam.values.length > 0)
+            this.contentForm.at(i).setValue(new Date(taskParam.values[0]));
+          else if (taskParam.defaultValues && taskParam.defaultValues.length > 0)
+            this.contentForm.at(i).setValue(new Date(taskParam.defaultValues[0]));
           break;
         case HtmlElements.CheckBoxes:
           if (taskParam.values && taskParam.values.length > 0) {
