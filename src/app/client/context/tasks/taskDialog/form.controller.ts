@@ -119,21 +119,23 @@ export class FormController {
 
   setTask(task: Task): void {
     this.task = task;
-    this.sociocortexParams = TaskService.getParameter(task, 'contentParams');
-    this.form.get('title').setValue(task.name);
-    this.form.get('intent.provider').setValue(task.provider.toUpperCase());
-    this.form.get('metadata.dueDate').setValue(new Date(task.due));
-    if (this.form.get('intent.provider').value === 'TRELLO') {
-      this.form.get('context.trelloBoard').setValue(TaskService.getParameter(task, 'idBoard'));
-      this.form.get('context.trelloList').setValue(TaskService.getParameter(task, 'idList'));
-      this.form.get('trelloContent.description').setValue(TaskService.getParameter(task, 'desc'));
-      this.form.get('metadata.assignees').setValue(task.assignees.map(assignee => assignee.id));
-    } else {
-      this.form.get('context.sociocortexCase').setValue(TaskService.getParameter(task, 'case'));
-      this.form.get('context.sociocortexTask').setValue(task.providerId);
-      if (task.assignees && task.assignees.length > 0)
-      // only one owner allowed for SC tasks
-        this.form.get('metadata.assignees').setValue(task.assignees[0].id);
+    if (task) {
+      this.sociocortexParams = TaskService.getParameter(task, 'contentParams');
+      this.form.get('title').setValue(task.name);
+      this.form.get('intent.provider').setValue(task.provider.toUpperCase());
+      this.form.get('metadata.dueDate').setValue(new Date(task.due));
+      if (this.form.get('intent.provider').value === 'TRELLO') {
+        this.form.get('context.trelloBoard').setValue(TaskService.getParameter(task, 'idBoard'));
+        this.form.get('context.trelloList').setValue(TaskService.getParameter(task, 'idList'));
+        this.form.get('trelloContent.description').setValue(TaskService.getParameter(task, 'desc'));
+        this.form.get('metadata.assignees').setValue(task.assignees.map(assignee => assignee.id));
+      } else {
+        this.form.get('context.sociocortexCase').setValue(TaskService.getParameter(task, 'case'));
+        this.form.get('context.sociocortexTask').setValue(task.providerId);
+        if (task.assignees && task.assignees.length > 0)
+        // only one owner allowed for SC tasks
+          this.form.get('metadata.assignees').setValue(task.assignees[0].id);
+      }
     }
   }
 
