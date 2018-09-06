@@ -44,9 +44,9 @@ export class TaskContentSociocortexComponent {
   private initializeFormControls() {
     this._taskParams.forEach(taskParam => {
       if (taskParam.required)
-        this.contentForm.push(this.fb.control(['', Validators.required]));
+        this.contentForm.push(this.fb.control('', Validators.required));
       else
-        this.contentForm.push(this.fb.control(['']));
+        this.contentForm.push(this.fb.control(''));
       switch (taskParam.type) {
         case "enumeration":
           this.initEnumParam(taskParam);

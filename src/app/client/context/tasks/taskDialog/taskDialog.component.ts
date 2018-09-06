@@ -145,6 +145,8 @@ export class TaskDialogComponent {
   }
 
   onSubmit(complete: boolean, terminate: boolean) {
+    if (this.isEditMode && !complete)
+      this.form.get().get('sociocortexContent').disable();
     if (this.form.valid()) {
       this.submitted = true;
       const convertedTask = this.form.getTask();
