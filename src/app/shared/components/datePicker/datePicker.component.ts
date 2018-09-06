@@ -8,10 +8,13 @@ import { FormControl } from '@angular/forms';
 })
 export class DatePickerComponent {
 
-  // noinspection JSMismatchedCollectionQueryUpdate
-  @Input() private autocompleteDates: Date[];
+  @Input() private readonly: boolean;
+
   @Input() private dateControl: FormControl;
   private stringControl: FormControl = new FormControl('');
+
+  // noinspection JSMismatchedCollectionQueryUpdate
+  @Input() private autocompleteDates: Date[];
   private autocomplete = {
     all: [],
     filtered: []

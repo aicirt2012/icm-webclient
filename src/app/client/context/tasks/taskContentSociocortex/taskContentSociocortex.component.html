@@ -27,14 +27,13 @@
     </div>
     <div *ngIf="taskParam.htmlElement === 'datepicker'">
       {{taskParam.name}}
-      <!-- TODO support readonly property for datepicker component -->
-      <datepicker [dateControl]="contentForm.at(i)"
-                  [autocompleteDates]="[]">
+      <datepicker [dateControl]="contentForm.at(i)" [autocompleteDates]="[]" [readonly]="taskParam.readOnly">
       </datepicker>
     </div>
     <div *ngIf="taskParam.htmlElement === 'select'">
       <mat-form-field fxFlex>
-        <mat-select [placeholder]="taskParam.name" [formControl]="contentForm.at(i)" [disableControl]="taskParam.readOnly">
+        <mat-select [placeholder]="taskParam.name" [formControl]="contentForm.at(i)"
+                    [disableControl]="taskParam.readOnly">
           <mat-option *ngFor="let option of taskParam.constraints.enumerationOptions" [value]="option.name">
             {{option.description}}
           </mat-option>
