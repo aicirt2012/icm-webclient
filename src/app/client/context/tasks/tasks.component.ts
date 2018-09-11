@@ -43,17 +43,27 @@ export class TasksComponent {
       if (this.email.linkedTasks)
         this.email.linkedTasks.forEach(task => {
           // load each task from our backend via its id
-          this.taskService.readTask(task._id)
-            .take(1)
-            .subscribe(task => {
-              if (task.isOpen)
-                this.openTasks.push(task);
-              else
-                this.completedTasks.push(task);
-            });
+          this.updateTask(task._id);
           // TODO initialize suggested tasks from email.suggestedData
         });
     }
+  }
+
+  private updateTask(taskId: string): void {
+    this.taskService.readTask(taskId)
+      .take(1)
+      .subscribe(task => {
+        this.removeFromTaskLists(task);
+        if (task.isOpen)
+          this.openTasks.push(task);
+        else
+          this.completedTasks.push(task);
+      });
+  }
+
+  private removeFromTaskLists(task: any): void {
+    this.openTasks = this.openTasks.filter(openTask => openTask._id !== task._id);
+    this.completedTasks = this.completedTasks.filter(completedTask => completedTask._id !== task._id);
   }
 
   openNewTaskDialog(task: any) {
@@ -62,6 +72,12 @@ export class TasksComponent {
       height: 'auto'
     });
     dialogRef.componentInstance.onPostConstruct(task, this.email, this.user, false);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === null)
+        this.removeFromTaskLists(task);
+      else if (result)
+        this.updateTask(result._id);
+    });
   }
 
   openEditTaskDialog(task: any) {
@@ -70,6 +86,12 @@ export class TasksComponent {
       height: 'auto'
     });
     dialogRef.componentInstance.onPostConstruct(task, this.email, this.user, true);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === null)
+        this.removeFromTaskLists(task);
+      else if (result)
+        this.updateTask(result._id);
+    });
   }
 
 }

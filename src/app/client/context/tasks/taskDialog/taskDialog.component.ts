@@ -140,7 +140,7 @@ export class TaskDialogComponent {
   onUnlink() {
     this.submitted = true;
     this.taskService.unlinkTask(this.form.getTask()).subscribe(
-      () => this.onSubmissionSuccess('Task successfully unlinked.'),
+      () => this.onSubmissionSuccess('Task successfully unlinked.', null),
       error => this.onSubmissionFailure('Error while unlinking task.', error))
   }
 
@@ -164,47 +164,47 @@ export class TaskDialogComponent {
   }
 
   private onEditSubmit(convertedTask, complete: boolean, terminate: boolean) {
-    this.taskService.updateTask(convertedTask).subscribe(() => {
+    this.taskService.updateTask(convertedTask).subscribe(task => {
       if (complete)
         this.onCompleteSubmit(convertedTask._id);
       else if (terminate)
         this.onTerminateSubmit(convertedTask._id);
       else
-        this.onSubmissionSuccess('Task successfully updated.');
+        this.onSubmissionSuccess('Task successfully updated.', task);
     }, error => this.onSubmissionFailure('Error while updating task.', error));
   }
 
   private onCompleteSubmit(taskId) {
     if (this.isSociocortexProvider())
       this.taskService.completeSociocortexTask(taskId).subscribe(
-        () => this.onSubmissionSuccess('Task successfully completed.'),
+        task => this.onSubmissionSuccess('Task successfully completed.', task),
         error => this.onSubmissionFailure('Error while completing task.', error));
     else if (this.isTrelloProvider())
       this.taskService.archiveTrelloTask(taskId).subscribe(
-        () => this.onSubmissionSuccess('Task successfully archived.'),
+        task => this.onSubmissionSuccess('Task successfully archived.', task),
         error => this.onSubmissionFailure('Error while archiving task.', error));
   }
 
   private onTerminateSubmit(taskId) {
     if (this.isSociocortexProvider())
       this.taskService.terminateSociocortexTask(taskId).subscribe(
-        () => this.onSubmissionSuccess('Task successfully terminated.'),
+        () => this.onSubmissionSuccess('Task successfully terminated.', null),
         error => this.onSubmissionFailure('Error while terminating task.', error));
     else if (this.isTrelloProvider())
       this.taskService.deleteTask(taskId).subscribe(
-        () => this.onSubmissionSuccess('Task successfully deleted.'),
+        () => this.onSubmissionSuccess('Task successfully deleted.', null),
         error => this.onSubmissionFailure('Error while deleting task.', error));
   }
 
   private onLinkSubmit(convertedTask) {
     this.taskService.linkTask(convertedTask).subscribe(
-      () => this.onSubmissionSuccess('Task successfully linked.'),
+      task => this.onSubmissionSuccess('Task successfully linked.', task),
       error => this.onSubmissionFailure('Error while linking task.', error));
   }
 
   private onCreateSubmit(convertedTask) {
     this.taskService.createTask(convertedTask).subscribe(
-      () => this.onSubmissionSuccess('Task successfully created.'),
+      task => this.onSubmissionSuccess('Task successfully created.', task),
       error => this.onSubmissionFailure('Error while creating task.', error));
   }
 
@@ -216,8 +216,8 @@ export class TaskDialogComponent {
     return this.form.hasValue('intent.provider', 'SOCIOCORTEX');
   }
 
-  private onSubmissionSuccess(message: string): void {
-    this.closeDialog();
+  private onSubmissionSuccess(message: string, task: any): void {
+    this.closeDialog(task);
     this.snackBar.open(message, 'OK');
   }
 
@@ -227,8 +227,8 @@ export class TaskDialogComponent {
     this.snackBar.open(message, 'OK');
   }
 
-  closeDialog() {
-    this.taskDialogRef.close();
+  closeDialog(task?: any) {
+    this.taskDialogRef.close(task);
   }
 
 }
