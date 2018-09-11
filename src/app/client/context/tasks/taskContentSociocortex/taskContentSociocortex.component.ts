@@ -68,7 +68,8 @@ export class TaskContentSociocortexComponent {
           break;
         default:
           taskParam.htmlElement = HtmlElements.None;
-          console.error("Unknown parameter type", taskParam)
+          this.contentForm.setControl(this.contentForm.length - 1, this.fb.control(''));  // drop required attribute
+          console.error("Unknown parameter type", taskParam);
       }
     });
   }
