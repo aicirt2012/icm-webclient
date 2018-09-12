@@ -84,8 +84,10 @@ export class TaskDialogComponent {
         .take(1)
         .subscribe(workspaces => {
           this.autocompleteController.updateSociocortexWorkspaces(workspaces);
-          if (workspaces.length == 1)
+          if (workspaces.length == 1) {
             this.form.setValue('context.sociocortexWorkspace', workspaces[0].id);
+            this.onWorkspaceSelect(workspaces[0].id);
+          }
         })
     }
   }
