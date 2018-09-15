@@ -73,7 +73,8 @@ import { SafeHtmlPipe } from './pipes';
     DatePickerComponent,
     SpinnerComponent,
     TopNavbarComponent,
-    DisableControlDirective
+    DisableControlDirective,
+    SafeHtmlPipe
   ],
   providers: [
     AuthService,
