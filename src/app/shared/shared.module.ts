@@ -29,6 +29,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { DatePickerComponent, SpinnerComponent, TopNavbarComponent } from './components'; // all shared components
 import { DisableControlDirective } from './directives'; // all shared directives
 import { AuthService, HttpService } from './services';
+import { SafeHtmlPipe } from './pipes';
 
 @NgModule({
   imports: [
@@ -65,7 +66,8 @@ import { AuthService, HttpService } from './services';
     DatePickerComponent,
     SpinnerComponent,
     TopNavbarComponent,
-    DisableControlDirective
+    DisableControlDirective,
+    SafeHtmlPipe
   ],
   exports: [
     DatePickerComponent,
