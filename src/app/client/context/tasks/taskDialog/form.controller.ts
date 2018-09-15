@@ -123,7 +123,7 @@ export class FormController {
       this.sociocortexParams = TaskService.getParameter(task, 'contentParams');
       this.form.get('title').setValue(task.name);
       this.form.get('intent.provider').setValue(task.provider.toUpperCase());
-      this.form.get('metadata.dueDate').setValue(new Date(task.due));
+      this.form.get('metadata.dueDate').setValue(task.due ? new Date(task.due) : null);
       if (this.form.get('intent.provider').value === 'TRELLO') {
         this.form.get('context.trelloBoard').setValue(TaskService.getParameter(task, 'idBoard'));
         this.form.get('context.trelloList').setValue(TaskService.getParameter(task, 'idList'));
