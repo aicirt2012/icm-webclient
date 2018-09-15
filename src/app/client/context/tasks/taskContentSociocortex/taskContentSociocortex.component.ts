@@ -47,6 +47,25 @@ export class TaskContentSociocortexComponent {
         this.contentForm.push(this.fb.control('', Validators.required));
       else
         this.contentForm.push(this.fb.control(''));
+      // advanced param detection
+      switch (taskParam.uiReference) {
+        case "svg":
+          taskParam.htmlElement = HtmlElements.VectorGraphics;
+          return;
+        case "privatelink":
+          taskParam.htmlElement = HtmlElements.URL;
+          return;
+        case null:
+        case undefined:
+          // do nothing and continue to simple param detection
+          break;
+        default:
+          taskParam.htmlElement = HtmlElements.None;
+          this.contentForm.setControl(this.contentForm.length - 1, this.fb.control(''));  // drop required attribute
+          console.error("Unknown parameter uiReference", taskParam);
+          return;
+      }
+      // simple param detection
       switch (taskParam.type) {
         case "enumeration":
           this.initEnumParam(taskParam);

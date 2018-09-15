@@ -53,5 +53,13 @@
         </textarea>
       </mat-form-field>
     </div>
+    <div *ngIf="taskParam.htmlElement === 'svg'">
+      {{taskParam.name}}
+      <div [innerHTML]="taskParam.values[0] | safeHtml"></div>
+    </div>
+    <div *ngIf="taskParam.htmlElement === 'url'">
+      {{taskParam.name}}
+      <a target="_blank" [href]="taskParam.values[0]">Link</a>
+    </div>
   </div>
 </div>

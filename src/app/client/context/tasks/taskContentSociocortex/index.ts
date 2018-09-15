@@ -8,5 +8,7 @@ export enum HtmlElements {
   Select = "select",
   DatePicker = "datepicker",
   Number = "numberinput",
+  VectorGraphics = "svg",
+  URL = "url",
   None = "hidden"
 }
