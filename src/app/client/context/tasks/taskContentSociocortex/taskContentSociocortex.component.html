@@ -61,5 +61,9 @@
       {{taskParam.name}}
       <a target="_blank" [href]="taskParam.values[0]">Link</a>
     </div>
+    <div *ngIf="taskParam.htmlElement === 'unsupported'">
+      {{taskParam.name}}
+      <span>Error: Parameter type unsupported.</span>
+    </div>
   </div>
 </div>

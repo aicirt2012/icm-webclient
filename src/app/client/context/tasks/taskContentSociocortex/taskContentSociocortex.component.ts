@@ -60,7 +60,7 @@ export class TaskContentSociocortexComponent {
           // do nothing and continue to simple param detection
           break;
         default:
-          taskParam.htmlElement = HtmlElements.None;
+          taskParam.htmlElement = HtmlElements.Unsupported;
           this.contentForm.setControl(this.contentForm.length - 1, this.fb.control(''));  // drop required attribute
           console.error("Unknown parameter uiReference", taskParam);
           return;
@@ -86,7 +86,7 @@ export class TaskContentSociocortexComponent {
           taskParam.htmlElement = HtmlElements.TextArea;
           break;
         default:
-          taskParam.htmlElement = HtmlElements.None;
+          taskParam.htmlElement = HtmlElements.Unsupported;
           this.contentForm.setControl(this.contentForm.length - 1, this.fb.control(''));  // drop required attribute
           console.error("Unknown parameter type", taskParam);
       }
