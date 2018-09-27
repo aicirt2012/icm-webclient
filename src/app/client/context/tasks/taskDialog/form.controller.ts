@@ -119,6 +119,7 @@ export class FormController {
 
   setTask(task: Task): void {
     this.task = task;
+    console.log("Applying new task to input form.", task);
     if (task) {
       this.sociocortexParams = TaskService.getParameter(task, 'contentParams');
       this.form.get('title').setValue(task.name);
