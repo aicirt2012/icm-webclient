@@ -62,5 +62,9 @@
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
       <a target="_blank" [href]="taskParam.values[0]" fxFlex>Link</a>
     </div>
+    <div *ngIf="taskParam.htmlElement === 'unsupported'">
+      {{taskParam.name}}
+      <span>Error: Parameter type unsupported.</span>
+    </div>
   </div>
 </div>
