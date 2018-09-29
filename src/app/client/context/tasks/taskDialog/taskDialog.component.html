@@ -183,7 +183,7 @@
     </mat-dialog-content>
     <mat-dialog-actions>
       <button type="button" [disabled]="submitted" mat-raised-button color="primary" (click)="onSubmit(false, false)"
-      *ngIf="task.isOpen">
+      *ngIf="!task || task.isOpen">
         <span *ngIf="!isEditMode">Confirm</span>
         <span *ngIf="isEditMode">Update</span>
         <!--<mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>-->
