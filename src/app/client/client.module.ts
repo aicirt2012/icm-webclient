@@ -32,6 +32,7 @@ import {
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { ResizableModule } from "angular-resizable-element";
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import {
   ClientComponent,
@@ -118,6 +119,7 @@ import { TinymceModule } from 'angular2-tinymce';
     InfiniteScrollModule,
     ContextMenuModule,
     ResizableModule,
+    NgxChartsModule,
     DndModule.forRoot(),
     TinymceModule.withConfig({
       selector: 'textarea',

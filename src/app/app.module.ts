@@ -29,6 +29,7 @@ import {
 } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { ResizableModule } from "angular-resizable-element";
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 // Self-written modules
 import { ClientModule } from './client/client.module';
@@ -101,6 +102,7 @@ type StoreType = {
     //
     FlexLayoutModule,
     ResizableModule,
+    NgxChartsModule,
     // custom modules
     LoginModule,
     ClientModule,
