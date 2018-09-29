@@ -51,6 +51,13 @@
         </textarea>
       </mat-form-field>
     </div>
+    <div *ngIf="taskParam.htmlElement === 'linediagram'" class="padding-after" fxLayout="column">
+      <span class="param-label" fxFlex>{{taskParam.name}}</span>
+      <span *ngIf="taskParam.htmlValues.length == 0">Pending...</span>
+      <div *ngFor="let dataSeries of taskParam.htmlValues" fxFlex>
+        <ngx-charts-line-chart [results]="dataSeries"></ngx-charts-line-chart>
+      </div>
+    </div>
     <div *ngIf="taskParam.htmlElement === 'svg'" class="padding-after" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
       <div [innerHTML]="taskParam.values[0] | safeHtml" fxFlex></div>

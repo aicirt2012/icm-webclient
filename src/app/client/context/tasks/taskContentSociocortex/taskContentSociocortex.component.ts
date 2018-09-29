@@ -65,6 +65,9 @@ export class TaskContentSociocortexComponent {
       case "privatelink":
         taskParam.htmlElement = HtmlElements.URL;
         return true;
+      case "linediagram":
+          this.initLineDiagramParam(taskParam);
+          return;
       case null:
       case undefined:
         // do nothing and continue to simple param detection
@@ -102,6 +105,24 @@ export class TaskContentSociocortexComponent {
         taskParam.htmlElement = HtmlElements.Unsupported;
         this.contentForm.setControl(this.contentForm.length - 1, this.fb.control(''));  // drop required attribute
         console.error("Unknown parameter type", taskParam);
+    }
+  }
+
+  // noinspection JSMethodCanBeStatic
+  private initLineDiagramParam(taskParam) {
+    taskParam.htmlElement = HtmlElements.LineDiagram;
+    if (!taskParam.values || taskParam.values.length < 1)
+      taskParam.htmlValues = [];
+    else {
+      taskParam.htmlValues = taskParam.values[0].keys().map(key => {
+        return {
+          name: key,
+          series: taskParam.values[0][key].map(dataPoint => {
+            return {name: new Date(dataPoint.date), value: dataPoint.value}
+          })
+        }
+      });
+      console.log("Transformed diagrams:", taskParam.htmlValues);
     }
   }
 

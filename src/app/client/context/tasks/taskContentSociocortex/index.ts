@@ -10,6 +10,7 @@ export enum HtmlElements {
   Number = "numberinput",
   VectorGraphics = "svg",
   URL = "url",
+  LineDiagram = "linediagram",
   Unsupported = "unsupported",
   None = "hidden"
 }
