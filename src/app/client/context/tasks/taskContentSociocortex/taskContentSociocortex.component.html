@@ -11,13 +11,11 @@
     </div>
     <div *ngIf="taskParam.htmlElement === 'checkboxes'" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
-      <div fxFlex fxLayout="column">
-        <mat-checkbox *ngFor="let option of taskParam.constraints.enumerationOptions; let j = index"
-                      [value]="option.name" class="checkbox-option" [formControl]="contentForm.at(i).at(j)"
-                      [disableControl]="taskParam.readOnly" fxFlex>
-          {{option.description}}
-        </mat-checkbox>
-      </div>
+      <mat-checkbox *ngFor="let option of taskParam.constraints.enumerationOptions; let j = index"
+                    [value]="option.name" class="checkbox-option" [formControl]="contentForm.at(i).at(j)"
+                    [disableControl]="taskParam.readOnly" fxFlex>
+        {{option.description}}
+      </mat-checkbox>
     </div>
     <div *ngIf="taskParam.htmlElement === 'textinput'" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
