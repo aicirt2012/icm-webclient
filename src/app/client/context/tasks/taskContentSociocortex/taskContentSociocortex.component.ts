@@ -114,7 +114,7 @@ export class TaskContentSociocortexComponent {
     if (!taskParam.values || taskParam.values.length < 1)
       taskParam.htmlValues = [];
     else {
-      taskParam.htmlValues = taskParam.values[0].keys().map(key => {
+      taskParam.htmlValues = Object.keys(taskParam.values[0]).map(key => {
         return {
           name: key,
           series: taskParam.values[0][key].map(dataPoint => {

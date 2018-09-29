@@ -1,7 +1,7 @@
 .radio-option,
-.checkbox-option {
-  padding-right: 8px;
-}
+ .checkbox-option{
+   padding-right: 8px;
+ }
 
 .param-label {
   font-weight: bold;
@@ -20,4 +20,9 @@
 
 .padding-after {
   padding-bottom: 18px;
+}
+
+.chart-container {
+  width: 100%;
+  height: 150px;
 }

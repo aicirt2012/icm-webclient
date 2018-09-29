@@ -54,8 +54,11 @@
     <div *ngIf="taskParam.htmlElement === 'linediagram'" class="padding-after" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
       <span *ngIf="taskParam.htmlValues.length == 0">Pending...</span>
-      <div *ngFor="let dataSeries of taskParam.htmlValues" fxFlex>
-        <ngx-charts-line-chart [results]="dataSeries"></ngx-charts-line-chart>
+      <div class="chart-wrapper" *ngFor="let dataSeries of taskParam.htmlValues" fxFlex>
+        <span class="chart-label">{{dataSeries.name}}</span>
+        <div class="chart-container">
+          <ngx-charts-line-chart [results]="dataSeries"></ngx-charts-line-chart>
+        </div>
       </div>
     </div>
     <div *ngIf="taskParam.htmlElement === 'svg'" class="padding-after" fxLayout="column">
