@@ -29,27 +29,44 @@ export class TasksComponent {
     this.user = this.appState.getUser();
     this.appState.user().subscribe(user => {
       this.user = user;
+      if (this.email)
+        this.refreshSuggestedTasks();
     });
   }
 
   // noinspection JSUnusedGlobalSymbols (method is called by angular)
   ngOnChanges() {
     if (this.email) {
-      console.log("Got an updated email via onChange:");
-      console.log(this.email);
-      this.openTasks = [];
-      this.completedTasks = [];
-      this.suggestedTasks = [];
-      if (this.email.linkedTasks)
-        this.email.linkedTasks.forEach(task => {
-          // load each task from our backend via its id
-          this.updateTask(task._id);
-          // TODO initialize suggested tasks from email.suggestedData
-        });
+      console.log("Got an updated email via onChange", this.email);
+      this.refreshLinkedTasks();
+    }
+    if (this.email && this.user) {
+      console.log("Got an updated email and user via onChange");
+      this.refreshSuggestedTasks();
     }
   }
 
-  private updateTask(taskId: string): void {
+  private refreshLinkedTasks() {
+    this.openTasks = [];
+    this.completedTasks = [];
+    if (this.email.linkedTasks)
+      this.email.linkedTasks.forEach(task => {
+        this.refreshTask(task._id);
+      });
+  }
+
+  private refreshSuggestedTasks() {
+    this.suggestedTasks = [];
+    // TODO init suggestions from email.suggestedData
+    if (this.suggestedTasks.length == 0) {
+      if (this.user.taskProviders.trello.isEnabled)
+        this.suggestedTasks.push({provider: "trello"});
+      if (this.user.taskProviders.sociocortex.isEnabled)
+        this.suggestedTasks.push({provider: "sociocortex"});
+    }
+  }
+
+  private refreshTask(taskId: string): void {
     this.taskService.readTask(taskId)
       .take(1)
       .subscribe(task => {
@@ -76,7 +93,7 @@ export class TasksComponent {
       if (result === null)
         this.removeFromTaskLists(task);
       else if (result)
-        this.updateTask(result._id);
+        this.refreshTask(result._id);
     });
   }
 
@@ -90,7 +107,7 @@ export class TasksComponent {
       if (result === null)
         this.removeFromTaskLists(task);
       else if (result)
-        this.updateTask(result._id);
+        this.refreshTask(result._id);
     });
   }
 
