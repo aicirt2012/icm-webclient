@@ -14,6 +14,9 @@ export class TaskContentSociocortexComponent {
   private contentForm: FormArray;
   private _taskParams: any[];
 
+  @Input()
+  private readOnly: boolean = false;
+
   get taskParams(): any[] {
     return this._taskParams;
   }
@@ -49,6 +52,7 @@ export class TaskContentSociocortexComponent {
         this.contentForm.push(this.fb.control(''));
       if (!this.detectUiReference(taskParam))
         this.detectParamType(taskParam);
+      taskParam.readOnly = this.readOnly ? true : taskParam.readOnly;
     });
   }
 
