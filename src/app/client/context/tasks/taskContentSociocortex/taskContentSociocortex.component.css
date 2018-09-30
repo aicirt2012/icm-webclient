@@ -7,6 +7,17 @@
   font-weight: bold;
 }
 
+.param-container ::ng-deep mat-form-field .mat-input-flex.mat-form-field-flex {
+  background-color: rgba(0,0,0,.04);
+  border: 1px solid #d3d3d3;
+  border-bottom-width: 0;
+}
+
 .param-container ::ng-deep mat-form-field .mat-input-infix.mat-form-field-infix {
-  border-width: 0;
+  padding-left: 8px;
+  margin-top: -12px;
+}
+
+.padding-after {
+  padding-bottom: 18px;
 }
