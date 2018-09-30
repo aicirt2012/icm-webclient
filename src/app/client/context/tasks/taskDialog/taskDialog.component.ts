@@ -17,6 +17,7 @@ export class TaskDialogComponent {
   private task: any;
   private submitted: boolean = false;
   private autocomplete: any;    // used only in template for data access
+  private taskProviders: any[];
 
   private form: FormController;
   private autocompleteController: AutocompleteController;
@@ -38,6 +39,7 @@ export class TaskDialogComponent {
   onPostConstruct(task: any, email: any, user: any, isEditMode: boolean) {
     this.isEditMode = isEditMode;
     this.task = task;
+    this.taskProviders = Object.keys(user.taskProviders).filter(provider => user.taskProviders[provider].isEnabled);
     this.form.onPostConstruct(task, email, user, isEditMode);
     this.autocompleteController.onPostConstruct(task, email.suggestedData, isEditMode);
   }

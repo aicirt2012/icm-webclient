@@ -20,9 +20,9 @@
           <!-- provider input -->
           <mat-form-field>
             <mat-select formControlName="provider" required placeholder="Choose Provider"
-                        (change)="onProviderSelect($event.value)">
-              <mat-option value="TRELLO">Trello</mat-option>
-              <mat-option value="SOCIOCORTEX">SACM</mat-option>
+                        (change)="onProviderSelect($event.value)" [disabled]="taskProviders.length < 2">
+              <mat-option value="TRELLO" *ngIf="taskProviders.indexOf('trello') > -1">Trello</mat-option>
+              <mat-option value="SOCIOCORTEX" *ngIf="taskProviders.indexOf('sociocortex') > -1">SACM</mat-option>
             </mat-select>
           </mat-form-field>
           <!-- create/link input -->
