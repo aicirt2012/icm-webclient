@@ -1,7 +1,7 @@
 import { DomSanitizer } from '@angular/platform-browser';
 import { AppState } from './../../../../app.service';
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
-import { EmailService, TaskLegacyService, Email, EmailForm } from '../../../shared';
+import { EmailService, Email, EmailForm } from '../../../shared';
 import { Observable } from 'rxjs/Observable';
 import { MatDialogRef, MatSnackBar, MatInput, MatIconRegistry } from '@angular/material';
 

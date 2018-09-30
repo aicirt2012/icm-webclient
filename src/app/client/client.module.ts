@@ -65,7 +65,6 @@ import {
 import {
   EmailService,
   BoxService,
-  TaskLegacyService,
   TaskService,
   WikiService,
   NetworkService,
@@ -165,7 +164,6 @@ import { TinymceModule } from 'angular2-tinymce';
     BoxService,
     AttachmentService,
     TaskService,
-    TaskLegacyService,
     WikiService,
     NetworkService,
     TranslateService,

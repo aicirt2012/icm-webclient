@@ -15,7 +15,7 @@
 
         <div fxLayout="row" style="margin-top: 8px;" fxLayoutAlign="start center">
             <mat-input-container fxFlex>
-                <input matInput #inputTo (keyup.enter)="addAddress(inputTo,'to'); searchCardsForMembers() " (blur)="searchCardsForMembers()" (change)="addAddress(inputTo,'to')"
+                <input matInput #inputTo (keyup.enter)="addAddress(inputTo,'to')" (change)="addAddress(inputTo,'to')"
                     type="email" placeholder="To:" required/>
             </mat-input-container>
             <div fxLayout="row" *ngIf="emailForm.to.length > 0" fxFlex="70" fxLayoutAlign="start center" fxLayoutWrap="wrap">

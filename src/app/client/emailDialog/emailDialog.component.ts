@@ -1,6 +1,6 @@
 import { AppState } from './../../app.service';
 import { Component, Input, EventEmitter, Output, ViewChild } from '@angular/core';
-import { EmailService, TaskLegacyService } from '../shared';
+import { EmailService } from '../shared';
 import { Observable } from 'rxjs/Observable';
 import { Email, EmailForm } from '../shared';
 import { MatDialogRef, MatSnackBar, MatInput } from '@angular/material';
@@ -27,7 +27,7 @@ export class EmailDialogComponent {
   public relatedTasks: any = [];
   public user: any;
 
-  constructor(public appState: AppState, private _emailService: EmailService, public emailDialogRef: MatDialogRef<EmailDialogComponent>, private snackBar: MatSnackBar, private _taskService: TaskLegacyService) {
+  constructor(public appState: AppState, private _emailService: EmailService, public emailDialogRef: MatDialogRef<EmailDialogComponent>, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -53,16 +53,6 @@ export class EmailDialogComponent {
     if (index > -1) {
       this.emailForm[addressType].splice(index, 1);
     }
-  }
-
-  searchCardsForMembers() {
-    this.searchForTasks = true;
-    this._taskService.searchCardsForMembers(this.emailForm.to).subscribe((data: any) => {
-      console.log(data);
-      this.relatedTasks = data;
-      this.searchForTasks = false;
-    })
-
   }
 
   sendEmail() {
@@ -98,7 +88,9 @@ export class EmailDialogComponent {
   }
 
   removeTask(task: any) {
-    this.relatedTasks = this.relatedTasks.filter((relatedTask: any) => { if (relatedTask.id != task.id) return relatedTask });
+    this.relatedTasks = this.relatedTasks.filter((relatedTask: any) => {
+      if (relatedTask.id != task.id) return relatedTask
+    });
   }
 
 }

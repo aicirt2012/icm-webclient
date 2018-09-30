@@ -1,7 +1,6 @@
 import { UserService } from './../settings/shared/user.service';
 import { User } from './../shared/models/user.model';
 import { AppState } from './../app.service';
-import { TaskLegacyService } from '../client/shared/task.legacy.service';
 import { Component } from '@angular/core';
 import { AuthService } from '../shared';
 
@@ -18,17 +17,17 @@ export class TaskOverviewComponent {
   fetching: boolean = false;
   user: any = {};
 
-  constructor(private taskService: TaskLegacyService, private userService: UserService) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.userService.getUserInfo().subscribe((user) => {
       this.user = user;
       if (this.user.trello) {
       this.fetching = true;
-      this.taskService.getAllBoards({ linkedTasks: true }).subscribe((boards) => {
-        this.boards = boards;
-        this.fetching = false;
-      });
+      // this.taskService.getAllBoards({ linkedTasks: true }).subscribe((boards) => {
+      //   this.boards = boards;
+      //   this.fetching = false;
+      // });
     }
     })
   }
