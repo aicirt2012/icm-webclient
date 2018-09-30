@@ -1,5 +1,5 @@
 <mat-form-field>
-  <input name="stringInput" matInput placeholder="Due Date" [formControl]="stringControl"
+  <input name="stringInput" matInput [placeholder]="placeholder" [formControl]="stringControl"
          [matAutocomplete]="autocompleteDateString" (blur)="onStringValueUpdate()" [readonly]="readonly">
   <mat-autocomplete #autocompleteDateString="matAutocomplete">
     <mat-option *ngFor="let dateString of autocomplete.filtered" [value]="dateString">{{dateString}}</mat-option>
