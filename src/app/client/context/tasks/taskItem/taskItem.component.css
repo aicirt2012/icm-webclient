@@ -80,3 +80,7 @@
 .label-suggestion {
   font-style: italic;
 }
+
+.task.suggested .task-title img {
+  filter: grayscale(100%);
+}

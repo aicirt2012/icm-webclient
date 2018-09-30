@@ -24,21 +24,20 @@ export class TaskItemComponent {
   }
 
   ngOnChanges() {
-    if (!this.isSuggestion) {
-      console.log("Rendering task", this.task);
+    console.log("Rendering task", this.task);
 
-      this.provider = this.task.provider;
+    this.provider = this.task.provider;
+    if (this.task.name)
       this.title = this.task.name;
-      this.dueDateRaw = this.task.due;
-      this.completed = !this.task.isOpen;
-      this.assignees = this.task.assignees;
+    this.dueDateRaw = this.task.due;
+    this.completed = !this.task.isOpen;
+    this.assignees = this.task.assignees;
 
-      if (!this.assignees)
-        this.assignees = [];
-      if (this.dueDateRaw) {
-        this.dueDateRaw = new Date(this.dueDateRaw);
-        this.dueDate = TaskService.formatDate(this.dueDateRaw);
-      }
+    if (!this.assignees)
+      this.assignees = [];
+    if (this.dueDateRaw) {
+      this.dueDateRaw = new Date(this.dueDateRaw);
+      this.dueDate = TaskService.formatDate(this.dueDateRaw);
     }
   }
 
