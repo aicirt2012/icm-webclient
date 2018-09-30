@@ -42,6 +42,7 @@ export class TaskDialogComponent {
     this.taskProviders = Object.keys(user.taskProviders).filter(provider => user.taskProviders[provider].isEnabled);
     this.form.onPostConstruct(task, email, user, isEditMode);
     this.autocompleteController.onPostConstruct(task, email.suggestedData, isEditMode);
+    this.onProviderSelect(task.provider.toUpperCase());
   }
 
   ngOnInit() {

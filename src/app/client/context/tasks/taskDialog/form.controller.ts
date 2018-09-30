@@ -129,7 +129,7 @@ export class FormController {
         this.form.get('context.trelloBoard').setValue(TaskService.getParameter(task, 'idBoard'));
         this.form.get('context.trelloList').setValue(TaskService.getParameter(task, 'idList'));
         this.form.get('trelloContent.description').setValue(TaskService.getParameter(task, 'desc'));
-        this.form.get('metadata.assignees').setValue(task.assignees.map(assignee => assignee.id));
+        this.form.get('metadata.assignees').setValue(task.assignees ? task.assignees.map(assignee => assignee.id) : []);
       } else {
         this.form.get('context.sociocortexCase').setValue(TaskService.getParameter(task, 'case'));
         this.form.get('context.sociocortexTask').setValue(task.providerId);
