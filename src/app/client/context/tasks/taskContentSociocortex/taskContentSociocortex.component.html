@@ -40,7 +40,7 @@
     </div>
     <div *ngIf="taskParam.htmlElement === 'numberinput'" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
-      <mat-form-field appearance="fill" fxFlex>
+      <mat-form-field fxFlex>
         <input type="number" matInput [formControl]="contentForm.at(i)" [readonly]="taskParam.readOnly">
       </mat-form-field>
     </div>
