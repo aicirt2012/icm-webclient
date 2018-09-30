@@ -9,3 +9,11 @@
 .expansion-divider {
   padding-bottom: 8px;
 }
+
+form ::ng-deep mat-form-field#title-container {
+  margin-bottom: -1.25em;
+}
+
+form ::ng-deep mat-form-field#title-container .mat-input-infix.mat-form-field-infix {
+  margin-top: -25px;
+}

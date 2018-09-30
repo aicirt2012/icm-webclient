@@ -2,7 +2,7 @@
   <form [formGroup]="form.get()">
     <div mat-dialog-title fxLayout="row">
       <!-- title input -->
-      <mat-form-field fxFlex>
+      <mat-form-field id="title-container" floatPlaceholder="never" fxFlex>
         <input type="text" formControlName="title" matInput [matAutocomplete]="autocompleteTitle"
                placeholder="Task Title" required [disableControl]="isSociocortexProvider()">
         <mat-autocomplete #autocompleteTitle="matAutocomplete">
