@@ -4,7 +4,8 @@
       <!-- title input -->
       <mat-form-field id="title-container" floatPlaceholder="never" fxFlex>
         <input type="text" formControlName="title" matInput [matAutocomplete]="autocompleteTitle"
-               placeholder="Task Title" required [disableControl]="isSociocortexProvider()">
+               placeholder="Task Title" required [disableControl]="!isTrelloProvider() || !form.isValid('intent')
+               || (form.hasValue('intent.intendedAction','LINK') && !form.getValue('context.trelloTask'))">
         <mat-autocomplete #autocompleteTitle="matAutocomplete">
           <mat-option *ngFor="let title of autocomplete.titles.filtered" [value]="title">{{title}}</mat-option>
         </mat-autocomplete>
