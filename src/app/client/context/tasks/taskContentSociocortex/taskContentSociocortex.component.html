@@ -19,7 +19,7 @@
     </div>
     <div *ngIf="taskParam.htmlElement === 'textinput'" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
-      <mat-form-field fxFlex>
+      <mat-form-field floatLabel="none" fxFlex>
         <input type="text" matInput [formControl]="contentForm.at(i)" [readonly]="taskParam.readOnly">
       </mat-form-field>
     </div>
@@ -30,9 +30,8 @@
     </div>
     <div *ngIf="taskParam.htmlElement === 'select'" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
-      <mat-form-field fxFlex>
-        <mat-select placeholder="Select one" [formControl]="contentForm.at(i)"
-                    [disableControl]="taskParam.readOnly">
+      <mat-form-field floatLabel="none" fxFlex>
+        <mat-select [formControl]="contentForm.at(i)" [disableControl]="taskParam.readOnly">
           <mat-option *ngFor="let option of taskParam.constraints.enumerationOptions" [value]="option.name">
             {{option.description}}
           </mat-option>
@@ -41,14 +40,14 @@
     </div>
     <div *ngIf="taskParam.htmlElement === 'numberinput'" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
-      <mat-form-field fxFlex>
+      <mat-form-field floatLabel="none" fxFlex>
         <input type="number" matInput [formControl]="contentForm.at(i)" [readonly]="taskParam.readOnly">
       </mat-form-field>
     </div>
     <div *ngIf="taskParam.htmlElement === 'textarea'" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
-      <mat-form-field fxFlex>
-        <textarea type="text" matInput [formControl]="contentForm.at(i)" [readonly]="taskParam.readOnly" rows="10">
+      <mat-form-field floatLabel="none" fxFlex>
+        <textarea type="text" matInput [formControl]="contentForm.at(i)" [readonly]="taskParam.readOnly" rows="5">
         </textarea>
       </mat-form-field>
     </div>
