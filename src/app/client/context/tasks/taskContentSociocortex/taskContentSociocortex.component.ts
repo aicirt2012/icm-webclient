@@ -67,7 +67,7 @@ export class TaskContentSociocortexComponent {
         return true;
       case "linediagram":
           this.initLineDiagramParam(taskParam);
-          return;
+          return true;
       case null:
       case undefined:
         // do nothing and continue to simple param detection
