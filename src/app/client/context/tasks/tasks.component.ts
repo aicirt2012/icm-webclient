@@ -92,7 +92,7 @@ export class TasksComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result === null)
         this.removeFromTaskLists(task);
-      else if (result)
+      else if (result && result._id)
         this.refreshTask(result._id);
     });
   }
