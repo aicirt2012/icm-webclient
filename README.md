@@ -1,5 +1,9 @@
 # Intelligent Contextual Mail WebClient
 
+Documentation for Angular Material 2 beta 12 can be found here: 
+[https://github.com/angular/material2/blob/2.0.0-beta.12/src/lib/form-field/form-field.md](https://github.com/angular/material2/blob/2.0.0-beta.12/src/lib/form-field/form-field.md)
+Navigate through the docs by navigating the github repository structure.
+
 # install the repo with npm
 npm install
 

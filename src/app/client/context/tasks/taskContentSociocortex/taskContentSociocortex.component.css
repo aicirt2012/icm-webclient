@@ -1,8 +1,23 @@
-.param-container {
-  padding-top: 8px;
-  padding-bottom: 8px;
+.radio-option,
+.checkbox-option {
+  padding-right: 8px;
 }
- .radio-option,
- .checkbox-option{
-   padding-right: 8px;
- }
+
+.param-label {
+  font-weight: bold;
+}
+
+.param-container ::ng-deep mat-form-field .mat-input-flex.mat-form-field-flex {
+  background-color: rgba(0,0,0,.04);
+  border: 1px solid #d3d3d3;
+  border-bottom-width: 0;
+}
+
+.param-container ::ng-deep mat-form-field .mat-input-infix.mat-form-field-infix {
+  padding-left: 8px;
+  margin-top: -12px;
+}
+
+.padding-after {
+  padding-bottom: 18px;
+}

@@ -1,69 +1,67 @@
 <div [formGroup]="contentForm">
   <div class="param-container" *ngFor="let taskParam of taskParams; let i = index">
-    <div *ngIf="taskParam.htmlElement === 'radioboxes'">
-      <mat-radio-group fxFlex [formControl]="contentForm.at(i)" [disableControl]="taskParam.readOnly">
-        {{taskParam.name}}
+    <div *ngIf="taskParam.htmlElement === 'radioboxes'" class="padding-after" fxLayout="column">
+      <span class="param-label" fxFlex>{{taskParam.name}}</span>
+      <mat-radio-group [formControl]="contentForm.at(i)" [disableControl]="taskParam.readOnly" fxFlex>
         <mat-radio-button *ngFor="let option of taskParam.constraints.enumerationOptions" [value]="option.value"
                           class="radio-option">
           {{option.description}}
         </mat-radio-button>
       </mat-radio-group>
     </div>
-    <div *ngIf="taskParam.htmlElement === 'checkboxes'">
-      <div fxFlex>
-        {{taskParam.name}}
-        <mat-checkbox *ngFor="let option of taskParam.constraints.enumerationOptions; let j = index"
-                      [value]="option.name" class="checkbox-option" [formControl]="contentForm.at(i).at(j)"
-                      [disableControl]="taskParam.readOnly">
-          {{option.description}}
-        </mat-checkbox>
-      </div>
+    <div *ngIf="taskParam.htmlElement === 'checkboxes'" class="padding-after" fxLayout="column">
+      <span class="param-label" fxFlex>{{taskParam.name}}</span>
+      <mat-checkbox *ngFor="let option of taskParam.constraints.enumerationOptions; let j = index"
+                    [value]="option.name" class="checkbox-option" [formControl]="contentForm.at(i).at(j)"
+                    [disableControl]="taskParam.readOnly" fxFlex>
+        {{option.description}}
+      </mat-checkbox>
     </div>
-    <div *ngIf="taskParam.htmlElement === 'textinput'">
+    <div *ngIf="taskParam.htmlElement === 'textinput'" fxLayout="column">
+      <span class="param-label" fxFlex>{{taskParam.name}}</span>
       <mat-form-field fxFlex>
-        {{taskParam.name}}
         <input type="text" matInput [formControl]="contentForm.at(i)" [readonly]="taskParam.readOnly">
       </mat-form-field>
     </div>
-    <div *ngIf="taskParam.htmlElement === 'datepicker'">
-      {{taskParam.name}}
-      <datepicker [dateControl]="contentForm.at(i)" [autocompleteDates]="[]" [readonly]="taskParam.readOnly">
+    <div *ngIf="taskParam.htmlElement === 'datepicker'" fxLayout="column">
+      <span class="param-label" fxFlex>{{taskParam.name}}</span>
+      <datepicker [dateControl]="contentForm.at(i)" [autocompleteDates]="[]" [readonly]="taskParam.readOnly" fxFlex>
       </datepicker>
     </div>
-    <div *ngIf="taskParam.htmlElement === 'select'">
+    <div *ngIf="taskParam.htmlElement === 'select'" fxLayout="column">
+      <span class="param-label" fxFlex>{{taskParam.name}}</span>
       <mat-form-field fxFlex>
-        <mat-select [placeholder]="taskParam.name" [formControl]="contentForm.at(i)"
-                    [disableControl]="taskParam.readOnly">
+        <mat-select [formControl]="contentForm.at(i)" [disableControl]="taskParam.readOnly">
           <mat-option *ngFor="let option of taskParam.constraints.enumerationOptions" [value]="option.name">
             {{option.description}}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
-    <div *ngIf="taskParam.htmlElement === 'numberinput'">
+    <div *ngIf="taskParam.htmlElement === 'numberinput'" fxLayout="column">
+      <span class="param-label" fxFlex>{{taskParam.name}}</span>
       <mat-form-field fxFlex>
-        {{taskParam.name}}
         <input type="number" matInput [formControl]="contentForm.at(i)" [readonly]="taskParam.readOnly">
       </mat-form-field>
     </div>
-    <div *ngIf="taskParam.htmlElement === 'textarea'">
-      <mat-form-field>
-        {{taskParam.name}}
-        <textarea type="text" matInput [formControl]="contentForm.at(i)" [readonly]="taskParam.readOnly" rows="10">
+    <div *ngIf="taskParam.htmlElement === 'textarea'" fxLayout="column">
+      <span class="param-label" fxFlex>{{taskParam.name}}</span>
+      <mat-form-field fxFlex>
+        <textarea type="text" matInput [formControl]="contentForm.at(i)" [readonly]="taskParam.readOnly" rows="5">
         </textarea>
       </mat-form-field>
     </div>
-    <div *ngIf="taskParam.htmlElement === 'svg'">
-      {{taskParam.name}}
-      <div [innerHTML]="taskParam.values[0] | safeHtml"></div>
+    <div *ngIf="taskParam.htmlElement === 'svg'" class="padding-after" fxLayout="column">
+      <span class="param-label" fxFlex>{{taskParam.name}}</span>
+      <div [innerHTML]="taskParam.values[0] | safeHtml" fxFlex></div>
     </div>
-    <div *ngIf="taskParam.htmlElement === 'url'">
-      {{taskParam.name}}
-      <a target="_blank" [href]="taskParam.values[0]">Link</a>
+    <div *ngIf="taskParam.htmlElement === 'url'" class="padding-after" fxLayout="column">
+      <span class="param-label" fxFlex>{{taskParam.name}}</span>
+      <a target="_blank" [href]="taskParam.values[0]" fxFlex>Link</a>
     </div>
-    <div *ngIf="taskParam.htmlElement === 'unsupported'">
-      {{taskParam.name}}
-      <span>Error: Parameter type unsupported.</span>
+    <div *ngIf="taskParam.htmlElement === 'unsupported'" class="padding-after" fxLayout="column">
+      <span class="param-label" fxFlex>{{taskParam.name}}</span>
+      <span fxFlex>Error: Parameter type unsupported.</span>
     </div>
   </div>
 </div>

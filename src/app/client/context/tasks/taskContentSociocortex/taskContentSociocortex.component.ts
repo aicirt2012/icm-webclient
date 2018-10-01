@@ -14,6 +14,9 @@ export class TaskContentSociocortexComponent {
   private contentForm: FormArray;
   private _taskParams: any[];
 
+  @Input()
+  private readOnly: boolean = false;
+
   get taskParams(): any[] {
     return this._taskParams;
   }
@@ -47,50 +50,59 @@ export class TaskContentSociocortexComponent {
         this.contentForm.push(this.fb.control('', Validators.required));
       else
         this.contentForm.push(this.fb.control(''));
-      // advanced param detection
-      switch (taskParam.uiReference) {
-        case "svg":
-          taskParam.htmlElement = HtmlElements.VectorGraphics;
-          return;
-        case "privatelink":
-          taskParam.htmlElement = HtmlElements.URL;
-          return;
-        case null:
-        case undefined:
-          // do nothing and continue to simple param detection
-          break;
-        default:
-          taskParam.htmlElement = HtmlElements.Unsupported;
-          this.contentForm.setControl(this.contentForm.length - 1, this.fb.control(''));  // drop required attribute
-          console.error("Unknown parameter uiReference", taskParam);
-          return;
-      }
-      // simple param detection
-      switch (taskParam.type) {
-        case "enumeration":
-          this.initEnumParam(taskParam);
-          break;
-        case "string":
-          this.initStringParam(taskParam);
-          break;
-        case "date":
-          this.initDateParam(taskParam);
-          break;
-        case "link":
-          this.initLinkParam(taskParam);
-          break;
-        case "number":
-          taskParam.htmlElement = HtmlElements.Number;
-          break;
-        case "longtext":
-          taskParam.htmlElement = HtmlElements.TextArea;
-          break;
-        default:
-          taskParam.htmlElement = HtmlElements.Unsupported;
-          this.contentForm.setControl(this.contentForm.length - 1, this.fb.control(''));  // drop required attribute
-          console.error("Unknown parameter type", taskParam);
-      }
+      if (!this.detectUiReference(taskParam))
+        this.detectParamType(taskParam);
+      taskParam.readOnly = this.readOnly ? true : taskParam.readOnly;
     });
+  }
+
+  private detectUiReference(taskParam) {
+    // advanced param detection
+    switch (taskParam.uiReference) {
+      case "svg":
+        taskParam.htmlElement = HtmlElements.VectorGraphics;
+        return true;
+      case "privatelink":
+        taskParam.htmlElement = HtmlElements.URL;
+        return true;
+      case null:
+      case undefined:
+        // do nothing and continue to simple param detection
+        return false;
+      default:
+        taskParam.htmlElement = HtmlElements.Unsupported;
+        this.contentForm.setControl(this.contentForm.length - 1, this.fb.control(''));  // drop required attribute
+        console.error("Unknown parameter uiReference", taskParam);
+        return true;
+    }
+  }
+
+  private detectParamType(taskParam) {
+    // simple param detection
+    switch (taskParam.type) {
+      case "enumeration":
+        this.initEnumParam(taskParam);
+        break;
+      case "string":
+        this.initStringParam(taskParam);
+        break;
+      case "date":
+        this.initDateParam(taskParam);
+        break;
+      case "link":
+        this.initLinkParam(taskParam);
+        break;
+      case "number":
+        taskParam.htmlElement = HtmlElements.Number;
+        break;
+      case "longtext":
+        taskParam.htmlElement = HtmlElements.TextArea;
+        break;
+      default:
+        taskParam.htmlElement = HtmlElements.Unsupported;
+        this.contentForm.setControl(this.contentForm.length - 1, this.fb.control(''));  // drop required attribute
+        console.error("Unknown parameter type", taskParam);
+    }
   }
 
   private initEnumParam(taskParam) {
