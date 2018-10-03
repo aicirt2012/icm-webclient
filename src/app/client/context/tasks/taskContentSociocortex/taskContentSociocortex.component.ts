@@ -150,6 +150,9 @@ export class TaskContentSociocortexComponent {
         taskParam.chartLabels.push(rawChart.map(dataPoint => new Date(dataPoint.date)));
         taskParam.chartDatasets.push(rawChart.map(dataPoint => dataPoint.value));
       });
+      taskParam.chartCaptions = taskParam.chartCaptions.map(caption => {
+        return caption.charAt(0).toUpperCase() + caption.split(/(?=[A-Z])/).join(' ').substr(1);
+      });
     }
   }
 
