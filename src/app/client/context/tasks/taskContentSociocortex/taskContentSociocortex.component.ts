@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { HtmlElements } from './index';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'task-content-sociocortex',
@@ -28,7 +29,34 @@ export class TaskContentSociocortexComponent {
     console.log("Processed parameters.", this._taskParams, this.contentForm);
   }
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private elementRef: ElementRef) {
+  }
+
+  // noinspection JSUnusedGlobalSymbols (called by angular)
+  ngAfterViewInit() {
+    this.taskParams.forEach(taskParam => {
+      if (taskParam.uiReference === "linediagram")
+        this.initLineDiagramView(taskParam);
+    });
+  }
+
+  private initLineDiagramView(taskParam) {
+    taskParam.charts = taskParam.chartIds.map((chartId, index) =>
+      new Chart(this.elementRef.nativeElement.querySelector('#' + taskParam.chartIds[0]).getContext("2d"), {
+        type: 'line',
+        data: {
+          labels: taskParam.chartLabels[index],
+          datasets: [{
+            data: taskParam.chartDatasets[index],
+            borderColor: '#3cba9f',
+            fill: false
+          }]
+        },
+        options: {
+          legend: {display: false},
+          scales: {xAxes: [{display: true}], yAxes: [{display: true}]}
+        }
+      }));
   }
 
   private processNewTaskParameters() {
@@ -66,8 +94,8 @@ export class TaskContentSociocortexComponent {
         taskParam.htmlElement = HtmlElements.URL;
         return true;
       case "linediagram":
-          this.initLineDiagramParam(taskParam);
-          return true;
+        this.initLineDiagramParam(taskParam);
+        return true;
       case null:
       case undefined:
         // do nothing and continue to simple param detection
@@ -108,21 +136,20 @@ export class TaskContentSociocortexComponent {
     }
   }
 
-  // noinspection JSMethodCanBeStatic
   private initLineDiagramParam(taskParam) {
     taskParam.htmlElement = HtmlElements.LineDiagram;
-    if (!taskParam.values || taskParam.values.length < 1)
-      taskParam.htmlValues = [];
-    else {
-      taskParam.htmlValues = Object.keys(taskParam.values[0]).map(key => {
-        return {
-          name: key,
-          series: taskParam.values[0][key].map(dataPoint => {
-            return {name: new Date(dataPoint.date), value: dataPoint.value}
-          })
-        }
+    taskParam.chartCaptions = [];
+    taskParam.chartLabels = [];
+    taskParam.chartDatasets = [];
+    taskParam.chartIds = [];
+    if (taskParam.values && taskParam.values.length > 0) {
+      taskParam.chartCaptions = Object.keys(taskParam.values[0]);
+      taskParam.chartCaptions.forEach((chartCaption, index) => {
+        taskParam.chartIds.push("chart_" + index + "_" + taskParam.id);
+        const rawChart = taskParam.values[0][chartCaption];
+        taskParam.chartLabels.push(rawChart.map(dataPoint => new Date(dataPoint.date)));
+        taskParam.chartDatasets.push(rawChart.map(dataPoint => dataPoint.value));
       });
-      console.log("Transformed diagrams:", taskParam.htmlValues);
     }
   }
 

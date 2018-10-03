@@ -53,11 +53,11 @@
     </div>
     <div *ngIf="taskParam.htmlElement === 'linediagram'" class="padding-after" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
-      <span *ngIf="taskParam.htmlValues.length == 0">Pending...</span>
-      <div class="chart-wrapper" *ngFor="let dataSeries of taskParam.htmlValues" fxFlex>
-        <span class="chart-label">{{dataSeries.name}}</span>
+      <span *ngIf="!taskParam.chartIds || taskParam.chartIds.length == 0">Pending...</span>
+      <div class="chart-wrapper" *ngFor="let chartId of taskParam.chartIds; let j = index" fxFlex>
+        <span class="chart-label">{{taskParam.chartLabels[j]}}</span>
         <div class="chart-container">
-          <ngx-charts-line-chart [results]="dataSeries"></ngx-charts-line-chart>
+          <canvas [id]="chartId">{{charts && charts.length > j ? charts[j] : ""}}</canvas>
         </div>
       </div>
     </div>
