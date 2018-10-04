@@ -53,6 +53,7 @@ export class TaskContentSociocortexComponent {
           }]
         },
         options: {
+          maintainAspectRatio: false,
           legend: {display: false},
           scales: {
             xAxes: [{display: true, time: {round: "minute"}}],
