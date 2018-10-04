@@ -45,7 +45,7 @@ export class TaskContentSociocortexComponent {
       new Chart(this.elementRef.nativeElement.querySelector('#' + taskParam.chartIds[0]).getContext("2d"), {
         type: 'line',
         data: {
-          labels: taskParam.chartLabels[index],
+          labels: taskParam.chartLabels[index].map(date => TaskContentSociocortexComponent.formatDate(date)),
           datasets: [{
             data: taskParam.chartDatasets[index],
             borderColor: '#3cba9f',
@@ -54,9 +54,26 @@ export class TaskContentSociocortexComponent {
         },
         options: {
           legend: {display: false},
-          scales: {xAxes: [{display: true}], yAxes: [{display: true}]}
+          scales: {
+            xAxes: [{display: true, time: {round: "minute"}}],
+            yAxes: [{display: true, beginAtZero: true}]
+          }
         }
       }));
+  }
+
+  private static formatDate(date: Date): string {
+    if (!date)
+      return "";
+    let d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear(),
+      hours = d.getHours(),
+      minutes = d.getMinutes();
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    return [year, month, day].join('-') + " " + hours + ":" + minutes;
   }
 
   private processNewTaskParameters() {
