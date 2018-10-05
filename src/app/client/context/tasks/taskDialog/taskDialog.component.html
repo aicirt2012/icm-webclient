@@ -170,7 +170,7 @@
           [disabled]="!form.isValid('intent') || (form.hasValue('intent.intendedAction','LINK') && !form.isValid('context'))
         || (isSociocortexProvider() && (!this.form.getSociocortexParams() || this.form.getSociocortexParams().length == 0))">
           <mat-expansion-panel-header expandedHeight="40px" collapsedHeight="40px">
-            Task Content
+            Content
           </mat-expansion-panel-header>
           <mat-divider class="expansion-divider"></mat-divider>
           <task-content-trello *ngIf="isTrelloProvider()" [contentForm]="form.get().get('trelloContent')">
