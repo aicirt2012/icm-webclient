@@ -20,12 +20,12 @@ export class SocioCortexComponent {
   updateConfig() {
     this.taskService.configureSociocortex(this.scConfig.email, this.scConfig.password).subscribe(() => {
       this.taskService.setupSociocortex().subscribe(() => {
-        this.snackBar.open("SACM connection successful.", 'OK');
+        this.snackBar.open("Connecare connection successful.", 'OK');
       }, (() => {
-        this.snackBar.open('Error while connecting to SACM with given credentials. Please check email/password and try again.', 'OK');
+        this.snackBar.open('Error while connecting to Connecare with given credentials. Please check email/password and try again.', 'OK');
       }));
     }, () => {
-      this.snackBar.open('Error while updating SACM config. Please try again.', 'OK');
+      this.snackBar.open('Error while updating Connecare configuration. Please try again.', 'OK');
     });
   }
 
