@@ -71,7 +71,11 @@ export class TaskDialogComponent {
     this.autocompleteController.addSociocortexTask(this.task);
     this.form.setValue('context.sociocortexTask', this.task.providerId);
     this.taskService.getSociocortexMembers(this.task.providerId).take(1)
-      .subscribe(members => this.autocompleteController.updateSociocortexOwner(members));
+      .subscribe(members => {
+        this.autocompleteController.updateSociocortexOwner(members);
+        if (this.task.assignees.length > 0)
+          this.form.setValue('metadata.assignees', this.task.assignees[0].id);
+      });
   }
 
   private initTrelloTask() {
