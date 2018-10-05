@@ -1,14 +1,18 @@
+.content-container {
+  overflow-y: hidden;
+}
+
 .radio-option,
- .checkbox-option{
-   padding-right: 8px;
- }
+.checkbox-option {
+  padding-right: 8px;
+}
 
 .param-label {
   font-weight: bold;
 }
 
 .param-container ::ng-deep mat-form-field .mat-input-flex.mat-form-field-flex {
-  background-color: rgba(0,0,0,.04);
+  background-color: rgba(0, 0, 0, .04);
   border: 1px solid #d3d3d3;
   border-bottom-width: 0;
 }
@@ -26,4 +30,12 @@
   position: relative;
   width: 99%;
   height: 200px;
+}
+
+.last-param {
+  margin-bottom: -16px;
+}
+
+.last-param > div {
+  padding-bottom: 0;
 }

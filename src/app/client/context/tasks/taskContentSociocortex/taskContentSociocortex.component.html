@@ -1,5 +1,6 @@
-<div [formGroup]="contentForm">
-  <div class="param-container" *ngFor="let taskParam of taskParams; let i = index">
+<div class="content-container" [formGroup]="contentForm">
+  <div class="param-container" *ngFor="let taskParam of taskParams; let i = index"
+       [class.last-param]="(i + 1) == taskParams.length">
     <div *ngIf="taskParam.htmlElement === 'radioboxes'" class="padding-after" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
       <mat-radio-group [formControl]="contentForm.at(i)" [disableControl]="taskParam.readOnly" fxFlex>
