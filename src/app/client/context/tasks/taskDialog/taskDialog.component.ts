@@ -68,8 +68,6 @@ export class TaskDialogComponent {
         this.form.setValue('context.sociocortexWorkspace', scCase.workspace);
         this.form.setValue('context.sociocortexCase', scCase.id);
       });
-    this.autocompleteController.addSociocortexTask(this.task);
-    this.form.setValue('context.sociocortexTask', this.task.providerId);
     this.taskService.getSociocortexMembers(this.task.providerId).take(1)
       .subscribe(members => {
         this.autocompleteController.updateSociocortexOwner(members);

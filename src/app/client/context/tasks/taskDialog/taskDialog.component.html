@@ -100,7 +100,7 @@
                 </mat-select>
               </mat-form-field>
               <!-- task input -->
-              <mat-form-field>
+              <mat-form-field *ngIf="!isEditMode">
                 <mat-select formControlName="sociocortexTask" required placeholder="SACM Task"
                             [disableControl]="isEditMode || !form.getValue('context.sociocortexCase')"
                             (change)="onTaskSelect($event.value)">
