@@ -52,7 +52,8 @@
 }
 
 .task-title .icon {
-  height: 14px;
+  height: 16px;
+  padding-bottom: 4px;
   margin-bottom: -2px;
   margin-left: 4px;
 }
