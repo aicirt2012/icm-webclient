@@ -70,12 +70,32 @@ export class TasksComponent {
     this.taskService.readTask(taskId)
       .take(1)
       .subscribe(task => {
-        this.removeFromTaskLists(task);
-        if (task.isOpen)
-          this.openTasks.push(task);
-        else
-          this.completedTasks.push(task);
+        if (task.isOpen) {
+          const index = this._getTaskIndex(this.openTasks, task);
+          if (index !== -1)
+            this.openTasks[index] = task;
+          else
+            this.openTasks.push(task);
+        } else {
+          const index = this._getTaskIndex(this.completedTasks, task);
+          if (index !== -1)
+            this.completedTasks[index] = task;
+          else
+            this.completedTasks.push(task);
+        }
       });
+  }
+
+  private _getTaskIndex(list: any[], task: any) {
+    let index = -1;
+    list.some((aTask, i) => {
+      if (aTask._id === task._id) {
+        index = i;
+        return true;
+      }
+      return false;
+    });
+    return index;
   }
 
   private removeFromTaskLists(task: any): void {
