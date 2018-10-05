@@ -183,19 +183,19 @@
       </mat-accordion>
     </mat-dialog-content>
     <mat-dialog-actions>
-      <button type="button" [disabled]="submitted" mat-raised-button color="primary" (click)="onSubmit(false, false)"
+      <button type="button" [disabled]="submitted" mat-raised-button color="accent" (click)="onSubmit(false, false)"
               *ngIf="!task || !task._id || task.isOpen">
-        <span *ngIf="!isEditMode">Confirm</span>
-        <span *ngIf="isEditMode">Update</span>
+        <span *ngIf="!isEditMode" class="white-text">Confirm</span>
+        <span *ngIf="isEditMode" class="white-text">Update</span>
         <!--<mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>-->
       </button>
-      <button type="button" [disabled]="submitted" mat-raised-button color="accent" *ngIf="isEditMode && task?.isOpen"
+      <button type="button" [disabled]="submitted" mat-raised-button *ngIf="isEditMode && task?.isOpen"
               (click)="onSubmit(true, false)">
         <span *ngIf="isSociocortexProvider()">Complete</span>
         <span *ngIf="isTrelloProvider()">Archive</span>
         <!--<mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>-->
       </button>
-      <button type="button" [disabled]="submitted" mat-raised-button color="warn" *ngIf="isEditMode && task?.isOpen"
+      <button type="button" [disabled]="submitted" mat-raised-button *ngIf="isEditMode && task?.isOpen"
               (click)="onSubmit(false, true)">
         <span *ngIf="isSociocortexProvider()">Terminate</span>
         <span *ngIf="isTrelloProvider()">Delete</span>
