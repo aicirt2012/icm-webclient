@@ -57,7 +57,7 @@
       <div class="chart-wrapper" *ngFor="let chartId of taskParam.chartIds; let j = index" fxFlex>
         <span class="chart-label">{{taskParam.chartCaptions[j]}}</span>
         <div class="chart-container">
-          <canvas [id]="chartId">{{charts && charts.length > j ? charts[j] : ""}}</canvas>
+          <canvas [id]="chartId">{{(taskParam.charts && taskParam.charts.length > j) ? taskParam.charts[j] : ""}}</canvas>
         </div>
       </div>
     </div>

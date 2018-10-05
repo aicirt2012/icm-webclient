@@ -42,7 +42,7 @@ export class TaskContentSociocortexComponent {
 
   private initLineDiagramView(taskParam) {
     taskParam.charts = taskParam.chartIds.map((chartId, index) =>
-      new Chart(this.elementRef.nativeElement.querySelector('#' + taskParam.chartIds[0]).getContext("2d"), {
+      new Chart(this.elementRef.nativeElement.querySelector('#' + taskParam.chartIds[index]).getContext("2d"), {
         type: 'line',
         data: {
           labels: taskParam.chartLabels[index].map(date => TaskContentSociocortexComponent.formatDate(date)),
