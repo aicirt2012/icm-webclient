@@ -166,7 +166,7 @@
         </mat-expansion-panel>
 
         <!-- content -->
-        <mat-expansion-panel
+        <mat-expansion-panel [expanded]="isEditMode"
           [disabled]="!form.isValid('intent') || (form.hasValue('intent.intendedAction','LINK') && !form.isValid('context'))
         || (isSociocortexProvider() && (!this.form.getSociocortexParams() || this.form.getSociocortexParams().length == 0))">
           <mat-expansion-panel-header expandedHeight="40px" collapsedHeight="40px">
