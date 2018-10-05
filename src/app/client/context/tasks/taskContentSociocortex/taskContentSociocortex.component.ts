@@ -50,6 +50,7 @@ export class TaskContentSociocortexComponent {
           datasets: [{
             data: taskParam.chartDatasets[index],
             borderColor: index < colors.length ? colors[index] : "#2f3649",
+            backgroundColor: index < colors.length ? colors[index] : "#2f3649",
             fill: false
           }]
         },
@@ -58,8 +59,9 @@ export class TaskContentSociocortexComponent {
           legend: {display: false},
           scales: {
             xAxes: [{display: true, time: {round: "minute"}}],
-            yAxes: [{display: true, beginAtZero: true}]
-          }
+            yAxes: [{display: true, ticks: {beginAtZero: true}}]
+          },
+          elements: {line: {tension: 0}}
         }
       }));
   }
