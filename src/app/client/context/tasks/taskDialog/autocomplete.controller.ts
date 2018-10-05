@@ -133,6 +133,10 @@ export class AutocompleteController {
         .filter(task => task.isOpen);
   }
 
+  addSociocortexTask(task: any): void {
+    this.autocomplete.sociocortexTasks.relevant.push(task);
+  }
+
   updateSociocortexOwner(members: any[]): void {
     const mentionedMembers = [], otherMembers = [];
     members.forEach(member => {
