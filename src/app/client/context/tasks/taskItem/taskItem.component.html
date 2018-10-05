@@ -5,8 +5,8 @@
         <strong *ngIf="isSuggestion" class="label-suggestion light-text">{{title}}</strong>
         <strong *ngIf="!isSuggestion">{{title}}</strong>
       </div>
-      <img *ngIf="provider === 'trello'" src="assets/img/tasks/trello-logo.svg" class="icon" fxFlexAlign="end"/>
-      <img *ngIf="provider === 'sociocortex'" src="assets/img/tasks/sociocortex-logo.svg" class="icon" fxFlexAlign="end"/>
+      <img *ngIf="provider === 'trello'" src="assets/img/tasks/trello-logo.svg" class="icon" matTooltip="Trello" matTooltipPosition="below" fxFlexAlign="end"/>
+      <img *ngIf="provider === 'sociocortex'" src="assets/img/tasks/sociocortex-logo.svg" class="icon" matTooltip="Connecare" matTooltipPosition="below" fxFlexAlign="end"/>
     </div>
     <div  fxFlex-gt-sm="50" fxLayout="row" fxLayoutAlign="start center">
       <div fxLayoutAlign="start center" class="date-container">
@@ -16,7 +16,7 @@
       </div>
       <mat-icon class="icon-margin" fxFlex-gt-sm="8" [class.light-icon]="isSuggestion">person</mat-icon>
       <div fxFlex-gt-sm="53" fxLayout="row">
-        <div *ngFor="let assignee of assignees" [title]="assignee.fullName" fxLayout="row" fxLayoutAlign="center center" class="member-initials" [class.light-initials]="isSuggestion">
+        <div *ngFor="let assignee of assignees" [matTooltip]="assignee.fullName" matTooltipPosition="below" fxLayout="row" fxLayoutAlign="center center" class="member-initials" [class.light-initials]="isSuggestion">
           <span [class.light-text]="isSuggestion">{{assignee.initials}}</span>
         </div>
         <div *ngIf="assignees.length < 1" [class.light-text]="isSuggestion"><i>Unassigned</i></div>
