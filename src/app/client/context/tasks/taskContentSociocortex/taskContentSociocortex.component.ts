@@ -41,6 +41,7 @@ export class TaskContentSociocortexComponent {
   }
 
   private initLineDiagramView(taskParam) {
+    let colors = ["#20c9a1", "#00aaad", "#008aa4", "#386988", "#444c62", "#3b4f92", "#404dbe", "#6141e3", "#9600ff"];
     taskParam.charts = taskParam.chartIds.map((chartId, index) =>
       new Chart(this.elementRef.nativeElement.querySelector('#' + taskParam.chartIds[index]).getContext("2d"), {
         type: 'line',
@@ -48,7 +49,7 @@ export class TaskContentSociocortexComponent {
           labels: taskParam.chartLabels[index].map(date => TaskContentSociocortexComponent.formatDate(date)),
           datasets: [{
             data: taskParam.chartDatasets[index],
-            borderColor: '#3cba9f',
+            borderColor: index < colors.length ? colors[index] : "#2f3649",
             fill: false
           }]
         },
