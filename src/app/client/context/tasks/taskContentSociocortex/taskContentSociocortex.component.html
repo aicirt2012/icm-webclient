@@ -19,13 +19,15 @@
     </div>
     <div *ngIf="taskParam.htmlElement === 'textinput'" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
-      <mat-form-field fxFlex>
-        <input type="text" matInput [formControl]="contentForm.at(i)" [readonly]="taskParam.readOnly">
+      <mat-form-field fxFlex *ngIf="!taskParam.readOnly">
+        <input type="text" matInput [formControl]="contentForm.at(i)">
       </mat-form-field>
+      <span class="padding-after" *ngIf="taskParam.readOnly">{{contentForm.at(i).value}}</span>
     </div>
     <div *ngIf="taskParam.htmlElement === 'datepicker'" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
-      <datepicker [dateControl]="contentForm.at(i)" [autocompleteDates]="[]" [readonly]="taskParam.readOnly" fxFlex>
+      <datepicker [dateControl]="contentForm.at(i)" [autocompleteDates]="[]" [readonly]="taskParam.readOnly"
+                  [class.padding-after]="taskParam.readOnly" fxFlex>
       </datepicker>
     </div>
     <div *ngIf="taskParam.htmlElement === 'select'" fxLayout="column">
@@ -40,24 +42,27 @@
     </div>
     <div *ngIf="taskParam.htmlElement === 'numberinput'" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
-      <mat-form-field fxFlex>
-        <input type="number" matInput [formControl]="contentForm.at(i)" [readonly]="taskParam.readOnly">
+      <mat-form-field *ngIf="!taskParam.readOnly" fxFlex>
+        <input type="number" matInput [formControl]="contentForm.at(i)">
       </mat-form-field>
+      <span class="padding-after" *ngIf="taskParam.readOnly">{{contentForm.at(i).value}}</span>
     </div>
     <div *ngIf="taskParam.htmlElement === 'textarea'" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
-      <mat-form-field fxFlex>
-        <textarea type="text" matInput [formControl]="contentForm.at(i)" [readonly]="taskParam.readOnly" rows="5">
+      <mat-form-field *ngIf="!taskParam.readOnly" fxFlex>
+        <textarea type="text" matInput [formControl]="contentForm.at(i)" rows="5">
         </textarea>
       </mat-form-field>
+      <span class="padding-after" *ngIf="taskParam.readOnly">{{contentForm.at(i).value}}</span>
     </div>
     <div *ngIf="taskParam.htmlElement === 'linediagram'" class="padding-after" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
       <span *ngIf="!taskParam.chartIds || taskParam.chartIds.length == 0">Pending...</span>
       <div class="chart-wrapper" *ngFor="let chartId of taskParam.chartIds; let j = index" fxFlex>
         <span class="chart-label">{{taskParam.chartCaptions[j]}}</span>
-        <div class="chart-container">
-          <canvas [id]="chartId">{{(taskParam.charts && taskParam.charts.length > j) ? taskParam.charts[j] : ""}}</canvas>
+        <div class="chart-container padding-after">
+          <canvas [id]="chartId">{{(taskParam.charts && taskParam.charts.length > j) ? taskParam.charts[j] : ""}}
+          </canvas>
         </div>
       </div>
     </div>

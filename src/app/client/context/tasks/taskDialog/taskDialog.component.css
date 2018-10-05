@@ -17,3 +17,8 @@ form ::ng-deep mat-form-field#title-container {
 form ::ng-deep mat-form-field#title-container .mat-input-infix.mat-form-field-infix {
   margin-top: -25px;
 }
+
+mat-expansion-panel {
+  margin-left: -24px;
+  margin-right: -24px;
+}

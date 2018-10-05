@@ -1,4 +1,4 @@
-<mat-form-field>
+<mat-form-field *ngIf="!readonly">
   <input name="stringInput" matInput [placeholder]="placeholder" [formControl]="stringControl"
          [matAutocomplete]="autocompleteDateString" (blur)="onStringValueUpdate()" [readonly]="readonly">
   <mat-autocomplete #autocompleteDateString="matAutocomplete">
@@ -9,3 +9,4 @@
   <mat-datepicker-toggle matSuffix [for]="picker" *ngIf="!readonly"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>
+<span *ngIf="readonly">{{stringControl.value}}</span>
