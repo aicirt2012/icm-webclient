@@ -78,7 +78,16 @@ export class TaskDialogComponent {
 
   private initTrelloTask() {
     this.taskService.getTrelloMembers(TaskService.getParameter(this.task, 'idBoard')).take(1)
-      .subscribe(members => this.autocompleteController.updateTrelloAssignees(members));
+      .subscribe(members => {
+        this.autocompleteController.updateTrelloAssignees(members);
+        this.form.setValue('metadata.assignees', this.task.assignees.map(assignee => assignee.id));
+      });
+    const board = TaskService.getParameter(this.task, 'board');
+    board.lists = [TaskService.getParameter(this.task, 'list')];
+    this.autocompleteController.updateTrelloBoards([board]);
+    this.autocompleteController.filterTrelloLists(board.id);
+    this.form.setValue('context.trelloBoard', board.id);
+    this.form.setValue('context.trelloList', board.lists[0].id);
   }
 
   onProviderSelect(provider: string) {
