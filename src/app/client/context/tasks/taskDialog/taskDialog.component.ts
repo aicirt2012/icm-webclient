@@ -52,6 +52,8 @@ export class TaskDialogComponent {
       title => this.autocompleteController.filterTitles(title));
     if (this.isEditMode) {
       this.form.setValue('intent.intendedAction', 'CREATE');  // TODO replace dummy value by custom validator that respects the edit mode
+      if (this.task.due)
+        this.form.setValue('metadata.dueDate', this.task.due);
       if (this.isSociocortexProvider())
         this.initSociocortexTask();
       else if (this.isTrelloProvider())
