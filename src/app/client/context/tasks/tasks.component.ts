@@ -57,7 +57,7 @@ export class TasksComponent {
 
   private refreshSuggestedTasks() {
     this.suggestedTasks = [];
-    const task: any = {};
+    const task: any = {isOpen: true};
     if (this.email.suggestedData) {
       if (this.email.suggestedData.titles)
         task.name = this.email.suggestedData.titles[0];
