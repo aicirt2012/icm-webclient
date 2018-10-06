@@ -1,6 +1,7 @@
 <mat-form-field *ngIf="!readonly">
   <input name="stringInput" matInput [placeholder]="placeholder" [formControl]="stringControl"
-         [matAutocomplete]="autocompleteDateString" (blur)="onStringValueUpdate()" [readonly]="readonly">
+         [matAutocomplete]="autocompleteDateString" (blur)="onStringValueUpdate()" [readonly]="readonly"
+         [disableControl]="disabled">
   <mat-autocomplete #autocompleteDateString="matAutocomplete">
     <mat-option *ngFor="let dateString of autocomplete.filtered" [value]="dateString">{{dateString}}</mat-option>
   </mat-autocomplete>

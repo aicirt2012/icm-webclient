@@ -8,7 +8,8 @@ import { FormControl } from '@angular/forms';
 })
 export class DatePickerComponent {
 
-  @Input() private readonly: boolean;
+  @Input() private disabled: boolean = false;
+  @Input() private readonly: boolean = false;
   @Input() private placeholder: string = "";
 
   @Input() private dateControl: FormControl;

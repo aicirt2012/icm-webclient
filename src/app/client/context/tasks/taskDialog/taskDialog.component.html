@@ -138,14 +138,14 @@
 
             <!-- due date input -->
             <datepicker [dateControl]="form.get().get('metadata.dueDate')" placeholder="Due Date"
-                        [autocompleteDates]="autocomplete.dates.asDates">
+                        [autocompleteDates]="autocomplete.dates.asDates" [disabled]="isEditMode && !task.isOpen">
             </datepicker>
 
             <!-- Trello assignee input -->
             <mat-form-field *ngIf="isTrelloProvider()">
               <mat-icon class="assignee-icon" matPrefix>person</mat-icon>
               <mat-select class="margin" placeholder="Assignees" formControlName="assignees" name="member" fxFlex
-                          multiple [disableControl]="!form.getValue('context.trelloBoard')">
+                          multiple [disableControl]="!form.getValue('context.trelloBoard') || (isEditMode && !task.isOpen)">
                 <mat-optgroup label="Mentioned members" *ngIf="autocomplete.assignees.suggested.length > 0">
                   <mat-option *ngFor="let member of autocomplete.assignees.suggested" [value]="member.id">
                     {{member.fullName}}
@@ -167,7 +167,7 @@
             <mat-form-field *ngIf="isSociocortexProvider()">
               <mat-icon class="assignee-icon" matPrefix>person</mat-icon>
               <mat-select class="margin" placeholder="Owner" formControlName="assignees" name="member" fxFlex
-                          [disableControl]="!isEditMode && !form.getValue('context.sociocortexTask')">
+                          [disableControl]="(!isEditMode && !form.getValue('context.sociocortexTask')) || (isEditMode && !task.isOpen)">
                 <mat-optgroup label="Mentioned persons" *ngIf="autocomplete.owner.suggested.length > 0">
                   <mat-option *ngFor="let member of autocomplete.owner.suggested" [value]="member.id">
                     {{member.fullName}}
