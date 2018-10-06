@@ -38,10 +38,6 @@
   color: #ce2424;
 }
 
-.icon-margin {
-  margin-left: 10px;
-}
-
 .task-description {
   padding-top: 4px;
 }
@@ -54,7 +50,6 @@
   height: 16px;
   padding-bottom: 4px;
   margin-bottom: -2px;
-  margin-left: 4px;
 }
 
 .task.suggested .task-title img {
@@ -75,10 +70,6 @@
 
 .light-initials {
   background-color: rgba(211, 211, 211, 0.6);
-}
-
-.date-icon {
-  margin-left: -2px;
 }
 
 .date-container * {
