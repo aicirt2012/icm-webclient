@@ -107,6 +107,9 @@ export class TaskContentSociocortexComponent {
 
   private detectUiReference(taskParam) {
     // advanced param detection
+    if (taskParam.uiReference && taskParam.uiReference.startsWith("conditonalmultiplicity") && taskParam.type == "number")
+    // treat dynamic number inputs as static ones
+      return false;
     switch (taskParam.uiReference) {
       case "svg":
         taskParam.htmlElement = HtmlElements.VectorGraphics;
