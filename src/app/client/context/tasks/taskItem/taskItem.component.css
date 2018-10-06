@@ -1,6 +1,6 @@
 .task {
   border-bottom: 1px solid lightgray;
-  padding: 10px;
+  padding: 5px 5px 5px 10px;
   cursor: pointer;
   font-size: 14px;
 }
