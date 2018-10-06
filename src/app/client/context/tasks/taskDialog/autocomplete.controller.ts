@@ -117,7 +117,7 @@ export class AutocompleteController {
   }
 
   updateSociocortexWorkspaces(workspaces): void {
-    this.autocomplete.sociocortexWorkspaces = workspaces;
+    this.autocomplete.sociocortexWorkspaces = workspaces.sort((a, b) => a.name.localeCompare(b.name));
   }
 
   updateSociocortexCases(cases): void {
