@@ -9,7 +9,7 @@
           {{option.description}}
         </mat-radio-button>
       </mat-radio-group>
-      <span *ngIf="taskParam.readOnly">{{contentForm.at(i).value}}</span>
+      <span *ngIf="taskParam.readOnly">{{resolveEnumOption(contentForm.at(i).value, taskParam)}}</span>
     </div>
     <div *ngIf="taskParam.htmlElement === 'checkboxes'" class="padding-after" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
@@ -19,7 +19,7 @@
         [disableControl]="taskParam.readOnly" fxFlex>
         {{option.description}}
       </mat-checkbox>
-      <span *ngIf="taskParam.readOnly">{{contentForm.at(i).value}}</span>
+      <span *ngIf="taskParam.readOnly">{{resolveEnumOptions(contentForm.at(i).value, taskParam)}}</span>
     </div>
     <div *ngIf="taskParam.htmlElement === 'textinput'" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
@@ -43,7 +43,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <span *ngIf="taskParam.readOnly">{{contentForm.at(i).value}}</span>
+      <span *ngIf="taskParam.readOnly">{{resolveEnumOption(contentForm.at(i).value, taskParam)}}</span>
     </div>
     <div *ngIf="taskParam.htmlElement === 'numberinput'" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>

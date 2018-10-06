@@ -273,6 +273,28 @@ export class TaskContentSociocortexComponent {
     });
   }
 
+  // noinspection JSUnusedLocalSymbols // called from html
+  private resolveEnumOptions(options: string[], taskParam: any): string {
+    let result = "";
+    options.forEach(option => {
+      if (option)
+        result += this.resolveEnumOption(option, taskParam) + ", ";
+    });
+    return result.length > 0 ? result.substring(0, result.length - 2) : result;
+  }
+
+  private resolveEnumOption(option: string, taskParam: any): string {
+    let result = "";
+    taskParam.constraints.enumerationOptions.some(enumOption => {
+      if (enumOption.value === option) {
+        result = enumOption.description;
+        return true;
+      }
+      return false;
+    });
+    return result;
+  }
+
   static validateArrayAtLeastOne(array: FormArray) {
     if (!array || array.length < 1)
       return {'error': true};
