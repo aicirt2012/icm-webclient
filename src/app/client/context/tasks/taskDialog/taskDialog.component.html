@@ -65,7 +65,7 @@
                   <mat-option *ngFor="let list of autocomplete.trelloLists.relevant" [value]="list.id">
                     {{list.name}}
                   </mat-option>
-                  <mat-option *ngIf="autocomplete.trelloLists.length < 1" disabled>
+                  <mat-option *ngIf="autocomplete.trelloLists.relevant.length < 1" disabled>
                     No lists available
                   </mat-option>
                 </mat-select>
@@ -93,7 +93,7 @@
                   <mat-option *ngFor="let workspace of autocomplete.sociocortexWorkspaces" [value]="workspace.id">
                     {{workspace.name}}
                   </mat-option>
-                  <mat-option *ngIf="autocomplete.sociocortexWorkspaces.relevant.length < 1" disabled>
+                  <mat-option *ngIf="autocomplete.sociocortexWorkspaces.length < 1" disabled>
                     No workspaces available
                   </mat-option>
                 </mat-select>
