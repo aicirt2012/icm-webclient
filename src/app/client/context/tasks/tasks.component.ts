@@ -57,12 +57,20 @@ export class TasksComponent {
 
   private refreshSuggestedTasks() {
     this.suggestedTasks = [];
-    // TODO init suggestions from email.suggestedData
-    if (this.suggestedTasks.length == 0) {
-      if (this.user.taskProviders.trello.isEnabled)
-        this.suggestedTasks.push({provider: "trello"});
-      if (this.user.taskProviders.sociocortex.isEnabled)
-        this.suggestedTasks.push({provider: "sociocortex"});
+    const task: any = {};
+    if (this.email.suggestedData) {
+      if (this.email.suggestedData.titles)
+        task.title = this.email.suggestedData.titles[0];
+    }
+    if (this.user.taskProviders.trello.isEnabled) {
+      const trelloTask = JSON.parse(JSON.stringify(task));
+      trelloTask.provider = "trello";
+      this.suggestedTasks.push(trelloTask);
+    }
+    if (this.user.taskProviders.sociocortex.isEnabled) {
+      const sociocortexTask = JSON.parse(JSON.stringify(task));
+      sociocortexTask.provider = "sociocortex";
+      this.suggestedTasks.push(sociocortexTask);
     }
   }
 
