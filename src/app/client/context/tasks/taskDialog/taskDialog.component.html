@@ -143,6 +143,7 @@
 
             <!-- Trello assignee input -->
             <mat-form-field *ngIf="isTrelloProvider()">
+              <mat-icon class="assignee-icon" matPrefix>person</mat-icon>
               <mat-select class="margin" placeholder="Assignees" formControlName="assignees" name="member" fxFlex
                           multiple [disableControl]="!form.getValue('context.trelloBoard')">
                 <mat-optgroup label="Mentioned members" *ngIf="autocomplete.assignees.suggested.length > 0">
