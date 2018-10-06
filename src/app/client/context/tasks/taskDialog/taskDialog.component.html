@@ -116,13 +116,33 @@
                 <mat-select formControlName="sociocortexTask" required placeholder="Task"
                             [disableControl]="isEditMode || !form.getValue('context.sociocortexCase')"
                             (change)="onTaskSelect($event.value)">
-                  <mat-option *ngFor="let task of autocomplete.sociocortexTasks.relevant" [value]="task.providerId">
-                    {{task.name}}
-                  </mat-option>
-                  <mat-option *ngIf="autocomplete.sociocortexTasks.relevant.length < 1" disabled>
+                  <mat-optgroup label="Open tasks" *ngIf="autocomplete.sociocortexTasks.open.length > 0">
+                    <mat-option *ngFor="let task of autocomplete.sociocortexTasks.open" [value]="task.providerId">
+                      {{task.name}}
+                    </mat-option>
+                  </mat-optgroup>
+                  <mat-optgroup label="Completed tasks" *ngIf="autocomplete.sociocortexTasks.completed.length > 0">
+                    <mat-option *ngFor="let task of autocomplete.sociocortexTasks.completed" [value]="task.providerId">
+                      {{task.name}}
+                    </mat-option>
+                  </mat-optgroup>
+                  <mat-option disabled
+                              *ngIf="autocomplete.sociocortexTasks.open.length + autocomplete.sociocortexTasks.completed.length < 1">
                     No tasks available
                   </mat-option>
                 </mat-select>
+
+                <mat-optgroup label="Mentioned members" *ngIf="autocomplete.assignees.suggested.length > 0">
+                  <mat-option *ngFor="let member of autocomplete.assignees.suggested" [value]="member.id">
+                    {{member.fullName}}
+                  </mat-option>
+                </mat-optgroup>
+                <mat-optgroup label="Board members" *ngIf="autocomplete.assignees.other.length > 0">
+                  <mat-option *ngFor="let member of autocomplete.assignees.other" [value]="member.id">
+                    {{member.fullName}}
+                  </mat-option>
+                </mat-optgroup>
+
               </mat-form-field>
             </div>
           </div>
@@ -145,7 +165,8 @@
             <mat-form-field *ngIf="isTrelloProvider()">
               <mat-icon class="assignee-icon" matPrefix>person</mat-icon>
               <mat-select class="margin" placeholder="Assignees" formControlName="assignees" name="member" fxFlex
-                          multiple [disableControl]="!form.getValue('context.trelloBoard') || (isEditMode && !task.isOpen)">
+                          multiple
+                          [disableControl]="!form.getValue('context.trelloBoard') || (isEditMode && !task.isOpen)">
                 <mat-optgroup label="Mentioned members" *ngIf="autocomplete.assignees.suggested.length > 0">
                   <mat-option *ngFor="let member of autocomplete.assignees.suggested" [value]="member.id">
                     {{member.fullName}}
