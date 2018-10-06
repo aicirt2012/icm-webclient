@@ -10,12 +10,15 @@
   width: 100%;
 }
 
+.metadata {
+  text-align: center;
+}
+
 .member-initials {
-  background-color: lightgrey;
-  height: 24px;
-  min-width: 25px;
-  font-size: 12px;
-  line-height: 24px;
+  background-color: #efefef;
+  height: 16px;
+  min-width: 18px;
+  line-height: 16px;
   text-align: center;
   padding: 2px;
   border-radius: 4px;
@@ -54,8 +57,12 @@
   margin-left: 4px;
 }
 
-.date-icon {
-  margin-left: -2px;
+.task.suggested .task-title img {
+  filter: grayscale(100%) brightness(200%);
+}
+
+.label-suggestion {
+  font-style: italic;
 }
 
 .light-text {
@@ -70,14 +77,23 @@
   background-color: rgba(211, 211, 211, 0.6);
 }
 
-.date-container {
-  min-width: 100px;
+.date-icon {
+  margin-left: -2px;
 }
 
-.label-suggestion {
-  font-style: italic;
+.date-container * {
+  font-size: 12px;
 }
 
-.task.suggested .task-title img {
-  filter: grayscale(100%) brightness(200%);
+.assignee-container * {
+  font-size: 12px;
+}
+
+.assignee-container span {
+  font-size: 10px;
+}
+
+.metadata ::ng-deep mat-icon {
+  height: fit-content;
+  width: fit-content;
 }
