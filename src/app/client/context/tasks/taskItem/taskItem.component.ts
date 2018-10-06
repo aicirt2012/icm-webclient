@@ -13,7 +13,7 @@ export class TaskItemComponent {
   @Input() index: number;
   @Input() isSuggestion: boolean = false;
 
-  private title: string = "(Untitled Task)";
+  private title: string = "Untitled Task";
   private provider: string = "";
   private dueDateRaw: any;
   private dueDate: string;

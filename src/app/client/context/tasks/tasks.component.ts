@@ -60,7 +60,7 @@ export class TasksComponent {
     const task: any = {};
     if (this.email.suggestedData) {
       if (this.email.suggestedData.titles)
-        task.title = this.email.suggestedData.titles[0];
+        task.name = this.email.suggestedData.titles[0];
     }
     if (this.user.taskProviders.trello.isEnabled) {
       const trelloTask = JSON.parse(JSON.stringify(task));
