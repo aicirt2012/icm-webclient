@@ -3,20 +3,23 @@
        [class.last-param]="(i + 1) == taskParams.length">
     <div *ngIf="taskParam.htmlElement === 'radioboxes'" class="padding-after" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
-      <mat-radio-group [formControl]="contentForm.at(i)" [disableControl]="taskParam.readOnly" fxFlex>
+      <mat-radio-group [formControl]="contentForm.at(i)" *ngIf="!taskParam.readOnly" fxFlex>
         <mat-radio-button *ngFor="let option of taskParam.constraints.enumerationOptions" [value]="option.value"
                           class="radio-option">
           {{option.description}}
         </mat-radio-button>
       </mat-radio-group>
+      <span *ngIf="taskParam.readOnly">{{contentForm.at(i).value}}</span>
     </div>
     <div *ngIf="taskParam.htmlElement === 'checkboxes'" class="padding-after" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
-      <mat-checkbox *ngFor="let option of taskParam.constraints.enumerationOptions; let j = index"
-                    [value]="option.name" class="checkbox-option" [formControl]="contentForm.at(i).at(j)"
-                    [disableControl]="taskParam.readOnly" fxFlex>
+      <mat-checkbox
+        *ngFor="let option of (taskParam.readOnly ? [] : taskParam.constraints.enumerationOptions); let j = index"
+        [value]="option.name" class="checkbox-option" [formControl]="contentForm.at(i).at(j)"
+        [disableControl]="taskParam.readOnly" fxFlex>
         {{option.description}}
       </mat-checkbox>
+      <span *ngIf="taskParam.readOnly">{{contentForm.at(i).value}}</span>
     </div>
     <div *ngIf="taskParam.htmlElement === 'textinput'" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
@@ -33,13 +36,14 @@
     </div>
     <div *ngIf="taskParam.htmlElement === 'select'" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
-      <mat-form-field fxFlex>
-        <mat-select [formControl]="contentForm.at(i)" [disableControl]="taskParam.readOnly">
+      <mat-form-field *ngIf="!taskParam.readOnly" fxFlex>
+        <mat-select [formControl]="contentForm.at(i)">
           <mat-option *ngFor="let option of taskParam.constraints.enumerationOptions" [value]="option.name">
             {{option.description}}
           </mat-option>
         </mat-select>
       </mat-form-field>
+      <span *ngIf="taskParam.readOnly">{{contentForm.at(i).value}}</span>
     </div>
     <div *ngIf="taskParam.htmlElement === 'numberinput'" fxLayout="column">
       <span class="param-label" fxFlex>{{taskParam.name}}</span>
