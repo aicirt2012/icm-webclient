@@ -154,7 +154,7 @@ export class FormController {
     newTask.name = this.form.controls.title.value;
     newTask.frontendUrl = "http://localhost:3000" + this.location.prepareExternalUrl(this.location.path());    //FIXME replace hardcoded base url with actual, dynamic one
     newTask.due = metadata.dueDate.value ? metadata.dueDate.value : undefined;
-    newTask.isOpen = true;
+    newTask.isOpen = this.task ? this.task.isOpen : true;
     newTask.provider = intent.provider.value;
 
     if (newTask.provider === 'TRELLO') {

@@ -28,8 +28,8 @@ export class AutocompleteController {
       filtered: []
     },
     sociocortexTasks: {
-      relevant: [],
-      filtered: []
+      open: [],
+      completed: []
     },
     owner: {
       suggested: [],
@@ -126,11 +126,13 @@ export class AutocompleteController {
 
   updateSociocortexTasks(tasks: any[], allowOnlyEnabled: boolean): void {
     if (allowOnlyEnabled)
-      this.autocomplete.sociocortexTasks.relevant = tasks
+      this.autocomplete.sociocortexTasks.open = tasks
         .filter(task => TaskService.getParameter(task, 'state') === 'ENABLED');
-    else
-      this.autocomplete.sociocortexTasks.relevant = tasks
-        .filter(task => task.isOpen);
+    else {
+      this.autocomplete.sociocortexTasks.open = tasks.filter(task => task.isOpen);
+      this.autocomplete.sociocortexTasks.completed = tasks
+        .filter(task => TaskService.getParameter(task, 'state') === 'COMPLETED');
+    }
   }
 
   updateSociocortexOwner(members: any[]): void {
